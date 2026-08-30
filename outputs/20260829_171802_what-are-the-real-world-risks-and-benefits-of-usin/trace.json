@@ -1,0 +1,584 @@
+{
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The current evidence supports broad benefits and the model-collapse risk, but the central requested dimensions of bias and evaluation lack direct empirical evidence. The strongest claims rely on secondary, industry-oriented summaries, and privacy and benchmark-validity claims remain conditional.",
+      "next_search_query": "peer-reviewed study synthetic data LLM fine-tuning bias amplification fairness evaluation real-world performance",
+      "findings": [
+        {
+          "claim": "Synthetic data can reduce real-data scarcity and annotation costs, and can support domain adaptation, rare-case coverage, and class-imbalance mitigation when used as augmentation rather than unquestioned replacement.",
+          "evidence": [
+            {
+              "summary": "Synthetic examples are described as useful for scarce labeled data, underrepresented classes, privacy-sensitive domains, rapid prototyping, domain adaptation, and rare or adversarial evaluation cases.",
+              "source_ids": [
+                "S2",
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The use cases are consistently described by multiple sources, but the retrieved evidence is primarily practitioner-oriented rather than controlled comparative research."
+        },
+        {
+          "claim": "Data quality depends more on generation, curation, validation, and distributional alignment than on synthetic-data volume alone.",
+          "evidence": [
+            {
+              "summary": "The sources emphasize that synthetic-data utility depends on generation techniques, validation, and alignment with the target distribution; S1 specifically contrasts curated synthetic training with indiscriminate generation.",
+              "source_ids": [
+                "S1",
+                "S4"
+              ]
+            },
+            {
+              "summary": "The reported Phi-1 example combines curated synthetic textbooks and exercises with real web data and reports strong coding benchmark results, but the figures are identified as vendor-stated in S1.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The general quality principle is supported across sources, while the strongest performance example is not independently established by the retrieved material."
+        },
+        {
+          "claim": "Training recursively on model-generated data can cause model collapse: loss of distributional tails, reduced diversity, and worsening performance or perplexity, especially when synthetic data replaces rather than supplements real data.",
+          "evidence": [
+            {
+              "summary": "S1 reports the Nature study's conclusion that indiscriminate use of model-generated content causes irreversible defects and describes degradation in iterative training.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "S1 reports OPT-125m experiments in which five epochs of purely synthetic self-training increased perplexity by 20–28 points.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "S2 independently identifies recursive synthetic training and narrowing distributions as a key risk.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The sources agree and cite a peer-reviewed study, but the retrieved content is a secondary summary rather than the primary paper or full experimental details."
+        },
+        {
+          "claim": "Retaining and accumulating real data alongside synthetic data is presented as a safer regime than replacing real data, but the exact safe mixture and conditions remain uncertain.",
+          "evidence": [
+            {
+              "summary": "S1 summarizes Gerstgrasser et al. as proving bounded test error when synthetic data accumulates alongside real data and unbounded growth when it replaces real data.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "S1's practical regime table ranks full replacement as high risk and additive training with real data as lower risk.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The directional conclusion is consistent with the cited summary, but the mathematical result and the claimed risk categories require verification against the primary research."
+        },
+        {
+          "claim": "Synthetic data does not automatically remove bias; it can reproduce or amplify biases inherited from the generating model, prompts, source data, or synthetic sampling choices, while targeted generation can improve representation of minority or rare cases.",
+          "evidence": [
+            {
+              "summary": "S4 says synthetic data can address class imbalance by generating examples for underrepresented classes, and can target edge cases and diverse scenarios.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "S5 states that low-quality, biased, duplicated, private, or noisy data affect model performance and deployment risk, and warns that synthetic data must be novel, reliable, and verifiable.",
+              "source_ids": [
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The benefit for imbalance is directly described, but the retrieved sources do not provide a controlled study measuring bias amplification, subgroup fairness, or whether generated minority examples are accurate and representative."
+        },
+        {
+          "claim": "Synthetic evaluation data can broaden coverage of edge cases, adversarial inputs, ambiguity, multi-turn behavior, and boundary cases, but synthetic evaluations risk misleading conclusions if they are too similar to the generator's assumptions or training distribution.",
+          "evidence": [
+            {
+              "summary": "S4 describes systematic generation of test cases for edge cases, adversarial examples, ambiguous queries, multi-turn context, failure modes, and decision boundaries.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "S5 warns that benchmark scores may not reflect real-world reliability because of saturation, contamination, leakage, and limited realism; it calls for evaluation closer to real applications and attention to fairness, reproducibility, and safety.",
+              "source_ids": [
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The complementary benefit and evaluation limitations are supported, but the sources do not quantify how often synthetic tests produce false reassurance or benchmark overfitting."
+        },
+        {
+          "claim": "Governance and provenance are practical requirements: without lineage, fidelity metadata, deduplication, and quality controls, teams may be unable to diagnose failures or establish what data shaped the model.",
+          "evidence": [
+            {
+              "summary": "S2 says ungoverned synthetic data creates audit gaps and calls lineage and fidelity metadata non-negotiable.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S1 reports deduplication and quality filtering in the Cosmopedia example and frames curation as central to usefulness.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The operational recommendation is consistent across sources, though the evidence does not test particular governance controls in deployment."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The sources differ in emphasis about synthetic data's role: S1 presents additive, curated synthetic data as potentially very low risk and highly effective, whereas S1's summary of the Nature work and S2 emphasize that recursive or indiscriminate use can cause irreversible collapse. This is a conditional disagreement about training regime, not a direct contradiction.",
+          "source_ids": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "description": "S4 describes LLM-generated synthetic data as capable of preserving privacy and removing direct links to records, while S1 notes that re-identification remains relevant under GDPR when it is plausible. The sources therefore differ on whether synthetic data should be treated as privacy-preserving by default; the evidence supports treating privacy as conditional, not guaranteed.",
+          "source_ids": [
+            "S1",
+            "S4"
+          ]
+        },
+        {
+          "description": "S1 reports strong benchmark results for curated synthetic training, while S5 cautions that benchmark scores can be contaminated, saturated, or unrepresentative of real-world reliability. The performance claim and its external validity are therefore not fully aligned.",
+          "source_ids": [
+            "S1",
+            "S5"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How much synthetic data can be mixed with real data before quality, diversity, or factuality degrades for a specific LLM and task?",
+        "What empirical controls best detect bias inheritance or amplification across demographic, linguistic, and domain subgroups?",
+        "How should synthetic evaluation sets be validated against independently collected human-authored and real-world cases?",
+        "How often do synthetic examples contain factual, labeling, reasoning, or code errors, and how effective are human review, automated verification, and deduplication?",
+        "Do the cited benchmark improvements transfer to production performance, robustness, calibration, safety, and fairness?",
+        "What privacy tests, such as membership-inference or memorization testing, are needed before synthetic data can credibly substitute for sensitive real data?"
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "peer-reviewed study synthetic data LLM fine-tuning bias amplification fairness evaluation real-world performance",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The accumulated evidence now supports a responsible high-level answer, but an important gap remains: direct, independent LLM-specific studies connecting synthetic-data quality and bias controls to real-world evaluation outcomes. The newest fairness evidence is primarily computer vision, the cost study is industry-authored, and the bias-loop study is a preprint.",
+      "next_search_query": "independent empirical study synthetic data LLM fine-tuning bias evaluation real-world performance human-authored test set",
+      "findings": [
+        {
+          "claim": "Synthetic data can improve fairness or subgroup coverage, but only when its quality, diversity, and alignment with real deployment data are actively controlled.",
+          "evidence": [
+            {
+              "summary": "A CVPR study identifies low synthetic-data quality and domain/bias gaps between real and synthetic data as central obstacles. Its proposed contextual generation and selective fine-tuning improved fairness while maintaining utility on two facial-attribute classification datasets, but balanced synthetic data alone improved fairness at the cost of accuracy because of the domain gap.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "The review and prior sources describe targeted synthetic generation as a way to address underrepresented classes, while warning that generated data may inherit or amplify biases from its sources and generator.",
+              "source_ids": [
+                "S4",
+                "S5",
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The evidence supports the conditional benefit and the importance of domain alignment, but S6 evaluates computer-vision classifiers rather than LLMs, and S7 is a review rather than a controlled LLM study."
+        },
+        {
+          "claim": "Synthetic-data fine-tuning can be cost-effective under data and query constraints, but the best generation strategy depends on the task, seed-set size, and generation budget.",
+          "evidence": [
+            {
+              "summary": "A controlled Scale AI study across mathematics, general question answering, and Text2SQL found that answer augmentation was most effective at low query budgets, while generating new questions became more effective as the budget increased; question rephrasing was relatively robust to weaker augmentation models.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "The study frames synthetic generation as a way to address the enterprise task-specific data bottleneck and reports potential efficiency and cost reductions, although its conclusions come from the authors' own experiments and platform context.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The source reports a multi-task controlled comparison, but it is an industry-authored summary and does not establish that the same strategy generalizes to all LLM sizes, domains, or deployment conditions."
+        },
+        {
+          "claim": "Synthetic data can introduce a fidelity gap: generated examples may reproduce learned patterns without capturing the messiness, nuance, stylistic variation, and unpredictability of real user data.",
+          "evidence": [
+            {
+              "summary": "The source describes fidelity as a fundamental challenge and says synthetic data may fail to mirror the subtle characteristics and statistical distributions of real-world inputs.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "The CVPR study similarly reports low quality, limited diversity, and domain shift between synthetic and real data, with blind fine-tuning reducing utility.",
+              "source_ids": [
+                "S6"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The limitation is consistent across sources, but S10 provides only a partial article excerpt and S6 concerns images rather than language."
+        },
+        {
+          "claim": "Self-consuming or performative training loops can degrade quality and amplify some forms of bias, even when other group disparities decrease.",
+          "evidence": [
+            {
+              "summary": "An arXiv study of three real-world tasks reports that iterative fine-tuning or retraining on self-generated data amplified preference bias and degraded generation quality over time, while disparate bias tended to decrease. Performative feedback accelerated preference-bias amplification in incremental fine-tuning loops.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "The study proposes reward-guided selection and reweighting as mitigation, while its discussion also associates recursive synthetic training with model collapse and notes that fresh real data can stabilize training.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "Prior sources independently report narrowing distributions, loss of diversity, and performance degradation when synthetic data is recursively used, especially as a replacement for real data.",
+              "source_ids": [
+                "S1",
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The findings extend prior model-collapse evidence to bias dynamics and use multiple tasks, but S8 is an arXiv preprint and its controlled feedback setting may not represent all production data ecosystems."
+        },
+        {
+          "claim": "Synthetic evaluation data can expand coverage, but evaluation should test transfer to independently collected, human-authored, and production-like cases rather than relying on synthetic-set scores alone.",
+          "evidence": [
+            {
+              "summary": "Prior sources describe synthetic tests as useful for edge cases, adversarial inputs, ambiguity, multi-turn behavior, and boundary cases, while warning that generator assumptions, contamination, leakage, and benchmark saturation can produce misleading scores.",
+              "source_ids": [
+                "S4",
+                "S5"
+              ]
+            },
+            {
+              "summary": "The fidelity-gap discussion emphasizes that synthetic data may not capture unpredictable real inputs, implying that synthetic evaluation sets can omit precisely the conditions relevant to deployment reliability.",
+              "source_ids": [
+                "S6",
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The sources support the evaluation principle, but they do not quantify false-reassurance rates or provide a validated standard for calibrating synthetic evaluation sets against production outcomes."
+        },
+        {
+          "claim": "Synthetic data should generally supplement rather than replace fresh real data, with provenance, filtering, deduplication, and subgroup-specific validation maintained throughout the pipeline.",
+          "evidence": [
+            {
+              "summary": "Prior evidence reports model-collapse risk under replacement or recursive self-training and lower risk when synthetic data accumulates alongside real data.",
+              "source_ids": [
+                "S1",
+                "S2"
+              ]
+            },
+            {
+              "summary": "The sources emphasize lineage, fidelity metadata, quality filtering, deduplication, and verification as necessary for diagnosing failures and assessing what data shaped the model.",
+              "source_ids": [
+                "S1",
+                "S2",
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The directional recommendation is consistent, but the retrieved evidence does not establish a universally safe synthetic-to-real ratio or prove the effectiveness of each individual control."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S6 reports that carefully designed synthetic data and selective fine-tuning can improve fairness without sacrificing utility, whereas its own comparison and prior sources indicate that balanced synthetic data or blind fine-tuning can reduce accuracy because of domain shift. The disagreement is conditional on generation quality and fine-tuning method, not a direct contradiction.",
+          "source_ids": [
+            "S6",
+            "S1",
+            "S4"
+          ]
+        },
+        {
+          "description": "S8 reports that iterative self-consuming training can increase preference bias while decreasing disparate bias. Thus, 'bias' is not a single outcome: one fairness measure may improve while preference distortions and overall generation quality worsen.",
+          "source_ids": [
+            "S8"
+          ]
+        },
+        {
+          "description": "S9 reports limited impact from response verification in its constrained experiments, while prior sources treat verification and validation as central safeguards. This may reflect task, metric, or experimental-design differences; the evidence does not justify generalizing S9's finding to safety-critical or open-ended LLM use.",
+          "source_ids": [
+            "S9",
+            "S2",
+            "S5"
+          ]
+        },
+        {
+          "description": "S6 studies synthetic images and fairness classifiers, while the original question concerns LLM training and fine-tuning. Its results support mechanisms such as domain shift and selective updating, but do not directly establish equivalent LLM outcomes.",
+          "source_ids": [
+            "S6"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What synthetic-to-real mixture is safe for specific LLM tasks, model scales, and recursive fine-tuning regimes?",
+        "Which bias metrics should be jointly monitored so that improvements in disparate performance do not conceal amplification of preference or representational bias?",
+        "How frequently do synthetic LLM examples contain factual, reasoning, coding, or instruction-following errors, and when does verification materially reduce downstream harm?",
+        "How should synthetic evaluation sets be independently validated against production traffic, human-authored cases, and subgroup-specific outcomes?",
+        "Do reported benchmark or fairness gains transfer to calibration, robustness, safety, and real-world user outcomes?",
+        "What privacy and memorization tests are required before synthetic data is treated as a substitute for sensitive real data?"
+      ]
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "independent empirical study synthetic data LLM fine-tuning bias evaluation real-world performance human-authored test set",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The new sources materially improve evidence on data-quality tradeoffs and LLM-specific distribution, safety, and self-preference effects. However, a major original-question gap remains: direct empirical evidence comparing bias in LLM-generated synthetic data with real-world data or annotations. The retrieved S12 page does not expose usable findings, so one focused search could materially improve the bias section.",
+      "next_search_query": "\"Biased by Design\" \"LLM Annotation\" real-world synthetic hotel reviews results bias behavioral diversity",
+      "findings": [
+        {
+          "claim": "Synthetic-data quality is highly sensitive to generation and curation strategy; more diversity or less redundancy does not automatically improve downstream task performance.",
+          "evidence": [
+            {
+              "summary": "In four requirements-classification tasks, multi-sample prompting improved utility and diversity, with reported F1 gains of 6–44 percentage points. However, automated prompt optimization was task-dependent, and similarity-based curation often improved diversity while reducing classification performance.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "The study reports that synthetic requirements matched or exceeded human-authored requirements on particular security and defect-classification tasks, but these results are specific to one domain and a preprint study.",
+              "source_ids": [
+                "S11"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S11 provides controlled task comparisons directly involving LLM-generated training data, but it is a preprint focused on requirements engineering and may not generalize to broad LLM fine-tuning."
+        },
+        {
+          "claim": "Diversity across synthetic-data source models can mitigate distribution collapse, but synthetic fine-tuning may create a safety tradeoff: outputs can remain high quality while becoming more vulnerable to adversarial attacks or jailbreaks.",
+          "evidence": [
+            {
+              "summary": "The study finds that higher source diversity preserves output-distribution breadth and linguistic diversity, reducing several measures of distribution collapse.",
+              "source_ids": [
+                "S13"
+              ]
+            },
+            {
+              "summary": "Synthetic fine-tuning preserved higher output quality than human fine-tuning in the reported experiments while decreasing adversarial robustness; source diversity and generator-model size affected this outcome.",
+              "source_ids": [
+                "S13"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S13 directly studies LLM fine-tuning and evaluates distributional and adversarial outcomes, but it is an arXiv preprint and the reported experimental settings may not represent all production regimes."
+        },
+        {
+          "claim": "Synthetic-data effects on bias are multidimensional: fine-tuning can reduce self-preference bias while synthetic-data loops or narrow source diversity may worsen other behavioral risks.",
+          "evidence": [
+            {
+              "summary": "Fine-tuning reduced self-preference bias, but the reduction was strongest with human data and weakest with single-source synthetic data; multi-source synthetic data performed between those conditions.",
+              "source_ids": [
+                "S13"
+              ]
+            },
+            {
+              "summary": "Prior evidence reports that self-consuming training can amplify preference bias even while some disparate-bias measures decrease, showing that one fairness metric can improve while another bias worsens.",
+              "source_ids": [
+                "S8"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The findings are directionally consistent across the new and prior LLM-focused studies, but the studies measure particular forms of bias rather than comprehensive demographic, linguistic, or representational fairness."
+        },
+        {
+          "claim": "Synthetic data can address severe domain-specific data scarcity and improve coverage, but claimed gains require independent validation because task-specific synthetic data may not represent real deployment conditions.",
+          "evidence": [
+            {
+              "summary": "S11 describes severe scarcity, class imbalance, narrow domain and language coverage, and inconsistent labels in requirements datasets; its synthetic-generation approach improved selected classification results.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "Prior evidence indicates that synthetic evaluation data can expand edge-case coverage, but scores may be misleading when test data shares generator assumptions or differs from production-like inputs.",
+              "source_ids": [
+                "S4",
+                "S5",
+                "S6",
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The benefit and evaluation concern are supported, but S11's performance results are domain-specific and the retrieved evidence does not establish transfer to real-world user outcomes."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S11 shows that similarity-based curation can improve diversity but hurt task performance, whereas the broader governance recommendations emphasize deduplication and filtering. This is a conditional tension: removing redundancy may improve distributional metrics while removing useful task patterns or examples.",
+          "source_ids": [
+            "S11",
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "description": "S13 suggests that diverse synthetic sources reduce distribution collapse and retain output quality, but also finds that synthetic fine-tuning can reduce adversarial robustness. Thus, improving data diversity and apparent quality does not guarantee improved safety.",
+          "source_ids": [
+            "S13"
+          ]
+        },
+        {
+          "description": "S13 reports lower self-preference bias after fine-tuning, while S8 reports amplification of preference bias in iterative self-consuming or performative loops. These results concern different training/evaluation setups and indicate that 'preference bias' outcomes depend on the loop, data source, and metric.",
+          "source_ids": [
+            "S13",
+            "S8"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "Whether the reported S11 gains transfer from requirements classification to general LLM instruction tuning, generation quality, factuality, and deployment performance.",
+        "Which demographic, linguistic, and behavioral bias measures should be jointly used to detect harms that aggregate fairness metrics conceal.",
+        "Whether multi-source synthetic data reliably improves adversarial robustness or only mitigates distribution collapse under the tested settings.",
+        "How synthetic evaluation sets should be calibrated against independently collected human-authored and production-like cases.",
+        "What synthetic-to-real mixture, source diversity, and validation procedure are safe for particular models and tasks.",
+        "How often synthetic examples contain factual, reasoning, coding, or labeling errors, and how much human or automated verification reduces downstream harm.",
+        "The retrieved S12 content provides metadata and title but not its abstract or results, so its conclusions about bias in real-world versus synthetic reviews cannot yet be assessed."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Synthetic Data for LLM Training: Decision Guide 2026",
+      "url": "https://www.digitalapplied.com/blog/synthetic-data-generation-llm-training-decision-guide-2026",
+      "score": 0.8568246
+    },
+    {
+      "id": "S2",
+      "title": "Synthetic Data for AI Training: Use Cases and Risks [2026]",
+      "url": "https://atlan.com/know/ai-agent/data-for-ai/synthetic-data-for-ai-training",
+      "score": 0.8409005
+    },
+    {
+      "id": "S3",
+      "title": "Using Synthetic Data to Improve LLM Fine‑Tuning | newline",
+      "url": "https://www.newline.co/@Dipen/using-synthetic-data-to-improve-llm-finetuning--d453f658",
+      "score": 0.8296166
+    },
+    {
+      "id": "S4",
+      "title": "Synthetic Data Generation with LLMs: Techniques and Use Cases",
+      "url": "https://tetrate.io/learn/ai/synthetic-data-generation-llms",
+      "score": 0.7906115
+    },
+    {
+      "id": "S5",
+      "title": "Large Language Models Are Still Getting Stronger, but Researchers Face New Bottlenecks in Data, Evaluation, and Safety | Newswise",
+      "url": "https://www.newswise.com/articles/large-language-models-are-still-getting-stronger-but-researchers-face-new-bottlenecks-in-data-evaluation-and-safety",
+      "score": 0.7621591
+    },
+    {
+      "id": "S6",
+      "title": "Advancing Algorithmic Fairness via Selectively Fine-Tuning ...",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/papers/Zhao_AIM-Fair_Advancing_Algorithmic_Fairness_via_Selectively_Fine-Tuning_Biased_Models_with_CVPR_2025_paper.pdf",
+      "score": 0.5752307
+    },
+    {
+      "id": "S7",
+      "title": "Bias Mitigation via Synthetic Data Generation: A Review",
+      "url": "https://www.mdpi.com/2079-9292/13/19/3909",
+      "score": 0.56200886
+    },
+    {
+      "id": "S8",
+      "title": "Observations and Remedies for Large Language Model Bias in Self-Consuming Performative Loop",
+      "url": "https://arxiv.org/html/2601.05184v1",
+      "score": 0.5405607
+    },
+    {
+      "id": "S9",
+      "title": "Synthetic Data Generation Strategies for Fine-Tuning LLMs | Scale AI",
+      "url": "https://scale.com/blog/synthetic-data-fine-tuning-llms",
+      "score": 0.5405607
+    },
+    {
+      "id": "S10",
+      "title": "Medium",
+      "url": "https://medium.com/foundation-models-deep-dive/challenges-and-pitfalls-of-using-synthetic-data-for-llms-7337fcda1316",
+      "score": 0.29652742
+    },
+    {
+      "id": "S11",
+      "title": "How Good Are Synthetic Requirements? Evaluating LLM- ...",
+      "url": "https://hal.science/hal-05133432/file/2506.21138v1.pdf",
+      "score": 0.70702106
+    },
+    {
+      "id": "S12",
+      "title": "Biased by Design? Evaluating Bias and Behavioral Diversity in LLM Annotation of Real-World and Synthetic Hotel Reviews",
+      "url": "https://www.mdpi.com/2673-2688/6/8/178",
+      "score": 0.6682966
+    },
+    {
+      "id": "S13",
+      "title": "The Impact of Synthetic Data Diversity on LLM Fine-Tuning",
+      "url": "https://arxiv.org/html/2511.01490v1",
+      "score": 0.5792344
+    },
+    {
+      "id": "S14",
+      "title": "Medium",
+      "url": "https://medium.com/@akankshasinha247/synthetic-data-evaluation-pipelines-scaling-fine-tuning-without-losing-alignment-f469a81cdf9a",
+      "score": 0.4517382
+    }
+  ]
+}

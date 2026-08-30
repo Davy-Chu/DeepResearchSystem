@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -48,6 +47,10 @@ class FinalReportGenerator:
         if response.output_parsed is None:
             raise ValueError("OpenAI returned no parsed FinalReport")
         validate_source_references(response.output_parsed, state)
+        if state.all_findings() and not response.output_parsed.findings:
+            raise ValueError(
+                "Final report omitted all findings accumulated during research"
+            )
         return response.output_parsed
 
 
@@ -152,6 +155,63 @@ def render_markdown(report: FinalReport, sources: list[Source]) -> str:
     return "\n".join(lines)
 
 
+def build_incomplete_report(
+    state: ResearchState, recovery_stage: str
+) -> FinalReport:
+    """Preserve validated iteration findings when normal finalization cannot finish."""
+    accumulated_findings = state.all_findings()
+    findings = [
+        finding
+        for finding in accumulated_findings
+        if finding.evidence
+        and all(evidence.source_ids for evidence in finding.evidence)
+    ]
+    conflicts = [
+        conflict for conflict in state.all_conflicts() if conflict.source_ids
+    ]
+    remaining_gaps = list(dict.fromkeys(state.all_unresolved_questions()))
+    if len(findings) != len(accumulated_findings):
+        remaining_gaps.append(
+            "Some intermediate findings were omitted because they did not include "
+            "cited supporting evidence."
+        )
+    stop_description = (
+        f"with stop reason `{state.stop_reason}`"
+        if state.stop_reason
+        else "before a normal research stop reason was recorded"
+    )
+    summary = (
+        "This is an automatically generated incomplete report. The research run ended "
+        f"{stop_description}, and normal finalization did not complete during "
+        f"{recovery_stage}. The validated findings collected before that point are "
+        "preserved below without claiming that the evidence is complete."
+    )
+    if findings:
+        conclusion = (
+            "The findings above reflect the evidence validated before the run ended. "
+            "They should be treated as provisional because normal final synthesis did "
+            "not complete and important gaps may remain."
+        )
+    else:
+        conclusion = (
+            "No validated evidence-backed findings were available before the run ended. "
+            "The current evidence is insufficient to answer the research question."
+        )
+    if not remaining_gaps:
+        remaining_gaps = [
+            "Normal final synthesis did not complete, so the completeness of the evidence "
+            "could not be confirmed."
+        ]
+    return FinalReport(
+        question=state.question,
+        summary=summary,
+        findings=findings,
+        conflicts_and_uncertainties=conflicts,
+        remaining_gaps=remaining_gaps,
+        conclusion=conclusion,
+    )
+
+
 def build_trace(state: ResearchState, model: str, max_iterations: int) -> dict[str, Any]:
     return {
         "question": state.question,
@@ -195,7 +255,7 @@ def _question_slug(question: str) -> str:
 
 def create_output_directory(question: str, root: Path = Path("outputs")) -> Path:
     root.mkdir(parents=True, exist_ok=True)
-    base_name = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{_question_slug(question)}"
+    base_name = _question_slug(question)
     candidate = root / base_name
     suffix = 2
     while candidate.exists():

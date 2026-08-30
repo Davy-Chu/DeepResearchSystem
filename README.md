@@ -97,7 +97,17 @@ pytest
 
 ## Output
 
-Each run creates a timestamped directory below `outputs/` containing:
+Each run creates a directory named from the sanitized research question below
+`outputs/`. If that question has already been run, the new directory receives a numeric
+suffix such as `_2` or `_3` instead of overwriting the earlier run:
+
+```text
+outputs/
+├── what-are-the-benefits-of-solar-energy/
+└── what-are-the-benefits-of-solar-energy_2/
+```
+
+Each run directory contains:
 
 - `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
 - `research_log.md`: a human-readable chronological explanation of the searches, retrieved source metadata, evidence analysis, gaps, conflicts, decisions, and component timings.
@@ -118,6 +128,14 @@ Performance Summary
 ```
 
 Neither `research_log.md` nor `trace.json` stores full retrieved webpage content.
+
+If research or final synthesis fails after a run has accumulated state, the application
+still attempts to save all three artifacts. In that case, `report.md` is clearly labeled
+as an automatically generated incomplete report and preserves the citation-backed
+findings collected so far. The research log records the failure stage and remaining
+gaps, while the process exits with a non-zero status. If no validated finding exists,
+the report says that the available evidence is insufficient instead of inventing an
+answer.
 
 Source IDs (`S1`, `S2`, and so on) remain stable for a run. Final report generation fails if the model cites an ID that does not map to a retrieved URL.
 

@@ -172,3 +172,5 @@ def test_runner_records_partial_log_state_when_analysis_fails() -> None:
     assert research_log.failure_stage == "OpenAI Evidence Analysis — Iteration 1"
     assert len(research_log.iterations) == 1
     assert "Analysis did not complete" in research_log.render_markdown()
+    assert runner.last_state is not None
+    assert [item.id for item in runner.last_state.sources] == ["S1"]

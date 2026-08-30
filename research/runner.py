@@ -71,6 +71,7 @@ class ResearchRunner:
         self.report_generator = report_generator
         self.max_iterations = max_iterations
         self.research_logger = research_logger
+        self.last_state: ResearchState | None = None
 
     def run(self, question: str) -> ResearchResult:
         question = question.strip()
@@ -78,6 +79,7 @@ class ResearchRunner:
             raise ValueError("Research question must not be empty")
 
         state = ResearchState(question=question)
+        self.last_state = state
         query = question
         query_reason = "This is the user's original research question."
         executed_queries: set[str] = set()

@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import argparse
 import logging
+from pathlib import Path
 
 from research.analyzer import ResearchAnalyzer
 from research.config import MAX_RESEARCH_ITERATIONS, load_settings
+from research.models import FinalReport
 from research.report import (
     FinalReportGenerator,
+    build_incomplete_report,
     create_output_directory,
     save_research_outputs,
 )
@@ -23,11 +26,60 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _handle_incomplete_run(
+    error: BaseException,
+    failure_stage: str,
+    research_logger: ResearchLogger | None,
+    output_dir: Path | None,
+    runner: ResearchRunner | None,
+    final_report: FinalReport | None,
+) -> int:
+    logging.error("Research did not complete normally: %s", error or type(error).__name__)
+    if research_logger is None or output_dir is None:
+        return 1
+
+    if research_logger.status != "Failed":
+        research_logger.record_failure(stage=failure_stage, error=error)
+
+    report_path = None
+    trace_path = None
+    try:
+        state = runner.last_state if runner is not None else None
+        if state is not None:
+            recovered_report = final_report or build_incomplete_report(
+                state, research_logger.failure_stage or failure_stage
+            )
+            research_logger.record_recovered_state(state, recovered_report)
+            report_path, trace_path = save_research_outputs(
+                state,
+                recovered_report,
+                research_logger.model,
+                output_dir=output_dir,
+            )
+        research_log_path = research_logger.save(output_dir)
+    except Exception as artifact_error:
+        logging.error(
+            "Additionally, writing incomplete research artifacts failed: %s",
+            artifact_error,
+        )
+        return 1
+
+    if report_path and trace_path:
+        logging.error("Incomplete report:\n%s", report_path)
+        logging.error("Human-readable research log:\n%s", research_log_path)
+        logging.error("Machine trace:\n%s", trace_path)
+    else:
+        logging.error("Partial research log:\n%s", research_log_path)
+    return 1
+
+
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     args = build_parser().parse_args()
     research_logger: ResearchLogger | None = None
-    output_dir = None
+    output_dir: Path | None = None
+    runner: ResearchRunner | None = None
+    final_report: FinalReport | None = None
     failure_stage = "Initialization"
 
     try:
@@ -42,12 +94,14 @@ def main() -> int:
         analyzer = ResearchAnalyzer(settings.openai_api_key, settings.openai_model)
         report_generator = FinalReportGenerator(settings.openai_api_key, settings.openai_model)
         failure_stage = "Research Execution"
-        result = ResearchRunner(
+        runner = ResearchRunner(
             search_client,
             analyzer,
             report_generator,
             research_logger=research_logger,
-        ).run(args.question)
+        )
+        result = runner.run(args.question)
+        final_report = result.report
         failure_stage = "Output Saving"
         report_path, trace_path = save_research_outputs(
             result.state,
@@ -56,27 +110,24 @@ def main() -> int:
             output_dir=output_dir,
         )
         research_log_path = research_logger.save(output_dir)
+    except KeyboardInterrupt as exc:
+        return _handle_incomplete_run(
+            exc,
+            failure_stage,
+            research_logger,
+            output_dir,
+            runner,
+            final_report,
+        )
     except Exception as exc:
-        partial_log_path = None
-        if research_logger is not None and output_dir is not None:
-            if research_logger.status != "Failed":
-                research_logger.record_failure(
-                    stage=failure_stage,
-                    error=exc,
-                    total_runtime=research_logger.total_runtime or 0.0,
-                )
-            try:
-                partial_log_path = research_logger.save(output_dir)
-            except Exception as log_exc:
-                logging.error("Research failed: %s", exc)
-                logging.error(
-                    "Additionally, writing research_log.md failed: %s", log_exc
-                )
-                return 1
-        logging.error("Research failed: %s", exc)
-        if partial_log_path:
-            logging.error("Partial research log:\n%s", partial_log_path)
-        return 1
+        return _handle_incomplete_run(
+            exc,
+            failure_stage,
+            research_logger,
+            output_dir,
+            runner,
+            final_report,
+        )
 
     logging.info("Research complete.")
     logging.info("Report:\n%s", report_path)

@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+from time import perf_counter
 
 from research.models import FinalReport, IterationAnalysis, ResearchState, Source
 
@@ -42,9 +43,11 @@ class ResearchLogger:
     status: str = "Not started"
     failure_stage: str | None = None
     error_message: str | None = None
+    _start_counter: float | None = field(default=None, repr=False)
 
     def start_run(self) -> None:
         self.start_time = datetime.now().astimezone()
+        self._start_counter = perf_counter()
         self.status = "Running"
 
     def record_search(
@@ -103,13 +106,32 @@ class ResearchLogger:
         self.status = "Completed"
 
     def record_failure(
-        self, stage: str, error: BaseException, total_runtime: float
+        self,
+        stage: str,
+        error: BaseException,
+        total_runtime: float | None = None,
     ) -> None:
         self.end_time = datetime.now().astimezone()
-        self.total_runtime = total_runtime
+        self.total_runtime = (
+            total_runtime
+            if total_runtime is not None
+            else self.current_runtime()
+        )
         self.status = "Failed"
         self.failure_stage = stage
         self.error_message = self._sanitize_error(error)
+
+    def record_recovered_state(
+        self, state: ResearchState, report: FinalReport
+    ) -> None:
+        """Add final state metadata while preserving the failed status and stage."""
+        self.final_stop_reason = state.stop_reason
+        self.remaining_gaps = list(report.remaining_gaps)
+
+    def current_runtime(self) -> float:
+        if self._start_counter is None:
+            return 0.0
+        return perf_counter() - self._start_counter
 
     def render_markdown(self) -> str:
         lines = self._render_summary()
@@ -320,6 +342,10 @@ class ResearchLogger:
                     "",
                 ]
             )
+            if self.remaining_gaps:
+                lines.extend(["**Remaining Uncertainty**", ""])
+                lines.extend(f"- {gap}" for gap in self.remaining_gaps)
+                lines.append("")
         else:
             lines.extend(
                 [

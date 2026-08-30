@@ -9,11 +9,15 @@ from research.models import (
     EvidenceItem,
     FinalReport,
     Finding,
+    IterationAnalysis,
+    ResearchIteration,
     ResearchState,
     Source,
 )
 from research.report import (
+    build_incomplete_report,
     build_trace,
+    create_output_directory,
     render_markdown,
     save_research_outputs,
     validate_source_references,
@@ -104,3 +108,52 @@ def test_saved_outputs_are_complete_and_do_not_overwrite() -> None:
         assert first_report.parent != second_report.parent
         trace = json.loads(first_trace.read_text(encoding="utf-8"))
         assert trace["stop_reason"] == "sufficient_evidence"
+
+
+def test_incomplete_report_preserves_existing_findings_and_gaps() -> None:
+    state = make_state()
+    state.stop_reason = "max_iterations"
+    analysis = IterationAnalysis(
+        findings=[make_finding("S1")],
+        conflicts=[],
+        unresolved_questions=["Independent replication remains missing."],
+        needs_more_research=True,
+        research_reason="An important evidence gap remains.",
+        next_search_query="independent replication study",
+    )
+    state.iterations.append(
+        ResearchIteration(
+            iteration_number=1,
+            search_query=state.question,
+            source_ids=["S1"],
+            analysis=analysis,
+        )
+    )
+
+    report = build_incomplete_report(state, "OpenAI Report Generation")
+    markdown = render_markdown(report, state.sources)
+
+    assert "automatically generated incomplete report" in report.summary
+    assert report.findings == analysis.findings
+    assert "Independent replication remains missing." in report.remaining_gaps
+    assert "A supported claim." in markdown
+    assert "[S1]" in markdown
+
+
+def test_incomplete_report_acknowledges_when_no_findings_exist() -> None:
+    state = ResearchState(question="Unanswered question")
+    report = build_incomplete_report(state, "Tavily Search — Iteration 1")
+    assert report.findings == []
+    assert "No validated evidence-backed findings" in report.conclusion
+
+
+def test_output_directory_uses_question_and_numbers_duplicates() -> None:
+    with TemporaryDirectory(dir=Path.cwd()) as temporary_directory:
+        output_root = Path(temporary_directory)
+        first = create_output_directory("What is Solar Energy?", output_root)
+        second = create_output_directory("What is Solar Energy?", output_root)
+        third = create_output_directory("What is Solar Energy?", output_root)
+
+        assert first.name == "what-is-solar-energy"
+        assert second.name == "what-is-solar-energy_2"
+        assert third.name == "what-is-solar-energy_3"
