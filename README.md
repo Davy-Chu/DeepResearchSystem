@@ -65,9 +65,18 @@ Copy `.env.example` to `.env` and populate both keys:
 OPENAI_API_KEY=your-key
 TAVILY_API_KEY=your-key
 OPENAI_MODEL=gpt-5.6-terra
+EVALUATOR_MODEL=gpt-5.6-terra
+OPENAI_TIMEOUT_SECONDS=120
+OPENAI_MAX_RETRIES=1
 ```
 
-The model can be changed without editing code. `.env` is ignored by Git, and keys are never logged.
+`EVALUATOR_MODEL` is optional and falls back to `OPENAI_MODEL`. Both model choices can
+be changed without editing code. `.env` is ignored by Git, and keys are never logged.
+`OPENAI_TIMEOUT_SECONDS` applies to every OpenAI request attempt and defaults to 120
+seconds. The OpenAI SDK may retry a timed-out request, so total elapsed time can exceed
+this value.
+`OPENAI_MAX_RETRIES` defaults to 1, allowing one retry after a transient OpenAI
+connection, timeout, rate-limit, or server error.
 
 ## Running
 
@@ -86,6 +95,27 @@ Progress, the stop reason, and artifact paths are printed to the terminal. Missi
 Run the command from the project root, where `main.py` and `.env` are located. A
 research run may perform up to three Tavily searches and four OpenAI requests (one
 analysis per search plus final report generation), so it may incur API usage or charges.
+
+## Evaluating a Saved Run
+
+Evaluator v0 measures coverage, citation support, and deterministic validity for an
+already-saved research run:
+
+```bash
+python main.py evaluate outputs/<run-directory>
+```
+
+For example:
+
+```bash
+python main.py evaluate outputs/what-are-the-benefits-of-solar-energy
+```
+
+Evaluation does not call Tavily, search the web, rerun research, or change the saved
+report. It does make OpenAI structured-output calls using `EVALUATOR_MODEL` (or
+`OPENAI_MODEL` as a fallback), so evaluating a run may incur OpenAI API usage or
+charges. Coverage and citation stages use low reasoning effort. All numerical rates
+are calculated deterministically in Python from the returned categorical judgments.
 
 ## Testing
 
@@ -111,7 +141,7 @@ Each run directory contains:
 
 - `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
 - `research_log.md`: a human-readable chronological explanation of the searches, retrieved source metadata, evidence analysis, gaps, conflicts, decisions, and component timings.
-- `trace.json`: the machine-readable structured trace intended for debugging and future evaluation. It contains iteration decisions, queries, findings, conflicts, gaps, stop reason, model, and source metadata.
+- `trace.json`: the machine-readable structured trace intended for debugging and future evaluation. It contains iteration decisions, queries, findings, conflicts, gaps, stop reason, model, the structured final report, source metadata, and the exact saved source text used by the agent.
 
 The research log is organized for quick review:
 
@@ -127,7 +157,23 @@ Final Research Decision
 Performance Summary
 ```
 
-Neither `research_log.md` nor `trace.json` stores full retrieved webpage content.
+`research_log.md` does not store raw retrieved webpage content. `trace.json` does store
+the exact source snapshot used by the research agent so citation evaluation remains
+reproducible if a live webpage changes. Treat traces as potentially sensitive artifacts.
+
+Each evaluation is saved without overwriting earlier evaluations:
+
+```text
+outputs/<run>/evaluations/
+├── evaluator-v0/
+│   ├── evaluation.json
+│   └── evaluation.md
+└── evaluator-v0_2/        # created when evaluator-v0 already exists
+```
+
+Runs created before evaluator-v0 do not contain the structured report and saved source
+content required for reproducible evaluation. The evaluator rejects those legacy runs
+with a clear error instead of downloading replacement evidence.
 
 If research or final synthesis fails after a run has accumulated state, the application
 still attempts to save all three artifacts. In that case, `report.md` is clearly labeled
@@ -152,7 +198,8 @@ Baseline zero:
 - uses coarse Low/Medium/High confidence;
 - has a fixed search budget;
 - does not yet perform parallel subquestion research;
-- does not yet independently verify citations;
+- evaluates citation support with an LLM against saved source text, but does not perform
+  independent internet fact-checking;
 - may miss contradictions;
 - may be vulnerable to imperfect retrieval;
 - uses prompt-level protection against instructions embedded in webpages rather than a complete prompt-injection defense.

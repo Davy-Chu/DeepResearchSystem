@@ -57,7 +57,7 @@ def make_state() -> ResearchState:
                 id="S1",
                 title="A source",
                 url="https://example.com/source",
-                content="Full retrieved content must not enter the trace.",
+                content="Exact saved content used by the research agent.",
                 score=0.9,
             )
         ],
@@ -85,9 +85,9 @@ def test_markdown_rendering_contains_required_sections() -> None:
     assert "[S1]" in markdown
 
 
-def test_trace_excludes_source_content() -> None:
+def test_trace_preserves_source_content_for_offline_evaluation() -> None:
     trace_text = json.dumps(build_trace(make_state(), "test-model", 3))
-    assert "Full retrieved content" not in trace_text
+    assert "Exact saved content used by the research agent." in trace_text
     assert "https://example.com/source" in trace_text
 
 
@@ -108,6 +108,8 @@ def test_saved_outputs_are_complete_and_do_not_overwrite() -> None:
         assert first_report.parent != second_report.parent
         trace = json.loads(first_trace.read_text(encoding="utf-8"))
         assert trace["stop_reason"] == "sufficient_evidence"
+        assert trace["final_report"]["summary"] == "A concise summary."
+        assert trace["sources"][0]["content"] == state.sources[0].content
 
 
 def test_incomplete_report_preserves_existing_findings_and_gaps() -> None:

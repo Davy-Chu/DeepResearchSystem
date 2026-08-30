@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import sys
 from pathlib import Path
 
 from research.analyzer import ResearchAnalyzer
@@ -75,6 +76,10 @@ def _handle_incomplete_run(
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    if len(sys.argv) > 1 and sys.argv[1] == "evaluate":
+        from evaluation.evaluator import evaluation_main
+
+        return evaluation_main(sys.argv[2:])
     args = build_parser().parse_args()
     research_logger: ResearchLogger | None = None
     output_dir: Path | None = None
@@ -91,8 +96,18 @@ def main() -> int:
             max_iterations=MAX_RESEARCH_ITERATIONS,
         )
         search_client = TavilySearchClient(settings.tavily_api_key)
-        analyzer = ResearchAnalyzer(settings.openai_api_key, settings.openai_model)
-        report_generator = FinalReportGenerator(settings.openai_api_key, settings.openai_model)
+        analyzer = ResearchAnalyzer(
+            settings.openai_api_key,
+            settings.openai_model,
+            timeout_seconds=settings.openai_timeout_seconds,
+            max_retries=settings.openai_max_retries,
+        )
+        report_generator = FinalReportGenerator(
+            settings.openai_api_key,
+            settings.openai_model,
+            timeout_seconds=settings.openai_timeout_seconds,
+            max_retries=settings.openai_max_retries,
+        )
         failure_stage = "Research Execution"
         runner = ResearchRunner(
             search_client,

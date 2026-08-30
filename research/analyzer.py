@@ -7,6 +7,7 @@ from typing import Any
 
 from openai import OpenAI
 
+from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
 from research.models import IterationAnalysis, ResearchState, Source
 
 ANALYZER_SYSTEM_PROMPT = """You are analyzing evidence for a research task.
@@ -45,8 +46,19 @@ Do not derive confidence mechanically from retrieval scores.
 
 
 class ResearchAnalyzer:
-    def __init__(self, api_key: str, model: str, client: Any | None = None) -> None:
-        self.client = client or OpenAI(api_key=api_key)
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        client: Any | None = None,
+        timeout_seconds: float = DEFAULT_OPENAI_TIMEOUT_SECONDS,
+        max_retries: int = DEFAULT_OPENAI_MAX_RETRIES,
+    ) -> None:
+        self.client = client or OpenAI(
+            api_key=api_key,
+            timeout=timeout_seconds,
+            max_retries=max_retries,
+        )
         self.model = model
 
     def analyze(

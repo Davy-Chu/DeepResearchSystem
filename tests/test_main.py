@@ -20,7 +20,7 @@ def test_failed_final_synthesis_saves_all_incomplete_artifacts() -> None:
         id="S1",
         title="Existing Evidence",
         url="https://example.com/evidence",
-        content="Raw content must not be persisted.",
+        content="Raw content is preserved only in the machine trace.",
         score=0.8,
     )
     finding = Finding(
@@ -97,4 +97,5 @@ def test_failed_final_synthesis_saves_all_incomplete_artifacts() -> None:
     assert "**Status:** Failed" in log_text
     assert "More evidence is still needed." in log_text
     assert '"stop_reason": "max_iterations"' in trace_text
-    assert "Raw content must not be persisted." not in report_text + log_text + trace_text
+    assert "Raw content is preserved only in the machine trace." not in report_text + log_text
+    assert "Raw content is preserved only in the machine trace." in trace_text
