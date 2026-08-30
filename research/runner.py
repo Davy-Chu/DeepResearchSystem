@@ -78,7 +78,11 @@ class ResearchRunner:
         if not question:
             raise ValueError("Research question must not be empty")
 
-        state = ResearchState(question=question)
+        state = ResearchState(
+            question=question,
+            max_iterations=self.max_iterations,
+            system_version="baseline-zero",
+        )
         self.last_state = state
         query = question
         query_reason = "This is the user's original research question."
@@ -90,6 +94,7 @@ class ResearchRunner:
 
         logger.info("Research question:\n%s", question)
         for iteration_number in range(1, self.max_iterations + 1):
+            state.current_iteration = iteration_number
             logger.info("Iteration %d/%d", iteration_number, self.max_iterations)
             logger.info("Searching:\n%s", query)
             executed_queries.add(normalize_query(query))

@@ -1,0 +1,775 @@
+{
+  "evaluation_version": "evaluator-v0",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "coverage": {
+    "status": "COMPLETED",
+    "aspects": [
+      {
+        "id": "A1",
+        "description": "Maps the research landscape of multi-agent LLM systems.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A2",
+        "description": "Presents the findings as a structured report.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A3",
+        "description": "Includes a visual taxonomy or design graph.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A4",
+        "description": "Shows the major architectural patterns in multi-agent LLM systems.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A5",
+        "description": "Depicts how the architectural patterns relate to one another.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A6",
+        "description": "Identifies the open problems in the multi-agent LLM systems landscape.",
+        "importance": "CORE"
+      }
+    ],
+    "judgments": [
+      {
+        "aspect_id": "A1",
+        "status": "COVERED",
+        "reason": "The report meaningfully maps the landscape across multiple lenses, including capability, workflow, topology, routing, hierarchy, and infrastructure, while explaining that the taxonomies overlap.",
+        "report_evidence": "The Summary and Findings 1–3 identify recurring architectural patterns and organize them across several dimensions; the Conclusion synthesizes these as related design dimensions."
+      },
+      {
+        "aspect_id": "A2",
+        "status": "COVERED",
+        "reason": "The findings are presented in a clearly organized report format with a research question, summary, numbered findings, evidence, confidence levels, conflicts, gaps, conclusion, and sources.",
+        "report_evidence": "The report uses structured sections including “Summary,” “Findings,” “Conflicts and Uncertainty,” “Remaining Gaps,” and “Conclusion.”"
+      },
+      {
+        "aspect_id": "A3",
+        "status": "COVERED",
+        "reason": "It explicitly includes a visual taxonomy/design graph in a code-block diagram.",
+        "report_evidence": "Finding 4 is titled “Visual taxonomy/design graph” and provides an ASCII-style graph connecting lenses, coordination topologies, execution patterns, and open problems."
+      },
+      {
+        "aspect_id": "A4",
+        "status": "COVERED",
+        "reason": "The report identifies and describes major architectural patterns, including centralized, decentralized, hierarchical, hybrid, hub-spoke, mesh, specialized, handoff, router, and collaborative designs.",
+        "report_evidence": "Findings 2–4 enumerate these patterns and explain their associated coordination or execution characteristics."
+      },
+      {
+        "aspect_id": "A5",
+        "status": "COVERED",
+        "reason": "The report depicts relationships among patterns through the design graph and accompanying explanation, including overlaps such as hierarchical and hybrid systems and routers within phases.",
+        "report_evidence": "Finding 4 connects capability, workflow, infrastructure, topology, and execution-pattern lenses; it also states that categories are not mutually exclusive and gives combination examples."
+      },
+      {
+        "aspect_id": "A6",
+        "status": "COVERED",
+        "reason": "The report substantially identifies open problems, covering coordination reliability, scalability, communication, state and memory, evaluation, interoperability, robustness, security, explainability, and architecture selection.",
+        "report_evidence": "Finding 5 details coordination and scaling risks, while the graph lists open problems and “Remaining Gaps” expands them into evaluation, benchmarks, protocols, state, oversight, and reproducibility issues."
+      }
+    ],
+    "core_coverage_rate": 1.0,
+    "overall_coverage_rate": 1.0,
+    "error": null
+  },
+  "citations": {
+    "status": "FAILED",
+    "findings": [],
+    "evaluated_findings": 0,
+    "findings_with_evidence": 0,
+    "findings_without_evidence": 0,
+    "citation_completeness_rate": null,
+    "citation_support_rate": null,
+    "fully_supported_count": 0,
+    "partially_supported_count": 0,
+    "unsupported_count": 0,
+    "contradicted_count": 0,
+    "error": "ValueError: Citation evaluator must return exactly one judgment per source for F2"
+  },
+  "deterministic": {
+    "checks": [
+      {
+        "check_name": "question_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_finding",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_source",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_conclusion_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S12_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S12_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S12_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S13_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S13_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S13_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S14_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S14_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S14_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S15_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S15_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S15_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_4_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_4_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_4_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      }
+    ],
+    "passed_count": 134,
+    "failed_count": 0,
+    "all_passed": true
+  },
+  "evaluation_metadata": {
+    "evaluator_model": "gpt-5.6-luna",
+    "timestamp": "2026-08-30T22:36:54.916190+00:00"
+  }
+}

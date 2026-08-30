@@ -1,4 +1,4 @@
-"""Command-line entry point for baseline-zero deep research."""
+"""Command-line entry point for selectable research architectures."""
 
 from __future__ import annotations
 
@@ -9,6 +9,10 @@ from pathlib import Path
 
 from research.analyzer import ResearchAnalyzer
 from research.config import MAX_RESEARCH_ITERATIONS, load_settings
+from research.decision import ResearchDecisionMaker
+from research.evidence_processor import EvidenceProcessor
+from research.ledger_logger import LedgerResearchLogger
+from research.ledger_runner import LedgerResearchRunner
 from research.models import FinalReport
 from research.report import (
     FinalReportGenerator,
@@ -24,15 +28,21 @@ from research.search import TavilySearchClient
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run iterative evidence-backed web research.")
     parser.add_argument("question", help="The research question to investigate")
+    parser.add_argument(
+        "--mode",
+        choices=("baseline", "ledger"),
+        default="baseline",
+        help="Research architecture: baseline-zero (default) or evidence-ledger-v1",
+    )
     return parser
 
 
 def _handle_incomplete_run(
     error: BaseException,
     failure_stage: str,
-    research_logger: ResearchLogger | None,
+    research_logger: ResearchLogger | LedgerResearchLogger | None,
     output_dir: Path | None,
-    runner: ResearchRunner | None,
+    runner: ResearchRunner | LedgerResearchRunner | None,
     final_report: FinalReport | None,
 ) -> int:
     logging.error("Research did not complete normally: %s", error or type(error).__name__)
@@ -81,27 +91,28 @@ def main() -> int:
 
         return evaluation_main(sys.argv[2:])
     args = build_parser().parse_args()
-    research_logger: ResearchLogger | None = None
+    research_logger: ResearchLogger | LedgerResearchLogger | None = None
     output_dir: Path | None = None
-    runner: ResearchRunner | None = None
+    runner: ResearchRunner | LedgerResearchRunner | None = None
     final_report: FinalReport | None = None
     failure_stage = "Initialization"
 
     try:
         settings = load_settings()
         output_dir = create_output_directory(args.question)
-        research_logger = ResearchLogger(
-            question=args.question.strip(),
-            model=settings.openai_model,
-            max_iterations=MAX_RESEARCH_ITERATIONS,
-        )
+        if args.mode == "ledger":
+            research_logger = LedgerResearchLogger(
+                question=args.question.strip(),
+                model=settings.openai_model,
+                max_iterations=MAX_RESEARCH_ITERATIONS,
+            )
+        else:
+            research_logger = ResearchLogger(
+                question=args.question.strip(),
+                model=settings.openai_model,
+                max_iterations=MAX_RESEARCH_ITERATIONS,
+            )
         search_client = TavilySearchClient(settings.tavily_api_key)
-        analyzer = ResearchAnalyzer(
-            settings.openai_api_key,
-            settings.openai_model,
-            timeout_seconds=settings.openai_timeout_seconds,
-            max_retries=settings.openai_max_retries,
-        )
         report_generator = FinalReportGenerator(
             settings.openai_api_key,
             settings.openai_model,
@@ -109,12 +120,41 @@ def main() -> int:
             max_retries=settings.openai_max_retries,
         )
         failure_stage = "Research Execution"
-        runner = ResearchRunner(
-            search_client,
-            analyzer,
-            report_generator,
-            research_logger=research_logger,
-        )
+        if args.mode == "ledger":
+            assert isinstance(research_logger, LedgerResearchLogger)
+            evidence_processor = EvidenceProcessor(
+                settings.openai_api_key,
+                settings.openai_model,
+                timeout_seconds=settings.openai_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+            decision_maker = ResearchDecisionMaker(
+                settings.openai_api_key,
+                settings.openai_model,
+                timeout_seconds=settings.openai_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+            runner = LedgerResearchRunner(
+                search_client,
+                evidence_processor,
+                decision_maker,
+                report_generator,
+                research_logger=research_logger,
+            )
+        else:
+            assert isinstance(research_logger, ResearchLogger)
+            analyzer = ResearchAnalyzer(
+                settings.openai_api_key,
+                settings.openai_model,
+                timeout_seconds=settings.openai_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+            runner = ResearchRunner(
+                search_client,
+                analyzer,
+                report_generator,
+                research_logger=research_logger,
+            )
         result = runner.run(args.question)
         final_report = result.report
         failure_stage = "Output Saving"

@@ -1,0 +1,810 @@
+{
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "baseline-zero",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+    "summary": "Inference-time compute scaling is empirically validated as a conditional method for improving LLM reasoning on several mathematical and scientific benchmarks. Additional computation can help through longer reasoning, revision, sampling, verification, and search, but the evidence does not support a universal monotonic scaling law: returns can diminish and, in some studied settings, become negative through overthinking. Adaptive allocation and early stopping are promising but currently supported mainly by limited studies. Comparisons among sequential reasoning, parallel sampling, verifier-guided search, and collaborative branching remain too narrow to establish a generally superior strategy. The research stopped at the iteration limit, so these unresolved issues remain open.",
+    "findings": [
+      {
+        "claim": "Additional inference-time computation improves reasoning accuracy in some benchmarked settings, using methods such as extended chains of thought, iterative revision, multiple sampling, verification, and search.",
+        "evidence": [
+          {
+            "summary": "A report of controlled PaLM 2 experiments on the MATH dataset describes accuracy improvements from verifier-based and adaptive test-time compute strategies, including reported gains over conventional best-of-N sampling.",
+            "source_ids": [
+              "S11"
+            ]
+          },
+          {
+            "summary": "Overviews describe inference-time scaling as an umbrella covering chain-of-thought, self-consistency, best-of-N, rejection sampling with verifiers, self-refinement, and search over solution paths.",
+            "source_ids": [
+              "S4",
+              "S12"
+            ]
+          },
+          {
+            "summary": "The overthinking study characterizes prior work as showing accuracy gains from test-time compute, especially on mathematical reasoning tasks.",
+            "source_ids": [
+              "S1",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The result is supported by a named experimental study and consistent descriptions across sources, but much of the quantitative evidence available here is from secondary summaries and is concentrated on mathematical benchmarks."
+      },
+      {
+        "claim": "The validated relationship between reasoning compute and accuracy is conditional, not universally monotonic: gains can diminish and may become negative at high budgets.",
+        "evidence": [
+          {
+            "summary": "The primary overthinking study evaluates reasoning budgets from 500 to 16,000 tokens and reports diminishing marginal utility and correct-to-incorrect answer flips at higher budgets.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "The study summaries report negative marginal utility beyond approximately 12,000 tokens for the evaluated models, with negative-flip rates overtaking positive flips at lower budgets for some instances.",
+            "source_ids": [
+              "S6",
+              "S7",
+              "S8",
+              "S9"
+            ]
+          },
+          {
+            "summary": "The paper reports that natural, unconstrained long generations also showed accuracy degradation and answer revisions, although the supplied material does not provide the underlying tables.",
+            "source_ids": [
+              "S6",
+              "S7",
+              "S8",
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "This conclusion is directly supported by a primary preprint and repeated summaries of its methods and results. Generality remains limited because the evidence covers two named models and a small set of benchmarks, with no independent replication in the supplied state."
+      },
+      {
+        "claim": "Useful reasoning length and the onset of overthinking vary with problem difficulty, making uniform compute allocation empirically suboptimal in the studied settings.",
+        "evidence": [
+          {
+            "summary": "The overthinking study reports that easy problems begin to overthink at substantially shorter budgets than hard problems, with approximate optimal budgets ranging from about 1,000 tokens for easy instances to 7,500–8,000 tokens for hard instances.",
+            "source_ids": [
+              "S6",
+              "S7",
+              "S8",
+              "S9",
+              "S10"
+            ]
+          },
+          {
+            "summary": "The study explicitly concludes that optimal thinking length varies across problem difficulty and that uniform allocation is suboptimal.",
+            "source_ids": [
+              "S1",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "Difficulty-stratified analysis is reported in the primary study and its summaries, but the evidence does not establish that the same thresholds transfer across models, prompts, decoding settings, or domains."
+      },
+      {
+        "claim": "Adaptive stopping and cost-aware compute allocation are promising, but not yet sufficiently validated for broad deployment or out-of-distribution use.",
+        "evidence": [
+          {
+            "summary": "The overthinking study proposes marginal-utility and flip-event metrics and reports that indicator-based early stopping can retain near-peak accuracy while using substantially less compute in its experiments.",
+            "source_ids": [
+              "S6",
+              "S7",
+              "S8",
+              "S9",
+              "S10"
+            ]
+          },
+          {
+            "summary": "The earlier research state likewise reports that moderate stopping may reduce computation while maintaining comparable accuracy, but notes the lack of broad generalization evidence.",
+            "source_ids": [
+              "S1"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The reported savings and predictive indicators come primarily from one study and derivative reviews. The supplied evidence does not establish reliability on unseen tasks, calibration, production traffic, or diverse model families."
+      },
+      {
+        "claim": "No general ranking of sequential reasoning, parallel sampling, best-of-N, verifier-guided search, and collaborative branching has been empirically established at matched compute, latency, and monetary cost.",
+        "evidence": [
+          {
+            "summary": "Selected MATH results reported by S11 favor iterative revision on easier problems and adaptive verifier-guided search on harder problems, while reporting smaller gains for parallel sampling in those experiments.",
+            "source_ids": [
+              "S11"
+            ]
+          },
+          {
+            "summary": "A community-curated listing reports a collaborative-parallel method with a stronger claimed accuracy-latency frontier on HMMT and AIME, but this is a method-specific result rather than a field-wide comparison.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "The accumulated evidence identifies these approaches as active test-time scaling methods but does not supply controlled, equal-budget comparisons across them.",
+            "source_ids": [
+              "S2",
+              "S10",
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The available comparisons are benchmark-, model-, and method-specific, and one important source is a curated index reproducing an abstract. Equalized compute and latency protocols are not provided."
+      },
+      {
+        "claim": "Inference-time compute can sometimes substitute for model scale or reduce compute at a target accuracy, but broad claims of economic or deployment superiority remain speculative and workload-dependent.",
+        "evidence": [
+          {
+            "summary": "A secondary report describes selected PaLM 2 experiments in which optimized test-time computation enabled a smaller model to match or exceed a larger model and reports several efficiency comparisons.",
+            "source_ids": [
+              "S11"
+            ]
+          },
+          {
+            "summary": "A cost discussion frames the training-versus-inference decision as dependent on assumed training cost, per-query cost, and lifetime query volume rather than as a universal rule.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "Other overviews emphasize that extra inference computation brings additional latency and per-query cost.",
+            "source_ids": [
+              "S3",
+              "S4",
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The direction of the trade-off is plausible and conditionally supported, but the numerical efficiency claims are reported secondarily, are framed inconsistently in the supplied text, and do not constitute a standardized cost-quality evaluation."
+      },
+      {
+        "claim": "Evaluation methodology matters substantially under test-time sampling: single-trial model rankings can be less reliable than rankings based on repeated trials and statistical aggregation.",
+        "evidence": [
+          {
+            "summary": "A study of 20 reasoning models across four Olympiad-style math benchmarks reports strong agreement with a Bayesian reference at up to 80 trials, lower agreement in the single-trial regime, and variance reduction from using greedy decoding as a prior with possible bias when greedy and stochastic behavior diverge.",
+            "source_ids": [
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source is a conference-paper abstract with explicit model, benchmark, and trial counts, but it addresses ranking reliability rather than directly establishing causal accuracy-compute scaling curves."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Broad overviews describe more inference computation as generally beneficial, while the overthinking study reports diminishing and negative marginal returns at high budgets. These claims are conditionally compatible: scaling can help over an initial range without improving accuracy indefinitely.",
+        "source_ids": [
+          "S1",
+          "S3",
+          "S4",
+          "S6",
+          "S10",
+          "S12"
+        ]
+      },
+      {
+        "description": "Selected MATH results favor iterative revision or verifier-guided search in different difficulty regimes, whereas a separate curated report claims a collaborative-parallel method improves the accuracy-latency frontier on HMMT and AIME. The supplied evidence cannot determine whether the difference is caused by benchmark, model, budget, or method design.",
+        "source_ids": [
+          "S2",
+          "S11"
+        ]
+      },
+      {
+        "description": "Efficiency claims in S11 use different comparisons, including a model described as 14 times larger, fourfold FLOP reductions, and a 16-generation versus 64-generation comparison. The supplied material does not clarify whether these figures refer to distinct experiments or matched evaluation protocols.",
+        "source_ids": [
+          "S11"
+        ]
+      },
+      {
+        "description": "The apparent corroboration for overthinking includes several derivative reviews of the same preprint rather than independent replications. Therefore, repeated numerical claims should not be treated as independent evidence.",
+        "source_ids": [
+          "S6",
+          "S7",
+          "S8",
+          "S9",
+          "S10"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "Independent replication of accuracy-versus-compute curves across model families, sizes, laboratories, temperatures, and prompting methods.",
+      "Evaluation beyond AIME, MATH-500, GPQA Diamond, and related mathematics-focused tasks, including coding, planning, tool use, factual question answering, and real-world workloads.",
+      "Controlled comparisons of sequential reasoning, parallel sampling, best-of-N, verifier search, and collaborative branching at equal token compute, wall-clock latency, and monetary cost.",
+      "Evidence on whether overthinking indicators and adaptive stopping generalize reliably to unseen or out-of-distribution instances.",
+      "A primary-source audit of the quantitative efficiency claims summarized in S11, including exact baselines, denominators, and FLOP accounting.",
+      "Production-scale measurements of latency, cost, reliability, and failure modes under adaptive inference-time scaling.",
+      "Clarification of how repeated sampling and statistical evaluation, as studied in S13, affect reported conclusions about model performance and scaling."
+    ],
+    "conclusion": "The strongest empirically supported position is that inference-time compute is a real and useful scaling dimension for LLM reasoning, particularly on benchmarked mathematical and scientific tasks. However, it should be understood as conditional scaling: more compute can initially improve results, then saturate, and sometimes harm performance through overthinking. Difficulty-aware allocation is supported within the main study, while adaptive stopping, cross-method superiority, broad efficiency advantages, and production economics remain insufficiently established. Because the research stopped at the iteration limit, the unresolved questions—especially independent replication and matched comparisons across strategies and domains—should not be treated as answered."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The supplied material supports a cautious high-level account but is too thin to answer the central empirical question rigorously: it lacks primary quantitative results and cross-study comparisons. The most important gap is replicated evidence on accuracy–compute scaling curves and the conditions under which scaling saturates or reverses.",
+      "next_search_query": "inference-time test-time compute scaling LLM reasoning empirical evaluation accuracy compute curves overthinking adaptive stopping primary paper",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is an established empirical paradigm for improving LLM reasoning on at least some benchmarked tasks, using longer chains of thought, multiple sampled solutions, search, verification, or iterative/agent-style inference.",
+          "evidence": [
+            {
+              "summary": "A research overview defines inference-time scaling as allocating additional inference compute and lists chain-of-thought, self-consistency, best-of-N, verifier-based rejection sampling, self-refinement, and search over solution paths as major methods.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "A separate overview describes the same mechanisms—thinking longer, trying more candidate solutions, searching/verifying, and looping—as ways to improve answers, while noting increased latency and cost.",
+              "source_ids": [
+                "S3"
+              ]
+            },
+            {
+              "summary": "The research paper states that prior work has reported accuracy improvements from test-time compute scaling and that it can outperform model scaling on many tasks, particularly mathematical reasoning benchmarks.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The sources consistently describe the paradigm and its reported benefits, but the retrieved material does not provide the underlying benchmark tables, experimental protocols, or independent replication results."
+        },
+        {
+          "claim": "The strongest evidence currently represented here concerns benchmark-level accuracy improvements from allocating more reasoning compute, not a universal law that longer reasoning always helps.",
+          "evidence": [
+            {
+              "summary": "S1 explicitly frames the prevailing assumption that more thinking monotonically improves answers as insufficiently examined and reports diminishing marginal returns at higher budgets.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "The same source reports an overthinking pattern in which extended reasoning can lead a model to abandon an initially correct answer, and says optimal thinking length varies with problem difficulty.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "These are direct claims from a systematic-study abstract/introduction, but the retrieved excerpt ends during the methods section and does not show quantitative results, model coverage, task coverage, or statistical tests."
+        },
+        {
+          "claim": "Adaptive compute allocation and early stopping are empirically motivated directions: uniform reasoning budgets may be inefficient, with moderate stopping potentially retaining accuracy at lower cost.",
+          "evidence": [
+            {
+              "summary": "S1 reports that optimal thinking length differs by problem difficulty, gives illustrative difficulty-dependent overthinking thresholds, and says its cost-aware evaluation finds moderate-budget stopping can substantially reduce computation while maintaining comparable accuracy.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "The paper positions adaptive reasoning length and overthinking detection as practical alternatives to blindly extending every reasoning trace.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The evidence is from one retrieved preprint excerpt and lacks the actual results needed to establish how broadly the savings and accuracy retention generalize."
+        },
+        {
+          "claim": "Parallel and collaborative search-time reasoning are active research directions, but their general superiority over sequential scaling is not established by the supplied evidence.",
+          "evidence": [
+            {
+              "summary": "The curated paper list describes a proposed collaborative-parallel method that shares intermediate information across branches and reports a stronger accuracy–latency Pareto frontier on HMMT and AIME across rollout budgets and model scales.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S1 cites parallel thinking as an alternative discussed in concurrent work, but the supplied text does not compare it systematically with all other test-time scaling strategies.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "S2 is a community-curated index reproducing an abstract rather than a primary results section; the evidence covers one method and two named benchmarks, so it cannot support a field-wide conclusion."
+        },
+        {
+          "claim": "Economic and deployment conclusions—such as when inference scaling is preferable to additional training—remain workload-dependent and speculative in this evidence set.",
+          "evidence": [
+            {
+              "summary": "A LinkedIn post presents a hypothetical break-even calculation based on assumed training cost, per-query inference cost, and a fixed benchmark improvement; it explicitly makes the choice depend on lifetime query volume.",
+              "source_ids": [
+                "S5"
+              ]
+            },
+            {
+              "summary": "The overview sources emphasize that inference scaling increases latency and cost per query, while improving answer quality, but do not provide a standardized cost-quality comparison across systems.",
+              "source_ids": [
+                "S3",
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The conditional nature of the trade-off is directly supported, but the numerical example is hypothetical and not an empirical estimate of current systems."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The broad narrative in S3 and S4 emphasizes that more inference compute generally improves quality, whereas S1 reports diminishing returns and possible degradation (“overthinking”) at sufficiently long reasoning budgets. These are conditionally compatible: scaling can help over some budget range without being monotonic beyond that range.",
+          "source_ids": [
+            "S1",
+            "S3",
+            "S4"
+          ]
+        },
+        {
+          "description": "S1 argues that uniform budgets are suboptimal and that moderate stopping can preserve accuracy, while S2 presents continued parallel rollout/search expansion as an effective way to improve the accuracy–latency frontier. These approaches are not necessarily contradictory, but the supplied sources do not establish when adaptive stopping beats parallel exploration.",
+          "source_ids": [
+            "S1",
+            "S2"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What quantitative accuracy-versus-compute curves have been replicated across independent models, benchmarks, and laboratories?",
+        "How often does overthinking occur, and does it persist under naturally generated reasoning rather than budget forcing with appended “Wait” tokens and forced delimiters?",
+        "Which tasks benefit from longer reasoning: mathematics only, or also coding, factual QA, planning, tool use, and real-world workloads?",
+        "How do sequential longer chains compare fairly with parallel sampling, best-of-N, verifier/search methods, and collaborative branching at equal compute, latency, and token budgets?",
+        "Do adaptive stopping methods generalize out of distribution, and can a model reliably identify when further reasoning will help versus harm?",
+        "What are the operational cost, latency, and reliability trade-offs for production systems rather than benchmark evaluations?"
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "inference-time test-time compute scaling LLM reasoning empirical evaluation accuracy compute curves overthinking adaptive stopping primary paper",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The new material materially strengthens the evidence for diminishing returns and overthinking, but it is largely one study and derivative summaries. The most important remaining gap is independent, controlled evaluation across models, tasks, and competing inference-time strategies.",
+      "next_search_query": "independent replication test-time compute scaling overthinking adaptive stopping equal compute comparison LLM reasoning benchmarks",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is empirically validated as a useful way to improve LLM reasoning on at least some benchmark tasks, but the evidence supports a conditional scaling relationship rather than a universal monotonic law.",
+          "evidence": [
+            {
+              "summary": "The primary paper describes prior work reporting accuracy gains from longer reasoning, multiple sampled completions, and search-based inference, especially on mathematical benchmarks.",
+              "source_ids": [
+                "S10",
+                "S1"
+              ]
+            },
+            {
+              "summary": "The new paper directly reports that extended reasoning initially improves accuracy, followed by diminishing and sometimes negative marginal returns.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The paradigm and benchmark gains are consistently described, but the supplied material does not include broad independent replications or standardized equal-compute comparisons across methods."
+        },
+        {
+          "claim": "Overthinking—additional reasoning causing a previously correct answer to become incorrect—is supported by a detailed empirical study, but its generality remains uncertain.",
+          "evidence": [
+            {
+              "summary": "The study evaluates budgets from 500 to 16,000 reasoning tokens and reports diminishing marginal utility, negative marginal utility at high budgets, and correct-to-incorrect answer flips.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "For DeepSeek-R1-32B and s1-32B, the summaries report negative marginal utility beyond roughly 12,000 tokens, earlier negative-flip crossovers on easier problems, and model-specific susceptibility.",
+              "source_ids": [
+                "S6",
+                "S7",
+                "S8",
+                "S9"
+              ]
+            },
+            {
+              "summary": "The study reports similar patterns on AIME, MATH-500, and GPQA Diamond, and claims that natural, unconstrained long generations show related degradation.",
+              "source_ids": [
+                "S6",
+                "S7",
+                "S8",
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S10 is a primary paper and the other sources reproduce its details, but S6-S9 are not independent replications. The evidence covers two 32B models and a limited set of benchmark tasks."
+        },
+        {
+          "claim": "The benefit of more reasoning is difficulty-dependent: uniform reasoning budgets are empirically suboptimal in the studied settings.",
+          "evidence": [
+            {
+              "summary": "The study reports earlier overthinking on easy problems and longer useful budgets for harder problems; the summaries give approximate optimal ranges from about 1,000 tokens for easy instances to 7,500–8,000 for hard ones.",
+              "source_ids": [
+                "S6",
+                "S7",
+                "S8",
+                "S9",
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The result is directly analyzed in the primary study and is consistent across the supplied summaries, but its robustness across models, prompting schemes, and task families is not established."
+        },
+        {
+          "claim": "Adaptive stopping and compute-aware evaluation are empirically promising, but should currently be treated as preliminary rather than production-ready conclusions.",
+          "evidence": [
+            {
+              "summary": "The study proposes marginal-utility and flip-event metrics, and reports that indicator-based stopping can retain near-peak accuracy with substantially less compute in its experiments.",
+              "source_ids": [
+                "S6",
+                "S7",
+                "S8",
+                "S9",
+                "S10"
+              ]
+            },
+            {
+              "summary": "The earlier research state likewise reports moderate-budget stopping as potentially cheaper at comparable accuracy, while noting that quantitative generalization evidence is limited.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The reported savings and accuracy retention come primarily from one study and a particular early-stopping framework. The supplied material does not establish out-of-distribution reliability, calibration, or performance under production traffic."
+        },
+        {
+          "claim": "There is not enough evidence to conclude that sequential longer chains are superior—or inferior—to parallel sampling, best-of-N, verifier-based rejection, search, or collaborative branching at equal compute and latency.",
+          "evidence": [
+            {
+              "summary": "The research state identifies parallel/collaborative methods as active directions and reports one method's claimed Pareto improvement on HMMT and AIME, but without a systematic field-wide comparison.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S10 lists search and multiple completions as established test-time scaling approaches but does not provide a controlled comparison against them in the supplied results.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The evidence is method-specific and benchmark-limited; equal-budget, equal-latency comparisons are missing."
+        },
+        {
+          "claim": "Economic and deployment claims remain workload-dependent; current evidence does not establish when inference-time scaling is preferable to additional training or ordinary inference.",
+          "evidence": [
+            {
+              "summary": "The sources note higher latency and per-query cost, while the only explicit break-even analysis is hypothetical and depends on assumed costs, query volume, and benchmark gains.",
+              "source_ids": [
+                "S3",
+                "S4",
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The conditional cost trade-off is clear, but no standardized empirical cost-quality study is supplied."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S3 and S4 present additional inference compute as generally improving quality, whereas S1 and S6-S10 document diminishing returns and overthinking. These are conditionally compatible: scaling helps over some budget range but need not remain beneficial indefinitely.",
+          "source_ids": [
+            "S1",
+            "S3",
+            "S4",
+            "S6",
+            "S10"
+          ]
+        },
+        {
+          "description": "The new sources make stronger numerical claims about overthinking and early stopping than the earlier research state, but these claims derive from one primary study plus derivative reviews, not independent studies. Thus the apparent corroboration is limited.",
+          "source_ids": [
+            "S6",
+            "S7",
+            "S8",
+            "S9",
+            "S10"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How well do the reported curves replicate across independent laboratories, model families, model sizes, temperatures, and prompting methods?",
+        "Do overthinking and adaptive-stopping results generalize beyond AIME, MATH-500, and GPQA Diamond to coding, planning, tool use, factual QA, and real-world workloads?",
+        "How do sequential reasoning, parallel sampling, best-of-N, verifier/search methods, and collaborative branching compare at equal token compute, wall-clock latency, and monetary cost?",
+        "Can overthinking indicators reliably predict when further reasoning will help or harm on new instances, especially out of distribution?",
+        "How much of the reported behavior depends on budget forcing, deterministic decoding, answer extraction, or the particular reasoning models studied?",
+        "What production-scale cost, latency, reliability, and failure-mode trade-offs result from adaptive test-time scaling?"
+      ]
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "independent replication test-time compute scaling overthinking adaptive stopping equal compute comparison LLM reasoning benchmarks",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The new sources add useful quantitative evidence for compute-optimal inference and show that evaluation under sampling needs repeated trials, but important conclusions still rest on a secondary summary, a narrow math-focused study, and non-independent reports. The most consequential gap is an authoritative, primary-source comparison of test-time strategies and model scaling under matched compute, latency, and accuracy conditions.",
+      "next_search_query": "Snell scaling LLM test-time compute optimally primary paper compute-optimal curves equal FLOPs PaLM 2 MATH revision verifier search independent replication",
+      "findings": [
+        {
+          "claim": "Test-time compute scaling has stronger empirical support than the earlier evidence set indicated, including controlled experiments comparing compute-allocation strategies with model scaling on mathematical reasoning.",
+          "evidence": [
+            {
+              "summary": "A report of the Snell et al. study describes experiments with PaLM 2 on MATH comparing dense verifier reward models and adaptive response-distribution updates. It reports more than 21.6% test-set accuracy improvement over conventional best-of-N and cases where a smaller model with optimized test-time compute matched or exceeded a model 14 times larger without such compute.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "The same report says gains depended on task difficulty: iterative revision helped easier problems, adaptive verifier-guided search helped harder problems, and pretraining scaling was more effective on problems beyond the base model's capabilities.",
+              "source_ids": [
+                "S11"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S11 points to a named primary study and gives concrete experimental conditions and quantitative results, but the retrieved content is a secondary report rather than the primary paper's full results. The evidence is also concentrated on PaLM 2 and MATH."
+        },
+        {
+          "claim": "The best-supported conclusion is conditional compute scaling: additional inference computation can improve reasoning accuracy over relevant budget ranges, but the optimal method and amount depend on task difficulty and the model's baseline capability.",
+          "evidence": [
+            {
+              "summary": "The reported Snell et al. experiments distinguish iterative revision, parallel sampling, and verifier-guided adaptive search, with different gains on easier versus harder MATH problems.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "The accumulated primary-study evidence reports diminishing and sometimes negative marginal returns at high reasoning budgets, including correct-to-incorrect answer flips and earlier overthinking on easier problems.",
+              "source_ids": [
+                "S6",
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The conditional pattern is supported by two distinct lines of evidence, but the quantitative results are not yet shown across broad model families or task domains."
+        },
+        {
+          "claim": "Inference-time compute can sometimes substitute for model scale or reduce inference FLOPs at a target accuracy, but broad claims of superior efficiency are not established.",
+          "evidence": [
+            {
+              "summary": "S11 reports that optimized test-time computation enabled a smaller PaLM 2 model to match or outperform a much larger model and describes reported fourfold efficiency reductions in selected comparisons.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "The accumulated evidence says economic and deployment trade-offs depend on query volume, latency, and workload, with no standardized cost-quality comparison supplied.",
+              "source_ids": [
+                "S3",
+                "S4",
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The efficiency claims come from a secondary account of selected MATH experiments, and the report itself presents multiple differently framed comparisons (14× larger model, 4× FLOPs, and 16-versus-64 generations). These are not a basis for a general deployment or economic conclusion."
+        },
+        {
+          "claim": "Parallel sampling is not uniformly superior to sequential revision, and adaptive/verifier-guided allocation is a plausible compute-optimal strategy in some settings.",
+          "evidence": [
+            {
+              "summary": "On the reported MATH experiments, iterative revision produced up to 27.8% improvement on easier problems while parallel sampling produced 5.4%, whereas adaptive dense-verifier search produced a 19.1% improvement on harder problems.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "Prior evidence reports a claimed Pareto improvement for one collaborative-parallel method on HMMT and AIME, but lacks systematic equal-compute comparisons across methods.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The results suggest task- and method-dependent trade-offs, but they compare selected methods and conditions rather than establishing a general ordering at equal token compute, wall-clock latency, or monetary cost."
+        },
+        {
+          "claim": "Reliable evaluation of reasoning models under test-time scaling requires repeated sampling and statistical ranking methods; single-run rankings can be unstable or biased.",
+          "evidence": [
+            {
+              "summary": "A study of 20 reasoning models across four Olympiad-style math benchmarks evaluates up to 80 trials per prompt. It reports high agreement with a Bayesian reference at full budget, while the best single-trial methods achieve lower agreement; using greedy decoding as a prior reduces variance but can bias rankings when greedy and stochastic behavior differ.",
+              "source_ids": [
+                "S13"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S13 is a conference-paper abstract with a substantial model and benchmark sample and directly addresses evaluation reliability. However, it studies ranking stability rather than the causal accuracy-versus-compute scaling curve, and the supplied record dates it to July 2026."
+        },
+        {
+          "claim": "Claims about current proprietary reasoning systems demonstrate practical interest in test-time compute but do not by themselves validate a general scaling law.",
+          "evidence": [
+            {
+              "summary": "S12 describes OpenAI and Google systems as using additional computation, refinement, or reasoning and cites high performance on difficult datasets, while explicitly noting that the internal mechanisms of closed models are unclear.",
+              "source_ids": [
+                "S12"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "This is an engineering blog and relies partly on public claims and linked results; it provides no controlled cross-model compute curves or independent mechanism-level evidence."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S11 reports large efficiency and accuracy gains from optimized test-time compute, while the accumulated evidence cautions that economic superiority over training or larger models is workload-dependent. These are compatible only as conditional claims; S11 does not establish general deployment economics.",
+          "source_ids": [
+            "S11",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        {
+          "description": "S11 reports strong gains from iterative revision or adaptive search and comparatively small gains from parallel sampling in selected MATH settings, while S2 reports a collaborative-parallel method with a better claimed accuracy-latency Pareto frontier on HMMT and AIME. The disagreement is conditional on benchmark, method, model, and budget, and cannot be resolved from the supplied evidence.",
+          "source_ids": [
+            "S11",
+            "S2"
+          ]
+        },
+        {
+          "description": "S11's efficiency claims are framed inconsistently across the retrieved article: it mentions a model 14 times larger, fourfold FLOP reductions, and a 16-generation versus 64-generation comparison. These may refer to different experiments, but the supplied text does not clarify the denominators or evaluation protocol.",
+          "source_ids": [
+            "S11"
+          ]
+        },
+        {
+          "description": "Broad overviews in S3, S4, and S12 describe additional inference compute as generally beneficial, whereas S6-S10 document diminishing or negative marginal utility at high budgets. The evidence supports a beneficial regime followed, in some settings, by saturation or overthinking—not monotonic improvement.",
+          "source_ids": [
+            "S3",
+            "S4",
+            "S6",
+            "S10",
+            "S12"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How do the Snell et al. quantitative results hold up under independent replication, and what are the exact equal-compute and equal-latency baselines?",
+        "Do the reported accuracy and efficiency gains generalize beyond PaLM 2 and MATH to newer reasoning models, coding, planning, tool use, factual QA, and real-world tasks?",
+        "How frequently does overthinking occur under naturally generated reasoning, rather than budget-forced or specially delimited reasoning traces?",
+        "Can adaptive stopping reliably predict, out of distribution, whether further reasoning will help or harm?",
+        "How do sequential revision, parallel sampling, best-of-N, verifier search, and collaborative branching compare at equal token compute, wall-clock latency, and monetary cost?",
+        "What is the operational relationship between benchmark accuracy curves and production reliability, latency, and cost?",
+        "Does the need for many repeated trials identified by S13 materially change reported model rankings and conclusions about scaling benefits?",
+        "What is the status and evidentiary basis of the proprietary-system performance claims cited by S12?",
+        "Can the inconsistent efficiency figures in S11 be reconciled by consulting the primary study and its experimental tables?"
+      ]
+    }
+  ],
+  "evidence_ledger": {
+    "claims": []
+  },
+  "research_gaps": [],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://arxiv.org/html/2604.10739v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\n###### Abstract\n\nScaling test-time compute through extended chains of thought has become a dominant paradigm for improving large language model reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined.\nWe systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit “overthinking”, where extended reasoning is associated with abandoning previously correct answers.\nFurthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.\n\n## 1 Introduction\n\nScaling inference-time compute through lengthy chains of thought has achieved remarkable success on mathematical reasoning benchmarks ([DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent work has established that test-time compute scaling can be more effective than model scaling for many tasks ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7)). The prevailing assumption in this line of research is straightforward: more thinking leads to better answers. Models are encouraged to reason longer, with performance curves consistently showing accuracy improvements as token budgets increase. Yet the assumption that thinking length and answer quality are monotonically related has never been systematically examined.\n\nWe challenge this assumption by drawing an analogy from economics: the law of diminishing marginal returns. Just as additional units of input eventually yield smaller increments of output, additional tokens of reasoning may provide progressively less benefit. More critically, extended thinking might even be harmful. A model could “overthink” a problem, second-guessing a correct initial intuition and ultimately arriving at a wrong answer ([Chen et al., 2024a](#bib.bib17)). This phenomenon would have significant implications for how we deploy and evaluate test-time scaling systems.\n\nUnderstanding when to stop thinking is practically important for two reasons. First, compute costs are substantial: generating 8,000 tokens costs 16×\\times more than generating 500 tokens. If much of this extended reasoning provides minimal benefit, resources are being wasted. Second, if overthinking degrades performance on certain problems, then adaptive stopping strategies could simultaneously reduce costs and improve accuracy.\n\nTo investigate these questions, we conduct a systematic study of marginal utility in test-time compute scaling. We evaluate models across a wide range of compute budgets, measuring not just final accuracy but the incremental benefit of additional reasoning. We track individual problems through their reasoning trajectories, identifying “flip events” where answers change from correct to incorrect. Based on these analyses, we characterize when overthinking occurs and explore early-stopping strategies. In summary, we:\n\nProvide a comprehensive analysis of marginal utility in test-time compute scaling, introducing flip event tracking to measure when extended reasoning helps versus hurts.\n\nIdentify and quantify the “overthinking” phenomenon, where extended reasoning is associated with models abandoning correct answers.\n\nIntroduce cost-aware evaluation metrics and propose that researchers report efficiency frontiers alongside accuracy curves.\n\n## 2 Related Work\n\n### 2.1 Test-Time Scaling\n\nScaling inference compute has emerged as a powerful paradigm complementing training-time scaling ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7); [Zhou et al., 2026](#bib.bib25)). Methods include searching over generations, sampling multiple completions, and training models to produce extended reasoning chains ([OpenAI, 2024](#bib.bib15); [DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent surveys have comprehensively examined the landscape of long chain-of-thought reasoning ([Chen et al., 2025](#bib.bib16); [Sui et al., 2025](#bib.bib13); [Zhou et al., 2025b](#bib.bib23); [Zhou and Zhou, 2025](#bib.bib26)). These works consistently report accuracy improvements with compute, but do not systematically examine marginal returns or the possibility of overthinking.\n\n### 2.2 Overthinking in LLMs\n\nRecent work has begun to identify the “overthinking” phenomenon in reasoning models. [Chen et al. (2024b)](#bib.bib11) first documented that o1-like models consume excessive tokens on simple problems with minimal accuracy benefit. [Wu et al. (2025b)](#bib.bib12) demonstrated that task accuracy follows an inverted U-shaped curve with chain-of-thought length. Several concurrent works examine related aspects: [Srivastava et al. (2025)](#bib.bib18) study accuracy-verbosity trade-offs on basic math tasks through an “overthinking score” metric; [Ghosal et al. (2025)](#bib.bib19) question test-time scaling effectiveness and propose parallel thinking as an alternative; [Lu et al. (2025)](#bib.bib24) survey adaptive test-time compute methods; and [Zhang et al. (2025)](#bib.bib20) use structural analysis tools to identify “over-verification” and “over-exploration” patterns. Our work complements these efforts by introducing flip event tracking to measure individual-problem answer changes, difficulty-stratified analysis revealing that easy problems overthink at 2K tokens versus 8K for hard problems, and a cost-aware evaluation framework with tunable λ\\lambda parameter for accuracy-compute trade-offs.\n\n### 2.3 Selective Prediction\n\nOur work connects to selective classification ([Geifman and El-Yaniv, 2017](#bib.bib4)) and selective question answering ([Kamath et al., 2020](#bib.bib5); [Zhou et al., 2025a](#bib.bib21); [Zhou et al., 2025c](#bib.bib22)), which allow models to abstain when uncertain. [Jurayj et al. (2025)](#bib.bib14) recently applied these ideas to test-time scaling, showing that confidence thresholds improve performance under risk. We extend this perspective by considering compute costs rather than response risks.\n\n### 2.4 Efficient Inference\n\nPrior work on efficient inference focuses on model compression, early exit ([Schwartz et al., 2020](#bib.bib9)), and speculative decoding ([Leviathan et al., 2023](#bib.bib8)). Our work suggests a complementary approach: adaptive reasoning length based on problem characteristics and overthinking detection.\n\n## 3 Methods\n\nWe investigate how the benefit of additional reasoning changes as compute budgets increase. Our analysis focuses on three aspects: marginal utility measurement, flip event detection, and overthinking indicators. We describe each below:\n\n### 3.1 Compute Budget\n\nFollowing [Muennighoff et al. (2025)](#bib.bib2), we quantify a model’s compute budget by the number of tokens in its reasoning trace. We use budget forcing to control reasoning length: we append “Wait” tokens if the model attempts to conclude early, and force-decode the end-of-thinking delimiter once the budget is reached. We evaluate budgets in the range [500,16000][500,16000] tokens, with increments of 500 tokens.\n\n### 3.2 Marginal Utility\n\nWe define the marginal utility at budget tt as the change in accuracy when increasing the budget from tt to t+Δ​tt+\\Delta t:\n\n|  |  |  |  |\n| --- | --- | --- | --- |\n|  | MU​(t)=Acc​(t+Δ​t)−Acc​(t)\\text{MU}(t)=\\text{Acc}(t+\\Delta t)-\\text{Acc}(t) |  | (1) |\n\nwhere Acc​(t)\\text{Acc}(t) denotes the accuracy at budget tt. We use Δ​t=500\\Delta ",
+      "score": 0.61695945
+    },
+    {
+      "id": "S2",
+      "title": "GitHub - ThreeSR/Awesome-Inference-Time ...",
+      "url": "https://github.com/ThreeSR/Awesome-Inference-Time-Scaling",
+      "content": "[Skip to content](#start-of-content)   \n \n\n## Navigation Menu\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=ThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\nYou signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert\n\n{{ message }}\n\n[ThreeSR](/ThreeSR)   /  **[Awesome-Inference-Time-Scaling](/ThreeSR/Awesome-Inference-Time-Scaling)**  Public\n\n* [Notifications](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)  You must be signed in to change notification settings\n* [Fork 19](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n* [Star  398](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Branches](/ThreeSR/Awesome-Inference-Time-Scaling/branches)[Tags](/ThreeSR/Awesome-Inference-Time-Scaling/tags)\n\nOpen more actions menu\n\n## Latest commit\n\n## History\n\n[216 Commits](/ThreeSR/Awesome-Inference-Time-Scaling/commits/master/)\n\n216 Commits\n\n## Folders and files\n\n| Name | Name | Last commit message | Last commit date |\n| --- | --- | --- | --- |\n| [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") | [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") |  |  |\n| [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") | [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") |  |  |\n| [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") | [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") |  |  |\n| [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") | [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") |  |  |\n| [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") | [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") |  |  |\n| [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") | [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") |  |  |\n|  |\n\n## Repository files navigation\n\n# Awesome-Inference-Time-Scaling\n\n**Paper List of Inference/Test Time Scaling/Computing**\n\nMaintained by [Rui Sun](https://threesr.github.io/)\n\nIf you think our paper list is helpful, please Star⭐. Thanks! We will continue to update.\n\n[![Scaling](/ThreeSR/Awesome-Inference-Time-Scaling/raw/master/fig/Scaling.webp)](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fig/Scaling.webp)\n\nGenerated by DALL·E.\n\n## Plan\n\nCollect papers and scale up paper list (Still Ongoing)\n\nCategorize all papers for better reference (Next Step)\n\n## How to Contribute?\n\nWe understand that Inference/Test Time Scaling/Computing is a broad field. If you feel that our list is incomplete, **we warmly welcome your contributions (open a pull request or issue, I will handle it).**\n\nIf you can follow this format, that would be great.\n\nFirst, you can fork my repo. Then, add the paper you think relevant. After that, open a pull request. Through my verification, I will accept and merge.\n\nBelow is the way you can use to run the code in my repo to call Semantic Scholar API to obtain the information and insert it to the README.\n\n```\npython fetch_semantic_info.py --paper_name \"Paper Name or Key Word of the name\" \n```\n\nExample:\n\n```\npython fetch_semantic_info.py --paper_name \"Scaling Autonomous Agents via Automatic Reward Modeling And Planning\" \n```\n\nIf you find our code useful when you would like to organize your own repo, feel free to use. Also, thanks for the free use of [Semantic Scholar API](https://www.semanticscholar.org/product/api).\n\n## Citation\n\n🤝 **This is a community-curated list.** The citation is intentionally credited to **\"Rui Sun and others\"** — every contributor (via PRs, issues, or paper suggestions) becomes part of the *and others*. If this list is useful to your work, please consider doing both:\n\n* 🌱 **Contribute** — open a PR or issue with a paper you think belongs here. The more we grow this together, the more useful it becomes for the whole community.\n* 📌 **Cite** — sharing this single citation across the community amplifies its visibility on Google Scholar and helps sustain the project. Every citation is a citation we all share.\n\n```\n@misc sun2025awesomeinferencetimescaling author{Rui Sun and others}{} title{Awesome-Inference-Time-Scaling: Paper List of Inference/Test-Time Scaling/Computing}{} year{2025}{} publisher{GitHub}{} howpublished{\\url{https://github.com/ThreeSR/Awesome-Inference-Time-Scaling}}{} doi{10.5281/zenodo.20262169}{}\n```\n\n## 📖 Paper List (Listed in Time Order)\n\n🔹 [MaxProof: Scaling Mathematical Proof with Generative-Verifier RL and Population-Level Test-Time Scaling](https://www.semanticscholar.org/paper/33a1741fb2d3e7ac05649ef34c1b0a111fd8d5cf)\n\n* 👤 **Authors:** Jiacheng Chen, Xinyu Zhang, Shunkai Zhang, Yanmohan Wang, Lin Li, Tiancheng Qin, Qin Wang, Zhengmao Zhu, Tianle Li, Jingyang Li, Zehan Li, Binyan Jiang, Jin-Feng Zhu, Han Ding, F. Yu, Chenyu Du, Zijian Song, Jiayuan Song, Zhi Zhang, Yunan Huang, Weiyu Cheng, Pengyu Zhao, Yuntao Cheng\n* 🗓️ **Date:** 2026-06-11\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand No abstract available.\n\n🔹 [Share More, Search Less: Collaborative Parallel Thinking for Efficient Test-Time Scaling](https://arxiv.org/abs/2605.27030)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.27030)\n* 👤 **Authors:** Xinglin Wang, Haobin Lin, Shaoxiong Feng, Peiwen Yuan, Yiwei Li, Jiayi Shi, Yueqi Zhang, Chuyi Tan, Ji Zhang, Boyuan Pan, Yao Hu, Kan Li\n* 🗓️ **Date:** 2026-05-26\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand Test-Time Scaling (TTS) enhances the reasoning capabilities of large language models by allocating additional inference compute to explore the solution space. However, existing parallel TTS methods typically keep branches isolated during search: intermediate discoveries remain branch-private and cannot guide other branches in time. This information isolation causes substantial redundant exploration, as branches repeatedly rediscover information already found elsewhere and require more search steps to collect complete decision information needed to reach correct answers. To bridge this gap, we propose \\textbf{Collaborative Parallel Thinking (CPT)}, a training-free inference framework that enables search-time information sharing across parallel branches. CPT extracts compact intermediate information from ongoing branches, maintains a deduplicated query-level information pool, and broadcasts pool entries through the input context, allowing each branch in subsequent search steps to reuse discoveries made by other branches rather than rediscover the same information. Empirically, experiments on HMMT and AIME benchmarks show that CPT establishes a stronger accuracy--latency Pareto frontier than strong baselines across rollout budgets and model scales, highlighting search-time collaboration as an effective direction for efficient parallel TTS.\n\n🔹 [Stop When Reasoning Converges: Semantic-Preserving Early Exit for Reasoning Models](https://arxiv.org/abs/2605.17672)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.17672)\n* 👤 **Authors:** Dehai Min, Giovanni Vaccarino, Huiyi Chen, Yongliang Wu, Gal Yona, Lu",
+      "score": 0.61112726
+    },
+    {
+      "id": "S3",
+      "title": "Medium",
+      "url": "https://medium.com/@adnanmasood/inference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd",
+      "content": "Sign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40adnanmasood%2Finference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40adnanmasood%2Finference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:80:80/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n\n## Adnan Masood, PhD.⁠\n\nDr. Adnan Masood is an Engineer, Thought Leader, Author, AI/ML PhD, Stanford Scholar, Harvard Alum, Microsoft Regional Director, and STEM Robotics Coach.\n\nMember-only story\n\n# **Inference-Time Scaling: How Modern AI Models Think Longer to Perform Better**\n\n## Why test-time compute, reasoning budgets, and adaptive inference are redefining LLM accuracy, latency, cost, and deployment architecture\n\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:64:64/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n\n--\n\nListen\n\nShare\n\n![]()\n\nInference-time scaling” (often called **test-time compute**, **TTC**, or **test-time scaling**) means: **you get better answers by spending more compute at the moment you ask the question** — instead of (or in addition to) training a bigger model. Concretely, you let the model **think longer**, **try more candidate solutions**, **search/verify**, or **loop** (agent-style) before producing the final output. [1]\n\nImagine you ask a kid a hard math question.\n\nInference-time scaling is that same idea for LLMs: **give the model more “thinking time” (compute) for harder questions**, and you often get a better answer — just slower and more expensive. [2]\n\nAt inference, an LLM’s cost is dominated by:\n\n--\n\n--\n\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:96:96/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:128:128/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n\n## Written by Adnan Masood, PhD.⁠\n\nDr. Adnan Masood is an Engineer, Thought Leader, Author, AI/ML PhD, Stanford Scholar, Harvard Alum, Microsoft Regional Director, and STEM Robotics Coach.\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nStore\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech",
+      "score": 0.42477044
+    },
+    {
+      "id": "S4",
+      "title": "Categories of Inference-Time Scaling for Improved LLM ...",
+      "url": "https://magazine.sebastianraschka.com/p/categories-of-inference-time-scaling",
+      "content": "# Categories of Inference-Time Scaling for Improved LLM Reasoning\n\n### And an Overview of Recent Inference-Scaling Papers (Including Recursive Language Models)\n\n[Sebastian Raschka, PhD](https://substack.com/@rasbt)\n\n∙ Paid\n\nInference scaling has become one of the most effective ways to improve answer quality and accuracy in deployed LLMs.\n\nThe idea is straightforward. If we are willing to spend a bit more compute, and more time at inference time (when we use the model to generate text), we can get the model to produce better answers.\n\nEvery major LLM provider relies on some flavor of inference-time scaling today. And the academic literature around these methods has grown a lot, too.\n\nBack in March, I wrote an overview of the inference scaling landscape and summarized some of the early techniques.\n\n[#### The State of LLM Reasoning Model Inference\n\n[Sebastian Raschka, PhD](https://substack.com/profile/27393275-sebastian-raschka-phd)\n\n·\n\nMarch 8, 2025\n\n[Read full story](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)\n\nIn this article, I want to take that earlier discussion a step further, group the different approaches into clearer categories, and highlight the newest work that has appeared over the past few months.\n\nAs part of drafting a full book chapter on inference scaling for *[Build a Reasoning Model (From Scratch)](https://mng.bz/Nwr7)*, I ended up experimenting with many of the fundamental flavors of these methods myself. With hyperparameter tuning, this quickly turned into thousands of runs and a lot of thought and work to figure out which approaches should be covered in more detail in the chapter itself. (The chapter grew so much that I eventually split it into two, and both are now available in the early access program.)\n\nPS: I am especially happy with how the chapter(s) turned out. It takes the base model from about 15 percent to around 52 percent accuracy, which makes it one of the most rewarding pieces of the book so far.\n\nWhat follows here is a collection of ideas, notes, and papers that did not quite fit into the final chapter narrative but are still worth sharing.\n\nI also plan to add more code implementations to the [bonus materials on GitHub](https://github.com/rasbt/reasoning-from-scratch) over time.\n\n**Table of Contents (Overview)**\n\n1. Inference-Time Scaling Overview\n2. Chain-of-Thought Prompting\n3. Self-Consistency\n4. Best-of-N Ranking\n5. Rejection Sampling with a Verifier\n6. Self-Refinement\n7. Search Over Solution Paths\n8. Conclusions, Categories, and Combinations\n9. Bonus: What Do Proprietary LLMs Use?\n\nYou can use the left-hand navigation bar in the article’s web view to jump directly to any section.\n\n# 1. Inference-Time Scaling Overview\n\n*Inference-time scaling* (also called *inference-compute scaling*, *test-time scaling*, or just *inference scaling*) is an umbrella term for methods that allocate more compute and time during inference to improve model performance.\n\nThis idea has been around for a long time, and one can think of ensemble methods in classic machine learning as an early example of inference-time scaling. I.e., using multiple models requires more compute resources but can give better results.\n\n​Even in LLM contexts, this idea has been around for a long time. However, I remember it became particularly popular (again) when OpenAI showed an inference-time scaling and training plot in one of their o1 announcement blog articles last year ([Learning to Reason with LLMs](https://openai.com/index/learning-to-reason-with-llms/)).\n\n*Figure 1: Spending additional resources during inference (left) and training (right) generally improves the model’s accuracy.*\n\nI think this figure, adapted from OpenAI’s [blog post](https://openai.com/index/learning-to-reason-with-llms/), nicely captures the idea behind the two knobs we can use to improve LLMs. We can spend more resources during training (more data, bigger models, more or longer training stages) or inference.\n\nActually, in practice, it’s even better to do both at the same time: train a stronger model and use additional inference scaling to make it even better.\n\nIn this article, I only focus on the left part of the figure, inference-time scaling techniques, i.e., those training-free techniques that don’t change the model weights.\n\n## This post is for paid subscribers\n\n[Already a paid subscriber? **Sign in**](https://substack.com/sign-in?redirect=%2Fp%2Fcategories-of-inference-time-scaling&for_pub=sebastianraschka&change_user=false)\n\n© 2026 Raschka AI Research (RAIR) Lab LLC · [Privacy](https://substack.com/privacy) ∙ [Terms](https://substack.com/tos) ∙ [Collection notice](https://substack.com/ccpa#personal-data-collected)\n\n[Start your Substack](https://substack.com/signup?utm_source=substack&utm_medium=web&utm_content=footer)[Get the app](https://substack.com/app/app-store-redirect?utm_campaign=app-marketing&utm_content=web-footer-button)\n\n[Substack](https://substack.com) is the home for great culture",
+      "score": 0.37236878
+    },
+    {
+      "id": "S5",
+      "title": "LLM Training vs Inference Scaling: A Cost-Benefit Analysis | Sebastian Raschka, PhD posted on the topic | LinkedIn",
+      "url": "https://www.linkedin.com/posts/sebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8",
+      "content": "# LLM Training vs Inference Scaling: A Cost-Benefit Analysis\n\nThis title was summarized by AI from the post below.\n\n[Sebastian Raschka, PhD](https://www.linkedin.com/in/sebastianraschka?trk=public_post_feed-actor-name)  Sebastian Raschka, PhD is an Influencer\n\n* [Report this post](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_ellipsis-menu-semaphore-sign-in-redirect&guestReportContentType=POST&_f=guest-reporting)\n\nWhat should we focus on, (more) LLM training or inference scaling? (A question I got asked multiple times now, so here are some thoughts.) Training is usually very, very expensive, but it is a one-time cost. Inference-scaling is comparatively cheap, but it's a cost we pay at each query. Let's assume we have an LLM (or an LLM-powered application) that we want to improve 5% on a given benchmark or problem and do a simple thought experiment. Here are a few more assumptions: - We don't pass the extra cost for this improvement down to the customer. - We could either train the LLM longer for $5 million to achieve the 5%. - Or, for the same 5% improvement, we could pay $0.2 extra per query due to higher token usage. What strategy is better for our company? If you had to choose between the two, then it really depends on how many queries you (or the users) plan to run for the lifetime of that LLM. In this case, the break-even point is 5,000,000 dollars / 0.20 dollars per query = 25 million queries. For example, if each user runs 10 queries per day on average, we reach 25 million queries with about 25,000,000 / (10 per day) = 2.5 million user-days, which is roughly 7,000 daily active users for one year. If we have less than 7,000 daily users, or 7,000 users with less than 10 queries each day on average and plan to replace the LLM in about a year, then training is not worth it. Pro tip: You don't need to choose between the two, you can do both, more training and inference-scaling to get a >5% improvement :).\n\n\n\n[532](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_social-actions-reactions)   [34 Comments](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_social-actions-comments)\n\n[Like](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_like-cta)   [Comment](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment-cta)\n\n[Samta B.](https://www.linkedin.com/in/samtabalpande?trk=public_post_comment_actor-name)   3mo \n\n* [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_ellipsis-menu-semaphore-sign-in-redirect&guestReportContentType=COMMENT&_f=guest-reporting)\n\nTraining improvements usually compound across all tasks, while inference scaling only helps per query. So the breakeven math is right, but the value of training often grows with time and usage. In practice, most teams end up doing both — inference for quick gains, training for long-term lift.\n\n[Like](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_like) [Reply](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reply)  [2 Reactions](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reactions)   3 Reactions\n\n[Bernd Fondermann](https://de.linkedin.com/in/brainlounge?trk=public_post_comment_actor-name)   3mo \n\n* [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_ellipsis-menu-semaphore-sign-in-redirect&guestReportContentType=COMMENT&_f=guest-reporting)\n\nInteresting perspective. My simple, maybe naive, rule of thumb: 👉 If you can fulfill your use case by using a suitable model as-is and by only applying inference-time means (context engineering etc.) ➡️ don't train. 👉 But: If that can't be done, and the model itself lacks capabilities that can't be augmented at inference-time ➡️ see if training might fix it.\n\n[Like](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_like) [Reply](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reply)  [1 Reaction](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reactions)   2 Reactions\n\n[MOHAMED ALI Ahmed](https://fr.linkedin.com/in/ahmohamedali?trk=public_post_comment_actor-name)   3mo \n\n* [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_ellipsis-menu-semaphore-sign-in-redirect&guestReportContentType=COMMENT&_f=guest-reporting)\n\nGreat explanation of the trade-off between extra training and inference scaling. One nuance worth adding is that retraining is not a single fix. If multiple issues appear over time, you do not retrain once, you retrain multiple times, which multiplies the cost. Inference-time improvements, on the other hand, usually apply across many problem types without repeating the investment. This makes scaling the inference path the more flexible and often more economical strategy for most real-world workloads.\n\n[Like](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_like) [Reply](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reply)  [1 Reaction](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_reactions)   2 Reactions\n\n[Pavan Kumar Dubasi](https://in.linkedin.com/in/im-pavankumar?trk=public_post_comment_actor-name)   2mo \n\n* [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsebastianraschka_what-should-we-focus-on-more-llm-training-activity-7396584322155257856-XoR8&trk=public_post_comment_ellipsis-menu-semaphore-sign-in-redirect&guestReportContentType=COMME",
+      "score": 0.29597768
+    },
+    {
+      "id": "S6",
+      "title": "LLM Overthinking in Test-Time Scaling",
+      "url": "https://emergentmind.com/papers/2604.10739",
+      "content": "2000 character limit reached\n\n# When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\nPublished 12 Apr 2026 in cs.AI | (2604.10739v1)\n\n**Abstract:** Scaling test-time compute through extended chains of thought has become a dominant paradigm for improving LLM reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined. We systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit ``overthinking'', where extended reasoning is associated with abandoning previously correct answers. Furthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.\n\n[Abstract](https://arxiv.org/abs/2604.10739)   [PDF](https://arxiv.org/pdf/2604.10739)   [Upgrade to Chat](/pricing?utm_source=chat-button)\n\nAuthors (6)\n\n1. [Shu Zhou](#)\n2. [Rui Ling](#)\n3. [Junan Chen](#)\n4. [Xin Wang](#)\n5. [Tao Fan](#)\n6. [Hao Wang](#)\n\nRelated Papers\n\n1. [Do NOT Think That Much for 2+3=? On the Overthinking of o1-Like LLMs](/papers/2412.21187) (2024)\n2. [The Relationship Between Reasoning and Performance in Large Language Models -- o3 (mini) Thinks Harder, Not Longer](/papers/2502.15631) (2025)\n3. [Towards Thinking-Optimal Scaling of Test-Time Compute for LLM Reasoning](/papers/2502.18080) (2025)\n4. [Don't Overthink it. Preferring Shorter Thinking Chains for Improved LLM Reasoning](/papers/2505.17813) (2025)\n5. [Don't Think Longer, Think Wisely: Optimizing Thinking Dynamics for Large Reasoning Models](/papers/2505.21765) (2025)\n6. [Does Thinking More always Help? Understanding Test-Time Scaling in Reasoning Models](/papers/2506.04210) (2025)\n7. [Inverse Scaling in Test-Time Compute](/papers/2507.14417) (2025)\n8. [OptimalThinkingBench: Evaluating Over and Underthinking in LLMs](/papers/2508.13141) (2025)\n9. [Increasing the Thinking Budget is Not All You Need](/papers/2512.19585) (2025)\n10. [Think Deep, Not Just Long: Measuring LLM Reasoning Effort via Deep-Thinking Tokens](/papers/2602.13517) (2026)\n\n### Summary\n\n* The paper demonstrates that extended chain-of-thought reasoning initially improves accuracy but eventually leads to overthinking, causing negative marginal utility.\n* It introduces a marginal utility metric and flip event tracking to rigorously identify when additional reasoning tokens flip correct answers to incorrect ones.\n* The study proposes dynamic, cost-aware early stopping protocols to optimize compute allocation and maintain near-peak performance while reducing wastage.\n\n## Overthinking in LLM Test-Time Compute Scaling: Systematic Marginal Utility Analysis and Cost-Aware Evaluation\n\n## Introduction\n\nThe prevailing paradigm in LLM inference assumes a monotonic relationship between chain-of-thought (CoT) generation length and answer quality: more [extended reasoning](https://www.emergentmind.com/topics/extended-reasoning) is expected to yield higher accuracy, especially for complex tasks such as mathematical problem solving. However, this assumption lacks systematic scrutiny regarding marginal utility dynamics across compute budgets and neglects the possibility that \"overthinking\"—the state where additional reasoning degrades answer quality—may arise. This paper, \"When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\" (2604.10739), delivers the first rigorous, compute-aware empirical study of marginal utility in test-time CoT scaling, robustly evidencing and characterizing the overthinking phenomenon in state-of-the-art open-weight LLMs.\n\n## Marginal Utility and the Emergence of Overthinking\n\n[Test-time compute scaling](https://www.emergentmind.com/topics/test-time-compute-scaling) via CoT generation yields rapid accuracy gains at modest budgets but suffers from diminishing returns and, crucially, negative marginal utility at high budgets. The marginal utility metric MU(t), defined as the incremental accuracy change per additional 500 [reasoning tokens](https://www.emergentmind.com/topics/reasoning-tokens) at budget t, robustly captures this trend. For DeepSeek-R1-32B and s1-32B, marginal utility is initially highly positive (+3.2% and +2.8% per 500 tokens for R1 and s1, respectively, at low budgets), but sharply decays, becoming negative beyond ~12k tokens. Particularly, easier problem subsets reach negative marginal utility at much lower budgets than harder counterparts.\n\nFigure 1: Marginal utility as a function of compute budget; extended tokens yield negative returns on easier problems and for models more susceptible to overthinking.\n\nThe analysis crystallizes that additional compute quickly becomes wasteful or detrimental, invalidating the assumption of monotonic accuracy improvement with \"more thinking.\" Uniform budget allocation across tasks of varying difficulty is inherently suboptimal, highlighting the need for instance-adaptive compute allocation strategies.\n\n## Mechanistic Analysis: Flip Events and Error Trajectories\n\nTo probe the mechanism of overthinking at a granular level, the study introduces **flip event tracking**. Each answer transition between budget increments is categorized as a \"positive flip\" (incorrect→correct) or \"negative flip\" (correct→incorrect). Overfitting is directly evidenced when the rate of negative flips surpasses positives (\"flip ratio\" > 1). For R1-32B on AIME and GPQA-Diamond, this crossover occurs at 7k–10k tokens, and substantially earlier for easier instances. Manual qualitative evaluation revealed 67.5% of negative flips explicitly involve the model second-guessing and abandoning a previous correct answer after seemingly rational reconsideration.\n\nFigure 2: Flip event dynamics demonstrate that overthinking flips correct answers to incorrect at high compute budgets; the negative/positive flip ratio reliably signals the onset of detrimental overthinking.\n\nFigure 3: On [GPQA](https://www.emergentmind.com/topics/gpqa-google-proof-qa) Diamond, accuracy peaks and declines, while the flip ratio analysis reveals the underlying answer [instability](https://www.emergentmind.com/topics/instability-ins) introduced by excessive CoT length.\n\nFlip event analysis across models further shows model-specific susceptibility: for example, s1-32B consistently exhibits earlier and stronger overthinking effects than R1-32B, crossing the flip ratio threshold (>1) at approximately 5k tokens vs. 7k for R1.\n\nFigure 4: s1-32B demonstrates earlier onset and greater magnitude of overthinking events compared to R1-32B.\n\n## Difficulty-Conditioned and Naturalistic Validation\n\nDifficulty stratification on MATH-500 reveals that [optimal compute allocation](https://www.emergentmind.com/topics/optimal-compute-allocation) and the onset of negative marginal utility both scale with intrinsic instance hardness: Level 1 problems overthink almost immediately (>2k tokens), while Level 5 problems benefit from prolonged generation (up to 7.5k tokens). Notably, the findings are robust to generation artifacts: in unconstrained generations where models naturally chose long outputs, similar accuracy decay and answer revisions occur, ruling out experimental artifacts from forced budget capping.\n\nFigure 5: Difficulty-stratified analysis; the required thinking budget and the onset of diminishing returns vary dramatically with task complexity.\n\n## Indicators and Predictive Detection of Overthinking\n\nThe study identifies overthinking markers in the reasoning trace, including answer oscillations, hesitation language, and [confidence](https://www.emergentmind.com/topics/confidence) dynamics, each correlated with future negative flips. Answer oscillation, in particular, offers stron",
+      "score": 0.78473216
+    },
+    {
+      "id": "S7",
+      "title": "[論文評述] When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://www.themoonlight.io/tw/review/when-more-thinking-hurts-overthinking-in-llm-test-time-compute-scaling",
+      "content": "本頁面提供全球最準確、精煉的論文《When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling》摘要。透過 Moonlight 這款 AI 研究助手，您可以輕鬆快速地理解所閱讀的所有論文。透過 https://www.themoonlight.io/ 安裝 Chrome 擴充功能，或直接在網頁上傳檔案即可使用。Moonlight 針對您的需求提供以下功能： - 文本解釋： AI 幫助您輕鬆理解複雜概念和段落。 - 圖片解釋： 一鍵解釋圖片、表格和公式。 - AI 對話： 與 AI 互動，深入探討論文內容。 - 智慧引用： 無需跳轉參考文獻，即可查看引用論文的資訊（標題、作者、摘要）。 - 翻譯： 快速翻譯陌生的單字、句子，甚至整頁內容。 - 自動高亮： AI 自動突出論文核心內容，幫助您迅速掌握原創性、方法和結果。 - 外部連結解釋： AI 分析外部來源並解釋其與文檔的關聯性。 - 標記功能： 高亮重要句子並添加註釋，建立個性化的研究筆記。 - 儲存與分享： 將文檔儲存至個人庫中，便於分享。 - 學術深度搜尋： 根據已儲存的文檔推薦相關論文。\n\n# [論文評述] When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\nThe paper \"When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\" systematically investigates the marginal utility of extended reasoning in Large Language Models (LLMs) and identifies the phenomenon of \"overthinking,\" where increased computation can degrade performance.\n\nThe research challenges the prevailing assumption that longer chains of thought monotonically lead to better answers, proposing an analogy to the economic law of diminishing returns. It argues that while test-time compute scaling is effective, excessive reasoning can result in models abandoning previously correct answers, incurring unnecessary computational costs, and reducing accuracy.\n\nThe core methodology involves evaluating LLMs across a wide range of compute budgets, defined by the number of tokens in their reasoning trace, from 500 to 16000 tokens in 500-token increments. **Budget forcing** is employed to control reasoning length: \"Wait\" tokens are appended if the model attempts to conclude early, and an end-of-thinking delimiter is force-decoded once the budget is reached.\n\nKey metrics and analyses include:\n\n1. **Marginal Utility (MU):** Defined as the change in accuracy when increasing the budget from t to t+Δt: MU(t)=Acc(t+Δt)−Acc(t) where Acc(t) is the accuracy at budget t and Δt=500 tokens. A negative MU(t) indicates that additional thinking harms performance.\n2. **Flip Events:** For each problem xi​, the model's predicted answer y^​(t)i​ is tracked at each budget t. A flip event occurs when the predicted answer changes between consecutive budgets. These are categorized as:\n   * **Positive flip:** Incorrect → Correct (beneficial).\n   * **Negative flip:** Correct → Incorrect (harmful, indicating potential overthinking). The **flip ratio** at budget t is the ratio of negative flips to positive flips. A ratio greater than 1 suggests that extended thinking is more likely to be detrimental.\n3. **Overthinking Indicators:** The study monitors specific signals within the reasoning trace to identify overthinking, including:\n   * Hesitation markers (e.g., \"wait,\" \"let me reconsider\").\n   * Answer oscillation (number of times the intermediate conclusion changes).\n   * Confidence trajectory (how confidence changes).\n\nExperiments were conducted on DeepSeek-R1-32B and s1-32B models, using mathematical reasoning benchmarks (AIME 2024/2025, MATH-500 with difficulty ratings) and scientific reasoning (GPQA Diamond) for generalization. Models were run at temperature 0 for deterministic outputs, recording final answers, correctness, reasoning traces, and token-level log-probabilities for confidence.\n\nThe findings demonstrate significant insights:\n\n* **Diminishing Returns:** Marginal utility substantially decreases at higher compute budgets. For R1-32B on AIME, early tokens yield high gains (+3.2% per 500 tokens), but beyond 12K tokens, marginal utility turns negative.\n* **Overthinking Quantified:**\n  + On AIME, positive flips dominate at low budgets, but negative flips become more frequent beyond approximately 7K tokens, with the flip ratio exceeding 1.0. This crossover point for easier problems (MATH Level 1-2) is as low as 2K tokens, while harder problems (Level 5) benefit up to 8K tokens.\n  + Qualitative analysis of negative flip cases revealed that 67.5% constituted \"genuine overthinking,\" where models explicitly reconsidered and abandoned a correct answer.\n  + Statistical analysis confirmed the robustness of these findings, with flip ratios significantly exceeding 1.0 at higher budgets (e.g., 95% CI for 8K tokens: [1.21, 1.68]).\n  + s1-32B exhibited an earlier crossover point (~5K tokens) and a higher negative-to-positive flip ratio compared to R1-32B, indicating greater susceptibility to overthinking.\n* **Generalization:** The observed patterns of diminishing returns and overthinking generalized to scientific reasoning on GPQA Diamond, though with a slightly higher overthinking threshold (~10K tokens).\n* **Natural Reasoning Validation:** Analysis of natural long-reasoning samples (without budget forcing) confirmed that overthinking and accuracy degradation also occur in organic model behavior, indicating it's not an artifact of the budget forcing mechanism.\n* **Overthinking Indicators Effectiveness:** The proposed indicators effectively predicted negative flip events. Combined indicators achieved a Spearman correlation of 0.82 with negative flips and 76.3% precision at 80% recall, with answer oscillation being the strongest individual signal (r=0.78).\n* **Optimal Thinking Length Varies:** The optimal compute budget varies dramatically with problem difficulty, from 1.0K tokens for the easiest problems to 7.5K for the hardest, implying that uniform compute allocation is suboptimal.\n\nTo address the practical implications of these findings, the paper introduces a **cost-aware evaluation framework** using a utility function: Uλ​(t)=Acc(t)−λ⋅tmax​t​ where Acc(t) is accuracy at budget t, tmax​ is the maximum budget, and λ≥0 controls cost sensitivity.\n\n* For λ=0 (cost-agnostic), the optimal strategy is to compute up to peak accuracy.\n* As λ increases (e.g., λ=0.5 for cost-balanced, λ=1.0 for cost-sensitive), the optimal budget shifts dramatically lower. For λ=0.5, stopping at ~6K tokens yields ~50% compute reduction with only ~6% accuracy loss.\n* The study validates that indicator-based early stopping can achieve 97% of peak accuracy using only 60% of the compute required for peak performance.\n\nThe paper concludes by advocating for the reporting of **efficiency frontiers** alongside traditional accuracy curves in future research, to better capture the accuracy-compute trade-off. It highlights the positive ethical implications of reducing unnecessary energy consumption by identifying overthinking behaviors.\n\n[![Moonlight Logo](/images/moonlight-logo.png)](/)\n\n[Terms of Use](/terms-of-use)[Privacy Policy](/policy)[Medium](https://medium.com/corca)[GitHub](https://github.com/corca-ai)[LinkedIn](https://www.linkedin.com/company/corca-ai)[Email](mailto:moonlight@corca.ai)\n\nCorca, Inc. / CEO Younghyun Chung / Business Registration Number 271-86-02206\n\n6F, 11-8 Teheran-ro 77-gil, Gangnam-gu, Seoul, Republic of Korea, 06159\n\nContact 02-6925-6978 E-mail: moonlight@corca.ai\n\n© 2026 Corca, Inc. All rights reserved.",
+      "score": 0.76972175
+    },
+    {
+      "id": "S8",
+      "title": "Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://www.themoonlight.io/en/review/when-more-thinking-hurts-overthinking-in-llm-test-time-compute-scaling",
+      "content": "This page provides the most accurate and concise summary worldwide for the paper titled When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling. With Moonlight, your AI research colleague, you can effortlessly and quickly grasp all the papers you read. Install the Chrome extension from https://www.themoonlight.io/ or directly upload files on the web. Moonlight offers features tailored to your needs: - Text Explanation: AI simplifies complex concepts and paragraphs. - Image Explanation: One-click explanations of images, tables, and formulas. - AI Chat: Engage with AI to dive deeper into paper discussions. - Smart Citations: Instantly view information (title, author, summary) of cited papers without scrolling to the References. - Translation: Quickly translate unfamiliar words, sentences, or the entire page. - Auto Highlight: AI highlights key points automatically, helping you identify originality, methods, and results swiftly. - External Link Explanation: AI analyzes external sources and explains their relevance to your document. - Markup: Highlight important sentences and annotate to create personalized research notes. - Save and Share: Store documents in your library and easily share them. - Scholar Deep Search: Receive recommendations of relevant papers based on your stored documents.\n\n# [Literature Review] When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\nThe paper \"When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\" systematically investigates the marginal utility of extended reasoning in Large Language Models (LLMs) and identifies the phenomenon of \"overthinking,\" where increased computation can degrade performance.\n\nThe research challenges the prevailing assumption that longer chains of thought monotonically lead to better answers, proposing an analogy to the economic law of diminishing returns. It argues that while test-time compute scaling is effective, excessive reasoning can result in models abandoning previously correct answers, incurring unnecessary computational costs, and reducing accuracy.\n\nThe core methodology involves evaluating LLMs across a wide range of compute budgets, defined by the number of tokens in their reasoning trace, from 500 to 16000 tokens in 500-token increments. **Budget forcing** is employed to control reasoning length: \"Wait\" tokens are appended if the model attempts to conclude early, and an end-of-thinking delimiter is force-decoded once the budget is reached.\n\nKey metrics and analyses include:\n\n1. **Marginal Utility (MU):** Defined as the change in accuracy when increasing the budget from t to t+Δt: MU(t)=Acc(t+Δt)−Acc(t) where Acc(t) is the accuracy at budget t and Δt=500 tokens. A negative MU(t) indicates that additional thinking harms performance.\n2. **Flip Events:** For each problem xi​, the model's predicted answer y^​(t)i​ is tracked at each budget t. A flip event occurs when the predicted answer changes between consecutive budgets. These are categorized as:\n   * **Positive flip:** Incorrect → Correct (beneficial).\n   * **Negative flip:** Correct → Incorrect (harmful, indicating potential overthinking). The **flip ratio** at budget t is the ratio of negative flips to positive flips. A ratio greater than 1 suggests that extended thinking is more likely to be detrimental.\n3. **Overthinking Indicators:** The study monitors specific signals within the reasoning trace to identify overthinking, including:\n   * Hesitation markers (e.g., \"wait,\" \"let me reconsider\").\n   * Answer oscillation (number of times the intermediate conclusion changes).\n   * Confidence trajectory (how confidence changes).\n\nExperiments were conducted on DeepSeek-R1-32B and s1-32B models, using mathematical reasoning benchmarks (AIME 2024/2025, MATH-500 with difficulty ratings) and scientific reasoning (GPQA Diamond) for generalization. Models were run at temperature 0 for deterministic outputs, recording final answers, correctness, reasoning traces, and token-level log-probabilities for confidence.\n\nThe findings demonstrate significant insights:\n\n* **Diminishing Returns:** Marginal utility substantially decreases at higher compute budgets. For R1-32B on AIME, early tokens yield high gains (+3.2% per 500 tokens), but beyond 12K tokens, marginal utility turns negative.\n* **Overthinking Quantified:**\n  + On AIME, positive flips dominate at low budgets, but negative flips become more frequent beyond approximately 7K tokens, with the flip ratio exceeding 1.0. This crossover point for easier problems (MATH Level 1-2) is as low as 2K tokens, while harder problems (Level 5) benefit up to 8K tokens.\n  + Qualitative analysis of negative flip cases revealed that 67.5% constituted \"genuine overthinking,\" where models explicitly reconsidered and abandoned a correct answer.\n  + Statistical analysis confirmed the robustness of these findings, with flip ratios significantly exceeding 1.0 at higher budgets (e.g., 95% CI for 8K tokens: [1.21, 1.68]).\n  + s1-32B exhibited an earlier crossover point (~5K tokens) and a higher negative-to-positive flip ratio compared to R1-32B, indicating greater susceptibility to overthinking.\n* **Generalization:** The observed patterns of diminishing returns and overthinking generalized to scientific reasoning on GPQA Diamond, though with a slightly higher overthinking threshold (~10K tokens).\n* **Natural Reasoning Validation:** Analysis of natural long-reasoning samples (without budget forcing) confirmed that overthinking and accuracy degradation also occur in organic model behavior, indicating it's not an artifact of the budget forcing mechanism.\n* **Overthinking Indicators Effectiveness:** The proposed indicators effectively predicted negative flip events. Combined indicators achieved a Spearman correlation of 0.82 with negative flips and 76.3% precision at 80% recall, with answer oscillation being the strongest individual signal (r=0.78).\n* **Optimal Thinking Length Varies:** The optimal compute budget varies dramatically with problem difficulty, from 1.0K tokens for the easiest problems to 7.5K for the hardest, implying that uniform compute allocation is suboptimal.\n\nTo address the practical implications of these findings, the paper introduces a **cost-aware evaluation framework** using a utility function: Uλ​(t)=Acc(t)−λ⋅tmax​t​ where Acc(t) is accuracy at budget t, tmax​ is the maximum budget, and λ≥0 controls cost sensitivity.\n\n* For λ=0 (cost-agnostic), the optimal strategy is to compute up to peak accuracy.\n* As λ increases (e.g., λ=0.5 for cost-balanced, λ=1.0 for cost-sensitive), the optimal budget shifts dramatically lower. For λ=0.5, stopping at ~6K tokens yields ~50% compute reduction with only ~6% accuracy loss.\n* The study validates that indicator-based early stopping can achieve 97% of peak accuracy using only 60% of the compute required for peak performance.\n\nThe paper concludes by advocating for the reporting of **efficiency frontiers** alongside traditional accuracy curves in future research, to better capture the accuracy-compute trade-off. It highlights the positive ethical implications of reducing unnecessary energy consumption by identifying overthinking behaviors.\n\n[![Moonlight Logo](/images/moonlight-logo.png)](/)\n\n[Terms of Use](/terms-of-use)[Privacy Policy](/policy)[Medium](https://medium.com/corca)[GitHub](https://github.com/corca-ai)[LinkedIn](https://www.linkedin.com/company/corca-ai)[Email](mailto:moonlight@corca.ai)\n\nCorca, Inc. / CEO Younghyun Chung / Business Registration Number 271-86-02206\n\n6F, 11-8 Teheran-ro 77-gil, Gangnam-gu, Seoul, Republic of Korea, 06159\n\nContact 02-6925-6978 E-mail: moonlight@corca.ai\n\n© 2026 Corca, Inc. All rights reserved.",
+      "score": 0.76596165
+    },
+    {
+      "id": "S9",
+      "title": "[Literature Review] When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://www.themoonlight.io/review/when-more-thinking-hurts-overthinking-in-llm-test-time-compute-scaling",
+      "content": "This page provides the most accurate and concise summary worldwide for the paper titled When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling. With Moonlight, your AI research colleague, you can effortlessly and quickly grasp all the papers you read. Install the Chrome extension from https://www.themoonlight.io/ or directly upload files on the web. Moonlight offers features tailored to your needs: - Text Explanation: AI simplifies complex concepts and paragraphs. - Image Explanation: One-click explanations of images, tables, and formulas. - AI Chat: Engage with AI to dive deeper into paper discussions. - Smart Citations: Instantly view information (title, author, summary) of cited papers without scrolling to the References. - Translation: Quickly translate unfamiliar words, sentences, or the entire page. - Auto Highlight: AI highlights key points automatically, helping you identify originality, methods, and results swiftly. - External Link Explanation: AI analyzes external sources and explains their relevance to your document. - Markup: Highlight important sentences and annotate to create personalized research notes. - Save and Share: Store documents in your library and easily share them. - Scholar Deep Search: Receive recommendations of relevant papers based on your stored documents.\n\n# [Literature Review] When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\nThe paper \"When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\" systematically investigates the marginal utility of extended reasoning in Large Language Models (LLMs) and identifies the phenomenon of \"overthinking,\" where increased computation can degrade performance.\n\nThe research challenges the prevailing assumption that longer chains of thought monotonically lead to better answers, proposing an analogy to the economic law of diminishing returns. It argues that while test-time compute scaling is effective, excessive reasoning can result in models abandoning previously correct answers, incurring unnecessary computational costs, and reducing accuracy.\n\nThe core methodology involves evaluating LLMs across a wide range of compute budgets, defined by the number of tokens in their reasoning trace, from 500 to 16000 tokens in 500-token increments. **Budget forcing** is employed to control reasoning length: \"Wait\" tokens are appended if the model attempts to conclude early, and an end-of-thinking delimiter is force-decoded once the budget is reached.\n\nKey metrics and analyses include:\n\n1. **Marginal Utility (MU):** Defined as the change in accuracy when increasing the budget from t to t+Δt: MU(t)=Acc(t+Δt)−Acc(t) where Acc(t) is the accuracy at budget t and Δt=500 tokens. A negative MU(t) indicates that additional thinking harms performance.\n2. **Flip Events:** For each problem xi​, the model's predicted answer y^​(t)i​ is tracked at each budget t. A flip event occurs when the predicted answer changes between consecutive budgets. These are categorized as:\n   * **Positive flip:** Incorrect → Correct (beneficial).\n   * **Negative flip:** Correct → Incorrect (harmful, indicating potential overthinking). The **flip ratio** at budget t is the ratio of negative flips to positive flips. A ratio greater than 1 suggests that extended thinking is more likely to be detrimental.\n3. **Overthinking Indicators:** The study monitors specific signals within the reasoning trace to identify overthinking, including:\n   * Hesitation markers (e.g., \"wait,\" \"let me reconsider\").\n   * Answer oscillation (number of times the intermediate conclusion changes).\n   * Confidence trajectory (how confidence changes).\n\nExperiments were conducted on DeepSeek-R1-32B and s1-32B models, using mathematical reasoning benchmarks (AIME 2024/2025, MATH-500 with difficulty ratings) and scientific reasoning (GPQA Diamond) for generalization. Models were run at temperature 0 for deterministic outputs, recording final answers, correctness, reasoning traces, and token-level log-probabilities for confidence.\n\nThe findings demonstrate significant insights:\n\n* **Diminishing Returns:** Marginal utility substantially decreases at higher compute budgets. For R1-32B on AIME, early tokens yield high gains (+3.2% per 500 tokens), but beyond 12K tokens, marginal utility turns negative.\n* **Overthinking Quantified:**\n  + On AIME, positive flips dominate at low budgets, but negative flips become more frequent beyond approximately 7K tokens, with the flip ratio exceeding 1.0. This crossover point for easier problems (MATH Level 1-2) is as low as 2K tokens, while harder problems (Level 5) benefit up to 8K tokens.\n  + Qualitative analysis of negative flip cases revealed that 67.5% constituted \"genuine overthinking,\" where models explicitly reconsidered and abandoned a correct answer.\n  + Statistical analysis confirmed the robustness of these findings, with flip ratios significantly exceeding 1.0 at higher budgets (e.g., 95% CI for 8K tokens: [1.21, 1.68]).\n  + s1-32B exhibited an earlier crossover point (~5K tokens) and a higher negative-to-positive flip ratio compared to R1-32B, indicating greater susceptibility to overthinking.\n* **Generalization:** The observed patterns of diminishing returns and overthinking generalized to scientific reasoning on GPQA Diamond, though with a slightly higher overthinking threshold (~10K tokens).\n* **Natural Reasoning Validation:** Analysis of natural long-reasoning samples (without budget forcing) confirmed that overthinking and accuracy degradation also occur in organic model behavior, indicating it's not an artifact of the budget forcing mechanism.\n* **Overthinking Indicators Effectiveness:** The proposed indicators effectively predicted negative flip events. Combined indicators achieved a Spearman correlation of 0.82 with negative flips and 76.3% precision at 80% recall, with answer oscillation being the strongest individual signal (r=0.78).\n* **Optimal Thinking Length Varies:** The optimal compute budget varies dramatically with problem difficulty, from 1.0K tokens for the easiest problems to 7.5K for the hardest, implying that uniform compute allocation is suboptimal.\n\nTo address the practical implications of these findings, the paper introduces a **cost-aware evaluation framework** using a utility function: Uλ​(t)=Acc(t)−λ⋅tmax​t​ where Acc(t) is accuracy at budget t, tmax​ is the maximum budget, and λ≥0 controls cost sensitivity.\n\n* For λ=0 (cost-agnostic), the optimal strategy is to compute up to peak accuracy.\n* As λ increases (e.g., λ=0.5 for cost-balanced, λ=1.0 for cost-sensitive), the optimal budget shifts dramatically lower. For λ=0.5, stopping at ~6K tokens yields ~50% compute reduction with only ~6% accuracy loss.\n* The study validates that indicator-based early stopping can achieve 97% of peak accuracy using only 60% of the compute required for peak performance.\n\nThe paper concludes by advocating for the reporting of **efficiency frontiers** alongside traditional accuracy curves in future research, to better capture the accuracy-compute trade-off. It highlights the positive ethical implications of reducing unnecessary energy consumption by identifying overthinking behaviors.\n\n[![Moonlight Logo](/images/moonlight-logo.png)](/)\n\n[Terms of Use](/terms-of-use)[Privacy Policy](/policy)[Medium](https://medium.com/corca)[GitHub](https://github.com/corca-ai)[LinkedIn](https://www.linkedin.com/company/corca-ai)[Email](mailto:moonlight@corca.ai)\n\nCorca, Inc. / CEO Younghyun Chung / Business Registration Number 271-86-02206\n\n6F, 11-8 Teheran-ro 77-gil, Gangnam-gu, Seoul, Republic of Korea, 06159\n\nContact 02-6925-6978 E-mail: moonlight@corca.ai\n\n© 2026 Corca, Inc. All rights reserved.",
+      "score": 0.7636429
+    },
+    {
+      "id": "S10",
+      "title": "When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://arxiv.org/html/2604.10739",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\n###### Abstract\n\nScaling test-time compute through extended chains of thought has become a dominant paradigm for improving large language model reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined.\nWe systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit “overthinking”, where extended reasoning is associated with abandoning previously correct answers.\nFurthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.\n\n## 1 Introduction\n\nScaling inference-time compute through lengthy chains of thought has achieved remarkable success on mathematical reasoning benchmarks ([DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent work has established that test-time compute scaling can be more effective than model scaling for many tasks ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7)). The prevailing assumption in this line of research is straightforward: more thinking leads to better answers. Models are encouraged to reason longer, with performance curves consistently showing accuracy improvements as token budgets increase. Yet the assumption that thinking length and answer quality are monotonically related has never been systematically examined.\n\nWe challenge this assumption by drawing an analogy from economics: the law of diminishing marginal returns. Just as additional units of input eventually yield smaller increments of output, additional tokens of reasoning may provide progressively less benefit. More critically, extended thinking might even be harmful. A model could “overthink” a problem, second-guessing a correct initial intuition and ultimately arriving at a wrong answer ([Chen et al., 2024a](#bib.bib17)). This phenomenon would have significant implications for how we deploy and evaluate test-time scaling systems.\n\nUnderstanding when to stop thinking is practically important for two reasons. First, compute costs are substantial: generating 8,000 tokens costs 16×\\times more than generating 500 tokens. If much of this extended reasoning provides minimal benefit, resources are being wasted. Second, if overthinking degrades performance on certain problems, then adaptive stopping strategies could simultaneously reduce costs and improve accuracy.\n\nTo investigate these questions, we conduct a systematic study of marginal utility in test-time compute scaling. We evaluate models across a wide range of compute budgets, measuring not just final accuracy but the incremental benefit of additional reasoning. We track individual problems through their reasoning trajectories, identifying “flip events” where answers change from correct to incorrect. Based on these analyses, we characterize when overthinking occurs and explore early-stopping strategies. In summary, we:\n\nProvide a comprehensive analysis of marginal utility in test-time compute scaling, introducing flip event tracking to measure when extended reasoning helps versus hurts.\n\nIdentify and quantify the “overthinking” phenomenon, where extended reasoning is associated with models abandoning correct answers.\n\nIntroduce cost-aware evaluation metrics and propose that researchers report efficiency frontiers alongside accuracy curves.\n\n## 2 Related Work\n\n### 2.1 Test-Time Scaling\n\nScaling inference compute has emerged as a powerful paradigm complementing training-time scaling ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7); [Zhou et al., 2026](#bib.bib25)). Methods include searching over generations, sampling multiple completions, and training models to produce extended reasoning chains ([OpenAI, 2024](#bib.bib15); [DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent surveys have comprehensively examined the landscape of long chain-of-thought reasoning ([Chen et al., 2025](#bib.bib16); [Sui et al., 2025](#bib.bib13); [Zhou et al., 2025b](#bib.bib23); [Zhou and Zhou, 2025](#bib.bib26)). These works consistently report accuracy improvements with compute, but do not systematically examine marginal returns or the possibility of overthinking.\n\n### 2.2 Overthinking in LLMs\n\nRecent work has begun to identify the “overthinking” phenomenon in reasoning models. [Chen et al. (2024b)](#bib.bib11) first documented that o1-like models consume excessive tokens on simple problems with minimal accuracy benefit. [Wu et al. (2025b)](#bib.bib12) demonstrated that task accuracy follows an inverted U-shaped curve with chain-of-thought length. Several concurrent works examine related aspects: [Srivastava et al. (2025)](#bib.bib18) study accuracy-verbosity trade-offs on basic math tasks through an “overthinking score” metric; [Ghosal et al. (2025)](#bib.bib19) question test-time scaling effectiveness and propose parallel thinking as an alternative; [Lu et al. (2025)](#bib.bib24) survey adaptive test-time compute methods; and [Zhang et al. (2025)](#bib.bib20) use structural analysis tools to identify “over-verification” and “over-exploration” patterns. Our work complements these efforts by introducing flip event tracking to measure individual-problem answer changes, difficulty-stratified analysis revealing that easy problems overthink at 2K tokens versus 8K for hard problems, and a cost-aware evaluation framework with tunable λ\\lambda parameter for accuracy-compute trade-offs.\n\n### 2.3 Selective Prediction\n\nOur work connects to selective classification ([Geifman and El-Yaniv, 2017](#bib.bib4)) and selective question answering ([Kamath et al., 2020](#bib.bib5); [Zhou et al., 2025a](#bib.bib21); [Zhou et al., 2025c](#bib.bib22)), which allow models to abstain when uncertain. [Jurayj et al. (2025)](#bib.bib14) recently applied these ideas to test-time scaling, showing that confidence thresholds improve performance under risk. We extend this perspective by considering compute costs rather than response risks.\n\n### 2.4 Efficient Inference\n\nPrior work on efficient inference focuses on model compression, early exit ([Schwartz et al., 2020](#bib.bib9)), and speculative decoding ([Leviathan et al., 2023](#bib.bib8)). Our work suggests a complementary approach: adaptive reasoning length based on problem characteristics and overthinking detection.\n\n## 3 Methods\n\nWe investigate how the benefit of additional reasoning changes as compute budgets increase. Our analysis focuses on three aspects: marginal utility measurement, flip event detection, and overthinking indicators. We describe each below:\n\n### 3.1 Compute Budget\n\nFollowing [Muennighoff et al. (2025)](#bib.bib2), we quantify a model’s compute budget by the number of tokens in its reasoning trace. We use budget forcing to control reasoning length: we append “Wait” tokens if the model attempts to conclude early, and force-decode the end-of-thinking delimiter once the budget is reached. We evaluate budgets in the range [500,16000][500,16000] tokens, with increments of 500 tokens.\n\n### 3.2 Marginal Utility\n\nWe define the marginal utility at budget tt as the change in accuracy when increasing the budget from tt to t+Δ​tt+\\Delta t:\n\n|  |  |  |  |\n| --- | --- | --- | --- |\n|  | MU​(t)=Acc​(t+Δ​t)−Acc​(t)\\text{MU}(t)=\\text{Acc}(t+\\Delta t)-\\text{Acc}(t) |  | (1) |\n\nwhere Acc​(t)\\text{Acc}(t) denotes the accuracy at budget tt. We use Δ​t=500\\Delta ",
+      "score": 0.76279575
+    },
+    {
+      "id": "S11",
+      "title": "Scaling Test-Time Compute: A New Paradigm in LLM ...",
+      "url": "https://neurohive.io/en/state-of-the-art/scaling-test-time-compute-a-new-paradigm-in-llm-performance",
+      "content": "[Skip to content](#main)\n\n\n# Scaling Test-Time Compute: A New Paradigm in LLM Performance\n\n* + [State-of-the-Art](https://neurohive.io/en/state-of-the-art/)\n\n![search types](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nResearchers from UC Berkeley and Google DeepMind [published](https://arxiv.org/pdf/2408.03314) a groundbreaking paper titled *“Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters.”* This paper introduces a transformative perspective on how we improve large language models (LLMs). Instead of merely increasing model size, they argue that optimizing test-time compute leads to greater efficiency. The numbers tell the story — this approach results in more than **4× efficiency gains** compared to simply scaling model parameters, opening new possibilities for deploying smaller, yet powerful models in diverse applications.\n\n![Graphical Comparison of Test-Time Compute vs Model Scaling](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nGraphical Comparison of Test-Time Compute vs Model Scaling\n\n### Model Description and Key Insights\n\nIn the study, the researchers evaluated two key strategies for enhancing LLM performance during test-time: *dense verifier reward models* and *adaptive updates to response distributions*. Their tests focused on inference-time computation using the PaLM 2 models on the challenging MATH dataset. The results were clear: optimized test-time compute could lead to significant improvements. For example, using a compute-optimal strategy, the models achieved over **21.6% improvement in accuracy** in the test set compared to traditional methods such as best-of-N sampling.\n\nAnother critical finding showed that by scaling test-time compute efficiently, a smaller base model could outperform a model **14× larger** that didn’t utilize additional computation at test time. This demonstrates that test-time compute can be a more effective way to improve model performance than scaling the size of the model alone, particularly on tasks like reasoning and problem-solving.\n\n![Comparing PRM Search Methods by Difficulty Level](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nComparing PRM Search Methods by Difficulty Level\n\n### Evaluation and Comparison\n\nThe researchers tested their theories using the MATH dataset, consisting of 500 high-school level competition math problems. On easier problems, allowing the model to iteratively revise its responses led to accuracy improvements of **up to 27.8%**, while parallel sampling only showed marginal gains of **5.4%**. On more complex tasks, adaptive search techniques utilizing dense verifier models improved performance by **19.1%** compared to traditional methods.\n\nWhen comparing the test-time compute approach with larger models, it was found that the smaller model, when properly optimized for test-time compute, could reduce the FLOPs (floating-point operations per second) used during inference by **4×** while still delivering equivalent or superior results. This means that a smaller model using optimized test-time compute could perform similarly to a model that required **4×** the computational power for pretraining.\n\n![FLOPs Comparison Between Smaller and Larger Models]](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nFLOPs Comparison Between Smaller and Larger Models]\n\n### Evolution from Traditional Methods\n\nTraditional methods have long focused on scaling up model parameters during pretraining, which can be costly in terms of both computation and energy. However, this study shows that simply increasing the size of the model may not be the most efficient approach, especially for tasks that don’t require significant problem-solving capabilities. In fact, the researchers demonstrated that with easy and medium-difficulty tasks, additional test-time compute was **35% more effective** than scaling up pretraining.\n\nOn the most challenging tasks, however, the researchers found that pretraining was still essential. For problems outside the base model’s capabilities, scaling pretraining was **30.6% more effective** than relying solely on test-time compute.\n\n![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nSequential vs Parallel Sampling in Revision Models\n\n### Practical Applications\n\nThe results of this study suggest a significant shift in how we approach deploying LLMs in practical applications. By focusing on test-time compute, smaller models can achieve the same, if not better, performance compared to much larger models—at a fraction of the cost. This has substantial implications for industries that require LLM deployment in resource-constrained environments, such as mobile devices or edge computing. For instance, using this strategy, a **16-generation model** was able to outperform a **64-generation baseline**, resulting in a **4× reduction in compute** while maintaining performance levels.\n\nThis approach also provides a pathway for creating self-improving AI agents. These agents can dynamically allocate compute resources based on the difficulty of the task at hand, improving performance over time without the need for constant retraining.\n\n### Conclusion\n\nThe findings of this research highlight the potential for optimized test-time compute to revolutionize the development and deployment of LLMs. By strategically allocating computation at inference, smaller models can deliver performance previously thought to require much larger architectures. This offers a more sustainable, cost-effective, and powerful approach to AI development.\n\n[![bnr2mob](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://imp.i384100.net/c/7328847/1320998/14726)\n\nTagged in: [Deep Learning](https://neurohive.io/en/tag/deep-learning/)[LLM](https://neurohive.io/en/tag/llm/)[NLP](https://neurohive.io/en/tag/nlp-en/)\n\nПросмотров: 18142\n\nAuthor: [Konstantine Mozgovoy](https://neurohive.io/en/author/nerv/)\n\nSource: <https://arxiv.org/pdf/2408.03314>\n\nSubscribe\n\n0 Comments\n\nOldest\n\nNewest Most Voted\n\n### More from Neurohive\n\n[![abc-bench-pipeline-workflow](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/claude-sonnet-4-5-leads-on-comprehensive-backend-benchmark-outperforming-in-both-code-and-environment-configuration/)\n\n#### [Claude Sonnet 4.5 Leads on Comprehensive Backend Benchmark, Outperforming in Both Code and Environment Configuration](https://neurohive.io/en/state-of-the-art/claude-sonnet-4-5-leads-on-comprehensive-backend-benchmark-outperforming-in-both-code-and-environment-configuration/)\n\n[![Detecting Boilerplate Responses LLM](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/datasets/from-millions-spent-on-thank-you-to-efficient-inference-boilerplate-detection-in-a-single-token/)\n\n#### [From Millions Spent on “Thank You” to Efficient Inference: Boilerplate Detection in a Single Token](https://neurohive.io/en/datasets/from-millions-spent-on-thank-you-to-efficient-inference-boilerplate-detection-in-a-single-token/)\n\n[![How to choose a generative ai platform](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/guides/how-to-choose-a-generative-ai-platform/)\n\n#### [How To Choose A Generative AI Platform](https://neurohive.io/en/guides/how-to-choose-a-generative-ai-platform/)\n\n[![kimi k3](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/kimi-k3-review/)\n\n#### [Kimi K3 Review: Moonshot AI’s Architecture, Benchmarks, Open Weights, and Fable 5 Comparison](https://neurohive.io/en/state-of-the-art/kimi-k3-review/)\n\n[![TurboVLA model robot munipulation](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/turbovla-rob",
+      "score": 0.50944775
+    },
+    {
+      "id": "S12",
+      "title": "Scaling LLM Test Time Compute",
+      "url": "https://www.jonvet.com/blog/llm-test-time-compute",
+      "content": "[engineering notes](/)\n\n[Blog](/blog)[Tools](/tools)[About](/about)\n\n\n\n[Subscribe](/subscribe)\n\nPublished on\n\n# Scaling LLM Test Time Compute\n\nAuthors\n:   * ![avatar](/_next/image?url=%2Fstatic%2Fimages%2Fme.png&w=96&q=75)\n\n      Name\n      :   Jonas Vetterle\n\n      Twitter\n      :   [@jvetterle](https://twitter.com/jvetterle)\n\nIn recent months, several AI labs have released models that make use of an additional amount of compute at *test time*. Examples include OpenAI's o1 and Google's Gemini Flash 2.0, and most recently OpenAI's o3 (announced for 2025) whose performance on challenging datasets like [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) and [FrontierMath](https://epoch.ai/frontiermath) has been nothing short of impressive.\n\nAlthough it's not fully clear how closed-source models like the above work under the hood, what they have in common is that they're no longer just generating a response straightaway. Instead, these models can spend an additional arbitrary amount of time and compute refining their response, which leads to better performance on reasoning tasks like solving math problems.\n\nThis is exciting, because it seems like there is a new scaling law at play. In addition to training LLMs on more data and for more steps (that's the [pre-training Scaling Laws](/blog/llm-scaling-laws) we all know and love, but have started to show signs of [diminishing returns](/blog/llm-scaling-in-2025)), we can also throw more compute at a problem at *inference* time - \"letting models think\" - and get better performance.\n\n![scaling_laws](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fscaling_laws.png&w=2048&q=75)[OpenAI 2024](https://openai.com/index/learning-to-reason-with-llms/)\n\nWhat's behind this progress? It's a combination of many things: new and old techniques from the Reinforcement Learning field being applied to LLM training, bigger and better data sets with human annotations, methods that are easier to scale because remove the need for human annotations, and the list goes on.\n\nThis blog post should be seen as a snapshot in time, as the field is moving very fast. Consider it a literature review, which doesn't aim to be exhaustive, but gives an overview of interesting papers on test-time compute for LLMs.\n\n## What is test-time compute?\n\nTest time compute refers to the amount of compute that is used to generate completions from a language model (LLM) at test or inference time. This is in contrast to (pre- or post-) training compute, which is the amount of compute used to train the model on a large corpus of data.\n\nAs of 2025, test-time compute is widely considered to be one of the likely key drivers of performance improvements in LLMs, as we're running into data bottlenecks and diminishing returns from the original [pre-training LLM Scaling Laws](/blog/llm-scaling-laws).\n\nTest-time compute can refer to many things: creating chains of thought, revising answers, using external verifiers, backtracking, sampling multiple times and selecting the best answer and so on.\n\nWhat all of these have in common is that they require more compute than just generating a single completion. In that sense, models like OpenAI's o1, o3 and Gemini 2.0 Flash (all of which use test-time compute) represent a different paradigm than the models that came before them.\n\n## Reasons to scale test-time compute\n\nPerhaps the most obvious reason to scale test-time compute is because it can lead to better performance, at least in certain domains.\n\nConsider for example the fact that o3 has achieved the highest score yet of any LLM on the notoriously difficult (for machines) [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) dataset. Or the fact that o3 achieved 25% on the [FrontierMath](https://epoch.ai/frontiermath) dataset, which is even more challenging and out of reach for any other model before o3.\n\n![kaplan](/_next/image?url=%2Fstatic%2Fimages%2Fllm-scaling-in-2025%2Fo-series-performance.jpg&w=1920&q=75)[Arc Prize website](https://arcprize.org/blog/oai-o3-pub-breakthrough)\n\nBut that's not the only reason to scale test-time compute. For example, we know that LLMs often give wrong answers or hallucinate. Letting LLMs \"think\" for longer and revise their answers can help mitigate this.\n\nAnother reason is that training and inference time compute can be traded off to a certain extent. So under certain circumstances it might be more cost-effective to use a smaller model and more test-time compute than a larger model and less test-time compute. Or maybe you just want to reduce the size of a model so that it can fit on smaller devices, while maintaining the same level of performance.\n\n## Categories of test-time compute scaling methods\n\nThere are different ways of categorizing test-time compute scaling methods. I like the categorisation in this paper by Snell et al. (2024) [[6]](#snell_2024) which unifies different approaches of test time compute and runs extensive experiments to determine a compute-optimal scaling strategy. Broadly speaking there are two main ways to improve the quality of LLM completions:\n\n* **At the input level: Modify the prompt in order to get better completions.** In other words, we modify the proposal distribution, i.e. the distribution from which different LLM completions are sampled\n* **At the output level: Sample multiple candidate completions and pick the best one or modify them in some way**\n\nViewed through this lense, the question of what exactly we are scaling at test time is broken down into a **Proposer** and a **Verifier**. The Proposer is an LLM that generates multiple candidate completions and the Verifier is another model that scores each one and picks the best.\n\n## LLM Proposal Distribution Optimization\n\nMethods in this category aim to improve inference time performance of LLMs by modifying the distribution from which completions are sampled. This is either achieved by\n\n* prompting off-the-shelf LLMs in a way that guides them towards better completions\n* or by fine-tuning LLMs, i.e. rather than using in-context learning, modifying the model parameters to improve completions.\n\n### Using off-the-shelf LLMs\n\nMethods that fall into this category don't require any fine-tuning of the LLM, they just work with off-the-shelf models. Most of LLM practitioners have probably put a *\"Take a deep breath and think through it step by step\"* at the end of their prompt and seen that it helps. I certainly have, and it's been a simple hack to get a bit of extra performance. Alternatively, just breaking up your prompt into smaller parts or asking the LLM to revise its answer can also help. Creating Chain-Of-Thought prompts is another way to guide the LLM to think through a problem step by step: letting it generate intermediate completions sequentially and then using them as input for the next step.\n\nThere is a lot of literature on this topic. For example, Saunders et al. (2022) [[4]](#saunders_2022) introduce the concept of **self-critique** which means that\n\n* a model generates an answer to a question\n* it then a model generates a critique of that answer\n* and both answer and critique are given again to the model to generate a refined answer\n\nPerhaps surprisingly, this method leads to better performance for sufficiently large models. The author argue that this is because it is easier to spot errors in an answer than to avoid them in the first place, which sounds plausible to me!\n\nMadaan et al. (2023) [[3]](#madaan_2023) take a very similar approach, and let the model provide feedback and refine its own completions iteratively until a stopping criterion is met.\n\n![self_refine](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fself_refine.png&w=2048&q=75)[Madaan et al. 2023](https://arxiv.org/pdf/2303.17651)\n\n### Fine-tuning LLMs\n\nWhile using off-the-shelf LLMs is nice because it allows anyone to use these techniques, even if they just have access to closed-source models behind APIs, fine-tuning an LLMs to refine their answers c",
+      "score": 0.5040288
+    },
+    {
+      "id": "S13",
+      "title": "Ranking Reasoning LLMs under Test-Time Scaling - ACL Anthology",
+      "url": "https://aclanthology.org/2026.acl-long.1544",
+      "content": "## [Ranking Reasoning LLMs under Test-Time Scaling](https://aclanthology.org/2026.acl-long.1544.pdf)\n\n[Mohsen Hariri](/people/mohsen-hariri/), [Michael Hinczewski](/people/michael-hinczewski/), [Jing Ma](/people/jing-ma/), [Vipin Chaudhary](/people/vipin-chaudhary/)\n\n##### Correct Metadata for\n\n---\n\n##### Abstract\n\nTest-time scaling evaluates reasoning LLMs by sampling multiple outputs per prompt, but ranking models in this regime remains underexplored. We formalize dense benchmark ranking under test-time scaling and introduce Scorio, a library that implements statistical ranking methods such as paired-comparison models, item response theory (IRT) models, voting rules, and graph- and spectral-based methods. Across 20 reasoning models on four Olympiad-style math benchmarks (AIME’24, AIME’25, HMMT’25, and BrUMO’25; up to N = 80 trials), most full-trial rankings agree closely with the Bayesian gold standard Bayes\\_𝒰@80 (mean Kendall’s τ\\_b = 0.93–0.95), and 19–34 methods recover exactly the same ordering. In the single-trial regime, the best methods reach τ\\_b ≈ 0.86.Using greedy decoding as an empirical prior (Bayes\\_R₀@N) reduces variance at N = 1 by 16–52%, but can bias rankings when greedy and stochastic sampling disagree. These results identify reliable ranking methods for both high- and low-budget test-time scaling. We release Scorio as an open-source library at <https://github.com/mohsenhariri/scorio>.\n\nAnthology ID:\n:   2026.acl-long.1544\n\nVolume:\n:   [Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)](/volumes/2026.acl-long/)\n\nMonth:\n:   July\n\nYear:\n:   2026\n\nAddress:\n:   San Diego, California, United States\n\nEditors:\n:   [Maria Liakata](/people/maria-liakata/), [Viviane P. Moreira](/people/viviane-p-moreira/unverified/), [Jiajun Zhang](/people/jiajun-zhang/), [David Jurgens](/people/david-jurgens/)\n\nVenue:\n:   [ACL](/venues/acl/ \"Annual Meeting of the Association for Computational Linguistics\")\n\nSIG:\n\nPublisher:\n:   Association for Computational Linguistics\n\nNote:\n\nPages:\n:   33437–33478\n\nLanguage:\n\nURL:\n:   <https://aclanthology.org/2026.acl-long.1544/>\n\nDOI:\n:   [10.18653/v1/2026.acl-long.1544](https://doi.org/10.18653/v1/2026.acl-long.1544 \"To the current version of the paper by DOI\")\n\nBibkey:\n\nCite (ACL):\n:   Mohsen Hariri, Michael Hinczewski, Jing Ma, and Vipin Chaudhary. 2026. [Ranking Reasoning LLMs under Test-Time Scaling](https://aclanthology.org/2026.acl-long.1544/). In *Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)*, pages 33437–33478, San Diego, California, United States. Association for Computational Linguistics.\n\nCite (Informal):\n:   [Ranking Reasoning LLMs under Test-Time Scaling](https://aclanthology.org/2026.acl-long.1544/) (Hariri et al., ACL 2026)\n\nCopy Citation:\n\n\nPDF:\n:   <https://aclanthology.org/2026.acl-long.1544.pdf>\n\nChecklist:\n:   [2026.acl-long.1544.checklist.pdf](https://aclanthology.org/attachments/2026.acl-long.1544.checklist.pdf)\n\n[PDF](https://aclanthology.org/2026.acl-long.1544.pdf \"Open PDF of 'Ranking Reasoning LLMs under Test-Time Scaling'\") [Cite](# \"Open dialog for exporting citations\") [Search](https://www.semanticscholar.org/search?+q=Ranking+Reasoning+LLMs+under+Test-Time+Scaling \"Search for 'Ranking Reasoning LLMs under Test-Time Scaling' on Semantic Scholar\")  [Checklist](https://aclanthology.org/attachments/2026.acl-long.1544.checklist.pdf \"Open checklist for 'Ranking Reasoning LLMs under Test-Time Scaling'\")  [Fix data](# \"Correct problems with title, author list, and abstract\")\n\n---\n\n##### Export citation\n\n* [BibTeX](#citeBibtex)\n* [MODS XML](#citeMods)\n* [Endnote](#citeEndnote)\n* [Preformatted](#citeMarkdown)\n\n```\n@inproceedings{hariri-etal-2026-ranking, title = \"Ranking Reasoning {LLM}s under Test-Time Scaling\", author = \"Hariri, Mohsen and Hinczewski, Michael and Ma, Jing and Chaudhary, Vipin\", editor = \"Liakata, Maria and Moreira, Viviane P. and Zhang, Jiajun and Jurgens, David\", booktitle = \"Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)\", month = jul, year = \"2026\", address = \"San Diego, California, United States\", publisher = \"Association for Computational Linguistics\", url = \"https://aclanthology.org/2026.acl-long.1544/\", doi = \"10.18653/v1/2026.acl-long.1544\", pages = \"33437--33478\", ISBN = \"979-8-89176-390-6\", abstract = \"Test-time scaling evaluates reasoning LLMs by sampling multiple outputs per prompt, but ranking models in this regime remains underexplored. We formalize dense benchmark ranking under test-time scaling and introduce Scorio, a library that implements statistical ranking methods such as paired-comparison models, item response theory (IRT) models, voting rules, and graph- and spectral-based methods. Across 20 reasoning models on four Olympiad-style math benchmarks (AIME{'}24, AIME{'}25, HMMT{'}25, and BrUMO{'}25; up to N = 80 trials), most full-trial rankings agree closely with the Bayesian gold standard Bayes{\\_}{\\ensuremath{\\mathscr{U}}}@80 (mean Kendall{'}s {\\ensuremath{\\tau}}{\\_}b = 0.93{--}0.95), and 19{--}34 methods recover exactly the same ordering. In the single-trial regime, the best methods reach {\\ensuremath{\\tau}}{\\_}b {\\ensuremath{\\approx}} 0.86.Using greedy decoding as an empirical prior (Bayes{\\_}R{\\ensuremath{_0}}@N) reduces variance at N = 1 by 16{--}52{\\%}, but can bias rankings when greedy and stochastic sampling disagree. These results identify reliable ranking methods for both high- and low-budget test-time scaling. We release Scorio as an open-source library at \\url{https://github.com/mohsenhariri/scorio}.\" }\n```\n\nDownload as File\n\n```\n    Ranking Reasoning LLMs under Test-Time Scaling   Mohsen Hariri  author    Michael Hinczewski  author    Jing Ma  author    Vipin Chaudhary  author    2026-07  text   Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)   Maria Liakata  editor    Viviane P Moreira  editor    Jiajun Zhang  editor    David Jurgens  editor    Association for Computational Linguistics  San Diego, California, United States   conference publication 979-8-89176-390-6  Test-time scaling evaluates reasoning LLMs by sampling multiple outputs per prompt, but ranking models in this regime remains underexplored. We formalize dense benchmark ranking under test-time scaling and introduce Scorio, a library that implements statistical ranking methods such as paired-comparison models, item response theory (IRT) models, voting rules, and graph- and spectral-based methods. Across 20 reasoning models on four Olympiad-style math benchmarks (AIME’24, AIME’25, HMMT’25, and BrUMO’25; up to N = 80 trials), most full-trial rankings agree closely with the Bayesian gold standard Bayes_\\ensuremath\\mathscrU@80 (mean Kendall’s \\ensuremathτ_b = 0.93–0.95), and 19–34 methods recover exactly the same ordering. In the single-trial regime, the best methods reach \\ensuremathτ_b \\ensuremath\\approx 0.86.Using greedy decoding as an empirical prior (Bayes_R\\ensuremath₀@N) reduces variance at N = 1 by 16–52%, but can bias rankings when greedy and stochastic sampling disagree. These results identify reliable ranking methods for both high- and low-budget test-time scaling. We release Scorio as an open-source library at https://github.com/mohsenhariri/scorio. hariri-etal-2026-ranking 10.18653/v1/2026.acl-long.1544  https://aclanthology.org/2026.acl-long.1544/   2026-07  33437 33478     \n```\n\nDownload as File\n\n```\n%0 Conference Proceedings %T Ranking Reasoning LLMs under Test-Time Scaling %A Hariri, Mohsen %A Hinczewski, Michael %A Ma, Jing %A Chaudhary, Vipin %Y Liakata, Maria %Y Moreira, Viviane P. %Y Zhang, Jiajun %Y Jurgens, David %S Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) %D 2026 %8 July %I Association for Computational Linguistics %C San Diego, Cal",
+      "score": 0.49699774
+    }
+  ]
+}

@@ -1,0 +1,842 @@
+{
+  "evaluation_version": "evaluator-v0",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "coverage": {
+    "status": "COMPLETED",
+    "aspects": [
+      {
+        "id": "A1",
+        "description": "Assess the current state of inference-time compute scaling for LLM reasoning.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A2",
+        "description": "Separate claims and approaches that have been empirically validated from those that remain speculative.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A3",
+        "description": "Identify areas where the available evidence is too thin to support conclusions.",
+        "importance": "CORE"
+      }
+    ],
+    "judgments": [
+      {
+        "aspect_id": "A1",
+        "status": "COVERED",
+        "reason": "The report gives a qualified assessment of the field: extra inference computation improves reasoning in evaluated settings, but returns can diminish or reverse, and adaptive allocation remains unsettled.",
+        "report_evidence": "Findings 1–7 and the conclusion discuss longer traces, sampling, verification, search, refinement, difficulty dependence, overthinking, efficiency, and unresolved generality and economics."
+      },
+      {
+        "aspect_id": "A2",
+        "status": "COVERED",
+        "reason": "The report clearly distinguishes empirically supported results from promising but unestablished claims.",
+        "report_evidence": "It labels direct findings such as performance gains, diminishing returns, and difficulty-dependent effort as high-confidence, while treating adaptive stopping, strategy selection, efficiency comparisons, and transferability as promising or setup-specific."
+      },
+      {
+        "aspect_id": "A3",
+        "status": "COVERED",
+        "reason": "The report explicitly identifies multiple areas where evidence is insufficient for firm conclusions.",
+        "report_evidence": "The Remaining Gaps section notes thin evidence on matched-budget strategy comparisons, transfer beyond mathematical tasks, deployment economics, stopping-signal reliability, model and verifier dependence, independent replication, and compute-accounting robustness."
+      }
+    ],
+    "core_coverage_rate": 1.0,
+    "overall_coverage_rate": 1.0,
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "findings": [
+      {
+        "finding_id": "F1",
+        "claim": "Inference-time compute scaling has been empirically shown to improve reasoning performance in the evaluated settings.",
+        "cited_source_ids": [
+          "S1",
+          "S4",
+          "S6",
+          "S7",
+          "S9",
+          "S10",
+          "S11"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F1",
+            "source_id": "S1",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Describes prior empirical accuracy improvements with increased compute and reports a study of scaling, but also emphasizes diminishing returns and overthinking; the saved text does not establish improvement uniformly."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S4",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "States that inference-time scaling improves answer quality and accuracy, but the saved article is an overview and does not directly present detailed empirical evaluation evidence."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S6",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Reports experiments on MATH showing that compute-optimal test-time strategies improve performance and can outperform a much larger model in a FLOPs-matched evaluation."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S7",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Summarizes reported MATH experiments with accuracy improvements from iterative revision, adaptive search, and optimized test-time compute."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S9",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Presents the paper’s experimental findings that test-time compute improves outputs and can outperform a 14× larger model under stated conditions."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S10",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "States that studies found longer chains of thought can significantly improve complex reasoning, while also documenting that excessive scaling can impair performance in some domains."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S11",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Describes empirical plots in which accuracy or solve rate improves as test-time compute or the number of generated solutions increases."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "Multiple sources directly report empirical improvements from additional inference-time computation in specific evaluated settings, including MATH and other reasoning benchmarks. The evidence supports the claim as stated, while indicating that gains are conditional and can diminish or reverse with excessive compute."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The effect of additional reasoning compute is not reliably monotonic: marginal returns diminish, and excessive reasoning can reduce accuracy by replacing correct answers with incorrect ones.",
+        "cited_source_ids": [
+          "S1",
+          "S10",
+          "S4"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F2",
+            "source_id": "S1",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The source directly reports diminishing marginal returns, overthinking, and cases where extended reasoning causes models to abandon previously correct answers."
+          },
+          {
+            "finding_id": "F2",
+            "source_id": "S10",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "The source reports limited gains and impaired performance from excessively long reasoning, especially on easier tasks, and attributes this to erroneous steps, but does not directly document correct-to-incorrect answer flips or broadly establish diminishing marginal returns."
+          },
+          {
+            "finding_id": "F2",
+            "source_id": "S4",
+            "support_label": "UNSUPPORTED",
+            "reason": "The source generally describes additional inference resources as improving accuracy and does not directly test or document non-monotonic behavior, diminishing returns, or accuracy-reducing overthinking."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S1 directly supports the claim’s key components, while S10 provides additional evidence that excessive reasoning can impair performance; S4 is non-probative but does not outweigh the direct evidence."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The amount and type of reasoning compute that is most effective depend on problem difficulty, so uniform allocation can be inefficient.",
+        "cited_source_ids": [
+          "S1",
+          "S6",
+          "S10",
+          "S8",
+          "S9"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F3",
+            "source_id": "S1",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Directly states that optimal thinking length varies by problem difficulty and that uniform compute allocation is suboptimal, but does not directly establish that the type of reasoning compute varies by difficulty."
+          },
+          {
+            "finding_id": "F3",
+            "source_id": "S6",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "States that the effectiveness of different test-time compute strategies varies with prompt difficulty, with revision favored for easier problems and parallel sampling or tree search for harder ones, motivating adaptive allocation."
+          },
+          {
+            "finding_id": "F3",
+            "source_id": "S10",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "States that optimal reasoning effort varies across difficulty levels and that harder problems benefit from more thinking, but does not directly compare different types of reasoning compute."
+          },
+          {
+            "finding_id": "F3",
+            "source_id": "S8",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Explicitly describes difficulty-dependent strategy effectiveness, adaptive allocation, and different preferences for revisions, sampling, and search across easier and harder problems."
+          },
+          {
+            "finding_id": "F3",
+            "source_id": "S9",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Its abstract supports that strategy effectiveness varies with prompt difficulty and motivates adaptive allocation, but it does not clearly establish that the amount of compute itself varies with difficulty."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S6 and S8 directly support both components: effective compute strategy and allocation depend on problem difficulty, making uniform allocation potentially inefficient; S1 and S10 provide additional support for difficulty-dependent reasoning length."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "In the evaluated settings, stopping at moderate reasoning budgets can reduce computation while maintaining comparable accuracy.",
+        "cited_source_ids": [
+          "S1"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F4",
+            "source_id": "S1",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The source directly states that its cost-aware evaluation found stopping at moderate budgets can significantly reduce computation while maintaining comparable accuracy."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S1 directly supports the claim's key points about moderate-budget stopping, reduced computation, and comparable accuracy in the evaluated settings."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Adaptive stopping and adaptive selection among revision, sampling, and verifier-guided search are empirically promising, but general superiority over fixed-budget scaling has not been established.",
+        "cited_source_ids": [
+          "S1",
+          "S6",
+          "S10",
+          "S4",
+          "S8",
+          "S11"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F5",
+            "source_id": "S1",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Directly supports adaptive stopping, difficulty-dependent reasoning length, and efficiency gains, but does not address adaptive selection among revision, sampling, and verifier-guided search."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S6",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Directly reports difficulty-dependent selection among revision, sampling, and verifier-guided search, with empirical efficiency gains, while presenting results in evaluated settings rather than establishing universal superiority."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S10",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Supports variable reasoning effort, difficulty-dependent optimal lengths, and empirical gains, but does not directly compare adaptive selection across revision, sampling, and verifier-guided search."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S4",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Describes inference-scaling categories and claims improved accuracy from additional inference resources, but provides little direct evidence about adaptive stopping or the limits of superiority over fixed-budget scaling."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S8",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Directly describes difficulty-based adaptive strategy selection among revisions, sampling, and verifier-guided search, reports gains over a best-of-N baseline, and notes strategy tradeoffs and limitations."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S11",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Supports that inference strategies and compute allocation affect performance and that scaling can improve results, but does not directly establish adaptive stopping or the stated non-superiority conclusion."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "The cited set directly supports the empirical promise of adaptive stopping, variable effort, and difficulty-dependent selection among revision, sampling, and verifier-guided methods. It also supports the qualified nature of the evidence through setting-specific comparisons, strategy tradeoffs, and documented limitations, without establishing general superiority over fixed-budget scaling."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "A specific PaLM-2/MATH experiment reported more than 4x test-time compute efficiency relative to a best-of-N baseline and a FLOPs-matched case in which a smaller model using test-time compute outperformed a 14x larger model on a subset of problems.",
+        "cited_source_ids": [
+          "S6",
+          "S7",
+          "S8",
+          "S9"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F6",
+            "source_id": "S6",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The source directly reports more than 4× efficiency versus a best-of-N baseline and, in a FLOPs-matched evaluation, test-time compute outperforming a 14× larger model; it also identifies PaLM-2 models and the MATH benchmark."
+          },
+          {
+            "finding_id": "F6",
+            "source_id": "S7",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "It supports the PaLM-2/MATH context and mentions more than 4× efficiency and a smaller model outperforming a 14× larger model, but it does not precisely state the best-of-N comparison or the claim’s subset condition and includes differing comparison details."
+          },
+          {
+            "finding_id": "F6",
+            "source_id": "S8",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "It supports compute-optimal scaling outperforming best-of-N with substantial efficiency gains, but only says up to a 4× reduction and does not provide the 14× larger-model FLOPs-matched result or the PaLM-2/MATH-specific claim."
+          },
+          {
+            "finding_id": "F6",
+            "source_id": "S9",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The reproduced abstract directly states more than 4× efficiency versus a best-of-N baseline and the FLOPs-matched result in which test-time compute outperforms a 14× larger model on problems where the smaller model has non-trivial success rates."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S6 directly supports all material elements of the claim, and S9 independently reproduces the same two results; the secondary sources provide partial corroboration."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "A general compute-versus-training cost optimum or universal break-even point for inference-time scaling cannot currently be determined from the supplied evidence.",
+        "cited_source_ids": [
+          "S5"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F7",
+            "source_id": "S5",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The source presents a hypothetical break-even calculation and explicitly says the preferable strategy depends on query volume over the model's lifetime, using assumed training and per-query inference costs. This supports the claim that no general or universal optimum can be determined from the supplied evidence."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S5 directly supports the finding by showing that the break-even point is assumption-dependent rather than universal; the supplied evidence does not establish a general compute-versus-training optimum."
+      }
+    ],
+    "evaluated_findings": 7,
+    "findings_with_evidence": 7,
+    "findings_without_evidence": 0,
+    "citation_completeness_rate": 1.0,
+    "citation_support_rate": 1.0,
+    "fully_supported_count": 7,
+    "partially_supported_count": 0,
+    "unsupported_count": 0,
+    "contradicted_count": 0,
+    "error": null
+  },
+  "deterministic": {
+    "checks": [
+      {
+        "check_name": "question_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_finding",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_source",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_conclusion_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S11_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      }
+    ],
+    "passed_count": 102,
+    "failed_count": 0,
+    "all_passed": true
+  },
+  "evaluation_metadata": {
+    "evaluator_model": "gpt-5.6-luna",
+    "timestamp": "2026-08-30T22:36:22.865288+00:00"
+  }
+}

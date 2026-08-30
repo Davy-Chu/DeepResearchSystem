@@ -1,12 +1,17 @@
-# Deep Research Agent — Baseline Zero
+# Deep Research Agent — Baseline Zero and Evidence Ledger
 
 ## What this is
 
-This repository is a small end-to-end baseline for iterative web research. Given a question, it retrieves real web pages with Tavily, asks an OpenAI model to extract evidence-backed findings and identify important gaps, optionally performs a targeted follow-up search, and produces a final report, a human-readable research log, and a JSON research trace.
+This repository contains two selectable, comparable architectures for iterative web
+research. Both retrieve pages with Tavily, use OpenAI structured outputs, and produce a
+final report, human-readable log, reproducible machine trace, and Evaluator v0-compatible
+artifacts.
 
 The system favors an honest incomplete answer over unsupported completeness. It performs at most three searches.
 
-This repository currently represents the baseline-zero system, not the final take-home architecture.
+`baseline-zero` preserves the original combined analysis/decision loop.
+`evidence-ledger-v1` persists claims, evidence relationships, confidence, conflicts, and
+research gaps across iterations before making a separate research decision.
 
 ## Architecture
 
@@ -25,7 +30,25 @@ Need more research?
                    (at most 3 searches)
 ```
 
-The main loop is ordinary Python in `research/runner.py`. Tavily only retrieves pages; it does not generate answers. OpenAI's Responses API returns Pydantic-validated `IterationAnalysis` and `FinalReport` objects. Python then validates source references and renders Markdown deterministically.
+The Baseline Zero loop remains ordinary Python in `research/runner.py`.
+
+Evidence Ledger v1 uses this explicit flow:
+
+```text
+Question
+  → Tavily Search
+  → Evidence Processor
+  → Evidence Ledger and Research Gaps
+  → Research Decision
+      ├→ targeted search and repeat
+      └→ ledger-backed final report
+```
+
+Its orchestration lives in `research/ledger_runner.py`. The Evidence Processor updates
+knowledge but never chooses the next search. The separate decision component reads the
+structured ledger, open gaps, search history, and remaining budget without raw source
+content. Python assigns stable `C1...` claim IDs and `G1...` gap IDs, validates every
+state update, deduplicates evidence relationships, and renders artifacts.
 
 ## Requirements
 
@@ -80,8 +103,16 @@ connection, timeout, rate-limit, or server error.
 
 ## Running
 
+Baseline Zero remains the default, preserving existing commands:
+
 ```bash
 python main.py "your research question"
+```
+
+Run Evidence Ledger v1 explicitly:
+
+```bash
+python main.py "your research question" --mode ledger
 ```
 
 For example:
@@ -93,8 +124,10 @@ python main.py "What are the real-world risks and benefits of using synthetic da
 Progress, the stop reason, and artifact paths are printed to the terminal. Missing keys, retrieval failures, OpenAI failures, and malformed structured output cause a clear error and a non-zero exit.
 
 Run the command from the project root, where `main.py` and `.env` are located. A
-research run may perform up to three Tavily searches and four OpenAI requests (one
-analysis per search plus final report generation), so it may incur API usage or charges.
+Baseline Zero may perform up to three Tavily searches and four OpenAI requests. Evidence
+Ledger v1 may perform up to three Tavily searches, three evidence-processing requests,
+two model-based research decisions, and one final-report request. Either mode can incur
+API usage or charges.
 
 ## Evaluating a Saved Run
 
@@ -140,17 +173,19 @@ outputs/
 Each run directory contains:
 
 - `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
-- `research_log.md`: a human-readable chronological explanation of the searches, retrieved source metadata, evidence analysis, gaps, conflicts, decisions, and component timings.
-- `trace.json`: the machine-readable structured trace intended for debugging and future evaluation. It contains iteration decisions, queries, findings, conflicts, gaps, stop reason, model, the structured final report, source metadata, and the exact saved source text used by the agent.
+- `research_log.md`: a chronological explanation of searches, state updates, decisions, and timings. Ledger-mode logs explicitly show new and updated claims, confidence/status transitions, gap changes, and a state summary after every iteration.
+- `trace.json`: the machine-readable trace. It records `system_version`, decisions, stop reason, model, structured final report, and exact source snapshots. Ledger mode additionally preserves the full evidence ledger, evidence relationships, gap creation/resolution, and decision targets.
 
-The research log is organized for quick review:
+The Evidence Ledger research log is organized for quick review:
 
 ```text
 Run Summary
 Iteration 1
   Search and query reason
-  Evidence analysis
-  Continue/stop decision
+  Evidence processing
+  Ledger updates
+  Current research state
+  Research decision
 Iteration 2 (when needed)
   ...
 Final Research Decision
@@ -189,7 +224,7 @@ Research stops with one of four recorded reasons: `sufficient_evidence`, `max_it
 
 ## Current limitations
 
-Baseline zero:
+Both current architectures:
 
 - relies on a general web search provider;
 - does not independently score source credibility;
@@ -200,7 +235,9 @@ Baseline zero:
 - does not yet perform parallel subquestion research;
 - evaluates citation support with an LLM against saved source text, but does not perform
   independent internet fact-checking;
-- may miss contradictions;
+- rely on model judgment to interpret evidence and identify semantic claim updates;
+- do not use embeddings or an independent verifier;
+- may still miss contradictions or create semantically overlapping claims;
 - may be vulnerable to imperfect retrieval;
 - uses prompt-level protection against instructions embedded in webpages rather than a complete prompt-injection defense.
 

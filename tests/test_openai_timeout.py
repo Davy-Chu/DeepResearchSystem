@@ -7,6 +7,8 @@ import pytest
 import evaluation.citations as citations_module
 import evaluation.coverage as coverage_module
 import research.analyzer as analyzer_module
+import research.decision as decision_module
+import research.evidence_processor as processor_module
 import research.report as report_module
 from research.config import (
     DEFAULT_OPENAI_MAX_RETRIES,
@@ -34,6 +36,14 @@ from research.config import (
         (
             citations_module,
             lambda: citations_module.CitationEvaluator("test-key", "test-model"),
+        ),
+        (
+            processor_module,
+            lambda: processor_module.EvidenceProcessor("test-key", "test-model"),
+        ),
+        (
+            decision_module,
+            lambda: decision_module.ResearchDecisionMaker("test-key", "test-model"),
         ),
     ],
 )

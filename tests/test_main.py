@@ -2,7 +2,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 
-from main import _handle_incomplete_run
+from main import _handle_incomplete_run, build_parser
 from research.models import (
     Confidence,
     EvidenceItem,
@@ -13,6 +13,11 @@ from research.models import (
     Source,
 )
 from research.research_logger import ResearchLogger
+
+
+def test_research_mode_defaults_to_baseline_and_ledger_is_selectable() -> None:
+    assert build_parser().parse_args(["Question"]).mode == "baseline"
+    assert build_parser().parse_args(["Question", "--mode", "ledger"]).mode == "ledger"
 
 
 def test_failed_final_synthesis_saves_all_incomplete_artifacts() -> None:

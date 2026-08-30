@@ -1,0 +1,1494 @@
+{
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees-find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "evidence-ledger-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees-find the real fault lines and explain what accounts for the conflicting results.",
+    "summary": "This is an automatically generated incomplete report. The research run ended with stop reason `max_iterations`, and normal finalization did not complete during OpenAI Ledger Report Generation. The validated findings collected before that point are preserved below without claiming that the evidence is complete.",
+    "findings": [
+      {
+        "claim": "The effectiveness of generic chain-of-thought prompting is conditional rather than universal: in one reported GPQA Diamond study, it produced modest average gains for several non-reasoning models, but gains were mixed across accuracy thresholds and could increase answer variability.",
+        "evidence": [
+          {
+            "summary": "The report found average improvements for non-reasoning models ranging from 4.4% to 13.5%, while perfect-accuracy results were mixed and some models declined; it also reported increased variability.",
+            "source_ids": [
+              "S3"
+            ]
+          },
+          {
+            "summary": "Google Research reports that CoT benefits are not universal across model scales: gains emerged strongly for sufficiently large models, especially on arithmetic tasks, while smaller models did not show the same improvement.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "The guide reports that CoT is particularly beneficial for complex tasks and larger models, whereas smaller models may perform worse.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "The tutorial presents CoT as useful for complex multistep tasks while noting trade-offs such as longer responses, slower inference, and hallucinated reasoning; this is consistent with conditional rather than universal effectiveness.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The article differentiates CoT variants by task complexity, describing zero-shot CoT as suited to relatively simple tasks and few-shot or other structured variants as useful for more complex problems.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources reinforce task and prompting-condition dependence, but they are explanatory sources and do not add controlled results comparable to the GPQA evidence."
+      },
+      {
+        "claim": "For models with built-in reasoning capabilities, a generic instruction to think step by step may provide little additional accuracy and can impose substantial latency or token costs.",
+        "evidence": [
+          {
+            "summary": "On the tested reasoning models, average gains were small for o3-mini and o4-mini, performance decreased for Gemini Flash 2.5, and CoT increased response time by 20–80%.",
+            "source_ids": [
+              "S3"
+            ]
+          },
+          {
+            "summary": "The article describes reasoning models as using internally generated CoT after additional fine-tuning, implying that user-visible generic prompting is not the only route to eliciting reasoning; it does not directly measure marginal accuracy gains from such prompting.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "NVIDIA distinguishes ordinary models that need user prompts from test-time-scaling models that self-direct their reasoning, supporting the relevance of built-in reasoning capabilities to the marginal value of generic CoT.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "The tutorial explicitly identifies increased token generation, processing time, cost, and latency as trade-offs of CoT.",
+            "source_ids": [
+              "S8"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources sharpen the distinction between prompted CoT and internal/test-time reasoning and independently confirm cost trade-offs, but they remain non-controlled explanatory material and do not overturn the direct S3 evidence about limited marginal gains on tested reasoning models."
+      },
+      {
+        "claim": "Observed CoT gains can depend on the structure of the elicited reasoning process, not merely on requiring a longer verbal trace.",
+        "evidence": [
+          {
+            "summary": "The Hi-CoT report argues that hierarchical planning and execution improves average accuracy by 6.2% while reducing trace length by 13.9% relative to conventional CoT across reported models and mathematical benchmarks.",
+            "source_ids": [
+              "S1"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source directly reports a structured-CoT comparison and explicitly separates trace length from organization, but it is a single reported study and its results concern Hi-CoT rather than generic CoT alone."
+      },
+      {
+        "claim": "CoT-style demonstrations may sometimes function primarily as output-format guidance rather than as a reliable improvement to underlying reasoning quality, especially for modern LLMs; the supplied evidence does not establish this claim conclusively.",
+        "evidence": [
+          {
+            "summary": "In its related-work discussion, the source attributes to Cheng et al. (2025) the finding that CoT exemplars primarily enforce output format for modern LLMs.",
+            "source_ids": [
+              "S1"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The new sources add several explanatory accounts in which intermediate or hidden reasoning contributes to performance, but all are secondary or non-controlled and therefore do not resolve whether observed gains arise from reasoning, formatting, compliance, or additional computation."
+      },
+      {
+        "claim": "Benchmarking choices and evaluation thresholds can materially change the apparent effect of CoT.",
+        "evidence": [
+          {
+            "summary": "The study tested each question 25 times and reported separate complete-accuracy, high-accuracy, majority-correct, and average-rating metrics; effects differed across these metrics.",
+            "source_ids": [
+              "S3"
+            ]
+          },
+          {
+            "summary": "Google Research reports that CoT effects vary by task: improvements were substantial on arithmetic reasoning, smaller on several commonsense tasks, and especially large on sports understanding, indicating task-dependent apparent effectiveness.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "The guide summarizes different reported gains across arithmetic, commonsense, and symbolic-reasoning benchmarks, further indicating that benchmark choice affects the measured effect.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "The tutorial identifies arithmetic, logic, and multistep tasks as use cases and separately notes costs and hallucination risks, reinforcing that measured outcomes depend on task and evaluation dimensions.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The article describes different CoT variants, including zero-shot, few-shot, least-to-most, and self-consistency, with different intended task settings; this indicates that prompting format can affect apparent efficacy.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The new sources add further variation in prompting format and task suitability, although they do not provide quantitative controlled comparisons that would replace the direct evidence from S3 and S7."
+      },
+      {
+        "claim": "The reported early CoT literature identifies model scale as a major moderator: benefits were reported to emerge primarily for models around 100B parameters or larger, while smaller models could show little benefit or worse performance.",
+        "evidence": [
+          {
+            "summary": "Google Research reports that successful CoT reasoning was an emergent property of scale, with benefits materializing at approximately 100B parameters, and that smaller models did not obtain the same gains on the evaluated reasoning tasks.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "The guide summarizes the limitation that CoT gains were reported for models of roughly 100B parameters, while smaller models could produce illogical chains and perform worse than with standard prompting.",
+            "source_ids": [
+              "S6"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "S7 directly describes scale-dependent CoT results across arithmetic and commonsense evaluations; S6 independently summarizes the same moderator, though as a secondary educational source."
+      },
+      {
+        "claim": "The supplied explanatory sources distinguish externally prompted CoT from internally generated or test-time reasoning in models trained to reason, but they do not provide controlled evidence establishing the relative accuracy or marginal benefit of these approaches.",
+        "evidence": [
+          {
+            "summary": "The article describes a transition from user-prompted CoT to reasoning models that generate reasoning internally through additional fine-tuning and reinforcement learning.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "NVIDIA distinguishes models that require a user prompt to elicit step-by-step reasoning from test-time-scaling models that initiate and manage reasoning internally.",
+            "source_ids": [
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Both sources explicitly make the distinction, but neither supplies a controlled comparison of externally prompted and internally generated reasoning or isolates the marginal effect of a generic CoT instruction."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Evidence concerning ledger claim C2 is conflicting: For models with built-in reasoning capabilities, a generic instruction to think step by step may provide little additional accuracy and can impose substantial latency or token costs.",
+        "source_ids": [
+          "S3",
+          "S9",
+          "S10",
+          "S8",
+          "S5",
+          "S7",
+          "S6"
+        ]
+      },
+      {
+        "description": "Evidence concerning ledger claim C3 is conflicting: Observed CoT gains can depend on the structure of the elicited reasoning process, not merely on requiring a longer verbal trace.",
+        "source_ids": [
+          "S1"
+        ]
+      },
+      {
+        "description": "Evidence concerning ledger claim C4 is conflicting: CoT-style demonstrations may sometimes function primarily as output-format guidance rather than as a reliable improvement to underlying reasoning quality, especially for modern LLMs; the supplied evidence does not establish this claim conclusively.",
+        "source_ids": [
+          "S1",
+          "S2",
+          "S5",
+          "S7",
+          "S6",
+          "S8",
+          "S9",
+          "S10"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "Direct, controlled evidence is needed to distinguish genuine improvements in problem solving from gains caused by output formatting, answer extraction, or compliance with requested response structure.",
+      "It remains unclear which task properties, model training characteristics, and CoT variants determine whether generic CoT helps, harms, or has negligible effect.",
+      "The supplied evidence does not independently verify the cited Cheng et al. finding about CoT exemplars primarily enforcing output format.",
+      "It remains unresolved whether the large CoT gains reported in early large-model studies persist for current models with internal or explicitly trained reasoning mechanisms, and how much of any marginal gain is attributable to the prompt versus the model’s capabilities.",
+      "The supplied sources report scale and task moderators but do not jointly disentangle model scale, task complexity, prompting format, and use of tools such as external calculators as causes of the observed CoT gains."
+    ],
+    "conclusion": "The findings above reflect the evidence validated before the run ended. They should be treated as provisional because normal final synthesis did not complete and important gaps may remain."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees-find the real fault lines and explain what accounts for the conflicting results.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "The effectiveness of generic chain-of-thought prompting is conditional rather than universal: in one reported GPQA Diamond study, it produced modest average gains for several non-reasoning models, but gains were mixed across accuracy thresholds and could increase answer variability.",
+            "supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The report found average improvements for non-reasoning models ranging from 4.4% to 13.5%, while perfect-accuracy results were mixed and some models declined; it also reported increased variability.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S3 directly reports a multi-model evaluation, but the evidence is from one dataset and one study, so generality across tasks is uncertain.",
+            "status": "SUPPORTED"
+          },
+          {
+            "claim": "For models with built-in reasoning capabilities, a generic instruction to think step by step may provide little additional accuracy and can impose substantial latency or token costs.",
+            "supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "On the tested reasoning models, average gains were small for o3-mini and o4-mini, performance decreased for Gemini Flash 2.5, and CoT increased response time by 20–80%.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "IBM’s overview presents CoT as enhancing complex multistep reasoning generally, but it does not isolate built-in reasoning models or provide a controlled evaluation of marginal gains.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S3 directly addresses the relevant comparison, whereas S5 offers only a broad explanatory characterization rather than model-specific comparative evidence.",
+            "status": "SUPPORTED"
+          },
+          {
+            "claim": "Observed CoT gains can depend on the structure of the elicited reasoning process, not merely on requiring a longer verbal trace.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The Hi-CoT report argues that hierarchical planning and execution improves average accuracy by 6.2% while reducing trace length by 13.9% relative to conventional CoT across reported models and mathematical benchmarks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "CONTRADICTS",
+                "summary": "The same source states that longer traces do not imply better reasoning and describes redundancy and drift in unstructured CoT, limiting any inference that verbosity itself causes improvement.",
+                "strength": "DIRECT"
+              }
+            ],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The source directly reports a structured-CoT comparison and explicitly separates trace length from organization, but it is a single reported study and its results concern Hi-CoT rather than generic CoT alone.",
+            "status": "SUPPORTED"
+          },
+          {
+            "claim": "CoT-style demonstrations may sometimes function primarily as output-format guidance rather than as a reliable improvement to underlying reasoning quality, especially for modern LLMs; the supplied evidence does not establish this claim conclusively.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "In its related-work discussion, the source attributes to Cheng et al. (2025) the finding that CoT exemplars primarily enforce output format for modern LLMs.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "CONTRADICTS",
+                "summary": "The article characterizes CoT as enabling decomposition and significantly improving complex-task performance, but provides no controlled separation of reasoning gains from formatting effects.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "IBM describes intermediate steps as enhancing multistep problem solving and accuracy, but its supplied content is explanatory rather than a direct test of formatting versus reasoning.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "confidence": "LOW",
+            "confidence_reason": "The formatting account is only reported secondhand in S1, while the contrary sources make broad efficacy claims without the necessary causal control.",
+            "status": "INSUFFICIENT_EVIDENCE"
+          },
+          {
+            "claim": "Benchmarking choices and evaluation thresholds can materially change the apparent effect of CoT.",
+            "supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The study tested each question 25 times and reported separate complete-accuracy, high-accuracy, majority-correct, and average-rating metrics; effects differed across these metrics.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S3 directly documents threshold- and repetition-sensitive results, though it does not establish how broadly this pattern generalizes beyond GPQA Diamond.",
+            "status": "SUPPORTED"
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "Direct, controlled evidence is needed to distinguish genuine improvements in problem solving from gains caused by output formatting, answer extraction, or compliance with requested response structure.",
+            "importance": "HIGH",
+            "related_claim_ids": []
+          },
+          {
+            "description": "It remains unclear which task properties, model training characteristics, and CoT variants determine whether generic CoT helps, harms, or has negligible effect.",
+            "importance": "HIGH",
+            "related_claim_ids": []
+          },
+          {
+            "description": "The supplied evidence does not independently verify the cited Cheng et al. finding about CoT exemplars primarily enforcing output format.",
+            "importance": "MEDIUM",
+            "related_claim_ids": []
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The report found average improvements for non-reasoning models ranging from 4.4% to 13.5%, while perfect-accuracy results were mixed and some models declined; it also reported increased variability.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "On the tested reasoning models, average gains were small for o3-mini and o4-mini, performance decreased for Gemini Flash 2.5, and CoT increased response time by 20–80%.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "IBM’s overview presents CoT as enhancing complex multistep reasoning generally, but it does not isolate built-in reasoning models or provide a controlled evaluation of marginal gains.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The Hi-CoT report argues that hierarchical planning and execution improves average accuracy by 6.2% while reducing trace length by 13.9% relative to conventional CoT across reported models and mathematical benchmarks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "CONTRADICTS",
+                "summary": "The same source states that longer traces do not imply better reasoning and describes redundancy and drift in unstructured CoT, limiting any inference that verbosity itself causes improvement.",
+                "strength": "DIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "INSUFFICIENT_EVIDENCE",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "In its related-work discussion, the source attributes to Cheng et al. (2025) the finding that CoT exemplars primarily enforce output format for modern LLMs.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "CONTRADICTS",
+                "summary": "The article characterizes CoT as enabling decomposition and significantly improving complex-task performance, but provides no controlled separation of reasoning gains from formatting effects.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "IBM describes intermediate steps as enhancing multistep problem solving and accuracy, but its supplied content is explanatory rather than a direct test of formatting versus reasoning.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The study tested each question 25 times and reported separate complete-accuracy, high-accuracy, majority-correct, and average-rating metrics; effects differed across these metrics.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "Direct, controlled evidence is needed to distinguish genuine improvements in problem solving from gains caused by output formatting, answer extraction, or compliance with requested response structure."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "It remains unclear which task properties, model training characteristics, and CoT variants determine whether generic CoT helps, harms, or has negligible effect."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "The supplied evidence does not independently verify the cited Cheng et al. finding about CoT exemplars primarily enforcing output format."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "The central dispute—reasoning gains versus formatting or extraction effects—still rests on indirect evidence. Controlled studies separating these mechanisms would materially improve the answer.",
+        "target_type": "GAP",
+        "target_id": "G1",
+        "next_search_query": "controlled study chain-of-thought prompting reasoning gains versus formatting effects answer extraction output format modern language models CoT exemplars Cheng 2025"
+      }
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "controlled study chain-of-thought prompting reasoning gains versus formatting effects answer extraction output format modern language models CoT exemplars Cheng 2025",
+      "source_ids": [
+        "S6",
+        "S7"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "The reported early CoT literature identifies model scale as a major moderator: benefits were reported to emerge primarily for models around 100B parameters or larger, while smaller models could show little benefit or worse performance.",
+            "supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that successful CoT reasoning was an emergent property of scale, with benefits materializing at approximately 100B parameters, and that smaller models did not obtain the same gains on the evaluated reasoning tasks.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide summarizes the limitation that CoT gains were reported for models of roughly 100B parameters, while smaller models could produce illogical chains and perform worse than with standard prompting.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "S7 directly describes scale-dependent CoT results across arithmetic and commonsense evaluations; S6 independently summarizes the same moderator, though as a secondary educational source.",
+            "status": "SUPPORTED"
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that CoT benefits are not universal across model scales: gains emerged strongly for sufficiently large models, especially on arithmetic tasks, while smaller models did not show the same improvement.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide reports that CoT is particularly beneficial for complex tasks and larger models, whereas smaller models may perform worse.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S7 strengthens the claim that CoT effectiveness is conditional by identifying model scale as a moderator and reporting substantial gains on some tasks. However, the existing claim concerns a specific GPQA study and does not establish universal behavior across all tasks or models; S6 is a secondary summary.",
+            "updated_status": "SUPPORTED"
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "CONTRADICTS",
+                "summary": "In the earlier large-model evaluations summarized by Google Research, CoT produced substantial gains over standard prompting on arithmetic and some commonsense tasks, including a reported GSM8K improvement for PaLM 540B.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "The guide reports sizable CoT improvements on GSM8K, SVAMP, commonsense, and symbolic-reasoning benchmarks for PaLM 540B, although it does not evaluate models with built-in reasoning capabilities or latency costs.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources show that CoT can add substantial accuracy for sufficiently large models, but they do not directly test the marginal effect of generic CoT on modern models with built-in reasoning capabilities. The original S3 evidence remains directly relevant to that narrower claim, so the broader historical results do not overturn it.",
+            "updated_status": "SUPPORTED"
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "CONTRADICTS",
+                "summary": "Google Research attributes CoT gains to decomposing multi-step problems into intermediate steps and reports improved performance over standard prompting on several reasoning benchmarks; this favors a reasoning-effect account but does not causally separate it from formatting.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "The guide describes CoT as improving complex-task accuracy through decomposition and reports benchmark gains, but it provides no controlled test distinguishing reasoning from output-format effects.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "LOW",
+            "updated_confidence_reason": "The new sources provide additional performance-based evidence consistent with a genuine reasoning benefit, especially for sufficiently large models, but neither source controls for formatting, answer extraction, or compliance. The formatting account remains unresolved and the cited Cheng et al. result is still unverified.",
+            "updated_status": "INSUFFICIENT_EVIDENCE"
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that CoT effects vary by task: improvements were substantial on arithmetic reasoning, smaller on several commonsense tasks, and especially large on sports understanding, indicating task-dependent apparent effectiveness.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide summarizes different reported gains across arithmetic, commonsense, and symbolic-reasoning benchmarks, further indicating that benchmark choice affects the measured effect.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S3 directly shows sensitivity to evaluation thresholds and repeated-trial metrics, while S7 directly reports different effect sizes across task families. Together they support the claim that evaluation and benchmark choices materially affect apparent CoT efficacy, although they do not quantify generalization to every evaluation protocol.",
+            "updated_status": "SUPPORTED"
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "It remains unresolved whether the large CoT gains reported in early large-model studies persist for current models with internal or explicitly trained reasoning mechanisms, and how much of any marginal gain is attributable to the prompt versus the model’s capabilities.",
+            "importance": "HIGH",
+            "related_claim_ids": [
+              "C2",
+              "C4"
+            ]
+          },
+          {
+            "description": "The supplied sources report scale and task moderators but do not jointly disentangle model scale, task complexity, prompting format, and use of tools such as external calculators as causes of the observed CoT gains.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [
+              "C1",
+              "C2",
+              "C5"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that successful CoT reasoning was an emergent property of scale, with benefits materializing at approximately 100B parameters, and that smaller models did not obtain the same gains on the evaluated reasoning tasks.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide summarizes the limitation that CoT gains were reported for models of roughly 100B parameters, while smaller models could produce illogical chains and perform worse than with standard prompting.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that CoT benefits are not universal across model scales: gains emerged strongly for sufficiently large models, especially on arithmetic tasks, while smaller models did not show the same improvement.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide reports that CoT is particularly beneficial for complex tasks and larger models, whereas smaller models may perform worse.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "CONTRADICTS",
+                "summary": "In the earlier large-model evaluations summarized by Google Research, CoT produced substantial gains over standard prompting on arithmetic and some commonsense tasks, including a reported GSM8K improvement for PaLM 540B.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "The guide reports sizable CoT improvements on GSM8K, SVAMP, commonsense, and symbolic-reasoning benchmarks for PaLM 540B, although it does not evaluate models with built-in reasoning capabilities or latency costs.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "LOW",
+            "current_confidence": "LOW",
+            "previous_status": "INSUFFICIENT_EVIDENCE",
+            "current_status": "INSUFFICIENT_EVIDENCE",
+            "added_supporting_evidence": [],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "CONTRADICTS",
+                "summary": "Google Research attributes CoT gains to decomposing multi-step problems into intermediate steps and reports improved performance over standard prompting on several reasoning benchmarks; this favors a reasoning-effect account but does not causally separate it from formatting.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "The guide describes CoT as improving complex-task accuracy through decomposition and reports benchmark gains, but it provides no controlled test distinguishing reasoning from output-format effects.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Google Research reports that CoT effects vary by task: improvements were substantial on arithmetic reasoning, smaller on several commonsense tasks, and especially large on sports understanding, indicating task-dependent apparent effectiveness.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The guide summarizes different reported gains across arithmetic, commonsense, and symbolic-reasoning benchmarks, further indicating that benchmark choice affects the measured effect.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "It remains unresolved whether the large CoT gains reported in early large-model studies persist for current models with internal or explicitly trained reasoning mechanisms, and how much of any marginal gain is attributable to the prompt versus the model’s capabilities."
+          },
+          {
+            "gap_id": "G5",
+            "change_type": "NEW",
+            "description": "The supplied sources report scale and task moderators but do not jointly disentangle model scale, task complexity, prompting format, and use of tools such as external calculators as causes of the observed CoT gains."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "The central formatting-versus-reasoning fault line remains unresolved, with only indirect support and no controlled evidence separating genuine problem-solving gains from output-format or answer-extraction effects.",
+        "target_type": "GAP",
+        "target_id": "G1",
+        "next_search_query": "controlled experiments chain-of-thought reasoning benefit versus answer formatting output structure answer extraction LLMs CoT exemplars modern language models"
+      }
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "controlled experiments chain-of-thought reasoning benefit versus answer formatting output structure answer extraction LLMs CoT exemplars modern language models",
+      "source_ids": [
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "The supplied explanatory sources distinguish externally prompted CoT from internally generated or test-time reasoning in models trained to reason, but they do not provide controlled evidence establishing the relative accuracy or marginal benefit of these approaches.",
+            "supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes a transition from user-prompted CoT to reasoning models that generate reasoning internally through additional fine-tuning and reinforcement learning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "NVIDIA distinguishes models that require a user prompt to elicit step-by-step reasoning from test-time-scaling models that initiate and manage reasoning internally.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Both sources explicitly make the distinction, but neither supplies a controlled comparison of externally prompted and internally generated reasoning or isolates the marginal effect of a generic CoT instruction.",
+            "status": "SUPPORTED"
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial presents CoT as useful for complex multistep tasks while noting trade-offs such as longer responses, slower inference, and hallucinated reasoning; this is consistent with conditional rather than universal effectiveness.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article differentiates CoT variants by task complexity, describing zero-shot CoT as suited to relatively simple tasks and few-shot or other structured variants as useful for more complex problems.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources reinforce task and prompting-condition dependence, but they are explanatory sources and do not add controlled results comparable to the GPQA evidence.",
+            "updated_status": "SUPPORTED"
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes reasoning models as using internally generated CoT after additional fine-tuning, implying that user-visible generic prompting is not the only route to eliciting reasoning; it does not directly measure marginal accuracy gains from such prompting.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "NVIDIA distinguishes ordinary models that need user prompts from test-time-scaling models that self-direct their reasoning, supporting the relevance of built-in reasoning capabilities to the marginal value of generic CoT.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial explicitly identifies increased token generation, processing time, cost, and latency as trade-offs of CoT.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article claims that internally trained reasoning models can improve accuracy by generating longer chains, exploring multiple paths, or using search-based refinement; this supports reasoning benefits generally but does not test a generic user instruction on such models.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "NVIDIA claims that allowing more internal reasoning steps improves performance on complex tasks, but this concerns automated test-time scaling rather than the marginal effect of generic prompted CoT.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources sharpen the distinction between prompted CoT and internal/test-time reasoning and independently confirm cost trade-offs, but they remain non-controlled explanatory material and do not overturn the direct S3 evidence about limited marginal gains on tested reasoning models.",
+            "updated_status": "SUPPORTED"
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "CONTRADICTS",
+                "summary": "The tutorial presents intermediate-step generation as decomposing problems and improving accuracy, while also acknowledging hallucinated reasoning; this favors a possible reasoning effect but does not separate it from formatting or compliance.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article attributes CoT benefits to expanded working context, staged processing, and additional computation, and describes reasoning models trained to assess reasoning quality; these claims favor a substantive reasoning account but are not controlled tests of formatting versus reasoning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "NVIDIA describes CoT as improving decomposition, error reduction, and complex-task performance, and separately discusses hidden thinking tokens in test-time scaling; neither analysis controls for output format or answer extraction.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "LOW",
+            "updated_confidence_reason": "The new sources add several explanatory accounts in which intermediate or hidden reasoning contributes to performance, but all are secondary or non-controlled and therefore do not resolve whether observed gains arise from reasoning, formatting, compliance, or additional computation.",
+            "updated_status": "INSUFFICIENT_EVIDENCE"
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial identifies arithmetic, logic, and multistep tasks as use cases and separately notes costs and hallucination risks, reinforcing that measured outcomes depend on task and evaluation dimensions.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes different CoT variants, including zero-shot, few-shot, least-to-most, and self-consistency, with different intended task settings; this indicates that prompting format can affect apparent efficacy.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new sources add further variation in prompting format and task suitability, although they do not provide quantitative controlled comparisons that would replace the direct evidence from S3 and S7.",
+            "updated_status": "SUPPORTED"
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes a transition from user-prompted CoT to reasoning models that generate reasoning internally through additional fine-tuning and reinforcement learning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "NVIDIA distinguishes models that require a user prompt to elicit step-by-step reasoning from test-time-scaling models that initiate and manage reasoning internally.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial presents CoT as useful for complex multistep tasks while noting trade-offs such as longer responses, slower inference, and hallucinated reasoning; this is consistent with conditional rather than universal effectiveness.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article differentiates CoT variants by task complexity, describing zero-shot CoT as suited to relatively simple tasks and few-shot or other structured variants as useful for more complex problems.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes reasoning models as using internally generated CoT after additional fine-tuning, implying that user-visible generic prompting is not the only route to eliciting reasoning; it does not directly measure marginal accuracy gains from such prompting.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "NVIDIA distinguishes ordinary models that need user prompts from test-time-scaling models that self-direct their reasoning, supporting the relevance of built-in reasoning capabilities to the marginal value of generic CoT.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial explicitly identifies increased token generation, processing time, cost, and latency as trade-offs of CoT.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article claims that internally trained reasoning models can improve accuracy by generating longer chains, exploring multiple paths, or using search-based refinement; this supports reasoning benefits generally but does not test a generic user instruction on such models.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "NVIDIA claims that allowing more internal reasoning steps improves performance on complex tasks, but this concerns automated test-time scaling rather than the marginal effect of generic prompted CoT.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "LOW",
+            "current_confidence": "LOW",
+            "previous_status": "INSUFFICIENT_EVIDENCE",
+            "current_status": "INSUFFICIENT_EVIDENCE",
+            "added_supporting_evidence": [],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "CONTRADICTS",
+                "summary": "The tutorial presents intermediate-step generation as decomposing problems and improving accuracy, while also acknowledging hallucinated reasoning; this favors a possible reasoning effect but does not separate it from formatting or compliance.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article attributes CoT benefits to expanded working context, staged processing, and additional computation, and describes reasoning models trained to assess reasoning quality; these claims favor a substantive reasoning account but are not controlled tests of formatting versus reasoning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "NVIDIA describes CoT as improving decomposition, error reduction, and complex-task performance, and separately discusses hidden thinking tokens in test-time scaling; neither analysis controls for output format or answer extraction.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The tutorial identifies arithmetic, logic, and multistep tasks as use cases and separately notes costs and hallucination risks, reinforcing that measured outcomes depend on task and evaluation dimensions.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes different CoT variants, including zero-shot, few-shot, least-to-most, and self-consistency, with different intended task settings; this indicates that prompting format can affect apparent efficacy.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null
+      }
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "The effectiveness of generic chain-of-thought prompting is conditional rather than universal: in one reported GPQA Diamond study, it produced modest average gains for several non-reasoning models, but gains were mixed across accuracy thresholds and could increase answer variability.",
+        "supporting_evidence": [
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "The report found average improvements for non-reasoning models ranging from 4.4% to 13.5%, while perfect-accuracy results were mixed and some models declined; it also reported increased variability.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Google Research reports that CoT benefits are not universal across model scales: gains emerged strongly for sufficiently large models, especially on arithmetic tasks, while smaller models did not show the same improvement.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The guide reports that CoT is particularly beneficial for complex tasks and larger models, whereas smaller models may perform worse.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The tutorial presents CoT as useful for complex multistep tasks while noting trade-offs such as longer responses, slower inference, and hallucinated reasoning; this is consistent with conditional rather than universal effectiveness.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article differentiates CoT variants by task complexity, describing zero-shot CoT as suited to relatively simple tasks and few-shot or other structured variants as useful for more complex problems.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources reinforce task and prompting-condition dependence, but they are explanatory sources and do not add controlled results comparable to the GPQA evidence.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3
+      },
+      {
+        "id": "C2",
+        "claim": "For models with built-in reasoning capabilities, a generic instruction to think step by step may provide little additional accuracy and can impose substantial latency or token costs.",
+        "supporting_evidence": [
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "On the tested reasoning models, average gains were small for o3-mini and o4-mini, performance decreased for Gemini Flash 2.5, and CoT increased response time by 20–80%.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article describes reasoning models as using internally generated CoT after additional fine-tuning, implying that user-visible generic prompting is not the only route to eliciting reasoning; it does not directly measure marginal accuracy gains from such prompting.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "NVIDIA distinguishes ordinary models that need user prompts from test-time-scaling models that self-direct their reasoning, supporting the relevance of built-in reasoning capabilities to the marginal value of generic CoT.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The tutorial explicitly identifies increased token generation, processing time, cost, and latency as trade-offs of CoT.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "CONTRADICTS",
+            "summary": "IBM’s overview presents CoT as enhancing complex multistep reasoning generally, but it does not isolate built-in reasoning models or provide a controlled evaluation of marginal gains.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "CONTRADICTS",
+            "summary": "In the earlier large-model evaluations summarized by Google Research, CoT produced substantial gains over standard prompting on arithmetic and some commonsense tasks, including a reported GSM8K improvement for PaLM 540B.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "CONTRADICTS",
+            "summary": "The guide reports sizable CoT improvements on GSM8K, SVAMP, commonsense, and symbolic-reasoning benchmarks for PaLM 540B, although it does not evaluate models with built-in reasoning capabilities or latency costs.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The article claims that internally trained reasoning models can improve accuracy by generating longer chains, exploring multiple paths, or using search-based refinement; this supports reasoning benefits generally but does not test a generic user instruction on such models.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "CONTRADICTS",
+            "summary": "NVIDIA claims that allowing more internal reasoning steps improves performance on complex tasks, but this concerns automated test-time scaling rather than the marginal effect of generic prompted CoT.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources sharpen the distinction between prompted CoT and internal/test-time reasoning and independently confirm cost trade-offs, but they remain non-controlled explanatory material and do not overturn the direct S3 evidence about limited marginal gains on tested reasoning models.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3
+      },
+      {
+        "id": "C3",
+        "claim": "Observed CoT gains can depend on the structure of the elicited reasoning process, not merely on requiring a longer verbal trace.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "The Hi-CoT report argues that hierarchical planning and execution improves average accuracy by 6.2% while reducing trace length by 13.9% relative to conventional CoT across reported models and mathematical benchmarks.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "CONTRADICTS",
+            "summary": "The same source states that longer traces do not imply better reasoning and describes redundancy and drift in unstructured CoT, limiting any inference that verbosity itself causes improvement.",
+            "strength": "DIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source directly reports a structured-CoT comparison and explicitly separates trace length from organization, but it is a single reported study and its results concern Hi-CoT rather than generic CoT alone.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1
+      },
+      {
+        "id": "C4",
+        "claim": "CoT-style demonstrations may sometimes function primarily as output-format guidance rather than as a reliable improvement to underlying reasoning quality, especially for modern LLMs; the supplied evidence does not establish this claim conclusively.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "In its related-work discussion, the source attributes to Cheng et al. (2025) the finding that CoT exemplars primarily enforce output format for modern LLMs.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "CONTRADICTS",
+            "summary": "The article characterizes CoT as enabling decomposition and significantly improving complex-task performance, but provides no controlled separation of reasoning gains from formatting effects.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "CONTRADICTS",
+            "summary": "IBM describes intermediate steps as enhancing multistep problem solving and accuracy, but its supplied content is explanatory rather than a direct test of formatting versus reasoning.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "CONTRADICTS",
+            "summary": "Google Research attributes CoT gains to decomposing multi-step problems into intermediate steps and reports improved performance over standard prompting on several reasoning benchmarks; this favors a reasoning-effect account but does not causally separate it from formatting.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "CONTRADICTS",
+            "summary": "The guide describes CoT as improving complex-task accuracy through decomposition and reports benchmark gains, but it provides no controlled test distinguishing reasoning from output-format effects.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "CONTRADICTS",
+            "summary": "The tutorial presents intermediate-step generation as decomposing problems and improving accuracy, while also acknowledging hallucinated reasoning; this favors a possible reasoning effect but does not separate it from formatting or compliance.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The article attributes CoT benefits to expanded working context, staged processing, and additional computation, and describes reasoning models trained to assess reasoning quality; these claims favor a substantive reasoning account but are not controlled tests of formatting versus reasoning.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "CONTRADICTS",
+            "summary": "NVIDIA describes CoT as improving decomposition, error reduction, and complex-task performance, and separately discusses hidden thinking tokens in test-time scaling; neither analysis controls for output format or answer extraction.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The new sources add several explanatory accounts in which intermediate or hidden reasoning contributes to performance, but all are secondary or non-controlled and therefore do not resolve whether observed gains arise from reasoning, formatting, compliance, or additional computation.",
+        "status": "INSUFFICIENT_EVIDENCE",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3
+      },
+      {
+        "id": "C5",
+        "claim": "Benchmarking choices and evaluation thresholds can materially change the apparent effect of CoT.",
+        "supporting_evidence": [
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "The study tested each question 25 times and reported separate complete-accuracy, high-accuracy, majority-correct, and average-rating metrics; effects differed across these metrics.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Google Research reports that CoT effects vary by task: improvements were substantial on arithmetic reasoning, smaller on several commonsense tasks, and especially large on sports understanding, indicating task-dependent apparent effectiveness.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The guide summarizes different reported gains across arithmetic, commonsense, and symbolic-reasoning benchmarks, further indicating that benchmark choice affects the measured effect.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The tutorial identifies arithmetic, logic, and multistep tasks as use cases and separately notes costs and hallucination risks, reinforcing that measured outcomes depend on task and evaluation dimensions.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article describes different CoT variants, including zero-shot, few-shot, least-to-most, and self-consistency, with different intended task settings; this indicates that prompting format can affect apparent efficacy.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The new sources add further variation in prompting format and task suitability, although they do not provide quantitative controlled comparisons that would replace the direct evidence from S3 and S7.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3
+      },
+      {
+        "id": "C6",
+        "claim": "The reported early CoT literature identifies model scale as a major moderator: benefits were reported to emerge primarily for models around 100B parameters or larger, while smaller models could show little benefit or worse performance.",
+        "supporting_evidence": [
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Google Research reports that successful CoT reasoning was an emergent property of scale, with benefits materializing at approximately 100B parameters, and that smaller models did not obtain the same gains on the evaluated reasoning tasks.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The guide summarizes the limitation that CoT gains were reported for models of roughly 100B parameters, while smaller models could produce illogical chains and perform worse than with standard prompting.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "S7 directly describes scale-dependent CoT results across arithmetic and commonsense evaluations; S6 independently summarizes the same moderator, though as a secondary educational source.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 2
+      },
+      {
+        "id": "C7",
+        "claim": "The supplied explanatory sources distinguish externally prompted CoT from internally generated or test-time reasoning in models trained to reason, but they do not provide controlled evidence establishing the relative accuracy or marginal benefit of these approaches.",
+        "supporting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article describes a transition from user-prompted CoT to reasoning models that generate reasoning internally through additional fine-tuning and reinforcement learning.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "NVIDIA distinguishes models that require a user prompt to elicit step-by-step reasoning from test-time-scaling models that initiate and manage reasoning internally.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Both sources explicitly make the distinction, but neither supplies a controlled comparison of externally prompted and internally generated reasoning or isolates the marginal effect of a generic CoT instruction.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "Direct, controlled evidence is needed to distinguish genuine improvements in problem solving from gains caused by output formatting, answer extraction, or compliance with requested response structure.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G2",
+      "description": "It remains unclear which task properties, model training characteristics, and CoT variants determine whether generic CoT helps, harms, or has negligible effect.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "The supplied evidence does not independently verify the cited Cheng et al. finding about CoT exemplars primarily enforcing output format.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "It remains unresolved whether the large CoT gains reported in early large-model studies persist for current models with internal or explicitly trained reasoning mechanisms, and how much of any marginal gain is attributable to the prompt versus the model’s capabilities.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [
+        "C2",
+        "C4"
+      ],
+      "created_iteration": 2,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G5",
+      "description": "The supplied sources report scale and task moderators but do not jointly disentangle model scale, task complexity, prompting format, and use of tools such as external calculators as causes of the observed CoT gains.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "created_iteration": 2,
+      "resolved_iteration": null
+    }
+  ],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Hierarchical Chain-of-Thought Prompting: Enhancing LLM ...",
+      "url": "https://arxiv.org/html/2604.00130v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Hierarchical Chain-of-Thought Prompting: Enhancing LLM Reasoning Performance and Efficiency\n\n###### Abstract\n\nChain-of-Thought (CoT) prompting has significantly improved the reasoning capabilities of large language models (LLMs). However, conventional CoT often relies on unstructured, flat reasoning chains that suffer from redundancy and suboptimal performance.\nIn this work, we introduce Hierarchical Chain-of-Thought (Hi-CoT) prompting, a structured reasoning paradigm specifically designed to address the challenges of complex, multi-step reasoning. Hi-CoT decomposes the reasoning process into hierarchical substeps by alternating between instructional planning and step-by-step execution.\nThis decomposition enables LLMs to better manage long reasoning horizons and maintain logical coherence.\nExtensive evaluations across diverse LLMs and mathematical reasoning benchmarks show that Hi-CoT consistently improves average accuracy by 6.2% (up to 61.4% on certain models and tasks) while reducing reasoning trace length by 13.9% compared to CoT prompting. We further show that accuracy and efficiency are maximized when models strictly adhere to the hierarchical structure.\nOur code is available at [this repository](https://github.com/XingshuaiHuang/Hi-CoT).\n\n|  |\n| --- |\n|  |\n\n## 1 Introduction\n\nLarge Language Models (LLMs) have shown strong capabilities on reasoning-intensive tasks when paired with appropriate prompting strategies. One influential approach is Chain-of-Thought (CoT) prompting ([Wei et al., 2022](#bib.bib1)), which encourages models to produce intermediate reasoning steps before a final answer. This simple modification has led to notable gains on multi-step reasoning tasks([Puri et al., 2021](#bib.bib15); [Zhou et al., 2025](#bib.bib16)), such as mathematic tasks ([Cobbe et al., 2021](#bib.bib14); [Liu et al., 2025a](#bib.bib13)).\n\nDespite its success, standard CoT prompting has a strcutural shortcoming. The generated reasoning traces are typically linear and unstructured, which can introduce redundant steps (e.g., repeating explanations) and occasional deviations from the intended line of reasoning ([Wang et al., 2023](#bib.bib24)). Redundancy arises because CoT imposes no compression presssure on the reasoning process. Without an explicit mechanism to filter low-value content, the model can repeat itself, hedge, or wander without penalty. Longer traces do not imply better reasoning ([Liu et al., 2025b](#bib.bib31)); they often reflect disorganized exploration rather than deliberate problem solving, while simultaneously incurring higher inference costs as computational overhead of transformer models grows with the number of generated tokens([Zeng et al., 2026](#bib.bib28); [Omidi et al., 2025](#bib.bib29)). This lack of structure is particularly costly for problems that require coordinated planning across multiple steps, where unguided reasoning frequently fails to maintain logical coherence([He et al., 2024](#bib.bib20); [Lewkowycz et al., 2022](#bib.bib19)).\n\nOne solution is to impose a plan. Plan-and-Solve prompting ([Wang et al., 2023](#bib.bib24)) does exactly this, separating reasoning into a global planning phase followed by step-by-step solution. While this improves flat CoT, it suffers from a fundamental weakness: the plan is fixed upfront and there is no control over individual execution steps. As the reasoning unfolds, the model may drift from its plan, skip steps, or execute inconsistently (a phenomenon we call plan–execution drift). This happens because the model receives no signal to pause, reassess, or compress its current state before each step. Human experts, by contrast, neither reason in flat chains nor commit to a single rigid plan. Instead, they continuously refine their approach at each step (what should I do next, given where I am?) and local execution (carry it out precisely). Each planning step forces compression of the current reasoning state into a targeted subgoal, filtering out accumulated noise before proceeding ([Hu et al., 2025](#bib.bib11)).\n\nMotivated by this insight, we propose Hierarchical Chain-of-Thought (Hi-CoT) prompting, a structured reasoning paradigm that organizes the reasoning process as a sequence of alternating instruction and execution steps, to improve LLM performance and efficiency on complex reasoning tasks. In contrast to Plan-and-Solve, which adopts a fully separated plan–solution structure, Hi-CoT enables fine-grained and adaptive planning/instruction. Each instruction step is conditioned on the outcome of the previous execution, enabling continuous plan refinement rather than sticking blindly to an upfront plan. Hi-CoT operates entirely at inference time and requires no changes to model parameters or architecture. This structure serves as a sequence of compression bottlenecks: before each execution step, the model must distill the current reasoning state into a concise, targeted instruction. This bottleneck mechanism has two effects. First, it filters low-information content from the reasoning trajectory, reducing redundancy and token waste and yeilding a more efficient reasoning process. Second, it keeps each execution step explicitly grounded in a stated goal, preventing drift and maintaining logical coherence across long reasoning horizons.\n\nWe evaluate Hi-CoT extensively across 13 model configurations spanning the Qwen3 and DeepSeek-R1 families, and five mathematical reasoning benchmarks of varying difficulty. Our results demonstrate that Hi-CoT provides a rare combination of improvements: better accuracy and lower inference cost simultaneously. It is a non-trivial outcome, as many prior methods for improving reasoning quality increase inference cost by generating longer or multiple reasoning paths (e.g., Tree-of-Thoughts ([Yao et al., 2023](#bib.bib7)), Self-Consistency ([Wang et al., 2022](#bib.bib4)).\nOur main contributions are:\n\nWe propose Hi-CoT, a zero-shot inference-time framework that enforces hierarchical reasoning via compression bottlenecks, without fine-tuning, extra models, or search.\n\nWe show that Hi-CoT consistently improves average accuracy by 6.2% (up to 61.4%) while reducing reasoning trace length by 13.9% across 13 models and 5 benchmarks, showing that structure can also be a primary bottleneck in LLM reasoning.\n\nWe demonstrate that when models strictly stick to the hierarchical format, accuracy reaches 100% on AMC and MATH500 with traces shortened by up to 75%, suggesting that current LLMs substantially underutilize their latent reasoning capacity under unstructured prompting.\n\n## 2 Related Work\n\n### 2.1 Chain-of-Thought Prompting\n\nChain-of-Thought (CoT) prompting ([Wei et al., 2022](#bib.bib1)) improves LLM reasoning by encouraging intermediate steps before a final answer. Zero-Shot CoT ([Kojima et al., 2022](#bib.bib2)) shows this can be elicited without annotated examples, while Self-Consistency ([Wang et al., 2022](#bib.bib4)) improves robustness by sampling multiple reasoning paths. Auto-CoT ([Zhang et al., 2022](#bib.bib3)) automates the construction of few-shot demonstrations through sampling and pseudo-labeling, and Auto-CCoT ([Li et al., 2025](#bib.bib25)) further strengthens this by selecting valid–invalid reasoning pairs to reinforce correct reasoning. [Cheng et al. (2025)](#bib.bib26) shows that for modern LLMs, CoT exemplars primarily serve to enforce output format rather than improve reasoning quality.\nMore recently, Auto-CCoT ([Li et al., 2025](#bib.bib25)) improves LLM reasoning by automatically generating and selecting informative valid–invalid reasoning pairs from model outputs to reinforce correct reasoning and avoid common errors.\nAmong efficiency-focused extensions, Chain of Draft (CoD) ([Xu et al., 2025](#bib.bib5)) produces concise, info",
+      "score": 0.8619225
+    },
+    {
+      "id": "S2",
+      "title": "Chain-Of-Thought Prompting In LLMs | by Cobus Greyling | Medium",
+      "url": "https://cobusgreyling.medium.com/chain-of-thought-prompting-in-llms-1077164edf97",
+      "content": "Sign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fcobusgreyling.medium.com%2Fchain-of-thought-prompting-in-llms-1077164edf97&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fcobusgreyling.medium.com%2Fchain-of-thought-prompting-in-llms-1077164edf97&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n![]()\n\n# Chain-Of-Thought Prompting In LLMs\n\n## *In principle chain-of-thought prompting allows for the decomposition of multi-step requests into intermediate steps.*\n\n![Cobus Greyling](https://miro.medium.com/v2/resize:fill:64:64/1*nzfAEuujMN0s-aK6R7RcNg.jpeg)\n\n--\n\n1\n\nListen\n\nShare\n\nChain-of-thought prompting enables large language models (LLMs) to address complex tasks like common sense reasoning and arithmetic.\n\nEstablishing chain-of-thought reasoning via prompt engineering and instructing the LLM accordingly is quite straight-forward to implement.\n\nInference can be established via chain-of-thought prompting.\n\nBelow is a very good illustration of standard LLM prompting on the left, and chain-of-thought prompting on the right.\n\n![]()\n\nWhat is particularly helpful of Chain-Of-Thought Prompting is that by decomposing the LLM input and LLM output, it creates a window of insight and interpretation.\n\nThis Window of decomposition allows for manageable granularity for both input and output, and tweaking the system is made easier.\n\nChain-Of-Thought Prompting is ideal for *contextual reasoning* like word problems, common-sense reasoning, math word problems and is very much applicable to any task that we as humans can solve via language.\n\nThe image below shows a comparison of percentage solve rate based on standard prompting and chain-of-thought prompting.\n\nChain of thought reasoning provides reasoning demonstration examples via prompt engineering.\n\n![]()\n\n## In Conclusion\n\nIn essence chain of thought reasoning can be achieve by creating intermediate reasoning steps to incorporate in the prompt.\n\nThe ability of LLMs to perform complex reasoning improves significantly.\n\n![]()\n\n***⭐️ Please follow me on*** [***LinkedIn***](https://www.linkedin.com/in/cobusgreyling/) ***for updates on Conversational AI ⭐️***\n\n![]()\n\n*I’m currently the* [*Chief Evangelist*](https://www.linkedin.com/in/cobusgreyling) *@* [*HumanFirst*](https://www.humanfirst.ai)*. I explore and write about all things at the intersection of AI and language; ranging from* [*LLMs*](/the-large-language-model-landscape-9da7ee17710b)*,* [*Chatbots*](/the-five-categories-of-conversational-ai-f2410beeaf2f)*,* [*Voicebots*](/three-key-voicebot-design-considerations-7bf25444dfec)*, Development Frameworks,* [*Data-Centric latent spaces*](/testing-complex-utterances-with-the-co-here-humanfirst-integration-145ab4eedd84) *and more.*\n\n## NLU design tooling\n\n### “Conversation Designer, Retail, 10k+ employees The tool that turned conversation designers, into NLU designers” ★★★★★…\n\nwww.humanfirst.ai\n\n![]()\n![https://www.linkedin.com/in/cobusgreyling]()\n![]()\n\n## Get an email whenever Cobus Greyling publishes.\n\n### Get an email whenever Cobus Greyling publishes. By signing up, you will create a Medium account if you don’t already…\n\ncobusgreyling.medium.com\n\n## The Cobus Quadrant™ Of NLU Design\n\n### NLU design is vital to planning and continuously improving Conversational AI experiences.\n\ncobusgreyling.medium.com\n\n## The Cobus Quadrant™ Of Conversation Design Capabilities\n\n### ∗ This is part one of a two part series, please also take a look part two, the Cobus Quadrant of NLU Design.\n\ncobusgreyling.medium.com\n\n![]()\n\n## Scaleable Prompt Pipelines For LLMs\n\n### In a previous post I wrote about the evolution of prompt engineering. Creating highly scaleable & enterprise grade LLM…\n\ncobusgreyling.medium.com\n\n## The Evolution Of Prompt Engineering\n\n### As functionality grows, invariably the complexity of prompt engineering will grow. Here I explain how complexity can be…\n\ncobusgreyling.medium.com\n\n## Generative AI Prompt Pipelines\n\n### Prompt Pipelines extend prompt templates by automatically injecting contextual reference data for each prompt.\n\ncobusgreyling.medium.com\n\n## Prompt Chaining\n\n### There is an emergence of Visual Programming tools facilitating the chaining of large language model prompts into an…\n\ncobusgreyling.medium.com\n\n![]()\n\n--\n\n--\n\n1\n\n![Cobus Greyling](https://miro.medium.com/v2/resize:fill:96:96/1*nzfAEuujMN0s-aK6R7RcNg.jpeg)\n![Cobus Greyling](https://miro.medium.com/v2/resize:fill:128:128/1*nzfAEuujMN0s-aK6R7RcNg.jpeg)\n\n## Written by Cobus Greyling\n\nat the intersection of AI & language. [www.cobusgreyling.com](http://www.cobusgreyling.com)\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nStore\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech",
+      "score": 0.81875163
+    },
+    {
+      "id": "S3",
+      "title": "The Decreasing Value of Chain of Thought in Prompting",
+      "url": "https://gail.wharton.upenn.edu/research-and-insights/tech-report-chain-of-thought",
+      "content": "[![Wharton](https://gail.wharton.upenn.edu/wp-content/plugins/martech-chupacabra/includes/images/wharton-logo.svg)![Logo for The Wharton School](https://gail.wharton.upenn.edu/wp-content/plugins/martech-chupacabra/includes/images/Wharton-Logo-RGB.png)](https://www.wharton.upenn.edu \"Wharton Home\")\n\n* [Faculty](https://www.wharton.upenn.edu/faculty-research-publications/)\n* [Youth Program](https://globalyouth.wharton.upenn.edu)\n* [Undergrad](https://undergrad.wharton.upenn.edu)\n* [Jacobs MSQF](https://jacobs-msqf.wharton.upenn.edu)\n* [MBA](https://mba.wharton.upenn.edu)\n* [EMBA](https://executivemba.wharton.upenn.edu)\n* [PhD](https://doctoral.wharton.upenn.edu)\n* [Exec Ed](https://executiveeducation.wharton.upenn.edu)\n* [Wharton Online](https://executiveeducation.wharton.upenn.edu/online-learning/)\n\n [Search Wharton](/search/)\n\n[Wharton Generative AI Labs](https://gail.wharton.upenn.edu/ \"Wharton Generative AI Labs\")\n\nTechnical Report\n\n# The Decreasing Value of Chain of Thought in Prompting\n\nJune 8, 2025 •︎ Lennart Meincke, Ethan Mollick, Lilach Mollick, Dan Shapiro\n\nModern AI models show diminishing returns from Chain-of-Thought prompting, with gains rarely worth the time cost.\n\nThis report investigates Chain-of-Thought (CoT) prompting, which encourages LLMs to ‘think step by step.’ We tested this common prompting approach and found that its effectiveness varies significantly by model type and task: non-reasoning models show modest average improvements but increased variability in answers, while reasoning models gain only marginal benefits despite substantial time costs (20-80% increase). These findings challenge the assumption that CoT is universally beneficial.\n\n[Download full report](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285532)\n\nCite as:\n\nMeincke, Lennart and Mollick, Ethan R. and Mollick, Lilach and Shapiro, Dan, Prompting Science Report 2: The Decreasing Value of Chain of Thought in Prompting (June 08, 2025). Available at SSRN: <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285532>\n\n## Benchmarking Standards\n\nPerceived performance is critically affected by the benchmarking approach, as different correctness thresholds significantly transform assessment outcomes. For this study, each question was tested 25 times per condition, revealing inconsistencies that traditional one-time testing methods often mask.\n\nThe research utilized multiple metrics to provide a comprehensive view of performance:\n\nComplete accuracy\n\n0%\n\nZero tolerance for errors\n\nHigh accuracy\n\n0%\n\nHuman-level performance\n\nMajority correct\n\n0%\n\nSimple majority wins\n\n## What is Chain-of-Thought Prompting?\n\nChain-of-Thought prompting instructs models to “think step by step” before answering. Introduced by Wei et al. (2022), it mirrors human problem-solving by breaking down complex tasks. While often considered a best practice, this research shows its value varies considerably depending on the specific model and use case.\n\n## Research Methodology\n\nThe study used the GPQA Diamond dataset of 198 PhD-level multiple-choice questions across biology, physics, and chemistry. The researchers tested:\n\n#### Models:\n\n* **Non-reasoning:** Sonnet 3.5, Gemini 2.0 Flash, GPT-4o-mini, GPT-4o, Gemini Pro 1.5\n* **Reasoning:** o3-mini, o4-mini, Flash 2.5\n\n#### Prompt conditions:\n\nAnswer directly prompt (“Direct\")\n\n\"Answer directly without any explanation or thinking. Just provide the answer.\"\n\nWe instruct the LLM to answer without generating additional reasoning tokens.\n\nThink step by step (“Step by step”)\n\n\"Think step by step.\"\n\nIn this variation, we provide the LLM with a simple CoT prompt that instructs it to “think” step by step before providing an answer. While this is a simple version of CoT, in our tests, different CoT prompt variants had negligible effects.\n\nNo prompt (“Default”)\n\nWe provide no specific suffix to the question and also remove the formatting constraint (“Format your response as follows: ‘The correct answer is (insert answer here)’”), allowing the model to choose how to best reply to the question. In most cases, this produces a short CoT-like thinking output before answering the question.\n\nEach question underwent 25 trials per condition, with performance measured using multiple metrics including 100% correct (perfect accuracy), 90% correct, 51% correct (majority), and average rating.\n\n## Findings for Non-Reasoning Models\n\nCoT prompting generally improved average performance across non-reasoning models:\n\n* **Strongest improvements:** Gemini Flash 2.0 (13.5%) and Sonnet 3.5 (11.7%)\n* **Smallest gain:** GPT-4o-mini (4.4%, not statistically significant)\n\nHowever, perfect accuracy (100% correct) showed mixed results:\n\n* Sonnet 3.5 improved by 10.1%\n* GPT-4o showed no significant change\n* Other models declined significantly, particularly Gemini Pro 1.5 (-17.2%)\n\nThis indicates that while CoT can improve performance on difficult questions, it can also introduce variability that causes errors on “easy” questions the model would otherwise answer correctly.\n\nCoT requests took 35-600% (5-15 seconds) longer than direct requests, representing a significant increase in token usage and response time.\n\nThe researchers also compared CoT prompting against default model behavior (without specific prompting constraints). This revealed that many models perform CoT-like reasoning by default, even without explicit instructions.\n\n## GPQA Diamond performance across non-reasoning models comparing an unprompted answer with Chain-of-Thought.\n\nSonnet 3.5 - Default\n\nSonnet 3.5 - Step by Step\n\nGemini 2.0 Flash - Default\n\nGemini 2.0 Flash - Step by Step\n\nGPT-4o-mini - Default\n\nGPT-4o-mini - Step by Step\n\nGPT-4o - Default\n\nGPT-4o - Step by Step\n\nThe error bars show 95% confidence intervals for individual proportions. For detailed statistical comparisons between conditions, see Table S4.\n\n## Findings for Reasoning Models\n\nGPQA Diamond performance across reasoning models comparing an immediate answer with Chain-of-Thought.\n\nThe error bars show 95% confidence intervals for individual proportions. For detailed statistical comparisons between conditions, see Table S5.\n\nFor models with built-in reasoning capabilities, CoT prompting produced minimal benefits:\n\n* Small average improvements for o3-mini (2.9%) and o4-mini (3.1%)\n* Performance decrease for Gemini Flash 2.5 (-3.3%)\n\nUsing threshold metrics showed few significant changes. The only notable effects were a small gain for o4-mini at the 51% threshold (5.6%) and performance decreases for Gemini Flash 2.5 at 100% and 90% thresholds (-13.1% and -7.1% respectively).\n\nCoT requests required 20-80% (10-20 seconds) more time—a substantial cost for what are often negligible gains in accuracy.\n\n## Practical Implications\n\n#### For non-reasoning models:\n\n* CoT can enhance average performance but may introduce inconsistency in answers\n* Consider that many models already perform reasoning by default\n* Requesting direct answers without explanation can harm performance by preventing natural reasoning\n* Weigh potential performance gains against increased token usage and response time\n\n#### For reasoning models:\n\n* The marginal accuracy benefits may not justify the extra cost and time\n* Generic CoT prompts provide limited value compared to the models’ built-in reasoning\n\nThe decision tree below provides a practical guide for determining when to use Chain-of-Thought prompting based on your specific use case, model type, and priorities.\n\n## Conclusion\n\nChain-of-Thought prompting is not universally optimal. Its effectiveness depends significantly on model type and specific use case. For non-reasoning models, CoT may improve average performance but can introduce inconsistency. For reasoning models, the minimal accuracy gains rarely justify the increased response time.\n\nWhen deciding whether to use CoT, consider the specific model’s characteristics, task requirements, and acceptable tradeoffs between accuracy, consistency, and response time.\n\n[Download full report]",
+      "score": 0.818055
+    },
+    {
+      "id": "S4",
+      "title": "Contrastive Chain-Of-Thought Prompting - Kore.ai",
+      "url": "https://www.kore.ai/blog/contrastive-chain-of-thought-prompting",
+      "content": "Agent Platform { Artemis }\n\nAgent Platform\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6a0dd9b872bd55926f41db60_frame_2147240289.webp)\n\n###### Agent Platform { Artemis }\n\nThe AI-programmable foundation for building, scaling, and optimizing AI agents that work in production.\n\n[learn more](/ai-agent-platform)\n\nEnterprise Modules\n\n###### For Service\n\n[AI Agents](/ai-for-service/ai-agents)[Agent AI Assistance](/ai-for-service/agent-ai)[Agentic Contact Center](/ai-for-service/contact-center)[Quality Assurance](/ai-for-service/quality-ai)[Proactive Outreach](/ai-for-service/outbound-campaigns)\n\n###### For Work\n\n[Enterprise Search](https://kore.ai/ai-for-work/#ai4w-enterprise-search)[Intelligent Orchestrator](https://kore.ai/ai-for-work/#ai4w-intelligent-orchestrator)[Pre-Built AI Agents](https://kore.ai/ai-for-work/#ai4w-pre-built)[Admin Controls](https://kore.ai/ai-for-work/#ai4w-admin-controls)[AI Agent Builder](https://kore.ai/ai-for-work/#ai4w-ai-agent-builder)\n\n[Sales](/ai-for-work/sales)[Marketing](/ai-for-work/marketing)[Engineering](/ai-for-work/engineering)[Legal](/ai-for-work/legal)[Finance](/ai-for-work/finance)\n\n[![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/69c4ff7851594334cc0af967_Nav%20Usecases%20Library.webp)](/use-cases)[###### Use Case Library\n\nFind the right AI use case for your business](/use-cases)\n\nRecent AI Insights\n\n![Configured, not coded. The engineering discipline gap in agent development](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/6a073312c2fd95b325d5f241_configured-not-coded-the-engineering-discipline-gap-in-agent-development.webp)\n\nConfigured, not coded. The engineering discipline gap in agent development\n\nAI INSIGHT\n\n15 May 2026\n\n![Can Today’s AI Agents Survive Their Own Runtime?](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/6a0732948fbd6c250a0ee418_can-todays-ai-agents-survive-their-own-runtime.webp)\n\nCan Today’s AI Agents Survive Their Own Runtime?\n\nAI INSIGHT\n\n15 May 2026\n\n![What's new in AI for Work: features that drive enterprise productivity](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/699860d81b1c2ed2d4b5219d_version-four-24.jpg)\n\nWhat's new in AI for Work: features that drive enterprise productivity\n\nAI INSIGHT\n\n20 Feb 2026\n\n![Parallel Agent Processing](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/69830d53e3656931c47d3225_Parallel%20Agent%20Processing.jpg)\n\nParallel Agent Processing\n\nAI INSIGHT\n\n16 Jan 2026\n\nAgentic AI Apps\n\nAI Solutions\n\nPre-built Applications\n\nReady-to-deploy applications across industries and functions.\n\nAI for Banking\n\nAI for Healthcare\n\nAI for Retail\n\nAI for IT\n\nAI for HR\n\nAI for Recruiting\n\nApplication Accelerators\n\nLeverage pre-built AI agents, templates, and integrations from the Kore.ai Marketplace.\n\n[![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/698f2aa71b1ff9f5915088de_Nav%20Marketplace%20Card.webp)\n\n###### Kore.ai Marketplace](https://marketplace.kore.ai/)\n\nPre-built agents\n\nTemplates\n\nIntegrations\n\nTailored Applications\n\nDesign and build applications on our Agent Platform using our enterprise modules.\n\nPlatform\n\n###### Agent Platform\n\nYour strategic enabler for enterprise AI transformation.\n\n[Learn more](/ai-agent-platform)\n\nEnterprise Modules\n\nAI for Work\n\nAI for Service\n\nTop Resources\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/69b9570e4da32f5ab25cdad5_From%20Search%20to%20Action_%20What%20Makes%20Agentic%20AI%20Work%20in%20Practice.png)\n\nFrom search to action: what makes agentic AI work in practice\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6a44d615620b2def3a5891e6_AI%20agents%20operate%20with%20unmanaged%20risk.webp)\n\nThe Kore.ai Agent Productivity Index 2026\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/68ff5ab61fc2800046405d5d_beyond_ai_islands_how_to_fully_build_an_enterwise_wide_ai_workforce.webp)\n\nBeyond AI islands: how to fully build an enterwise-wide AI workforce\n\nQUICK LINKS\n\n[About Kore.ai](/about-us)[Customer Stories](/customer-stories)[Partners](/partners)[Resources](/resource)[Blog](/blog)[Whitepapers](/whitepaper)[Documentation](https://docs.kore.ai)[Analyst Recognition](/analyst-recognition)[Get support](/support)[Community](https://community.kore.ai)[Academy](https://bots.kore.ai/accounts/?return_to=saml&showLogin=true&hideSSOButtons=true&hideResourcesPageLink=true&comingFromKey=saml&samlReqId=sar-60c99c46-5a03-50f2-8b41-3332f3cec83e&RelayState=9b_KwLhGZXMQHr7mxhbCf2B_VlV-hYt3N-20Gt1tsZHfcku0TRdfoehz)[Careers](/careers)[Contact Us](/contact-us)\n\n[Agent Marketplace](https://marketplace.kore.ai/)\n\nMore\n\nMore\n\nResources\n\nResource Hub\n\nBlog\n\nWhitepapers\n\nWebinars\n\nAI Research Reports\n\nAI Glossary\n\nVideos\n\nAI Pulse\n\nGenerative AI 101\n\nResponsive AI Framework\n\nCXO Toolkit\n\nPrivate equity\n\nsupport\n\nDocumentation\n\nGet support\n\nSubmit RFP\n\nAcademy\n\nCommunity\n\nCOMPANY\n\nAbout us\n\nLeadership\n\nCustomer Stories\n\nPartners\n\nAnalyst Recognition\n\nNewsroom\n\nEvents\n\nCareers\n\nContact us\n\nMicrosoft Partnership\n\nAgentic AI Guides\n\n![forrester cx wave 2024 Kore at top](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900cd6400001f247db03abb_forrester%20cx%20wave%202024.webp)\n\nKore.ai named a leader in The Forrester Wave™: Conversational AI for Customer Service, Q2 2024\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900ce6de331c2b312d89805_Artboard%201%20copy%20316%402x-100.webp)\n\nGenerative AI 101\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900ceea68aa38e8954d07ad_Artboard%201%20copy%20281%402x-100.webp)\n\nCXO AI toolkit for enterprise AI success\n\nupcoming event\n\nNo items found.\n\n[Talk to an expert\n\nNot sure which product is right for you or have questions? Schedule a call with our experts.](/talk-to-an-expert)[Request a Demo\n\nDouble click on what's possible with Kore.ai](/request-a-demo)\n\n[Sign in](/sign-in)[Get in touch](/contact-us)\n\n![Background Image 1](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/68c46dcd8e2093861ae743a3_bg-wave-simple-4%20(1).webp)\n\n[Blog](/blog)\n\nGenerative AI\n\n[Contrastive Chain-Of-Thought prompting](/blog/contrastive-chain-of-thought-prompting)\n\n# Contrastive Chain-Of-Thought prompting\n\nPublished Date:\n\nFebruary 3, 2025\n\nLast Updated ON:\n\nApril 10, 2026\n\nContrastive Chain-of-Thought Prompting (CCoT) uses both positive & negative demonstrations to improve LLM reasoning.\n\n## Introduction to Chain-of-Thought (COT)\n\nOf Late there has been a number of [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d) illustrating how Large Language Models (LLMs) are capable of decomposing complex problems into a series of intermediate steps.\n\nThis lead to a phenomenon which some call [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d).\n\n*This* basic principle was first introduced by the concept of [Chain-Of-Thought](https://cobusgreyling.medium.com/chain-of-thought-prompting-in-llms-1077164edf97)(CoT) prompting…\n\nThe basic premise of CoT prompting is to mirror human problem-solving methods, where we as humans decompose larger problems into smaller steps.\n\nThe LLM then addresses each sub-problem with focussed attention hence reducing the likelihood of overlooking crucial details or making wrong assumptions.\n\nThe [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d) approach is very successful in interacting with LLMs.\n\n![CCoT prompting](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/69130efaf5708fd2eee78d52_CCoT-prompting.webp)\n\nCCoT Walkthrough\n\n## CoT vs CCoT\n\nAn interesting element of CoT was the relatively low impact of using invalid demonstrators; and by implication wrong assumptions during the intermediate reasoning steps are propagated down the chain.\n\nChain-Of-X approaches do not illustrate behaviour, but only supply correct examples for the LLM to follow.\n\nConsidering thi",
+      "score": 0.80771893
+    },
+    {
+      "id": "S5",
+      "title": "What is chain of thought (CoT) prompting?",
+      "url": "https://www.ibm.com/think/topics/chain-of-thoughts",
+      "content": "Think 2026  Turn agentic AI into real business value | Think keynotes\n\n# What is chain of thought (CoT) prompting?\n\nBy [Eda Kavlakoglu](https://www.ibm.com/think/author/eda-kavlakoglu.html) , [Vrunda Gadesha](https://www.ibm.com/think/author/vrunda-gadesha) , [Vanna Winland](https://www.ibm.com/think/author/vanna-winland)\n\nChain of thought (CoT) is a [prompt engineering](https://www.ibm.com/think/topics/prompt-engineering) technique that enhances the output of large language models ([LLMs](https://www.ibm.com/think/topics/large-language-models)), particularly for complex tasks involving multistep reasoning. It facilitates problem-solving by guiding the model through a step-by-step reasoning process by using a coherent series of logical steps.\n\nPrompt engineering is used in [artificial intelligence](https://www.ibm.com/think/topics/artificial-intelligence) to refine inputs (prompts) to get the most accurate model outputs. In this study, the concept of chain of thought prompting is introduced which elicits reasoning in LLMs.[1](#f1) The paper argues that prompting models to generate intermediate reasoning steps significantly boosts their ability to accurately solve multistep problems like arithmetic, common sense and symbolic reasoning.\n\nResearchers were inspired by the LLMs’ ability to “think out loud” in natural language, noting that as parameter size increased, so did reasoning ability and accuracy. For this reason, CoT prompting is considered an emergent ability, or an ability that appears as model size or complexity scales up. Large LLMs tend to perform better because they’ve learned more nuanced reasoning patterns from training on massive datasets.\n\nHowever, increasing model size is not the only way to improve problem-solving accuracy across a variety of benchmarks. Advances in [instruction tuning](https://www.ibm.com/think/topics/instruction-tuning) have enabled smaller models to perform CoT reasoning. The IBM® Granite® Instruct models, for instance, are fine-tuned by using specialized training datasets composed of instructional prompts and exemplars for CoT tasks. An exemplar is a prompt example that the model uses as the ideal way to respond.\n\n![Prompt chaining and chain of thoughts comparing two methods AI uses to generate text.](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-prompt?ts=1778780563079&dpr=off)\n\n## Why is CoT prompting effective?\n\nChain of thought prompting simulates human-like reasoning processes by breaking down elaborate problems into manageable, intermediate steps that sequentially lead to a conclusive answer.[2](#f2) This step-by-step problem-solving structure aims to help ensure that the reasoning process is clear, logical and effective.\n\nIn standard prompt formats, the model output is typically a direct response to the provided input. For example, one might provide an input prompt asking, “What color is the sky?\", the AI would generate a simple and direct response, such as \"The sky is blue.\"\n\nHowever, if asked to explain why the sky is blue using CoT prompting, the AI would first define what \"blue\" means (a primary color). The AI would then deduce that the sky appears blue due to the absorption of other colors by the atmosphere. This response demonstrates the AI's ability to construct a logical argument.\n\nTo construct a prompt, a user typically appends an instruction to the end of their prompt. Users commonly add an instruction to their prompt such as “describe your reasoning steps” or “explain your answer step-by-step.\" In essence, this prompting technique asks the LLM to not only generate a result but also detail the series of intermediate steps that led to that answer.[3](#f3)\n\n[Prompt chaining](https://www.ibm.com/think/topics/prompt-chaining) is another popular method used in gen AI applications to improve reliability by using multiple prompts that build on each other sequentially to break down complex tasks. Techniques such as prompt chaining and CoT guide the model to reason through a problem step-by-step rather than jumping to an answer that merely sounds correct. This method can also be helpful for observability and debugging, as it encourages the model to be more transparent in its reasoning. The main difference between these methods is that prompt chaining sequences multiple prompts to break down tasks step-by-step, while CoT prompting elicits the model’s reasoning process within a single prompt.\n\n## Think beyond the prompts and get the full context\n\nStay ahead of the latest in industry news, AI tools and emerging trends in prompt engineering with the Think Newsletter. Plus, get access to new explainers, tutorials and expert insights—delivered straight to your inbox, twice weekly.\n\n## Thank you!\n\nYou are subscribed.\n\n## How does chain of thought prompting work?\n\nChain of thought prompting leverages [large language models (LLMs)](https://www.ibm.com/think/topics/large-language-models) to articulate a succession of reasoning steps, guiding the model toward generating analogous reasoning chains for novel tasks. This is achieved through exemplar-based prompts that illustrate the reasoning process, thus enhancing the model’s capacity for addressing complex reasoning challenges.[4](#f4) Let’s understand the flow of this prompting technique by addressing the classic math word problem—solving a polynomial equation.\n\n### Example: How does chain of thought prompting work for solving polynomial equations?\n\nChain of thought (CoT) prompting can significantly aid in solving polynomial equations by guiding an LLM to follow a series of logical steps, breaking down the problem-solving process.[5](#f5) Let's examine how CoT prompting can tackle a polynomial equation.\n\nConsider the example of solving a quadratic equation.\n\n**Input prompt:** Solve the quadratic equation: **x2 - 5x + 6 = 0**\n\nWhen we give this prompt to [IBM watsonx.ai®](https://www.ibm.com/products/watsonx-ai) chat, we can see the following conversation between human question and AI assistance’s reply.\n\n![Chain of thoughts equations prompt equation](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-image2?ts=1778780564967&dpr=off)\n\nTo generate this type of output, the CoT fundamentals work as illustrated in the following image. The final answer of the chain of thought will be \"The solutions to the equation **x2 − 5x + 6 = 0** are **x = 3** and **x = 2**\"\n\n![Chain of thoughts equations image](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-image3?ts=1778780565576&dpr=off)\n\n## Chain of thought variants\n\nChain of thought (CoT) prompting has evolved into various innovative variants, each tailored to address specific challenges and enhance the model's reasoning capabilities in unique ways. These adaptations not only extend the applicability of CoT across different domains but also refine the model's problem-solving process.[6](#f6)\n\n### Zero-shot chain of thought\n\nThe [zero-shot](https://www.ibm.com/think/topics/zero-shot-learning) chain of thought variant leverages the inherent knowledge within models to tackle problems without prior specific examples or [fine-tuning](https://www.ibm.com/think/topics/fine-tuning) for the task at hand. This approach is particularly valuable when dealing with novel or diverse problem types where tailored training data might not be available.[7](#f7) This approach can leverage the properties of standard prompting and [few-shot](https://www.ibm.com/think/topics/few-shot-learning) prompting.\n\nFor example, when addressing the question “What is the capital of a country that borders France and has a red and white flag?”, a model that uses zero-shot CoT would draw on its embedded geographic and flag knowledge to deduce steps leading to Switzerland as the answer, despite not being explicitly trained on such queries.\n\n### Automatic chain of thought\n\nAutomatic chain of thought (auto-CoT) aims to minimize the manual effort in crafting prompts by automating the generation and selection of effective reasoning paths. This variant e",
+      "score": 0.80735475
+    },
+    {
+      "id": "S6",
+      "title": "Chain-of-Thought Prompting",
+      "url": "https://learnprompting.org/docs/intermediate/chain_of_thought",
+      "content": "**New: The Google AI Studio Specialization. Build 12 real apps, no code needed.**\n\n[Enroll now →](/specializations/google-ai-studio)\n\n[![learnprompting logo](/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.65e728da.webp&w=640&q=75&dpl=dpl_Gk1nMuqXCGSccJm1zxZGMxBR5nmN)](/)\n\n* [AI Courses\n\n  Master AI and prompt engineering](/courses)[SpecializationsNew\n\n  Build real apps with AI tools](/specializations/google-ai-studio)[Certifications\n\n  Get Certified in AI](/certificates)\n\n  ### DIFFICULTY LEVEL\n\n  [Beginner Courses](/courses?level=beginner#course-grid)[Intermediate Courses](/courses?level=intermediate#course-grid)[Advanced Courses](/courses?level=advanced#course-grid)\n\n  [View All Courses](/courses)\n\n  ### RECOMMENDED COURSES\n\n  [NEW\n\n  #### ChatGPT for Everyone\n\n  Master ChatGPT fundamentals and advanced techniques\n\n  Start Learning](/courses/chatgpt-for-everyone)[NEW\n\n  #### Introduction to Prompt Engineering\n\n  Learn the fundamentals of crafting effective prompts\n\n  Start Learning](/courses/introduction-to-prompt-engineering)[ON-DEMAND\n\n  #### AI Red-Teaming and AI Security Masterclass\n\n  Learn AI security from the creator of Learn Prompting and HackAPrompt\n\n  Start Learning](/courses/ai-security-masterclass)\n* [Workshops](/workshops/google-ai-studio)\n* [Docs](/docs/introduction)\n* [Blog](/blog)\n* Resources\n\n  [Community](https://discord.gg/jXd7MGuxTJ)[HackAPrompt](https://www.hackaprompt.com)[7-Day Free Course](/#email-course)[Prompt Hacking Guide](/prompt-hacking-guide)[Vocabulary](/vocabulary)[Help Center](/help-center)[About](/about)\n* [Pricing](/pricing)\n* [For Business](/for-business)\n\n[Start Learning for Free](https://learnprompting.thinkific.com/users/sign_up?utm_source=nextjssite&utm_medium=organic&utm_campaign=initial_utm_setup&utm_term=start_learning_for_free_button&utm_content=navbar)\n\n[![Sitting astronaut](/_next/image?url=%2Fimg%2Fsimple_ai.webp&w=64&q=75&dpl=dpl_Gk1nMuqXCGSccJm1zxZGMxBR5nmN)Learn Prompting](/)\n\nPrompt Engineering Guide\n\n😃 Basics\n\n💼 Applications\n\n🧙‍♂️ Intermediate\n\n🧠 Advanced\n\nSpecial Topics\n\n⚖️ Reliability\n\n🔓 Prompt Hacking\n\n🖼️ Image Prompting\n\n🌱 New Techniques\n\n🔧 Models\n\n🗂️ RAG\n\n🤖 Agents\n\n💪 Prompt Tuning\n\n🔁 Language Model Inversion\n\n🔨 Tooling\n\n🎲 Miscellaneous\n\nResources\n\n📚 Bibliography\n\n📦 Prompted Products\n\n🛸 Additional Resources\n\n🔥 Hot Topics\n\n✨ Credits\n\n🧙‍♂️ Intermediate[🟢 Chain-of-Thought Prompting](/docs/intermediate/chain_of_thought)\n\n# Chain-of-Thought Prompting\n\n🟢 This article is rated [easy](/docs/introduction#header-4)\n\nReading Time: 4 minutes\n\nLast updated on October 1, 2024\n\n[Valeriia Kuka](#Valeriia Kuka-bio)\n\nTakeaways\n\n* **Chain-of-Thought (CoT) Prompting**: This technique improves [LLM](/vocabulary/LLM) performance by encouraging them to articulate their reasoning process, leading to more accurate answers.\n* **Task Effectiveness**: CoT is particularly beneficial for complex tasks and works best with larger models; smaller models may perform worse.\n\n## What is Chain-of-Thought Prompting?\n\n**Chain-of-Thought (CoT) Prompting** is a technique that enhances the reasoning capabilities of [large language models (LLMs)](/vocabulary/LLM) by incorporating logical steps—or a “chain of thought”—within the prompt. Unlike direct-answer prompting, CoT guides the model to work through intermediate reasoning steps, making it more adept at solving complex tasks like math problems, commonsense reasoning, and symbolic manipulation.\n\n## How Chain-of-Thought Prompting Differs from Existing Techniques\n\nTraditional prompts typically consist of simple input-output examples and lack explicit reasoning steps, making it challenging for models to infer the necessary logic for tasks requiring multi-step reasoning. [CoT prompting](/vocabulary/CoT_Prompting) addresses this by:\n\n* **Encouraging Multi-Step Reasoning:** Rather than relying solely on model size for complex tasks, CoT embeds reasoning steps within the prompt, unlocking sophisticated reasoning in models that might otherwise struggle with complexity.\n* **Achieving Efficiency without Finetuning:** CoT works across tasks without the need for finetuning, using a standard prompt format that embeds reasoning, thus simplifying adaptation to various complex tasks.\n\nThe example belowillustrates the difference between [few-shot prompting](/docs/basics/few_shot) (left) and CoT prompting (right). While the traditional approach goes directly to the solution, CoT guides the model to lay out its reasoning process, often resulting in more accurate and interpretable outcomes.\n\nRegular Prompting vs CoT (Wei et al.)\n\nThe key concept of CoT is that by providing a few examples (or [exemplars](/vocabulary/exemplars)), where the reasoning process is explicitly shown, the LLM learns to include reasoning steps in its responses. This structured approach to thinking often results in more accurate outputs.\n\n## How Chain-of-Thought Prompting Works\n\n1. **Decompose the Problem:** CoT prompts guide the model to break down a complex question into manageable steps, akin to how a human might solve the problem.\n2. **Guide with Exemplars:** CoT uses examples that demonstrate reasoning steps, helping the model grasp the method needed to reach the correct answer.\n\nWith CoT, the model essentially “talks through” its thought process, leading to more reliable answers.\n\n### Applications and Benefits:\n\nCoT prompting is especially valuable for tasks where structured reasoning is crucial:\n\n* **Mathematics and Arithmetic:** CoT helps solve multi-step word problems by guiding calculations through each necessary step.\n* **Commonsense and Symbolic Reasoning:** Useful for tasks requiring general knowledge or symbolic reasoning, where CoT can bridge the gap between facts and logical connections.\n* **Complex Decision-Making:** In fields like robotics, CoT enables models to follow logical steps for decision-making tasks.\n\n## How to Use Chain-of-Thought Prompting\n\n![Astronaut](/_next/image?url=%2Fdocs%2Fassets%2Fastronaut.webp&w=48&q=75&dpl=dpl_Gk1nMuqXCGSccJm1zxZGMxBR5nmN)\n\n#### Chain-of-Thought Prompting Template\n\n---\n\nQ: John has 10 apples. He gives away 4 and then receives 5 more. How many apples does he have?\n\nA:\n\n1. John starts with 10 apples.\n2. He gives away 4, so 10 - 4 = 6.\n3. He then receives 5 more apples, so 6 + 5 = 11. Final Answer: 11\n\nQ: [Your Question]\n\n## Examples\n\nHere are two demos illustrating how CoT prompting improves outcomes. The first demo shows GPT-3 (davinci-003) struggling with a word problem without CoT, while the second shows it succeeding using CoT.\n\n### Incorrect Solution (Without CoT)\n\n### Correct Solution (Using CoT)\n\n## Chain-of-Thought Results\n\nResearch has shown that CoT prompting can significantly enhance LLM accuracy on tasks like arithmetic, commonsense, and symbolic reasoning. For instance, a prompted PaLM 540B modelachieved a 57% solve rate accuracy on GSM8K, setting a state-of-the-art (SOTA) benchmark at the time.\n\nThe table below summarizes the performance improvements on key benchmarks when using CoT prompting:\n\n| Task | Model | Standard Prompting Accuracy | CoT Prompting Accuracy | Improvement |\n| --- | --- | --- | --- | --- |\n| GSM8K (Math) | PaLM 540B | 55% | 74% | +19% |\n| SVAMP (Math) | PaLM 540B | 57% | 81% | +24% |\n| Commonsense (CSQA) | PaLM 540B | 76% | 80% | +4% |\n| Symbolic Reasoning | PaLM 540B | ~60% | ~95% | +35% |\n\n## Limitations of Chain-of-Thought\n\nImportantly, according to CoT authors, **CoT only yields performance gains when used with models of ∼100B parameters**. Smaller models wrote illogical chains of thought, which led to worse accuracy than standard prompting. Models usually get performance boosts from CoT prompting in a manner proportional to the size of the model.\n\n## Conclusion\n\nChain-of-Thought Prompting is a powerful method for unlocking reasoning capabilities in large language models. By encouraging step-by-step thinking, CoT prompting allows models to perform complex reasoning tasks effectively without needing additional training data. The bene",
+      "score": 0.60917604
+    },
+    {
+      "id": "S7",
+      "title": "Language Models Perform Reasoning via Chain of Thought",
+      "url": "https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought",
+      "content": "[Google Research](/)\n\n \n\n\n![Language Models Perform Reasoning via Chain of Thought](https://storage.googleapis.com/gweb-research2023-media/original_images/8a16b7eee6b4708eb244336077430e64-chainofthought.png)\n\n# Language Models Perform Reasoning via Chain of Thought\n\nMay 11, 2022\n\nPosted by Jason Wei and Denny Zhou, Research Scientists, Google Research, Brain team\n\n## Quick links\n\n* + ×\n\nIn recent years, [scaling up the size of language models](https://arxiv.org/abs/2005.14165) has been shown to be a reliable way to improve performance on a range of natural language processing (NLP) tasks. Today’s language models at the scale of 100B or more parameters achieve strong performance on tasks like [sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis) and machine translation, [even with little or no training examples](http://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html). Even the [largest language models](https://deepmind.com/blog/article/language-modelling-at-scale), however, can still struggle with certain multi-step reasoning tasks, such as math word problems and [commonsense reasoning](https://en.wikipedia.org/wiki/Commonsense_reasoning). How might we enable language models to perform such reasoning tasks?\n\nIn “[Chain of Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903),” we explore a prompting method for improving the reasoning abilities of language models. Called *chain of thought prompting*, this method enables models to decompose multi-step problems into intermediate steps. With chain of thought prompting, language models of sufficient scale (~100B parameters) can solve complex reasoning problems that are not solvable with standard prompting methods.\n\n## Comparison to Standard Prompting\n\nWith *standard prompting* (popularized by [GPT-3](https://arxiv.org/abs/2005.14165)) the model is given examples of input–output pairs (formatted as questions and answers) before being asked to predict the answer for a test-time example (shown below on the left). In *chain of thought prompting* (below, right), the model is prompted to produce intermediate reasoning steps before giving the final answer to a multi-step problem. The idea is that a model-generated chain of thought would mimic an intuitive thought process when working through a multi-step reasoning problem. While producing a thought process has been [previously accomplished](https://arxiv.org/abs/2006.06609) via fine-tuning, we show that such thought processes can be elicited by including a few examples of chain of thought via prompting only, which does not require a large training dataset or modifying the language model’s weights.\n\n|  |\n| --- |\n| Whereas standard prompting asks the model to directly give the answer to a multi-step reasoning problem, chain of thought prompting induces the model to decompose the problem into intermediate reasoning steps, in this case leading to a correct final answer. |\n\nChain of thought reasoning allows models to decompose complex problems into intermediate steps that are solved individually. Moreover, the language-based nature of chain of thought makes it applicable to any task that a person could solve via language. We find through empirical experiments that chain of thought prompting can improve performance on various reasoning tasks, and that successful chain of thought reasoning is an emergent property of model scale — that is, the benefits of chain of thought prompting only materialize with a sufficient number of model parameters (around 100B).\n\n## Arithmetic Reasoning\n\nOne class of tasks where language models typically struggle is arithmetic reasoning (i.e., solving math word problems). Two benchmarks in arithmetic reasoning are [MultiArith](https://aclanthology.org/D15-1202/) and [GSM8K](https://arxiv.org/abs/2110.14168), which test the ability of language models to solve multi-step math problems similar to the one shown in the figure above. We evaluate both the [LaMDA collection](https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html) of language models ranging from 422M to 137B parameters, as well as the [PaLM collection](https://ai.googleblog.com/2022/04/pathways-language-model-palm-scaling-to.html) of language models ranging from 8B to 540B parameters. We manually compose chains of thought to include in the examples for chain of thought prompting.\n\nFor these two benchmarks, using standard prompting leads to relatively flat scaling curves: increasing the scale of the model does not substantially improve performance (shown below). However, we find that when using chain of thought prompting, increasing model scale leads to improved performance that substantially outperforms standard prompting for large model sizes.\n\n|  |\n| --- |\n| Employing chain of thought prompting enables language models to solve arithmetic reasoning problems for which standard prompting has a mostly flat scaling curve. |\n\nOn the GSM8K dataset of math word problems, PaLM shows remarkable performance when scaled to 540B parameters. As shown in the table below, combining chain of thought prompting with the 540B parameter PaLM model leads to new state-of-the-art performance of 58%, surpassing the prior state of the art of 55% achieved by fine-tuning GPT-3 175B on a large training set and then ranking potential solutions via a specially trained verifier. Moreover, [follow-up work](https://arxiv.org/abs/2203.11171) on self-consistency shows that the performance of chain of thought prompting can be improved further by taking the majority vote of a broad set of generated reasoning processes, which results in 74% accuracy on GSM8K.\n\n|  |\n| --- |\n| Chain of thought prompting with [PaLM](https://arxiv.org/abs/2204.02311) achieves a new state of the art on the [GSM8K](https://arxiv.org/abs/2110.14168) benchmark of math word problems. For a fair comparison against [fine-tuned GPT-3 baselines](https://arxiv.org/abs/2110.14168), the chain of thought prompting results shown here also use an external calculator to compute basic arithmetic functions (i.e., addition, subtraction, multiplication and division). |\n\n## Commonsense Reasoning\n\nIn addition to arithmetic reasoning, we consider whether the language-based nature of chain of thought prompting also makes it applicable to commonsense reasoning, which involves reasoning about physical and human interactions under the presumption of general background knowledge. For these evaluations, we use the [CommonsenseQA](https://aclanthology.org/N19-1421) and [StrategyQA](https://aclanthology.org/2021.tacl-1.21) benchmarks, as well as two domain-specific tasks from [BIG-Bench collaboration](https://github.com/google/BIG-bench/) regarding [date understanding](https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/date_understanding) and [sports understanding](https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/sports_understanding). Example questions are below:\n\nAs shown below, for CommonsenseQA, StrategyQA, and Date Understanding, performance improved with model scale, and employing chain of thought prompting led to additional small improvements. Chain of thought prompting had the biggest improvement on sports understanding, for which PaLM 540B’s chain of thought performance surpassed that of an unaided sports enthusiast (95% vs 84%).\n\n|  |\n| --- |\n| Chain of thought prompting also improves performance on various types of commonsense reasoning tasks. |\n\n## Conclusions\n\nChain of thought prompting is a simple and broadly applicable method for improving the ability of language models to perform various reasoning tasks. Through experiments on arithmetic and commonsense reasoning, we find that chain of thought prompting is an emergent property of model scale. Broadening the range of reasoning tasks that language models can perform will hopefully inspire further work on language-based approaches to reasoning.\n\n## Acknowledgements\n\n*I",
+      "score": 0.54913354
+    },
+    {
+      "id": "S8",
+      "title": "What is Chain-of-Thought (CoT) in LLMs?",
+      "url": "https://www.youtube.com/watch?v=xPly2h-gIcw",
+      "content": "# What is Chain-of-Thought (CoT) in LLMs?\n## BrainOmega\n50600 subscribers\n6 likes\n\n### Description\n505 views\nPosted: 16 Aug 2025\n💖 Support BrainOmega\n☕ Buy Me a Coffee: https://buymeacoffee.com/brainomega  \n💳 Stripe: https://buy.stripe.com/aFa00i6XF7jSbfS9T218c00  \n💰 PayPal: https://paypal.me/farhadrh \n\n🎥 How can AI reason step by step like a human? With the Chain of Thought technique. In this tutorial, we break down how Large Language Models (LLMs) solve complex problems more accurately by showing their intermediate reasoning steps. You’ll see real examples—like math word problems—and learn how CoT improves accuracy, transparency, and trustworthiness in AI systems.\n\n⸻\n\n🔖 Chapters & Timestamps\n00:00:00 1. What is Chain of Thought?\n⸻\n\n📚 What You’ll Learn\n\nChain of Thought Basics – Understand how LLMs use intermediate steps to break down complex questions.\n\nProblem-Solving in Practice – See examples of how CoT handles tasks like math reasoning and logic puzzles.\n\nBenefits of CoT – Learn how step-by-step reasoning leads to better accuracy, interpretability, and user trust.\n\nChallenges & Trade-offs – Explore issues like longer responses, slower inference, and risk of hallucinations.\n\nBeyond CoT – Get a preview of advanced prompting methods such as self-consistency and tree of thought.\n\n⸻\n\n✅ Why Watch This Video?\n\nClear & Practical – No jargon overload. Just straightforward explanations with real examples.\n\nStay Ahead – Learn a game-changing technique that researchers, students, and professionals are using to build more reliable AI.\n\n⸻\n\n👍 If this video helped you understand AI reasoning better:\n\nLike 👍\n\nSubscribe 🔔 for upcoming tutorials on advanced prompting methods\n\nShare with a friend who’s curious about how AI really “thinks”!\n\n💬 Join the Conversation\n\nWhere do you think AI reasoning could make the biggest impact—education, healthcare, or business?\n\nHave you tried prompting LLMs to “think step by step”? What were your results?\n\n⸻\n#ChainOfThought #LLM #AIReasoning #MachineLearning #ArtificialIntelligence #DeepLearning\n\n4 comments\n### Transcript:\nHave you ever asked an AI a seemingly simple logic question only to get an answer [music] that's confidently completely wrong? It's a common experience and it [music] highlights a fundamental challenge for large language models. While they are masters of language, their ability to reason through multi-step [music] problems hasn't always been as robust. They can write a poem or summarize a document with ease. But ask them to solve a word puzzle and the cracks in their logic can start to show. This [music] is because at their core, many models are trained to predict the next word, not to truly understand and process a problem sequentially. But what if we [music] could teach them to think before they speak? Welcome to this deep dive tutorial on [music] chain of thought. In this video, we'll explore what this transformative technique is, where [music] it came from, why it's a gamecher for AI reasoning, and how you can leverage it to build more intelligent [music] and reliable applications. So what exactly is chain of thought? At its simplest, it's a prompting technique that encourages a large language [music] model to articulate its reasoning process step by step before giving a final answer. [music] Instead of making a direct leap from question to conclusion, the model generates the intermediate thoughts that a person might have when solving the same problem. Think of it like showing your work in a math class. You don't just write down x= [music] 5. You write out the equations, the substitutions, and the calculations that led you to that answer. This process [music] of externalizing the reasoning path is the essence of chain of thought. This technique was popularized in a groundbreaking 2022 paper from Google research, which demonstrated that simply adding the phrase, \"Let's think stepby step to a prompt,\" could dramatically improve an LLM's performance on complex reasoning [music] tasks. It's not a change to the model's architecture. It's a change in how we communicate with it, guiding it to unlock its latent reasoning abilities. Let's see this in action with a concrete example. Imagine we give a model this word problem. A farmer has 15 apples. He sells three to his neighbor. He then goes to the market and buys two more baskets [music] of apples with each basket containing six apples. How many apples does the farmer have? Now, with a standard prompt, a model might rush to an answer and make a [music] mistake, perhaps just adding all the numbers together. it might incorrectly output 24. Now, let's try it with a chain of thought prompt. We'd [music] phrase it like this. Q. A farmer has 15 apples. How many apples does he have now? A. Let's think step by step. The model's response would then look [music] very different. It would first break down the problem. Step one, the farmer starts with 15 apples. Then, step two, he sells [music] three apples. So, we subtract 3 from 15. 15 - 3 equals 12 apples. Next step three, he buys two [music] baskets and each basket has six apples. So he gets two six equal sign 12 new apples. Finally, step four, we add the new apples to the apples he had left. [music] 12 + 12 equals 24 apples. By forcing the model to decompose the problem, it correctly navigates each stage of the logic, arriving at the right answer. This simple shift from asking for an answer to asking for [music] a process makes all the difference. The benefits of this approach are profound and extend far beyond simple math [music] problems. The most obvious is a dramatic improvement in accuracy for tasks [music] requiring arithmetic, common sense, or symbolic reasoning. By breaking a complex problem into smaller, manageable parts, the model [music] reduces the chance of making a critical error. Secondly, chain of thought provides unprecedented [music] transparency. For years, LLMs have been criticized as black boxes. We see the input and the [music] output, but the process in between is a mystery. Toot toot turns this black box into a [music] glass box. We can read the model's reasoning, understand its logic, and verify its conclusions. This leads directly [music] to the third major benefit, easier debugging and increased trust. If a COT enabled model gives a wrong answer, you can often pinpoint exactly where its logic went astray. Was it a miscalculation [music] in step two, a flawed assumption in step three? This diagnostic capability is crucial for refining prompts and building trust [music] in AI systems, especially in highstakes fields like medicine, finance, and law, where understanding the why behind a decision is just as important [music] as the decision itself. However, chain of thought is not a silver bullet, and it's important to understand [music] its limitations and potential pitfalls. The most immediate challenge is increased [music] computational cost. Generating a detailed reasoning path requires more tokens and more processing time than simply outputting a final answer. This can have implications for cost [music] and latency in real-time applications. Another significant risk is the possibility of reasoning [music] hallucinations. The model can generate a chain of thought that looks plausible and is grammatically [music] correct but contains logical fallacies or factual errors. It can make a mistake early on and then confidently build the rest of its argument on that faulty foundation. To mitigate these issues, several best practices [music] have emerged. First, be explicit. Using trigger phrases like, \"Let's think step by step [music] or explain your reasoning is key.\" Second, for more complex tasks, provide a few shot demonstration [music] in your prompt, showing the model exactly what a good chain of thought looks like. Finally, when possible, have a verification layer that can check the logic of the [music] generated steps, adding a crucial layer of quality control. In summary, chain of thought repre",
+      "score": 0.57322514
+    },
+    {
+      "id": "S9",
+      "title": "Chain-of-Thought (CoT): Prompting & LLM Reasoning Explained",
+      "url": "https://www.altexsoft.com/blog/chain-of-thought-prompting",
+      "content": "![Chain of Thought CoT Prompting and LLM Reasoning Explained with Examples](https://www.altexsoft.com/static/blog-post-featured/2025/9/240ac71e-2996-4c9b-b709-bcea52cf8a80.jpg)\n\n# Chain-of-Thought (CoT): Prompting and LLM Reasoning Explained with Examples\n\n![Nefe Emadamerho-Atori](https://www.altexsoft.com/static/author-photo/2025/3/nefe-emadamerho-atori-s-bio-image-e9481.jpg)\n\nThink about a time you faced a tough problem, like a tricky math equation or a bug in your code. It may have felt overwhelming since you couldn’t figure out how to approach the issue. But once you broke it into smaller steps, each part became easier to handle, and the answer started coming together. That process of working step by step is what turns confusion into clarity—and it’s the same idea behind the chain-of-thought (CoT) process for[large language models (LLMs)](https://www.altexsoft.com/blog/language-models-gpt/).\n\nIn this article, we will learn how CoT and its prompting works, explore some examples, and see how it helps [generative artificial intelligence (AI) models](https://www.altexsoft.com/blog/generative-ai/) reason through problems, leading to more accurate results.\n\n![How Generative AI Works](https://www.altexsoft.com/static/content-image/2025/9/how-generative-ai-works-c3d5b.jpg)\n![PlayButton](/_next/static/images/YoutubePlayButton.9537f438343eb15a.svg)\n\nHow generative AI works\n\n## What is chain-of-thought prompting?\n\nChain-of-thought prompting is a [prompt engineering](https://www.altexsoft.com/blog/prompt-engineering/) technique that guides an AI model through a structured reasoning process before arriving at a final answer. This method breaks the problem down into a series of manageable steps, allowing the AI to work through them in the same way a person might write out their thoughts on paper.\n\nHere’s how it looks from the user’s end.\n\n![ChatGPT showing the reasoning steps it took to solve an arithmetic problem](https://www.altexsoft.com/static/content-image/2025/9/chatgpt-showing-the-reasoning-steps-it-took-to-sol-d51fa.png)\n\nChain-of-thought prompting matters because it enhances a model’s accuracy and performance. It is particularly useful for tasks that require multistep reasoning, such as solving math word problems or logic puzzles. Additionally, it is applied in areas like planning, coding, and debugging, where breaking down intermediate steps enables the model to produce clearer and more reliable outcomes.\n\n![Claude showing its reasoning steps for a logic puzzle](https://www.altexsoft.com/static/content-image/2025/9/claude-showing-its-reasoning-steps-for-a-logic-puz-eef87.png)\n\nHow exactly do CoT prompts work and affect a model internally? Researchers have provided answers to the question of what happens when you trigger a reasoning process and why it leads to better outcomes.\n\n**Expanded working context.** By prompting the model for step-by-step reasoning, you give it more room to think. Instead of jumping directly from the question to a quick answer, the model generates intermediate steps along the way. Each step becomes part of the [context](https://www.altexsoft.com/blog/agentic-context-engineering/) for producing the next one. This creates a \"chain\" where each new thought builds logically on the last.\n\n**Strengthened self-attention.**The self-attention mechanism enables the model to weigh the importance of one token relative to others in the sequence. With intermediate reasoning steps, the model can capture dependencies and relationships between tokens better. It’s less likely to miss crucial details or make logical leaps that lead to incorrect conclusions.\n\n**Self-correcting abilities.** Working in stages gives the model opportunities to catch and fix mistakes along the way. This structured approach acts as an internal error-checking mechanism.\n\n**Allocating more resources to a problem.** CoT allocates more computation to a problem. Just as a person might need more time to think through a difficult question, a more complex prompt makes a model use more processing time. The prompt also acts as a guide that helps the model activate the relevant domain knowledge it already possesses.\n\n## Chain-of-thought prompting examples and types\n\nNot all chain-of-thought prompts look the same. Over time, researchers and [prompt engineers](https://www.altexsoft.com/blog/prompt-engineer/) have developed several styles depending on the task and the level of reasoning needed. Here are some of the main ones and their examples.\n\n**Few-shot chain-of-thought**. Rather than simply telling the model what to do, you provide examples that include both reasoning steps and answers. This \"demonstration\" of the desired approach is especially useful when you want the LLM to adopt a specific reasoning style or when the problem is complex and examples can lead to more reliable and accurate outputs.\n\n![An example of a few-shot CoT prompt in action](https://www.altexsoft.com/static/content-image/2025/9/an-example-of-a-few-shot-cot-prompt-in-action-c1938.png)\n\n**Least-to-most chain-of-thought**. Here, you instruct the model to begin with the simplest version of the problem and then build up gradually to the full solution. This mirrors how people often learn and solve challenges—starting with basics before handling a complex case. It's excellent for big, layered problems where breaking them into smaller steps helps stay on track.\n\n![An example of a least-to-most CoT prompt in action](https://www.altexsoft.com/static/content-image/2025/9/an-example-of-a-least-to-most-cot-prompt-in-action-73d44.png)\n\n**Zero-shot chain-of-thought**. In this approach, you don’t provide examples; instead, you give a direct command like \"Let’s think step by step.\" This method is best for relatively simple tasks, such as basic math problems or short logic puzzles, where the model can generate a reasoning process without needing prior examples.\n\n![An example of a zero-shot CoT prompt in action](https://www.altexsoft.com/static/content-image/2025/9/an-example-of-a-zero-shot-cot-prompt-in-action-6efa4.png)\n\n**Self-consistency chain-of-thought**. This technique involves asking the model to solve the same problem multiple times using step-by-step reasoning, compare the answers, and select the most consistent output. The prompt reduces errors on problems with tricky steps and works especially well when having only one reasoning path might lead to mistakes.\n\n![An example of a self-consistency CoT prompt in action](https://www.altexsoft.com/static/content-image/2025/9/an-example-of-a-self-consistency-cot-prompt-in-act-6c528.png)\n\n## From prompting to reasoning models\n\nChain-of-thought has evolved beyond a prompt technique to become a standard feature in many [LLMs](https://www.altexsoft.com/blog/llm-api-integration/). Some AI products expose their reasoning traces to end-users, while others run the CoT internally and only present the final, polished answer. Regardless of the approach, the goal is to deliver the most accurate and logically sound response.\n\nThis is achieved through additional fine-tuning. Models are trained with [reinforcement learning](https://www.altexsoft.com/blog/reinforcement-learning-explained-overview-comparisons-and-applications-in-business/) systems that not only check if the final answer is correct but also assess the quality of the reasoning process itself. Some methods reward each reasoning step, others focus on rewarding correct outcomes, and some utilize simple rule-based checks to ensure accuracy.\n\n![Comparison of reasoning-first capabilities across LLM providers](https://www.altexsoft.com/static/content-image/2025/9/comparison-of-reasoning-first-capabilities-across--40b6b.png)\n\nTo strengthen reasoning further, these models are trained to generate longer chains of thought, explore multiple solution paths, or use search-based methods to backtrack and refine their answers. The result is reasoning that feels intrinsic rather than externally prompted.\n\nHere are some popular LLM providers",
+      "score": 0.5071046
+    },
+    {
+      "id": "S10",
+      "title": "What is Chain of Thought (CoT) Prompting?",
+      "url": "https://www.nvidia.com/en-us/glossary/cot-prompting",
+      "content": "1. [Glossary](https://www.nvidia.com/en-us/glossary/)\n2. Chain-of-Thought Prompting\n\n# What Is Chain of Thought Prompting?\n\nChain of Thought (CoT) is a prompt engineering technique that helps [large language models](https://www.nvidia.com/en-us/glossary/large-language-models/) (LLMs) reason with more accuracy, the same way you would get a human to: by asking it to show its work. CoT prompting works by first asking a question and providing an answer as input. When a second question is asked, the LLM uses the pattern established from the first question and answer to generate an answer for the second question.\n\n[How Scaling Laws Enable AI Reasoning](https://blogs.nvidia.com/blog/ai-scaling-laws/)\n\n## Chain of Thought: An Approach for Reasoning\n\nCoT is used in a new group of AI reasoning models called long-thinking or test-time scaling models. Other models need the user to prompt the model to break down problems into a series of steps. Test-time scaling systematically automates CoT reasoning. The model is self-directed, so it can initiate and manage its own thoughts without relying on a user's prompt sequence. The automation in the Chain of Thought process is a breakthrough in AI's ability to handle complex reasoning tasks. It aims to improve the language model's performance on complex tasks, such as math, logic, planning, and decision making. These advancements will build more intelligent [agentic AI](https://blogs.nvidia.com/blog/what-is-agentic-ai/) systems, driving far-reaching outcomes for use cases across healthcare, robotics, and finance, where complex decision making is a must.\n\n## Generative AI, Scaling Laws, and Chain of Thought Prompting\n\nIt should be noted that CoT prompting isn't inherently a generative AI technique; rather, it’s a prompt engineering method used within [generative AI](https://www.nvidia.com/en-us/glossary/generative-ai/) systems, particularly large language models, and is applied to a scaling law called test-time compute or “long thinking.” This scaling law suggests that the longer a model \"thinks\" or processes information internally before producing an output, the better its answer becomes.\n\n1. The scaling law for CoT relates to post-training performance improvements.\n2. It demonstrates that allowing an AI model to go through more internal reasoning steps (producing hidden thinking tokens) before giving a final, correct answer leads to better performance.\n3. This scaling law appears to have no upper limit, similar to training scaling laws, but it's exponential. This means that to continue improving outputs, the AI needs to \"think\" for increasingly longer periods.\n\nRecent research has shown that observational scaling laws can reliably predict the gains from post-training techniques like Chain of Thought. This indicates that CoT is not just a technique but follows a predictable scaling pattern across different model sizes and capabilities.\n\n## Why Is Chain of Thought Prompting Important?\n\nCoT prompting is important because it significantly enhances the reasoning capabilities of LLMs, leading to more accurate and reliable outputs for complex tasks. This technique breaks down intricate problems into manageable steps, mirroring human-like reasoning processes.\n\n### **Key Benefits**\n\n1. Improved Problem Solving: CoT enables LLMs to decompose complex problems into a series of intermediate steps, allowing for more accurate reasoning and better handling of multifaceted tasks.\n2. Enhanced Transparency: By providing a glimpse into the model's thought process, CoT allows users to better understand and debug the reasoning paths when they go wrong.\n3. Versatility: CoT has been successfully applied to a wide range of tasks requiring reasoning, making it a versatile technique for various applications.\n4. Cost: It can be implemented easily without the need for fine-tuning, making it a cost-effective method to improve model performance.\n5. Reduced Errors: By guiding models through a structured thought process, CoT helps in reducing logical errors and enhancing the overall accuracy of responses.\n\n### **CoT Prompting Is Particularly Valuable in Areas Such As:**\n\n* Mathematics and arithmetic problems\n* Common-sense and symbolic reasoning tasks\n* Complex decision-making scenarios, including fields like robotics\n\nBy leveraging the extensive knowledge LLMs are trained on and enhancing their logical reasoning capabilities, Chain of Thought prompting has become a crucial technique in pushing the boundaries of AI's problem-solving abilities.\n\n### **How Does CoT Prompting Work?**\n\n1. **Initial Prompting:** The process starts with an initial question (Q1) and its corresponding answer (A1), which serves as an example for the LLM. This establishes a structured reasoning pattern.\n2. **Pattern Recognition:** The LLM analyzes the structure and logic used in the initial question and answer. By understanding this pattern, the model prepares to apply similar reasoning to future questions.\n3. **Sequential Questioning:** When a subsequent question (Q2) is presented, the LLM leverages the reasoning demonstrated in the Q1-A1 pair to generate an informed response to Q2. This chaining allows for a more coherent and logical flow of information, as each question-answer pair builds upon the previous one.\n4. **Reducing Human Involvement:** In CoT prompting, the human role in directly crafting prompts is minimized. Instead of manually designing each prompt, humans focus on providing quality feedback during the training phase. This feedback is incorporated through [Reinforcement Learning](https://www.nvidia.com/en-us/glossary/reinforcement-learning/) with Human Feedback (RLHF), where humans evaluate the model’s responses and offer corrective guidance. The LLM uses this feedback to refine its understanding and boosts the accuracy of its generated answers.\n\n## How Does Chain of Thought Prompting Improve LLM Model Performance?\n\nCoT prompting significantly improves LLM model performance by enhancing the model’s reasoning capabilities and problem-solving skills. This technique guides LLMs through a structured thought process, leading to more precise and reliable outputs, especially for complex tasks.\n\n### **Enhanced Reasoning and Problem Solving**\n\nCoT prompting enables LLMs to break down intricate problems into manageable steps, mirroring human-like reasoning processes. This approach is particularly effective for tasks that require multi-step problem solving, such as mathematical word problems, symbolic reasoning, and common-sense reasoning tasks. By encouraging the model to articulate intermediate reasoning steps, CoT prompting helps identify and correct errors along the way, resulting in more accurate final answers.\n\n### **Enhanced Contextual Understanding**\n\nCoT prompting helps LLMs maintain context throughout complex reasoning tasks. By structuring the thought process, it ensures that the model considers all relevant information, leading to more contextually appropriate and accurate responses. This is particularly beneficial for tasks requiring deep analysis or the application of multiple concepts.\n\n### **Error Reduction**\n\nThe step-by-step nature of CoT prompting allows LLMs to identify and correct errors during the reasoning process. This self-correction mechanism significantly reduces the likelihood of incorrect final outputs, especially in tasks involving multiple calculations or logical steps.\n\nIn conclusion, Chain of Thought prompting substantially improves LLM accuracy by enhancing reasoning capabilities, providing structured problem-solving approaches, and enabling better error detection and correction. This technique has proven particularly effective for complex tasks requiring multi-step reasoning, demonstrating significant improvements across various benchmarks and problem domains.\n\n## Getting Started With Chain of Thought Prompting.\n\nTo learn more, read our explainer on [Scaling Laws](https://blogs.nvidia.com/blog/ai-scaling-laws/).\n\nRelated\n\n[How Scaling Law",
+      "score": 0.5008063
+    }
+  ]
+}

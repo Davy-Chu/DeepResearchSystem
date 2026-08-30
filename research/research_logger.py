@@ -33,6 +33,7 @@ class ResearchLogger:
     model: str
     max_iterations: int
     search_provider: str = "Tavily"
+    system_version: str = "baseline-zero"
     iterations: list[IterationLog] = field(default_factory=list)
     start_time: datetime | None = None
     end_time: datetime | None = None
@@ -161,6 +162,8 @@ class ResearchLogger:
             "# Research Run Log",
             "",
             "## Run Summary",
+            "",
+            f"**System Version:** {self.system_version}",
             "",
             "**Research Question**",
             "",

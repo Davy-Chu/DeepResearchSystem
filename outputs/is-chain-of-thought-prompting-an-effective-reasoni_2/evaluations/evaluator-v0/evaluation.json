@@ -1,0 +1,924 @@
+{
+  "evaluation_version": "evaluator-v0",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees-find the real fault lines and explain what accounts for the conflicting results.",
+  "coverage": {
+    "status": "COMPLETED",
+    "aspects": [
+      {
+        "id": "A1",
+        "description": "Evaluate whether chain-of-thought prompting improves LLM reasoning ability or primarily improves output formatting.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A2",
+        "description": "Identify and characterize the main fault lines underlying disagreement in the literature.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A3",
+        "description": "Explain the factors or conditions that account for conflicting findings about chain-of-thought prompting.",
+        "importance": "CORE"
+      },
+      {
+        "id": "A4",
+        "description": "Distinguish genuine improvements in reasoning from improvements attributable only to answer presentation, structure, or formatting.",
+        "importance": "CORE"
+      }
+    ],
+    "judgments": [
+      {
+        "aspect_id": "A1",
+        "status": "PARTIALLY_COVERED",
+        "reason": "The report concludes that CoT effectiveness is conditional and discusses limited benefits for reasoning models, scale and task dependence, costs, and a possible formatting-only effect. However, it does not decisively evaluate whether gains primarily reflect reasoning ability or formatting.",
+        "report_evidence": "Findings 1, 2, and 4 characterize conditional or small gains and note the unresolved formatting explanation; the conclusion remains provisional."
+      },
+      {
+        "aspect_id": "A2",
+        "status": "PARTIALLY_COVERED",
+        "reason": "The report identifies several relevant fault lines, including model scale, task and benchmark choice, evaluation thresholds, prompting structure, and the distinction between externally prompted and internally trained reasoning. It does not fully characterize how these fault lines interact or organize them into a clear account of the literature’s disagreement.",
+        "report_evidence": "Findings 3, 5, 6, and 7 list these moderators, while the Conflicts and Uncertainty section labels the evidence conflicting without synthesizing the disagreements in depth."
+      },
+      {
+        "aspect_id": "A3",
+        "status": "PARTIALLY_COVERED",
+        "reason": "The report names conditions associated with conflicting results—model scale, task type, evaluation metric, reasoning-model capabilities, prompting variant, and cost/latency—but repeatedly states that the evidence does not disentangle them. Thus it identifies candidate factors more than it explains their causal role.",
+        "report_evidence": "Finding 5 and the Remaining Gaps discuss benchmark, task, threshold, model, prompt-format, and tool effects; Finding 7 notes the absence of controlled comparisons."
+      },
+      {
+        "aspect_id": "A4",
+        "status": "PARTIALLY_COVERED",
+        "reason": "The report explicitly distinguishes genuine reasoning gains from formatting, answer extraction, compliance, and additional computation as competing explanations, but supplies no controlled analysis that separates them. The formatting-only claim is presented as unverified and low-confidence.",
+        "report_evidence": "Finding 4 and the first Remaining Gap directly state the unresolved distinction between underlying problem-solving improvements and output-format effects."
+      }
+    ],
+    "core_coverage_rate": 0.5,
+    "overall_coverage_rate": 0.5,
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "findings": [
+      {
+        "finding_id": "F1",
+        "claim": "The effectiveness of generic chain-of-thought prompting is conditional rather than universal: in one reported GPQA Diamond study, it produced modest average gains for several non-reasoning models, but gains were mixed across accuracy thresholds and could increase answer variability.",
+        "cited_source_ids": [
+          "S3",
+          "S7",
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F1",
+            "source_id": "S3",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Directly reports 4.4%–13.5% average gains for non-reasoning models, mixed perfect-accuracy results including declines, and increased answer variability in the GPQA Diamond study."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S7",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Supports the broader point that CoT effectiveness depends on model scale, but does not support the specific GPQA Diamond results, threshold variation, or increased answer variability."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S6",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "States that CoT is more beneficial for complex tasks and larger models and may worsen performance for smaller models, but does not support the specific reported study findings or variability claim."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S8",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Notes that CoT is useful for complex tasks and has trade-offs, including hallucinated reasoning and higher latency, but does not provide the GPQA results, threshold comparisons, or answer-variability evidence."
+          },
+          {
+            "finding_id": "F1",
+            "source_id": "S9",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Differentiates CoT approaches by task complexity, supporting conditional use, but does not support the specific non-reasoning-model gains, accuracy-threshold findings, or variability claim."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S3 directly supports all material elements of the claim; the other sources provide additional but narrower support for the general conclusion that CoT effectiveness is conditional."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "For models with built-in reasoning capabilities, a generic instruction to think step by step may provide little additional accuracy and can impose substantial latency or token costs.",
+        "cited_source_ids": [
+          "S3",
+          "S9",
+          "S10",
+          "S8"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F2",
+            "source_id": "S3",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "Directly reports minimal accuracy benefits for built-in reasoning models, a performance decrease for one model, and 20–80% increases in response time."
+          },
+          {
+            "finding_id": "F2",
+            "source_id": "S9",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Describes reasoning models as generating CoT internally after fine-tuning, supporting the built-in-reasoning context, but does not establish the claimed marginal accuracy or cost effects of generic prompting."
+          },
+          {
+            "finding_id": "F2",
+            "source_id": "S10",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Distinguishes self-directed test-time-scaling models from models requiring user prompts, supporting the built-in-capability distinction, but its broader claims emphasize CoT accuracy gains rather than limited marginal value and do not directly support substantial costs."
+          },
+          {
+            "finding_id": "F2",
+            "source_id": "S8",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Directly identifies more tokens, processing time, cost, and latency as CoT trade-offs, but does not specifically address models with built-in reasoning or quantify the effects."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S3 directly supports the claim’s central accuracy and latency-cost relationship for built-in reasoning models; S9 and S10 provide contextual support for the built-in-reasoning distinction, while S8 supports the general cost and latency trade-offs."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Observed CoT gains can depend on the structure of the elicited reasoning process, not merely on requiring a longer verbal trace.",
+        "cited_source_ids": [
+          "S1"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F3",
+            "source_id": "S1",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "S1 explicitly describes hierarchical planning and execution as improving accuracy while reducing trace length relative to conventional CoT, and states that longer traces do not necessarily imply better reasoning. This directly supports gains depending on reasoning structure rather than trace length alone."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "The supplied source directly supports both the structural-dependence claim and the contrast with merely producing longer verbal traces."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "CoT-style demonstrations may sometimes function primarily as output-format guidance rather than as a reliable improvement to underlying reasoning quality, especially for modern LLMs; the supplied evidence does not establish this claim conclusively.",
+        "cited_source_ids": [
+          "S1"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F4",
+            "source_id": "S1",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "S1 explicitly attributes to Cheng et al. (2025) that CoT exemplars primarily enforce output format rather than improve reasoning quality for modern LLMs, supporting the core claim. However, it provides no evidence for the claim’s qualification that this may occur only sometimes or for the statement that the supplied evidence is inconclusive."
+          }
+        ],
+        "combined_support": "PARTIALLY_SUPPORTED",
+        "reason": "The sole source supports the central attribution about CoT exemplars and output-format enforcement, but does not establish the broader qualified claim or independently demonstrate that the evidence is inconclusive."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Benchmarking choices and evaluation thresholds can materially change the apparent effect of CoT.",
+        "cited_source_ids": [
+          "S3",
+          "S7",
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F5",
+            "source_id": "S3",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "The source directly states that benchmarking approach and correctness thresholds materially affect assessment outcomes, and reports different results across multiple metrics."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S7",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "It shows CoT effects vary across arithmetic and commonsense benchmarks, supporting benchmark-dependent measured effects, but does not address evaluation thresholds."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S6",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Its reported gains differ across arithmetic, commonsense, and symbolic benchmarks, supporting an effect of benchmark choice, but it does not establish threshold effects."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S8",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "It identifies task differences and evaluation-related trade-offs such as accuracy, cost, and hallucination risk, but does not directly show that benchmarking choices or thresholds change the apparent CoT effect."
+          },
+          {
+            "finding_id": "F5",
+            "source_id": "S9",
+            "support_label": "UNSUPPORTED",
+            "reason": "It describes CoT prompting variants and task settings, but does not meaningfully address benchmarking choices or evaluation thresholds changing the apparent effect."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "S3 directly supports the claim by documenting materially different outcomes under alternative correctness thresholds and metrics; S7 and S6 provide additional, narrower support for benchmark-dependent effects."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "The reported early CoT literature identifies model scale as a major moderator: benefits were reported to emerge primarily for models around 100B parameters or larger, while smaller models could show little benefit or worse performance.",
+        "cited_source_ids": [
+          "S7",
+          "S6"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F6",
+            "source_id": "S7",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "Directly supports that CoT benefits emerged at sufficient scale, around 100B parameters, and that smaller models did not obtain the same gains; it does not specifically state that smaller models performed worse."
+          },
+          {
+            "finding_id": "F6",
+            "source_id": "S6",
+            "support_label": "FULLY_SUPPORTED",
+            "reason": "States that CoT gains were reported for models of approximately 100B parameters, while smaller models could produce illogical chains and perform worse than standard prompting."
+          }
+        ],
+        "combined_support": "FULLY_SUPPORTED",
+        "reason": "Together, the sources support the claim that model scale was a major moderator, with CoT benefits emerging around 100B parameters and smaller models showing limited or negative performance effects."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "The supplied explanatory sources distinguish externally prompted CoT from internally generated or test-time reasoning in models trained to reason, but they do not provide controlled evidence establishing the relative accuracy or marginal benefit of these approaches.",
+        "cited_source_ids": [
+          "S9",
+          "S10"
+        ],
+        "source_judgments": [
+          {
+            "finding_id": "F7",
+            "source_id": "S9",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "The source distinguishes user-prompted CoT from reasoning models trained with fine-tuning and reinforcement learning, including internally generated reasoning. It does not present controlled comparative evidence of relative accuracy or marginal benefit, although it makes general claims that CoT improves accuracy."
+          },
+          {
+            "finding_id": "F7",
+            "source_id": "S10",
+            "support_label": "PARTIALLY_SUPPORTED",
+            "reason": "The source directly distinguishes user-prompted reasoning from self-directed test-time-scaling models. It makes broad performance-improvement claims but does not provide controlled evidence establishing relative accuracy or marginal benefit."
+          }
+        ],
+        "combined_support": "PARTIALLY_SUPPORTED",
+        "reason": "Both sources support the distinction between externally prompted and internally generated reasoning. The supplied text contains no controlled comparative evidence establishing relative accuracy or marginal benefit, but the sources do make general claims of improved performance, so the full claim is only partially supported."
+      }
+    ],
+    "evaluated_findings": 7,
+    "findings_with_evidence": 7,
+    "findings_without_evidence": 0,
+    "citation_completeness_rate": 1.0,
+    "citation_support_rate": 0.8571428571428571,
+    "fully_supported_count": 5,
+    "partially_supported_count": 2,
+    "unsupported_count": 0,
+    "contradicted_count": 0,
+    "error": null
+  },
+  "deterministic": {
+    "checks": [
+      {
+        "check_name": "question_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_finding",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "at_least_one_source",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_conclusion_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S1_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S2_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S3_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S4_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S5_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S6_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S7_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S8_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S9_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_id_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_url_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "source_S10_content_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_4_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_4_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_4_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_5_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_5_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F1_evidence_5_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_4_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_4_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F2_evidence_4_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F3_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F4_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_3_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_4_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_5_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_5_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F5_evidence_5_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F6_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_claim_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_confidence_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_confidence_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_1_source_ids_valid",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_2_summary_exists",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_2_source_ids_exist",
+        "passed": true,
+        "details": null
+      },
+      {
+        "check_name": "F7_evidence_2_source_ids_valid",
+        "passed": true,
+        "details": null
+      }
+    ],
+    "passed_count": 126,
+    "failed_count": 0,
+    "all_passed": true
+  },
+  "evaluation_metadata": {
+    "evaluator_model": "gpt-5.6-luna",
+    "timestamp": "2026-08-30T22:34:51.950000+00:00"
+  }
+}
