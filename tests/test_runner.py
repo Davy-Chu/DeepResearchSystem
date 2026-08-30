@@ -1,6 +1,9 @@
 from collections.abc import Iterable
 
+import pytest
+
 from research.models import FinalReport, IterationAnalysis, ResearchState, Source
+from research.research_logger import ResearchLogger
 from research.runner import ResearchRunner
 
 
@@ -37,6 +40,11 @@ class FakeAnalyzer:
     def analyze(self, state: ResearchState, new_sources: list[Source]) -> IterationAnalysis:
         self.calls += 1
         return next(self.analyses)
+
+
+class FailingAnalyzer:
+    def analyze(self, state: ResearchState, new_sources: list[Source]) -> IterationAnalysis:
+        raise RuntimeError("analysis unavailable")
 
 
 class FakeReporter:
@@ -121,3 +129,46 @@ def test_no_results_stops_honestly_when_analyzer_has_no_next_query() -> None:
     search = FakeSearch([[]])
     result = run_with(search, FakeAnalyzer([analysis(False)]))
     assert result.state.stop_reason == "no_search_results"
+
+
+def test_runner_populates_human_readable_logger_without_changing_flow() -> None:
+    search = FakeSearch(
+        [[source("https://example.com/1")], [source("https://example.com/2")]]
+    )
+    analyzer = FakeAnalyzer([analysis(True, "focused gap query"), analysis(False)])
+    research_log = ResearchLogger("Original question", "test-model", 3)
+
+    result = ResearchRunner(
+        search,
+        analyzer,
+        FakeReporter(),
+        research_logger=research_log,
+    ).run("Original question")
+
+    assert result.state.stop_reason == "sufficient_evidence"
+    assert research_log.status == "Completed"
+    assert len(research_log.iterations) == 2
+    assert research_log.iterations[0].query_reason == (
+        "This is the user's original research question."
+    )
+    assert research_log.iterations[1].query_reason == "More evidence is needed."
+    assert research_log.iterations[0].continue_research is True
+    assert research_log.iterations[1].continue_research is False
+
+
+def test_runner_records_partial_log_state_when_analysis_fails() -> None:
+    research_log = ResearchLogger("Original question", "test-model", 3)
+    runner = ResearchRunner(
+        FakeSearch([[source("https://example.com/1")]]),
+        FailingAnalyzer(),
+        FakeReporter(),
+        research_logger=research_log,
+    )
+
+    with pytest.raises(RuntimeError, match="analysis unavailable"):
+        runner.run("Original question")
+
+    assert research_log.status == "Failed"
+    assert research_log.failure_stage == "OpenAI Evidence Analysis — Iteration 1"
+    assert len(research_log.iterations) == 1
+    assert "Analysis did not complete" in research_log.render_markdown()

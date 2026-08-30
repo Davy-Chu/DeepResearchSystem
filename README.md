@@ -2,7 +2,7 @@
 
 ## What this is
 
-This repository is a small end-to-end baseline for iterative web research. Given a question, it retrieves real web pages with Tavily, asks an OpenAI model to extract evidence-backed findings and identify important gaps, optionally performs a targeted follow-up search, and produces a Markdown report plus a JSON research trace.
+This repository is a small end-to-end baseline for iterative web research. Given a question, it retrieves real web pages with Tavily, asks an OpenAI model to extract evidence-backed findings and identify important gaps, optionally performs a targeted follow-up search, and produces a final report, a human-readable research log, and a JSON research trace.
 
 The system favors an honest incomplete answer over unsupported completeness. It performs at most three searches.
 
@@ -99,8 +99,25 @@ pytest
 
 Each run creates a timestamped directory below `outputs/` containing:
 
-- `report.md`: a deterministic Markdown rendering of the structured final report, with claims and evidence visually separated.
-- `trace.json`: iteration decisions, queries, findings, conflicts, gaps, stop reason, model, and source metadata. It intentionally excludes full page content.
+- `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
+- `research_log.md`: a human-readable chronological explanation of the searches, retrieved source metadata, evidence analysis, gaps, conflicts, decisions, and component timings.
+- `trace.json`: the machine-readable structured trace intended for debugging and future evaluation. It contains iteration decisions, queries, findings, conflicts, gaps, stop reason, model, and source metadata.
+
+The research log is organized for quick review:
+
+```text
+Run Summary
+Iteration 1
+  Search and query reason
+  Evidence analysis
+  Continue/stop decision
+Iteration 2 (when needed)
+  ...
+Final Research Decision
+Performance Summary
+```
+
+Neither `research_log.md` nor `trace.json` stores full retrieved webpage content.
 
 Source IDs (`S1`, `S2`, and so on) remain stable for a run. Final report generation fails if the model cites an ID that does not map to a retrieved URL.
 

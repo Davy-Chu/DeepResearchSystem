@@ -211,9 +211,11 @@ def save_research_outputs(
     model: str,
     output_root: Path = Path("outputs"),
     max_iterations: int = MAX_RESEARCH_ITERATIONS,
+    output_dir: Path | None = None,
 ) -> tuple[Path, Path]:
     validate_source_references(report, state)
-    output_dir = create_output_directory(state.question, output_root)
+    output_dir = output_dir or create_output_directory(state.question, output_root)
+    output_dir.mkdir(parents=True, exist_ok=True)
     report_path = output_dir / "report.md"
     trace_path = output_dir / "trace.json"
     report_path.write_text(render_markdown(report, state.sources), encoding="utf-8")
