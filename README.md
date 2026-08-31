@@ -89,12 +89,15 @@ OPENAI_API_KEY=your-key
 TAVILY_API_KEY=your-key
 OPENAI_MODEL=gpt-5.6-terra
 EVALUATOR_MODEL=gpt-5.6-terra
+OPENAI_EVALUATOR_MODEL=gpt-5.6-terra
 OPENAI_TIMEOUT_SECONDS=120
 OPENAI_MAX_RETRIES=1
 ```
 
-`EVALUATOR_MODEL` is optional and falls back to `OPENAI_MODEL`. Both model choices can
-be changed without editing code. `.env` is ignored by Git, and keys are never logged.
+`EVALUATOR_MODEL` configures evaluator-v0 and falls back to `OPENAI_MODEL`.
+`OPENAI_EVALUATOR_MODEL` configures evaluator-v1 and falls back through
+`EVALUATOR_MODEL` to `OPENAI_MODEL`. All model choices can be changed without editing
+code. `.env` is ignored by Git, and keys are never logged.
 `OPENAI_TIMEOUT_SECONDS` applies to every OpenAI request attempt and defaults to 120
 seconds. The OpenAI SDK may retry a timed-out request, so total elapsed time can exceed
 this value.
@@ -150,12 +153,88 @@ report. It does make OpenAI structured-output calls using `EVALUATOR_MODEL` (or
 charges. Coverage and citation stages use low reasoning effort. All numerical rates
 are calculated deterministically in Python from the returned categorical judgments.
 
+### Evaluator v1: Frozen Reference Benchmark
+
+Evaluator v0 asks whether a report appears to address the prompt. That is useful as a
+basic check, but it can give a short, plausible report unrealistically high coverage
+because it has no independent estimate of the important research space.
+
+Evaluator v1 derives 5–10 atomic, weighted research requirements from a high-quality
+reference report and freezes them with SHA-256 hashes. Candidate reports are judged
+against the frozen rubric—not against reference wording, organization, sources, or
+conclusions. Freezing prevents the benchmark definition from changing between
+baseline and ablation evaluations. Reference reports establish benchmark scope; they
+are not absolute truth.
+
+The initial five-fixture benchmark is frozen under `evaluation/fixtures/`: remote
+work, the Late Bronze Age collapse, quantum commercial advantage, carbon capture, and
+social-media polarization. Each directory contains the exact supplied question and
+reference report plus the generated atomic rubric and hash metadata.
+
+Build and freeze an authored fixture:
+
+```powershell
+python main.py evaluator build-fixture evaluation/fixtures/remote-work-productivity
+```
+
+This performs one rubric-builder and one rubric-critic OpenAI call. Invalid structured
+output receives one repair attempt. Once `fixture.json` exists, the builder refuses to
+regenerate the frozen fixture automatically.
+
+Evaluate an existing saved run. Exact normalized question matching selects the fixture:
+
+```powershell
+python main.py evaluator evaluate outputs/<run-directory>
+```
+
+Or select it explicitly:
+
+```powershell
+python main.py evaluator evaluate outputs/<run-directory> --fixture remote-work-productivity
+```
+
+Evaluator v1 never calls Tavily, performs web research, or changes the original report
+or trace. It does use OpenAI structured-output calls for frozen-rubric
+comprehensiveness, saved-snapshot citation support, and citation completeness. Missing
+fixtures, historical ledgers, or saved source content become visible `NOT_EVALUABLE`
+components rather than silently receiving zero or full credit.
+
+Evaluate several saved experiments and write JSON, CSV, and Markdown tables:
+
+```powershell
+python main.py evaluator benchmark outputs/<baseline-run> outputs/<ledger-run>
+```
+
+Compare two already-saved evaluator-v1 results without making API calls:
+
+```powershell
+python main.py evaluator compare outputs/<baseline-run> outputs/<ledger-run>
+```
+
+Evaluator-v1 results are stored without overwriting earlier results:
+
+```text
+outputs/<run>/evaluations/evaluator-v1/<fixture-id>/
+├── evaluation.json
+└── evaluation.md
+```
+
+Benchmark and comparison summaries are written below `evaluation/results/`. Every
+evaluation records fixture and rubric hashes, prompt versions, candidate-report hash,
+model, scoring weights, timestamp, evaluation completeness, and available token usage.
+
 ## Testing
 
 Tests use fakes and make no real API calls:
 
 ```bash
 pytest
+```
+
+In a restricted Windows environment where pytest cannot access the user temp folder:
+
+```powershell
+pytest --basetemp .pytest-temp
 ```
 
 ## Output

@@ -86,6 +86,10 @@ def _handle_incomplete_run(
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    if len(sys.argv) > 1 and sys.argv[1] == "evaluator":
+        from evaluation.v1.cli import main as evaluator_v1_main
+
+        return evaluator_v1_main(sys.argv[2:])
     if len(sys.argv) > 1 and sys.argv[1] == "evaluate":
         from evaluation.evaluator import evaluation_main
 

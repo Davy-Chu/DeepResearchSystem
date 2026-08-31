@@ -1,0 +1,1 @@
+What caused the Late Bronze Age collapse? Compare the evidence for climate change, warfare, migration, trade disruption, political instability, and systemic collapse, and distinguish well-supported explanations from speculation.

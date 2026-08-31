@@ -6,6 +6,9 @@ import pytest
 
 import evaluation.citations as citations_module
 import evaluation.coverage as coverage_module
+import evaluation.v1.citations as v1_citations_module
+import evaluation.v1.comprehensiveness as comprehensiveness_module
+import evaluation.v1.fixture_builder as fixture_builder_module
 import research.analyzer as analyzer_module
 import research.decision as decision_module
 import research.evidence_processor as processor_module
@@ -44,6 +47,20 @@ from research.config import (
         (
             decision_module,
             lambda: decision_module.ResearchDecisionMaker("test-key", "test-model"),
+        ),
+        (
+            comprehensiveness_module,
+            lambda: comprehensiveness_module.ComprehensivenessEvaluator(
+                "test-key", "test-model"
+            ),
+        ),
+        (
+            v1_citations_module,
+            lambda: v1_citations_module.CitationEvaluator("test-key", "test-model"),
+        ),
+        (
+            fixture_builder_module,
+            lambda: fixture_builder_module.FixtureBuilder("test-key", "test-model"),
         ),
     ],
 )
