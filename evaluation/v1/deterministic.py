@@ -11,6 +11,7 @@ from evaluation.v1.models import (
     EvaluationInput,
 )
 from research.models import Confidence
+from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
 SOURCE_ID = re.compile(r"^S[1-9][0-9]*$")
@@ -33,6 +34,45 @@ class DeterministicEvaluator:
 
         binary("run_metadata_loads", bool(item.question), "Saved question is missing.")
         binary("report_exists", bool(item.report_markdown.strip()), "Report is empty.")
+
+        if item.system_version == LLM_ONLY_SYSTEM_VERSION:
+            for name in (
+                "sources_present",
+                "structured_report_parses",
+                "report_question_matches",
+                "source_ids_unique",
+                "source_ids_syntactically_valid",
+                "source_urls_present",
+                "evidence_objects_valid",
+                "confidence_values_valid",
+                "citation_ids_syntactically_valid",
+                "citation_ids_resolve",
+                "structured_claim_evidence_available",
+                "ledger_claim_ids_unique",
+                "ledger_evidence_relationships_resolve",
+                "ledger_confidence_values_valid",
+                "ledger_evidence_ids_unique",
+            ):
+                add(
+                    name,
+                    CheckStatus.NOT_APPLICABLE,
+                    "Not applicable to the deliberate one-call LLM-only baseline.",
+                )
+            passed = sum(check.status == CheckStatus.PASS for check in checks)
+            failed = sum(check.status == CheckStatus.FAIL for check in checks)
+            unavailable = sum(
+                check.status in {CheckStatus.NOT_EVALUABLE, CheckStatus.NOT_APPLICABLE}
+                for check in checks
+            )
+            return DeterministicIntegrityResult(
+                score=passed / (passed + failed) if passed + failed else None,
+                checks=checks,
+                passed_count=passed,
+                failed_count=failed,
+                not_evaluable_count=unavailable,
+                structured_claim_evidence_available=False,
+            )
+
         binary("sources_present", bool(item.sources), "No saved sources are available.")
 
         if item.report is None:
@@ -173,7 +213,10 @@ class DeterministicEvaluator:
 
         passed = sum(check.status == CheckStatus.PASS for check in checks)
         failed = sum(check.status == CheckStatus.FAIL for check in checks)
-        unavailable = sum(check.status == CheckStatus.NOT_EVALUABLE for check in checks)
+        unavailable = sum(
+            check.status in {CheckStatus.NOT_EVALUABLE, CheckStatus.NOT_APPLICABLE}
+            for check in checks
+        )
         score = passed / (passed + failed) if passed + failed else None
         return DeterministicIntegrityResult(
             score=score,

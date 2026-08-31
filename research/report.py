@@ -24,6 +24,7 @@ from research.models import (
     ResearchState,
     Source,
 )
+from research.versions import BASELINE_SYSTEM_VERSION
 
 REPORT_SYSTEM_PROMPT = """Create a structured final research report from the accumulated state.
 
@@ -525,7 +526,7 @@ def build_trace(
             }
             for iteration in state.iterations
         ]
-        if state.system_version == "baseline-zero"
+        if state.system_version == BASELINE_SYSTEM_VERSION
         else [
             {
                 "iteration_number": iteration.iteration_number,

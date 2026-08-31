@@ -1,24 +1,62 @@
-# Deep Research Agent — Baseline Zero, Evidence Ledger, and Verification
+# Deep Research Agent — Canonical Research Ablation Ladder
 
 ## What this is
 
-This repository contains four selectable, comparable architectures for iterative web
-research. They retrieve pages with Tavily, use OpenAI structured outputs, and produce a
-final report, human-readable log, reproducible machine trace, and Evaluator v0-compatible
-artifacts.
+This repository contains five selectable, comparable research architectures spanning
+the simplest possible model interaction through retrieval, structured evidence state,
+explicit planning, and independent verification. Every architecture produces a report,
+human-readable log, machine trace, and Evaluator-v1-compatible artifacts.
 
-The system favors an honest incomplete answer over unsupported completeness. It performs at most three searches.
+The LLM-only architecture is deliberately below the assignment's MVP minimum bar. It is
+a lower-bound experimental baseline, not a viable research system or the MVP
+implementation. It measures what the configured model produces from pretrained
+knowledge and one minimal instruction. The other four architectures use Tavily and may
+perform at most three searches; they favor an honest incomplete answer over unsupported
+completeness.
 
-`baseline-zero` preserves the original combined analysis/decision loop.
-`evidence-ledger-v1` persists claims, evidence relationships, confidence, conflicts, and
-research gaps across iterations before making a separate research decision.
-`evidence-ledger-decomposer-v1` first creates a stable two-to-six-subquestion research
-plan, then uses the ledger to target unresolved subquestions explicitly.
-`evidence-ledger-decomposer-verifier-v1` independently audits important supported CORE
-claims and can spend the next ordinary search slot on a falsification-oriented
-counter-search before reconciling the claim.
+| Version | System | Stable system ID | Search | Ledger | Plan | Verifier |
+|---|---|---|---:|---:|---:|---:|
+| V-1 | LLM Only | `llm-only-baseline-v0` | No | No | No | No |
+| V0 | Search Baseline | `baseline-zero` | Yes | No | No | No |
+| V1 | Evidence Ledger | `evidence-ledger-v1` | Yes | Yes | No | No |
+| V2 | Decomposer | `evidence-ledger-decomposer-v1` | Yes | Yes | Yes | No |
+| V3 | Verifier | `evidence-ledger-decomposer-verifier-v1` | Yes | Yes | Yes | Yes |
 
-## Architecture
+This canonical ladder separates:
+
+```text
+Raw model capability
+  -> + fresh external retrieval
+  -> + structured evidence state
+  -> + explicit decomposition and planning
+  -> + independent adversarial verification
+```
+
+Without V-1, comparisons beginning at the search baseline cannot distinguish the value
+of fresh information from the value of later research mechanisms. V-1 to V0 is
+intentionally a lower-bound comparison rather than a perfectly compute-matched
+ablation: it adds both Tavily access and a research loop. The later transitions are
+cleaner architectural ablations because they retain the same retrieval environment.
+
+## Architecture and Experimental Questions
+
+### V-1 — LLM Only
+
+System version: `llm-only-baseline-v0`
+
+```text
+Question -> one OpenAI call -> raw report
+```
+
+The model receives only: `Do deep research and create a report on the following
+question:` followed by the question. There is no custom system prompt, tool access,
+retrieval, research loop, evidence state, decomposition, verification, self-correction,
+or report rewriting. The returned text is saved unchanged. Missing fresh evidence and
+unverified model-generated citations are intentional limitations.
+
+### V0 — Search Baseline
+
+System version: `baseline-zero`
 
 ```text
 Question
@@ -35,9 +73,15 @@ Need more research?
                    (at most 3 searches)
 ```
 
-The Baseline Zero loop remains ordinary Python in `research/runner.py`.
+The Search Baseline loop remains ordinary Python in `research/runner.py`. The V-1 to V0
+transition asks: **What value does fresh external retrieval add beyond the model's
+pretrained knowledge?** It adds Tavily retrieval and the iterative research loop.
 
-Evidence Ledger v1 uses this explicit flow:
+### V1 — Evidence Ledger
+
+System version: `evidence-ledger-v1`
+
+Evidence Ledger uses this explicit flow:
 
 ```text
 Question
@@ -55,12 +99,28 @@ structured ledger, open gaps, search history, and remaining budget without raw s
 content. Python assigns stable `C1...` claim IDs and `G1...` gap IDs, validates every
 state update, deduplicates evidence relationships, and renders artifacts.
 
+The V0 to V1 transition asks: **What value does explicit structured research state add
+beyond search-and-write behavior?** It adds the Evidence Ledger and explicit
+claim/evidence/gap tracking.
+
+### V2 — Decomposer
+
+System version: `evidence-ledger-decomposer-v1`
+
 Decomposed mode adds one OpenAI structured-output decomposition before any search. Python
 assigns stable `SQ1...SQ6` IDs. The first search remains the user's exact original
 question; later searches target one unresolved subquestion at a time. Subquestion status
 (`UNRESEARCHED`, `PARTIAL`, `SUFFICIENT`, or `CONFLICTING`) is recomputed deterministically
 from linked claims and gaps after each evidence update. The plan is not expanded or
 rewritten during a run.
+
+The V1 to V2 transition asks: **What value does explicit question decomposition and
+subquestion-aware search allocation add?** It adds a stable Research Plan, explicit
+subquestions, and targeted search prioritization.
+
+### V3 — Verifier
+
+System version: `evidence-ledger-decomposer-verifier-v1`
 
 Verified mode builds on decomposed mode:
 
@@ -84,11 +144,15 @@ confidence reason, processor evidence labels, other claims, controller reasoning
 draft/final report. Verification can revise claim wording, confidence, and status, but
 only the Evidence Processor can change supporting or contradicting evidence relations.
 
+The V2 to V3 transition asks: **What value does independently challenging
+apparently-supported claims add?** It adds an independent verifier,
+falsification-oriented counter-search, and deterministic claim reconciliation.
+
 ## Requirements
 
 - Python 3.11 or newer
 - An OpenAI API key with access to the configured model
-- A Tavily API key
+- A Tavily API key for V0–V3 (V-1 does not use or require Tavily)
 
 ## Setup
 
@@ -122,6 +186,7 @@ Copy `.env.example` to `.env` and populate both keys:
 OPENAI_API_KEY=your-key
 TAVILY_API_KEY=your-key
 OPENAI_MODEL=gpt-5.6-terra
+LLM_ONLY_MODEL=
 VERIFIER_MODEL=
 EVALUATOR_MODEL=gpt-5.6-terra
 OPENAI_EVALUATOR_MODEL=gpt-5.6-terra
@@ -135,6 +200,9 @@ OPENAI_MAX_RETRIES=1
 code. `.env` is ignored by Git, and keys are never logged.
 `VERIFIER_MODEL` configures the independent claim verifier and falls back to
 `OPENAI_MODEL` when blank or missing. It uses the existing OpenAI API key.
+`LLM_ONLY_MODEL` optionally overrides the model for V-1 and falls back to `OPENAI_MODEL`.
+For controlled comparisons, leave it blank so every research architecture uses the
+same underlying research model.
 `OPENAI_TIMEOUT_SECONDS` applies to every OpenAI request attempt and defaults to 120
 seconds. The OpenAI SDK may retry a timed-out request, so total elapsed time can exceed
 this value.
@@ -143,7 +211,16 @@ connection, timeout, rate-limit, or server error.
 
 ## Running
 
-Baseline Zero remains the default, preserving existing commands:
+Run the deliberately primitive V-1 lower-bound baseline:
+
+```bash
+python main.py "your research question" --mode llm-only
+```
+
+This makes exactly one logical OpenAI research-generation request, exposes no tools,
+does not require a Tavily key, and saves the raw model response unchanged.
+
+V0 Search Baseline remains the default, preserving existing commands:
 
 ```bash
 python main.py "your research question"
@@ -177,7 +254,9 @@ python main.py "What are the real-world risks and benefits of using synthetic da
 Progress, the stop reason, and artifact paths are printed to the terminal. Missing keys, retrieval failures, OpenAI failures, and malformed structured output cause a clear error and a non-zero exit.
 
 Run the command from the project root, where `main.py` and `.env` are located. A
-Baseline Zero may perform up to three Tavily searches and four OpenAI requests. Evidence
+V-1 makes one logical OpenAI research request and zero Tavily requests. Infrastructure
+retries may cause another HTTP attempt, but it never performs a semantic retry or second
+generation pass. Search Baseline may perform up to three Tavily searches and four OpenAI requests. Evidence
 Ledger v1 may perform up to three Tavily searches, three evidence-processing requests,
 two model-based research decisions, and one final-report request. Either mode can incur
 API usage or charges. Decomposed mode has the same search and ledger limits plus one
@@ -291,6 +370,7 @@ Choose the research architecture by placing its name after the script:
 
 | Command | Research components |
 | --- | --- |
+| `python scripts/run_fixture_suite.py llm-only` | One raw OpenAI generation; no retrieval or research components |
 | `python scripts/run_fixture_suite.py baseline` | Baseline analyzer; no ledger, decomposition, or verification |
 | `python scripts/run_fixture_suite.py ledger` | Evidence ledger only |
 | `python scripts/run_fixture_suite.py decomposed` | Evidence ledger and question decomposer |
@@ -326,6 +406,8 @@ additional and report-dependent: it uses one comprehensiveness judgment, one cit
 completeness judgment, and one citation-support judgment per final finding, with at
 most one semantic repair attempt per structured judgment. OpenAI SDK retries may add
 HTTP attempts. Running the non-dry command can therefore incur substantial API charges.
+The LLM-only fixture suite uses exactly nine logical research-generation requests and
+zero Tavily searches before evaluation.
 
 Evaluator-v1 results are stored without overwriting earlier results:
 
@@ -335,7 +417,8 @@ outputs/<run>/evaluations/evaluator-v1/<fixture-id>/
 └── evaluation.md
 ```
 
-Benchmark and comparison summaries are written below `evaluation/results/`. Every
+Benchmark and comparison summaries are written below `evaluation/results/`. Mixed
+architecture benchmark rows are sorted in canonical V-1, V0, V1, V2, V3 order. Every
 evaluation records fixture and rubric hashes, prompt versions, candidate-report hash,
 model, scoring weights, timestamp, evaluation completeness, and available token usage.
 
@@ -367,9 +450,9 @@ outputs/
 
 Each run directory contains:
 
-- `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
+- `report.md`: for V-1, the exact raw model output; for V0–V3, the final research findings rendered deterministically from the structured report with claims and evidence visually separated.
 - `research_log.md`: a chronological explanation of searches, state updates, decisions, and timings. Ledger-mode logs explicitly show new and updated claims, confidence/status transitions, gap changes, and a state summary after every iteration. Decomposed-mode logs also show the initial plan, per-iteration subquestion progress, transitions, and targeted search counts. Verified-mode logs add neutral-evidence verification records, before/after reconciliation, counter-search lifecycle, search-purpose allocation, verifier calls, verdict counts, and change counts.
-- `trace.json`: the machine-readable trace. It records `system_version`, decisions, stop reason, model, structured final report, and exact source snapshots. Ledger mode additionally preserves the full evidence ledger, evidence relationships, gap creation/resolution, and decision targets; decomposed mode also preserves the full research plan and status transitions. Verified mode adds `claim_verifications`, `search_purpose`, `search_target_id`, `decision_origin`, and counter-search metadata.
+- `trace.json`: the machine-readable trace. V-1 records one OpenAI call, zero Tavily calls, token usage when available, latency, empty sources/iterations, and `single_llm_call_complete`; it deliberately has no structured final report or research state. V0–V3 record decisions, their stop reason, model, structured final report, and exact source snapshots. Ledger mode additionally preserves the full evidence ledger, evidence relationships, gap creation/resolution, and decision targets; decomposed mode also preserves the full research plan and status transitions. Verified mode adds `claim_verifications`, `search_purpose`, `search_target_id`, `decision_origin`, and counter-search metadata.
 
 The Evidence Ledger research log is organized for quick review:
 

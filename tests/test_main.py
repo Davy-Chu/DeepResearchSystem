@@ -17,6 +17,7 @@ from research.research_logger import ResearchLogger
 
 def test_research_modes_are_selectable() -> None:
     assert build_parser().parse_args(["Question"]).mode == "baseline"
+    assert build_parser().parse_args(["Question", "--mode", "llm-only"]).mode == "llm-only"
     assert build_parser().parse_args(["Question", "--mode", "ledger"]).mode == "ledger"
     assert (
         build_parser().parse_args(["Question", "--mode", "decomposed"]).mode

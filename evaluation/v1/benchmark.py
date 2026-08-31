@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from evaluation.v1.models import EvaluationResult
+from research.versions import CANONICAL_SYSTEM_VERSIONS
 
 
 @dataclass(frozen=True)
@@ -48,7 +49,17 @@ def _non_overwriting_directory(root: Path, name: str) -> Path:
 
 def save_benchmark(entries: list[BenchmarkEntry], root: Path) -> tuple[Path, Path, Path]:
     directory = _non_overwriting_directory(root, "benchmark")
-    rows = [_row(entry) for entry in entries]
+    rank = {
+        system_version: index
+        for index, system_version in enumerate(CANONICAL_SYSTEM_VERSIONS)
+    }
+    ordered = sorted(
+        entries,
+        key=lambda entry: rank.get(
+            entry.result.system_version or "", len(CANONICAL_SYSTEM_VERSIONS)
+        ),
+    )
+    rows = [_row(entry) for entry in ordered]
     json_path = directory / "benchmark.json"
     csv_path = directory / "benchmark.csv"
     markdown_path = directory / "benchmark.md"

@@ -26,6 +26,7 @@ def config(
     fixture_ids: tuple[str, ...],
     *,
     dry_run: bool = False,
+    mode: str = "verified",
 ) -> SuiteConfig:
     return SuiteConfig(
         project_root=tmp_path,
@@ -33,7 +34,7 @@ def config(
         outputs_root=tmp_path / "outputs" / "preset-questions",
         results_root=tmp_path / "outputs" / "preset-questions" / "evaluation-results",
         python_executable="test-python",
-        mode="verified",
+        mode=mode,
         fixture_ids=fixture_ids,
         dry_run=dry_run,
     )
@@ -109,7 +110,7 @@ def test_repository_contains_nine_frozen_fixtures() -> None:
 
 
 def test_positional_architectures_and_legacy_mode_are_supported() -> None:
-    for architecture in ("baseline", "ledger", "decomposed", "verified"):
+    for architecture in ("llm-only", "baseline", "ledger", "decomposed", "verified"):
         args = build_parser().parse_args([architecture, "--dry-run"])
         assert resolve_architecture(args.architecture, args.mode) == architecture
         assert ARCHITECTURE_COMPONENTS[architecture]
@@ -117,6 +118,25 @@ def test_positional_architectures_and_legacy_mode_are_supported() -> None:
     legacy = build_parser().parse_args(["--mode", "ledger", "--dry-run"])
     assert resolve_architecture(legacy.architecture, legacy.mode) == "ledger"
     assert resolve_architecture(None, None) == "verified"
+
+
+def test_llm_only_dry_run_has_one_call_per_fixture_and_zero_searches(
+    tmp_path: Path, capsys
+) -> None:
+    outcome = execute_suite(
+        config(
+            tmp_path,
+            ("remote-work-productivity", "chain-of-thought-effectiveness"),
+            dry_run=True,
+            mode="llm-only",
+        )
+    )
+
+    assert outcome.returncode == 0
+    output = capsys.readouterr().out
+    assert "Mode: llm-only" in output
+    assert "Maximum research searches: 0 Tavily calls" in output
+    assert "Maximum research-model requests: 2 OpenAI calls" in output
 
 
 def test_conflicting_architecture_arguments_are_rejected() -> None:

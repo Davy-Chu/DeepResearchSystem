@@ -25,6 +25,7 @@ from research.models import (
     Source,
     SubQuestionStatusChange,
 )
+from research.versions import LEDGER_SYSTEM_VERSION, VERIFIED_SYSTEM_VERSION
 
 
 @dataclass
@@ -62,7 +63,7 @@ class LedgerResearchLogger:
     question: str
     model: str
     max_iterations: int
-    system_version: str = "evidence-ledger-v1"
+    system_version: str = LEDGER_SYSTEM_VERSION
     search_provider: str = "Tavily"
     verifier_model: str | None = None
     iterations: list[LedgerIterationLog] = field(default_factory=list)
@@ -769,7 +770,7 @@ class LedgerResearchLogger:
     def _verifier_enabled(self) -> bool:
         return (
             self.verifier_model is not None
-            or self.system_version == "evidence-ledger-decomposer-verifier-v1"
+            or self.system_version == VERIFIED_SYSTEM_VERSION
         )
 
     def _iteration(self, iteration_number: int) -> LedgerIterationLog:

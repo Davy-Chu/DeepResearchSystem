@@ -37,6 +37,11 @@ from research.verifier import (
     select_claim_for_verification,
     verification_phase_for_claim,
 )
+from research.versions import (
+    DECOMPOSED_SYSTEM_VERSION,
+    LEDGER_SYSTEM_VERSION,
+    VERIFIED_SYSTEM_VERSION,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -95,12 +100,12 @@ class LedgerResearchRunner:
         self.question_decomposer = question_decomposer
         self.claim_verifier = claim_verifier
         self.system_version = system_version or (
-            "evidence-ledger-decomposer-verifier-v1"
+            VERIFIED_SYSTEM_VERSION
             if claim_verifier is not None
             else (
-                "evidence-ledger-decomposer-v1"
+                DECOMPOSED_SYSTEM_VERSION
                 if question_decomposer is not None
-                else "evidence-ledger-v1"
+                else LEDGER_SYSTEM_VERSION
             )
         )
         self.last_state: ResearchState | None = None

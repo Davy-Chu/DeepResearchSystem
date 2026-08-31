@@ -25,6 +25,14 @@ class Settings:
     verifier_model: str = DEFAULT_OPENAI_MODEL
 
 
+@dataclass(frozen=True)
+class LLMOnlySettings:
+    openai_api_key: str
+    model: str = DEFAULT_OPENAI_MODEL
+    openai_timeout_seconds: float = DEFAULT_OPENAI_TIMEOUT_SECONDS
+    openai_max_retries: int = DEFAULT_OPENAI_MAX_RETRIES
+
+
 def load_openai_timeout_seconds() -> float:
     raw_value = os.getenv("OPENAI_TIMEOUT_SECONDS", "").strip()
     if not raw_value:
@@ -80,6 +88,24 @@ def load_settings() -> Settings:
         tavily_api_key=tavily_api_key,
         openai_model=resolved_model,
         verifier_model=verifier_model,
+        openai_timeout_seconds=load_openai_timeout_seconds(),
+        openai_max_retries=load_openai_max_retries(),
+    )
+
+
+def load_llm_only_settings() -> LLMOnlySettings:
+    """Load the one-call baseline without requiring an unused Tavily key."""
+
+    load_dotenv()
+    openai_api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not openai_api_key:
+        raise ValueError("Missing required environment variable: OPENAI_API_KEY")
+    openai_model = os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL).strip()
+    resolved_model = openai_model or DEFAULT_OPENAI_MODEL
+    model = os.getenv("LLM_ONLY_MODEL", "").strip() or resolved_model
+    return LLMOnlySettings(
+        openai_api_key=openai_api_key,
+        model=model,
         openai_timeout_seconds=load_openai_timeout_seconds(),
         openai_max_retries=load_openai_max_retries(),
     )

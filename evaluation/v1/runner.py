@@ -53,7 +53,7 @@ class EvaluatorRunner:
         support_fraction = (
             citations.evaluable_support_claims / citations.total_support_claims
             if citations.total_support_claims
-            else 0.0
+            else (1.0 if citations.support is not None else 0.0)
         )
         completeness_parts = [
             1.0 if comprehensiveness.status == ComponentStatus.COMPLETED else 0.0,

@@ -7,6 +7,8 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from research.versions import BASELINE_SYSTEM_VERSION
+
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -649,7 +651,7 @@ class ResearchState(StrictModel):
     claim_verifications: list[ClaimVerificationRecord] = Field(default_factory=list)
     current_iteration: int = Field(default=0, ge=0)
     max_iterations: int = Field(default=3, ge=1)
-    system_version: str = "baseline-zero"
+    system_version: str = BASELINE_SYSTEM_VERSION
     stop_reason: str | None = None
 
     @model_validator(mode="after")

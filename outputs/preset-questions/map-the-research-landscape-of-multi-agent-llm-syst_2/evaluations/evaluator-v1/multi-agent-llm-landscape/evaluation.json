@@ -1,0 +1,994 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "evidence-ledger-v1",
+  "overall_score": 69.22961956521738,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.5543478260869564,
+    "coverage": 0.6195652173913043,
+    "depth": 0.40217391304347827,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No explicit operational inclusion or exclusion criteria are provided.",
+          "The report does not distinguish single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM multi-agent systems, or hybrid designs.",
+          "Borderline cases and the non-universality of competing definitions are not handled operationally."
+        ],
+        "rationale": "The report describes multi-agent systems generally as collections of specialized agents, but this is a broad characterization rather than a scope definition with inclusion and exclusion rules."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 3 characterizes centralized and hierarchical supervisor-worker systems as delegation and aggregation structures, including bottlenecks and single points of failure.",
+          "Finding 4 distinguishes plan-and-execute systems from graph workflows and notes branching, parallel fan-out, convergence, and termination.",
+          "Finding 5 characterizes debate and verifier-critic architectures as feedback, disagreement, auditing, and revision mechanisms.",
+          "The conclusion and Mermaid graph identify centralized, hierarchical, decentralized, publish-subscribe, plan-and-execute, graph, cooperative, debate, verifier-critic, and hybrid patterns."
+        ],
+        "missing": [
+          "Several patterns in the graph, especially decentralized collaboration, publish-subscribe/blackboard, and hybrid systems, receive little or no substantive characterization.",
+          "Representative applications or concrete systems are largely absent, aside from a generic LangGraph deep-research workflow.",
+          "Information flow, coordination mechanisms, and limitations are not systematically explained for each major pattern.",
+          "The report does not clearly distinguish architectural patterns from overlays such as debate, critique, and parallel execution in every case."
+        ],
+        "rationale": "The report identifies a substantial set of materially different patterns and correctly presents them as overlapping axes, but it gives detailed treatment to only a subset and does not consistently cover the required dimensions for each pattern."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The conclusion identifies organizational topology, workflow control, specialization, interaction objective, and adaptivity as intersecting axes.",
+          "The graph includes centralized, hierarchical, decentralized, publish-subscribe, explicit graph control, parallel fan-out, state and memory, communication/context sharing, verification, recovery, and adaptive control.",
+          "Finding 7 discusses coordination overhead, token scaling, contextual drift, protocol information loss, state management, and bottlenecks."
+        ],
+        "missing": [
+          "The report does not systematically analyze synchronous versus asynchronous execution, message passing versus shared state, context isolation versus sharing, or static versus dynamic allocation.",
+          "Consequences for independence, consistency, scalability, latency, and coordination are mostly listed as concerns rather than explained conditionally.",
+          "Centralized/decentralized and hierarchical/peer trade-offs are not compared in enough detail."
+        ],
+        "rationale": "The report presents useful cross-cutting axes and some consequences, but treatment is uneven and several explicitly relevant dimensions are only implicit or omitted."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 6 identifies task allocation, communication and context sharing, state persistence, control flow, and error recovery as orchestration mechanisms.",
+          "Findings 3–5 discuss supervisors, specialized workers, planners, synthesizers, debate participants, critics, verifiers, citation audits, and revision loops.",
+          "The graph includes decomposition/allocation, communication, state/memory, verification, recovery, and adaptive control as cross-cutting mechanisms."
+        ],
+        "missing": [
+          "Tools and retrieval are mentioned only generally and are not explained as compositional mechanisms.",
+          "Evidence/provenance tracking is not developed beyond citation auditing.",
+          "The report does not clearly distinguish essential architectural features from optional overlays or implementation choices.",
+          "Role combinations and their effects across patterns are not systematically illustrated."
+        ],
+        "rationale": "Most principal roles and several mechanisms are named and partially related to architectures, but the composition analysis is not sufficiently complete or discriminating."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The Mermaid graph separates topology, workflow/control, interaction objective, composition, and cross-cutting mechanisms.",
+          "It explicitly shows relationships such as graph workflows leading to parallel fan-out and convergence, and centralized, graph, debate, and critic components composing into hybrids.",
+          "Dashed edges identify open problems including evaluation, drift, scaling, failure, security, explainability, and oversight.",
+          "The prose explains that the graph is a multidimensional synthesis rather than a canonical exclusive taxonomy and gives a concrete hybrid example."
+        ],
+        "missing": [
+          "The graph could use a legend for dashed versus solid edges and more explicit notation for overlays versus alternatives, but these are minor interpretability limitations."
+        ],
+        "rationale": "The visualization is self-contained enough to be interpretable, makes relationships and overlays explicit, and acknowledges classification limitations."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 8 states that the supplied evidence does not establish universal rankings or general quantitative superiority over single-agent baselines.",
+          "The report notes trade-off concerns including coordination overhead, token scaling, bottlenecks, latency, cost, and reliability.",
+          "The conflicts section cautions that claims of hierarchical superiority or efficiency gains should not be generalized beyond their reported contexts."
+        ],
+        "missing": [
+          "There is little actual conditional comparison of patterns by task or operating conditions.",
+          "No concrete measured findings identify task, baseline, metric, and experimental context.",
+          "Quality/reliability, communication overhead, scalability, latency, cost, fault tolerance, and evidence sharing are not compared in a structured way.",
+          "The report mainly states that evidence is insufficient rather than synthesizing available comparative evidence or clearly separating measurements from hypotheses."
+        ],
+        "rationale": "The report appropriately avoids unsupported universal rankings and flags important criteria, but it provides minimal evidence-based trade-off analysis."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 7 identifies semantic drift, coordination overhead, state-management difficulty, failure propagation, security, explainability, computational cost, and human oversight concerns.",
+          "The report mentions citation audits, gap analysis, bounded iterations, and partial finalization as safeguards in one workflow.",
+          "Remaining Gap G1 calls for comparisons against single-agent baselines, and G3 calls for evaluation of drift, coordination failures, hallucination reduction, citation quality, cost, latency, and reliability."
+        ],
+        "missing": [
+          "Evaluation methodology is not developed: outcome quality, factuality/evidence support, coordination behavior, efficiency, and ablation design are not specified in a coherent framework.",
+          "Hallucination propagation, correlated errors/groupthink, contradiction and memory failures, runaway execution, tool misuse, and governance risks are not individually linked to mitigations.",
+          "The report does not explain monitoring, containment, human-oversight triggers, or risk-specific safeguards in sufficient detail.",
+          "Single-agent and component ablations are mentioned as gaps rather than described as appropriate evaluation baselines."
+        ],
+        "rationale": "The report names several important risks and a few practical safeguards, but it lacks the required risk-to-mitigation mapping and concrete evaluation treatment."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The Remaining Gaps section organizes five research gaps covering cross-domain benchmarking, taxonomy/design graphs, evaluation, scaling and mitigation, and framework comparison.",
+          "Finding 7 and the conclusion identify open issues in drift, protocol information loss, coordination scaling, state, failure recovery, security, explainability, resource allocation, and oversight.",
+          "Sources are listed with identifiable URLs, including surveys, debate research, architecture discussions, and framework/workflow material.",
+          "The report distinguishes a source-synthesized graph from a source-established canonical taxonomy and cautions against generalizing broad comparative claims."
+        ],
+        "missing": [
+          "Most open problems are listed rather than developed into specific research questions, proposed evaluation methods, or explanations of why each matters.",
+          "Source quality and status are not consistently qualified; several sources are blogs, preprints, or future-dated-looking materials, and the report does not distinguish peer-reviewed evidence from commentary in a systematic way.",
+          "The report does not tie each major open problem to particular representative studies or documented results with enough detail.",
+          "Important areas such as interoperability, learning/adaptation, provenance, memory, and governance are mentioned unevenly rather than organized as a comprehensive research agenda."
+        ],
+        "rationale": "The report provides a useful and identifiable source-backed gap inventory with appropriate uncertainty, but the open problems are not sufficiently research-specified or deeply sourced."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a multidimensional, compositional synthesis rather than forcing systems into one exclusive taxonomy.",
+        "The Mermaid design graph explicitly connects architectural patterns, compositional hybrids, cross-cutting mechanisms, and open problems.",
+        "It usefully cautions that recurring design conventions and broad superiority claims are not validated universal findings."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.865625,
+    "validity": 1.0,
+    "support": 0.9375,
+    "completeness": 0.6666666666666666,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "LLM-based multi-agent systems generally consist of multiple specialized agents with distinct roles that communicate and collaborate, often using tools, memory, task decomposition, and result aggregation.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S6",
+          "S8"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The cited sources directly support the claim’s core description. S4 and S6 explicitly describe specialized agents with distinct identities or roles that communicate, collaborate, and coordinate. S1 additionally describes tools, memory, task decomposition, communication, and combining agent outputs. S8 supports modular role separation, planning, memory, and task allocation. The wording “often” appropriately avoids claiming that every system uses all listed components.",
+        "supporting_text": "S4: “multiple specialized agents, endowed with distinct identities, engage in communication and collaboration.” S6: orchestration involves “specialized agents [that] assume distinct roles” and includes “task decomposition,” “inter-agent communication,” and “state management.” S1: agents execute subtasks using “available tools and memory,” communicate and share information, and produce a final output by combining their results."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The most defensible taxonomy is multidimensional and compositional rather than a mutually exclusive list of categories.",
+        "citation_ids": [
+          "S3",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S13",
+          "S2"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources collectively support both key elements of the claim: multidimensional taxonomies and compositional architectures. S6 explicitly proposes topology dimensions plus an optional adaptivity axis; S8 describes orthogonal axes and a matrix of design patterns; S9 derives a three-dimensional taxonomy and notes that configurations involve many interacting design decisions; S2 states that production systems commonly compose multiple patterns. Other sources reinforce that architectures can be organized along several dimensions and combined into larger systems.",
+        "supporting_text": "S8: “A comprehensive taxonomy ... classifies systems along orthogonal axes,” producing a 3×3×4 matrix. S9: “We derive a three-dimensional taxonomy” and note that MAD settings reflect “roughly a dozen interacting design decisions.” S2: “most production agent systems are compositions of two or three” patterns."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Centralized or hierarchical supervisor-worker architectures decompose tasks, route subtasks to specialized workers, and aggregate results.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S10",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The cited sources directly describe hierarchical or supervisor-worker systems in which a supervisor breaks down tasks, delegates or routes subtasks to specialized agents, and combines or aggregates their outputs. S1 provides the general workflow, while S2 and S10 explicitly define the supervisor-worker pattern; S13 independently describes supervisors delegating to specialists and combining results.",
+        "supporting_text": "S2: “Supervisor agent decomposes tasks into sub-tasks routed to specialized worker sub-agents… supervisor aggregates.” S10: “A top-level Supervisor… delegates to… Worker/Specialist agents… tasks flow down the hierarchy, results flow up.” S13: “the supervisor delegates work to specialist agents,” and the supervisor coordinates domain specialists."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Plan-and-execute systems separate planning from execution, while graph-based workflows encode dependencies, branching, parallel fan-out, convergence, and termination explicitly.",
+        "citation_ids": [
+          "S2",
+          "S4",
+          "S5",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 directly describes plan-and-execute as a two-phase loop in which a planner emits an ordered plan and an executor carries it out. S5 and S13 describe graph/explicit workflows as node-and-edge structures with defined routing, branching, concurrent fan-out, downstream consolidation/convergence, and explicit termination. The cited material supports the claim’s important factual content.",
+        "supporting_text": "S2: “Two-phase loop: planner agent emits an ordered plan; executor agent ... walks the plan one step at a time.” S13: explicit workflows define “which nodes may run, how work can move between them, where branches converge, and when execution must end”; planned tasks can be “dispatched ... concurrently.” S5: the LangGraph workflow “sends six specialised researchers to work in parallel,” uses routing, and has a maximum-iteration condition that guarantees termination."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Debate and verifier-critic architectures use disagreement, critique, scoring, auditing, or revision to challenge and improve generated outputs, but universal performance gains are not established.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S5",
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 directly defines multi-agent debate as agents arguing different positions with a judge or synthesizer, and verifier-critic as generation followed by scoring or annotation, critique, and revision. S9 states that debate agents exchange arguments, critique outputs, and iteratively converge, while describing the goal as improving accuracy and robustness. S5 documents a research workflow involving challenge, citation auditing, verification, and refinement, and explicitly cautions that its output is not ground truth and still requires verification. The cited material does not establish universal gains; instead, S2 lists failure modes and S9 notes fragmented research and unreliable cross-study comparison, supporting the claim’s qualification.",
+        "supporting_text": "S2: “Two or more agents argue different positions; a separate judge or synthesizer agent draws the conclusion.” “A critic agent scores or annotates the output against a rubric; the generator revises based on critique.” S9: MAD lets agents “exchange arguments, critique each other’s outputs, and iteratively converge towards a solution,” but cross-study comparison is described as unreliable. S5: the workflow is designed to “plan, investigate, challenge, verify, and write,” with citation auditing and final refinement; its output “should not be treated as ground truth.”"
+      },
+      {
+        "finding_id": "F6",
+        "claim": "A useful functional view decomposes multi-agent systems into agent profile, perception, self-action, mutual interaction, and evolution; an orchestration view emphasizes task allocation, communication/context sharing, state persistence, control flow, and error recovery.",
+        "citation_ids": [
+          "S4",
+          "S6"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S4 explicitly presents a five-component MAS framework consisting of profile, perception, self-action, mutual interaction, and evolution. S6 explicitly lists the five orchestration mechanisms: task decomposition and allocation, inter-agent communication and context sharing, state management and persistence, control-flow sequencing, and error detection and recovery. The claim accurately paraphrases both sources.",
+        "supporting_text": "S4: “a general structure encompassing five key components: profile, perception, self-action, mutual interaction, and evolution.” S6: “orchestration covers five interrelated mechanisms: (1) task decomposition and allocation, (2) inter-agent communication and context sharing, (3) state management and persistence, (4) control-flow sequencing, and (5) error detection and recovery.”"
+      },
+      {
+        "finding_id": "F7",
+        "claim": "The principal open architectural problems concern semantic and contextual drift, protocol-induced information loss, coordination overhead, token and resource scaling, state management, failure propagation, verification, security, explainability, and human oversight.",
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S6",
+          "S8",
+          "S10",
+          "S13",
+          "S9",
+          "S12",
+          "S5"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The saved sources support most listed problem areas, especially semantic/contextual drift, protocol-induced information loss, coordination overhead, token/resource scaling, state management, failures, security, explainability, and human oversight. However, the claim characterizes these collectively as the “principal open architectural problems,” and the supplied excerpts do not establish that complete prioritization. Verification is also only indirectly supported, mainly through citation auditing and testing; failure propagation is not clearly documented in the available text.",
+        "supporting_text": "S3 describes “contextual drift,” “interaction protocol semantic loss,” and resource/token-scaling concerns. S6 identifies orchestration challenges involving state management, token cost, failure recovery, scalability, and security, and reports super-linear growth in debugging, monitoring, and testing burdens. S12 explicitly highlights explainability, security, computational cost, and human-in-the-loop requirements. S5 describes claim checking, citation verification, bounded termination, and partial-failure handling."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "The supplied evidence does not establish a validated universal taxonomy, a reliable ranking of architectures, or general quantitative superiority of multi-agent systems over single-agent baselines.",
+        "citation_ids": [
+          "S6",
+          "S8",
+          "S9",
+          "S12",
+          "S13",
+          "S2",
+          "S3"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources collectively support the claim’s evidentiary limitation. They present multiple competing taxonomies rather than one demonstrated universal scheme: S6 proposes a three-topology taxonomy, S8 describes four archetypes and additional orthogonal axes, S9 calls the MAD literature fragmented and says cross-study comparison is unreliable, and S13 notes there are no official prevalence statistics. The sources also do not provide a reliable general ranking: S2 offers practical recommendations and an unsupported internal-retro quotation, while S8 reports selected system-specific results rather than a general architecture ranking. Quantitative superiority over single-agent baselines is likewise not established across the supplied evidence; reported gains are task- or system-specific, and S12 makes broad comparative assertions without supplying validation details in the saved text. S3 reports numerical improvements, but these are from its own described study and do not establish general superiority.",
+        "supporting_text": "S9: “research remains fragmented,” with “inconsistent terminology,” and “cross-study comparison is unreliable.” S6 proposes one taxonomy, while S8 presents different archetypes and axes. S13 states: “there are no official statistics on the prevalence of different multi-agent architectures.”"
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "LLM-based multi-agent systems generally consist of multiple specialized agents with distinct roles that communicate and collaborate, often using tools, memory, task decomposition, and result aggregation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S6",
+          "S8"
+        ],
+        "rationale": "This externally verifiable definitional claim is directly supported by the citations attached to Finding 1."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "The most defensible taxonomy is multidimensional and compositional rather than a mutually exclusive list of categories.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S13"
+        ],
+        "rationale": "This synthesis about competing taxonomies is externally assessable and is supported by the citations attached to Finding 2."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Centralized or hierarchical supervisor-worker architectures decompose tasks, route subtasks to specialized workers, and aggregate results.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S10",
+          "S13"
+        ],
+        "rationale": "The claim concerns documented architectural behavior and has direct citations in Finding 3."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Centralized supervisor-worker architectures can make the supervisor a routing bottleneck or single point of failure.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13"
+        ],
+        "rationale": "This is an externally verifiable architectural-risk claim with a nearby citation in Finding 3."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Plan-and-execute systems separate planning from execution, while graph-based workflows explicitly encode dependencies, branching, parallel fan-out, convergence, and termination.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S4",
+          "S5",
+          "S13"
+        ],
+        "rationale": "Finding 4 supplies citations directly supporting the architectural distinction and workflow properties."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Debate and verifier-critic architectures use disagreement, critique, scoring, auditing, or revision to challenge and improve generated outputs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S5",
+          "S9"
+        ],
+        "rationale": "This architecture claim is directly cited in Finding 5."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Universal performance gains from debate and verifier-critic architectures have not been established.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "This negative or qualified empirical claim is supported by the cited discussion of debate configurations and lack of validated universal superiority."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "A functional view decomposes multi-agent systems into agent profile, perception, self-action, mutual interaction, and evolution.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4"
+        ],
+        "rationale": "The decomposition is attributed to survey evidence in Finding 6."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "An orchestration view emphasizes task allocation, communication and context sharing, state persistence, control-flow sequencing, and error detection and recovery.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "The externally verifiable framework is directly cited in Finding 6."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "The principal open architectural problems include semantic and contextual drift, protocol-induced information loss, coordination overhead, token and resource scaling, state management, failure propagation, verification, security, explainability, and human oversight.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S5",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S12",
+          "S13"
+        ],
+        "rationale": "Finding 7 provides multiple citations for this list of challenges."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "The supplied evidence does not establish a validated universal taxonomy, a reliable ranking of architectures, or general quantitative superiority of multi-agent systems over single-agent baselines.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S6",
+          "S8",
+          "S9",
+          "S12",
+          "S13"
+        ],
+        "rationale": "This assessment is externally inspectable as a claim about the evidence base and has citations in Finding 8."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "The field is fragmented, and cross-study comparison is unreliable when design decisions are implicit.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S8",
+          "S9",
+          "S12",
+          "S13"
+        ],
+        "rationale": "The claim appears in the evidence discussion for Finding 8 with supporting source identifiers."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "A survey of 141 multi-agent-debate studies identifies participant, interaction, and agreement-protocol dimensions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "The specific study size and taxonomy are externally verifiable and are cited nearby in Finding 5."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Fully connected exchange, verbatim messages, short-term memory, and voting are conventions in multi-agent debate rather than validated universally superior choices.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "This specific empirical characterization is directly attributed to S9."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "A practical research workflow uses planning, parallel specialist dispatch, synthesis, gap analysis, citation auditing, writing, refinement, and bounded iteration.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "The workflow description is an externally inspectable implementation claim and is cited in Finding 4 and Finding 7."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "The practical workflow uses citation audits, gap analysis, bounded iterations, and partial finalization to address some risks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "This implementation-detail claim has a nearby citation in Finding 7."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "The summary characterizes multi-agent LLM systems as using centralized, hierarchical, decentralized, workflow, debate, critique, and hybrid patterns.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable landscape characterization, but the Summary contains no nearby citation."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "The summary identifies semantic drift, coordination and communication overhead, scaling, failure recovery, security, explainability, evaluation, and lack of standardized cross-architecture comparisons as unresolved issues.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are externally verifiable claims about the research landscape, but the Summary presents them without nearby citations."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The supplied sources propose overlapping categories including centralized, decentralized, hierarchical, specialized, hybrid, publish-subscribe, workflow, swarm, and adversarial patterns.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S13"
+        ],
+        "rationale": "The claim is stated in Finding 2's evidence and has nearby source identifiers."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Alternative taxonomies divide the field into schemes such as collaborative, competitive, orchestration-oriented, centralized, decentralized, and hierarchical patterns.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S6",
+          "S8"
+        ],
+        "rationale": "This externally verifiable comparison of taxonomies is directly cited in Finding 2."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The sources report broad production coverage, hierarchical superiority, or large efficiency gains, but the supplied excerpts do not provide enough comparative design or benchmark detail to validate those claims generally.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3"
+        ],
+        "rationale": "The report explicitly attributes these competing claims and its qualification to the cited sources."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "The evidence supports a compositional landscape but not a single definitive partition or formal design graph.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S6",
+          "S8",
+          "S9",
+          "S13"
+        ],
+        "rationale": "This claim appears in the Conflicts and Uncertainty section with nearby citations."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The proposed visual taxonomy is a synthesis of the supplied claims rather than a source-established canonical graph.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an explicit description of the report's own synthesis and provenance, so a citation is useful but not strictly necessary."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Multi-agent architectures can be assembled across intersecting axes including organizational topology, workflow control, agent specialization, interaction objective, and adaptivity or evolution.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive taxonomy claim in the Conclusion and visual graph, but no citation is placed nearby."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "A hierarchical team may combine explicit graph control, parallel specialist execution, and a verifier-critic loop.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally inspectable architectural-composition example, but the Conclusion provides no nearby citation."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "The supplied material does not provide standardized cross-domain comparisons of centralized, decentralized, graph, debate, verifier-critic, and hybrid architectures against single-agent baselines.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive evidence-gap claim in Remaining Gaps without a nearby citation."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "The sources do not define a consensus taxonomy or formal design graph specifying how categories compose, overlap, or transition.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally assessable claim about source coverage, but G2 has no nearby citation."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "The material does not supply sufficient evidence for consistent evaluation of semantic drift, coordination failures, hallucination reduction, citation quality, cost, latency, and reliability.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive research-gap claim in G3, presented without a nearby citation."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "The material identifies scaling, protocol loss, failure propagation, and human-oversight concerns but provides no general mitigation guarantees or validated resource-allocation methods.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable limitation claim in G4, but no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "No matched-workload comparison of LangGraph, AutoGen, CrewAI, or other frameworks is supplied.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific evidence-coverage claim in G5 and lacks a nearby citation."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "The report does not identify a universally best architecture, quantify cross-domain advantages, or guarantee that any mitigation pattern resolves the open problems.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive conclusion repeats an externally assessable limitation but has no citation immediately attached."
+      }
+    ],
+    "evaluable_support_claims": 8,
+    "total_support_claims": 8,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R6: Compare patterns and design choices using conditional, evidence-based trade-off analysis.",
+    "R7: Explain how multi-agent systems are evaluated and how their characteristic failure modes and risks can be detected or mitigated.",
+    "1 cited finding(s) were not fully supported by saved evidence.",
+    "10 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "fe848e7d8121fa83d98153c8e8950d9f4ed456ec5d0b7408d1dc8ab23f9134e6",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T21:51:29.776175+00:00",
+    "usage": {
+      "llm_calls": 11,
+      "input_tokens": 90409,
+      "output_tokens": 6876,
+      "estimated_cost": null
+    }
+  }
+}

@@ -41,7 +41,9 @@ from research.models import (
     ResearchState,
     Source,
 )
+from research.llm_only_runner import LLMOnlyRunResult, save_llm_only_artifacts
 from research.report import save_research_outputs
+from research.versions import CANONICAL_SYSTEM_VERSIONS
 
 
 class FakeResponses:
@@ -151,6 +153,67 @@ def test_new_ledger_run_loads_structured_claim_evidence(tmp_path: Path) -> None:
     assert item.evidence_ledger["claims"][0]["id"] == "C1"
 
 
+def test_evaluator_v1_scores_llm_only_report_with_same_frozen_fixture(
+    tmp_path: Path,
+) -> None:
+    run = tmp_path / "llm-only-run"
+    save_llm_only_artifacts(
+        LLMOnlyRunResult(
+            question="Exact benchmark question",
+            system_version="llm-only-baseline-v0",
+            model="research-model",
+            report="# Raw report\n\nA substantive claim without a verified citation.",
+            duration_seconds=0.1,
+            input_tokens=10,
+            output_tokens=20,
+        ),
+        run,
+    )
+    frozen = fixture(tmp_path / "llm-only-fixture")
+    comprehensive = ComprehensivenessJudgment(
+        requirements=[
+            RequirementEvaluation(
+                requirement_id="R1",
+                coverage=0.5,
+                depth=0.25,
+                candidate_evidence=["A substantive claim."],
+                missing=["Evidence and qualification are missing."],
+                rationale="The requirement is mentioned but not researched deeply.",
+            )
+        ],
+        novel_value=NovelValue(present=False),
+    )
+    completeness = CitationCompletenessJudgment(
+        claims=[
+            CitationCompletenessClaim(
+                claim_id="Q1",
+                claim="A substantive claim.",
+                classification=CitationRequirement.CITATION_REQUIRED,
+                has_appropriate_citation=False,
+                citation_ids=[],
+                rationale="No canonical retrieved-source citation exists.",
+            )
+        ]
+    )
+    fake = FakeResponses([comprehensive, completeness])
+    client = SimpleNamespace(responses=fake)
+    comp = ComprehensivenessEvaluator("unused", "judge-model", client=client)
+    citations = CitationEvaluator(
+        "unused", "judge-model", client=client, usage=comp.usage
+    )
+
+    result = EvaluatorRunner("judge-model", comp, citations).evaluate(
+        load_evaluation_input(run), frozen
+    )
+
+    assert result.system_version == "llm-only-baseline-v0"
+    assert result.comprehensiveness.score == pytest.approx(0.425)
+    assert result.citations.score == 0.0
+    assert result.deterministic_integrity.score == 1.0
+    assert result.evaluation_completeness == 1.0
+    assert result.overall_score == pytest.approx(35.5)
+
+
 def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) -> None:
     run = saved_run(tmp_path / "run")
     frozen = fixture(tmp_path / "fixture")
@@ -206,6 +269,18 @@ def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) ->
         [BenchmarkEntry(run="run", result=result)], tmp_path / "results"
     )
     assert benchmark_json.is_file() and benchmark_csv.is_file()
+    reversed_entries = [
+        BenchmarkEntry(
+            run=system_version,
+            result=result.model_copy(update={"system_version": system_version}),
+        )
+        for system_version in reversed(CANONICAL_SYSTEM_VERSIONS)
+    ]
+    ordered_json, _, _ = save_benchmark(reversed_entries, tmp_path / "results")
+    ordered_rows = json.loads(ordered_json.read_text(encoding="utf-8"))
+    assert [row["system_version"] for row in ordered_rows] == list(
+        CANONICAL_SYSTEM_VERSIONS
+    )
     comparison_json, comparison_md = save_comparison(run, run, tmp_path / "results")
     assert json.loads(comparison_json.read_text(encoding="utf-8"))["metrics"]["overall"][
         "delta"

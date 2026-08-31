@@ -16,6 +16,7 @@ from evaluation.v1.models import (
     EvaluationInput,
 )
 from research.models import Confidence, EvidenceItem, FinalReport, Finding, Source
+from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
 class FakeResponses:
@@ -164,3 +165,42 @@ def test_legacy_markdown_citations_can_be_evaluated_without_structured_findings(
     assert result.validity == 1.0
     assert result.support == 1.0
     assert result.completeness == 1.0
+
+
+def test_llm_only_unverified_references_receive_no_fabricated_provenance() -> None:
+    item = EvaluationInput(
+        run_directory=Path.cwd(),
+        question="Primitive baseline question",
+        report_markdown=(
+            "Claim A is true [1].\n\n[1] https://fake.example/paper"
+        ),
+        report=None,
+        sources=[],
+        system_version=LLM_ONLY_SYSTEM_VERSION,
+        candidate_report_sha256="c" * 64,
+    )
+    complete = CitationCompletenessJudgment(
+        claims=[
+            CitationCompletenessClaim(
+                claim_id="Q1",
+                claim="Claim A is true.",
+                classification=CitationRequirement.CITATION_REQUIRED,
+                has_appropriate_citation=False,
+                citation_ids=[],
+                rationale="No canonical S-source citation exists.",
+            )
+        ]
+    )
+
+    result = CitationEvaluator(
+        "unused",
+        "test-model",
+        client=SimpleNamespace(responses=FakeResponses([complete])),
+    ).evaluate(item)
+
+    assert result.reference_checks == []
+    assert result.support_judgments == []
+    assert result.validity == 0.0
+    assert result.support == 0.0
+    assert result.completeness == 0.0
+    assert result.score == 0.0

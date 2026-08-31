@@ -21,6 +21,7 @@ class CheckStatus(str, Enum):
     PASS = "PASS"
     FAIL = "FAIL"
     NOT_EVALUABLE = "NOT_EVALUABLE"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
 
 
 class CitationSupportStatus(str, Enum):

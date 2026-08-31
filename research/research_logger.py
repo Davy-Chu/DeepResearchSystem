@@ -9,6 +9,7 @@ from pathlib import Path
 from time import perf_counter
 
 from research.models import FinalReport, IterationAnalysis, ResearchState, Source
+from research.versions import BASELINE_SYSTEM_VERSION
 
 
 @dataclass
@@ -33,7 +34,7 @@ class ResearchLogger:
     model: str
     max_iterations: int
     search_provider: str = "Tavily"
-    system_version: str = "baseline-zero"
+    system_version: str = BASELINE_SYSTEM_VERSION
     iterations: list[IterationLog] = field(default_factory=list)
     start_time: datetime | None = None
     end_time: datetime | None = None

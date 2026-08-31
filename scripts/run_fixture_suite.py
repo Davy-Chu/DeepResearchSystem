@@ -21,15 +21,11 @@ if str(PROJECT_ROOT) not in sys.path:
 from evaluation.v1.adapters import load_evaluation_input
 from evaluation.v1.fixtures import discover_fixtures, normalize_question
 from evaluation.v1.models import FrozenFixture
+from research.versions import SYSTEM_VERSION_BY_MODE
 
 
-SYSTEM_VERSION_BY_MODE = {
-    "baseline": "baseline-zero",
-    "ledger": "evidence-ledger-v1",
-    "decomposed": "evidence-ledger-decomposer-v1",
-    "verified": "evidence-ledger-decomposer-verifier-v1",
-}
 ARCHITECTURE_COMPONENTS = {
+    "llm-only": "one raw OpenAI generation (no retrieval or research components)",
     "baseline": "baseline analyzer only (no ledger, decomposer, or verifier)",
     "ledger": "evidence ledger only",
     "decomposed": "evidence ledger + question decomposer",
@@ -39,10 +35,18 @@ ARCHITECTURE_COMPONENTS = {
     ),
 }
 MAX_RESEARCH_OPENAI_CALLS = {
+    "llm-only": 1,
     "baseline": 4,
     "ledger": 6,
     "decomposed": 7,
     "verified": 10,
+}
+MAX_TAVILY_CALLS = {
+    "llm-only": 0,
+    "baseline": 3,
+    "ledger": 3,
+    "decomposed": 3,
+    "verified": 3,
 }
 LABELED_PATH = r"(?m)^{label}:\s*\r?\n(?P<path>[^\r\n]+)$"
 
@@ -86,7 +90,7 @@ def build_parser() -> argparse.ArgumentParser:
         nargs="?",
         choices=tuple(SYSTEM_VERSION_BY_MODE),
         help=(
-            "Research architecture: baseline, ledger, decomposed, or verified "
+            "Research architecture: llm-only, baseline, ledger, decomposed, or verified "
             "(default: verified)."
         ),
     )
@@ -290,7 +294,10 @@ def _print_plan(config: SuiteConfig, fixtures: Sequence[FrozenFixture]) -> None:
     print(f"Components: {ARCHITECTURE_COMPONENTS[config.mode]}")
     print(f"Preset-question outputs: {config.outputs_root}")
     print(f"Aggregate evaluation results: {config.results_root}")
-    print(f"Maximum research searches: {count * 3} Tavily calls")
+    print(
+        "Maximum research searches: "
+        f"{count * MAX_TAVILY_CALLS[config.mode]} Tavily calls"
+    )
     print(
         "Maximum research-model requests: "
         f"{count * MAX_RESEARCH_OPENAI_CALLS[config.mode]} OpenAI calls"

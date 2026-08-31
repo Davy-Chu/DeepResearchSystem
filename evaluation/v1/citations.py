@@ -26,6 +26,7 @@ from evaluation.v1.models import (
 from evaluation.v1.openai_utils import UsageTracker, parse_with_repair
 from evaluation.v1.scoring import citation_quality, citation_support_score
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
+from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
 SOURCE_ID = re.compile(r"^S[1-9][0-9]*$")
@@ -70,6 +71,7 @@ class CitationEvaluator:
         self.usage = usage or UsageTracker()
 
     def evaluate(self, item: EvaluationInput) -> CitationQualityResult:
+        is_llm_only = item.system_version == LLM_ONLY_SYSTEM_VERSION
         source_map = {source.id: source for source in item.sources}
         reference_checks: list[CitationReferenceCheck] = []
         cited_by_finding: list[tuple[str, str, list[str]]] = []
@@ -248,6 +250,14 @@ class CitationEvaluator:
                     )
                 )
         support = citation_support_score(support_judgments)
+        if is_llm_only:
+            # No citation can have canonical retrieval provenance in this architecture.
+            # Keep raw model references in report.md, but score their validity/support
+            # as zero instead of fabricating Source records or making the component vanish.
+            if validity is None:
+                validity = 0.0
+            if support is None:
+                support = 0.0
 
         score = citation_quality(validity, support, completeness)
         return CitationQualityResult(

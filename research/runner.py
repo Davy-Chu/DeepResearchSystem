@@ -10,6 +10,7 @@ from typing import Protocol
 from research.config import MAX_RESEARCH_ITERATIONS
 from research.models import FinalReport, IterationAnalysis, ResearchIteration, ResearchState, Source
 from research.research_logger import ResearchLogger
+from research.versions import BASELINE_SYSTEM_VERSION
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +82,7 @@ class ResearchRunner:
         state = ResearchState(
             question=question,
             max_iterations=self.max_iterations,
-            system_version="baseline-zero",
+            system_version=BASELINE_SYSTEM_VERSION,
         )
         self.last_state = state
         query = question

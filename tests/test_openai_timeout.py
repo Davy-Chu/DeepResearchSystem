@@ -13,6 +13,7 @@ import research.analyzer as analyzer_module
 import research.decision as decision_module
 import research.decomposer as decomposer_module
 import research.evidence_processor as processor_module
+import research.llm_only_runner as llm_only_module
 import research.report as report_module
 import research.subquestion_decision as subquestion_decision_module
 import research.verifier as verifier_module
@@ -20,6 +21,7 @@ from research.config import (
     DEFAULT_OPENAI_MAX_RETRIES,
     DEFAULT_OPENAI_TIMEOUT_SECONDS,
     load_openai_max_retries,
+    load_llm_only_settings,
     load_settings,
     load_openai_timeout_seconds,
 )
@@ -28,6 +30,10 @@ from research.config import (
 @pytest.mark.parametrize(
     ("module", "factory"),
     [
+        (
+            llm_only_module,
+            lambda: llm_only_module.LLMOnlyResearchRunner("test-key", "test-model"),
+        ),
         (
             analyzer_module,
             lambda: analyzer_module.ResearchAnalyzer("test-key", "test-model"),
@@ -153,3 +159,17 @@ def test_verifier_model_falls_back_to_researcher_model(
 
     monkeypatch.setenv("VERIFIER_MODEL", "independent-verifier-model")
     assert load_settings().verifier_model == "independent-verifier-model"
+
+
+def test_llm_only_model_falls_back_without_requiring_tavily(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
+    monkeypatch.delenv("TAVILY_API_KEY", raising=False)
+    monkeypatch.setenv("OPENAI_MODEL", "researcher-model")
+    monkeypatch.delenv("LLM_ONLY_MODEL", raising=False)
+
+    assert load_llm_only_settings().model == "researcher-model"
+
+    monkeypatch.setenv("LLM_ONLY_MODEL", "llm-only-model")
+    assert load_llm_only_settings().model == "llm-only-model"
