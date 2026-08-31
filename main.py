@@ -41,6 +41,12 @@ def build_parser() -> argparse.ArgumentParser:
             "evidence-ledger-decomposer-verifier-v1"
         ),
     )
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=Path("outputs"),
+        help="Directory beneath which the question-specific run directory is created.",
+    )
     return parser
 
 
@@ -110,7 +116,7 @@ def main() -> int:
 
     try:
         settings = load_settings()
-        output_dir = create_output_directory(args.question)
+        output_dir = create_output_directory(args.question, args.output_root)
         if args.mode in {"ledger", "decomposed", "verified"}:
             research_logger = LedgerResearchLogger(
                 question=args.question.strip(),

@@ -1,0 +1,70 @@
+{
+  "rubric_version": "1.0",
+  "fixture_id": "chain-of-thought-effectiveness",
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Conceptual framing",
+      "requirement": "Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+      "description": "The response establishes what intervention is being evaluated and what the relevant comparison conditions are, without assuming that all verbose or stepwise outputs constitute CoT.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R2",
+      "category": "Empirical effectiveness",
+      "requirement": "Assess CoT’s effects on final-answer performance across multiple task types, including at least multi-step mathematical or symbolic tasks and tasks involving knowledge, commonsense, or open-ended reasoning.",
+      "description": "The response reports gains, null effects, or harms as applicable and avoids generalizing from a single benchmark or task family.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R3",
+      "category": "Boundary conditions and moderators",
+      "requirement": "Explain how observed effects vary with model capability or scale, task difficulty and structure, training-distribution similarity, prompt or demonstration design, and baseline prompting behavior.",
+      "description": "The response identifies which moderators are supported, contested, or insufficiently tested, and uses them to explain why studies may disagree.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R4",
+      "category": "Reasoning versus formatting",
+      "requirement": "Evaluate whether CoT improves performance through the content and execution of intermediate reasoning steps, through additional context or verbosity, through answer-format and extraction effects, or through a combination of mechanisms.",
+      "description": "The response distinguishes outcome improvement from the claim that the displayed trace represents the process that caused the answer, and discusses evidence capable of separating these explanations.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R5",
+      "category": "Inference-time procedures and tools",
+      "requirement": "Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.",
+      "description": "The response compares like-for-like baselines where possible and does not attribute improvements to CoT when they may instead result from additional computation or protocol changes.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R6",
+      "category": "Trace validity and faithfulness",
+      "requirement": "Assess whether generated reasoning traces are logically valid and causally relevant to the final answer, rather than merely correlated with correctness.",
+      "description": "The response considers appropriate tests such as trace corruption, scrambling, irrelevant-chain controls, counterfactual interventions, or distribution-shift evaluations, while distinguishing faithfulness from accuracy.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R7",
+      "category": "Evidence quality and comparability",
+      "requirement": "Evaluate the evidential strength and comparability of the cited literature, including model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, replication, and source quality.",
+      "description": "The response explains disagreements using documented methodological differences and limitations, avoids treating headline scores as directly comparable, and does not rely on unsupported or unverifiable claims.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R8",
+      "category": "Synthesis and practical implications",
+      "requirement": "Reach a qualified, evidence-based conclusion about whether CoT is effective, primarily a formatting effect, or a context-dependent combination of mechanisms, and state the implications for accuracy, reliability, cost, latency, and appropriate use.",
+      "description": "The conclusion directly answers the question, remains neutral where evidence is unresolved, distinguishes established findings from hypotheses, and does not require endorsing any particular interpretation.",
+      "importance": 3,
+      "evidence_expected": true
+    }
+  ]
+}

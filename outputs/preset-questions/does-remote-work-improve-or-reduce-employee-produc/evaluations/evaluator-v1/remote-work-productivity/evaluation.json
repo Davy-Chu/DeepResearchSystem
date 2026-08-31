@@ -1,0 +1,839 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Does remote work improve or reduce employee productivity? Compare evidence from controlled experiments, observational studies, and company-level data, and explain why different studies reach conflicting conclusions.",
+  "system_version": "baseline-zero",
+  "overall_score": 88.75495804729213,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.8539473684210526,
+    "coverage": 0.881578947368421,
+    "depth": 0.7894736842105263,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "The report distinguishes the mostly remote Ctrip schedule from the Trip.com schedule of two remote days and three office days: “The Ctrip experiment examined a mostly remote schedule… whereas the Trip.com experiment examined two remote days per week.” [S9] [S13] [S14]",
+          "It identifies fully office-based comparison groups in both experiments, including “home or office work” at Ctrip and hybrid workers versus “fully office-based peers” at Trip.com. [S9] [S13]",
+          "It distinguishes measures including calls handled, minutes worked, call quality, performance reviews, promotions, revenue, survey responses, labor productivity, and total-factor productivity. [S1] [S3] [S4] [S5] [S6] [S8] [S9] [S13] [S14]",
+          "It explicitly separates productivity from related outcomes such as retention, promotion, collaboration, innovation, mentoring, learning, and perceived productivity."
+        ],
+        "missing": [],
+        "rationale": "The report clearly differentiates remote-work intensity and comparison conditions and does not treat output, quality, ratings, hours, retention, or satisfaction as interchangeable. It also explains that measurement choice contributes to apparent disagreement."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "For Ctrip, it reports randomized assignment of 249 eligible call-center volunteers to home or office work over nine months, with a 13% measured-performance increase, decomposed into more minutes worked and more calls per minute, with no measurable call-quality difference. [S13] [S14]",
+          "For Trip.com, it reports a randomized experiment involving more than 1,600 employees comparing two remote days per week with fully office-based work, finding equal measured performance and promotion prospects. [S8] [S9]",
+          "It notes important causal and generalization limits: Ctrip participants were selected volunteers with at least six months’ tenure, broadband, and an independent workspace, and the sample was only 249 employees rather than the firm’s full workforce.",
+          "It correctly treats the post-experiment 22% Ctrip result as nonrandom because employees chose their arrangements."
+        ],
+        "missing": [
+          "The Trip.com evidence lacks an approximate effect size beyond a finding of no measurable penalty and does not report uncertainty intervals or detailed compliance information.",
+          "The report gives limited discussion of how the short or firm-specific experimental settings constrain causal interpretation beyond noting selection and generalizability limits."
+        ],
+        "rationale": "Both major controlled studies are substantively described with treatment, comparison, setting, outcomes, and direction. The Ctrip account is particularly detailed, but the Trip.com experiment and experimental uncertainty are summarized less fully."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report identifies repeated small-business surveys, employee surveys, observational company analyses, pandemic-era case studies, and industry comparisons as nonexperimental evidence. [S3] [S4] [S5] [S6] [S7]",
+          "It reports that 70% of small-business owners initially perceived a productivity dip, while median perceptions became positive by 2021 after technology, training, task redesign, and management changes. [S5]",
+          "It reports a Great Place to Work analysis of more than 800,000 employees showing stable or improved survey-measured productivity, while explicitly noting that the measures were effort and adaptability rather than direct output. [S4]",
+          "It distinguishes associations from causal estimates, stating that industry relationships and selected-company comparisons “cannot identify a definitive causal effect,” and cites selection, self-reporting, reporting bias, changing conditions, adaptation, and concurrent pandemic disruption."
+        ],
+        "missing": [
+          "The report provides few concrete comparison-group designs or quasi-experimental estimates for observational studies; most examples are surveys, associations, or broad case-study summaries.",
+          "Selection, confounding, timing, and concurrent shocks are identified but not systematically tied to particular observational estimates or explained through specific identification strategies."
+        ],
+        "rationale": "The report correctly warns against treating observational and pandemic-era findings as causal and discusses several threats. However, it does not deeply evaluate specific observational or quasi-experimental designs with comparison groups and estimated causal effects."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It treats company- and industry-level evidence separately from experiments and surveys.",
+          "It reports BLS associations across 61 private-sector industries between remote-work shares and total-factor-productivity growth, and contrasts them with a 43-industry analysis showing little relationship with labor-productivity growth. [S3]",
+          "It identifies survey measures such as perceived productivity, effort, and adaptability, rather than direct individual output. [S4] [S5]",
+          "It discusses a selected sample of high-performing Fortune 100 companies and explains that company culture and selection are not separated from work location. [S4]",
+          "It explicitly states that aggregate and selected-company evidence does not establish effects on individual employees or teams."
+        ],
+        "missing": [
+          "The report could more explicitly discuss representativeness and ecological inference for the industry and Fortune 100 evidence, including why industry productivity cannot be mapped directly to employee-level productivity."
+        ],
+        "rationale": "The distinct evidence category, measured outcomes, and limits of aggregate and selected-company inference are all addressed. The main limitation is that the ecological and representativeness problems are stated more briefly than developed."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion gives a qualified answer: “Remote work can improve productivity in some settings and reduce it in others,” rather than asserting a universal effect.",
+          "It ranks evidence by strength, describing controlled evidence as positive for selected Ctrip workers and neutral for Trip.com hybrid workers, while calling observational and survey evidence often positive but less causally reliable.",
+          "It compares industry evidence as ranging from positive associations to no clear relationship and identifies differences in task, schedule, selection, management, adaptation, time horizon, and measurement.",
+          "It concludes that hybrid work has the clearest support for preserving measured individual performance while improving retention, while universal fully remote gains remain unsupported."
+        ],
+        "missing": [
+          "The comparison of magnitude, precision, and consistency across methods is incomplete: observational and aggregate effect sizes are not systematically quantified, and no confidence intervals or precision comparisons are provided.",
+          "The synthesis gives limited explicit discussion of how much confidence should be placed in the conflicting positive, neutral, and negative estimates beyond broad evidentiary labels."
+        ],
+        "rationale": "The direct answer is appropriately conditional and evidence-weighted, with a useful method comparison. It falls short of a fully developed cross-method comparison of effect magnitudes and statistical precision."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report connects conflicts to occupation and task, noting that Ctrip call-center work differs from highly collaborative roles and newly hired workers. [S1] [S9] [S13] [S14]",
+          "It distinguishes fully remote from hybrid schedules and links office interaction to collaboration, mentoring, brainstorming, knowledge sharing, and cross-team interaction. [S2] [S3] [S9]",
+          "It discusses worker selection, management quality, technology investment, task redesign, adaptation, and early-pandemic disruption as explanations for different findings. [S3] [S5]",
+          "It explains that different studies measure different outcomes, including direct output, quality, ratings, retention, self-reported productivity, labor productivity, and total-factor productivity."
+        ],
+        "missing": [
+          "Publication or reporting bias is not meaningfully discussed, despite being a rubric-listed possible source of conflicting findings.",
+          "Some mechanisms, such as coordination demands and implementation quality, are identified more as plausible factors than demonstrated links to particular study results."
+        ],
+        "rationale": "The report provides several evidence-relevant explanations and relates many of them to the cited studies or contexts. It does not cover the full range of methodological explanations, especially publication/reporting bias, and some causal mechanisms remain tentative."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It states that effects depend on task, arrangement, worker population, and organizational context, and discusses focused work versus collaboration and spontaneous problem-solving. [S2] [S3]",
+          "It identifies underrepresented or uncertain populations: Ctrip volunteers, newly hired employees, other occupations, and workers without comparable home-work resources.",
+          "It distinguishes immediate measured output from unresolved longer-run effects on innovation, mentoring, skill acquisition, collaboration quality, career progression, and team productivity.",
+          "It notes that fully remote and hybrid work may have different long-run effects and that management practices and adaptation may alter outcomes."
+        ],
+        "missing": [
+          "The report does not provide much concrete evidence about heterogeneity across demographic groups, firms, occupations, management practices, or durations; these dimensions are mostly described as limitations or plausible moderators.",
+          "Long-run uncertainty is clearly stated, but the report offers little empirical assessment of which long-term mechanisms are most likely or how they might alter productivity."
+        ],
+        "rationale": "The required external-validity and uncertainty issues are explicitly recognized, including underrepresented settings and long-term outcomes. Treatment is broad and responsible but not deeply evidenced across specific worker or firm subgroups."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful evidence-weighted synthesis that hybrid work has the clearest support for preserving measured individual performance while reducing attrition, whereas universal benefits of fully remote work are not established.",
+        "It usefully separates the randomized Ctrip result from the later nonrandom 22% post-experiment increase and flags the distinction between the firm’s 16,000 employees and the 249-person randomized sample.",
+        "It explains apparent conflicts through differences in remote-work intensity, task demands, measurement level, selection, adaptation, and time horizon rather than treating the literature as uniformly contradictory."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.9172705314009663,
+    "validity": 1.0,
+    "support": 0.9444444444444444,
+    "completeness": 0.8260869565217391,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Remote work does not have a uniform effect on employee productivity; outcomes depend on the task, arrangement, worker population, and organizational context.",
+        "citation_ids": [
+          "S3",
+          "S2"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S3 explicitly states that productivity effects depend on factors including task type, technology, home environment, worker motivation, and management practices, and reports both positive and negative findings across studies and contexts. S2 likewise says productivity outcomes depend on work type, collaboration requirements, leadership, meetings, well-being, and technology, and contrasts remote, office, and hybrid arrangements. Together, the sources support the claim's central point that effects are not uniform and vary with task, arrangement, workers, and organizational context.",
+        "supporting_text": "S3: “The answer likely depends on several factors, including the types of tasks workers perform, the available technology, the home environment, worker motivation, and management practices.” It also reports small positive effects in some randomized experiments, short-run declines in some case studies, and little aggregate relationship across industries. S2: “Productivity outcomes depend on several factors,” including work type, collaboration requirements, leadership visibility, meeting effectiveness, employee well-being, and technology infrastructure."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The strongest evidence from the Ctrip randomized experiment shows a positive productivity effect for a selected group of call-center employees working mostly remotely.",
+        "citation_ids": [
+          "S13",
+          "S14",
+          "S11"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The cited sources consistently report a randomized CTrip experiment involving call-center employees who volunteered and were randomly assigned to work from home or in the office for nine months. They report a positive productivity/performance effect of about 13%. The sources also establish that the experimental group worked from home four days per week, making “mostly remotely” accurate, and that participants were a selected volunteer group rather than all employees.",
+        "supporting_text": "S14/S11: “Call center employees who volunteered to WFH were randomly assigned to work from home or in the office for nine months. Home working led to a 13% performance increase.” S13: the 249 eligible applicants included a 131-member home-treatment group, whose members worked from home “four days per week.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The Ctrip experiment found divergent effects on productivity, retention, and career advancement: attrition fell, while promotion rates conditional on performance were lower for home workers.",
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "Both saved sources support the claim. S13 reports a 13% productivity increase, attrition at half the control-group rate, and nearly 50% lower promotion rates for home workers. S14 explicitly states that home workers’ attrition rate halved and their promotion rate conditional on performance fell.",
+        "supporting_text": "S13: “the home worker group increased its productivity by 13 percent”; “attrition was half that of the control group”; “rates of promotion for home workers were almost 50 percent lower.” S14: “their attrition rate halved, but their promotion rate conditional on performance fell.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "The post-experiment Ctrip productivity increase of approximately 22% reflects selection and learning, not a second randomized causal estimate.",
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources state that after the randomized nine-month experiment, employees were allowed to reselect between home and office. This self-selection led the gains to nearly double to 22%, which S14 explicitly attributes to learning and selection effects. Because the post-experiment change followed employee re-selection rather than the original random assignment, the sources support characterizing it as distinct from a second randomized causal estimate.",
+        "supporting_text": "S14: CTrip allowed experimental employees to reselect between home and office; over half switched, causing WFH gains to almost double to 22%, highlighting learning and selection effects. S13 similarly describes a “self-selected exodus” after the experiment and gains that nearly doubled."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "The Trip.com randomized hybrid experiment found that working from home two days per week preserved measured performance and promotion prospects while reducing resignations by about one-third.",
+        "citation_ids": [
+          "S9",
+          "S8"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "Both saved sources describe a randomized experiment at Trip.com in which employees worked from home two days per week. S9 explicitly states that they were as productive and as likely to be promoted as fully office-based peers, and that resignations fell by 33%. S8 independently describes the randomized-control-trial design, equal employee success, and a one-third reduction in attrition.",
+        "supporting_text": "S9: “employees who work from home for two days a week are just as productive and as likely to be promoted” and “Resignations fell by 33%.” S8: the study involved 1,612 Trip.com employees and found a “one-third reduction” in non-manager attrition."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Observational and survey evidence generally reports stable or improving productivity, but it is weaker for causal inference than the experiments.",
+        "citation_ids": [
+          "S5",
+          "S4",
+          "S6",
+          "S7"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support the descriptive portion: survey and observational evidence commonly reports stable or improving productivity. S5 reports that the median business owner perceived a positive productivity impact by 2021; S4 reports stable or improved productivity in a study of more than 800,000 employees; and S6 summarizes mostly stable or improved output. However, the sources do not directly establish the comparative methodological claim that this evidence is weaker for causal inference than experiments. S7 discusses disagreements among studies and identifies randomized trials, but does not make or substantiate that general hierarchy.",
+        "supporting_text": "S5: “the median business owner reported a positive productivity impact of remote work by 2021” and “Our evidence points to perceived productivity gains.” S4: “a two-year study of more than 800,000 employees found stable or improved productivity.” S6: “most research shows stable or improved output.”"
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Company- and industry-level data do not show that remote work necessarily reduces aggregate productivity, but they do not establish that remote work caused the observed outcomes.",
+        "citation_ids": [
+          "S3",
+          "S4"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S3 directly reports that an analysis across 43 industries found little relationship between remote-work capacity and labor-productivity growth, suggesting remote work neither hindered nor helped aggregate productivity growth. It also reports positive associations between increased remote work and TFP growth across 61 industries, while describing these as relationships rather than causal effects. S4 reports stable or improved productivity in a two-year study of more than 800,000 employees and strong productivity in remote environments, but the cited text does not establish causation. Together, the sources support both the non-necessity claim and the caution against causal inference.",
+        "supporting_text": "S3: “Fernald et al. (2024) find little relationship between labor productivity and the ability of workers in an industry to work entirely remotely, suggesting remote work neither hindered nor helped raise aggregate productivity growth.” S3 also describes TFP growth as “positively associated with” the rise in remote workers. S4: a study of more than 800,000 employees found “stable or improved productivity after transitioning to remote work,” without establishing that remote work caused the improvement."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "Different studies reach conflicting conclusions partly because they measure different dimensions and levels of productivity.",
+        "citation_ids": [
+          "S1",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S8",
+          "S9",
+          "S13",
+          "S14",
+          "S2"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly support both elements of the claim: they report mixed or conflicting findings, and they distinguish among productivity measures and levels. S3 contrasts positive individual-level experiments, short-run declines in some case studies, and little aggregate relationship across industries, while explicitly noting that studies use different proxies. S1 likewise says the answer depends on what is measured and reports different effects for focused versus collaborative tasks. S9 notes that results from fully remote studies have been mixed and distinguishes them from hybrid findings.",
+        "supporting_text": "S3: The answer depends on task type and other factors; studies examine individual labor productivity using “various proxies,” while an aggregate 43-industry analysis found little relationship. S1: “The answer depends on what you measure,” with a median effect of +10% for focused tasks and −4% for collaborative tasks. S9: Results of fully remote studies have been “mixed,” while the cited hybrid trial found no productivity effect."
+      },
+      {
+        "finding_id": "F9",
+        "claim": "Differences between fully remote and hybrid arrangements are central to interpreting the evidence.",
+        "citation_ids": [
+          "S9",
+          "S13",
+          "S14",
+          "S2",
+          "S3"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources explicitly distinguish hybrid arrangements from fully remote work and show that outcomes differ by arrangement. S9 states that critics often confuse hybrid with fully remote, describes hybrid as working offsite two or three days per week, and notes that fully remote research has mixed, often negative results. S3 likewise says remote work may be fully remote or hybrid and reports that productivity depends on multiple factors. S13 and S14 provide evidence from a predominantly home-based schedule with one office day, while S2 contrasts remote, office, and hybrid environments. Together, this supports the claim that distinguishing these arrangements is important for interpreting the evidence.",
+        "supporting_text": "S9: “critics often confuse hybrid for fully remote” and hybrid workers are “offsite two or three days a week and ... in the office the rest of the time.” S3: remote work “may be fully remote or hybrid.” S2: “Hybrid setups often outperform both models because they balance focus time and collaboration.”"
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Remote work does not have a uniform effect on employee productivity; effects depend on task type, work arrangement, worker population, and organizational context.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3"
+        ],
+        "rationale": "This externally verifiable synthesis is supported by nearby citations to the BLS review and another synthesis."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "In the Ctrip randomized experiment, 249 eligible volunteers were assigned to work from home or from the office for nine months.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "The experimental design and sample size are externally verifiable and directly cited."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Ctrip home workers’ measured performance increased by 13%, attributable approximately to more minutes worked per shift and more calls per minute, with no measurable difference in call quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "The quantitative experimental results are directly cited."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "The Ctrip randomized sample consisted of 249 eligible volunteers, whereas Ctrip had approximately 16,000 employees overall.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S13",
+          "S14"
+        ],
+        "rationale": "The distinction between the firm’s total workforce and the randomized sample is externally verifiable and cited nearby."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "In the Ctrip experiment, home-worker attrition was approximately half that of office workers, while promotion rates conditional on performance were almost 50% lower for home workers.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "These outcome comparisons are externally verifiable and directly cited."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Reduced visibility to office-based managers was offered as a possible explanation for lower promotion rates among home workers.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "The proposed mechanism is explicitly attributed to the cited sources."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "After Ctrip allowed employees to choose their work location, more than half of experimental participants switched arrangements and the reported productivity gain nearly doubled to approximately 22%.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "The post-experiment outcomes are externally verifiable and cited."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "The post-experiment 22% productivity figure is not a second randomized causal estimate because employees chose their subsequent work arrangements.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S14"
+        ],
+        "rationale": "The claim concerns the study design and causal interpretation and has nearby citations."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "The Trip.com randomized hybrid experiment involved more than 1,600 employees working from home two days per week and found no measurable performance or promotion penalty while reducing resignations by about one-third.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S9"
+        ],
+        "rationale": "The sample, randomized hybrid arrangement, and reported outcomes are directly cited."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Observational and survey evidence generally reports stable or improving productivity but is less informative for causal inference than randomized experiments.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S6",
+          "S7"
+        ],
+        "rationale": "The empirical patterns and methodological limitation are presented with nearby citations."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Repeated surveys found that 70% of small-business owners initially perceived a productivity decline in early 2020, while the median owner reported a positive effect by 2021 after investments in technology, training, task redesign, and remote-management improvements.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "This detailed survey claim is directly cited."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "A Great Place To Work analysis of more than 800,000 employees reported stable or improved productivity after the transition to remote work, using employee survey measures of effort and adaptability rather than direct output measures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4"
+        ],
+        "rationale": "The sample, result, and measurement method are externally verifiable and cited."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Across 61 private-sector industries, increases in the share of remote workers were positively associated with total-factor-productivity growth from 2019–21 and 2019–22 after accounting for pre-pandemic productivity trends.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3"
+        ],
+        "rationale": "This industry-level statistical association is directly cited to the BLS review."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "A separate analysis across 43 industries found little relationship between an industry’s ability to work entirely remotely and labor-productivity growth.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3"
+        ],
+        "rationale": "The comparative industry finding is directly cited."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "A selected sample of high-performing Fortune 100 companies largely supported remote or hybrid work and reported substantially higher productivity, but the comparison cannot separate work-location effects from company culture and selection.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4"
+        ],
+        "rationale": "Both the company-level observation and its stated limitation are cited."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Studies in the report measure different outcomes, including calls handled, minutes worked, call quality, performance reviews, promotions, lines of code, revenue, survey responses, labor productivity, and total-factor productivity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S8",
+          "S9",
+          "S13",
+          "S14"
+        ],
+        "rationale": "The inventory of measures is externally checkable and has nearby citations."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Fully remote and hybrid arrangements differ materially in the evidence: the Ctrip experiment studied a mostly remote schedule, whereas the Trip.com experiment studied two remote days and three office days per week.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S13",
+          "S14"
+        ],
+        "rationale": "The work arrangements in the two experiments are directly cited."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Some reported evidence finds output reductions of 10–20% for certain fully remote roles, particularly highly collaborative roles or newly hired workers.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S9",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This quantitative and subgroup-specific claim is externally verifiable and has nearby citations."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The retrieved evidence does not establish the long-run effects of remote work on innovation, mentoring, skill acquisition, collaboration quality, or team-level performance across occupations.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S9"
+        ],
+        "rationale": "The stated evidence limitation is supported by nearby citations to the relevant reviews and study account."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Ctrip participants were volunteers with at least six months of tenure, broadband access, and an independent home workspace, limiting confidence that the findings generalize to other workers, newly hired employees, or occupations.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is externally verifiable, but the Remaining Gaps section provides no nearby citation for these participant characteristics."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The report concludes that hybrid work has the clearest support as a way to preserve measured individual performance while improving retention, whereas universal productivity gains from fully remote work are unsupported.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive comparative conclusion appears in the uncited Conclusion; earlier sections contain supporting citations, but no nearby citation is supplied there."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "The evidence does not provide harmonized effect sizes comparing controlled experiments, observational studies, and company-level data using common productivity definitions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This methodological gap is externally inspectable, but no citation is supplied near the claim."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The full primary Trip.com paper and complete statistical tables were not retrieved, so confidence intervals, detailed compliance, and subgroup estimates cannot be independently assessed in the report.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a statement about the report’s own retrieval process rather than an externally verifiable substantive claim."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "The available evidence does not determine whether fully remote work has different long-run effects from hybrid work on innovation, mentoring, learning, and team productivity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This evidence-gap claim is substantive and externally assessable, but it lacks a nearby citation in the Remaining Gaps section."
+      }
+    ],
+    "evaluable_support_claims": 9,
+    "total_support_claims": 9,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "1 cited finding(s) were not fully supported by saved evidence.",
+    "4 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "remote-work-productivity",
+    "fixture_version": "1.0",
+    "rubric_hash": "e50bc516d4d756493b41fcaa430b164facfcb05a718934b8d5eb88b93b7e7d02",
+    "candidate_report_hash": "9b23f71722c6a25df7afd905c6c6bc8ff4ba816d149b38d93d76060225ca6713",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T21:16:23.948438+00:00",
+    "usage": {
+      "llm_calls": 11,
+      "input_tokens": 65200,
+      "output_tokens": 6830,
+      "estimated_cost": null
+    }
+  }
+}

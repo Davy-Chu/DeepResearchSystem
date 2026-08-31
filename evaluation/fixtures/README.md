@@ -14,7 +14,7 @@ Reference reports are used only while authoring rubrics. Normal candidate evalua
 question, frozen rubric, and candidate report to the judge; it never sends the reference report.
 The references define benchmark scope, not mandatory conclusions or wording.
 
-All five initial benchmark questions now have user-supplied reference reports. Keep these reports
+All nine benchmark questions now have user-supplied reference reports. Keep these reports
 unchanged after freezing so their recorded hashes remain valid. Do not substitute a newly
 researched report if benchmark continuity matters.
 

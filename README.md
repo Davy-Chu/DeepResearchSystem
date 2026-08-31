@@ -225,10 +225,12 @@ conclusions. Freezing prevents the benchmark definition from changing between
 baseline and ablation evaluations. Reference reports establish benchmark scope; they
 are not absolute truth.
 
-The initial five-fixture benchmark is frozen under `evaluation/fixtures/`: remote
-work, the Late Bronze Age collapse, quantum commercial advantage, carbon capture, and
-social-media polarization. Each directory contains the exact supplied question and
-reference report plus the generated atomic rubric and hash metadata.
+The current nine-fixture benchmark is frozen under `evaluation/fixtures/`: remote work,
+the Late Bronze Age collapse, quantum commercial advantage, carbon capture,
+social-media polarization, synthetic data for LLM training, chain-of-thought
+effectiveness, inference-time compute scaling, and multi-agent LLM systems. Each
+directory contains the exact supplied question and reference report plus the generated
+atomic rubric and hash metadata.
 
 Build and freeze an authored fixture:
 
@@ -269,6 +271,61 @@ Compare two already-saved evaluator-v1 results without making API calls:
 ```powershell
 python main.py evaluator compare outputs/<baseline-run> outputs/<ledger-run>
 ```
+
+### Automated Frozen-Fixture Suite
+
+Preview the complete fixture-suite plan without making Tavily or OpenAI calls:
+
+```powershell
+python scripts/run_fixture_suite.py --dry-run
+```
+
+Run every frozen fixture question sequentially in verified mode, then evaluate all
+successful newly saved runs with Evaluator v1 and create an aggregate benchmark:
+
+```powershell
+python scripts/run_fixture_suite.py
+```
+
+Choose the research architecture by placing its name after the script:
+
+| Command | Research components |
+| --- | --- |
+| `python scripts/run_fixture_suite.py baseline` | Baseline analyzer; no ledger, decomposition, or verification |
+| `python scripts/run_fixture_suite.py ledger` | Evidence ledger only |
+| `python scripts/run_fixture_suite.py decomposed` | Evidence ledger and question decomposer |
+| `python scripts/run_fixture_suite.py verified` | Ledger, decomposer, independent verifier, and adversarial counter-search |
+
+Omitting the architecture is equivalent to `verified`. Add `--dry-run` to any command
+to inspect its plan without calling Tavily or OpenAI, for example
+`python scripts/run_fixture_suite.py ledger --dry-run`.
+
+The research phase always finishes before the evaluation phase begins. The script
+discovers frozen fixtures in stable fixture-ID order and validates that every saved run
+matches its fixture and requested architecture. Fixed-suite reports, traces, logs, and
+per-report evaluations are kept separate from ad-hoc research beneath
+`outputs/preset-questions/<question>/`. Aggregate benchmark JSON, CSV, Markdown, and the
+suite manifest are written beneath
+`outputs/preset-questions/evaluation-results/fixture-suite-<timestamp>-<mode>/`.
+
+Choose another architecture or a smaller fixture subset when needed:
+
+```powershell
+python scripts/run_fixture_suite.py decomposed
+python scripts/run_fixture_suite.py --fixture remote-work-productivity --fixture chain-of-thought-effectiveness
+python scripts/run_fixture_suite.py --outputs-root outputs/another-fixed-suite
+```
+
+The older `--mode ledger` form remains supported for compatibility.
+
+The script continues to later research questions if one run fails, evaluates every
+successful run, records skipped/failed items in the manifest, and exits nonzero unless
+the whole selected suite succeeds. With the current nine fixtures, verified mode can
+make at most 27 Tavily searches and 90 research OpenAI requests. Evaluator-v1 usage is
+additional and report-dependent: it uses one comprehensiveness judgment, one citation
+completeness judgment, and one citation-support judgment per final finding, with at
+most one semantic repair attempt per structured judgment. OpenAI SDK retries may add
+HTTP attempts. Running the non-dry command can therefore incur substantial API charges.
 
 Evaluator-v1 results are stored without overwriting earlier results:
 

@@ -1,0 +1,70 @@
+{
+  "rubric_version": "1.0",
+  "fixture_id": "inference-time-compute-scaling",
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Scope and definitions",
+      "requirement": "Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+      "description": "Explain what counts as allocating additional computation during inference, such as longer serial reasoning, parallel sampling, search, verification, refinement, tool use, or adaptive budgeting. Distinguish these from training changes, increased model size, and merely supplying more input context, while noting where boundaries are debatable.",
+      "importance": 3,
+      "evidence_expected": false
+    },
+    {
+      "id": "R2",
+      "category": "Empirically validated efficacy",
+      "requirement": "Synthesize controlled evidence about whether and where additional inference-time compute improves reasoning performance.",
+      "description": "Report comparisons across inference budgets or strategies with relevant models, tasks, baselines, effect sizes, and uncertainty or variance. Separate replicated patterns from isolated benchmark results, and avoid treating improvement in one setting as evidence of universal benefit.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R3",
+      "category": "Mechanisms and failure modes",
+      "requirement": "Compare the principal inference-scaling mechanisms and their observed conditions of success or failure.",
+      "description": "Address serial reasoning length, repeated sampling and aggregation, search, verification, refinement, and adaptive allocation as distinct mechanisms. Identify relevant limitations, such as correlated samples, unreliable verifiers, error propagation, non-monotonic effects of excessively long reasoning, or gains that depend on task difficulty.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R4",
+      "category": "Scaling behavior",
+      "requirement": "Characterize how reasoning quality changes as inference compute increases.",
+      "description": "Discuss whether evidence indicates monotonic gains, diminishing returns, saturation, or performance degradation, and how these patterns vary with model capability, task difficulty, budget, and strategy. State clearly that no universal functional scaling law should be asserted unless supported by broad evidence.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R5",
+      "category": "Efficiency and trade-offs",
+      "requirement": "Evaluate inference scaling against realistic resource constraints and alternatives.",
+      "description": "Compare quality gains with relevant measures such as tokens, FLOPs, latency, throughput, energy, or monetary cost, using clearly specified conditions where available. Assess when extra inference may be preferable to a larger or differently trained model, without generalizing beyond matched comparisons and their deployment assumptions.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R6",
+      "category": "Generalization",
+      "requirement": "Assess how well reported inference-scaling effects transfer beyond the settings in which they were measured.",
+      "description": "Distinguish evidence from mathematics and STEM benchmarks from evidence on coding, knowledge-intensive and open-domain reasoning, planning, interactive or tool-using tasks, ambiguous tasks, safety-relevant workloads, languages, and real-world data. Note differences between proprietary and open models and between synthetic and naturalistic evaluations.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R7",
+      "category": "Evidence quality and unresolved questions",
+      "requirement": "Identify the strength and limitations of the evidence and explicitly mark claims that remain too uncertain for reliable conclusions.",
+      "description": "Discuss replication, independence of studies, benchmark contamination, dataset and prompt limitations, selective reporting, proprietary-model access, weak baselines, and incomplete compute accounting. Separate established findings, plausible but conditional interpretations, and speculative extrapolations; identify unresolved issues such as long-run limits, adaptive allocation, retrieval or context effects, and broad real-world applicability, including what evidence would help resolve them.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R8",
+      "category": "Conclusion and synthesis",
+      "requirement": "Give a balanced, conditional conclusion about the current state of inference-time compute scaling.",
+      "description": "State what can currently be concluded with confidence, where benefits are conditional or diminishing, and where evidence is insufficient. The conclusion should answer the question directly, preserve uncertainty, and avoid both blanket endorsement and blanket dismissal; it should not merely repeat isolated examples or assume that the reference position is correct.",
+      "importance": 3,
+      "evidence_expected": false
+    }
+  ]
+}

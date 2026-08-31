@@ -1,0 +1,70 @@
+{
+  "rubric_version": "1.0",
+  "fixture_id": "multi-agent-llm-landscape",
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Scope and definitions",
+      "requirement": "Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+      "description": "State explicit inclusion and exclusion criteria, addressing cases such as single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM multi-agent systems, and hybrid designs. Borderline cases should be handled consistently, without treating one definition as universally authoritative.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R2",
+      "category": "Architectural landscape",
+      "requirement": "Identify and characterize the major architectural patterns in multi-agent LLM systems.",
+      "description": "Cover materially distinct patterns rather than merely naming variants. For each included pattern, explain its control structure, agent arrangement, information flow, coordination mechanism, representative applications or systems, and important limitations. The report may organize patterns using multiple taxonomic axes rather than forcing every system into one exclusive category.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R3",
+      "category": "Cross-cutting design analysis",
+      "requirement": "Analyze design dimensions that cut across architectural patterns and explain their consequences.",
+      "description": "Address relevant dimensions such as centralized versus decentralized control, hierarchical versus peer coordination, sequential versus parallel execution, synchronous versus asynchronous operation, message passing versus shared state, context isolation versus sharing, and static versus dynamic agent allocation. Explain how these choices affect coordination, independence, consistency, and scalability.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R4",
+      "category": "System composition and mechanisms",
+      "requirement": "Explain the principal agent roles and supporting mechanisms used to compose multi-agent systems.",
+      "description": "Discuss relevant roles and components—including planners or orchestrators, specialized workers, critics or verifiers, synthesizers, tools and retrieval, memory or shared state, and evidence or provenance tracking—and explain how they combine with the architectural patterns. Distinguish essential architectural features from optional overlays or implementation choices.",
+      "importance": 2,
+      "evidence_expected": true
+    },
+    {
+      "id": "R5",
+      "category": "Visual synthesis",
+      "requirement": "Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays.",
+      "description": "The visualization must be legible and sufficiently self-contained, with labels or a legend where needed. It should make relationships such as hierarchy, composition, alternatives, or add-on mechanisms explicit, rather than functioning as an unstructured list. The prose should explain how to read it and note any important classification limitations.",
+      "importance": 3,
+      "evidence_expected": false
+    },
+    {
+      "id": "R6",
+      "category": "Comparative and empirical analysis",
+      "requirement": "Compare patterns and design choices using conditional, evidence-based trade-off analysis.",
+      "description": "Compare relevant criteria such as quality or reliability, communication overhead, scalability, latency, token or monetary cost, fault tolerance, evidence sharing, and task suitability. State the conditions under which a trade-off is expected, avoid universal rankings, and distinguish measured findings from hypotheses or design intuitions. Quantitative claims should identify the task, baseline, metric, and experimental context.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R7",
+      "category": "Evaluation, risks, and mitigations",
+      "requirement": "Explain how multi-agent systems are evaluated and how their characteristic failure modes and risks can be detected or mitigated.",
+      "description": "Discuss outcome quality, factuality or evidence support, efficiency, coordination behavior, and appropriate single-agent or ablation baselines. Address risks such as hallucination propagation, correlated errors or groupthink, contradiction and memory failures, runaway execution, tool misuse, security or governance problems, and opacity where relevant. Link each major risk to plausible safeguards, monitoring, or human oversight, while avoiding claims that all systems share the same risks.",
+      "importance": 3,
+      "evidence_expected": true
+    },
+    {
+      "id": "R8",
+      "category": "Open research problems and sourcing",
+      "requirement": "Organize specific, researchable open problems that follow from the landscape and support the report with identifiable, appropriately qualified sources.",
+      "description": "Open problems may concern reliability, scalable coordination, state and provenance, memory, adaptive resource allocation, benchmarking, interoperability, learning or adaptation, and governance. For each major problem, indicate what remains unresolved and why it matters. Use representative literature, systems, benchmarks, or documented studies; make sources identifiable and distinguish established evidence, reported limitations, and proposed future directions.",
+      "importance": 3,
+      "evidence_expected": true
+    }
+  ]
+}

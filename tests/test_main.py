@@ -22,6 +22,13 @@ def test_research_modes_are_selectable() -> None:
         build_parser().parse_args(["Question", "--mode", "decomposed"]).mode
         == "decomposed"
     )
+
+
+def test_research_output_root_is_configurable() -> None:
+    assert build_parser().parse_args(["Question"]).output_root == Path("outputs")
+    assert build_parser().parse_args(
+        ["Question", "--output-root", "outputs/preset-questions"]
+    ).output_root == Path("outputs/preset-questions")
     assert (
         build_parser().parse_args(["Question", "--mode", "verified"]).mode
         == "verified"
