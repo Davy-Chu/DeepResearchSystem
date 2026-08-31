@@ -15,9 +15,13 @@ from research.models import (
 from research.research_logger import ResearchLogger
 
 
-def test_research_mode_defaults_to_baseline_and_ledger_is_selectable() -> None:
+def test_research_modes_are_selectable() -> None:
     assert build_parser().parse_args(["Question"]).mode == "baseline"
     assert build_parser().parse_args(["Question", "--mode", "ledger"]).mode == "ledger"
+    assert (
+        build_parser().parse_args(["Question", "--mode", "decomposed"]).mode
+        == "decomposed"
+    )
 
 
 def test_failed_final_synthesis_saves_all_incomplete_artifacts() -> None:

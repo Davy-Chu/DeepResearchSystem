@@ -18,8 +18,10 @@ from research.models import (
     LedgerUpdateSummary,
     ResearchDecision,
     ResearchGap,
+    ResearchPlan,
     ResearchState,
     Source,
+    SubQuestionStatusChange,
 )
 
 
@@ -40,6 +42,10 @@ class LedgerIterationLog:
     decision_duration: float | None = None
     decision_model_call: bool = False
     stop_reason: str | None = None
+    subquestion_status_changes: list[SubQuestionStatusChange] = field(
+        default_factory=list
+    )
+    research_plan_snapshot: ResearchPlan | None = None
 
 
 @dataclass
@@ -59,12 +65,22 @@ class LedgerResearchLogger:
     status: str = "Not started"
     failure_stage: str | None = None
     error_message: str | None = None
+    research_plan: ResearchPlan | None = None
+    decomposition_attempted: bool = False
+    decomposition_duration: float | None = None
     _start_counter: float | None = field(default=None, repr=False)
 
     def start_run(self) -> None:
         self.start_time = datetime.now().astimezone()
         self._start_counter = perf_counter()
         self.status = "Running"
+
+    def record_research_plan(self, plan: ResearchPlan, duration: float) -> None:
+        self.research_plan = plan.model_copy(deep=True)
+        self.decomposition_duration = duration
+
+    def record_decomposition_attempt(self) -> None:
+        self.decomposition_attempted = True
 
     def record_search(
         self,
@@ -93,6 +109,7 @@ class LedgerResearchLogger:
         updates: LedgerUpdateSummary,
         state: ResearchState,
         duration: float,
+        status_changes: list[SubQuestionStatusChange] | None = None,
     ) -> None:
         item = self._iteration(iteration_number)
         item.processing_result = result.model_copy(deep=True)
@@ -100,6 +117,14 @@ class LedgerResearchLogger:
         item.ledger_snapshot = state.evidence_ledger.model_copy(deep=True)
         item.gaps_snapshot = [gap.model_copy(deep=True) for gap in state.research_gaps]
         item.processing_duration = duration
+        item.subquestion_status_changes = [
+            change.model_copy(deep=True) for change in (status_changes or [])
+        ]
+        item.research_plan_snapshot = (
+            state.research_plan.model_copy(deep=True)
+            if state.research_plan is not None
+            else None
+        )
 
     def record_decision(
         self,
@@ -160,6 +185,7 @@ class LedgerResearchLogger:
 
     def render_markdown(self) -> str:
         lines = self._render_summary()
+        lines.extend(self._render_research_plan())
         for iteration in self.iterations:
             lines.extend(self._render_iteration(iteration))
         lines.extend(self._render_final_decision())
@@ -212,6 +238,54 @@ class LedgerResearchLogger:
             lines.extend([f"**Ended:** {self.end_time.isoformat(timespec='seconds')}", ""])
         if self.total_runtime is not None:
             lines.extend([f"**Total Runtime:** {self._duration(self.total_runtime)}", ""])
+        lines.extend(["---", ""])
+        return lines
+
+    def _render_research_plan(self) -> list[str]:
+        if self.research_plan is None:
+            return []
+        lines = ["# Research Plan", "", "## Subquestions", ""]
+        for item in self.research_plan.subquestions:
+            lines.extend(
+                [
+                    f"### {item.id} [{item.importance.value}]",
+                    "",
+                    "**Question:**",
+                    "",
+                    item.question,
+                    "",
+                    "**Success criteria:**",
+                    "",
+                    item.success_criteria,
+                    "",
+                    f"**Initial status:** {item.status.value}",
+                    "",
+                ]
+            )
+        if self.research_plan.synthesis_requirements:
+            lines.extend(
+                [
+                    "## Synthesis Requirements",
+                    "",
+                    *[
+                        f"- {requirement}"
+                        for requirement in self.research_plan.synthesis_requirements
+                    ],
+                    "",
+                ]
+            )
+        if self.research_plan.output_requirements:
+            lines.extend(
+                [
+                    "## Output Requirements",
+                    "",
+                    *[
+                        f"- {requirement}"
+                        for requirement in self.research_plan.output_requirements
+                    ],
+                    "",
+                ]
+            )
         lines.extend(["---", ""])
         return lines
 
@@ -332,7 +406,7 @@ class LedgerResearchLogger:
             counts[claim.status] += 1
         open_gaps = sum(gap.status == GapStatus.OPEN for gap in item.gaps_snapshot)
         remaining = max(self.max_iterations - item.iteration_number, 0)
-        return [
+        lines = [
             f"- Claims: {len(ledger.claims)}",
             f"- Supported: {counts[ClaimStatus.SUPPORTED]}",
             f"- Weak: {counts[ClaimStatus.WEAK]}",
@@ -342,6 +416,47 @@ class LedgerResearchLogger:
             f"- Remaining Searches: {remaining}",
             "",
         ]
+        if item.research_plan_snapshot is not None:
+            lines.extend(["### Subquestion Progress", ""])
+            changes = {
+                change.subquestion_id: change
+                for change in item.subquestion_status_changes
+            }
+            for subquestion in item.research_plan_snapshot.subquestions:
+                transition = changes.get(subquestion.id)
+                status = subquestion.status.value
+                if transition is not None:
+                    status = (
+                        f"{transition.previous_status.value} → "
+                        f"{transition.current_status.value}"
+                    )
+                lines.extend(
+                    [
+                        f"**{subquestion.id}:** {status}",
+                        "",
+                        f"Reason: {subquestion.status_reason}",
+                        "",
+                    ]
+                )
+            lines.extend(["### Research Plan Status", ""])
+            for importance in ("CORE", "SECONDARY"):
+                lines.extend([f"**{importance}:**", ""])
+                matching = [
+                    subquestion
+                    for subquestion in item.research_plan_snapshot.subquestions
+                    if subquestion.importance.value == importance
+                ]
+                if matching:
+                    lines.extend(
+                        f"- {subquestion.id} → {subquestion.status.value} "
+                        f"(targeted searches: {subquestion.search_attempts})"
+                        for subquestion in matching
+                    )
+                else:
+                    lines.append("- None")
+                lines.append("")
+            lines.extend([f"**Remaining targeted searches:** {remaining}", ""])
+        return lines
 
     def _render_decision(self, item: LedgerIterationLog) -> list[str]:
         if item.decision is None:
@@ -394,18 +509,26 @@ class LedgerResearchLogger:
         search_total = sum(item.search_duration for item in self.iterations)
         processing_total = sum(item.processing_duration or 0.0 for item in self.iterations)
         decision_total = sum(item.decision_duration or 0.0 for item in self.iterations)
-        return [
+        lines = [
             "# Performance Summary",
             "",
             "| Component | Calls | Total Time |",
             "|---|---:|---:|",
+        ]
+        if self.decomposition_attempted:
+            lines.append(
+                f"| Question Decomposition | 1 | "
+                f"{self._duration(self.decomposition_duration or 0.0)} |"
+            )
+        lines.extend([
             f"| Tavily Search | {len(self.iterations)} | {self._duration(search_total)} |",
             f"| Evidence Processing | {self._processing_calls()} | {self._duration(processing_total)} |",
             f"| Research Decision | {self._decision_calls()} | {self._duration(decision_total)} |",
             f"| Report Generation | {self._report_calls()} | {self._duration(self.report_duration or 0.0)} |",
             f"| Total Run | — | {self._duration(self.total_runtime or 0.0)} |",
             "",
-        ]
+        ])
+        return lines
 
     def _iteration(self, iteration_number: int) -> LedgerIterationLog:
         for item in self.iterations:
@@ -423,7 +546,12 @@ class LedgerResearchLogger:
         return 1 if self.report_duration is not None else 0
 
     def _openai_calls(self) -> int:
-        return self._processing_calls() + self._decision_calls() + self._report_calls()
+        return (
+            (1 if self.decomposition_attempted else 0)
+            + self._processing_calls()
+            + self._decision_calls()
+            + self._report_calls()
+        )
 
     @staticmethod
     def _duration(seconds: float) -> str:

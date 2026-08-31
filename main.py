@@ -10,6 +10,7 @@ from pathlib import Path
 from research.analyzer import ResearchAnalyzer
 from research.config import MAX_RESEARCH_ITERATIONS, load_settings
 from research.decision import ResearchDecisionMaker
+from research.decomposer import QuestionDecomposer
 from research.evidence_processor import EvidenceProcessor
 from research.ledger_logger import LedgerResearchLogger
 from research.ledger_runner import LedgerResearchRunner
@@ -23,6 +24,7 @@ from research.report import (
 from research.research_logger import ResearchLogger
 from research.runner import ResearchRunner
 from research.search import TavilySearchClient
+from research.subquestion_decision import SubquestionResearchDecisionMaker
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,9 +32,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("question", help="The research question to investigate")
     parser.add_argument(
         "--mode",
-        choices=("baseline", "ledger"),
+        choices=("baseline", "ledger", "decomposed"),
         default="baseline",
-        help="Research architecture: baseline-zero (default) or evidence-ledger-v1",
+        help=(
+            "Research architecture: baseline-zero (default), evidence-ledger-v1, "
+            "or evidence-ledger-decomposer-v1"
+        ),
     )
     return parser
 
@@ -104,11 +109,16 @@ def main() -> int:
     try:
         settings = load_settings()
         output_dir = create_output_directory(args.question)
-        if args.mode == "ledger":
+        if args.mode in {"ledger", "decomposed"}:
             research_logger = LedgerResearchLogger(
                 question=args.question.strip(),
                 model=settings.openai_model,
                 max_iterations=MAX_RESEARCH_ITERATIONS,
+                system_version=(
+                    "evidence-ledger-decomposer-v1"
+                    if args.mode == "decomposed"
+                    else "evidence-ledger-v1"
+                ),
             )
         else:
             research_logger = ResearchLogger(
@@ -124,7 +134,7 @@ def main() -> int:
             max_retries=settings.openai_max_retries,
         )
         failure_stage = "Research Execution"
-        if args.mode == "ledger":
+        if args.mode in {"ledger", "decomposed"}:
             assert isinstance(research_logger, LedgerResearchLogger)
             evidence_processor = EvidenceProcessor(
                 settings.openai_api_key,
@@ -132,18 +142,35 @@ def main() -> int:
                 timeout_seconds=settings.openai_timeout_seconds,
                 max_retries=settings.openai_max_retries,
             )
-            decision_maker = ResearchDecisionMaker(
-                settings.openai_api_key,
-                settings.openai_model,
-                timeout_seconds=settings.openai_timeout_seconds,
-                max_retries=settings.openai_max_retries,
-            )
+            if args.mode == "decomposed":
+                decision_maker = SubquestionResearchDecisionMaker(
+                    settings.openai_api_key,
+                    settings.openai_model,
+                    timeout_seconds=settings.openai_timeout_seconds,
+                    max_retries=settings.openai_max_retries,
+                )
+                question_decomposer = QuestionDecomposer(
+                    settings.openai_api_key,
+                    settings.openai_model,
+                    timeout_seconds=settings.openai_timeout_seconds,
+                    max_retries=settings.openai_max_retries,
+                )
+            else:
+                decision_maker = ResearchDecisionMaker(
+                    settings.openai_api_key,
+                    settings.openai_model,
+                    timeout_seconds=settings.openai_timeout_seconds,
+                    max_retries=settings.openai_max_retries,
+                )
+                question_decomposer = None
             runner = LedgerResearchRunner(
                 search_client,
                 evidence_processor,
                 decision_maker,
                 report_generator,
                 research_logger=research_logger,
+                question_decomposer=question_decomposer,
+                system_version=research_logger.system_version,
             )
         else:
             assert isinstance(research_logger, ResearchLogger)

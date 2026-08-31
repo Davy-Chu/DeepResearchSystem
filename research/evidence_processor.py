@@ -43,6 +43,14 @@ contradictory evidence. Do not create trivial claims.
 The application assigns permanent IDs to new claims and gaps. Never invent a permanent
 claim or gap ID. Claim updates must reference an existing claim ID, and resolved gaps
 must reference an existing gap ID. Do not decide whether another search should happen.
+
+When a research plan is supplied, associate every claim and gap with all relevant
+subquestion IDs. Claim updates may add associations but never remove existing ones.
+Only use IDs from the supplied plan. When no research plan is supplied, return empty
+related_subquestion_ids lists. Do not create subquestions or modify the research plan.
+Associate evidence only when it materially helps answer a subquestion, not merely because
+the texts share keywords. Associate gaps with the subquestions they prevent from being
+satisfactorily answered.
 """
 
 
@@ -67,6 +75,11 @@ class EvidenceProcessor:
     ) -> EvidenceProcessingResult:
         payload = {
             "original_question": state.question,
+            "research_plan": (
+                state.research_plan.model_dump(mode="json")
+                if state.research_plan is not None
+                else None
+            ),
             "current_evidence_ledger": state.evidence_ledger.model_dump(mode="json"),
             "current_open_gaps": [
                 gap.model_dump(mode="json") for gap in state.open_gaps()
@@ -140,9 +153,22 @@ def _validate_processing_result(
     valid_source_ids = {source.id for source in state.sources}
     valid_claim_ids = {claim.id for claim in state.evidence_ledger.claims}
     valid_gap_ids = {gap.id for gap in state.research_gaps}
+    valid_subquestion_ids = (
+        {item.id for item in state.research_plan.subquestions}
+        if state.research_plan is not None
+        else set()
+    )
     update_ids = [update.existing_claim_id for update in result.claim_updates]
     if len(update_ids) != len(set(update_ids)):
         raise ValueError("Evidence processing returned duplicate updates for one claim")
+
+    def validate_subquestions(ids: list[str], context: str) -> None:
+        unknown_ids = sorted(set(ids) - valid_subquestion_ids)
+        if unknown_ids:
+            raise ValueError(
+                f"{context} references unknown subquestion ID(s): "
+                + ", ".join(unknown_ids)
+            )
 
     for number, proposal in enumerate(result.new_claims, start=1):
         if not proposal.claim.strip():
@@ -158,6 +184,9 @@ def _validate_processing_result(
             EvidenceRelationType.CONTRADICTS,
             valid_source_ids,
             f"New claim {number}",
+        )
+        validate_subquestions(
+            proposal.related_subquestion_ids, f"New claim {number}"
         )
 
     for update in result.claim_updates:
@@ -177,6 +206,9 @@ def _validate_processing_result(
             valid_source_ids,
             f"Update {update.existing_claim_id}",
         )
+        validate_subquestions(
+            update.related_subquestion_ids, f"Update {update.existing_claim_id}"
+        )
 
     for number, gap in enumerate(result.new_gaps, start=1):
         if not gap.description.strip():
@@ -187,6 +219,7 @@ def _validate_processing_result(
                 f"New gap {number} references nonexistent claim ID(s): "
                 + ", ".join(unknown_claim_ids)
             )
+        validate_subquestions(gap.related_subquestion_ids, f"New gap {number}")
     unknown_gap_ids = sorted(set(result.resolved_gap_ids) - valid_gap_ids)
     if unknown_gap_ids:
         raise ValueError(
@@ -220,6 +253,9 @@ def apply_evidence_processing_result(
             status=proposal.status,
             first_seen_iteration=iteration_number,
             last_updated_iteration=iteration_number,
+            related_subquestion_ids=list(
+                dict.fromkeys(proposal.related_subquestion_ids)
+            ),
         )
         state.evidence_ledger.add_claim(claim)
         changes.claim_changes.append(
@@ -248,6 +284,11 @@ def apply_evidence_processing_result(
         claim.confidence_reason = update.updated_confidence_reason.strip()
         claim.status = update.updated_status
         claim.last_updated_iteration = iteration_number
+        claim.related_subquestion_ids = list(
+            dict.fromkeys(
+                [*claim.related_subquestion_ids, *update.related_subquestion_ids]
+            )
+        )
         changes.claim_changes.append(
             LedgerClaimChange(
                 claim_id=claim.id,
@@ -272,6 +313,9 @@ def apply_evidence_processing_result(
             description=proposal.description.strip(),
             importance=proposal.importance,
             related_claim_ids=list(dict.fromkeys(proposal.related_claim_ids)),
+            related_subquestion_ids=list(
+                dict.fromkeys(proposal.related_subquestion_ids)
+            ),
             created_iteration=iteration_number,
         )
         state.research_gaps.append(gap)

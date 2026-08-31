@@ -8,7 +8,12 @@ from typing import Any
 from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
-from research.models import DecisionTargetType, ResearchDecision, ResearchState
+from research.models import (
+    DecisionTargetType,
+    ResearchDecision,
+    ResearchState,
+    SubQuestionStatus,
+)
 
 RESEARCH_DECISION_SYSTEM_PROMPT = """You are deciding the next research action.
 
@@ -100,3 +105,19 @@ def validate_decision_target(decision: ResearchDecision, state: ResearchState) -
             )
     elif decision.target_type == DecisionTargetType.GENERAL and decision.target_id:
         raise ValueError("A GENERAL research decision must not provide target_id")
+    elif decision.target_type == DecisionTargetType.SUBQUESTION:
+        target = state.get_subquestion(decision.target_id or "")
+        if target is None:
+            raise ValueError(
+                f"Research decision targets nonexistent subquestion: {decision.target_id}"
+            )
+        unresolved_core = [
+            item
+            for item in state.core_subquestions()
+            if item.status != SubQuestionStatus.SUFFICIENT
+        ]
+        if target.status == SubQuestionStatus.SUFFICIENT and unresolved_core:
+            raise ValueError(
+                "Research decision targets a sufficient subquestion while a core "
+                "subquestion remains unresolved"
+            )

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -45,10 +46,23 @@ class GapStatus(str, Enum):
     RESOLVED = "RESOLVED"
 
 
+class SubQuestionImportance(str, Enum):
+    CORE = "CORE"
+    SECONDARY = "SECONDARY"
+
+
+class SubQuestionStatus(str, Enum):
+    UNRESEARCHED = "UNRESEARCHED"
+    PARTIAL = "PARTIAL"
+    SUFFICIENT = "SUFFICIENT"
+    CONFLICTING = "CONFLICTING"
+
+
 class DecisionTargetType(str, Enum):
     CLAIM = "CLAIM"
     GAP = "GAP"
     GENERAL = "GENERAL"
+    SUBQUESTION = "SUBQUESTION"
 
 
 class LedgerChangeType(str, Enum):
@@ -67,6 +81,96 @@ class Source(StrictModel):
     url: str
     content: str
     score: float | None = None
+
+
+def _clean_unique_strings(values: list[str]) -> list[str]:
+    cleaned = [value.strip() for value in values]
+    if any(not value for value in cleaned):
+        raise ValueError("List values must not be empty")
+    return list(dict.fromkeys(cleaned))
+
+
+class SubQuestionProposal(StrictModel):
+    question: str
+    importance: SubQuestionImportance
+    success_criteria: str
+
+    @model_validator(mode="after")
+    def validate_proposal(self) -> "SubQuestionProposal":
+        self.question = self.question.strip()
+        self.success_criteria = self.success_criteria.strip()
+        if not self.question or not self.success_criteria:
+            raise ValueError("Subquestion text and success criteria must not be empty")
+        return self
+
+
+class QuestionDecomposition(StrictModel):
+    subquestions: list[SubQuestionProposal] = Field(min_length=2, max_length=6)
+    synthesis_requirements: list[str] = Field(default_factory=list)
+    output_requirements: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_decomposition(self) -> "QuestionDecomposition":
+        questions = [item.question.casefold() for item in self.subquestions]
+        if len(questions) != len(set(questions)):
+            raise ValueError("Decomposition subquestions must be unique")
+        self.synthesis_requirements = _clean_unique_strings(
+            self.synthesis_requirements
+        ) if self.synthesis_requirements else []
+        self.output_requirements = _clean_unique_strings(
+            self.output_requirements
+        ) if self.output_requirements else []
+        return self
+
+
+class SubQuestion(StrictModel):
+    id: str
+    question: str
+    importance: SubQuestionImportance
+    success_criteria: str
+    status: SubQuestionStatus = SubQuestionStatus.UNRESEARCHED
+    status_reason: str = "No evidence has been processed yet."
+    search_attempts: int = Field(default=0, ge=0)
+    last_targeted_iteration: int | None = Field(default=None, ge=1)
+
+    @model_validator(mode="after")
+    def validate_subquestion(self) -> "SubQuestion":
+        self.id = self.id.strip()
+        self.question = self.question.strip()
+        self.status_reason = self.status_reason.strip()
+        self.success_criteria = self.success_criteria.strip()
+        if not re.fullmatch(r"SQ[1-9]\d*", self.id):
+            raise ValueError("Subquestion IDs must use the form SQ1, SQ2, ...")
+        if not self.question or not self.success_criteria or not self.status_reason:
+            raise ValueError(
+                "Subquestions require question text, success criteria, and a status reason"
+            )
+        return self
+
+
+class ResearchPlan(StrictModel):
+    subquestions: list[SubQuestion] = Field(min_length=2, max_length=6)
+    synthesis_requirements: list[str] = Field(default_factory=list)
+    output_requirements: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_plan(self) -> "ResearchPlan":
+        expected_ids = [f"SQ{index}" for index in range(1, len(self.subquestions) + 1)]
+        actual_ids = [item.id for item in self.subquestions]
+        if actual_ids != expected_ids:
+            raise ValueError("Research plan IDs must be unique and sequential from SQ1")
+        self.synthesis_requirements = _clean_unique_strings(
+            self.synthesis_requirements
+        ) if self.synthesis_requirements else []
+        self.output_requirements = _clean_unique_strings(
+            self.output_requirements
+        ) if self.output_requirements else []
+        return self
+
+    def get_subquestion(self, subquestion_id: str) -> SubQuestion | None:
+        return next(
+            (item for item in self.subquestions if item.id == subquestion_id), None
+        )
 
 
 class EvidenceRelation(StrictModel):
@@ -96,6 +200,7 @@ class LedgerClaim(StrictModel):
     status: ClaimStatus
     first_seen_iteration: int = Field(ge=1)
     last_updated_iteration: int = Field(ge=1)
+    related_subquestion_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_claim(self) -> "LedgerClaim":
@@ -115,6 +220,9 @@ class LedgerClaim(StrictModel):
             for item in self.contradicting_evidence
         ):
             raise ValueError("contradicting_evidence must contain CONTRADICTS relations")
+        self.related_subquestion_ids = _clean_unique_strings(
+            self.related_subquestion_ids
+        ) if self.related_subquestion_ids else []
         return self
 
 
@@ -156,6 +264,7 @@ class ResearchGap(StrictModel):
     importance: GapImportance
     status: GapStatus = GapStatus.OPEN
     related_claim_ids: list[str] = Field(default_factory=list)
+    related_subquestion_ids: list[str] = Field(default_factory=list)
     created_iteration: int = Field(ge=1)
     resolved_iteration: int | None = Field(default=None, ge=1)
 
@@ -174,6 +283,12 @@ class ResearchGap(StrictModel):
             and self.resolved_iteration < self.created_iteration
         ):
             raise ValueError("resolved_iteration cannot precede created_iteration")
+        self.related_claim_ids = _clean_unique_strings(
+            self.related_claim_ids
+        ) if self.related_claim_ids else []
+        self.related_subquestion_ids = _clean_unique_strings(
+            self.related_subquestion_ids
+        ) if self.related_subquestion_ids else []
         return self
 
 
@@ -184,6 +299,7 @@ class NewClaim(StrictModel):
     confidence: Confidence
     confidence_reason: str
     status: ClaimStatus
+    related_subquestion_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def require_claim_content(self) -> "NewClaim":
@@ -191,6 +307,9 @@ class NewClaim(StrictModel):
         self.confidence_reason = self.confidence_reason.strip()
         if not self.claim or not self.confidence_reason:
             raise ValueError("New claims require claim text and a confidence reason")
+        self.related_subquestion_ids = _clean_unique_strings(
+            self.related_subquestion_ids
+        ) if self.related_subquestion_ids else []
         return self
 
 
@@ -201,6 +320,7 @@ class ClaimUpdate(StrictModel):
     updated_confidence: Confidence
     updated_confidence_reason: str
     updated_status: ClaimStatus
+    related_subquestion_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def require_update_content(self) -> "ClaimUpdate":
@@ -208,6 +328,9 @@ class ClaimUpdate(StrictModel):
         self.updated_confidence_reason = self.updated_confidence_reason.strip()
         if not self.existing_claim_id or not self.updated_confidence_reason:
             raise ValueError("Claim updates require a claim ID and confidence reason")
+        self.related_subquestion_ids = _clean_unique_strings(
+            self.related_subquestion_ids
+        ) if self.related_subquestion_ids else []
         return self
 
 
@@ -215,12 +338,19 @@ class NewGap(StrictModel):
     description: str
     importance: GapImportance
     related_claim_ids: list[str] = Field(default_factory=list)
+    related_subquestion_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def require_gap_content(self) -> "NewGap":
         self.description = self.description.strip()
         if not self.description:
             raise ValueError("New research gaps require a description")
+        self.related_claim_ids = _clean_unique_strings(
+            self.related_claim_ids
+        ) if self.related_claim_ids else []
+        self.related_subquestion_ids = _clean_unique_strings(
+            self.related_subquestion_ids
+        ) if self.related_subquestion_ids else []
         return self
 
 
@@ -294,6 +424,16 @@ class LedgerResearchIteration(StrictModel):
     processing_result: EvidenceProcessingResult
     ledger_updates: LedgerUpdateSummary
     decision: ResearchDecision | None = None
+    subquestion_status_changes: list["SubQuestionStatusChange"] = Field(
+        default_factory=list
+    )
+
+
+class SubQuestionStatusChange(StrictModel):
+    subquestion_id: str
+    previous_status: SubQuestionStatus
+    current_status: SubQuestionStatus
+    status_reason: str
 
 
 class EvidenceItem(StrictModel):
@@ -348,6 +488,7 @@ class ResearchState(StrictModel):
     evidence_ledger: EvidenceLedger = Field(default_factory=EvidenceLedger)
     research_gaps: list[ResearchGap] = Field(default_factory=list)
     ledger_iterations: list[LedgerResearchIteration] = Field(default_factory=list)
+    research_plan: ResearchPlan | None = None
     current_iteration: int = Field(default=0, ge=0)
     max_iterations: int = Field(default=3, ge=1)
     system_version: str = "baseline-zero"
@@ -367,6 +508,20 @@ class ResearchState(StrictModel):
                 raise ValueError(
                     f"Research gap {gap.id} references unknown claim ID(s): "
                     + ", ".join(unknown_claim_ids)
+                )
+        valid_subquestion_ids = (
+            {item.id for item in self.research_plan.subquestions}
+            if self.research_plan is not None
+            else set()
+        )
+        for item in [*self.evidence_ledger.claims, *self.research_gaps]:
+            unknown_subquestion_ids = sorted(
+                set(item.related_subquestion_ids) - valid_subquestion_ids
+            )
+            if unknown_subquestion_ids:
+                raise ValueError(
+                    f"{item.id} references unknown subquestion ID(s): "
+                    + ", ".join(unknown_subquestion_ids)
                 )
         return self
 
@@ -395,6 +550,67 @@ class ResearchState(StrictModel):
     def weak_claims(self) -> list[LedgerClaim]:
         return self.evidence_ledger.get_weak_claims()
 
+    def get_subquestion(self, subquestion_id: str) -> SubQuestion | None:
+        if self.research_plan is None:
+            return None
+        return self.research_plan.get_subquestion(subquestion_id)
+
+    def core_subquestions(self) -> list[SubQuestion]:
+        if self.research_plan is None:
+            return []
+        return [
+            item
+            for item in self.research_plan.subquestions
+            if item.importance == SubQuestionImportance.CORE
+        ]
+
+    def unresolved_subquestions(self) -> list[SubQuestion]:
+        if self.research_plan is None:
+            return []
+        return [
+            item
+            for item in self.research_plan.subquestions
+            if item.status != SubQuestionStatus.SUFFICIENT
+        ]
+
+    def sufficient_subquestions(self) -> list[SubQuestion]:
+        if self.research_plan is None:
+            return []
+        return [
+            item
+            for item in self.research_plan.subquestions
+            if item.status == SubQuestionStatus.SUFFICIENT
+        ]
+
+    def conflicting_subquestions(self) -> list[SubQuestion]:
+        if self.research_plan is None:
+            return []
+        return [
+            item
+            for item in self.research_plan.subquestions
+            if item.status == SubQuestionStatus.CONFLICTING
+        ]
+
+    def claims_for(self, subquestion_id: str) -> list[LedgerClaim]:
+        return [
+            claim
+            for claim in self.evidence_ledger.claims
+            if subquestion_id in claim.related_subquestion_ids
+        ]
+
+    def claims_for_subquestion(self, subquestion_id: str) -> list[LedgerClaim]:
+        return self.claims_for(subquestion_id)
+
+    def gaps_for(self, subquestion_id: str) -> list[ResearchGap]:
+        return [
+            gap
+            for gap in self.research_gaps
+            if subquestion_id in gap.related_subquestion_ids
+        ]
+
+    def gaps_for_subquestion(self, subquestion_id: str) -> list[ResearchGap]:
+        return self.gaps_for(subquestion_id)
+
 
 class FinalReport(StrictModel):
     question: str
@@ -407,6 +623,7 @@ class FinalReport(StrictModel):
 
 class LedgerReportFinding(Finding):
     ledger_claim_ids: list[str] = Field(min_length=1)
+    subquestion_ids: list[str] = Field(default_factory=list)
 
 
 class LedgerFinalReport(StrictModel):
@@ -416,6 +633,7 @@ class LedgerFinalReport(StrictModel):
     conflicts_and_uncertainties: list[Conflict] = Field(default_factory=list)
     remaining_gaps: list[str] = Field(default_factory=list)
     conclusion: str
+    acknowledged_unresolved_subquestion_ids: list[str] = Field(default_factory=list)
 
     def to_final_report(self) -> FinalReport:
         return FinalReport(

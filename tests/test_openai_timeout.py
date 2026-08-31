@@ -11,8 +11,10 @@ import evaluation.v1.comprehensiveness as comprehensiveness_module
 import evaluation.v1.fixture_builder as fixture_builder_module
 import research.analyzer as analyzer_module
 import research.decision as decision_module
+import research.decomposer as decomposer_module
 import research.evidence_processor as processor_module
 import research.report as report_module
+import research.subquestion_decision as subquestion_decision_module
 from research.config import (
     DEFAULT_OPENAI_MAX_RETRIES,
     DEFAULT_OPENAI_TIMEOUT_SECONDS,
@@ -47,6 +49,16 @@ from research.config import (
         (
             decision_module,
             lambda: decision_module.ResearchDecisionMaker("test-key", "test-model"),
+        ),
+        (
+            decomposer_module,
+            lambda: decomposer_module.QuestionDecomposer("test-key", "test-model"),
+        ),
+        (
+            subquestion_decision_module,
+            lambda: subquestion_decision_module.SubquestionResearchDecisionMaker(
+                "test-key", "test-model"
+            ),
         ),
         (
             comprehensiveness_module,

@@ -8,6 +8,7 @@ from typing import Protocol
 
 from research.config import MAX_RESEARCH_ITERATIONS
 from research.decision import validate_decision_target
+from research.decomposer import refresh_subquestion_statuses
 from research.evidence_processor import apply_evidence_processing_result
 from research.ledger_logger import LedgerResearchLogger
 from research.models import (
@@ -16,8 +17,10 @@ from research.models import (
     LedgerResearchIteration,
     ResearchDecision,
     ResearchState,
+    ResearchPlan,
     Source,
 )
+from research.subquestion_decision import validate_subquestion_decision_target
 from research.runner import ResearchResult, normalize_query
 
 logger = logging.getLogger(__name__)
@@ -41,6 +44,10 @@ class Reporter(Protocol):
     def generate(self, state: ResearchState) -> FinalReport: ...
 
 
+class Decomposer(Protocol):
+    def decompose(self, question: str) -> ResearchPlan: ...
+
+
 class LedgerResearchRunner:
     def __init__(
         self,
@@ -50,6 +57,8 @@ class LedgerResearchRunner:
         report_generator: Reporter,
         max_iterations: int = MAX_RESEARCH_ITERATIONS,
         research_logger: LedgerResearchLogger | None = None,
+        question_decomposer: Decomposer | None = None,
+        system_version: str | None = None,
     ) -> None:
         self.search_client = search_client
         self.evidence_processor = evidence_processor
@@ -57,6 +66,12 @@ class LedgerResearchRunner:
         self.report_generator = report_generator
         self.max_iterations = max_iterations
         self.research_logger = research_logger
+        self.question_decomposer = question_decomposer
+        self.system_version = system_version or (
+            "evidence-ledger-decomposer-v1"
+            if question_decomposer is not None
+            else "evidence-ledger-v1"
+        )
         self.last_state: ResearchState | None = None
 
     def run(self, question: str) -> ResearchResult:
@@ -66,7 +81,7 @@ class LedgerResearchRunner:
         state = ResearchState(
             question=question,
             max_iterations=self.max_iterations,
-            system_version="evidence-ledger-v1",
+            system_version=self.system_version,
         )
         self.last_state = state
         query = question
@@ -77,11 +92,36 @@ class LedgerResearchRunner:
         if self.research_logger:
             self.research_logger.start_run()
 
+        if self.question_decomposer is not None:
+            decomposition_start = perf_counter()
+            if self.research_logger:
+                self.research_logger.record_decomposition_attempt()
+            try:
+                state.research_plan = self.question_decomposer.decompose(question)
+            except Exception as error:
+                self._record_failure("OpenAI Question Decomposition", error, run_start)
+                raise
+            if self.research_logger:
+                self.research_logger.record_research_plan(
+                    state.research_plan,
+                    perf_counter() - decomposition_start,
+                )
+
         logger.info("Research question:\n%s", question)
+        pending_subquestion_id: str | None = None
         for iteration_number in range(1, self.max_iterations + 1):
             state.current_iteration = iteration_number
             logger.info("Iteration %d/%d", iteration_number, self.max_iterations)
             logger.info("Searching:\n%s", query)
+            if pending_subquestion_id is not None:
+                targeted = state.get_subquestion(pending_subquestion_id)
+                if targeted is None:
+                    raise ValueError(
+                        f"Pending search targets unknown subquestion: "
+                        f"{pending_subquestion_id}"
+                    )
+                targeted.search_attempts += 1
+                targeted.last_targeted_iteration = iteration_number
             executed_queries.add(normalize_query(query))
 
             search_start = perf_counter()
@@ -126,6 +166,7 @@ class LedgerResearchRunner:
                 ledger_updates = apply_evidence_processing_result(
                     state, processing_result, iteration_number
                 )
+                status_changes = refresh_subquestion_statuses(state)
             except Exception as error:
                 self._record_failure(
                     f"OpenAI Evidence Processing — Iteration {iteration_number}",
@@ -140,6 +181,7 @@ class LedgerResearchRunner:
                 source_ids=[source.id for source in new_sources],
                 processing_result=processing_result,
                 ledger_updates=ledger_updates,
+                subquestion_status_changes=status_changes,
             )
             state.ledger_iterations.append(ledger_iteration)
             if self.research_logger:
@@ -149,6 +191,7 @@ class LedgerResearchRunner:
                     ledger_updates,
                     state,
                     processing_duration,
+                    status_changes,
                 )
 
             if iteration_number == self.max_iterations:
@@ -171,7 +214,10 @@ class LedgerResearchRunner:
             decision_start = perf_counter()
             try:
                 decision = self.decision_maker.decide(state)
-                validate_decision_target(decision, state)
+                if state.research_plan is not None:
+                    validate_subquestion_decision_target(decision, state)
+                else:
+                    validate_decision_target(decision, state)
             except Exception as error:
                 self._record_failure(
                     f"OpenAI Research Decision — Iteration {iteration_number}",
@@ -235,6 +281,12 @@ class LedgerResearchRunner:
             logger.info("Next search:\n%s", next_query)
             query = next_query
             query_reason = decision.reason
+            pending_subquestion_id = (
+                decision.target_id
+                if decision.target_type is not None
+                and decision.target_type.value == "SUBQUESTION"
+                else None
+            )
 
         if state.stop_reason is None:
             state.stop_reason = "max_iterations"
