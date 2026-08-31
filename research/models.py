@@ -90,6 +90,11 @@ def _clean_unique_strings(values: list[str]) -> list[str]:
     return list(dict.fromkeys(cleaned))
 
 
+def _clean_optional_ids(values: list[str]) -> list[str]:
+    """Normalize optional reference lists where an LLM may emit an empty sentinel."""
+    return list(dict.fromkeys(value.strip() for value in values if value.strip()))
+
+
 class SubQuestionProposal(StrictModel):
     question: str
     importance: SubQuestionImportance
@@ -283,9 +288,7 @@ class ResearchGap(StrictModel):
             and self.resolved_iteration < self.created_iteration
         ):
             raise ValueError("resolved_iteration cannot precede created_iteration")
-        self.related_claim_ids = _clean_unique_strings(
-            self.related_claim_ids
-        ) if self.related_claim_ids else []
+        self.related_claim_ids = _clean_optional_ids(self.related_claim_ids)
         self.related_subquestion_ids = _clean_unique_strings(
             self.related_subquestion_ids
         ) if self.related_subquestion_ids else []
@@ -337,7 +340,13 @@ class ClaimUpdate(StrictModel):
 class NewGap(StrictModel):
     description: str
     importance: GapImportance
-    related_claim_ids: list[str] = Field(default_factory=list)
+    related_claim_ids: list[str] = Field(
+        default_factory=list,
+        description=(
+            "IDs of claims that existed before this processing call. Never predict IDs "
+            "for new_claims in the same result; use an empty list instead."
+        ),
+    )
     related_subquestion_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
@@ -345,9 +354,7 @@ class NewGap(StrictModel):
         self.description = self.description.strip()
         if not self.description:
             raise ValueError("New research gaps require a description")
-        self.related_claim_ids = _clean_unique_strings(
-            self.related_claim_ids
-        ) if self.related_claim_ids else []
+        self.related_claim_ids = _clean_optional_ids(self.related_claim_ids)
         self.related_subquestion_ids = _clean_unique_strings(
             self.related_subquestion_ids
         ) if self.related_subquestion_ids else []

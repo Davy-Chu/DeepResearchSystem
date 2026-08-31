@@ -1,0 +1,1796 @@
+{
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+    "summary": "Synthetic data can provide substantial practical benefits by expanding scarce, costly, or sensitive training and fine-tuning data; targeting rare cases, minority classes, domain tasks, reasoning traces, code, and preference examples; and improving scalability and, in some settings, inference efficiency. These benefits are conditional: generated data must be relevant, sufficiently accurate, diverse, and aligned with the target distribution. Major risks include factual or label errors, stylistic and distributional artifacts, concealed or amplified bias, domain shift, evaluation contamination, and recursive degradation or model collapse when synthetic data replaces rather than supplements real data. The supplied evidence supports careful mixing with real data, filtering, task-specific verification, subgroup evaluation, and independent evaluation data, but does not provide controlled LLM-specific evidence sufficient to determine demographic effects, privacy guarantees, or comparative real-world outcomes across generation and training conditions.",
+    "findings": [
+      {
+        "claim": "Synthetic data can expand the quantity and coverage of data available for LLM pretraining or fine-tuning, particularly for low-resource domains, rare edge cases, underrepresented classes, reasoning traces, code, instruction-following, and preference optimization. The benefit depends on generation quality and alignment with the target task distribution.",
+        "evidence": [
+          {
+            "summary": "Sources describe synthetic data as a response to scarce real-world and domain-specific data and report uses in augmentation, minority-class generation, domain adaptation, edge-case generation, instruction tuning, code, question answering, and preference data.",
+            "source_ids": [
+              "S2",
+              "S4",
+              "S5",
+              "S7",
+              "S9",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The claim is supported by multiple direct sources and a broad survey, although the evidence conditions benefits on task relevance and generation quality."
+      },
+      {
+        "claim": "Synthetic data can improve scalability, consistency, class balance, privacy-oriented data sharing, annotation cost, and—in a specific low-resource classification setting—inference efficiency. These operational benefits do not establish factual accuracy, representativeness, safety, or privacy by themselves.",
+        "evidence": [
+          {
+            "summary": "Sources identify scarcity, privacy constraints, class imbalance, annotation cost, and controllable coverage as motivations or potential benefits of synthetic data.",
+            "source_ids": [
+              "S1",
+              "S4",
+              "S7",
+              "S10"
+            ]
+          },
+          {
+            "summary": "A low-resource classification experiment reported accuracy comparable to or better than in-context learning and approximately two- to five-times faster inference after synthetic-data PEFT, but only in the reported task and method setting.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "Other evidence warns that synthetic data may lack novelty or reliability, exhibit insufficient stylistic or distributional realism, and trade off accuracy against balancing or scalability benefits when a domain gap exists.",
+            "source_ids": [
+              "S5",
+              "S6",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The operational benefits and their limitations are supported by several sources; the efficiency result is narrower and task-specific."
+      },
+      {
+        "claim": "Replacing real data with recursively generated synthetic data can cause model collapse: later training generations may lose low-probability or tail examples, accumulate errors, reduce diversity, and degrade factuality, robustness, or general quality. This risk is conditional rather than inevitable; accumulating synthetic data alongside real data is reported as a mitigation.",
+        "evidence": [
+          {
+            "summary": "Sources warn that recursive training on model-generated content can narrow the distribution, lose distribution tails, and degrade capabilities.",
+            "source_ids": [
+              "S1",
+              "S3",
+              "S5",
+              "S10"
+            ]
+          },
+          {
+            "summary": "Evidence also reports that error can remain bounded when synthetic data is accumulated with real data rather than used as a replacement, and identifies blending real and synthetic data as a mitigation.",
+            "source_ids": [
+              "S3",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Multiple sources directly support recursive-degradation risks and distinguish replacement from mixed-data conditions."
+      },
+      {
+        "claim": "Synthetic generation can reduce observed class imbalance and improve coverage of rare cases, but prompting, sampling, filtering, and generator characteristics can encode, amplify, or conceal bias. The supplied evidence does not directly quantify demographic or linguistic disparities in LLM outcomes.",
+        "evidence": [
+          {
+            "summary": "Sources describe minority-class and rare-case generation as potential mitigation and identify selection, linguistic coverage, prompt design, filtering, weighting, and controlled generation as determinants of bias.",
+            "source_ids": [
+              "S1",
+              "S4",
+              "S6",
+              "S8",
+              "S10"
+            ]
+          },
+          {
+            "summary": "The supplied evidence explicitly notes that direct empirical measurements of demographic or linguistic disparities in LLM training or fine-tuning outcomes are unavailable.",
+            "source_ids": [
+              "S1",
+              "S4",
+              "S6",
+              "S8",
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The mechanistic account of how generation pipelines can affect bias is supported, but direct LLM-specific subgroup evidence is absent."
+      },
+      {
+        "claim": "Fairness interventions using synthetic data involve a utility trade-off unless generation quality and synthetic-to-real domain and bias shifts are addressed. Balanced synthetic data may improve fairness while reducing accuracy, whereas contextual generation and selective fine-tuning were reported to improve fairness while maintaining utility in the supplied non-LLM image-classification evidence.",
+        "evidence": [
+          {
+            "summary": "Experiments reported improved fairness from balanced synthetic data but possible accuracy loss under a real-versus-synthetic domain gap; contextual generation plus selective fine-tuning improved fairness while maintaining utility.",
+            "source_ids": [
+              "S6"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The evidence is empirical but comes from image classification rather than LLM training or fine-tuning, so its transfer to LLMs is indirect."
+      },
+      {
+        "claim": "Evaluation should not rely only on conventional benchmarks, synthetic test data, or automated judgments produced by the same or similar models as the training-data generator. A stronger evaluation program uses realistic held-out tasks and independent checks for factuality, label quality, robustness, calibration, contamination, subgroup disparities, safety, and deployment behavior. Synthetic data can still be useful for targeted edge-case, adversarial, calibration, and robustness testing when validated against the target distribution.",
+        "evidence": [
+          {
+            "summary": "Sources identify benchmark saturation, contamination and leakage, static-test limitations, and failures to detect reasoning, agentic, fairness, reproducibility, and safety problems.",
+            "source_ids": [
+              "S3",
+              "S5",
+              "S10"
+            ]
+          },
+          {
+            "summary": "Synthetic examples can support edge-case, adversarial, ambiguity, calibration, and robustness testing, but their utility depends on validation and target-distribution alignment.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Reward-model filtering and same-LLM label-consistency filtering provide automated quality-control signals for synthetic fine-tuning data, while execution feedback offers task-specific verification for code.",
+            "source_ids": [
+              "S7",
+              "S9",
+              "S10"
+            ]
+          },
+          {
+            "summary": "The same-model filtering and LLM-as-a-judge approaches do not independently establish factuality, robustness, subgroup fairness, contamination resistance, or detection of shared generator errors.",
+            "source_ids": [
+              "S9",
+              "S11"
+            ]
+          },
+          {
+            "summary": "The supplied evidence recommends semantic or judgment-based evaluation and human oversight because conventional string matching is insufficient for generative responses, while also indicating that such judgment systems require independent validation.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The need for broader and more independent evaluation is supported by multiple sources. The evidence also directly exposes limitations of same-model filtering and automated judging."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Synthetic data is reported to improve scale, coverage, controllability, privacy-oriented sharing, and class balance, but other evidence reports factual unreliability, insufficient realism, domain shift, and accuracy-utility trade-offs. Whether the net result is beneficial depends on generation and verification conditions.",
+        "source_ids": [
+          "S1",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S9",
+          "S10"
+        ]
+      },
+      {
+        "description": "Recursive synthetic-data training is associated with model collapse and loss of distribution tails, while evidence indicates that retaining or accumulating real data alongside synthetic data can bound error or mitigate degradation. The evidence therefore distinguishes replacement from mixed-data use rather than establishing a universal effect.",
+        "source_ids": [
+          "S3",
+          "S5",
+          "S10"
+        ]
+      },
+      {
+        "description": "Synthetic balancing and fairness-focused generation may improve subgroup fairness, but blindly using balanced synthetic data can reduce accuracy or utility under domain shift. The direct empirical evidence for this trade-off is from image classification, not LLMs.",
+        "source_ids": [
+          "S6"
+        ]
+      },
+      {
+        "description": "Automated filtering or evaluation can improve scalability and provide useful quality signals, but filtering with the same generator or judging with a similar model may share generator-specific errors and cannot independently establish factuality, fairness, robustness, or contamination resistance.",
+        "source_ids": [
+          "S9",
+          "S11"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "G1: No supplied source directly measures how synthetic-data generation, prompting, filtering, or mixing affects demographic representation, stereotyping, linguistic coverage, or subgroup fairness in LLM training or fine-tuning.",
+      "G2: No supplied source provides a controlled, independent comparison of factual accuracy, label quality, calibration, robustness, contamination, or deployment outcomes against comparable real-data baselines.",
+      "G3: The evidence does not establish when privacy-oriented synthetic data is genuinely non-identifying or how privacy protection trades off against fidelity and downstream model quality.",
+      "G4: The evidence does not clearly separate pretraining effects from supervised fine-tuning effects across generation methods, synthetic-to-real ratios, verification procedures, and deployment contexts."
+    ],
+    "conclusion": "The ledger supports a conditional conclusion: synthetic data is most promising as a targeted supplement to real data, especially where data are scarce, costly, privacy-sensitive, or insufficient for rare cases and domain-specific tasks. Its benefits are not guaranteed by scale or balance. Poorly verified or distributionally misaligned data can introduce factual and label errors, distort coverage, hide or amplify bias, and contribute to recursive degradation if it displaces real data. Models should therefore be evaluated with independent, held-out and human-authored or otherwise independently sourced data, realistic tasks, subgroup analyses, factuality and robustness checks, contamination checks, and deployment-relevant outcomes. The supplied ledger does not support a firm general conclusion about demographic fairness, privacy protection, or comparative real-world performance across pretraining and fine-tuning settings."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Synthetic data can expand scarce or expensive training and fine-tuning data, including domain-specific examples, rare edge cases, underrepresented classes, reasoning traces, code, and instruction-following examples; reported benefits depend on generation quality and alignment with the target task distribution.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic data as a response to insufficient real-world and domain-specific data for LLM fine-tuning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes augmentation, minority-class generation, domain adaptation, edge-case generation, and rapid prototyping as uses of LLM-generated data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports that synthetic reasoning traces, code examples, question-answer pairs, and long-chain reasoning data can expand training resources and improve task-specific performance.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "Multiple supplied sources describe plausible and practical benefits, but the evidence is primarily secondary or practitioner-oriented and does not establish general performance gains across tasks.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Synthetic data can improve consistency, scalability, privacy-oriented data sharing, and class balance, but these benefits do not by themselves establish that the resulting data is factually accurate, representative, or safe for the target deployment.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "States that synthetic data can address data scarcity, privacy constraints, and class imbalance, while emphasizing the need for lineage and fidelity metadata.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic datasets as useful for privacy-sensitive domains, class imbalance, and replacing or supplementing human-labeled data.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "Notes that synthetic data may lack novelty or reliability and that repeated training without external feedback can stagnate or degrade capabilities.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The sources consistently identify operational benefits but also indicate that utility depends on validation, external feedback, and distributional alignment.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Replacing real training data with recursively generated synthetic data can cause model collapse: successive models may lose low-probability or tail examples and accumulate errors, reducing diversity and degrading quality.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Warns that recursive training on synthetic data narrows distributions until outputs degrade and identifies model collapse as a risk.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Summarizes the reported Nature finding that indiscriminate model-generated training content causes irreversible defects, including loss of distribution tails, and reports degradation in an OPT-125m replacement experiment.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "States that repeated training on model-generated content without sufficient new information or external feedback can stagnate or degrade capabilities.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "CONTRADICTS",
+                "summary": "Reports an analytical result that error can remain bounded when synthetic data is accumulated alongside real data rather than replacing it, and describes curated mixed-data examples with strong benchmark results.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "confidence": "HIGH",
+            "confidence_reason": "Several sources agree on the risk of recursive replacement, while S3 supplies a materially different mixed-data condition under which the risk is reportedly bounded. The evidence supports a conditional rather than universal conclusion.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Synthetic data generation can reduce observed class imbalance by deliberately producing minority-class or rare-case examples, but generator prompts, sampling choices, and filtering may also encode or conceal bias; the supplied sources do not provide direct empirical evidence quantifying demographic or linguistic disparities in LLM outcomes.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that generating examples for underrepresented classes can address imbalance and improve coverage of rare cases.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "States that synthetic data can mirror real distributions and address class imbalance, while warning about governance and fidelity requirements.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "LOW",
+            "confidence_reason": "The mitigation mechanism is directly described, but the supplied material does not directly measure demographic, stereotyping, linguistic, or fairness effects. The possible role of prompts and filtering is an unresolved analytical concern rather than demonstrated contradiction.",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Evaluation based only on conventional benchmarks or synthetic test data may fail to reveal contamination, benchmark saturation, factual unreliability, subgroup disparities, robustness failures, or poor real-world behavior; evaluation should include realistic tasks and independent quality and safety checks.",
+            "supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports benchmark saturation, contamination and leakage concerns, and limitations of static tests for complex reasoning, tool use, agentic behavior, fairness, reproducibility, and safety.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic evaluation data for edge cases, adversarial examples, calibration, ambiguity, and robustness testing, while stating that validation and target-distribution alignment determine utility.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Separates synthetic-data use cases and assigns distinct failure modes and quality metrics, including evaluation-set overfitting risks.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "S5 directly identifies limitations of standard evaluation, while S4 and S3 provide complementary uses and risks for synthetic evaluation sets. The sources support the need for broader evaluation, though they do not specify a validated universal protocol.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "No supplied source directly measures how synthetic-data generation, prompting, filtering, or mixing conditions affect demographic representation, stereotyping, linguistic coverage, or subgroup fairness in LLM training or fine-tuning.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "No supplied source provides a controlled, independent comparison of factual accuracy, label quality, calibration, robustness, contamination, or deployment outcomes for models trained or fine-tuned with synthetic data versus comparable real-data baselines.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The evidence does not establish when privacy-oriented synthetic data is genuinely non-identifying or how privacy protection trades off against fidelity and downstream model quality.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The supplied evidence does not clearly separate pretraining effects from supervised fine-tuning effects across generation methods, synthetic-to-real data ratios, verification procedures, and deployment contexts.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic data as a response to insufficient real-world and domain-specific data for LLM fine-tuning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes augmentation, minority-class generation, domain adaptation, edge-case generation, and rapid prototyping as uses of LLM-generated data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports that synthetic reasoning traces, code examples, question-answer pairs, and long-chain reasoning data can expand training resources and improve task-specific performance.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "States that synthetic data can address data scarcity, privacy constraints, and class imbalance, while emphasizing the need for lineage and fidelity metadata.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic datasets as useful for privacy-sensitive domains, class imbalance, and replacing or supplementing human-labeled data.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "CONTRADICTS",
+                "summary": "Notes that synthetic data may lack novelty or reliability and that repeated training without external feedback can stagnate or degrade capabilities.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Warns that recursive training on synthetic data narrows distributions until outputs degrade and identifies model collapse as a risk.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Summarizes the reported Nature finding that indiscriminate model-generated training content causes irreversible defects, including loss of distribution tails, and reports degradation in an OPT-125m replacement experiment.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "States that repeated training on model-generated content without sufficient new information or external feedback can stagnate or degrade capabilities.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "CONTRADICTS",
+                "summary": "Reports an analytical result that error can remain bounded when synthetic data is accumulated alongside real data rather than replacing it, and describes curated mixed-data examples with strong benchmark results.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "INSUFFICIENT_EVIDENCE",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that generating examples for underrepresented classes can address imbalance and improve coverage of rare cases.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "States that synthetic data can mirror real distributions and address class imbalance, while warning about governance and fidelity requirements.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports benchmark saturation, contamination and leakage concerns, and limitations of static tests for complex reasoning, tool use, agentic behavior, fairness, reproducibility, and safety.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Describes synthetic evaluation data for edge cases, adversarial examples, calibration, ambiguity, and robustness testing, while stating that validation and target-distribution alignment determine utility.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Separates synthetic-data use cases and assigns distinct failure modes and quality metrics, including evaluation-set overfitting risks.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "No supplied source directly measures how synthetic-data generation, prompting, filtering, or mixing conditions affect demographic representation, stereotyping, linguistic coverage, or subgroup fairness in LLM training or fine-tuning."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "No supplied source provides a controlled, independent comparison of factual accuracy, label quality, calibration, robustness, contamination, or deployment outcomes for models trained or fine-tuned with synthetic data versus comparable real-data baselines."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "The evidence does not establish when privacy-oriented synthetic data is genuinely non-identifying or how privacy protection trades off against fidelity and downstream model quality."
+          },
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "The supplied evidence does not clearly separate pretraining effects from supervised fine-tuning effects across generation methods, synthetic-to-real data ratios, verification procedures, and deployment contexts."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "A high-importance CORE gap remains: the current evidence does not directly measure how synthetic-data prompting, filtering, or mixing affects demographic representation, stereotyping, linguistic coverage, or subgroup fairness in LLM training or fine-tuning. This is central to the user's request about bias and cannot be responsibly inferred from general warnings about class balance.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ2",
+        "next_search_query": "empirical studies synthetic data LLM training fine-tuning demographic bias stereotyping subgroup fairness linguistic representation prompting filtering data mixture"
+      },
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "empirical studies synthetic data LLM training fine-tuning demographic bias stereotyping subgroup fairness linguistic representation prompting filtering data mixture",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "In a low-resource text-classification fine-tuning setting, generating synthetic examples from a few real examples, filtering them with the same LLM for label consistency, and combining them with the real data for PEFT can produce accuracy comparable to or better than in-context learning while improving inference efficiency; this is task- and method-specific evidence rather than a general LLM result.",
+            "supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Across three text-classification tasks, the generate-filter-PEFT procedure reportedly achieved accuracy comparable to or better than ICL and approximately 2x–5x faster inference; the method combined filtered synthetic data with the few real examples.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S9 reports controlled experiments and concrete efficiency results, but evidence is limited to low-resource classification, a particular PEFT method, and the reported experimental settings; it does not establish broad benefits across LLM training or deployment.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Synthetic-data fairness interventions can improve subgroup fairness while preserving task utility only when generation quality and the synthetic-to-real domain and bias shifts are addressed; blindly fine-tuning on balanced synthetic data can improve fairness but reduce accuracy or utility.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Experiments on CelebA and UTKFace report that balanced synthetic data improved fairness but could reduce accuracy because of a real-versus-synthetic domain gap, while contextual generation plus selective fine-tuning improved fairness while maintaining utility.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S6 provides empirical evidence in image classification rather than LLM training or fine-tuning, so it directly supports a general synthetic-data trade-off but only indirectly answers the LLM-specific question.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Demonstrates generation of class-specific synthetic text examples from only a few real examples to address a low-resource classification fine-tuning problem.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Describes a DPO fine-tuning workflow using frontier models to generate large-scale, targeted preference data and reduce reliance on human annotation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new sources add concrete evidence for synthetic-data expansion in low-resource classification and preference fine-tuning, while retaining the existing qualification that benefits depend on generation quality and task-distribution alignment.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Presents synthetic DPO data as a way to reduce costly human preference annotation and enable controlled, targeted fine-tuning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Reports lower inference cost relative to ICL after synthetic-data PEFT, with generation and filtering performed from very few real examples.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "Shows that balanced synthetic data can improve fairness yet lower accuracy when a domain gap exists, indicating that scalability or balance benefits may trade off against fidelity and utility.",
+                "strength": "DIRECT"
+              }
+            ],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Operational and efficiency benefits now have an empirical low-resource example, while S6 strengthens the qualification that balance and synthetic-data availability do not guarantee fidelity or utility.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Identifies low quality, limited diversity, and real-versus-synthetic domain and bias gaps as challenges for fairness fine-tuning; reports improved fairness from contextual, bias-controlled synthetic generation and selective fine-tuning, while naive balanced synthetic fine-tuning can reduce accuracy.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Describes selection, linguistic coverage, historical, implicit, and social bias as relevant risks in LLM and generative-AI data workflows, and presents synthetic rebalancing as a possible mitigation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S6 supplies empirical fairness evidence and clarifies the fairness–utility and domain-shift trade-off, but its experiments concern computer-vision models rather than LLM outcomes. S8 is a secondary practitioner source and does not quantify LLM demographic or linguistic disparities.",
+            "updated_status": "WEAK",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Uses a reward model to score generated preference pairs and filters examples using a threshold, illustrating automated quality control for synthetic fine-tuning data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Filters generated examples with the same LLM used for generation before PEFT, using label consistency as a quality check.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The filtering stage reuses the same LLM, so the reported filtering procedure does not independently establish factuality, robustness, subgroup fairness, or freedom from generator-specific errors.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The sources add concrete examples of automated filtering and scoring, but also reinforce that generator-dependent evaluation is narrower than independent evaluation and can miss shared errors or bias.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Across three text-classification tasks, the generate-filter-PEFT procedure reportedly achieved accuracy comparable to or better than ICL and approximately 2x–5x faster inference; the method combined filtered synthetic data with the few real examples.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Experiments on CelebA and UTKFace report that balanced synthetic data improved fairness but could reduce accuracy because of a real-versus-synthetic domain gap, while contextual generation plus selective fine-tuning improved fairness while maintaining utility.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Demonstrates generation of class-specific synthetic text examples from only a few real examples to address a low-resource classification fine-tuning problem.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Describes a DPO fine-tuning workflow using frontier models to generate large-scale, targeted preference data and reduce reliance on human annotation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Presents synthetic DPO data as a way to reduce costly human preference annotation and enable controlled, targeted fine-tuning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Reports lower inference cost relative to ICL after synthetic-data PEFT, with generation and filtering performed from very few real examples.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "CONTRADICTS",
+                "summary": "Shows that balanced synthetic data can improve fairness yet lower accuracy when a domain gap exists, indicating that scalability or balance benefits may trade off against fidelity and utility.",
+                "strength": "DIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "LOW",
+            "current_confidence": "MEDIUM",
+            "previous_status": "INSUFFICIENT_EVIDENCE",
+            "current_status": "WEAK",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Identifies low quality, limited diversity, and real-versus-synthetic domain and bias gaps as challenges for fairness fine-tuning; reports improved fairness from contextual, bias-controlled synthetic generation and selective fine-tuning, while naive balanced synthetic fine-tuning can reduce accuracy.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Describes selection, linguistic coverage, historical, implicit, and social bias as relevant risks in LLM and generative-AI data workflows, and presents synthetic rebalancing as a possible mitigation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Uses a reward model to score generated preference pairs and filters examples using a threshold, illustrating automated quality control for synthetic fine-tuning data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Filters generated examples with the same LLM used for generation before PEFT, using label consistency as a quality check.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The filtering stage reuses the same LLM, so the reported filtering procedure does not independently establish factuality, robustness, subgroup fairness, or freedom from generator-specific errors.",
+                "strength": "INDIRECT"
+              }
+            ]
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "A final search could materially strengthen the answer by addressing the high-priority gap on independent evaluation: controlled comparisons of synthetic-versus-real-data training or fine-tuning, including factuality, robustness, calibration, contamination, subgroup fairness, and real-world outcomes. SQ3 remains unresolved and is central to judging both benefits and risks.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ3",
+        "next_search_query": "empirical controlled studies LLMs trained or fine-tuned with synthetic versus real data independent evaluation factuality robustness calibration contamination subgroup fairness deployment outcomes"
+      },
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "empirical controlled studies LLMs trained or fine-tuned with synthetic versus real data independent evaluation factuality robustness calibration contamination subgroup fairness deployment outcomes",
+      "source_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "For synthetic code data, automated execution or other external feedback can provide a task-specific verification signal for functional correctness; analogous factuality verification for synthetic text remains an identified quality challenge.",
+            "supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey describes executing generated code to validate correctness and using reinforcement learning with execution feedback, while identifying factual inaccuracies in generated text as an unresolved challenge.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S10 directly reports these verification approaches but is a survey rather than a single controlled comparative study, and the evidence is stronger for code correctness than for general text factuality.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey reports that LLM-generated text and code can augment low-resource classification, question answering, instruction tuning, code translation, and bug repair, with reported low-data performance improvements and controllable task coverage.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S10 adds broad survey evidence for expansion of low-resource, domain-specific, text, and code training data while explicitly conditioning benefits on task relevance and generation quality.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey identifies scarcity, annotation cost, and privacy constraints as motivations for synthetic data and describes cost-effectiveness, broad coverage, and controllable diversity as potential benefits.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "The survey simultaneously identifies factual inaccuracies and insufficient stylistic or distributional realism, showing that scalability and controllability do not guarantee fidelity or safety.",
+                "strength": "DIRECT"
+              }
+            ],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S10 reinforces both the practical benefits and the existing qualification that synthetic-data efficiency, coverage, or privacy motivation does not establish factuality, realism, or safety.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey defines model collapse as degradation from successive training on model-generated data, including loss of diversity, factuality, and robustness, and lists blending synthetic with real data as a mitigation.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S10 independently reiterates the conditional recursive-degradation risk and the distinction between synthetic-data replacement and mitigation through real-data blending.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey identifies bias amplification as a challenge and discusses prompt design, filtering, weighting, and controlled generation as relevant to reducing bias and targeting rare phenomena.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S10 strengthens the mechanistic account of generator and pipeline effects on bias, but it remains a survey and does not directly quantify demographic or linguistic disparities in LLM outcomes.",
+            "updated_status": "WEAK",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey calls for robust evaluation frameworks and more rigorous synthetic-data quality metrics, and describes filtering, weighting, retrieval for factuality, and execution feedback as quality-control approaches.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The practitioner article argues that conventional string-matching metrics are insufficient for generative responses and describes semantic or judgment-based evaluation, human oversight, and checks for helpfulness, correctness, and harmlessness.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "CONTRADICTS",
+                "summary": "The article presents LLM-as-a-judge as correlated with human judgments and an evaluation firewall, but this does not independently establish detection of shared generator errors, contamination, or subgroup disparities.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S10 adds explicit support for robust evaluation and external feedback, while S11 provides lower-quality practitioner evidence for semantic evaluation but also illustrates the limits of relying on judgment models without independent validation.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C8",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey describes executing generated code to validate correctness and using reinforcement learning with execution feedback, while identifying factual inaccuracies in generated text as an unresolved challenge.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey reports that LLM-generated text and code can augment low-resource classification, question answering, instruction tuning, code translation, and bug repair, with reported low-data performance improvements and controllable task coverage.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey identifies scarcity, annotation cost, and privacy constraints as motivations for synthetic data and describes cost-effectiveness, broad coverage, and controllable diversity as potential benefits.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "CONTRADICTS",
+                "summary": "The survey simultaneously identifies factual inaccuracies and insufficient stylistic or distributional realism, showing that scalability and controllability do not guarantee fidelity or safety.",
+                "strength": "DIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey defines model collapse as degradation from successive training on model-generated data, including loss of diversity, factuality, and robustness, and lists blending synthetic with real data as a mitigation.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "WEAK",
+            "current_status": "WEAK",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey identifies bias amplification as a challenge and discusses prompt design, filtering, weighting, and controlled generation as relevant to reducing bias and targeting rare phenomena.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The survey calls for robust evaluation frameworks and more rigorous synthetic-data quality metrics, and describes filtering, weighting, retrieval for factuality, and execution feedback as quality-control approaches.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The practitioner article argues that conventional string-matching metrics are insufficient for generative responses and describes semantic or judgment-based evaluation, human oversight, and checks for helpfulness, correctness, and harmlessness.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "CONTRADICTS",
+                "summary": "The article presents LLM-as-a-judge as correlated with human judgments and an evaluation firewall, but this does not independently establish detection of shared generator errors, contamination, or subgroup disparities.",
+                "strength": "INDIRECT"
+              }
+            ]
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null
+      },
+      "subquestion_status_changes": []
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "Synthetic data can expand scarce or expensive training and fine-tuning data, including domain-specific examples, rare edge cases, underrepresented classes, reasoning traces, code, and instruction-following examples; reported benefits depend on generation quality and alignment with the target task distribution.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Describes synthetic data as a response to insufficient real-world and domain-specific data for LLM fine-tuning.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Describes augmentation, minority-class generation, domain adaptation, edge-case generation, and rapid prototyping as uses of LLM-generated data.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Reports that synthetic reasoning traces, code examples, question-answer pairs, and long-chain reasoning data can expand training resources and improve task-specific performance.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "Demonstrates generation of class-specific synthetic text examples from only a few real examples to address a low-resource classification fine-tuning problem.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Describes a DPO fine-tuning workflow using frontier models to generate large-scale, targeted preference data and reduce reliance on human annotation.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey reports that LLM-generated text and code can augment low-resource classification, question answering, instruction tuning, code translation, and bug repair, with reported low-data performance improvements and controllable task coverage.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 adds broad survey evidence for expansion of low-resource, domain-specific, text, and code training data while explicitly conditioning benefits on task relevance and generation quality.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "Synthetic data can improve consistency, scalability, privacy-oriented data sharing, and class balance, but these benefits do not by themselves establish that the resulting data is factually accurate, representative, or safe for the target deployment.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "States that synthetic data can address data scarcity, privacy constraints, and class imbalance, while emphasizing the need for lineage and fidelity metadata.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Describes synthetic datasets as useful for privacy-sensitive domains, class imbalance, and replacing or supplementing human-labeled data.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Presents synthetic DPO data as a way to reduce costly human preference annotation and enable controlled, targeted fine-tuning.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "Reports lower inference cost relative to ICL after synthetic-data PEFT, with generation and filtering performed from very few real examples.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey identifies scarcity, annotation cost, and privacy constraints as motivations for synthetic data and describes cost-effectiveness, broad coverage, and controllable diversity as potential benefits.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "CONTRADICTS",
+            "summary": "Notes that synthetic data may lack novelty or reliability and that repeated training without external feedback can stagnate or degrade capabilities.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "CONTRADICTS",
+            "summary": "Shows that balanced synthetic data can improve fairness yet lower accuracy when a domain gap exists, indicating that scalability or balance benefits may trade off against fidelity and utility.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "CONTRADICTS",
+            "summary": "The survey simultaneously identifies factual inaccuracies and insufficient stylistic or distributional realism, showing that scalability and controllability do not guarantee fidelity or safety.",
+            "strength": "DIRECT"
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 reinforces both the practical benefits and the existing qualification that synthetic-data efficiency, coverage, or privacy motivation does not establish factuality, realism, or safety.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "Replacing real training data with recursively generated synthetic data can cause model collapse: successive models may lose low-probability or tail examples and accumulate errors, reducing diversity and degrading quality.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Warns that recursive training on synthetic data narrows distributions until outputs degrade and identifies model collapse as a risk.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "Summarizes the reported Nature finding that indiscriminate model-generated training content causes irreversible defects, including loss of distribution tails, and reports degradation in an OPT-125m replacement experiment.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "States that repeated training on model-generated content without sufficient new information or external feedback can stagnate or degrade capabilities.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey defines model collapse as degradation from successive training on model-generated data, including loss of diversity, factuality, and robustness, and lists blending synthetic with real data as a mitigation.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S3",
+            "relation": "CONTRADICTS",
+            "summary": "Reports an analytical result that error can remain bounded when synthetic data is accumulated alongside real data rather than replacing it, and describes curated mixed-data examples with strong benchmark results.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 independently reiterates the conditional recursive-degradation risk and the distinction between synthetic-data replacement and mitigation through real-data blending.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "Synthetic data generation can reduce observed class imbalance by deliberately producing minority-class or rare-case examples, but generator prompts, sampling choices, and filtering may also encode or conceal bias; the supplied sources do not provide direct empirical evidence quantifying demographic or linguistic disparities in LLM outcomes.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "States that generating examples for underrepresented classes can address imbalance and improve coverage of rare cases.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "States that synthetic data can mirror real distributions and address class imbalance, while warning about governance and fidelity requirements.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Identifies low quality, limited diversity, and real-versus-synthetic domain and bias gaps as challenges for fairness fine-tuning; reports improved fairness from contextual, bias-controlled synthetic generation and selective fine-tuning, while naive balanced synthetic fine-tuning can reduce accuracy.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "Describes selection, linguistic coverage, historical, implicit, and social bias as relevant risks in LLM and generative-AI data workflows, and presents synthetic rebalancing as a possible mitigation.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey identifies bias amplification as a challenge and discusses prompt design, filtering, weighting, and controlled generation as relevant to reducing bias and targeting rare phenomena.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S10 strengthens the mechanistic account of generator and pipeline effects on bias, but it remains a survey and does not directly quantify demographic or linguistic disparities in LLM outcomes.",
+        "status": "WEAK",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "Evaluation based only on conventional benchmarks or synthetic test data may fail to reveal contamination, benchmark saturation, factual unreliability, subgroup disparities, robustness failures, or poor real-world behavior; evaluation should include realistic tasks and independent quality and safety checks.",
+        "supporting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Reports benchmark saturation, contamination and leakage concerns, and limitations of static tests for complex reasoning, tool use, agentic behavior, fairness, reproducibility, and safety.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Describes synthetic evaluation data for edge cases, adversarial examples, calibration, ambiguity, and robustness testing, while stating that validation and target-distribution alignment determine utility.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "Separates synthetic-data use cases and assigns distinct failure modes and quality metrics, including evaluation-set overfitting risks.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Uses a reward model to score generated preference pairs and filters examples using a threshold, illustrating automated quality control for synthetic fine-tuning data.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "Filters generated examples with the same LLM used for generation before PEFT, using label consistency as a quality check.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey calls for robust evaluation frameworks and more rigorous synthetic-data quality metrics, and describes filtering, weighting, retrieval for factuality, and execution feedback as quality-control approaches.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "The practitioner article argues that conventional string-matching metrics are insufficient for generative responses and describes semantic or judgment-based evaluation, human oversight, and checks for helpfulness, correctness, and harmlessness.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The filtering stage reuses the same LLM, so the reported filtering procedure does not independently establish factuality, robustness, subgroup fairness, or freedom from generator-specific errors.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "CONTRADICTS",
+            "summary": "The article presents LLM-as-a-judge as correlated with human judgments and an evaluation firewall, but this does not independently establish detection of shared generator errors, contamination, or subgroup disparities.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 adds explicit support for robust evaluation and external feedback, while S11 provides lower-quality practitioner evidence for semantic evaluation but also illustrates the limits of relying on judgment models without independent validation.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C6",
+        "claim": "In a low-resource text-classification fine-tuning setting, generating synthetic examples from a few real examples, filtering them with the same LLM for label consistency, and combining them with the real data for PEFT can produce accuracy comparable to or better than in-context learning while improving inference efficiency; this is task- and method-specific evidence rather than a general LLM result.",
+        "supporting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "Across three text-classification tasks, the generate-filter-PEFT procedure reportedly achieved accuracy comparable to or better than ICL and approximately 2x–5x faster inference; the method combined filtered synthetic data with the few real examples.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S9 reports controlled experiments and concrete efficiency results, but evidence is limited to low-resource classification, a particular PEFT method, and the reported experimental settings; it does not establish broad benefits across LLM training or deployment.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C7",
+        "claim": "Synthetic-data fairness interventions can improve subgroup fairness while preserving task utility only when generation quality and the synthetic-to-real domain and bias shifts are addressed; blindly fine-tuning on balanced synthetic data can improve fairness but reduce accuracy or utility.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Experiments on CelebA and UTKFace report that balanced synthetic data improved fairness but could reduce accuracy because of a real-versus-synthetic domain gap, while contextual generation plus selective fine-tuning improved fairness while maintaining utility.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S6 provides empirical evidence in image classification rather than LLM training or fine-tuning, so it directly supports a general synthetic-data trade-off but only indirectly answers the LLM-specific question.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C8",
+        "claim": "For synthetic code data, automated execution or other external feedback can provide a task-specific verification signal for functional correctness; analogous factuality verification for synthetic text remains an identified quality challenge.",
+        "supporting_evidence": [
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The survey describes executing generated code to validate correctness and using reinforcement learning with execution feedback, while identifying factual inaccuracies in generated text as an unresolved challenge.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S10 directly reports these verification approaches but is a survey rather than a single controlled comparative study, and the evidence is stronger for code correctness than for general text factuality.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ4"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "No supplied source directly measures how synthetic-data generation, prompting, filtering, or mixing conditions affect demographic representation, stereotyping, linguistic coverage, or subgroup fairness in LLM training or fine-tuning.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G2",
+      "description": "No supplied source provides a controlled, independent comparison of factual accuracy, label quality, calibration, robustness, contamination, or deployment outcomes for models trained or fine-tuned with synthetic data versus comparable real-data baselines.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "The evidence does not establish when privacy-oriented synthetic data is genuinely non-identifying or how privacy protection trades off against fidelity and downstream model quality.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "The supplied evidence does not clearly separate pretraining effects from supervised fine-tuning effects across generation methods, synthetic-to-real data ratios, verification procedures, and deployment contexts.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "How does using synthetic data to train or fine-tune large language models affect data quality, including factual accuracy, diversity, coverage, label quality, distributional alignment, and risks of compounding errors or model collapse?",
+        "importance": "CORE",
+        "success_criteria": "Assess documented real-world benefits and risks, distinguishing cases where synthetic data improves scale, consistency, privacy, or task coverage from cases where it introduces artifacts, inaccuracies, reduced diversity, distribution shift, or recursive degradation.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ2",
+        "question": "What forms of bias can synthetic data introduce, amplify, reduce, or conceal when used for large language model training or fine-tuning, and under what data-generation conditions do these effects occur?",
+        "importance": "CORE",
+        "success_criteria": "Identify evidence about representation, stereotyping, demographic and linguistic disparities, generator-induced bias, filtering and prompt-selection effects, and feedback loops; distinguish mitigation benefits from newly created or obscured bias.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 2
+      },
+      {
+        "id": "SQ3",
+        "question": "How should models trained or fine-tuned with synthetic data be evaluated to determine whether quality and bias have improved or degraded in real-world use?",
+        "importance": "CORE",
+        "success_criteria": "Compare evaluation approaches involving held-out human-authored data, task performance, factuality, robustness, calibration, contamination checks, subgroup and fairness measures, human assessment, and deployment outcomes; identify limitations of each and the need for evaluation data independent of the synthetic-generation process.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 3
+      },
+      {
+        "id": "SQ4",
+        "question": "What practical conditions determine whether synthetic data produces net benefits or risks in large language model training and fine-tuning?",
+        "importance": "SECONDARY",
+        "success_criteria": "Synthesize findings by use case, synthetic-data generation method, mixture with real data, filtering or verification process, training stage, and deployment context, while clearly distinguishing training benefits from fine-tuning benefits and reporting uncertainty where evidence is limited.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Integrate data quality, bias, and evaluation rather than treating them as independent dimensions.",
+      "Distinguish benefits from risks and identify trade-offs, including when a mitigation in one dimension creates problems in another.",
+      "Separate evidence about pretraining from evidence about fine-tuning and preserve relevant real-world or deployment context.",
+      "Relate evaluation methods to the specific failure modes they can detect or miss, including risks from evaluating on data generated by similar models."
+    ],
+    "output_requirements": [
+      "Answer in terms of real-world risks and benefits of synthetic data for large language model training or fine-tuning.",
+      "Focus explicitly on data quality, bias, and evaluation.",
+      "Present uncertainty and limitations where the evidence does not support a firm conclusion."
+    ]
+  },
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Synthetic Data for AI Training: Use Cases and Risks [2026]",
+      "url": "https://atlan.com/know/ai-agent/data-for-ai/synthetic-data-for-ai-training",
+      "content": "[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\n[Talk to Us](/forms/talk-to-sales-contact/)  [See the context layer, built live](https://atlan.com/live-demo-series/?utm_source=navbar&utm_medium=website&utm_campaign=wtf-context-layer)\n\n[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\nEnterprise Data Graph\n\nConnect all your business systems and pull context across your data estate into one living graph.\n\n[![connectors icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-connectors-icon.svg)\n\nConnectors & Apps![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right.svg)](/connectors/)[![data lineage icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-data-lineage-icon.svg)\n\nData Lineage![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right.svg)](/data-lineage/)\n\n[![data marketplace icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-data-marketplace-icon.svg)\n\nData Marketplace\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nGive humans the context they need to understand your business.\n\nEVERYWHERE YOU WORK\n\n![Slack](https://website-assets.atlan.com/img/stack/slack.svg)Slack![Teams](https://website-assets.atlan.com/img/integration-logos/microsoft-teams-logo.svg)Teams![Claude](https://website-assets.atlan.com/img/integration-logos/claude-icon.svg)Claude![ChatGPT](https://website-assets.atlan.com/img/integration-logos/chatgpt-logo.svg)ChatGPT](/data-marketplace/)[![context agents icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-agents-icon.svg)\n\nContext Agents\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nAI teammates that document tacit knowledge and make your data AI-ready.\n\nOntologyDescriptionsMetricsQualityGlossaryREADME](/context-agents/)[![context engineering studio icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-engineering-studio-icon.svg)\n\nContext Engineering Studio\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nBootstrap, test, and ship the business understanding every AI needs.\n\nDEPLOY ANYWHERE\n\n![Cortex](https://website-assets.atlan.com/img/stack/snowflake.svg)Cortex![Genie](https://website-assets.atlan.com/img/connectors/databricks.svg)Genie![Claude](https://website-assets.atlan.com/img/integration-logos/claude-icon.svg)Claude![Codex](https://website-assets.atlan.com/img/integration-logos/codex-logo.svg)Codex](/context-engineering-studio/)[![context lakehouse icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-lakehouse-icon.svg)\n\nContext Lakehouse\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nThe world's first context store engineered natively for AI.\n\nIceberg-nativeOpen formatsGraph+file architectureVector-native AI search](/context-lakehouse/)\n\n[See all customer stories →](/customers/)\n\nFinance\n\n[Case study\n\n![nasdaq logo](https://website-assets.atlan.com/img/navbar/cust-nav-nasdaq-color.svg)](https://humansofdata.atlan.com/2023/04/nasdaq-active-metadata-strategy/)\n\n![mastercard logo](https://website-assets.atlan.com/img/navbar/cust-nav-mastercard-color.svg)\n\n![plaid logo](https://website-assets.atlan.com/img/navbar/cust-nav-plaid-color.svg)\n\nTechnology\n\n[Case study\n\n![autodesk logo](https://website-assets.atlan.com/img/navbar/cust-nav-autodesk-color.svg)](https://humansofdata.atlan.com/2023/08/autodesk-data-mesh-snowflake-atlan/)\n\n![hubspot logo](https://website-assets.atlan.com/img/navbar/cust-nav-hubspot-color.svg)\n\n[Case study\n\n![dropbox logo](https://website-assets.atlan.com/img/navbar/cust-nav-dropbox-color.svg)](https://humansofdata.atlan.com/2024/10/dropbox-governance-atlan/)\n\nManufacturing\n\n![unilever logo](https://website-assets.atlan.com/img/navbar/cust-nav-unilever-color.svg)\n\n[Case study\n\n![general motors logo](https://website-assets.atlan.com/img/navbar/cust-nav-gm-color.svg)](https://humansofdata.atlan.com/2024/10/general-motors-governance-atlan/)\n\n![ingersollrand logo](https://website-assets.atlan.com/img/navbar/cust-nav-ingersollrand-color.svg)\n\nMedia\n\n[Case study\n\n![fox logo](https://website-assets.atlan.com/img/navbar/cust-nav-fox-color.svg)](https://humansofdata.atlan.com/2024/10/fox-governance-atlan/)\n\n![news corp logo](https://website-assets.atlan.com/img/navbar/cust-nav-newscorp-color.svg)\n\n![virgin o2 logo](https://website-assets.atlan.com/img/navbar/cust-nav-virgin-color.svg)\n\nHealthcare\n\n![nhs logo](https://website-assets.atlan.com/img/navbar/cust-nav-nhs-color.svg)\n\n[Case study\n\n![scripps logo](https://website-assets.atlan.com/img/navbar/cust-nav-scripps-color.svg)](https://f.hubspotusercontent30.net/hubfs/6880682/Scripps%20Health%20Case%20Study%20(2).pdf)\n\n![medtronic logo](https://website-assets.atlan.com/img/navbar/cust-nav-medtronic-color.svg)\n\nRetail\n\n![ralph lauren logo](https://website-assets.atlan.com/img/navbar/cust-nav-ralphlauren-color.svg)\n\n![urban outfitters logo](https://website-assets.atlan.com/img/navbar/cust-nav-urbanoutfitters-color.svg)\n\n[Case study\n\n![dr martens logo](https://website-assets.atlan.com/img/navbar/cust-nav-drmartens-color.svg)](https://humansofdata.atlan.com/2023/12/dr-martens-modern-data-catalog/)\n\n[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-1.svg)\n\nAbout us](/about/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-3.svg)\n\nNewsroom](/newsroom/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-5.svg)\n\nCareers](/careers/)\n\n[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-2.svg)\n\nEvents](/events/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-4.svg)\n\nPartners](/partners/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-3.svg)\n\nBlogs](https://blog.atlan.com/)\n\n![Company sidebar thumbnail](/img/nav-dropdowns/context-26-nav-thumb.webp)\n\nWhere AI's biggest voices define the discipline · Oct 28 · Virtual\n\n[Register now →](/context-conference/?utm_source=navbar&utm_medium=website&utm_campaign=context26&utm_content=company-dropdown-sidebar)\n\n \n\n\n[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\n\n\n# Synthetic Data for AI Training: Use Cases and Risks\n\n![Emily Winks, Data Governance Expert, Atlan](/images/authors/emily-winks-thumb.webp)\n\n[Emily Winks](/authors/emily-winks/)\n\nData Governance Expert\n\nData Governance Specialist\n\n18+ years in information architecture, data governance, and enterprise data management\n\nMasters, Library and Information Science, Queens College; Certificate in Archives, Records Management and Preservation; BA English, St. Joseph's College\n\nAtlan Product EssentialsComputer Science Principles: Programming (LinkedIn)\n\n[View LinkedIn Profile](https://www.linkedin.com/in/emily-winks/)\n\nEmily WinksData Governance ExpertData Governance Specialist18+ years in information architecture, data governance, and enterprise data managementMasters, Library and Information Science, Queens College; Certificate in Archives, Records Management and Preservation; BA English, St. Joseph's CollegeAtlan Product EssentialsComputer Science Principles: Programming (LinkedIn)[LinkedIn Profile](https://www.linkedin.com/in/emily-winks/)\n\nUpdated:07/17/2026\n\n|\n\nPublished:07/17/2026\n\n14 min read\n\n[See Context Agents Live](https://atlan.com/context-layer-demo/)[Get the Context Layer Ebook](https://atlan.com/resources/wtf-is-the-context-layer-ebook/)\n\n## Key takeaways\n\n* Synthetic data mirrors real distributions to address data scarcity, privacy constraints, and class imbalance.\n* Gartner predicted in 2022 that 60% of AI development data would be synthetic by 2024; the market keeps growing.\n* Recursive training on synthetic data causes model collapse, where distributions narrow until outputs degrade.\n* Ungoverned synthetic data creates audit gaps when models fail; lineage and fidelity metadata are non-negotiable",
+      "score": 0.8409005
+    },
+    {
+      "id": "S2",
+      "title": "Using Synthetic Data to Improve LLM Fine‑Tuning | newline",
+      "url": "https://www.newline.co/@Dipen/using-synthetic-data-to-improve-llm-finetuning--d453f658",
+      "content": "1. [Home](/)\n2. [Articles](/latest)\n\n# Using Synthetic Data to Improve LLM Fine‑Tuning\n\nLast Updated: March 31st, 2026\n\nSynthetic data is transforming how developers and organizations fine-tune large language models (LLMs), addressing critical limitations of real-world datasets while enable new capabilities. Industry research shows that real-world data is often insufficient for domain-specific tasks. For example,…\n\n#### Tags\n\n* [prompt engineering techniques](/tags/prompt-engineering-techniques)\n* [AI model optimization](/tags/ai-model-optimization)\n* [fine-tuning LLMs techniques](/tags/fine-tuning-llms-techniques)\n* [LLM products](/tags/llm-products)\n* [synthetic data for LLM training](/tags/synthetic-data-for-llm-training)\n* [RAG frameworks](/tags/rag-frameworks)\n* [data privacy in AI](/tags/data-privacy-in-ai)\n* [hybrid training methods](/tags/hybrid-training-methods)\n\n## Responses (0)\n\nText\n\n![Newline logo](https://d8dgeb1f3fxgw.cloudfront.net/static/img/logo/newline/newline-logo-square.svg)\n\nHey there! 👋 Want to get5 free lessonsfor our **Power AI course**  course?\n\nClap\n\n0|0|\n\nClap\n\n0|0\n\n### Free AI Career Tools\n\n[FREE\n\n#### AI Job Listings\n\nCurated AI & ML jobs updated weekly with direct links to company application pages.](/tools/ai-jobs)[FREE\n\n#### ATS Resume Checker\n\nAI-powered resume scanner. Get a score and actionable recommendations to improve your chances.](/tools/ats-resume-checker)[FREE\n\n#### Startup Perks\n\n$1.3M+ in free cloud credits, AI API access, and developer tools for startups.](/tools/ai-startups-free-credits)",
+      "score": 0.8296166
+    },
+    {
+      "id": "S3",
+      "title": "Synthetic Data for LLM Training: Decision Guide 2026",
+      "url": "https://www.digitalapplied.com/blog/synthetic-data-generation-llm-training-decision-guide-2026",
+      "content": "AI DevelopmentDecision Matrix14 min readPublished May 26, 2026\n\nFour use cases ·*one* decision matrix · backed by Nature peer review\n\n# Synthetic Data for*LLM Training*: Decision Guide 2026\n\nModel collapse is real — and provably avoidable. The fix is not avoiding synthetic data, it's accumulating real data alongside it rather than replacing it. This guide maps the four distinct use cases — fine-tuning data, eval sets, edge-case augmentation, and privacy substitution — each with different failure modes, quality metrics, and generation techniques.\n\nDigital Applied Team\n\nSenior strategists · Published May 26, 2026\n\nPublishedMay 26, 2026\n\nRead time14 min\n\nSources8 primary sources\n\nphi-1 at 1.3B params\n\n50.6%\n\nHumanEval pass@1\n\n▲on 1B synthetic tokens\n\nCollapse mitigation\n\n10%\n\nreal data retained\n\n▼limits perplexity drift\n\nCosmopedia open dataset\n\nsynthetic tokens\n\n▼30M+ prompts, <1% dupes\n\nphi-3-mini MMLU\n\n69%\n\nat 3.8B parameters\n\n▼vendor-stated\n\nSynthetic data generation for LLM training sits at an awkward intersection of compelling capability evidence and genuine academic risk — model collapse is a peer-reviewed phenomenon, not a vendor scare story. But the peer-reviewed literature also contains a rigorous counterargument: collapse is avoidable, the fix is straightforward, and the teams at Microsoft, Hugging Face, and Anthropic have been quietly validating synthetic approaches at production scale for years.\n\nThe stakes are real. A 1.3-billion-parameter model trained on one billion synthetic “textbook-quality” tokens matched or exceeded models ten times its size on coding benchmarks — but only because the training data was curated with discipline, not indiscriminately generated. At the other end, experiments with OPT-125m showed perplexity degrading by 20–28 points after five epochs of purely synthetic self-training, with no real data retained. Both outcomes are real. Which one you get depends on the generation regime.\n\nThis guide gives practitioners a decision framework across four distinct use cases — fine-tuning instruction data, synthetic eval set creation, edge-case augmentation, and privacy substitution — each with its own failure modes, quality metrics, and generation techniques. It also covers the “accumulate, don't replace” rule that the model collapse literature actually supports, the Phi series as the strongest public proof of concept, and the vendor policy questions that remain genuinely open.\n\nKey takeaways\n\n1. 01\n\n   Model collapse is avoidable — the fix is additive, not abstinent.Gerstgrasser et al. (2024) proved analytically that test error has a finite upper bound when synthetic data accumulates alongside real data, but grows without bound when it replaces real data. The rule is accumulate, not replace — not 'avoid synthetic data.'\n2. 02\n\n   Phi-1 at 1.3B params matched models 10× larger on coding benchmarks.Microsoft trained phi-1 on 6B tokens of curated web data plus 1B synthetically generated textbooks and exercises via GPT-3.5, achieving 50.6% pass@1 on HumanEval and 55.5% on MBPP. Vendor-stated numbers from arXiv:2306.11644.\n3. 03\n\n   The four use cases have fundamentally different risk profiles.Fine-tuning data, eval set creation, edge-case augmentation, and privacy substitution each carry different failure modes — from distribution drift to eval overfitting to GDPR pseudonymization risk. A single strategy does not span all four.\n4. 04\n\n   Cosmopedia is the only large open synthetic pre-training dataset.Hugging Face generated 25 billion tokens across 30M+ files using Mixtral-8x7B-Instruct, with less than 1% duplicate content — by varying audience and format rather than just topic. Total compute exceeded 10,000 H100 GPU hours.\n5. 05\n\n   Vendor policy on using model outputs for training remains a live question.OpenAI's Usage Policies (effective October 2025) do not explicitly prohibit using GPT outputs to train other AI models in general — but using outputs to build a direct OpenAI competitor violates ToS. Verify current terms before any training run.\n\n## 01 — ContextWhy synthetic data, why *now*.\n\nThree pressures have converged to make synthetic data generation a mainstream consideration in 2026. First, frontier models have made high-quality generation cheap: GPT-3.5-level outputs that would have been expensive to produce in 2022 are now commodity compute. Second, real data scarcity has become a genuine constraint — the best instruction-following datasets require expensive human annotation, and the most useful domain-specific corpora are often proprietary, legally encumbered, or simply too small to train on. Third, the privacy and compliance landscape has become less forgiving: GDPR enforcement of Article 4's definition of personal data extends to any dataset where re-identification is plausible, pushing practitioners toward privacy-substitution alternatives that synthetic data can potentially satisfy.\n\nThe “textbook quality” framing that Microsoft used in the Phi-1 paper — generating synthetic content that is educationally coherent, diverse, and didactically structured — represents the clearest public statement of what makes synthetic data work: not volume, but curation discipline. The same principle applies across all four use cases in this guide. Volume without curation amplifies failure modes; curation at modest scale can match or exceed uncurated real data at large scale.\n\nThe foundational finding\n\nShumailov et al. in*Nature* (July 2024) demonstrated that model collapse is universal across generative model families — VAEs, Gaussian Mixture Models, and LLMs all exhibit it, making it a fundamental property of iterative generative training. The key quote: **“indiscriminate use of model-generated content in training causes irreversible defects in the resulting models.”** The operative word is “indiscriminate.”\n\n## 02 — Model CollapseWhat model collapse actually *is*.\n\nModel collapse is a degenerative process in which successive generations of models trained on prior generations' outputs progressively lose the tails of the original data distribution, eventually converging toward a near-delta-function output — the model becomes less and less able to produce diverse, low-probability but valid outputs. The phenomenon was formally characterized in Nature (Shumailov et al., July 2024, DOI:10.1038/s41586-024-07566-y), a peer-reviewed study independent of any AI vendor.\n\nThe paper identifies three compounding error types behind the collapse: **statistical approximation error** (finite training samples), **functional expressivity error** (limited model capacity to represent the full distribution), and **functional approximation error** (biases introduced by the training procedure). All three errors compound across training generations, meaning early-generation models that seem fine produce second and third-generation models that are noticeably degraded.\n\nThe practical signal in OPT-125m experiments: five-epoch training with no real data retained resulted in perplexity increases of 20–28 points. The collapse is not gradual degradation that benchmarks catch early — it can appear mild for several generations and then accelerate. This is why practitioners who “tested it on one round of fine-tuning and it seemed fine” may be building a delayed failure.\n\n#### Model collapse risk by training regime\n\nSources: Shumailov et al. Nature 2024; Gerstgrasser et al. arXiv:2404.01413\n\nFully replace real data with syntheticNo real data retained — the replacement regime\n\nHigh\n\nReplace real data, retain 10% realOPT-125m experiment with 10% retention\n\nMedium\n\nAccumulate synthetic alongside real (additive)Gerstgrasser et al. — bounded error proof\n\nLow\n\nDeduped + quality-filtered synthetic + realCosmopedia / Phi-3 production regime\n\nVery low\n\nThe collapse risk gradient above is not arbitrary. The Gerstgrasser et al. paper (arXiv:2404.01413, April 2024) proved analytically that test error has a*finite upper bound independent of the number of training iterations",
+      "score": 0.81630427
+    },
+    {
+      "id": "S4",
+      "title": "Synthetic Data Generation with LLMs: Techniques and Use Cases",
+      "url": "https://tetrate.io/learn/ai/synthetic-data-generation-llms",
+      "content": "[Skip to content](#main-content)\n\n#### Announcing token brokering for cost control in Tetrate Agent Router Enterprise\n\n [Learn more](https://tetrate.io/blog/token-brokering-ai-agent-cost-control)\n\n# Synthetic Data Generation with LLMs: Techniques and Use Cases\n\nShare:\n\nSynthetic data generation has emerged as a transformative approach to addressing one of machine learning’s most persistent challenges: the scarcity of high-quality, diverse training data. Large Language Models (LLMs) have revolutionized this field by enabling the automated creation of realistic, contextually appropriate datasets that can supplement or even replace human-labeled data in many scenarios. This capability is particularly valuable when dealing with privacy-sensitive information, rare edge cases, or domains where collecting real-world data is expensive, time-consuming, or ethically complex. Understanding how to effectively generate and validate synthetic data using LLMs has become an essential skill for machine learning practitioners seeking to build robust, performant models while navigating the practical constraints of data acquisition.\n\n## What is Synthetic Data Generation?\n\nSynthetic data generation refers to the process of creating artificial datasets that mimic the statistical properties, patterns, and characteristics of real-world data without containing actual observations from the target domain. Unlike traditional data collection methods that involve gathering information from real sources—whether through sensors, surveys, user interactions, or manual labeling—synthetic data is algorithmically produced to serve as a substitute or supplement for authentic data.\n\nIn the context of LLMs, synthetic data generation leverages the model’s learned representations of language, context, and domain knowledge to produce text-based datasets. These models, trained on vast corpora of internet text, have internalized patterns of grammar, semantics, domain-specific terminology, and even reasoning structures. When prompted appropriately, they can generate examples that reflect these learned patterns, creating data that resembles human-produced content across various formats: conversational dialogues, question-answer pairs, classification examples, summarization tasks, code snippets, or structured information extraction samples.\n\nThe fundamental principle underlying LLM-based synthetic data generation is that these models function as sophisticated probability distributions over text sequences. By sampling from these distributions with carefully designed prompts and generation parameters, practitioners can produce diverse examples that capture the nuances of specific tasks or domains. This approach differs significantly from rule-based or template-driven synthetic data methods, which often produce repetitive or unrealistic patterns. LLMs can introduce natural variation, contextual appropriateness, and linguistic sophistication that more closely approximates human-generated content.\n\nSynthetic data serves multiple purposes in the machine learning pipeline. It can augment existing datasets to improve model robustness, generate examples for underrepresented classes to address imbalance issues, create evaluation benchmarks for testing model capabilities, produce training data for domains where real data is scarce or sensitive, and enable rapid prototyping of machine learning systems before investing in expensive data collection efforts. The quality and utility of synthetic data depend critically on the generation techniques employed, the validation methods applied, and the alignment between the synthetic distribution and the target application’s requirements.\n\n## Use Cases for LLM-Generated Data\n\nLLM-generated synthetic data addresses numerous practical challenges across the machine learning development lifecycle, making it valuable for organizations ranging from startups to established enterprises. Understanding these use cases helps practitioners identify opportunities where synthetic data can provide the greatest impact.\n\n### Training Data Augmentation\n\nOne of the most common applications involves augmenting existing training datasets to improve model performance and generalization. When working with limited labeled data—a frequent scenario in specialized domains or for newly emerging tasks—synthetic examples can expand the training set substantially. For instance, in sentiment analysis tasks, an LLM can generate additional product reviews with specified sentiment labels, creating variations in phrasing, vocabulary, and context that help the target model learn more robust representations. Similarly, for named entity recognition tasks, synthetic sentences containing entities of interest can be generated with diverse surrounding contexts, helping models recognize entities in varied linguistic environments.\n\n### Addressing Class Imbalance\n\nMany real-world datasets exhibit severe class imbalance, where certain categories are dramatically underrepresented. This imbalance can cause models to develop biases toward majority classes, performing poorly on minority classes that may be critically important. Synthetic data generation offers a targeted solution by creating additional examples for underrepresented classes. In fraud detection scenarios, where fraudulent transactions are rare compared to legitimate ones, LLMs can generate realistic descriptions of fraudulent activities based on known patterns, helping balance the training distribution. This approach proves particularly valuable when collecting additional real examples of minority classes is impractical or impossible.\n\n### Privacy-Preserving Data Sharing\n\nOrganizations handling sensitive information—healthcare records, financial transactions, personal communications—face significant constraints when sharing data for research or collaborative model development. Synthetic data generated by LLMs trained on private data can preserve statistical properties and patterns while removing direct links to individual records. Medical researchers can generate synthetic patient histories that maintain clinical realism without exposing actual patient information. Financial institutions can create synthetic transaction datasets that reflect spending patterns and fraud indicators without revealing customer identities or account details.\n\n### Rapid Prototyping and Development\n\nDuring early-stage development, teams often need to validate approaches and build initial prototypes before investing in comprehensive data collection efforts. Synthetic data enables rapid iteration by providing immediate access to training examples. Development teams can generate synthetic datasets matching their anticipated data schema, build and test model architectures, establish data pipelines, and validate business logic—all before real data becomes available. This acceleration of the development cycle can significantly reduce time-to-market for machine learning products.\n\n### Evaluation and Benchmarking\n\nCreating comprehensive evaluation datasets that cover edge cases, adversarial examples, and diverse scenarios is challenging with naturally occurring data alone. LLMs can systematically generate test cases that probe specific model capabilities or vulnerabilities. For conversational AI systems, synthetic dialogues can be created to test handling of ambiguous queries, multi-turn context maintenance, or graceful failure modes. For classification tasks, synthetic examples near decision boundaries can evaluate model confidence calibration and robustness.\n\n### Domain Adaptation and Transfer Learning\n\nWhen adapting models from one domain to another, synthetic data can bridge the gap between source and target distributions. An LLM familiar with both domains can generate examples that gradually transition from source domain characteristics to target domain patterns, facilitating smoother transfer learning. This technique proves valuable when moving models from general domains to spe",
+      "score": 0.7906115
+    },
+    {
+      "id": "S5",
+      "title": "Large Language Models Are Still Getting Stronger, but ...",
+      "url": "https://www.newswise.com/articles/large-language-models-are-still-getting-stronger-but-researchers-face-new-bottlenecks-in-data-evaluation-and-safety",
+      "content": "![Higher Education Press ](/legacy/image.php?image=/images/institutions/logos/logo 2FCS20260227041645.png&width=320&height=100)\n\n# Large Language Models Are Still Getting Stronger, but Researchers Face New Bottlenecks in Data, Evaluation, and Safety\n\n###### *A Survey of Large Language Models*\n\n14-Jul-2026 at 9:05 AM EDT, by [Higher Education Press](/institutions/newsroom/24220/)\n\n[*♡*](/users/login/?ret=%2Farticles%2Flarge-language-models-are-still-getting-stronger-but-researchers-face-new-bottlenecks-in-data-evaluation-and-safety%2F%3Fad2f%3D1%26aid%3D851153 \"Add to Favorites\")\n\n[![Newswise: Large Language Models Are Still Getting Stronger, but Researchers Face New Bottlenecks in Data, Evaluation, and Safety](/legacy/image.php?image=%2Fimages%2Fuploads%2F2026%2F07%2F14%2F6a55dfc3c81fa_1.png&width=502&height=334)](/articles/media-article/851153 \"View full image\")\n\nCredit: Wayne Xin Zhao\n\nA timeline of representative LLMs released in recent years. Models with publicly available checkpoints are highlighted in yellow\n\nNewswise — Over the past few years, progress in large language models has often been associated with a single word: bigger.\n\nLarger parameter counts. Larger training datasets. Larger computational budgets. And, with each new generation, stronger performance across language, coding, reasoning, and instruction-following tasks.\n\nFrom GPT-3 and ChatGPT to a growing number of open and closed models, LLMs have moved far beyond their origins as specialized tools for natural language processing. They are now becoming part of the technical infrastructure for research, software development, education, content creation, and industrial applications.\n\nBut as these models continue to improve, a different set of questions is becoming harder to ignore.\n\nThe next stage of LLM competition may not be determined simply by who builds the largest model. It may depend on who can obtain reliable high-quality data, who can evaluate model capabilities more accurately, and who can make models safer, more controllable, and more useful in real-world settings.\n\nA recent review published in *Frontiers of Computer Science* offers a systematic account of this shift. The article treats large language models not as a single algorithm or product, but as systems that develop through an entire lifecycle. Pre-training builds broad linguistic, factual, and reasoning foundations. Post-training adapts models to downstream tasks and aligns them with human preferences. Utilization methods, including prompting, retrieval augmentation, and agentic frameworks, determine how capabilities are activated in practice. Evaluation then measures whether models are truly capable, reliable, safe, and robust.\n\nThis lifecycle view points to an important change in the field. LLM progress is no longer only a question of scale. Model performance depends on the interaction of data, architecture, training strategy, alignment methods, inference-time techniques, deployment constraints, and evaluation standards. A weakness in any one of these stages can limit how well a model performs outside controlled benchmarks.\n\nOne of the first bottlenecks is data.\n\nDuring pre-training, LLMs learn from massive text corpora, including web pages, books, code, scientific literature, mathematical materials, dialogue data, and, increasingly, synthetic data generated by other models. According to the review, several representative open models are now trained on datasets reaching the trillion-token scale, while large closed models may rely on even larger or more carefully curated resources.\n\nThe problem is that high-quality data is not unlimited.\n\nAs models scale up, publicly available data that is clean, useful, diverse, and suitable for training becomes more difficult to obtain. Low-quality web text, duplicated passages, noisy content, biased information, private data, and copyrighted materials can all affect model performance and deployment risk. Data cleaning, deduplication, filtering, privacy protection, tokenization, and data mixture design are no longer minor technical details. They are becoming central to model development.\n\nSynthetic data may help fill part of the gap. Existing models can generate mathematical reasoning traces, code examples, question-answer pairs, and long-chain reasoning data. Such data can expand training resources and improve models on specific tasks. But synthetic data also introduces new risks. If models are repeatedly trained on content generated by other models, without enough new information or reliable external feedback, their capabilities may stagnate or degrade. In the next phase, the key question will not be how to produce more data, but how to produce data that is novel, reliable, verifiable, and sustainable.\n\nA second bottleneck lies in evaluation.\n\nDetermining whether an LLM is truly stronger is not as simple as looking at a few benchmark scores. As models improve, traditional benchmarks are increasingly saturated. Some tests also face data contamination, leakage, and declining ability to distinguish between models. A model may perform well on standard benchmarks while still behaving unreliably in complex real-world tasks.\n\nThe review treats evaluation as a major stage in the LLM lifecycle. It covers basic language understanding, knowledge, reasoning, alignment, safety, agentic tasks, and expert-level capabilities. This reflects a broader shift in the field: evaluation is moving from asking whether a model can answer questions correctly toward asking whether it can operate reliably, safely, and transparently in realistic settings.\n\nThis is especially important for complex reasoning, long-context processing, tool use, and agentic tasks. In these scenarios, a model may need to plan over multiple steps, call external tools, process feedback, revise its strategy, and recover from errors. Such abilities cannot be fully captured by static multiple-choice questions or short-answer tests. Future evaluation systems will need to be closer to real applications, while also addressing contamination, fairness, reproducibility, and safety.\n\nA third bottleneck is alignment and safety.\n\nPre-training gives models broad knowledge and generative ability, but it does not automatically ensure that their outputs are helpful, truthful, or safe. Modern LLM development therefore depends heavily on post-training. Supervised fine-tuning, reinforcement learning from human feedback, reinforcement learning with verifiable rewards, and methods designed for long-chain reasoning and agentic behavior are now central to making models usable.\n\nThese techniques have helped transform LLMs into more capable assistants. Yet they also bring new challenges. Models can hallucinate. They can produce confident-sounding answers when they are uncertain. They may reveal sensitive information or generate unsafe content under certain prompts. As LLMs are integrated into search engines, office software, education, healthcare, research workflows, and software development, alignment and safety are no longer abstract research topics. They are prerequisites for deployment.\n\nThe review also emphasizes the growing importance of agentic capability. LLMs are increasingly used not only to answer questions, but also to plan, use tools, interact with external environments, and execute multi-step tasks. Retrieval-augmented generation, long-context management, self-improvement, multi-agent collaboration, and efficient deployment techniques are expanding the ways LLMs can be used.\n\nBut stronger agentic capability also raises the stakes. A model that can act over long task chains needs more reliable error control, clearer safety boundaries, and more appropriate evaluation methods. Without these, greater autonomy could amplify mistakes rather than simply improve productivity.\n\nFor this reason, the future of LLMs is unlikely to be a matter of simply making models larger. Larger parameter counts, longer contexts, and more complex reasoning processes",
+      "score": 0.7482976
+    },
+    {
+      "id": "S6",
+      "title": "Advancing Algorithmic Fairness via Selectively Fine-Tuning ...",
+      "url": "http://openaccess.thecvf.com/content/CVPR2025/papers/Zhao_AIM-Fair_Advancing_Algorithmic_Fairness_via_Selectively_Fine-Tuning_Biased_Models_with_CVPR_2025_paper.pdf",
+      "content": "AIM-Fair: Advancing Algorithmic Fairness via Selectively Fine-Tuning Biased Models with Contextual Synthetic Data Zengqun Zhao Ziquan Liu Yu Cao Shaogang Gong Ioannis Patras Centre for Multimodal AI, Queen Mary University of London {zengqun.zhao, ziquan.liu, yu.cao, s.gong, i.patras}@qmul.ac.uk Abstract Recent advances in generative models have sparked re-search on improving model fairness with AI-generated data.\nHowever, existing methods often face limitations in the di-versity and quality of synthetic data, leading to compro-mised fairness and overall model accuracy.\nMoreover, many approaches rely on the availability of demographic group labels, which are often costly to annotate. This pa-per proposes AIM-Fair, aiming to overcome these limita-tions and harness the potential of cutting-edge generative models in promoting algorithmic fairness. We investigate a ﬁne-tuning paradigm starting from a biased model ini-tially trained on real-world data without demographic an-notations. This model is then ﬁne-tuned using unbiased syn-thetic data generated by a state-of-the-art diffusion model to improve its fairness. Two key challenges are identiﬁed in this ﬁne-tuning paradigm, 1) the low quality of syn-thetic data, which can still happen even with advanced generative models, and 2) the domain and bias gap be-tween real and synthetic data. To address the limitation of synthetic data quality, we propose Contextual Synthetic Data Generation (CSDG) to generate data using a text-to-image diffusion model (T2I) with prompts generated by a context-aware LLM, ensuring both data diversity and con-trol of bias in synthetic data. To resolve domain and bias shifts, we introduce a novel selective ﬁne-tuning scheme in which only model parameters more sensitive to bias and less sensitive to domain shift are updated.\nExperiments on CelebA and UTKFace datasets show that our AIM-Fair improves model fairness while maintaining utility, out-performing both fully and partially ﬁne-tuned approaches to model fairness. The code is available at https:// github.com/zengqunzhao/AIM-Fair.\n1. Introduction Recent research has raised signiﬁcant concerns about fair-ness and bias in machine learning models [30]. These mod-Corresponding author: Ziquan Liu {ziquan.liu@qmul.ac.uk}.\nTarget Smiling Smiling Non-Smiling Non-Smiling Sensitive Male Female Male Female Group Label Minority Majority Majority Minority High Accuracy Poor Fairness Lower Accuracy Good Fairness High Accuracy Good Fairness Figure 1.\nFacial attributes classiﬁcation (FAC) on the CelebA dataset based on different training strategies, in which Smiling is the target attribute and Gender is the protected attribute. This shows different learning strategies result in variable model util-ity (Overall Accuracy) vs. model fairness (Worst Group Accuracy and Equalized Odds) on demographic groups. A model trained solely on real data if biased exhibits high accuracy but poor fair-ness scores.\nConversely, models trained on balanced synthetic data show better fairness but poorer accuracy due to a “domain gap” between the real and synthetic data, and a lack of selective model ﬁne-tuning when synthetic data is deployed. Strategies to repair imbalances in real data [9, 56] or to supplement real data with synthetic data [47] marginally increase accuracy but do lit-tle to improve fairness. Our method for selective ﬁne-tuning of a pre-trained (biased) model with synthetic data not only preserves model accuracy but also substantially improves fairness, outper-forming fully ﬁne-tuning (FFT) in both model utility and fairness.\nels often demonstrate varying performance across different demographic groups, leading to unfair outcomes. To miti-gate the spurious correlation caused by learning from imbal-anced (biased) data, regularizations were used as optimiza-tion objectives [1, 10, 12, 23]. Methods like distribution-ally robust optimization (DRO) [12] optimizes the worst-case performance, while invariant risk minimization (IRM) [1] learns unbiased representations with invariance to dif-ferent environments. Inﬂuenced by the success of repre-This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.\nExcept for this watermark, it is identical to the accepted version; the final published version of the proceedings is available on IEEE Xplore.\n28748 Figure 2. The effects of selective ﬁne-tuning by layer-wise freezing from facial attribute classiﬁcations on the CelebA dataset, with Smiling as the target attribute and Male as the protected attribute: When only the fully connected (FC) layer is frozen the model shows improved worst demographic group accuracy and reduced equalized odds, i.e. more fair, but sacriﬁces some utility (overall accuracy). This indicates increased cross-domain generalisability (real and synthetic). Conversely, freezing only block 2 while ﬁne-tuning the remaining parameters results in high overall accuracy but poorer fairness, i.e. further enhanced domain-bias speciﬁcity. When only block 1 is frozen, the model not only maintained equalized odds but also increased utility (overall accuracy) and worst group accuracies.\nsentation learning [51], attempts were made to learn a fair feature representation invariant to protected facial attributes [6, 29, 34, 54].\nHowever, these methods rely on demo-graphic group labelling, often unavailable in practice [2, 4].\nMore recent advances in generative models have utilized generative augmentation for a more balanced training data distribution [8, 9, 17, 36, 40, 59]. These techniques primar-ily focus on image editing, either on real data [36, 40] or synthetic data [9], to create less biased training data. Yet, these methods still require additional group annotations of the data they edit. To address this limitation, DiGA [59] proposed to create an unbiased training set by editing spuri-ous facial attributes to a random degree while keeping a tar-get facial attribute unchanged without knowing each sam-ple’s group label. However, DiGA increases training data size multiple times, leading to substantially higher training costs, and the quality of generated data is limited due to the unknown group labels.\nRecent advancements in text-to-image generative mod-els showcase impressive data ﬁdelity [43], yet their po-tential for improving fairness through data expansion has not been fully explored by the fairness community. This raises the question: can AI-generated synthetic data play a crucial role in mitigating biases within machine learn-ing models? This research question is particularly impor-tant given the successful application of AI-generated data in ﬁne-tuning large language models (LLMs) [11], data aug-mentation [64], and long-tail recognition [47], alongside some reported limitations of synthetic data effectiveness [49]. This work presents a comprehensive empirical investi-gation into whether ﬁne-tuning high-quality, balanced gen-erative data from a contemporary text-to-image model can counteract model biases caused by training on imbalanced real data. We identify two key challenges in bias-correcting ﬁne-tuning with synthetic data: (1) A data-related chal-lenge arising from linguistic ambiguity of the textual prompt and/or model misrepresentation [48, 57], which results in low-quality and low-diversity generated data. (2) A model learning challenge caused by both a domain shift (synthetic vs. real) and a bias shift (unbiased vs. biased) between the real and the synthetic data. Fine-tuning blindly on the synthetic will result in a model with decreased utility.\nTo address the data quality issue, we propose Contex-tual Synthetic Data Generation (CSDG). Existing Latent Diffusion Models (LDMs) [3, 36, 41, 45] often use vision-language models, such as CLIP, for cross-modality align-ment. To yield more diverse and better ﬁne-grained image generation, we formulate a contextual synthetic data gener-ation strategy that uses more detailed text descriptions from expansive linguistic e",
+      "score": 0.6854659
+    },
+    {
+      "id": "S7",
+      "title": "Medium",
+      "url": "https://medium.com/@wonseok.chris.choi/generating-synthetic-datasets-for-direct-preference-optimization-fine-tuning-of-llms-slms-f8c6c9fd7e07",
+      "content": "Sign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40wonseok.chris.choi%2Fgenerating-synthetic-datasets-for-direct-preference-optimization-fine-tuning-of-llms-slms-f8c6c9fd7e07&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40wonseok.chris.choi%2Fgenerating-synthetic-datasets-for-direct-preference-optimization-fine-tuning-of-llms-slms-f8c6c9fd7e07&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n![Wonseok Chris Choi](https://miro.medium.com/v2/resize:fill:80:80/0*PTM46YfEOLBa6ImS)\n\n## Wonseok Chris Choi\n\n# Generate synthetic datasets for Direct Preference Optimization fine-tuning of LLMs/SLMs\n\n![Wonseok Chris Choi](https://miro.medium.com/v2/da:true/resize:fill:64:64/0*PTM46YfEOLBa6ImS)\n\n--\n\n8\n\nListen\n\nShare\n\n![]()\n\nIn the rapidly evolving field of LLMs (large language models), fine-tuning techniques play a crucial role in enhancing model performance and aligning them with specific tasks or preferences based on use case.\n\nThis is evermore prevalent as we have recently (3Q 2024) seen the release of Llama-3.1 which has pushed the existing boundaries of open source and locally hosted LLMs, and the growing trend towards agentic workflows and using a multitude of highly specialized small(er) language models (SLMs) to generate workflows akin to DAGs (directed acyclic graphs).\n\nNeedless to say, one such popular fine-tuning technique commonly used by all ranges of GenAI practitioners is Direct Preference Optimization (DPO), highlighted by Rafailov et al. in their seminal paper [**“Direct Preference Optimization: Your Language Model is Secretly A Reward Model”**](https://openreview.net/forum?id=HPuSIXJaa9) which suggests the viability of using DPO as a stable alternative to RLHF (reinforcement learning from human feedback).\n\nHowever, obtaining high-quality human preference data for DPO can be challenging and resource-intensive. This is where **synthetic datasets** come into play. By leveraging frontier models to generate synthetic training data, we can create large-scale, diverse datasets for fine-tuning smaller language models or specialized language models using DPO. This approach not only reduces the need for extensive human annotation but also allows for more controlled and targeted fine-tuning.\n\nIn this article, we’ll explore a workflow for generating synthetic datasets using state-of-the-art LLMs and applying them to DPO fine-tuning. We’ll use Llama-3.1–405B and the latest Gemini-1.5-pro-experimental-0801 model to generate our synthetic dataset, with NVIDIA’s Nemotron-4–340b-reward model being used as an evaluation model to automate the filter process for quality datasets.\n\n*This article uses GCP Vertex AI, Google AI Studio, Nvidia-nim APIs and Langchain but it can be fit to purpose.*\n\n## 1. Topic and Subtopic Generation\n\nWe start by generating a list of topics and corresponding subtopics using Llama-3.1–405B. This ensures a wide range of subjects for our synthetic dataset which fits our particular use case. I’ve used the topics of “AI & Data Consulting” and “Market Analytics” to create a dataset for a consulting chatbot.\n\n## 2. Question Generation\n\nNext, we generate questions for each subtopic using Llama-3.1–405B. This step ensures that we have a diverse set of questions covering various aspects of each subtopic generated in the previous stream. I’ve set the number to 5 for this example.\n\n## 3. Answer Generation\n\nFor answer generation, we’ll demonstrate how to use both Llama-3.1–405B and Gemini 1.5 Pro. While our primary example uses Llama, integrating Gemini can potentially enhance the quality and diversity of the generated answers.\n\nFirst, let’s look at the Llama-3.1–405B implementation:\n\nNow, let’s see how we can integrate the latest Gemini 1.5 Pro for answer generation to illustrate how you can mix and match models to fit your use case:\n\n## 4. Evaluation and Scoring\n\nTo ensure the quality of our synthetic dataset, we’ll use a reward model to evaluate and score the generated answers. For this example, we’ll use the Nemotron-4–340B-Reward model:\n\nThis step allows us to assign quality scores to each generated response, which will be crucial for the final dataset filtering. Note the below for the actual JSON output for Nemotron-4–340B-Reward.\n\n## 5. Final Dataset Filtering\n\nThe last step involves filtering the dataset based on the evaluation scores to ensure we retain only high-quality examples for DPO fine-tuning. This filtering step ensures that we only keep examples where at least one of the responses meets our quality threshold, creating a high-quality synthetic dataset for DPO fine-tuning. I’ve just employed simple logic here which takes any pairs where a single criterion scored higher than 3.5:\n\nWe can now save our model to a dataset repository like Huggingface for versioning and calling:\n\n![]()\n\n## Wrap-up\n\nThe use of synthetic data for DPO fine-tuning, as demonstrated in this workflow, addresses several critical challenges in the field of LLM development:\n\nAs highlighted in the original DPO paper by Rafailov et al. , DPO offers an efficient and stable alternative to traditional RLHF methods. By combining DPO with synthetic data generation, we can further streamline the process of aligning language models with desired behaviors and preferences. The authors note that DPO *“eliminates the need for sampling from the LM during fine-tuning or performing significant hyperparameter tuning.”* This advantage is amplified when using synthetic data, as it allows for even greater control over the fine-tuning process and the ability to generate targeted examples that address specific model behaviors.\n\n**Full Code:**<https://github.com/iamwonseokchoi/synthetic_data_generation_DPO>\n\n**Sample Dataset:**<https://huggingface.co/datasets/wonseokchoi1/ai-consulting-dpo-dataset-v1>\n\n**Llama-3.1–8B Fine-tuned to dataset:**<https://huggingface.co/wonseokchoi1/ContY-v0.2-8B>  \n<https://huggingface.co/wonseokchoi1/ContY-v0.2-8B-gguf-q4_k_m>\n\n**References:**<https://www.youtube.com/@MervinPraison>,  \nRafailov, R., Sharma, A., Mitchell, E., Manning, C. D., Ermon, S., & Finn, C. (n.d.). *Direct Preference Optimization: Your Language Model is Secretly a Reward Model*. OpenReview. <https://openreview.net/forum?id=HPuSIXJaa9>\n\n--\n\n--\n\n8\n\n![Wonseok Chris Choi](https://miro.medium.com/v2/resize:fill:96:96/0*PTM46YfEOLBa6ImS)\n![Wonseok Chris Choi](https://miro.medium.com/v2/resize:fill:128:128/0*PTM46YfEOLBa6ImS)\n\n## Written by Wonseok Chris Choi\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nStore\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech",
+      "score": 0.542161
+    },
+    {
+      "id": "S8",
+      "title": "Data bias in LLM and generative AI applications - MOSTLY AI powered by Syntho",
+      "url": "https://mostly.ai/blog/data-bias-types",
+      "content": "Syntho acquired MOSTLY AI trademark and related assets. For full information see:\n\n [Press release](https://www.syntho.ai/syntho-acquires-mostly-ai-trademark-and-related-assets/)\n\n[![Mostly AI powered by Syntho](/assets/mostly_ai_powered_by_syntho_logo_white_fixed.svg)](/)\n\n[Home](/)\n\n>\n\nResources\n\n>\n\n[Blog](https://mostly.ai/synthetic-data-blog/)\n\nDecember 13, 2023\n\n# Data bias in LLM and generative AI applications\n\nWritten by\n\n[Avril Aysha](/team/richard-pelgrim)\n\n![Data bias types](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==)\n\n## Table of Contents\n\n## What is data bias?\n\nData bias is the systematic error introduced into data workflows and machine learning (ML) models due to inaccurate, missing, or incorrect data points which fail to accurately represent the population. Data bias in AI systems can lead to poor decision-making, costly compliance issues as well as drastic societal consequences. [Amazon’s gender-biased HR model](https://www.businessinsider.com/amazon-built-ai-to-hire-people-discriminated-against-women-2018-10?r=DE&IR=T) and [Google’s racially-biased hate speech detector](https://techcrunch.com/2019/08/14/racial-bias-observed-in-hate-speech-detection-algorithm-from-google/?guccounter=1&guce_referrer=aHR0cHM6Ly9tb3N0bHkuYWkv&guce_referrer_sig=AQAAANp79V7PjC7DBO2s10G0FC-Q1dbRYHC634T9jtCKt4-lllKtQbRiG5LV04r01SECA9qrbPXeC5dlVjq0LsdPZefxzPJz7dEINvnIzvnG8QipiCLUbvGJar-47PnAAU9aG5DDRgg82a1DctGIDsLnl25YtsNKng1Wv-bLPGthscBz) are some well-known examples of data bias with significant repercussions in the real world. It is no surprise, then, that [54% of top-level business leaders](https://www.datarobot.com/resources/state-of-ai-bias-report/) in the AI industry say they are “very to extremely concerned about data bias”.\n\nWith the massive new wave of interest and investment in Large Language Models (LLMs) and Generative AI, it is crucial to understand how data bias can affect the quality of these applications and the strategies you can use to mitigate this problem.\n\nIn this article, we will dive into the nuances of data bias. You will learn all about the different types of data bias, explore real-world examples involving LLMs and Generative AI applications, and learn about effective strategies for mitigation and the crucial role of synthetic data.\n\n## Data bias types and examples\n\nThere are many different types of data bias that you will want to watch out for in your LLM or Generative AI projects. [This comprehensive Wikipedia list](https://en.wikipedia.org/wiki/List_of_cognitive_biases) contains over 100 different types, each covering a very particular instance of biased data. For this discussion, we will focus on 5 types of data bias that are highly relevant to LLMs and Generative AI applications.\n\n1. Selection bias\n2. Automation bias\n3. Temporal bias\n4. Implicit bias\n5. Social bias\n\n### Selection bias\n\n![Selection bias](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==)\n\nSelection bias\n\nSelection bias occurs when the data used for training a machine learning model is not representative of the population it is intended to generalize to. This means that certain groups or types of data are either overrepresented or underrepresented, leading the model to learn patterns that may not accurately reflect the broader population. There are [many different kinds of selection bias](https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias), such as sampling bias, participation bias and coverage bias.\n\n**Example:** Google’s hate-speech detection algorithm Perspective is [reported](https://techcrunch.com/2019/08/14/racial-bias-observed-in-hate-speech-detection-algorithm-from-google/?guccounter=1&guce_referrer=aHR0cHM6Ly9tb3N0bHkuYWkv&guce_referrer_sig=AQAAANp79V7PjC7DBO2s10G0FC-Q1dbRYHC634T9jtCKt4-lllKtQbRiG5LV04r01SECA9qrbPXeC5dlVjq0LsdPZefxzPJz7dEINvnIzvnG8QipiCLUbvGJar-47PnAAU9aG5DDRgg82a1DctGIDsLnl25YtsNKng1Wv-bLPGthscBz) to exhibit bias against black American speech patterns, among other groups. Because the training data did not include sufficient examples of the linguistic patterns typical of the black American community, the model ended up flagging common slang used by black Americans as toxic. Leading generative AI companies like OpenAI, Anthropic and others are using Perspective daily at massive scale [to determine the toxicity](https://www.fastcompany.com/90929549/google-jigsaw-toxic-speech-ai) of their LLMs, potentially perpetuating these biased predictions.\n\n**Solution:** Invest in high-quality, diverse data sources. When your data still has missing values or imbalanced categories, consider using synthetic data with [rebalancing](/blog/rebalancing-your-dataset-for-ml-classification-problems) and [smart imputation](/blog/smart-imputation-with-synthetic-data) methods.\n\n### Automation bias\n\n[![Automation bias](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==)](https://www.cloud-science.de/automation-bias/)\n\nAutomation bias - source: https://www.cloud-science.de/automation-bias/\n\nAutomation bias is the tendency to favor results generated by automated systems over those generated by non-automated systems, irrespective of the relative quality of their outputs. This is becoming an increasingly relevant type of bias to watch out for as people, including top-level business leaders, may rush to implement automatically generated AI applications with the underlying assumption that simply because these applications use the latest, most popular tech their output will be inherently more trustworthy or performant.\n\n**Example:** In a somewhat ironic overlap of generative technologies, a 2023 study found that some [Mechanical Turk workers](https://www.deeplearning.ai/the-batch/some-crowdworkers-are-using-chatgpt-to-generate-data/) were using LLMs to generate the data which they were being paid to generate themselves. Later studies have since shown that training generative models on generated data can create a negative loop, also called [“the curse of recursion”](https://arxiv.org/abs/2305.17493), which can significantly reduce output quality.\n\n**Solution:** Include human supervision safeguards in any mission-critical AI application.\n\n### Temporal or historical bias\n\nTemporal or historical bias arises when the training data is not representative of the current context in terms of time. Imagine a language model trained on a dataset from a specific time period, adopting outdated language or perspectives. This temporal bias can limit the model's ability to generate content that aligns with current information.\n\n[![Historical bias](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==)](https://www.smbc-comics.com/comic/rise-of-the-machines)\n\nHistorical bias - source: [https://www.smbc-comics.com/comic/rise-of-the-machines](https://www.google.com/url?q=https://www.smbc-comics.com/comic/rise-of-the-machines&sa=D&source=docs&ust=1702472004821373&usg=AOvVaw0i7Ssu_UaY8bX9dlaJqM40)\n\n**Example:** ChatGPT’s long-standing September 2021 cut-off date is a clear example of a temporal bias that we have probably all encountered. [Until recently](https://www.bbc.com/news/technology-66940771), the LLM could not access training data after this date, severely limiting its applicability for use cases that required up-to-date data. Fortunately, in most cases the LLM was aware of its own bias and communicated it clearly with responses like \"'I'm sorry, but I cannot provide real-time information\".\n\n**Solution:** Invest in high-quality data, up-to-date data sources. If you are still lacking data records, it may be possible to simulate them using synthetic data’s [conditional generation](/blog/conditional-data-generation) feature.\n\n### Implicit bias\n\nImplicit bias can happen when the humans",
+      "score": 0.47008035
+    },
+    {
+      "id": "S9",
+      "title": "Enhancing Low-Resource LLMs Classification with PEFT ...",
+      "url": "https://aclanthology.org/2024.lrec-main.533.pdf",
+      "content": "LREC-COLING 2024, pages 6017–6023 20-25 May, 2024. © 2024 ELRA Language Resource Association: CC BY-NC 4.0 6017 Enhancing Low-Resource LLMs Classification with PEFT and Synthetic Data Parth Patwa1, Simone Filice2∗, Zhiyu Chen1, Giuseppe Castellucci1, Oleg Rokhlenko1, Shervin Malmasi1 1Amazon, USA 2Technology Innovation Institute, Israel 1{parthptw, zhiyuche, giusecas, olegro, malmasi}@amazon.com, 2simone.filice@tii.ae Abstract Large Language Models (LLMs) operating in 0-shot or few-shot settings achieve competitive results in Text Classification tasks. In-Context Learning (ICL) typically achieves better accuracy than the 0-shot setting, but it pays in terms of efficiency, due to the longer input prompt. In this paper, we propose a strategy to make LLMs as efficient as 0-shot text classifiers, while getting comparable or better accuracy than ICL. Our solution targets the low resource setting, i.e., when only 4 examples per class are available. Using a single LLM and few-shot real data we perform a sequence of generation, filtering and Parameter-Efficient Fine-Tuning steps to create a robust and efficient classifier.\nExperimental results show that our approach leads to competitive results on multiple text classification datasets.\nKeywords: LoRA, PEFT, LLMs, Few-Shot Learning, Text Classification 1.\nIntroduction Recent years have been characterized by a paradigm shift in text classification. Large Lan-guage Models (LLMs) offer valid alternatives to the traditional approach of fine-tuning pre-trained mod-els (e.g., BERT (Devlin et al., 2019), RoBERTa (Liu et al., 2019)) on annotated datasets. In-Context Learning (ICL) is a first option, where a LLM learns how to solve a task by simply observing a few ex-amples provided in its prompt (i.e., without any fine-tuning stage) (Brown et al., 2020). Another alternative is the 0-shot setting, where the LLM di-rectly solves a task by simply following the provided instructions (i.e., without any example). Instruction-fine tuned models like Flan-T5 (Chung et al., 2022), Instruct-GPT (Ouyang et al., 2022), or ChatGPT excel in this setting. The advantage of these two alternatives with respect to the traditional approach is that they can be used to bootstrap a model when data is scarce or totally absent.\nThe 0-shot setting is generally more appealing since it does not require any data, however, the few-shot ICL setting typically leads to better results by only leveraging a small number of samples (e.g., less than 10 examples). Obtaining a few annotated data might not be a significant drawback, as a prac-titioner with moderate domain knowledge can read-ily create a small number of examples manually.\nHowever, a major disadvantage is the higher com-putational cost, latency, and memory requirements associated with the longer prompt, which needs to contain illustrative examples. A possible solution to leverage the few available examples without incur-∗Work done while at Amazon.\nring the ICL inference costs would be to use them for fine-tuning the LLM, which is possible by us-ing some Parameter-Efficient Fine Tuning (PEFT) techniques (Liu et al., 2022c; Lester et al., 2021; Hu et al., 2021; Liu et al., 2021). Unfortunately, as we will demonstrate in the experimental section, PEFT is not effective with very few examples, due to under-fitting or over-fitting phenomena.\nIn this paper, we propose a solution to the low-resource PEFT for text classification with LLMs by defining a framework that enables faster, cheaper and more accurate inference than ICL in such a scenario. We hypothesize that LLMs already have some knowledge of how to solve a classification task, but the sub-optimal usage of the available resources (i.e., the few-shot examples) results in low PEFT performance under the low-resource set-ting. On the contrary, LLMs typically excel in gen-eration tasks, hence we frame an auxiliary data augmentation task that we use to unlock the LLM classification capabilities. Our method consists of three steps. First, we use the LLM to generate synthetic examples for each class of the text clas-sification task we target. Then, we use the same LLM in the ICL setting to classify the examples and clean the data by removing label-inconsistent gen-erated examples. Finally, we fine-tune the LLM with PEFT using the generated and cleaned data.\nOur experiments show that the resulting classifier reaches accuracy levels comparable to or better than the ICL setting in three different text classifi-cation tasks while being a lot more efficient (∼2x to 5x speed boost). In these generate-filter-train stages we always use the same LLM to demon-strate that what leads to a good accuracy is just a better usage of the few available examples and 6018 LLM Synthetic Data Filtered Data Few-Shot Data Step 1: Data Generation Step 2: Data Filtering Step 2: Data Filtering Step 3: PEFT Tuning Used in Step 1-3 Figure 1: The overview of our method. First, very few real data points are used to generate synthetic data using ICL. Then, the synthetic data is filtered using ICL by LLM again. Finally, the filtered data and the real data are combined to train the LLM using LoRA.\nnot the employment of any other resource (e.g., an-other LLM) which might bring additional knowledge to solve the task.\nThe rest of the paper is organized as it follows: in Section 2 we discuss the related works. In Sec-tion 3 we present our method, while in Sections 4 and 5 we discuss the experimental setting and the results, respectively. Finally, Section 6 derives the conclusions.\n2.\nRelated Work LLMs demonstrate impressive capabilities to solve Natural Language Understanding tasks. For in-stance, classification tasks can be approached in a generative way, i.e., by asking the LLM to generate the class name associated with an input example.\n0-shot and ICL are two variants of this paradigm.\nRecent models (e.g., GPT-3, (Brown et al., 2020), Flan-T5 (Chung et al., 2022), ChatGPT (Ouyang et al., 2022), Falcon (Penedo et al., 2023) or Vicuna (Zheng et al., 2023)) reach impressive results in both settings, and researchers started considering using LLMs as annotators (Rosenbaum et al., 2022; Zhu et al., 2023; He et al., 2023). For instance, Rosenbaum et al. (2022) propose a method that uses LLMs to generate and annotate data for In-tent Classification and Slot Filling. He et al. (2023) propose a two-step approach where they first use ChatGPT to generate a few-shot Chain-of-Thought prompt, which they then use to annotate unlabeled data. Results are competitive with human annota-tors, but their classification procedure is relatively slow since the LLM is invoked twice with prompts that need to contain both examples and explana-tions. Conversely, we propose a solution whose computational complexity at inference time corre-sponds to the 0-shot setting case. Even if these results are impressive, they still might not reach the state-of-the-art performance achievable when LLMs are fully fine-tuned on large data. Fine-tuning LLMs is extremely expensive, but a viable solu-tion is offered by Parameter Efficient Fine-Tuning (PEFT) techniques (Liu et al., 2022c; Lester et al., 2021; Hu et al., 2021; Liu et al., 2021), where a pre-trained model is fine-tuned by only updating a small number (e.g., 0.01%) of added or selected param-eters. These methods report results that match the performance of full fine-tuning when large training datasets are available. On the contrary, there has been relatively little focus on (parameter-efficient) fine-tuning in low-resource settings. Our paper targets this scenario, as we assume we can ac-cess only a few annotated examples (e.g., four per class) and no unlabeled data. A work operating in a similar setting is Liu et al. (2022b), where the authors propose a novel PEFT technique that is demonstrated to work well in low resource settings when the PEFT weights are pre-trained and mul-tiple tasks are trained in parallel. We differ from their work as we do not pre-train the PEF",
+      "score": 0.41748574
+    },
+    {
+      "id": "S10",
+      "title": "Synthetic Data Generation Using Large Language Models",
+      "url": "https://arxiv.org/html/2503.14023v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Synthetic Data Generation Using Large Language Models: Advances in Text and Code\n\n###### Abstract\n\nThis survey reviews how large language models (LLMs) are transforming synthetic training data generation in both natural language and code domains. By producing artificial but task-relevant examples, these models can significantly augment or even substitute for real-world datasets, particularly in scenarios where labeled data is scarce, expensive, or sensitive. This paper surveys recent advances in leveraging LLMs to create synthetic text and code, highlighting key techniques such as prompt-based generation, retrieval-augmented pipelines, and iterative self-refinement. We examine how these methods can enrich low-resource tasks (e.g., classification, question answering) and facilitate code-centric applications (e.g., instruction tuning, code translation, bug repair) through automated verification of functional correctness. Alongside potential benefits—cost-effectiveness, broad coverage, and controllable diversity—we discuss the accompanying challenges, including factual inaccuracies in generated text, insufficient stylistic or distributional realism, and risks of bias amplification. Proposed mitigation strategies range from filtering and weighting synthetic outputs to reinforcement learning with execution feedback in code domains. We conclude by outlining open research directions, such as automated prompt engineering, cross-modal data synthesis, and robust evaluation frameworks, underscoring the growing importance of LLM-generated synthetic data in accelerating AI development while emphasizing ethical and quality safeguards.\n\n|  |\n| --- |\n|  |\n\nAugust 24, 2026\n\n*K*eywords Synthetic Data Generation ⋅\\cdot\nLarge Language Models (LLMs) ⋅\\cdot\nText Data Augmentation ⋅\\cdot\nCode Data Synthesis ⋅\\cdot\nPrompt Engineering ⋅\\cdot\nInstruction Tuning ⋅\\cdot\nMachine Learning Training Data ⋅\\cdot\nNatural Language Processing (NLP) ⋅\\cdot\nCode Generation ⋅\\cdot\nReinforcement Learning for Code ⋅\\cdot\nAutomated Data Annotation ⋅\\cdot\nBias and Fairness in Synthetic Data ⋅\\cdot\nRetrieval-Augmented Generation (RAG) ⋅\\cdot\nEvaluation of Synthetic Data ⋅\\cdot\nModel Collapse in LLMs\n\n## 1 Introduction\n\nLarge Language Models (LLMs) have achieved remarkable success across natural language and code generation tasks, owing in part to training on massive datasets. However, acquiring sufficient high-quality training data remains a bottleneck in many domains [[60](#bib.bib60)]. Data scarcity, high annotation costs, and privacy constraints often limit the availability of large supervised corpora. These challenges have spurred growing interest in synthetic data generation, where additional training examples are produced artificially rather than collected from the real world. Recent advances in generative AI – particularly LLMs like Anthropic’s Claude 3.7 Sonnet, DeepSeek’s R1, Meta’s Llama 3, and OpenAI’s GPT-o3 – provide powerful new tools to generate synthetic text and code that mimic real data distributions. This paper surveys and analyzes the latest developments in LLM-driven synthetic data generation for both natural language text and programming code, highlighting techniques, applications, challenges, and future directions.\n\nLLMs can produce human-like text and code, making them attractive data generators for tasks where obtaining real data is costly or infeasible. For example, instead of manually labeling thousands of sentences for a classifier, one can prompt an LLM to create diverse labeled examples [[33](#bib.bib33)], or have it generate code snippets to augment code model training. Synthetic data generated by LLMs has shown promise in boosting model performance in low-resource settings, reducing annotation costs, and enabling data augmentation for improved robustness [[11](#bib.bib11)].\nAt the same time, using LLMs as data generators raises questions about quality control, realism, and biases in the generated data.\n\nA comprehensive review of LLM-based approaches for text and code generation is currently lacking, despite their increasing adoption [[52](#bib.bib52)]. This paper aims to fill that gap by providing a structured survey of existing techniques and challenges. The focus is specifically on text and code generation, as opposed to other forms of data, due to several key reasons. First, visual data synthesis has been extensively studied, making an additional review redundant [[10](#bib.bib10), [8](#bib.bib8)]. Second, while synthetic signal data (e.g., audio) is a developing field, it remains outside the scope of this study, though future work could extend these analyses [[24](#bib.bib24)]. Lastly, text and code share a common modality, as both are purely symbolic representations that can be generated and processed using the same fundamental methods—unlike images, sounds, or videos, which require distinct encoding formats and specialized equipment [[29](#bib.bib29)].\n\nThis paper provides a comprehensive analysis of LLM-based synthetic data generation, with contributions summarized as follows:\n\nSurvey of Techniques: We review major approaches for LLM-driven data generation in text and code, including prompt-based augmentation, retrieval-augmented generation, self-instruct methods, and reinforcement learning with feedback. We categorize methods by their strategies (e.g., zero-shot vs. few-shot prompting, knowledge integration, iterative refinement) and discuss representative examples from recent literature [[3](#bib.bib3)]\n\nAdvances in Text Data Generation: We explore how LLMs are used to create synthetic text datasets for tasks such as classification, question answering, and instruction-following. Key studies are examined to understand the impact of synthetic data on model performance, data diversity, and efficiency. We highlight empirical findings (e.g., improvements of 3–26% with synthetic augmentation in low-data regimes) and analyze how prompt design and data curation affect quality [[33](#bib.bib33)].\n\nAdvances in Code Data Generation: We survey the parallel emergence of LLM-generated code data for training code intelligence models. We discuss techniques for generating code through LLM prompts, executing code to validate correctness, and synthesizing coding instruction data at scale [[37](#bib.bib37)]. Examples include synthetic programming problems and solutions, code edits for diversity, and instruction-tuning datasets (e.g., Code Alpaca, WizardCoder) generated by LLMs.\n\nChallenges and Mitigations: We outline the main challenges in using LLMs for synthetic data, such as ensuring data fidelity and factuality, avoiding modeling biases, maintaining diversity without drifting from real data distribution, and preventing model collapse 11\n1\nModel collapse refers to the degradation of model quality that occurs when successive generations of models are trained primarily or exclusively on synthetic data produced by other models, leading to loss of diversity, factuality, or robustness; see [[18](#bib.bib18)]. from iterative self-training on AI-generated data. We discuss solutions proposed in literature, like filtering and weighting synthetic examples [[33](#bib.bib33)], blending synthetic and real data [[18](#bib.bib18)], and leveraging feedback (e.g., executors for code, retrieval for facts) to improve quality [[17](#bib.bib17)] [[28](#bib.bib28)].\n\nFuture Directions: We identify open research directions, including more rigorous evaluation metrics for synthetic data quality, techniques for controlling generation (to target rare phenomena or reduce biases), expanding synthetic data generation to multimodal and low-resource language settings, and frameworks for safe and privacy-preserving synthetic data in industry applications. Throughout, we connect recent findings",
+      "score": 0.595987
+    },
+    {
+      "id": "S11",
+      "title": "Medium",
+      "url": "https://medium.com/@akankshasinha247/synthetic-data-evaluation-pipelines-scaling-fine-tuning-without-losing-alignment-f469a81cdf9a",
+      "content": "Sign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40akankshasinha247%2Fsynthetic-data-evaluation-pipelines-scaling-fine-tuning-without-losing-alignment-f469a81cdf9a&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40akankshasinha247%2Fsynthetic-data-evaluation-pipelines-scaling-fine-tuning-without-losing-alignment-f469a81cdf9a&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n![Akanksha Sinha](https://miro.medium.com/v2/resize:fill:80:80/1*Ae69AA0oUlcu18VrrYPjew.png)\n\n## Akanksha Sinha\n\nAkanksha Sinha is on a mission to explore the future of AI, one day at a time. Join the journey: #100DaysOfAI.\n\n# Synthetic Data + Evaluation Pipelines: Scaling Fine-Tuning Without Losing Alignment\n\n![Akanksha Sinha](https://miro.medium.com/v2/resize:fill:64:64/1*Ae69AA0oUlcu18VrrYPjew.png)\n\n--\n\nListen\n\nShare\n\n*Day 72 of #100DaysOfAI |****Module 5: Model Fine-Tuning & Adaptation*** *-Part 4*\n\n![]()\n\n## 🌐 Where We Are in the Series\n\n## From Data to Trust: Scaling Responsibly\n\nFine-tuning a foundation model is just the beginning.\n\nTo safely and effectively adapt a model to a new domain, you need two more critical pillars:\n\nThat’s where **synthetic data** and **LLM-as-a-judge evaluation** come in — enabling scalable alignment **without breaking trust**.\n\n## Part 1: The Rise of Synthetic Data\n\nAs LLMs scale, sourcing massive instruction–response pairs from human annotators becomes expensive, time-consuming, and unsustainable.\n\nEnter: **Synthetic Data** — generated *by LLMs, for LLMs*.\n\n## ☼ What It Is\n\nModels like GPT-3.5/4 or Claude can now generate high-quality instructional datasets on-demand. This allows developers to pre-train or fine-tune without relying solely on human-labeled corpora.\n\n## ☼ Pioneering Work\n\n![]()\n\nThis diagram illustrates the *Self-Instruct* methodology proposed by [Wang et al., 2022](https://arxiv.org/abs/2212.10560), a pioneering approach for bootstrapping instruction datasets using large language models themselves. The process begins with a small set of manually created seed tasks and proceeds through four stages:\n\n💡 *Key Insight:* This pipeline enables scalable, diverse, and low-cost generation of instructional data — fueling more generalizable and aligned LLMs with minimal human intervention.\n\n## ☼ Why It Works\n\n## ☼ But Beware\n\n***Key Insight****: Synthetic data is like a* ***teaching assistant*** *— it can handle a lot of work, but you still need a teacher (****human oversight****) to ensure quality.*\n\n## Part 2: Evaluation Pipelines for LLMs\n\nFine-tuning is only useful if you know **how well the model is performing**. Classic NLP metrics (like BLEU, ROUGE) are insufficient for evaluating **generative responses**.\n\n## ☼ What’s Changing\n\nEvaluation has moved from string-matching metrics to **semantic, judgment-based scoring**.\n\n## ☼ LLM-as-a-Judge\n\n[***Zheng et al., 2023***](https://arxiv.org/abs/2310.06117)*: GPT-4 was used to score other models’ outputs — showing high correlation with human judgments across* ***helpfulness****,* ***correctness****, and* ***harmlessness****.*\n\nOther emerging methods include:\n\n***Evaluation is the firewall*** *that filters hallucinations, bias, and unsafe behavior — making LLMs* ***trustworthy at scale****.*\n\n## Part 3: How Leading Labs Use These Tools\n\nTop labs now standardize pipelines around:\n\nThese methods make it possible to scale new assistants, agents, and domain-specific copilots **faster and safer**.\n\n## Part 4: Putting It All Together\n\nHere’s a simplified **fine-tuning + evaluation** workflow for modern LLMs:\n\n*Tools like* `trl`*,* `peft`*, and* `bitsandbytes` *from Hugging Face make this efficient — even on consumer GPUs.*\n\n`trl`\n`peft`\n`bitsandbytes`\n\n### Pipeline Snapshot: End-to-End Overview\n\n*Synthetic Data → Fine-Tuning (PEFT) → RLHF → Evaluation → Deployment*\n\n![]()\n\nThis snapshot captures the essence of what it takes to adapt foundation models for trust, safety, and real-world use at scale.\n\n## Summary: Evaluation Techniques for LLMs\n\n![]()\n\nAs we move beyond traditional NLP benchmarks, evaluating generative models demands deeper, semantic-aware metrics. This chart compares classic and modern evaluation approaches — from early token-based scores like BLEU to sophisticated techniques like LLM-as-a-Judge and reward modeling.\n\nEach method serves a unique purpose:\n\nChoosing the right technique depends on your goal — speed, safety, fluency, or trust.\n\n## Conclusion: Scaling With Intention\n\nAs we push LLMs into high-stakes use cases — healthcare, law, education — **scale alone isn’t enough**.\n\nWe need **smart data** and **smart evaluation** to ensure our models are:\n\n✔️Helpful\n\n✔️ Honest\n\n✔️Harmless\n\n✔️Human-aligned\n\n*Synthetic data and strong eval pipelines are the hidden backbone of today’s most trusted LLMs.*\n\n## Further Reading & Key Resources\n\n☼ **Synthetic Data & Instruction Generation**\n\n☼ **LLM Evaluation Techniques**\n\n☼ **Toolkits & Libraries**\n\n`trl`\n\n☼ **Responsible AI & Safety**\n\n## Explore the Full Series on Fine-Tuning LLMs\n\n• Part 1 → [PEFT, LoRA, QLoRA: Smarter, Faster Fine-Tuning for Domain LLMs](/@akankshasinha247/peft-lora-qlora-smarter-faster-fine-tuning-for-domain-llms-3d7b7fdf9671)  \n• Part 2 → [Adapter vs. Prompt vs. Full Fine-Tuning](/@akankshasinha247/adapter-based-tuning-vs-prompt-based-tuning-full-fine-tuning-fdd5bb0b4767)  \n• **Part 3** → [Instruction Tuning + RLHF: Teaching LLMs to Follow and Align](/@akankshasinha247/instruction-tuning-rlhf-teaching-llms-to-follow-and-align-611a5462b1bf)  \n• **Part 4 (This Post)** → Synthetic Data + Evaluation Pipelines\n\n🔜 **Coming Up**: Bias Detection • Reward Modeling • Multi-Turn Alignment\n\n#100DaysOfAI #AIWithAkanksha #LLM #SyntheticData #EvaluationPipelines #RLHF #ResponsibleAI #MachineLearning #OpenSource #FineTuning #NLP #TrustworthyAI #AIAlignment #LangChain #HuggingFace\n\n--\n\n--\n\n![Akanksha Sinha](https://miro.medium.com/v2/resize:fill:96:96/1*Ae69AA0oUlcu18VrrYPjew.png)\n![Akanksha Sinha](https://miro.medium.com/v2/resize:fill:128:128/1*Ae69AA0oUlcu18VrrYPjew.png)\n\n## Written by Akanksha Sinha\n\nAkanksha Sinha is on a mission to explore the future of AI, one day at a time. Join the journey: #100DaysOfAI.\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nStore\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech",
+      "score": 0.4277797
+    },
+    {
+      "id": "S12",
+      "title": "Assessment of fine-tuned large language models for real-world chemistry and material science applications†",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11629507",
+      "content": "[Skip to main content](https://pmc.ncbi.nlm.nih.gov/articles/PMC11629507#main-content)\n\n![Image 1](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/us_flag.svg)\n\nAn official website of the United States government\n\nHere's how you know\n\nHere's how you know\n\n![Image 2](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-dot-gov.svg)\n\n**Official websites use .gov**\n\n A **.gov** website belongs to an official government organization in the United States.\n\n![Image 3](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-https.svg)\n\n**Secure .gov websites use HTTPS**\n\n A **lock** ( ) or **https://** means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.\n\n[![Image 4: NCBI home page](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg)](https://www.ncbi.nlm.nih.gov/)\n\n![Image 5: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)Search \n\n![Image 6](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/person.svg)Log in![Image 7](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_less.svg)![Image 8](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_more.svg)\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n*    Log out \n\n Search…   Search NCBI \n\nPrimary site navigation\n\n![Image 9: Close](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons/close.svg) Search  ![Image 10: Search](blob:http://localhost/d03881a649d411fb287ca34fa7ea6fc4)\n\nLogged in as:\n\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n\n Log in \n\n[](https://pmc.ncbi.nlm.nih.gov/ \"Home\")\n\n![Image 11: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)![Image 12: PMC search close ison](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/close.svg)\n\nSearch PMC Full-Text Archive \n\nSearch in PMC![Image 13: Search](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons-bg/search--white.svg)\n\n*   [Journal List](https://pmc.ncbi.nlm.nih.gov/journals/)\n*   [User Guide](https://pmc.ncbi.nlm.nih.gov/about/userguide/)\n\n As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.\n\n Learn more: [PMC Disclaimer](https://pmc.ncbi.nlm.nih.gov/about/disclaimer/) | [PMC Copyright Notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\n![Image 14: Chemical Science logo](https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-chemsci.png)\n\nChem Sci\n\n. 2024 Nov 22;16(2):670. doi: [10.1039/d4sc04401k](https://doi.org/10.1039/d4sc04401k)\n\n*   [Search in PMC](https://pmc.ncbi.nlm.nih.gov/search/?term=%22Chem%20Sci%22[jour])\n*   [Search in PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=%22Chem%20Sci%22[jour])\n*   [View in NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22Chem%20Sci%22[Title%20Abbreviation])\n*   [Add to search](https://pmc.ncbi.nlm.nih.gov/articles/PMC11629507?term=%22Chem%20Sci%22[jour])\n\n# Assessment of fine-tuned large language models for real-world chemistry and material science applications[†](https://pmc.ncbi.nlm.nih.gov/articles/PMC11629507#fn1)\n\n[Joren Van Herck](https://pubmed.ncbi.nlm.nih.gov/?term=%22Van%20Herck%20J%22[Author])\n\n### Joren Van Herck\n\na Rue de l’Industrie 17\n\n Find articles by [Joren Van Herck](https://pubmed.ncbi.nlm.nih.gov/?term=%22Van%20Herck%20J%22[Author])\n\na‡, [María Victoria Gil](https://pubmed.ncbi.nlm.nih.gov/?term=%22Gil%20M%22[Author])\n\n### María Victoria Gil\n\na Rue de l’Industrie 17\n\nb Francisco Pintado Fe 26\n\n Find articles by [María Victoria Gil](https://pubmed.ncbi.nlm.nih.gov/?term=%22Gil%20M%22[Author])\n\na b‡, [Kevin Maik Jablonka](https://pubmed.ncbi.nlm.nih.gov/?term=%22Jablonka%20K%22[Author])\n\n### Kevin Maik Jablonka\n\na Rue de l’Industrie 17\n\nc Humboldtstrasse 10\n\nd Lessingstrasse 12-14\n\n Find articles by [Kevin Maik Jablonka](https://pubmed.ncbi.nlm.nih.gov/?term=%22Jablonka%20K%22[Author])\n\na c d‡, [Alex Abrudan](https://pubmed.ncbi.nlm.nih.gov/?term=%22Abrudan%20A%22[Author])\n\n### Alex Abrudan\n\ne Yusuf Hamied Department of Chemistry, University of Cambridge Cambridge CB2 1EW UK \n\n Find articles by [Alex Abrudan](https://pubmed.ncbi.nlm.nih.gov/?term=%22Abrudan%20A%22[Author])\n\ne, [Andy S. Anker](https://pubmed.ncbi.nlm.nih.gov/?term=%22Anker%20A%22[Author])\n\n### Andy S. Anker\n\nf Department of Energy Conversion and Storage, Technical University of Denmark DK-2800 Kgs. Lyngby Denmark \n\ng Department of Chemistry, University of Oxford Oxford OX1 3TA UK \n\n Find articles by [Andy S. Anker](https://pubmed.ncbi.nlm.nih.gov/?term=%22Anker%20A%22[Author])\n\nf g, [Mehrdad Asgari](https://pubmed.ncbi.nlm.nih.gov/?term=%22Asgari%20M%22[Author])\n\n### Mehrdad Asgari\n\nh Philippa Fawcett Drive\n\n Find articles by [Mehrdad Asgari](https://pubmed.ncbi.nlm.nih.gov/?term=%22Asgari%20M%22[Author])\n\nh, [Ben Blaiszik](https://pubmed.ncbi.nlm.nih.gov/?term=%22Blaiszik%20B%22[Author])\n\n### Ben Blaiszik\n\ni Department of Computer Science, University of Chicago Chicago IL 60637 USA \n\nj Data Science and Learning Division, Argonne National Laboratory Lemont IL 60439 USA \n\n Find articles by [Ben Blaiszik](https://pubmed.ncbi.nlm.nih.gov/?term=%22Blaiszik%20B%22[Author])\n\ni j, [Antonio Buffo](https://pubmed.ncbi.nlm.nih.gov/?term=%22Buffo%20A%22[Author])\n\n### Antonio Buffo\n\nk Department of Applied Science and Technology (DISAT), Politecnico di Torino 10129 Turino Italy \n\n Find articles by [Antonio Buffo](https://pubmed.ncbi.nlm.nih.gov/?term=%22Buffo%20A%22[Author])\n\nk, [Leander Choudhury](https://pubmed.ncbi.nlm.nih.gov/?term=%22Choudhury%20L%22[Author])\n\n### Leander Choudhury\n\nl Laboratory of Catalysis and Organic Synthesis (LCSO), Institute of Chemical Sciences and Engineering (ISIC), École Polytechnique Fédérale de Lausanne (EPFL) CH-1015 Lausanne Switzerland \n\n Find articles by [Leander Choudhury](https://pubmed.ncbi.nlm.nih.gov/?term=%22Choudhury%20L%22[Author])\n\nl, [Clemence Corminboeuf](https://pubmed.ncbi.nlm.nih.gov/?term=%22Corminboeuf%20C%22[Author])\n\n### Clemence Corminboeuf\n\nm Laboratory for Computational Molecular Design (LCMD), Institute of Chemical Sciences and Engineering (ISIC), École Polytechnique Fédérale de Lausanne (EPFL) CH-1015 Lausanne Switzerland \n\n Find articles by [Clemence Corminboeuf](https://pubmed.ncbi.nlm.nih.gov/?term=%22Corminboeuf%20C%22[Author])\n\nm, [Hilal Daglar](https://pubmed.ncbi.nlm.nih.gov/?term=%22Daglar%20H%22[Author])\n\n### Hilal Daglar\n\nn Rumelifeneri Yolu, Sariyer\n\n Find articles by [Hilal Daglar](https://pubmed.ncbi.nlm.nih.gov/?term=%22Daglar%20H%22[Author])\n\nn, [Amir Mohammad Elahi](https://pubmed.ncbi.nlm.nih.gov/?term=%22Elahi%20A%22[Author])\n\n### Amir Mohammad Elahi\n\na Rue de l’Industrie 17\n\n Find articles by [Amir Mohammad Elahi](https://pubmed.ncbi.nlm.nih.gov/?term=%22Elahi%20A%22[Author])\n\na, [Ian T. Foster](https://pubmed.ncbi.nlm.nih.gov/?term=%22Foster%20I%22[Author])\n\n### Ian T. Foster\n\ni Department of Computer Science, University of Chicago Chicago IL 60637 USA \n\nj Data Science and Learning Division, Argonne",
+      "score": 0.32264385
+    }
+  ]
+}

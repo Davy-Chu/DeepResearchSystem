@@ -43,6 +43,9 @@ contradictory evidence. Do not create trivial claims.
 The application assigns permanent IDs to new claims and gaps. Never invent a permanent
 claim or gap ID. Claim updates must reference an existing claim ID, and resolved gaps
 must reference an existing gap ID. Do not decide whether another search should happen.
+For each new gap, related_claim_ids may contain only IDs listed in
+allowed_existing_claim_ids. A new gap cannot reference a new claim proposal from the
+same response because that claim has no permanent ID yet; use an empty list in that case.
 
 When a research plan is supplied, associate every claim and gap with all relevant
 subquestion IDs. Claim updates may add associations but never remove existing ones.
@@ -81,6 +84,16 @@ class EvidenceProcessor:
                 else None
             ),
             "current_evidence_ledger": state.evidence_ledger.model_dump(mode="json"),
+            "allowed_existing_claim_ids": [
+                claim.id for claim in state.evidence_ledger.claims
+            ],
+            "allowed_existing_gap_ids": [gap.id for gap in state.research_gaps],
+            "allowed_source_ids": [source.id for source in new_sources],
+            "allowed_subquestion_ids": (
+                [item.id for item in state.research_plan.subquestions]
+                if state.research_plan is not None
+                else []
+            ),
             "current_open_gaps": [
                 gap.model_dump(mode="json") for gap in state.open_gaps()
             ],

@@ -235,6 +235,8 @@ def test_decision_target_must_exist_and_processor_prompt_uses_ledger() -> None:
     processor.process(state, [state.sources[0]])
     prompt = str(calls[0]["input"])
     assert "current_evidence_ledger" in prompt
+    assert "allowed_existing_claim_ids" in prompt
+    assert "allowed_subquestion_ids" in prompt
     assert "C1" in prompt
     assert "Exact saved content for S1." in prompt
     assert calls[0]["reasoning"] == {"effort": "low"}

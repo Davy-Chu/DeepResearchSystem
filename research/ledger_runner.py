@@ -161,6 +161,8 @@ class LedgerResearchRunner:
 
             logger.info("Processing evidence into the ledger...")
             processing_start = perf_counter()
+            if self.research_logger:
+                self.research_logger.record_processing_attempt(iteration_number)
             try:
                 processing_result = self.evidence_processor.process(state, new_sources)
                 ledger_updates = apply_evidence_processing_result(
@@ -212,6 +214,8 @@ class LedgerResearchRunner:
 
             logger.info("Deciding the next research action...")
             decision_start = perf_counter()
+            if self.research_logger:
+                self.research_logger.record_decision_attempt(iteration_number)
             try:
                 decision = self.decision_maker.decide(state)
                 if state.research_plan is not None:
@@ -293,6 +297,8 @@ class LedgerResearchRunner:
 
         logger.info("Research stopped: %s", state.stop_reason)
         report_start = perf_counter()
+        if self.research_logger:
+            self.research_logger.record_report_attempt()
         try:
             final_report = self.report_generator.generate(state)
         except Exception as error:

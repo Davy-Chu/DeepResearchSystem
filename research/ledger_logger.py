@@ -33,6 +33,7 @@ class LedgerIterationLog:
     results_returned: int
     new_sources: list[Source]
     search_duration: float
+    processing_attempted: bool = False
     processing_result: EvidenceProcessingResult | None = None
     ledger_updates: LedgerUpdateSummary | None = None
     ledger_snapshot: EvidenceLedger | None = None
@@ -41,6 +42,7 @@ class LedgerIterationLog:
     decision: ResearchDecision | None = None
     decision_duration: float | None = None
     decision_model_call: bool = False
+    decision_attempted: bool = False
     stop_reason: str | None = None
     subquestion_status_changes: list[SubQuestionStatusChange] = field(
         default_factory=list
@@ -68,6 +70,7 @@ class LedgerResearchLogger:
     research_plan: ResearchPlan | None = None
     decomposition_attempted: bool = False
     decomposition_duration: float | None = None
+    report_attempted: bool = False
     _start_counter: float | None = field(default=None, repr=False)
 
     def start_run(self) -> None:
@@ -112,6 +115,7 @@ class LedgerResearchLogger:
         status_changes: list[SubQuestionStatusChange] | None = None,
     ) -> None:
         item = self._iteration(iteration_number)
+        item.processing_attempted = True
         item.processing_result = result.model_copy(deep=True)
         item.ledger_updates = updates.model_copy(deep=True)
         item.ledger_snapshot = state.evidence_ledger.model_copy(deep=True)
@@ -126,6 +130,15 @@ class LedgerResearchLogger:
             else None
         )
 
+    def record_processing_attempt(self, iteration_number: int) -> None:
+        self._iteration(iteration_number).processing_attempted = True
+
+    def record_decision_attempt(self, iteration_number: int) -> None:
+        self._iteration(iteration_number).decision_attempted = True
+
+    def record_report_attempt(self) -> None:
+        self.report_attempted = True
+
     def record_decision(
         self,
         iteration_number: int,
@@ -138,6 +151,8 @@ class LedgerResearchLogger:
         item.decision = decision.model_copy(deep=True)
         item.decision_duration = duration
         item.decision_model_call = model_call
+        if model_call:
+            item.decision_attempted = True
         item.stop_reason = stop_reason
 
     def finish_run(
@@ -150,6 +165,7 @@ class LedgerResearchLogger:
         self.end_time = datetime.now().astimezone()
         self.total_runtime = total_runtime
         self.report_duration = report_duration
+        self.report_attempted = True
         self.final_stop_reason = state.stop_reason
         self.remaining_gaps = list(report.remaining_gaps)
         self.status = "Completed"
@@ -537,13 +553,13 @@ class LedgerResearchLogger:
         raise ValueError(f"No search record exists for iteration {iteration_number}")
 
     def _processing_calls(self) -> int:
-        return sum(item.processing_result is not None for item in self.iterations)
+        return sum(item.processing_attempted for item in self.iterations)
 
     def _decision_calls(self) -> int:
-        return sum(item.decision_model_call for item in self.iterations)
+        return sum(item.decision_attempted for item in self.iterations)
 
     def _report_calls(self) -> int:
-        return 1 if self.report_duration is not None else 0
+        return 1 if self.report_attempted else 0
 
     def _openai_calls(self) -> int:
         return (

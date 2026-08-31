@@ -191,6 +191,16 @@ def test_state_helpers_and_atomic_subquestion_validation() -> None:
     assert state.gaps_for("SQ1") == []
 
 
+def test_empty_optional_related_claim_id_is_normalized_for_structured_output() -> None:
+    gap = NewGap(
+        description="No existing claim is related yet.",
+        importance=GapImportance.HIGH,
+        related_claim_ids=[""],
+        related_subquestion_ids=["SQ1"],
+    )
+    assert gap.related_claim_ids == []
+
+
 def test_claim_update_unions_subquestion_associations() -> None:
     state = ResearchState(question="Question", research_plan=plan(), sources=[source()])
     apply_evidence_processing_result(
