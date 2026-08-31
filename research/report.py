@@ -58,6 +58,13 @@ acknowledged_unresolved_subquestion_ids. Follow all synthesis requirements. Foll
 requirements in the closest supported textual form, using Markdown, Mermaid, or ASCII
 when a requested visual form cannot be returned directly. Do not claim that an
 unresolved subquestion was answered.
+
+Independent verification records are part of the research state. Respect the latest
+verification outcome for each claim and use the current canonical ledger wording. Never
+repeat a broader pre-verification formulation after a claim was qualified. Preserve
+CONFLICTING and INSUFFICIENT_EVIDENCE outcomes. Disclose material counter-searches blocked
+by budget, duplication, or the one-search limit. Verification records are audit metadata,
+not external evidence: cite only retrieved S* source IDs, never V* IDs.
 """
 
 
@@ -112,6 +119,9 @@ class FinalReportGenerator:
             "evidence_ledger": state.evidence_ledger.model_dump(mode="json"),
             "open_research_gaps": [
                 gap.model_dump(mode="json") for gap in state.open_gaps()
+            ],
+            "claim_verifications": [
+                item.model_dump(mode="json") for item in state.claim_verifications
             ],
             "source_metadata": [
                 {"id": source.id, "title": source.title, "url": source.url}
@@ -202,6 +212,18 @@ def validate_ledger_report(report: LedgerFinalReport, state: ResearchState) -> N
             raise ValueError(
                 f"Ledger report finding {number} cites source ID(s) not attached to "
                 f"its ledger claims: {', '.join(invalid_source_ids)}"
+            )
+        superseded_wording = {
+            item.previous_claim_text
+            for item in state.claim_verifications
+            if item.reconciliation_applied
+            and item.previous_claim_text
+            and item.previous_claim_text != item.current_claim_text
+        }
+        if finding.claim in superseded_wording:
+            raise ValueError(
+                f"Ledger report finding {number} reproduces superseded "
+                "pre-verification claim wording"
             )
         if state.research_plan is None and finding.subquestion_ids:
             raise ValueError(
@@ -402,6 +424,17 @@ def build_incomplete_report(
             f"{item.id}: {item.question} ({item.status.value}: {item.status_reason})"
             for item in state.unresolved_subquestions()
         )
+        for verification in state.claim_verifications:
+            if verification.counter_search_status.value in {
+                "BLOCKED_BUDGET",
+                "BLOCKED_DUPLICATE",
+                "BLOCKED_LIMIT",
+            }:
+                remaining_gaps.append(
+                    f"Independent verification of {verification.claim_id} identified "
+                    "a useful counterevidence search that could not be executed "
+                    f"({verification.counter_search_status.value})."
+                )
         if omitted_claims:
             remaining_gaps.append(
                 f"{omitted_claims} ledger claim(s) lacked supporting evidence and were "
@@ -505,6 +538,8 @@ def build_trace(
                     if iteration.decision is not None
                     else None
                 ),
+                "search_purpose": iteration.search_purpose.value,
+                "search_target_id": iteration.search_target_id,
                 "subquestion_status_changes": [
                     change.model_dump(mode="json")
                     for change in iteration.subquestion_status_changes
@@ -519,6 +554,9 @@ def build_trace(
             if state.research_plan is not None
             else None
         ),
+        "claim_verifications": [
+            item.model_dump(mode="json") for item in state.claim_verifications
+        ],
         "current_iteration": state.current_iteration,
         "remaining_search_budget": state.remaining_budget(),
         "sources": [

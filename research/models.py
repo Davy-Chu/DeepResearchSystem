@@ -58,6 +58,40 @@ class SubQuestionStatus(str, Enum):
     CONFLICTING = "CONFLICTING"
 
 
+class VerificationVerdict(str, Enum):
+    VERIFIED = "VERIFIED"
+    NEEDS_QUALIFICATION = "NEEDS_QUALIFICATION"
+    CONTRADICTED = "CONTRADICTED"
+    INSUFFICIENT_EVIDENCE = "INSUFFICIENT_EVIDENCE"
+
+
+class VerificationPhase(str, Enum):
+    INITIAL = "INITIAL"
+    POST_COUNTERSEARCH = "POST_COUNTERSEARCH"
+    RECHECK = "RECHECK"
+
+
+class CounterSearchStatus(str, Enum):
+    NOT_REQUESTED = "NOT_REQUESTED"
+    SCHEDULED = "SCHEDULED"
+    EXECUTED = "EXECUTED"
+    BLOCKED_BUDGET = "BLOCKED_BUDGET"
+    BLOCKED_DUPLICATE = "BLOCKED_DUPLICATE"
+    BLOCKED_LIMIT = "BLOCKED_LIMIT"
+
+
+class SearchPurpose(str, Enum):
+    GENERAL = "GENERAL"
+    SUBQUESTION = "SUBQUESTION"
+    COUNTERSEARCH = "COUNTERSEARCH"
+
+
+class DecisionOrigin(str, Enum):
+    RESEARCH_CONTROLLER = "RESEARCH_CONTROLLER"
+    VERIFIER_COUNTERSEARCH = "VERIFIER_COUNTERSEARCH"
+    BUDGET_STOP = "BUDGET_STOP"
+
+
 class DecisionTargetType(str, Enum):
     CLAIM = "CLAIM"
     GAP = "GAP"
@@ -396,6 +430,7 @@ class ResearchDecision(StrictModel):
     target_type: DecisionTargetType | None = None
     target_id: str | None = None
     next_search_query: str | None = Field(default=None, max_length=399)
+    decision_origin: DecisionOrigin = DecisionOrigin.RESEARCH_CONTROLLER
 
     @model_validator(mode="after")
     def validate_research_action(self) -> "ResearchDecision":
@@ -424,6 +459,107 @@ class ResearchDecision(StrictModel):
         return self
 
 
+class ClaimVerificationResult(StrictModel):
+    claim_id: str
+    verdict: VerificationVerdict
+    reason: str
+    missing_assumptions: list[str] = Field(default_factory=list)
+    source_quality_concerns: list[str] = Field(default_factory=list)
+    counter_search_needed: bool
+    counter_search_query: str | None = Field(default=None, max_length=399)
+    recommended_claim_text: str | None = None
+    recommended_confidence: Confidence
+    recommended_status: ClaimStatus
+
+    @model_validator(mode="after")
+    def validate_verdict(self) -> "ClaimVerificationResult":
+        self.claim_id = self.claim_id.strip()
+        self.reason = self.reason.strip()
+        if not self.claim_id or not self.reason:
+            raise ValueError("Verification requires a claim ID and reason")
+        self.missing_assumptions = _clean_optional_ids(self.missing_assumptions)
+        self.source_quality_concerns = _clean_optional_ids(
+            self.source_quality_concerns
+        )
+        if self.counter_search_needed:
+            if not self.counter_search_query or not self.counter_search_query.strip():
+                raise ValueError(
+                    "counter_search_query is required when counter-search is needed"
+                )
+            self.counter_search_query = self.counter_search_query.strip()
+        else:
+            self.counter_search_query = None
+        if self.recommended_claim_text is not None:
+            self.recommended_claim_text = self.recommended_claim_text.strip() or None
+        if (
+            self.verdict == VerificationVerdict.NEEDS_QUALIFICATION
+            and self.recommended_claim_text is None
+        ):
+            raise ValueError(
+                "NEEDS_QUALIFICATION requires recommended_claim_text"
+            )
+        if (
+            self.verdict == VerificationVerdict.VERIFIED
+            and self.recommended_status != ClaimStatus.SUPPORTED
+        ):
+            raise ValueError("VERIFIED requires recommended_status SUPPORTED")
+        if (
+            self.verdict == VerificationVerdict.CONTRADICTED
+            and self.recommended_status
+            not in {ClaimStatus.CONFLICTING, ClaimStatus.INSUFFICIENT_EVIDENCE}
+        ):
+            raise ValueError(
+                "CONTRADICTED requires CONFLICTING or INSUFFICIENT_EVIDENCE status"
+            )
+        if (
+            self.verdict == VerificationVerdict.INSUFFICIENT_EVIDENCE
+            and self.recommended_status != ClaimStatus.INSUFFICIENT_EVIDENCE
+        ):
+            raise ValueError(
+                "INSUFFICIENT_EVIDENCE verdict requires matching claim status"
+            )
+        return self
+
+
+class ClaimVerificationRecord(StrictModel):
+    id: str
+    claim_id: str
+    verification_iteration: int = Field(ge=1)
+    claim_version_iteration: int = Field(ge=1)
+    phase: VerificationPhase
+    evidence_source_ids: list[str] = Field(default_factory=list)
+    result: ClaimVerificationResult
+    counter_search_status: CounterSearchStatus = CounterSearchStatus.NOT_REQUESTED
+    counter_search_iteration: int | None = Field(default=None, ge=1)
+    counter_search_source_ids: list[str] = Field(default_factory=list)
+    reconciliation_applied: bool = False
+    previous_claim_text: str | None = None
+    current_claim_text: str | None = None
+    previous_confidence: Confidence | None = None
+    current_confidence: Confidence | None = None
+    previous_status: ClaimStatus | None = None
+    current_status: ClaimStatus | None = None
+
+    @model_validator(mode="after")
+    def validate_record(self) -> "ClaimVerificationRecord":
+        self.id = self.id.strip()
+        self.claim_id = self.claim_id.strip()
+        if not re.fullmatch(r"V[1-9]\d*", self.id):
+            raise ValueError("Verification IDs must use the form V1, V2, ...")
+        if not self.claim_id or self.result.claim_id != self.claim_id:
+            raise ValueError("Verification record and result claim IDs must match")
+        self.evidence_source_ids = _clean_optional_ids(self.evidence_source_ids)
+        self.counter_search_source_ids = _clean_optional_ids(
+            self.counter_search_source_ids
+        )
+        if (
+            self.counter_search_status == CounterSearchStatus.EXECUTED
+            and self.counter_search_iteration is None
+        ):
+            raise ValueError("Executed counter-search requires an iteration")
+        return self
+
+
 class LedgerResearchIteration(StrictModel):
     iteration_number: int = Field(ge=1)
     search_query: str
@@ -434,6 +570,20 @@ class LedgerResearchIteration(StrictModel):
     subquestion_status_changes: list["SubQuestionStatusChange"] = Field(
         default_factory=list
     )
+    search_purpose: SearchPurpose = SearchPurpose.GENERAL
+    search_target_id: str | None = None
+
+    @model_validator(mode="after")
+    def validate_search_target(self) -> "LedgerResearchIteration":
+        if self.search_target_id is not None:
+            self.search_target_id = self.search_target_id.strip() or None
+        if self.search_purpose == SearchPurpose.COUNTERSEARCH:
+            if not self.search_target_id or not re.fullmatch(r"C[1-9]\d*", self.search_target_id):
+                raise ValueError("Counter-search requires a claim target ID")
+        if self.search_purpose == SearchPurpose.SUBQUESTION:
+            if not self.search_target_id or not re.fullmatch(r"SQ[1-9]\d*", self.search_target_id):
+                raise ValueError("Subquestion search requires a subquestion target ID")
+        return self
 
 
 class SubQuestionStatusChange(StrictModel):
@@ -496,6 +646,7 @@ class ResearchState(StrictModel):
     research_gaps: list[ResearchGap] = Field(default_factory=list)
     ledger_iterations: list[LedgerResearchIteration] = Field(default_factory=list)
     research_plan: ResearchPlan | None = None
+    claim_verifications: list[ClaimVerificationRecord] = Field(default_factory=list)
     current_iteration: int = Field(default=0, ge=0)
     max_iterations: int = Field(default=3, ge=1)
     system_version: str = "baseline-zero"
@@ -529,6 +680,28 @@ class ResearchState(StrictModel):
                 raise ValueError(
                     f"{item.id} references unknown subquestion ID(s): "
                     + ", ".join(unknown_subquestion_ids)
+                )
+        verification_ids = [item.id for item in self.claim_verifications]
+        if len(verification_ids) != len(set(verification_ids)):
+            raise ValueError("Claim verification IDs must be unique")
+        source_ids = {source.id for source in self.sources}
+        for verification in self.claim_verifications:
+            if verification.claim_id not in claim_ids:
+                raise ValueError(
+                    f"Verification {verification.id} references unknown claim: "
+                    f"{verification.claim_id}"
+                )
+            unknown_source_ids = sorted(
+                set(
+                    verification.evidence_source_ids
+                    + verification.counter_search_source_ids
+                )
+                - source_ids
+            )
+            if unknown_source_ids:
+                raise ValueError(
+                    f"Verification {verification.id} references unknown source ID(s): "
+                    + ", ".join(unknown_source_ids)
                 )
         return self
 
@@ -617,6 +790,37 @@ class ResearchState(StrictModel):
 
     def gaps_for_subquestion(self, subquestion_id: str) -> list[ResearchGap]:
         return self.gaps_for(subquestion_id)
+
+    def verifications_for_claim(
+        self, claim_id: str
+    ) -> list[ClaimVerificationRecord]:
+        return [
+            item for item in self.claim_verifications if item.claim_id == claim_id
+        ]
+
+    def latest_verification(
+        self, claim_id: str
+    ) -> ClaimVerificationRecord | None:
+        matches = self.verifications_for_claim(claim_id)
+        return matches[-1] if matches else None
+
+    def has_counter_search_for_claim(self, claim_id: str) -> bool:
+        return any(
+            item.counter_search_status != CounterSearchStatus.NOT_REQUESTED
+            for item in self.verifications_for_claim(claim_id)
+        )
+
+    def get_verification(
+        self, verification_id: str
+    ) -> ClaimVerificationRecord | None:
+        return next(
+            (
+                item
+                for item in self.claim_verifications
+                if item.id == verification_id
+            ),
+            None,
+        )
 
 
 class FinalReport(StrictModel):

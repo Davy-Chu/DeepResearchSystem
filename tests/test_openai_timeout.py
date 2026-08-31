@@ -15,10 +15,12 @@ import research.decomposer as decomposer_module
 import research.evidence_processor as processor_module
 import research.report as report_module
 import research.subquestion_decision as subquestion_decision_module
+import research.verifier as verifier_module
 from research.config import (
     DEFAULT_OPENAI_MAX_RETRIES,
     DEFAULT_OPENAI_TIMEOUT_SECONDS,
     load_openai_max_retries,
+    load_settings,
     load_openai_timeout_seconds,
 )
 
@@ -57,6 +59,12 @@ from research.config import (
         (
             subquestion_decision_module,
             lambda: subquestion_decision_module.SubquestionResearchDecisionMaker(
+                "test-key", "test-model"
+            ),
+        ),
+        (
+            verifier_module,
+            lambda: verifier_module.IndependentClaimVerifier(
                 "test-key", "test-model"
             ),
         ),
@@ -131,3 +139,17 @@ def test_max_retries_must_be_a_non_negative_integer(
     monkeypatch.setenv("OPENAI_MAX_RETRIES", value)
     with pytest.raises(ValueError, match="non-negative integer"):
         load_openai_max_retries()
+
+
+def test_verifier_model_falls_back_to_researcher_model(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
+    monkeypatch.setenv("TAVILY_API_KEY", "test-tavily-key")
+    monkeypatch.setenv("OPENAI_MODEL", "researcher-model")
+    monkeypatch.setenv("VERIFIER_MODEL", "")
+
+    assert load_settings().verifier_model == "researcher-model"
+
+    monkeypatch.setenv("VERIFIER_MODEL", "independent-verifier-model")
+    assert load_settings().verifier_model == "independent-verifier-model"

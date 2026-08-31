@@ -25,6 +25,7 @@ from research.research_logger import ResearchLogger
 from research.runner import ResearchRunner
 from research.search import TavilySearchClient
 from research.subquestion_decision import SubquestionResearchDecisionMaker
+from research.verifier import IndependentClaimVerifier
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -32,11 +33,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("question", help="The research question to investigate")
     parser.add_argument(
         "--mode",
-        choices=("baseline", "ledger", "decomposed"),
+        choices=("baseline", "ledger", "decomposed", "verified"),
         default="baseline",
         help=(
             "Research architecture: baseline-zero (default), evidence-ledger-v1, "
-            "or evidence-ledger-decomposer-v1"
+            "evidence-ledger-decomposer-v1, or "
+            "evidence-ledger-decomposer-verifier-v1"
         ),
     )
     return parser
@@ -109,15 +111,22 @@ def main() -> int:
     try:
         settings = load_settings()
         output_dir = create_output_directory(args.question)
-        if args.mode in {"ledger", "decomposed"}:
+        if args.mode in {"ledger", "decomposed", "verified"}:
             research_logger = LedgerResearchLogger(
                 question=args.question.strip(),
                 model=settings.openai_model,
                 max_iterations=MAX_RESEARCH_ITERATIONS,
                 system_version=(
-                    "evidence-ledger-decomposer-v1"
-                    if args.mode == "decomposed"
-                    else "evidence-ledger-v1"
+                    "evidence-ledger-decomposer-verifier-v1"
+                    if args.mode == "verified"
+                    else (
+                        "evidence-ledger-decomposer-v1"
+                        if args.mode == "decomposed"
+                        else "evidence-ledger-v1"
+                    )
+                ),
+                verifier_model=(
+                    settings.verifier_model if args.mode == "verified" else None
                 ),
             )
         else:
@@ -134,7 +143,7 @@ def main() -> int:
             max_retries=settings.openai_max_retries,
         )
         failure_stage = "Research Execution"
-        if args.mode in {"ledger", "decomposed"}:
+        if args.mode in {"ledger", "decomposed", "verified"}:
             assert isinstance(research_logger, LedgerResearchLogger)
             evidence_processor = EvidenceProcessor(
                 settings.openai_api_key,
@@ -142,7 +151,7 @@ def main() -> int:
                 timeout_seconds=settings.openai_timeout_seconds,
                 max_retries=settings.openai_max_retries,
             )
-            if args.mode == "decomposed":
+            if args.mode in {"decomposed", "verified"}:
                 decision_maker = SubquestionResearchDecisionMaker(
                     settings.openai_api_key,
                     settings.openai_model,
@@ -155,6 +164,16 @@ def main() -> int:
                     timeout_seconds=settings.openai_timeout_seconds,
                     max_retries=settings.openai_max_retries,
                 )
+                claim_verifier = (
+                    IndependentClaimVerifier(
+                        settings.openai_api_key,
+                        settings.verifier_model,
+                        timeout_seconds=settings.openai_timeout_seconds,
+                        max_retries=settings.openai_max_retries,
+                    )
+                    if args.mode == "verified"
+                    else None
+                )
             else:
                 decision_maker = ResearchDecisionMaker(
                     settings.openai_api_key,
@@ -163,6 +182,7 @@ def main() -> int:
                     max_retries=settings.openai_max_retries,
                 )
                 question_decomposer = None
+                claim_verifier = None
             runner = LedgerResearchRunner(
                 search_client,
                 evidence_processor,
@@ -171,6 +191,7 @@ def main() -> int:
                 research_logger=research_logger,
                 question_decomposer=question_decomposer,
                 system_version=research_logger.system_version,
+                claim_verifier=claim_verifier,
             )
         else:
             assert isinstance(research_logger, ResearchLogger)

@@ -22,6 +22,7 @@ class Settings:
     openai_model: str = DEFAULT_OPENAI_MODEL
     openai_timeout_seconds: float = DEFAULT_OPENAI_TIMEOUT_SECONDS
     openai_max_retries: int = DEFAULT_OPENAI_MAX_RETRIES
+    verifier_model: str = DEFAULT_OPENAI_MODEL
 
 
 def load_openai_timeout_seconds() -> float:
@@ -72,10 +73,13 @@ def load_settings() -> Settings:
         )
 
     model = os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL).strip()
+    resolved_model = model or DEFAULT_OPENAI_MODEL
+    verifier_model = os.getenv("VERIFIER_MODEL", "").strip() or resolved_model
     return Settings(
         openai_api_key=openai_api_key,
         tavily_api_key=tavily_api_key,
-        openai_model=model or DEFAULT_OPENAI_MODEL,
+        openai_model=resolved_model,
+        verifier_model=verifier_model,
         openai_timeout_seconds=load_openai_timeout_seconds(),
         openai_max_retries=load_openai_max_retries(),
     )

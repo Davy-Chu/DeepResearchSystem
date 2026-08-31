@@ -1,9 +1,9 @@
-# Deep Research Agent — Baseline Zero and Evidence Ledger
+# Deep Research Agent — Baseline Zero, Evidence Ledger, and Verification
 
 ## What this is
 
-This repository contains three selectable, comparable architectures for iterative web
-research. Both retrieve pages with Tavily, use OpenAI structured outputs, and produce a
+This repository contains four selectable, comparable architectures for iterative web
+research. They retrieve pages with Tavily, use OpenAI structured outputs, and produce a
 final report, human-readable log, reproducible machine trace, and Evaluator v0-compatible
 artifacts.
 
@@ -14,6 +14,9 @@ The system favors an honest incomplete answer over unsupported completeness. It 
 research gaps across iterations before making a separate research decision.
 `evidence-ledger-decomposer-v1` first creates a stable two-to-six-subquestion research
 plan, then uses the ledger to target unresolved subquestions explicitly.
+`evidence-ledger-decomposer-verifier-v1` independently audits important supported CORE
+claims and can spend the next ordinary search slot on a falsification-oriented
+counter-search before reconciling the claim.
 
 ## Architecture
 
@@ -59,6 +62,28 @@ question; later searches target one unresolved subquestion at a time. Subquestio
 from linked claims and gaps after each evidence update. The plan is not expanded or
 rewritten during a run.
 
+Verified mode builds on decomposed mode:
+
+```text
+Question
+  -> Decompose
+  -> Search
+  -> Evidence Ledger
+  -> Independent Verification
+       |-> Counter-search -> Evidence Processor -> Ledger Update -> Reverify
+       `-> Continue
+  -> Subquestion Decision
+  -> Report
+```
+
+The verifier runs in a fresh OpenAI request context. It receives only the original
+question, the selected claim ID and text, related subquestion questions and success
+criteria, neutral saved source snapshots, its verification phase, and whether a
+counter-search is allowed. It does not receive the claim's status, confidence,
+confidence reason, processor evidence labels, other claims, controller reasoning, or a
+draft/final report. Verification can revise claim wording, confidence, and status, but
+only the Evidence Processor can change supporting or contradicting evidence relations.
+
 ## Requirements
 
 - Python 3.11 or newer
@@ -97,6 +122,7 @@ Copy `.env.example` to `.env` and populate both keys:
 OPENAI_API_KEY=your-key
 TAVILY_API_KEY=your-key
 OPENAI_MODEL=gpt-5.6-terra
+VERIFIER_MODEL=
 EVALUATOR_MODEL=gpt-5.6-terra
 OPENAI_EVALUATOR_MODEL=gpt-5.6-terra
 OPENAI_TIMEOUT_SECONDS=120
@@ -107,6 +133,8 @@ OPENAI_MAX_RETRIES=1
 `OPENAI_EVALUATOR_MODEL` configures evaluator-v1 and falls back through
 `EVALUATOR_MODEL` to `OPENAI_MODEL`. All model choices can be changed without editing
 code. `.env` is ignored by Git, and keys are never logged.
+`VERIFIER_MODEL` configures the independent claim verifier and falls back to
+`OPENAI_MODEL` when blank or missing. It uses the existing OpenAI API key.
 `OPENAI_TIMEOUT_SECONDS` applies to every OpenAI request attempt and defaults to 120
 seconds. The OpenAI SDK may retry a timed-out request, so total elapsed time can exceed
 this value.
@@ -133,6 +161,13 @@ Run the subquestion-aware Evidence Ledger Decomposer v1:
 python main.py "your research question" --mode decomposed
 ```
 
+Run the decomposed architecture with independent verification and adversarial
+counter-search:
+
+```bash
+python main.py "your research question" --mode verified
+```
+
 For example:
 
 ```bash
@@ -148,6 +183,13 @@ two model-based research decisions, and one final-report request. Either mode ca
 API usage or charges. Decomposed mode has the same search and ledger limits plus one
 question-decomposition request, for a maximum of three Tavily requests and seven OpenAI
 requests (one decomposition, three evidence updates, two decisions, and one report).
+Verified mode retains the same hard maximum of three Tavily searches. A verifier-requested
+counter-search consumes the next slot in that budget and goes through the same Tavily
+client and Evidence Processor; it is not a hidden fourth search. A claim can receive at
+most one adversarial counter-search, after which the same claim is forcibly reverified
+without permitting another counter-search. In the worst case, verified mode makes ten
+OpenAI requests: one decomposition, three evidence updates, up to three verification
+calls, up to two ordinary decisions, and one report request.
 
 ## Evaluating a Saved Run
 
@@ -269,8 +311,8 @@ outputs/
 Each run directory contains:
 
 - `report.md`: the final research findings, rendered deterministically from the structured report with claims and evidence visually separated.
-- `research_log.md`: a chronological explanation of searches, state updates, decisions, and timings. Ledger-mode logs explicitly show new and updated claims, confidence/status transitions, gap changes, and a state summary after every iteration. Decomposed-mode logs also show the initial plan, per-iteration subquestion progress, transitions, and targeted search counts.
-- `trace.json`: the machine-readable trace. It records `system_version`, decisions, stop reason, model, structured final report, and exact source snapshots. Ledger mode additionally preserves the full evidence ledger, evidence relationships, gap creation/resolution, and decision targets; decomposed mode also preserves the full research plan and status transitions.
+- `research_log.md`: a chronological explanation of searches, state updates, decisions, and timings. Ledger-mode logs explicitly show new and updated claims, confidence/status transitions, gap changes, and a state summary after every iteration. Decomposed-mode logs also show the initial plan, per-iteration subquestion progress, transitions, and targeted search counts. Verified-mode logs add neutral-evidence verification records, before/after reconciliation, counter-search lifecycle, search-purpose allocation, verifier calls, verdict counts, and change counts.
+- `trace.json`: the machine-readable trace. It records `system_version`, decisions, stop reason, model, structured final report, and exact source snapshots. Ledger mode additionally preserves the full evidence ledger, evidence relationships, gap creation/resolution, and decision targets; decomposed mode also preserves the full research plan and status transitions. Verified mode adds `claim_verifications`, `search_purpose`, `search_target_id`, `decision_origin`, and counter-search metadata.
 
 The Evidence Ledger research log is organized for quick review:
 
@@ -332,7 +374,7 @@ All current architectures:
 - evaluates citation support with an LLM against saved source text, but does not perform
   independent internet fact-checking;
 - rely on model judgment to interpret evidence and identify semantic claim updates;
-- do not use embeddings or an independent verifier;
+- do not use embeddings; only verified mode adds an independent verifier;
 - may still miss contradictions or create semantically overlapping claims;
 - may be vulnerable to imperfect retrieval;
 - uses prompt-level protection against instructions embedded in webpages rather than a complete prompt-injection defense.

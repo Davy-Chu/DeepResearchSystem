@@ -10,6 +10,7 @@ from time import perf_counter
 
 from research.models import (
     ClaimStatus,
+    ClaimVerificationRecord,
     EvidenceLedger,
     EvidenceProcessingResult,
     FinalReport,
@@ -20,6 +21,7 @@ from research.models import (
     ResearchGap,
     ResearchPlan,
     ResearchState,
+    SearchPurpose,
     Source,
     SubQuestionStatusChange,
 )
@@ -33,6 +35,8 @@ class LedgerIterationLog:
     results_returned: int
     new_sources: list[Source]
     search_duration: float
+    search_purpose: SearchPurpose = SearchPurpose.GENERAL
+    search_target_id: str | None = None
     processing_attempted: bool = False
     processing_result: EvidenceProcessingResult | None = None
     ledger_updates: LedgerUpdateSummary | None = None
@@ -48,6 +52,9 @@ class LedgerIterationLog:
         default_factory=list
     )
     research_plan_snapshot: ResearchPlan | None = None
+    verification_attempts: int = 0
+    verifications: list[ClaimVerificationRecord] = field(default_factory=list)
+    verification_duration: float = 0.0
 
 
 @dataclass
@@ -57,6 +64,7 @@ class LedgerResearchLogger:
     max_iterations: int
     system_version: str = "evidence-ledger-v1"
     search_provider: str = "Tavily"
+    verifier_model: str | None = None
     iterations: list[LedgerIterationLog] = field(default_factory=list)
     start_time: datetime | None = None
     end_time: datetime | None = None
@@ -93,6 +101,8 @@ class LedgerResearchLogger:
         results_returned: int,
         new_sources: list[Source],
         duration: float,
+        search_purpose: SearchPurpose = SearchPurpose.GENERAL,
+        search_target_id: str | None = None,
     ) -> None:
         self.iterations.append(
             LedgerIterationLog(
@@ -102,6 +112,8 @@ class LedgerResearchLogger:
                 results_returned=results_returned,
                 new_sources=list(new_sources),
                 search_duration=duration,
+                search_purpose=search_purpose,
+                search_target_id=search_target_id,
             )
         )
 
@@ -138,6 +150,37 @@ class LedgerResearchLogger:
 
     def record_report_attempt(self) -> None:
         self.report_attempted = True
+
+    def record_verification_attempt(self, iteration_number: int) -> None:
+        self._iteration(iteration_number).verification_attempts += 1
+
+    def record_verification(
+        self,
+        iteration_number: int,
+        record: ClaimVerificationRecord,
+        duration: float,
+        state: ResearchState,
+        status_changes: list[SubQuestionStatusChange] | None = None,
+    ) -> None:
+        item = self._iteration(iteration_number)
+        item.verifications.append(record.model_copy(deep=True))
+        item.verification_duration += duration
+        item.ledger_snapshot = state.evidence_ledger.model_copy(deep=True)
+        item.research_plan_snapshot = (
+            state.research_plan.model_copy(deep=True)
+            if state.research_plan is not None
+            else None
+        )
+        item.subquestion_status_changes = [
+            change.model_copy(deep=True) for change in (status_changes or [])
+        ]
+
+    def synchronize_verification(self, record: ClaimVerificationRecord) -> None:
+        """Refresh an earlier log snapshot after its counter-search executes."""
+        for iteration in self.iterations:
+            for index, logged in enumerate(iteration.verifications):
+                if logged.id == record.id:
+                    iteration.verifications[index] = record.model_copy(deep=True)
 
     def record_decision(
         self,
@@ -206,6 +249,7 @@ class LedgerResearchLogger:
             lines.extend(self._render_iteration(iteration))
         lines.extend(self._render_final_decision())
         lines.extend(self._render_performance())
+        lines.extend(self._render_verifier_diagnostics())
         return "\n".join(lines).rstrip() + "\n"
 
     def _render_summary(self) -> list[str]:
@@ -248,6 +292,8 @@ class LedgerResearchLogger:
                 "",
             ]
         )
+        if self.verifier_model:
+            lines.extend([f"**Verifier Model:** {self.verifier_model}", ""])
         if self.start_time:
             lines.extend([f"**Started:** {self.start_time.isoformat(timespec='seconds')}", ""])
         if self.end_time:
@@ -315,6 +361,8 @@ class LedgerResearchLogger:
             "",
             f"> {item.search_query}",
             "",
+            f"**Purpose:** {item.search_purpose.value}",
+            "",
             "**Why this query**",
             "",
             item.query_reason,
@@ -323,6 +371,8 @@ class LedgerResearchLogger:
             f"{len(item.new_sources)} new unique source(s) added.",
             "",
         ]
+        if item.search_target_id:
+            lines[8:8] = [f"**Target:** {item.search_target_id}", ""]
         for source in item.new_sources:
             lines.extend([f"- **{source.id} — {source.title}**", f"  URL: {source.url}"])
         if not item.new_sources:
@@ -357,9 +407,92 @@ class LedgerResearchLogger:
         lines.extend(self._render_ledger_updates(item))
         lines.extend(["---", "", "## 4. Current Research State", ""])
         lines.extend(self._render_state_summary(item))
-        lines.extend(["---", "", "## 5. Research Decision", ""])
+        if self._verifier_enabled():
+            lines.extend(["---", "", "## 5. Independent Verification", ""])
+            lines.extend(self._render_verifications(item))
+            decision_section = "## 6. Research Decision"
+        else:
+            decision_section = "## 5. Research Decision"
+        lines.extend(["---", "", decision_section, ""])
         lines.extend(self._render_decision(item))
         lines.extend(["", "---", ""])
+        return lines
+
+    def _render_verifications(self, item: LedgerIterationLog) -> list[str]:
+        if not item.verifications:
+            return ["No eligible claim was independently verified.", ""]
+        lines: list[str] = []
+        for record in item.verifications:
+            result = record.result
+            lines.extend(
+                [
+                    f"### {record.id} — Claim {record.claim_id}",
+                    "",
+                    f"**Phase:** {record.phase.value}",
+                    "",
+                    f"**Evidence source IDs:** "
+                    f"{', '.join(record.evidence_source_ids) or 'None'}",
+                    "",
+                    f"**Verdict:** {result.verdict.value}",
+                    "",
+                    "**Reason**",
+                    "",
+                    result.reason,
+                    "",
+                ]
+            )
+            if result.missing_assumptions:
+                lines.extend(["**Missing assumptions**", ""])
+                lines.extend(f"- {value}" for value in result.missing_assumptions)
+                lines.append("")
+            if result.source_quality_concerns:
+                lines.extend(["**Source concerns**", ""])
+                lines.extend(
+                    f"- {value}" for value in result.source_quality_concerns
+                )
+                lines.append("")
+            lines.extend(
+                [
+                    f"**Counter-search status:** "
+                    f"{record.counter_search_status.value}",
+                    "",
+                ]
+            )
+            if result.counter_search_query:
+                lines.extend(
+                    ["**Counter-search query:**", "", f"> {result.counter_search_query}", ""]
+                )
+            if record.counter_search_source_ids:
+                lines.extend(
+                    [
+                        f"**Counter-search evidence:** "
+                        f"{', '.join(record.counter_search_source_ids)}",
+                        "",
+                    ]
+                )
+            if record.reconciliation_applied:
+                lines.extend(["**Reconciliation**", ""])
+                if record.previous_claim_text != record.current_claim_text:
+                    lines.extend(
+                        [
+                            "Claim:",
+                            "",
+                            f'"{record.previous_claim_text}"',
+                            "→",
+                            f'"{record.current_claim_text}"',
+                            "",
+                        ]
+                    )
+                lines.extend(
+                    [
+                        f"Confidence: {record.previous_confidence.value} → "
+                        f"{record.current_confidence.value}",
+                        "",
+                        f"Status: {record.previous_status.value} → "
+                        f"{record.current_status.value}",
+                        "",
+                    ]
+                )
         return lines
 
     def _render_ledger_updates(self, item: LedgerIterationLog) -> list[str]:
@@ -482,6 +615,8 @@ class LedgerResearchLogger:
             "**Decision:** "
             + ("Continue researching." if decision.needs_more_research else "Stop researching."),
             "",
+            f"**Origin:** {decision.decision_origin.value}",
+            "",
         ]
         if decision.target_type is not None:
             target = decision.target_type.value
@@ -525,6 +660,7 @@ class LedgerResearchLogger:
         search_total = sum(item.search_duration for item in self.iterations)
         processing_total = sum(item.processing_duration or 0.0 for item in self.iterations)
         decision_total = sum(item.decision_duration or 0.0 for item in self.iterations)
+        verification_total = sum(item.verification_duration for item in self.iterations)
         lines = [
             "# Performance Summary",
             "",
@@ -539,12 +675,102 @@ class LedgerResearchLogger:
         lines.extend([
             f"| Tavily Search | {len(self.iterations)} | {self._duration(search_total)} |",
             f"| Evidence Processing | {self._processing_calls()} | {self._duration(processing_total)} |",
-            f"| Research Decision | {self._decision_calls()} | {self._duration(decision_total)} |",
-            f"| Report Generation | {self._report_calls()} | {self._duration(self.report_duration or 0.0)} |",
-            f"| Total Run | — | {self._duration(self.total_runtime or 0.0)} |",
-            "",
         ])
+        if self._verifier_enabled():
+            lines.append(
+                f"| Independent Verification | {self._verification_calls()} | "
+                f"{self._duration(verification_total)} |"
+            )
+        lines.extend(
+            [
+                f"| Research Decision | {self._decision_calls()} | {self._duration(decision_total)} |",
+                f"| Report Generation | {self._report_calls()} | {self._duration(self.report_duration or 0.0)} |",
+                f"| Total Run | — | {self._duration(self.total_runtime or 0.0)} |",
+                "",
+            ]
+        )
         return lines
+
+    def _render_verifier_diagnostics(self) -> list[str]:
+        if not self._verifier_enabled():
+            return []
+        records = self._verification_records()
+        verdicts = {
+            verdict: sum(record.result.verdict.value == verdict for record in records)
+            for verdict in (
+                "VERIFIED",
+                "NEEDS_QUALIFICATION",
+                "CONTRADICTED",
+                "INSUFFICIENT_EVIDENCE",
+            )
+        }
+        statuses = {
+            status: sum(record.counter_search_status.value == status for record in records)
+            for status in (
+                "EXECUTED",
+                "BLOCKED_BUDGET",
+                "BLOCKED_DUPLICATE",
+            )
+        }
+        confidence_rank = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
+        confidence_decreases = sum(
+            record.reconciliation_applied
+            and record.previous_confidence is not None
+            and record.current_confidence is not None
+            and confidence_rank[record.current_confidence.value]
+            < confidence_rank[record.previous_confidence.value]
+            for record in records
+        )
+        wording_changes = sum(
+            record.reconciliation_applied
+            and record.previous_claim_text != record.current_claim_text
+            for record in records
+        )
+        status_changes = sum(
+            record.reconciliation_applied
+            and record.previous_status != record.current_status
+            for record in records
+        )
+        search_counts = {
+            purpose: sum(item.search_purpose.value == purpose for item in self.iterations)
+            for purpose in ("GENERAL", "SUBQUESTION", "COUNTERSEARCH")
+        }
+        requested = sum(record.result.counter_search_needed for record in records)
+        lines = [
+            "# Verifier Diagnostics",
+            "",
+            f"- Verification calls: {self._verification_calls()}",
+            f"- Claims verified: {len({record.claim_id for record in records})}",
+            f"- VERIFIED verdicts: {verdicts['VERIFIED']}",
+            f"- NEEDS_QUALIFICATION verdicts: {verdicts['NEEDS_QUALIFICATION']}",
+            f"- CONTRADICTED verdicts: {verdicts['CONTRADICTED']}",
+            f"- INSUFFICIENT_EVIDENCE verdicts: {verdicts['INSUFFICIENT_EVIDENCE']}",
+            f"- Counter-searches requested: {requested}",
+            f"- Counter-searches executed: {statuses['EXECUTED']}",
+            f"- Counter-searches blocked by budget: {statuses['BLOCKED_BUDGET']}",
+            f"- Counter-searches blocked as duplicates: {statuses['BLOCKED_DUPLICATE']}",
+            f"- Claims whose wording changed: {wording_changes}",
+            f"- Claims whose confidence decreased: {confidence_decreases}",
+            f"- Claims whose status changed: {status_changes}",
+            f"- Searches allocated to general research: {search_counts['GENERAL']}",
+            f"- Searches allocated to subquestions: {search_counts['SUBQUESTION']}",
+            f"- Searches allocated to counter-search: {search_counts['COUNTERSEARCH']}",
+            "",
+        ]
+        return lines
+
+    def _verification_records(self) -> list[ClaimVerificationRecord]:
+        by_id: dict[str, ClaimVerificationRecord] = {}
+        for iteration in self.iterations:
+            for record in iteration.verifications:
+                by_id[record.id] = record
+        return list(by_id.values())
+
+    def _verifier_enabled(self) -> bool:
+        return (
+            self.verifier_model is not None
+            or self.system_version == "evidence-ledger-decomposer-verifier-v1"
+        )
 
     def _iteration(self, iteration_number: int) -> LedgerIterationLog:
         for item in self.iterations:
@@ -561,10 +787,14 @@ class LedgerResearchLogger:
     def _report_calls(self) -> int:
         return 1 if self.report_attempted else 0
 
+    def _verification_calls(self) -> int:
+        return sum(item.verification_attempts for item in self.iterations)
+
     def _openai_calls(self) -> int:
         return (
             (1 if self.decomposition_attempted else 0)
             + self._processing_calls()
+            + self._verification_calls()
             + self._decision_calls()
             + self._report_calls()
         )

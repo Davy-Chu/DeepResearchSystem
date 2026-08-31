@@ -22,6 +22,10 @@ def test_research_modes_are_selectable() -> None:
         build_parser().parse_args(["Question", "--mode", "decomposed"]).mode
         == "decomposed"
     )
+    assert (
+        build_parser().parse_args(["Question", "--mode", "verified"]).mode
+        == "verified"
+    )
 
 
 def test_failed_final_synthesis_saves_all_incomplete_artifacts() -> None:

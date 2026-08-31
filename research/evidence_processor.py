@@ -116,7 +116,7 @@ class EvidenceProcessor:
         return response.output_parsed
 
 
-def _next_id(prefix: str, existing_ids: list[str]) -> str:
+def next_stable_id(prefix: str, existing_ids: list[str]) -> str:
     numbers = [
         int(match.group(1))
         for item in existing_ids
@@ -251,7 +251,7 @@ def apply_evidence_processing_result(
     changes = LedgerUpdateSummary()
 
     for proposal in result.new_claims:
-        claim_id = _next_id(
+        claim_id = next_stable_id(
             "C", [claim.id for claim in state.evidence_ledger.claims]
         )
         supporting = _deduplicate_relations(proposal.supporting_evidence)
@@ -320,7 +320,7 @@ def apply_evidence_processing_result(
         )
 
     for proposal in result.new_gaps:
-        gap_id = _next_id("G", [gap.id for gap in state.research_gaps])
+        gap_id = next_stable_id("G", [gap.id for gap in state.research_gaps])
         gap = ResearchGap(
             id=gap_id,
             description=proposal.description.strip(),
