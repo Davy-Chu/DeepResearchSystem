@@ -60,6 +60,17 @@ class SubQuestionStatus(str, Enum):
     CONFLICTING = "CONFLICTING"
 
 
+class ResearchDimensionImportance(str, Enum):
+    CORE = "CORE"
+    SECONDARY = "SECONDARY"
+
+
+class ResearchDimensionStatus(str, Enum):
+    UNRESEARCHED = "UNRESEARCHED"
+    PARTIAL = "PARTIAL"
+    SUFFICIENT = "SUFFICIENT"
+
+
 class VerificationVerdict(str, Enum):
     VERIFIED = "VERIFIED"
     NEEDS_QUALIFICATION = "NEEDS_QUALIFICATION"
@@ -162,6 +173,108 @@ class QuestionDecomposition(StrictModel):
             self.output_requirements
         ) if self.output_requirements else []
         return self
+
+
+class ResearchDimensionProposal(StrictModel):
+    title: str
+    research_question: str
+    why_it_matters: str
+    evidence_needed: str
+    importance: ResearchDimensionImportance
+
+    @model_validator(mode="after")
+    def validate_content(self) -> "ResearchDimensionProposal":
+        for field_name in (
+            "title",
+            "research_question",
+            "why_it_matters",
+            "evidence_needed",
+        ):
+            value = getattr(self, field_name).strip()
+            if not value:
+                raise ValueError("Research dimension text must not be empty")
+            setattr(self, field_name, value)
+        return self
+
+
+class PriorKnowledgePlanProposal(StrictModel):
+    dimensions: list[ResearchDimensionProposal] = Field(min_length=4, max_length=8)
+    synthesis_requirements: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_proposal(self) -> "PriorKnowledgePlanProposal":
+        titles = [item.title.casefold() for item in self.dimensions]
+        questions = [item.research_question.casefold() for item in self.dimensions]
+        if len(titles) != len(set(titles)) or len(questions) != len(set(questions)):
+            raise ValueError("Research dimensions must be distinct")
+        self.synthesis_requirements = (
+            _clean_unique_strings(self.synthesis_requirements)
+            if self.synthesis_requirements
+            else []
+        )
+        return self
+
+
+class ResearchDimension(ResearchDimensionProposal):
+    id: str
+    status: ResearchDimensionStatus = ResearchDimensionStatus.UNRESEARCHED
+    status_reason: str = "No retrieved evidence has been analyzed yet."
+    search_attempts: int = Field(default=0, ge=0)
+
+    @model_validator(mode="after")
+    def validate_dimension(self) -> "ResearchDimension":
+        self.id = self.id.strip()
+        self.status_reason = self.status_reason.strip()
+        if not re.fullmatch(r"D[1-9]\d*", self.id):
+            raise ValueError("Research dimension IDs must use the form D1, D2, ...")
+        if not self.status_reason:
+            raise ValueError("Research dimensions require a status reason")
+        return self
+
+
+class PriorKnowledgeResearchPlan(StrictModel):
+    dimensions: list[ResearchDimension] = Field(min_length=4, max_length=8)
+    synthesis_requirements: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_plan(self) -> "PriorKnowledgeResearchPlan":
+        expected_ids = [f"D{index}" for index in range(1, len(self.dimensions) + 1)]
+        if [item.id for item in self.dimensions] != expected_ids:
+            raise ValueError("Research dimension IDs must be sequential from D1")
+        self.synthesis_requirements = (
+            _clean_unique_strings(self.synthesis_requirements)
+            if self.synthesis_requirements
+            else []
+        )
+        return self
+
+    def get_dimension(self, dimension_id: str) -> ResearchDimension | None:
+        return next(
+            (item for item in self.dimensions if item.id == dimension_id), None
+        )
+
+
+class ResearchDimensionStatusUpdate(StrictModel):
+    dimension_id: str
+    status: ResearchDimensionStatus
+    status_reason: str
+
+    @model_validator(mode="after")
+    def validate_update(self) -> "ResearchDimensionStatusUpdate":
+        self.dimension_id = self.dimension_id.strip()
+        self.status_reason = self.status_reason.strip()
+        if not re.fullmatch(r"D[1-9]\d*", self.dimension_id):
+            raise ValueError("Dimension status updates require a D* ID")
+        if not self.status_reason:
+            raise ValueError("Dimension status updates require a reason")
+        return self
+
+
+class ResearchDimensionStatusChange(StrictModel):
+    dimension_id: str
+    previous_status: ResearchDimensionStatus
+    current_status: ResearchDimensionStatus
+    status_reason: str
 
 
 class SubQuestion(StrictModel):
@@ -633,11 +746,28 @@ class IterationAnalysis(StrictModel):
         return self
 
 
+class PriorGuidedIterationAnalysis(IterationAnalysis):
+    dimension_status_updates: list[ResearchDimensionStatusUpdate]
+    target_dimension_id: str | None = None
+    blocking_conflict: bool = False
+
+    @model_validator(mode="after")
+    def validate_target(self) -> "PriorGuidedIterationAnalysis":
+        if self.target_dimension_id is not None:
+            self.target_dimension_id = self.target_dimension_id.strip() or None
+        return self
+
+
 class ResearchIteration(StrictModel):
     iteration_number: int = Field(ge=1)
     search_query: str
     source_ids: list[str] = Field(default_factory=list)
     analysis: IterationAnalysis
+    search_target_dimension_id: str | None = None
+    dimension_status_changes: list[ResearchDimensionStatusChange] = Field(
+        default_factory=list
+    )
+    blocking_conflict: bool = False
 
 
 class ResearchState(StrictModel):
@@ -648,6 +778,7 @@ class ResearchState(StrictModel):
     research_gaps: list[ResearchGap] = Field(default_factory=list)
     ledger_iterations: list[LedgerResearchIteration] = Field(default_factory=list)
     research_plan: ResearchPlan | None = None
+    prior_knowledge_plan: PriorKnowledgeResearchPlan | None = None
     claim_verifications: list[ClaimVerificationRecord] = Field(default_factory=list)
     current_iteration: int = Field(default=0, ge=0)
     max_iterations: int = Field(default=3, ge=1)
@@ -683,6 +814,31 @@ class ResearchState(StrictModel):
                     f"{item.id} references unknown subquestion ID(s): "
                     + ", ".join(unknown_subquestion_ids)
                 )
+        if self.prior_knowledge_plan is not None:
+            valid_dimension_ids = {
+                item.id for item in self.prior_knowledge_plan.dimensions
+            }
+            for iteration in self.iterations:
+                if (
+                    iteration.search_target_dimension_id is not None
+                    and iteration.search_target_dimension_id not in valid_dimension_ids
+                ):
+                    raise ValueError(
+                        "Research iteration references unknown dimension ID: "
+                        + iteration.search_target_dimension_id
+                    )
+                unknown_change_ids = sorted(
+                    {
+                        change.dimension_id
+                        for change in iteration.dimension_status_changes
+                    }
+                    - valid_dimension_ids
+                )
+                if unknown_change_ids:
+                    raise ValueError(
+                        "Dimension status changes reference unknown ID(s): "
+                        + ", ".join(unknown_change_ids)
+                    )
         verification_ids = [item.id for item in self.claim_verifications]
         if len(verification_ids) != len(set(verification_ids)):
             raise ValueError("Claim verification IDs must be unique")
@@ -714,10 +870,34 @@ class ResearchState(StrictModel):
         return [conflict for item in self.iterations for conflict in item.analysis.conflicts]
 
     def all_unresolved_questions(self) -> list[str]:
-        return [
+        questions = [
             question
             for item in self.iterations
             for question in item.analysis.unresolved_questions
+        ]
+        if self.prior_knowledge_plan is not None:
+            questions.extend(
+                f"Insufficient retrieved evidence was found to evaluate {item.id}: "
+                f"{item.title} ({item.status.value}: {item.status_reason})"
+                for item in self.prior_knowledge_plan.dimensions
+                if item.status != ResearchDimensionStatus.SUFFICIENT
+            )
+        return list(dict.fromkeys(questions))
+
+    def core_dimensions(self) -> list[ResearchDimension]:
+        if self.prior_knowledge_plan is None:
+            return []
+        return [
+            item
+            for item in self.prior_knowledge_plan.dimensions
+            if item.importance == ResearchDimensionImportance.CORE
+        ]
+
+    def unresolved_core_dimensions(self) -> list[ResearchDimension]:
+        return [
+            item
+            for item in self.core_dimensions()
+            if item.status != ResearchDimensionStatus.SUFFICIENT
         ]
 
     def open_gaps(self) -> list[ResearchGap]:

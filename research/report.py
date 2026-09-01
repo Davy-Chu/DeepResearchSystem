@@ -24,7 +24,7 @@ from research.models import (
     ResearchState,
     Source,
 )
-from research.versions import BASELINE_SYSTEM_VERSION
+from research.versions import BASELINE_SYSTEM_VERSION, PRIOR_GUIDED_SYSTEM_VERSION
 
 REPORT_SYSTEM_PROMPT = """Create a structured final research report from the accumulated state.
 
@@ -88,6 +88,11 @@ class FinalReportGenerator:
     def generate(self, state: ResearchState) -> FinalReport:
         if state.system_version.startswith("evidence-ledger"):
             return self._generate_from_ledger(state)
+        payload = (
+            _prior_guided_report_payload(state)
+            if state.system_version == PRIOR_GUIDED_SYSTEM_VERSION
+            else state.model_dump(mode="json")
+        )
         response = self.client.responses.parse(
             model=self.model,
             reasoning={"effort": "low"},
@@ -95,7 +100,7 @@ class FinalReportGenerator:
                 {"role": "system", "content": REPORT_SYSTEM_PROMPT},
                 {
                     "role": "user",
-                    "content": json.dumps(state.model_dump(mode="json"), indent=2, ensure_ascii=False),
+                    "content": json.dumps(payload, indent=2, ensure_ascii=False),
                 },
             ],
             text_format=FinalReport,
@@ -108,7 +113,6 @@ class FinalReportGenerator:
                 "Final report omitted all findings accumulated during research"
             )
         return response.output_parsed
-
     def _generate_from_ledger(self, state: ResearchState) -> FinalReport:
         payload = {
             "question": state.question,
@@ -153,6 +157,27 @@ class FinalReportGenerator:
         ):
             raise ValueError("Final report omitted all supported evidence-ledger claims")
         return report
+
+
+def _prior_guided_report_payload(state: ResearchState) -> dict[str, Any]:
+    """Exclude prior-knowledge planning text from factual report synthesis."""
+    return {
+        "question": state.question,
+        "sources": [source.model_dump(mode="json") for source in state.sources],
+        "iterations": [
+            {
+                "iteration_number": item.iteration_number,
+                "search_query": item.search_query,
+                "source_ids": item.source_ids,
+                "analysis": item.analysis.model_dump(mode="json"),
+            }
+            for item in state.iterations
+        ],
+        "current_iteration": state.current_iteration,
+        "max_iterations": state.max_iterations,
+        "stop_reason": state.stop_reason,
+        "remaining_evidence_gaps": state.all_unresolved_questions(),
+    }
 
 
 def _finding_source_ids(finding: Finding) -> set[str]:
@@ -523,10 +548,25 @@ def build_trace(
                     conflict.model_dump(mode="json") for conflict in iteration.analysis.conflicts
                 ],
                 "unresolved_questions": iteration.analysis.unresolved_questions,
+                **(
+                    {
+                        "search_target_dimension_id": (
+                            iteration.search_target_dimension_id
+                        ),
+                        "dimension_status_changes": [
+                            change.model_dump(mode="json")
+                            for change in iteration.dimension_status_changes
+                        ],
+                        "blocking_conflict": iteration.blocking_conflict,
+                    }
+                    if state.system_version == PRIOR_GUIDED_SYSTEM_VERSION
+                    else {}
+                ),
             }
             for iteration in state.iterations
         ]
-        if state.system_version == BASELINE_SYSTEM_VERSION
+        if state.system_version
+        in {BASELINE_SYSTEM_VERSION, PRIOR_GUIDED_SYSTEM_VERSION}
         else [
             {
                 "iteration_number": iteration.iteration_number,
@@ -554,6 +594,30 @@ def build_trace(
             state.research_plan.model_dump(mode="json")
             if state.research_plan is not None
             else None
+        ),
+        **(
+            {
+                "prior_knowledge_plan": state.prior_knowledge_plan.model_dump(
+                    mode="json"
+                ),
+                "coverage_diagnostics": {
+                    "core_dimensions": len(state.core_dimensions()),
+                    "core_sufficient": sum(
+                        item.status.value == "SUFFICIENT"
+                        for item in state.core_dimensions()
+                    ),
+                    "core_partial": sum(
+                        item.status.value == "PARTIAL"
+                        for item in state.core_dimensions()
+                    ),
+                    "core_unresearched": sum(
+                        item.status.value == "UNRESEARCHED"
+                        for item in state.core_dimensions()
+                    ),
+                },
+            }
+            if state.prior_knowledge_plan is not None
+            else {}
         ),
         "claim_verifications": [
             item.model_dump(mode="json") for item in state.claim_verifications

@@ -1,0 +1,957 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "How close are quantum computers to providing commercially useful advantages over classical computers? Separate demonstrated quantum advantage from theoretical or projected advantages, and identify the biggest remaining technical barriers.",
+  "system_version": "baseline-zero",
+  "overall_score": 76.29755434782608,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.6565217391304347,
+    "coverage": 0.6630434782608695,
+    "depth": 0.6413043478260869,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report distinguishes “narrow computational separation” from “quantum economic advantage” and defines the latter as solving a problem faster with a comparably priced quantum system than with a classical alternative. [S2]",
+          "It separately discusses demonstrated benchmarks, theoretical opportunities, and forecasts, including projected dates of 2028–2029, the 2030s, and 2035 or later, while labeling forecasts as projections. [S2] [S3]",
+          "The report refers to runtime, accuracy, cost, operating expense, verification, and return on investment as relevant comparison dimensions."
+        ],
+        "missing": [
+          "No clear evidence date or cutoff period is stated at the beginning of the report; the source list contains future-dated material but does not establish a formal time boundary.",
+          "The four categories are not explicitly and systematically defined as separate categories: experimentally demonstrated advantage, end-to-end commercial advantage, theoretical algorithmic advantage, and hardware/resource-based projections.",
+          "The comparison metrics are discussed throughout, but not consolidated into clear definitions for each category."
+        ],
+        "rationale": "The report substantially gestures toward the requested distinctions and metrics, but it lacks an explicit evidence boundary and a structured definition of all four categories."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It describes the IBM/University of Chicago demonstration: a 70-logical-qubit verified hard-sampling computation, roughly 15 minutes on quantum hardware, and prohibitive runtimes for leading classical simulations. [S9] [S10]",
+          "It describes the Q-CTRL/IBM experiment: a 120-qubit one-dimensional Fermi–Hubbard simulation, approximately 1% RMSE over part of the evolution range, and a claimed up-to-3,000× speedup against an ITensor/TDVP solver. [S19]",
+          "It identifies important limitations: the IBM task is a benchmark rather than a commercial workload, while the Q-CTRL task is a one-dimensional model with conditional accuracy and baseline dependence. [S9] [S10] [S19] [S22]",
+          "It notes an alternative classical result in which Majorana Propagation reproduced a result quickly and took about 19 minutes at a higher-accuracy setting. [S14] [S20]"
+        ],
+        "missing": [
+          "The IBM demonstration is not described in enough technical detail regarding platform, exact task structure, classical algorithms, verification procedure, or the strength and practical relevance of the classical comparison.",
+          "The report relies heavily on institutional, vendor, and secondary accounts and does not present an independent replication of either demonstration.",
+          "The demonstrations are differentiated, but the report could more explicitly compare their evidentiary status and explain why sampling separation is weaker evidence of useful advantage than an application-oriented simulation benchmark."
+        ],
+        "rationale": "The report covers two representative demonstrations with results and limitations and avoids treating them as commercially equivalent. Some experimental and comparative detail remains incomplete."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion states that the field has not crossed the threshold of “broad, independently validated, end-to-end commercially useful advantage over classical computing.”",
+          "For Q-CTRL, the report says there is no demonstrated industrial customer workflow, actionable materials-discovery result, end-to-end savings, procurement or operating costs, or return on investment. [S19] [S20] [S21] [S23]",
+          "It explicitly warns that the 3,000× result depends on the selected TDVP baseline, hardware configuration, evolution range, accuracy boundary, and observable set. [S19] [S22]",
+          "It identifies missing end-to-end accounting for compilation, calibration, queueing, repetitions, error suppression, data movement, post-processing, energy, hardware, and operating costs.",
+          "It discusses subsequent or alternative classical methods, including Majorana Propagation, that materially change the apparent advantage. [S14] [S20] [S21]"
+        ],
+        "missing": [
+          "The report does not provide a fully worked end-to-end comparison for any economically meaningful workload, including quantified costs, availability, preprocessing, postprocessing, and repeated-run requirements.",
+          "It does not assess whether the IBM sampling result could have any economic value under a specific commercial use case; it mainly establishes that no such value is supplied by the sources.",
+          "The conclusion about absence of commercial advantage is appropriately qualified but is based on the supplied evidence rather than a systematic survey of all commercial deployments."
+        ],
+        "rationale": "This is one of the report’s strongest areas: it directly answers the commercial-usefulness question and addresses baseline sensitivity and workflow accounting. It falls short of full credit because no actual end-to-end economic benchmark is presented."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report identifies Shor’s algorithm and BB84 as examples of clearer theoretical advantages, while describing optimization and machine learning as less established. [S5] [S7]",
+          "It identifies quantum-system simulation, drug and materials discovery, optimization, finance, machine learning, and cryptographic tasks as candidate areas. [S1] [S2] [S5]",
+          "It states that many proposed business applications remain prospective and that resource estimates and roadmaps are projections rather than validated timelines. [S2] [S3]",
+          "It notes that useful advantages may require very large problems, exponential algorithmic gains, or very large datasets. [S2]"
+        ],
+        "missing": [
+          "The report generally does not state the claimed complexity or performance benefit for each important algorithmic area, such as Shor, Grover, quantum simulation, optimization, or quantum machine learning.",
+          "It provides few concrete resource estimates, logical-qubit requirements, circuit-depth requirements, data-loading assumptions, or fault-tolerance assumptions.",
+          "It does not systematically separate purely asymptotic theoretical advantages from hardware-dependent projections and explain the end-to-end conditions that could eliminate those advantages."
+        ],
+        "rationale": "The report recognizes the distinction between theory and projection and labels forecasts appropriately, but it lacks the algorithm-specific complexity, assumptions, and resource analysis required for deep treatment."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It identifies simulation and materials discovery as the most concrete motivation and says optimization and machine learning are substantially less established. [S7]",
+          "It lists chemistry, materials, optimization, finance, machine learning, and cryptography as possible application areas. [S1] [S2] [S5]",
+          "It characterizes likely early utility as specialized, scientific, and hybrid rather than broad replacement of classical systems."
+        ],
+        "missing": [
+          "Most application areas are only listed rather than compared in terms of theoretical promise, scientific usefulness, commercial value, and evidence strength.",
+          "There is little area-specific discussion of why chemistry/materials may be stronger than optimization, finance, or machine learning, beyond broad assertions from the cited sources.",
+          "Scientific computing and cryptography receive no detailed assessment of practical conditions, timelines, or commercial relevance.",
+          "The report does not identify concrete early-use milestones for the competing application areas."
+        ],
+        "rationale": "The report gives a useful high-level ranking—simulation appears stronger than optimization and machine learning—but does not provide the requested per-area comparative analysis."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It prioritizes the transition from error suppression/NISQ hardware to scalable fault-tolerant computing as the central barrier. [S1] [S4] [S7]",
+          "It explains effects of decoherence, gate errors, cascading errors, limited coherence, and physical-qubit overhead on deep useful circuits. [S1] [S4]",
+          "It identifies connectivity, routing-related control issues, cooling, manufacturing, wiring, classical control, and system integration as scaling constraints. [S1] [S4]",
+          "It distinguishes platform-specific obstacles, including superconducting cooling and control, neutral-atom scaling and error-rate uncertainty, and trapped-ion scaling. [S4]",
+          "It treats verification and fair classical benchmarking as barriers to credible advantage claims, not merely performance specifications. [S9] [S14] [S19] [S20]"
+        ],
+        "missing": [
+          "Logical-qubit scale, sustained logical circuit depth, logical error-rate targets, decoding, correlated errors, fabrication variability, and quantitative error-correction overhead are mentioned incompletely or not developed.",
+          "The report does not clearly rank the barriers by workload impact beyond calling fault tolerance the biggest barrier.",
+          "The consequences for particular workloads—such as chemistry, materials, optimization, or cryptanalysis—are mostly left as a list of missing application-specific requirements rather than explained in detail.",
+          "Photon loss and other architecture-specific constraints outside the platforms discussed are not covered."
+        ],
+        "rationale": "The report provides a strong barrier overview, explains several mechanisms, and distinguishes general from platform-specific constraints. It lacks quantitative and workload-specific prioritization needed for full credit."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report distinguishes primary preprints, institutional reports, vendor claims, secondary reporting, commentary, and roadmaps; it explicitly says the Q-CTRL evidence is primarily institutional or secondary reporting. [S16] [S19]",
+          "It notes that the Q-CTRL work lacks established peer review or independent replication of the commercial interpretation. [S16] [S17] [S18] [S19]",
+          "It reports disagreement over the Q-CTRL interpretation: Q-CTRL describes practical advantage, while commentary qualifies it as a one-dimensional benchmark with no direct commercial task. [S13] [S19] [S20] [S23]",
+          "It reports sensitivity to classical methods, including Majorana Propagation and the selected TDVP baseline. [S14] [S19] [S20] [S21]",
+          "It qualifies negative conclusions by stating that the material does not provide a systematic survey of deployed commercial workloads."
+        ],
+        "missing": [
+          "No independent replication or formal peer-reviewed critique is actually presented; the report mainly notes their absence.",
+          "The source-quality assessment does not systematically evaluate the IBM/UChicago claim against independent classical red-team analyses or alternative verification methods.",
+          "The report does not give a detailed assessment of source authority, methodological quality, or possible conflicts of interest for each major claim.",
+          "The uncertainty analysis could better distinguish uncertainty about whether an advantage exists from uncertainty about whether it is commercially valuable."
+        ],
+        "rationale": "Evidence provenance, disagreement, classical sensitivity, and uncertainty are handled well. Full credit is withheld because independent replication and systematic source criticism are absent."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion gives a calibrated synthesis: narrow technical advantage has been demonstrated or credibly reported, while broad commercial advantage has not been established.",
+          "It distinguishes verified hard computations, a specialized Fermi–Hubbard speedup, theoretical opportunities, and uncertain commercial applicability.",
+          "It avoids asserting a precise date as fact and explicitly labels forecasts such as 2028–2029, the 2030s, and 2035 or later as projections. [S2] [S3]",
+          "It identifies concrete evidence that would change the assessment: independent benchmarking, end-to-end cost accounting, replication, actionable materials-discovery results, customer ROI, and application-specific logical-qubit/error-rate/resource data."
+        ],
+        "missing": [
+          "The phrase “closer to specialized technical utility” is useful but not tied to a more explicit maturity scale or probability/confidence assessment for reaching commercial advantage.",
+          "The report does not specify quantitative milestone thresholds—for example, required logical error rates, workload sizes, cost ratios, or sustained throughput—that would demonstrate commercial advantage.",
+          "The synthesis could more explicitly state how far demonstrated benchmark advantage is from end-to-end commercial advantage in terms of missing stages of deployment."
+        ],
+        "rationale": "The report directly answers the closeness question, integrates the major evidence categories, and identifies meaningful milestones without overclaiming. It lacks quantitative milestone criteria and a more explicit maturity calibration."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report’s most useful synthesis is its separation of narrow benchmark/time-to-answer advantage from commercially meaningful end-to-end economic advantage.",
+        "It highlights verification and fair classical benchmarking as substantive technical and evidentiary barriers, rather than treating them as ancillary concerns.",
+        "It usefully frames the Q-CTRL result as potentially important but conditional on the classical baseline, accuracy target, observable, and full workflow accounting."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.8968750000000001,
+    "validity": 1.0,
+    "support": 0.8125,
+    "completeness": 1.0,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S19",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S15",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S22",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S23",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S19",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S22",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S19",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S23",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S19",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S22",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Narrow computational quantum advantage has been demonstrated, but this should not be equated with commercially useful advantage.",
+        "citation_ids": [
+          "S9",
+          "S10",
+          "S2"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S9 and S10 explicitly report a demonstrated quantum advantage on a trusted computation beyond the practical reach of leading classical simulation methods. S2 distinguishes computational quantum advantage from “quantum economic advantage,” noting that the former can overshadow usefulness and that businesses must assess whether quantum computing is faster than a comparably priced classical computer. Together, the sources support both the narrow demonstration and the warning against equating it with commercial usefulness.",
+        "supporting_text": "S10: the demonstration met the criteria for “quantum advantage” on trusted computations and was beyond leading classical simulation methods. S2: the focus on quantum advantage can overshadow usefulness; “quantum economic advantage” requires outperforming a comparably priced classical computer."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The Q-CTRL/IBM Fermi–Hubbard experiment is the strongest supplied evidence for a present-day, application-oriented advantage, but it remains a benchmark-specific reported result rather than established broad commercial advantage.",
+        "citation_ids": [
+          "S19",
+          "S11",
+          "S13",
+          "S15",
+          "S22",
+          "S23",
+          "S20",
+          "S21"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The supplied sources strongly support the existence of a reported Q-CTRL/IBM Fermi–Hubbard benchmark showing up to a 3,000× wall-clock speedup against a specified TDVP classical comparison, with agreement at approximately 1% RMSE in the relevant regime and application relevance to materials science. They also support caution: S20 and S21 explicitly say the result does not establish that no classical method can handle the task, that the comparison depends on observable, timing definition, tuning, and validation, and that better classical methods can reduce the apparent speedup. However, the sources do not establish that this experiment is the “strongest supplied evidence” among all possible evidence, nor do they directly prove the broader characterization “not established broad commercial advantage”; they mainly show a benchmark-specific result and describe it as evidence or a demonstration of “practical quantum advantage.”",
+        "supporting_text": "S19 reports a 120-qubit simulation whose quantum-processor runtime was “up to 3000× faster” than optimized TDVP at the limit of agreement. S13 describes the problem as commercially relevant and reports two minutes versus over 100 hours, but labels it “evidence of practical quantum advantage.” S22 states the comparison was “up to 3,000× faster at the agreement boundary” and validated within “~1% RMSE” only to a specified evolution time. S21 cautions that the processor “does not prove that no classical method can handle this task,” while S20 says the result “does not win on every observable” and that Majorana propagation weakens a simple advantage claim."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The reported 3,000× Q-CTRL speedup is conditional and should not be generalized to quantum computing as a whole.",
+        "citation_ids": [
+          "S19",
+          "S22",
+          "S14",
+          "S20",
+          "S21"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources consistently present the 3,000× figure as a specific comparison for a 1D Fermi–Hubbard simulation, against an ITensor TDVP classical baseline, at particular system sizes, evolution times, accuracy conditions, and timing definitions. They also explicitly caution that the result does not establish that no classical method can handle the task and that the meaning of “quantum advantage” depends on the benchmark and comparator. This supports both the conditional nature of the speedup and the warning against generalizing it to quantum computing as a whole.",
+        "supporting_text": "S19: the processor was “up to 3000× faster than an optimized TDVP simulation using χ=4096” at the limit of quantum/classical agreement. S22: “up to 3,000× faster at the agreement boundary.” S14: “the 3,000x speedup holds against TDVP” and whether it constitutes quantum advantage depends on how the comparison is defined. S21: “The quantum processor does not prove that no classical method can handle this task.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Theoretical and projected advantages remain concentrated in specialized problem classes rather than ordinary business computing.",
+        "citation_ids": [
+          "S2",
+          "S1",
+          "S5",
+          "S7"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources consistently state that quantum computing advantages apply to particular or select classes of difficult problems, while typical business problems and broad practical uses do not yet show comparable benefits. S2 directly contrasts advantages for large, exponentially improved problems with the small-to-moderate problems common in typical businesses. S1 describes quantum computing as useful for only a few select problem classes. S5 says only a few notable algorithms outperform classical computing on particular tasks. S7 emphasizes that practical, economically viable applications have not yet been achieved and that proposed optimization and machine-learning benefits remain largely aspirational.",
+        "supporting_text": "S2: “small to moderate-sized problems, the most common types for typical businesses, will not benefit from quantum computing,” whereas large problems with exponential algorithmic gains or very large datasets may benefit. S1: “there are a few select classes of problems” for which industries seek quantum computers. S5: “only a few notable quantum algorithms” outperform classical ones on particular tasks. S7: “practically useful and economically viable” quantum computations have not yet been achieved."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Quantum computers are not close to broadly replacing classical computers; likely early utility is specialized and hybrid, with classical systems remaining central.",
+        "citation_ids": [
+          "S2",
+          "S5",
+          "S7",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources consistently support the claim’s core points. S2 says the field is not ready for prime time, that typical small-to-moderate business problems will not benefit, and that quantum computing will be better only for some tasks. S5 says practical applications remain limited and doubts that people will have quantum computers in their homes within 20 years. S7 describes substantial unresolved gaps before broadly useful machines, says no immediate practical uses have emerged, and characterizes early applications as primarily scientific. S1 explicitly states that classical computers will not be going away and identifies only select problem classes for quantum use. The exact term “hybrid” is not directly established, but S1 does mention classical control and machine-learning systems alongside quantum hardware.",
+        "supporting_text": "S1: “The first useful commercially available quantum computer will not be a panacea… Classical computers will not be going away. Instead, there are a few select classes of problems…” S7: “practically useful and economically viable” quantum computations “have not yet been achieved,” and “Early applications… will be primarily scientific.” S2: “The current field… isn’t quite ready for prime time” and quantum computing “is not going to be better for everything, just for some things.”"
+      },
+      {
+        "finding_id": "F6",
+        "claim": "The biggest technical barrier is the transition from noisy intermediate-scale devices and error suppression to scalable fault-tolerant quantum computing.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S7",
+          "S19",
+          "S23",
+          "S9",
+          "S10"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S7 directly supports the transition from NISQ devices to fault-tolerant, application-scale quantum computers and explicitly describes it as a daunting, arduous, expensive, prolonged, and colossal engineering challenge. S1 and S4 support the underlying technical problems involving noise, error mitigation/correction, stability, and scalability. However, the sources do not establish that this transition is definitively the single “biggest” technical barrier. S19, S23, S9, and S10 mainly document error suppression, error correction, verification, or demonstrations rather than ranking this transition as the biggest barrier.",
+        "supporting_text": "S7: “substantial gaps separate today’s noisy intermediate-scale quantum (NISQ) devices from tomorrow’s fault-tolerant application-scale quantum (FASQ) machines,” including the transition “from error mitigation to active error detection and correction” and “from rudimentary error correction to scalable fault tolerance.” It calls the path “arduous, expensive, and prolonged” and “a particularly daunting gap.”"
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Scaling the physical machine remains a major engineering challenge involving connectivity, control, cooling, manufacturing, and system integration.",
+        "citation_ids": [
+          "S4",
+          "S1"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S4 strongly supports scaling as a major challenge and explicitly identifies multi-qubit connectivity, individual-qubit control, cooling, and manufacturing as scaling considerations. S1 also supports control, cooling, and hardware-integration challenges, including wires extending outside the cryogenic environment. However, the supplied text does not explicitly identify “system integration” as a distinct challenge, and S1 does not materially support connectivity or manufacturing.",
+        "supporting_text": "S4 lists “Multi-qubit networks,” “Control over individual qubits at scale,” “Cooling and environmental control,” and “Manufacturing” among key challenges; it also states that quantum computing faces technological hurdles limiting scalability. S1 describes considerable challenges in stability and scalability and notes that superconducting-qubit wires can introduce noise outside the processor’s cryogenic environment."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "Verification and classical benchmarking are not secondary details; they are essential barriers to credible claims of advantage.",
+        "citation_ids": [
+          "S9",
+          "S10",
+          "S18",
+          "S19",
+          "S22",
+          "S14",
+          "S20",
+          "S21"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly characterize verification as a major challenge to establishing quantum advantage and describe classical benchmarking, including choice of comparator, timing definition, accuracy validation, and convergence checks, as central to assessing such claims. Some wording is interpretive, but the claim’s important factual content is well supported.",
+        "supporting_text": "S10 states that “verification remains one of the biggest challenges in firmly establishing experimental quantum advantage.” S18 notes that results must be checked against classical computation and that the Q-CTRL result still required peer review. S21 explains that a fair benchmark must account for classical tuning, validation, preprocessing, and post-processing, while S14 shows how a newer classical method could narrow the reported speedup."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "IBM and the University of Chicago reported a computation using 70 logical qubits and thousands of logical operations that took about 15 minutes on a quantum computer.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S10"
+        ],
+        "rationale": "This is a specific externally verifiable experimental claim and is directly cited in the evidence for Finding 1."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Leading classical simulation approaches faced prohibitive runtimes for the IBM/University of Chicago hard-sampling task.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S10"
+        ],
+        "rationale": "This is a specific claim about comparative classical runtimes and has nearby citations."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "The IBM/University of Chicago task was a computational benchmark rather than a demonstrated chemistry, finance, optimization, cryptography, or customer production workload.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S10"
+        ],
+        "rationale": "The characterization of the task and the absence of those application demonstrations are externally inspectable and cited nearby."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "The Q-CTRL/IBM experiment simulated one-dimensional Fermi–Hubbard dynamics using 120 qubits.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19"
+        ],
+        "rationale": "This is a specific experimental claim supported by the cited primary preprint."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "The Q-CTRL/IBM experiment reported quantum outputs agreeing with TDVP simulations at approximately 1% RMSE over part of the evolution range.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19"
+        ],
+        "rationale": "The numerical accuracy result is externally verifiable and directly cited."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "The Q-CTRL/IBM experiment reported a runtime advantage of up to 3,000× against an optimized TDVP solver.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19"
+        ],
+        "rationale": "This is a specific reported performance claim with a nearby citation."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "The reported Q-CTRL comparison involved roughly two minutes of quantum execution versus more than 100 hours for the selected ITensor/TDVP classical comparison.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S13",
+          "S15",
+          "S22"
+        ],
+        "rationale": "These are specific timing figures and are cited in the adjacent evidence."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "The Q-CTRL experiment used a one-dimensional benchmark model and did not simulate a specific commercial compound.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S23"
+        ],
+        "rationale": "This is an externally verifiable description of the experiment and has a nearby citation."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "The reported 3,000× speedup is conditional on the selected TDVP solver, bond dimension, hardware configuration, evolution range, and accuracy boundary.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19",
+          "S22"
+        ],
+        "rationale": "The conditions of the comparison are externally inspectable and directly cited."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Majorana Propagation reportedly reproduced a single-site result quickly, while a higher-accuracy setting took about 19 minutes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S14",
+          "S20",
+          "S21"
+        ],
+        "rationale": "These are specific comparative runtime claims with nearby citations."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "The MIT framework states that small and moderate-sized problems common in typical businesses generally will not benefit from quantum computing, while very large problems or datasets may be more promising.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2"
+        ],
+        "rationale": "This is an attributed substantive claim and is directly cited."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Proposed quantum-computing application areas include quantum-system simulation, drug and materials discovery, optimization, finance, machine learning, and cryptographic tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S5"
+        ],
+        "rationale": "The list of application areas is externally verifiable and cited."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Only a small number of quantum algorithms have clearly established advantages, including Shor’s algorithm and the BB84 cryptographic protocol.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "This is a substantive claim about the state of algorithmic evidence and has a nearby citation."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "The perspective article characterizes optimization and machine-learning benefits as less established than the motivation for quantum simulation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "This is an attributed assessment and is directly cited."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "MIT Sloan describes quantum computing as not yet ready for prime time and reports that hardware and software for the most complex problems may not be available until 2035 or later.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2"
+        ],
+        "rationale": "This is a sourced assessment and forecast with a nearby citation."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "The perspective article states that broadly practical and economically viable quantum computations have not yet been achieved, with early applications expected to be primarily scientific.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "This externally verifiable attributed claim is directly cited."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Central technical obstacles include decoherence, environmental noise, gate errors, cascading errors, limited coherence, and the physical-qubit overhead of error correction.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4"
+        ],
+        "rationale": "These are specific technical claims supported by nearby citations."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "The Q-CTRL experiment relied on hardware-specific compilation, reduced circuit complexity, and runtime error suppression rather than demonstrating a broadly scalable fault-tolerant application system.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19",
+          "S23"
+        ],
+        "rationale": "This is a specific characterization of the experiment and is cited."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Scaling quantum hardware involves tradeoffs among fidelity, coherence, gate speed, connectivity, individual-qubit control, cooling, and manufacturing at scale.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4"
+        ],
+        "rationale": "This is an externally verifiable technical claim with a nearby citation."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Verification becomes increasingly difficult as quantum outputs become harder to check classically.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S10"
+        ],
+        "rationale": "This is a substantive claim about verification difficulty and is directly cited."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Alternative classical methods can materially narrow or alter the headline Q-CTRL speedup.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S14",
+          "S20",
+          "S21"
+        ],
+        "rationale": "This comparative benchmarking claim is externally inspectable and has nearby citations."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Forecasts in the supplied sources differ, with one source reporting practical advantage around 2028–2029 and broader commercial use in the 2030s, while another places availability of complex hardware and software at 2035 or later.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3"
+        ],
+        "rationale": "These are specific forecast claims and are cited in the conflicts section."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The supplied evidence does not establish broad, independently validated, end-to-end commercial advantage over classical computing.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S7",
+          "S19",
+          "S20",
+          "S21",
+          "S23"
+        ],
+        "rationale": "This is the report’s central evidence-based conclusion, supported by the cited discussions of commercial value, benchmarking, and application limitations."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "The supplied evidence does not show an industrial customer workflow, realized return on investment, or displacement of a classical commercial service.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19",
+          "S20",
+          "S21",
+          "S23"
+        ],
+        "rationale": "The report explicitly makes these absence-of-evidence claims and supplies nearby citations to the relevant experiment and commentary."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The largest remaining barriers include scalable fault-tolerant error correction, reliable deep-circuit operation, hardware and control scaling, verification, fair classical benchmarking, and translating benchmark physics into actionable industrial applications.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S7",
+          "S9",
+          "S10",
+          "S14",
+          "S19",
+          "S20",
+          "S21"
+        ],
+        "rationale": "This synthesis of technical barriers is supported by the evidence cited throughout Findings 6–8."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "The report’s recommended remaining work includes independent benchmarking, end-to-end timing and cost accounting, replication and peer review, application scaling beyond one-dimensional models, and measured customer outcomes or return on investment.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are proposed research gaps and evaluation criteria rather than factual claims requiring external support."
+      }
+    ],
+    "evaluable_support_claims": 8,
+    "total_support_claims": 8,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Set a time boundary and define the categories used to answer the question.",
+    "R4: Separate theoretical algorithmic advantages from hardware-dependent projections.",
+    "R5: Assess which application areas appear most plausible for early useful advantage.",
+    "3 cited finding(s) were not fully supported by saved evidence."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "quantum-commercial-advantage",
+    "fixture_version": "1.0",
+    "rubric_hash": "ae3a5680c375b6650be217402137fd59a302eee5fb85b0bc360a9292a5734293",
+    "candidate_report_hash": "a35d985d814f25ede782d33be1a1baf21ffc7a6c3e98bc20c5ef7d80c453047e",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T10:44:30.961736+00:00",
+    "usage": {
+      "llm_calls": 10,
+      "input_tokens": 82622,
+      "output_tokens": 7336,
+      "estimated_cost": null
+    }
+  }
+}

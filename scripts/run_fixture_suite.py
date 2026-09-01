@@ -27,6 +27,10 @@ from research.versions import SYSTEM_VERSION_BY_MODE
 ARCHITECTURE_COMPONENTS = {
     "llm-only": "one structured OpenAI generation (no retrieval or research components)",
     "baseline": "baseline analyzer only (no ledger, decomposer, or verifier)",
+    "prior-guided": (
+        "experimental V0 analyzer plus one pretrained-knowledge coverage-planning "
+        "call; planner metadata is not evidence"
+    ),
     "ledger": "evidence ledger only",
     "decomposed": "evidence ledger + question decomposer",
     "verified": (
@@ -37,6 +41,7 @@ ARCHITECTURE_COMPONENTS = {
 MAX_RESEARCH_OPENAI_CALLS = {
     "llm-only": 1,
     "baseline": 11,
+    "prior-guided": 12,
     "ledger": 20,
     "decomposed": 21,
     "verified": 31,
@@ -44,6 +49,7 @@ MAX_RESEARCH_OPENAI_CALLS = {
 MAX_TAVILY_CALLS = {
     "llm-only": 0,
     "baseline": 10,
+    "prior-guided": 10,
     "ledger": 10,
     "decomposed": 10,
     "verified": 10,
@@ -90,8 +96,8 @@ def build_parser() -> argparse.ArgumentParser:
         nargs="?",
         choices=tuple(SYSTEM_VERSION_BY_MODE),
         help=(
-            "Research architecture: llm-only, baseline, ledger, decomposed, or verified "
-            "(default: verified)."
+            "Research architecture: llm-only, baseline, prior-guided, ledger, "
+            "decomposed, or verified (default: verified)."
         ),
     )
     parser.add_argument(
@@ -265,7 +271,8 @@ def validate_run_for_fixture(
 def _new_suite_directory(root: Path, mode: str) -> Path:
     root.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    base = root / f"fixture-suite-{timestamp}-{mode}"
+    mode_label = SYSTEM_VERSION_BY_MODE[mode] if mode == "prior-guided" else mode
+    base = root / f"fixture-suite-{timestamp}-{mode_label}"
     candidate = base
     suffix = 2
     while candidate.exists():

@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from evaluation.v1.models import EvaluationInput
 from research.models import FinalReport, Source
+from research.versions import BASELINE_SYSTEM_VERSION, PRIOR_GUIDED_SYSTEM_VERSION
 
 
 def sha256_text(value: str) -> str:
@@ -78,10 +79,27 @@ def load_evaluation_input(run_directory: Path) -> EvaluationInput:
     if not isinstance(fixture_id, str) or not fixture_id.strip():
         fixture_id = None
 
+    iterations = trace.get("iterations") if isinstance(trace.get("iterations"), list) else []
+    system_version = (
+        str(trace["system_version"]).strip()
+        if trace.get("system_version") is not None
+        else None
+    )
     metadata = {
         "stop_reason": trace.get("stop_reason"),
         "model": trace.get("model"),
         "report_validation_error": report_validation_error,
+        "tavily_calls": len(iterations),
+        "unique_sources": len(sources),
+        "logical_research_openai_calls": (
+            len(iterations)
+            + 1
+            + (1 if system_version == PRIOR_GUIDED_SYSTEM_VERSION else 0)
+            if system_version
+            in {BASELINE_SYSTEM_VERSION, PRIOR_GUIDED_SYSTEM_VERSION}
+            else None
+        ),
+        "coverage_diagnostics": trace.get("coverage_diagnostics"),
     }
     return EvaluationInput(
         run_directory=run_directory,
@@ -89,11 +107,7 @@ def load_evaluation_input(run_directory: Path) -> EvaluationInput:
         report_markdown=report_markdown,
         report=report,
         sources=sources,
-        system_version=(
-            str(trace["system_version"]).strip()
-            if trace.get("system_version") is not None
-            else None
-        ),
+        system_version=system_version,
         benchmark_fixture_id=fixture_id,
         evidence_ledger=evidence_ledger,
         trace_metadata=metadata,

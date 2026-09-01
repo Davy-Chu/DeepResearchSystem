@@ -110,7 +110,14 @@ def test_repository_contains_nine_frozen_fixtures() -> None:
 
 
 def test_positional_architectures_and_legacy_mode_are_supported() -> None:
-    for architecture in ("llm-only", "baseline", "ledger", "decomposed", "verified"):
+    for architecture in (
+        "llm-only",
+        "baseline",
+        "prior-guided",
+        "ledger",
+        "decomposed",
+        "verified",
+    ):
         args = build_parser().parse_args([architecture, "--dry-run"])
         assert resolve_architecture(args.architecture, args.mode) == architecture
         assert ARCHITECTURE_COMPONENTS[architecture]

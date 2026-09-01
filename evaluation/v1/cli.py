@@ -156,7 +156,13 @@ def main(arguments: list[str] | None = None) -> int:
                 fixture,
                 _runner(api_key, model, timeout, retries),
             )
-            entries.append(BenchmarkEntry(run=run_directory.name, result=result))
+            entries.append(
+                BenchmarkEntry(
+                    run=run_directory.name,
+                    result=result,
+                    trace_metadata=item.trace_metadata,
+                )
+            )
         json_path, csv_path, markdown_path = save_benchmark(entries, args.results_root)
         logging.info("Benchmark JSON:\n%s", json_path)
         logging.info("Benchmark CSV:\n%s", csv_path)

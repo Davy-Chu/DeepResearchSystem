@@ -1,0 +1,266 @@
+# Frozen Reference Research Evaluation
+
+**Evaluator:** evaluator-v1
+
+**Fixture:** synthetic-data-llm-training
+
+**System Version:** prior-guided-baseline-v0
+
+**Model:** gpt-5.6-luna
+
+## Summary
+
+- Overall: 76.9 / 100
+- Evaluation completeness: 100%
+- Comprehensiveness: 0.71
+- Coverage: 0.72
+- Depth: 0.69
+- Citation quality: 0.81
+- Citation validity: 1.00
+- Citation support: 0.75
+- Citation completeness: 0.83
+- Deterministic integrity: 1.00
+
+## Comprehensiveness
+
+### R1
+
+- Coverage: 0.50
+- Depth: 0.50
+- Rationale: The report recognizes important regime distinctions, especially additive versus recursive or replacement-heavy training, but does not fully establish the requested taxonomy or analyze all relevant settings.
+- Candidate evidence:
+  - The report distinguishes additive use from replacement-heavy and recursive use: “retaining natural data and adding novel synthetic data is safer.”
+  - It discusses synthetic data for instruction/preference tuning, low-resource tasks, domain adaptation, and other applications, and notes that outcomes vary by task and seed-data budget.
+  - The “Remaining Gaps” section explicitly calls for comparisons across pretraining, continued pretraining, supervised fine-tuning, and preference optimization, as well as synthetic-only, natural-only, additive mixed, and recursive regimes.
+- Missing:
+  - The report does not clearly define the major synthetic-data sources, such as LLM-generated text versus programmatically generated data, and does not explain how their risks differ.
+  - Pretraining, continued pretraining, supervised fine-tuning, and preference optimization are mostly listed as unresolved areas rather than analyzed distinctly.
+  - Pure-synthetic versus mixed training is discussed mainly through additive versus replacement language, without a systematic explanation of why the distinctions matter for each regime.
+
+### R2
+
+- Coverage: 1.00
+- Depth: 0.75
+- Rationale: It substantially covers the main quality benefits and the conditions under which they are useful. The treatment is somewhat more operational and qualitative than empirically quantified.
+- Candidate evidence:
+  - Finding 1 states that synthetic data can expand scarce task-specific datasets, cover edge cases, support specialized skills, and reduce annotation bottlenecks when real or labeled data are scarce or costly.
+  - The report identifies applications in low-resource tasks, domain adaptation, tool-use training, class-imbalance mitigation, and privacy-constrained development.
+  - Finding 2 emphasizes task relevance, diversity, verification, and curation rather than volume alone, and cites deduplication, filtering, domain coverage, cognitive-level diversification, retrieval augmentation, and self-consistency filtering.
+  - The conclusion recommends using synthetic examples for clearly defined tasks or coverage gaps while retaining natural data.
+- Missing:
+  - The report provides limited quantified or independently replicated evidence for the size of scale, coverage, diversity, or label-quality gains; the controlled evidence is described only generally as a multi-task SFT comparison.
+
+### R3
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The report covers most major failure modes and connects several to generalization, robustness, and evaluation, but some rubric-specific quality failures and their conditions receive only partial treatment.
+- Candidate evidence:
+  - The report identifies factual and distributional errors, loss of rare or minority cases, reduced linguistic diversity, distribution-tail loss, repetition or homogenization through recursive training, and weakened adversarial robustness.
+  - Finding 2 recommends factuality and quality controls, seed or real-data anchoring, deduplication, filtering, human review, and external verification such as execution tests for code and calculators for mathematical outputs.
+  - Finding 8 discusses contamination and evaluation inflation from synthetic or derivative data.
+  - Finding 7 reports that synthetic fine-tuning can improve output quality while reducing adversarial robustness.
+- Missing:
+  - Incorrect labels and semantic errors are not treated explicitly or connected in detail to downstream model behavior.
+  - Artifacts, distribution mismatch, and contamination are mentioned but not systematically analyzed as separate failure modes or tied to specific accuracy/generalization conditions.
+  - The report gives limited concrete conditions for when factual errors, low diversity, or collapse are more or less likely beyond broad factors such as source diversity, novelty, and natural-data retention.
+
+### R4
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The report correctly treats bias reduction as conditional and evidence-dependent, but the intervention mechanisms and experimental standards are not fully developed.
+- Candidate evidence:
+  - Finding 5 describes targeted generation as a possible intervention and says it should be part of an audit-and-retraining loop.
+  - Finding 6 discusses balanced synthetic augmentation and notes that fairness improvements are possible in principle but not established for LLM training.
+  - The report references subgroup audits, coverage maps, held-out tests, prompt-sensitivity checks, and re-auditing rather than assuming that balancing synthetic data is sufficient.
+  - It explicitly distinguishes nominal representation increases from demonstrated fair or culturally accurate representation.
+- Missing:
+  - Counterfactual generation, fairness-aware generation, filtering, and weighting are not each explained as mechanisms.
+  - The evidence for bias reduction is largely transferred from vision (AIM-Fair), and the report does not provide an LLM-specific controlled demonstration.
+  - The needed comparison design is described generally, but not specified in detail as a comparison against real-only or no-synthetic training with matched utility and subgroup outcomes.
+
+### R5
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The report covers generator bias, imbalance, underrepresentation, and recursive amplification well enough for substantial credit, but several specific bias mechanisms and the data-versus-model distinction need clearer treatment.
+- Candidate evidence:
+  - Finding 5 identifies generator, source-data, prompt, and filtering bias, demographic underrepresentation, and amplification risks.
+  - The report notes that LLM-simulated public opinion reproduced U.S. responses better than Chilean responses and showed different disparities across race, political identity, gender, education, and religion.
+  - It discusses loss of low-probability, rare, or minority examples through recursive training and notes self-preference bias in synthetic fine-tuning.
+  - It states that increasing representation in synthetic data does not demonstrate fair or culturally accurate representation.
+- Missing:
+  - Stereotypical associations and spurious correlations are not explicitly analyzed.
+  - The distinction between bias measured in the generated dataset and bias observed in the trained model is present only implicitly; it is not laid out as a separate evaluation problem.
+  - Amplification through iterative or large-scale training is discussed for minority and distribution-tail loss, but demographic amplification mechanisms are not developed in detail.
+
+### R6
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: This is a strong multi-measure evaluation discussion, especially on utility, human/expert validation, contamination, and evaluator circularity, but it does not fully cover the requested metric limitations and fidelity/perplexity issues.
+- Candidate evidence:
+  - The report recommends evaluating factuality and quality, semantic or task correctness through external verification, diversity, domain coverage, and training utility.
+  - It recommends held-out real-world tests, expert review, human judgments, contamination-resistant tests, dynamically refreshed tests, and hybrid benchmarks.
+  - Finding 8 warns that synthetic queries and judgments can differ systematically from human judgments and cites synthetic judgments that were more positive than human judgments.
+  - Finding 9 identifies circular bias from related models generating, filtering, and judging the same data, including self-preference and prompt-structure bias.
+  - The conclusion calls for separate evaluation of capability, diversity, fairness, robustness, contamination, and deployment realism.
+- Missing:
+  - Statistical fidelity and intended-distribution matching are not described as concrete evaluation dimensions or procedures.
+  - Perplexity-style metrics are not discussed, including why they may fail to establish factuality, diversity, or training usefulness.
+  - Limitations of statistical, human, and model-based metrics are mentioned but not systematically compared; synthetic-only or generator-aligned testing is criticized without a full evaluation framework or decision thresholds.
+
+### R7
+
+- Coverage: 0.50
+- Depth: 0.50
+- Rationale: The report identifies the right evaluation direction, including subgroup and intersectional auditing, but the baseline comparisons and concrete model-level fairness metrics are under-specified.
+- Candidate evidence:
+  - The report recommends subgroup audits, coverage maps, held-out tests, prompt-sensitivity checks, and re-auditing.
+  - It calls for disaggregated demographic, cultural, multilingual, and intersectional measurements and says that balanced synthetic data is not sufficient evidence of fairness.
+  - The “Remaining Gaps” section calls for controlled comparisons of synthetic-only, natural-only, additive mixed, and recursive regimes.
+- Missing:
+  - The report does not clearly prescribe conducting the fairness comparison against a real-data-only or no-synthetic baseline as part of the evaluation protocol; it mainly lists this as an unresolved research gap.
+  - It does not specify concrete subgroup metrics such as subgroup performance, error rates, calibration, representation rates, or disparity changes in a sufficiently operational way.
+  - Held-out tests are recommended, but the preference for held-out real data is not stated consistently or developed as a core requirement.
+  - The distinction between improved dataset balance and improved trained-model fairness is asserted but not translated into a complete experimental design.
+
+### R8
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The conclusion is appropriately conditional, evidence-aware, and safeguard-oriented, but several rubric-listed conditioning factors and operational decision criteria remain underdeveloped.
+- Candidate evidence:
+  - The summary and conclusion reject a universal verdict and support “conditional use” rather than wholesale replacement.
+  - The report relates outcomes to task, source diversity, novelty, natural-data retention, verification, additive versus replacement use, domain, data scarcity, and evaluation validity.
+  - It recommends practical safeguards: retain natural data, seek genuinely novel and diverse sources, apply factuality and quality controls, and evaluate capability, diversity, subgroup fairness, safety robustness, contamination, and deployment realism separately.
+  - The report acknowledges unresolved evidence on demographic fairness, factuality, privacy, deployment reliability, mixture ratios, languages, domains, and models.
+- Missing:
+  - Generator capability and target-model capability are not explicitly analyzed as separate conditions.
+  - Prompting, synthetic-to-real ratios, and training-regime details are mentioned only briefly or as research gaps rather than integrated into the conclusion.
+  - The report does not provide concrete deployment decision criteria, such as minimum quality or subgroup-performance thresholds, escalation rules, or when not to use synthetic data.
+
+### Novel Value
+
+- The report synthesizes a useful distinction between capability gains and safety or evaluation degradation, particularly the claim that higher output quality can coexist with lower adversarial robustness.
+- It emphasizes synthetic-data provenance and evaluator circularity as linked risks, including generation, filtering, and judging by related models.
+- It offers a nuanced practical synthesis: additive, source-diverse, novel, quality-filtered synthetic data retained alongside natural data is safer than recursive or replacement-heavy use.
+- It explicitly identifies the lack of controlled LLM-specific evidence for demographic, cultural, multilingual, and intersectional fairness improvements as a central unresolved issue.
+
+## Citations
+
+### Support
+
+#### F1: SUPPORTED
+
+- Claim: Synthetic data can reduce data bottlenecks and provide useful task-specific training signal when real or labeled data are scarce, costly, private, or difficult to collect.
+- Sources: S3, S4, S15, S29, S30, S32
+- Rationale: The saved sources consistently support the claim. They describe synthetic data as addressing scarcity and acquisition bottlenecks, reducing annotation or collection costs, helping with privacy-sensitive data, and generating task-specific examples or training signals for low-resource and constrained settings.
+- Supporting text: S15 states that enterprises often lack high-quality, task-specific datasets, creating a “data bottleneck,” and presents synthetic generation as one way to overcome it. S32 says synthetic examples can augment or substitute for real datasets when labeled data are scarce, expensive, or sensitive, and can enrich low-resource tasks. S3 similarly identifies scarce, privacy-sensitive, expensive, and difficult-to-collect data as key use cases, while S29 says task-specific synthetic data is faster and cheaper than human annotation.
+
+#### F2: SUPPORTED
+
+- Claim: Data quality depends more on task relevance, diversity, verification, and curation than on synthetic volume alone.
+- Sources: S2, S4, S29, S30, S32, S28
+- Rationale: The saved sources collectively support the claim’s main components. S2 explicitly contrasts disciplined curation with indiscriminate volume. S4 identifies accuracy, diversity, realism, validation, and human evaluation as quality criteria. S29 describes task-specific generation and filtering invalid or similar examples. S30 emphasizes verification, judging, scoring, execution feedback, and selecting high-quality examples. S32 highlights task relevance, controllable diversity, filtering, weighting, feedback, and evaluation, while S28 uses domain coverage, cognitively diverse instructions, and self-consistency validation. The sources do not provide a precise quantitative comparison establishing that these factors always matter more than volume, but they clearly support the qualitative “rather than volume alone” formulation.
+- Supporting text: S2: “not volume, but curation discipline”; “Volume without curation amplifies failure modes.” S4: synthetic-data quality metrics include “accuracy, diversity, and realism,” with statistical and human evaluation. S30: generated data is filtered using correctness checks, judges, execution feedback, and only the highest-scoring examples are retained. S32: synthetic data should be task-relevant and managed through diversity controls, filtering/weighting, feedback, and evaluation. S28: domain coverage, cognitive diversity, and self-consistency filtering are used to ensure quality.
+
+#### F3: SUPPORTED
+
+- Claim: Recursive, single-source, or replacement-heavy use of synthetic data can narrow the learned distribution and remove low-probability, rare, or minority examples; retaining natural data and adding novel synthetic data is safer.
+- Sources: S1, S2, S6, S14, S32, S34
+- Rationale: The cited sources collectively support the claim’s main factual content. S1 and S2 describe recursive or replacement-heavy synthetic training as causing model collapse and distribution narrowing, while S6 and S14 report that single-source synthetic data is associated with greater collapse and that higher source diversity mitigates it. S34 explicitly states that recursive training can cause models to forget the tails of the original real-data distribution because generated content tends not to contain rare content, and recommends retaining natural data while augmenting it with generated data. The sources support the safety comparison as a qualified mitigation recommendation, not as an absolute guarantee.
+- Supporting text: S34: Recursive training on truncated synthetic data can make models “forget the richness of their original distribution”; generated content tends not to contain rare original content. It says retaining some human-generated data while augmenting it with generated data avoids collapse. S2 similarly states: “The fix is not avoiding synthetic data, it's accumulating real data alongside it rather than replacing it.”
+
+#### F4: PARTIALLY_SUPPORTED
+
+- Claim: Source diversity can mitigate some distribution-collapse effects, but it does not eliminate other risks such as weakened adversarial robustness or evaluator bias.
+- Sources: S14
+- Rationale: S14 directly supports that greater synthetic-data source diversity can mitigate distribution collapse and reports that synthetic fine-tuning decreases adversarial robustness. However, the source discusses self-preference bias in LLM judges—not evaluator bias generally—and does not clearly establish that source diversity fails to eliminate these risks. It also reports that fine-tuning decreases self-preference bias, with the decrease weakest for single-source synthetic data.
+- Supporting text: The source states that “higher source diversity can mitigate” distribution collapse, while “synthetic fine-tuning data decreases LLMs’ adversarial robustness.” It also reports effects on “self-preference bias” in LLM-as-judge settings, rather than evaluator bias broadly.
+
+#### F5: PARTIALLY_SUPPORTED
+
+- Claim: Synthetic data can reproduce or amplify generator, source-data, prompt, and filtering biases; nominally increasing representation does not demonstrate fair or culturally accurate representation.
+- Sources: S3, S4, S9, S13, S11
+- Rationale: The sources support the narrower claim that synthetic data or LLM-generated data can reproduce or amplify existing and source-data biases, underrepresent demographics, and fail to provide fair or culturally valid representation without rigorous validation. S13 specifically reports that LLMs reproduced U.S. responses more faithfully than Chilean responses because of predominantly U.S.-centric training data, with substantial group disparities. However, the saved text does not clearly establish that synthetic data reproduces all four named bias sources—especially filtering bias—and does not directly demonstrate that merely increasing representation fails in every case.
+- Supporting text: S4 states that poorly designed generators can “reproduce or exaggerate existing biases” and that synthetic data may underrepresent demographics, requiring benchmarking against trusted real-world data. S13 reports “substantial disparities” and weaker fidelity for Chilean responses, consistent with U.S.-centric training data, warning about underrepresented and cross-cultural contexts.
+
+#### F6: PARTIALLY_SUPPORTED
+
+- Claim: Fairness improvements from synthetic augmentation are possible in principle but are not established for LLM training and may involve utility or domain-shift trade-offs.
+- Sources: S23, S9, S10, S11, S27
+- Rationale: S23 directly supports that synthetic-data fine-tuning can improve fairness and identifies domain/bias shifts, synthetic-data quality limits, and potential utility losses. However, its experiments concern image classification rather than LLM training, while the supplied LLM-focused sources describe augmentation and mitigation strategies but do not establish that fairness improvements from synthetic augmentation are unproven for LLM training. S27 supports fairness-oriented synthetic data and discusses limitations of fairness measures, but not the LLM-specific evidentiary claim. S10 concerns LLM fairness but not synthetic augmentation.
+- Supporting text: S23 reports that AIM-Fair improved fairness on CelebA and UTKFace while maintaining utility, but states that balanced synthetic data can have poorer accuracy because of a “domain gap,” and that blindly fine-tuning on synthetic data can decrease utility. S11 lists data augmentation as an LLM bias-mitigation strategy, without evidence of its effectiveness.
+
+#### F7: SUPPORTED
+
+- Claim: Synthetic fine-tuning can improve apparent output quality or task capability while reducing safety robustness, so these outcomes must be evaluated separately.
+- Sources: S14, S2, S30, S32
+- Rationale: S14 directly reports that synthetic fine-tuning decreases adversarial robustness while preserving output quality, and its abstract says synthetic fine-tuning can yield higher output quality while removing safeguards, making outputs more usable and dangerous. S30 separately identifies improving task performance as a motivation for synthetic fine-tuning and discusses alignment and safety as distinct objectives. S2 and S32 provide broader, consistent context about capability gains and synthetic-data risks, though they are less direct on the specific quality–safety tradeoff.
+- Supporting text: S14: “Synthetic fine-tuning data decreases LLMs’ adversarial robustness while preserving output quality”; the abstract also reports higher output quality alongside possible safeguard removal. S30: synthetic data is used for “improving performance” and, separately, for “Alignment & safety.”
+
+#### F8: SUPPORTED
+
+- Claim: Synthetic evaluation data can improve controlled coverage and repeatability, but it should complement—not replace—real-world, expert-reviewed, and contamination-resistant evaluation.
+- Sources: S16, S19, S24, S20, S22
+- Rationale: S16 directly supports the benefits of synthetic data for controlled experimentation, edge-case coverage, and consistent (“golden”) results. S19 describes a hybrid benchmark combining real-world research problems with synthetic scenarios, supporting complementarity rather than replacement. S24 documents bias in synthetic test collections and compares them with human judgments, while S20 and S22 explain contamination risks and the need for contamination-resistant evaluation. Together, the sources support the full claim, although “expert-reviewed” is supported through references to human expert judgments rather than an explicit general prescription.
+- Supporting text: S16: Synthetic data enables “controlled environments,” “coverage of edge cases,” and “consistent experimental results.” S19: CauSciBench combines “real-world research problems” with “synthetic scenarios.” S24: Synthetic test collections show bias, including GPT-4 relevance scores averaging about 0.28 points higher than human assessors. S22: Contamination diminishes benchmark reliability and motivates contamination-resistant datasets.
+
+#### F9: PARTIALLY_SUPPORTED
+
+- Claim: Model-based filtering and judging can create circular evaluation bias when related models generate, filter, and assess the same synthetic data.
+- Sources: S6, S10, S24, S30, S31
+- Rationale: The sources support the narrower points that LLMs can generate synthetic data, filter or critique it, and provide relevance or preference judgments, and that synthetic evaluation can exhibit systematic bias. S24 directly reports bias in LLM-generated test collections and evaluation results; S30 and S31 describe model-based generation, filtering, judging, and critique pipelines. S6 discusses self-preference bias and single-source synthetic data. However, the supplied text does not directly establish the specific causal claim that using related models across all these stages creates circular evaluation bias. S10 is unrelated to this claim.
+- Supporting text: S24 reports “the presence of such bias in evaluation results” for synthetic test collections. S30 describes using LLMs to “generate responses,” “judge/critique and score synthetic data,” and “self-verification” to filter generations. S31 says LLMs generate preference data and classify completions, while noting a mismatch between critique scores and response quality.
+
+#### F10: PARTIALLY_SUPPORTED
+
+- Claim: Formal differential privacy is distinct from ordinary synthetic-data generation; generic claims that synthetic text is private or copyright-safe are not established by the retrieved evidence.
+- Sources: S18, S3, S4, S29
+- Rationale: S18 clearly distinguishes differential privacy from ordinary synthetic-data generation: it describes DP as providing mathematically rigorous guarantees and presents DP synthetic data as a specific approach using privacy-preserving aggregation. S3 and S4 describe ordinary LLM-generated synthetic data and associate it with privacy-sensitive use cases, but do not establish that such data is formally private. S29 explicitly claims synthetic data “sidesteps privacy and copyright concerns,” but this is a generic author assertion rather than evidence establishing that all synthetic text is private or copyright-safe. Thus, the distinction is supported, while the broader non-establishment conclusion is only partly supported and the sources do not substantiate it as a definitive legal or privacy finding.
+- Supporting text: S18: “Differential privacy (DP) provides mathematically rigorous guarantees that an algorithm will not reveal details about an individual’s data,” and describes a specific method that aggregates LLM predictions “with differential privacy.” S3 defines synthetic data as algorithmically produced artificial data and discusses privacy-sensitive applications without stating a formal privacy guarantee. S29 says synthetic data “sidesteps privacy and copyright concerns,” but provides no formal proof or general qualification.
+
+### Missing Citations
+
+- Q25: Controlled matched comparisons across synthetic-only, natural-only, additive mixed, and recursive regimes remain lacking across major LLM training and fine-tuning settings.
+- Q26: Disaggregated demographic, cultural, multilingual, and intersectional measurements after synthetic-text training or fine-tuning remain lacking.
+- Q27: Effect sizes and replication evidence remain insufficient for factuality, hallucination, calibration, novelty, linguistic diversity, rare-case coverage, and adversarial robustness.
+- Q28: Comprehensive evidence on privacy, memorization, membership inference, re-identification, provenance, consent, copyright, and licensing remains lacking.
+- Q29: The most defensible operational pattern is to use synthetic examples for defined tasks or coverage gaps, retain original natural data, seek novel and diverse sources, apply quality controls, and evaluate capability, diversity, fairness, robustness, contamination, and deployment realism separately.
+
+## Deterministic Checks
+
+- `run_metadata_loads`: PASS
+- `report_exists`: PASS
+- `sources_present`: PASS
+- `structured_report_parses`: PASS
+- `report_question_matches`: PASS
+- `source_ids_unique`: PASS
+- `source_ids_syntactically_valid`: PASS
+- `source_urls_present`: PASS
+- `evidence_objects_valid`: PASS
+- `confidence_values_valid`: PASS
+- `citation_ids_syntactically_valid`: PASS
+- `citation_ids_resolve`: PASS
+- `structured_claim_evidence_available`: NOT_EVALUABLE — This run predates or does not use an evidence ledger.
+- `ledger_claim_ids_unique`: NOT_EVALUABLE — Evidence ledger unavailable.
+- `ledger_evidence_relationships_resolve`: NOT_EVALUABLE — Evidence ledger unavailable.
+- `ledger_confidence_values_valid`: NOT_EVALUABLE — Evidence ledger unavailable.
+- `ledger_evidence_ids_unique`: NOT_EVALUABLE — Evidence ledger unavailable.
+
+## Main Weaknesses
+
+1. R1: Define the synthetic-data settings relevant to the analysis and explain why their differences matter.
+2. R7: Specify how to evaluate the representational and fairness effects of using synthetic data.
+3. 5 cited finding(s) were not fully supported by saved evidence.
+4. 5 citation-required claim(s) lacked an appropriate citation.
+
+## Audit Metadata
+
+- Fixture version: 1.0
+- Rubric hash: `36414e911184eea8ef62c41ba8423e71054770da6d3e515f90d477a9870e806e`
+- Candidate report hash: `96052262ee5638b433960865fa0223ee18a3535804a086140b75d1533768f4d3`
+- LLM calls: 12
+- Evaluated at: 2026-09-01T10:12:57.286903+00:00

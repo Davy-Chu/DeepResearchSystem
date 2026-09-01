@@ -15,10 +15,14 @@ from research.versions import CANONICAL_SYSTEM_VERSIONS
 class BenchmarkEntry:
     run: str
     result: EvaluationResult
+    trace_metadata: dict[str, object] | None = None
 
 
 def _row(entry: BenchmarkEntry) -> dict[str, object]:
     result = entry.result
+    trace = entry.trace_metadata or {}
+    coverage = trace.get("coverage_diagnostics")
+    coverage = coverage if isinstance(coverage, dict) else {}
     return {
         "run": entry.run,
         "system_version": result.system_version,
@@ -33,6 +37,13 @@ def _row(entry: BenchmarkEntry) -> dict[str, object]:
         "citation_quality": result.citations.score,
         "deterministic_integrity": result.deterministic_integrity.score,
         "evaluation_completeness": result.evaluation_completeness,
+        "tavily_calls": trace.get("tavily_calls"),
+        "unique_sources": trace.get("unique_sources"),
+        "research_openai_calls": trace.get("logical_research_openai_calls"),
+        "core_dimensions": coverage.get("core_dimensions"),
+        "core_sufficient": coverage.get("core_sufficient"),
+        "core_partial": coverage.get("core_partial"),
+        "core_unresearched": coverage.get("core_unresearched"),
     }
 
 
@@ -72,15 +83,16 @@ def save_benchmark(entries: list[BenchmarkEntry], root: Path) -> tuple[Path, Pat
     lines = [
         "# Evaluator v1 Benchmark",
         "",
-        "| Run | System | Fixture | Overall | Coverage | Depth | Citation support |",
-        "|---|---|---|---:|---:|---:|---:|",
+        "| Run | System | Fixture | Overall | Coverage | Depth | Citation support | Searches | Core sufficient |",
+        "|---|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
         lines.append(
             f"| {row['run']} | {row['system_version'] or 'Unknown'} | "
             f"{row['fixture'] or 'Unavailable'} | {_fmt(row['overall_score'])} | "
             f"{_fmt(row['coverage'])} | {_fmt(row['depth'])} | "
-            f"{_fmt(row['citation_support'])} |"
+            f"{_fmt(row['citation_support'])} | {_fmt(row['tavily_calls'])} | "
+            f"{_coverage_fmt(row['core_sufficient'], row['core_dimensions'])} |"
         )
     markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return json_path, csv_path, markdown_path
@@ -103,12 +115,25 @@ def _row_placeholder() -> dict[str, object]:
             "citation_quality",
             "deterministic_integrity",
             "evaluation_completeness",
+            "tavily_calls",
+            "unique_sources",
+            "research_openai_calls",
+            "core_dimensions",
+            "core_sufficient",
+            "core_partial",
+            "core_unresearched",
         )
     }
 
 
 def _fmt(value: object) -> str:
     return "—" if value is None else f"{float(value):.2f}"
+
+
+def _coverage_fmt(sufficient: object, total: object) -> str:
+    if sufficient is None or total is None:
+        return "—"
+    return f"{int(sufficient)}/{int(total)}"
 
 
 def load_latest_evaluation(run_or_evaluation: Path) -> tuple[Path, EvaluationResult]:

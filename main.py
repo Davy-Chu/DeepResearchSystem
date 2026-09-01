@@ -25,6 +25,10 @@ from research.llm_only_runner import (
     save_llm_only_artifacts,
 )
 from research.models import FinalReport
+from research.prior_guided_analyzer import PriorGuidedResearchAnalyzer
+from research.prior_guided_logger import PriorGuidedResearchLogger
+from research.prior_guided_runner import PriorGuidedResearchRunner
+from research.prior_knowledge_planner import PriorKnowledgeResearchPlanner
 from research.report import (
     FinalReportGenerator,
     build_incomplete_report,
@@ -39,6 +43,7 @@ from research.verifier import IndependentClaimVerifier
 from research.versions import (
     DECOMPOSED_SYSTEM_VERSION,
     LEDGER_SYSTEM_VERSION,
+    PRIOR_GUIDED_SYSTEM_VERSION,
     SYSTEM_VERSION_BY_MODE,
     VERIFIED_SYSTEM_VERSION,
 )
@@ -54,7 +59,9 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Research architecture: llm-only is one raw OpenAI generation with no "
             "retrieval or research infrastructure; baseline-zero remains the default; "
-            "ledger, decomposed, and verified add the later research components"
+            "ledger, decomposed, and verified add the later research components; "
+            "prior-guided is an experimental V0 variant that uses pretrained model "
+            "knowledge only to plan evidence-grounded retrieval"
         ),
     )
     parser.add_argument(
@@ -103,7 +110,7 @@ def _handle_incomplete_run(
     failure_stage: str,
     research_logger: ResearchLogger | LedgerResearchLogger | None,
     output_dir: Path | None,
-    runner: ResearchRunner | LedgerResearchRunner | None,
+    runner: ResearchRunner | LedgerResearchRunner | PriorGuidedResearchRunner | None,
     final_report: FinalReport | None,
 ) -> int:
     logging.error("Research did not complete normally: %s", error or type(error).__name__)
@@ -161,7 +168,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
         return _run_llm_only(args.question, args.output_root)
     research_logger: ResearchLogger | LedgerResearchLogger | None = None
     output_dir: Path | None = None
-    runner: ResearchRunner | LedgerResearchRunner | None = None
+    runner: ResearchRunner | LedgerResearchRunner | PriorGuidedResearchRunner | None = None
     final_report: FinalReport | None = None
     failure_stage = "Initialization"
 
@@ -186,6 +193,13 @@ def main(arguments: Sequence[str] | None = None) -> int:
                     settings.verifier_model if args.mode == "verified" else None
                 ),
             )
+        elif args.mode == "prior-guided":
+            research_logger = PriorGuidedResearchLogger(
+                question=args.question.strip(),
+                model=settings.openai_model,
+                max_iterations=MAX_RESEARCH_ITERATIONS,
+                system_version=PRIOR_GUIDED_SYSTEM_VERSION,
+            )
         else:
             research_logger = ResearchLogger(
                 question=args.question.strip(),
@@ -200,7 +214,28 @@ def main(arguments: Sequence[str] | None = None) -> int:
             max_retries=settings.openai_max_retries,
         )
         failure_stage = "Research Execution"
-        if args.mode in {"ledger", "decomposed", "verified"}:
+        if args.mode == "prior-guided":
+            assert isinstance(research_logger, PriorGuidedResearchLogger)
+            planner = PriorKnowledgeResearchPlanner(
+                settings.openai_api_key,
+                settings.openai_model,
+                timeout_seconds=settings.openai_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+            analyzer = PriorGuidedResearchAnalyzer(
+                settings.openai_api_key,
+                settings.openai_model,
+                timeout_seconds=settings.openai_timeout_seconds,
+                max_retries=settings.openai_max_retries,
+            )
+            runner = PriorGuidedResearchRunner(
+                search_client,
+                planner,
+                analyzer,
+                report_generator,
+                research_logger=research_logger,
+            )
+        elif args.mode in {"ledger", "decomposed", "verified"}:
             assert isinstance(research_logger, LedgerResearchLogger)
             evidence_processor = EvidenceProcessor(
                 settings.openai_api_key,

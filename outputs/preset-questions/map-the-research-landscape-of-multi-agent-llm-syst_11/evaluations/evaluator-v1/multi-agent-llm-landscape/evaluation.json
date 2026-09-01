@@ -1,0 +1,957 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "baseline-zero",
+  "overall_score": 56.52371541501976,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.41630434782608694,
+    "coverage": 0.44565217391304346,
+    "depth": 0.34782608695652173,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No operational inclusion or exclusion criteria are provided.",
+          "The report does not distinguish multi-agent systems from single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM multi-agent systems, or hybrid designs.",
+          "Borderline cases and the non-universality of possible definitions are not handled explicitly."
+        ],
+        "rationale": "The report discusses taxonomic layers and composition but never defines what counts as a multi-agent LLM system or what falls outside scope."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 2 identifies “single-agent loops, plan-and-execute, hierarchical supervisor-worker systems, graph or workflow systems, decentralized or swarm-like systems, multi-agent debate, and verifier-critic loops.”",
+          "Finding 4 explains that centralized and hierarchical systems provide global coordination and accountability but create bottlenecks and single points of failure.",
+          "Finding 5 explains that decentralized or peer-to-peer systems can improve local resilience but make global consistency and coordination more difficult.",
+          "Finding 3 states that systems can combine specialization, hierarchical orchestration, graph control flow, planning, and critique."
+        ],
+        "missing": [
+          "Most patterns are listed rather than individually characterized in terms of control structure, agent arrangement, information flow, coordination mechanism, applications, and limitations.",
+          "Single-agent loops and plan-and-execute are named but not clearly distinguished from multi-agent systems.",
+          "Representative systems or applications are not concretely identified beyond generic references to specialized agents, managers, and handoffs.",
+          "Debate and verifier-critic architectures receive little separate analysis of their control and information flows or limitations."
+        ],
+        "rationale": "The report identifies a reasonably broad set of recurring patterns and gives meaningful treatment of centralized versus decentralized arrangements, but it does not supply the required substantive characterization for each major pattern."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 4 analyzes centralized and hierarchical control, including global state, traceability, bottlenecks, and single points of failure.",
+          "Finding 5 analyzes decentralized peer communication, local decisions, resilience, inconsistency, and coordination difficulty.",
+          "Finding 6 distinguishes communication protocols from topology and internal communication strategies.",
+          "The Remaining Gaps section calls for measuring interactions among topology, protocol, agent count, model heterogeneity, memory design, and task structure.",
+          "The Conclusion distinguishes role structure, control topology, workflow, communication protocol, and messaging strategy."
+        ],
+        "missing": [
+          "Sequential versus parallel execution is mentioned as a motivation but not analyzed as a design dimension with consequences.",
+          "Synchronous versus asynchronous operation is not addressed substantively.",
+          "Message passing versus shared state, context isolation versus sharing, and static versus dynamic agent allocation are not analyzed.",
+          "The report does not systematically explain how the dimensions affect independence, consistency, scalability, latency, or resource use across patterns.",
+          "Hierarchical versus peer coordination is discussed only indirectly and not as a complete cross-cutting comparison."
+        ],
+        "rationale": "There is useful analysis of control topology and communication, but coverage of the rubric’s broader cross-cutting dimensions is incomplete and unsystematic."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 8 mentions specialized agents, managerial coordination, parallel work, distributed context, debate, and critique.",
+          "Finding 4 describes centralized orchestrators that allocate tasks, maintain global state, monitor workers, and synthesize results.",
+          "The Conclusion refers to roles, protocols, messaging strategies, and evaluation layers."
+        ],
+        "missing": [
+          "Planner or orchestrator roles are not systematically distinguished from workers, critics, verifiers, or synthesizers.",
+          "Tools and retrieval are not discussed as compositional mechanisms.",
+          "Memory and shared state receive only passing mention and are not explained.",
+          "Evidence, provenance, and audit tracking are not discussed as mechanisms.",
+          "The report does not distinguish essential architectural features from optional overlays or implementation choices.",
+          "The interactions between roles and the identified architectural patterns are largely left implicit."
+        ],
+        "rationale": "A few roles and orchestration functions are named, but the report does not provide the requested component-level composition analysis."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No actual visual taxonomy, diagram, graph, table, or other interpretable visual is provided.",
+          "The phrase “layered design graph” appears in the prose, but the graph itself is absent.",
+          "Relationships among patterns, alternatives, compositions, and overlays are therefore not made visually explicit.",
+          "There is no legend, reading guidance for a visualization, or discussion of classification limitations tied to an actual visual."
+        ],
+        "rationale": "The report describes a proposed layered design graph conceptually but does not provide the required visual synthesis."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 4 gives the conditional trade-off that centralized or hierarchical systems improve traceability and global coordination but create throughput bottlenecks and single points of failure.",
+          "Finding 5 contrasts local resilience in decentralized systems with weaker global consistency and coordination.",
+          "Finding 7 states that protocol performance varies by scenario across utility, latency, overhead, and failure resilience, citing ProtocolBench.",
+          "Finding 11 cautions that multi-agent superiority over strong single-agent or workflow baselines has not been established under matched cost and reliability constraints.",
+          "The Conclusion states that benefits are most plausible when work is decomposable, specialization or parallelism is valuable, or disagreement improves quality, while costs may outweigh benefits."
+        ],
+        "missing": [
+          "The report does not provide quantitative details from ProtocolBench such as task, baseline, metric values, or experimental context.",
+          "Trade-offs involving monetary cost, token cost, scalability, fault tolerance, and latency are mostly asserted rather than compared systematically.",
+          "Measured findings are not consistently separated from design intuitions or reported practitioner claims.",
+          "There is no structured comparison table or pattern-by-criterion analysis.",
+          "Conditions for trade-offs are discussed at a high level but not tied to specific workloads, agent counts, or implementation regimes."
+        ],
+        "rationale": "The report offers qualified, non-universal trade-off reasoning and recognizes baseline limitations, but its empirical comparison is not sufficiently detailed or quantitative."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 10 identifies behavior, capabilities, reliability, safety, task utility, latency or throughput, communication overhead, and failure-time robustness as evaluation dimensions.",
+          "Finding 11 recommends single-agent baselines and notes the lack of common baselines and comparable methodology.",
+          "Finding 9 identifies semantic drift, lossy handoffs, correlated errors, coordination overhead, token and latency costs, scalability limits, security vulnerabilities, and governance failures.",
+          "The report also names premature consensus, judge bias, generator-critic collusion, prompt-injection propagation, and agent or tool failures in the Remaining Gaps section.",
+          "The Remaining Gaps section calls for benchmarks covering cascading errors, collusion, supervisor drift, prompt injection, failures, recovery, provenance, human intervention, and containment."
+        ],
+        "missing": [
+          "Concrete mitigations and monitoring procedures are largely absent; risks are listed more often than linked to safeguards.",
+          "Human oversight, access control, sandboxing, tool-use restrictions, rollback, provenance checks, and termination policies are not explained operationally.",
+          "Contradiction and memory failures are mentioned in the open-problem list but not analyzed as failure modes with detection or mitigation methods.",
+          "The report does not clearly distinguish risks that are characteristic of particular architectures from risks that apply only under certain configurations.",
+          "Evaluation design lacks detailed ablations, coordination-behavior measures, and protocols for detecting correlated or propagated errors."
+        ],
+        "rationale": "The report has strong breadth on evaluation dimensions and risks, but only limited treatment of concrete detection, mitigation, and oversight mechanisms."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The Remaining Gaps section identifies specific problems involving matched single-agent baselines, taxonomy design, topology-protocol interactions, semantic-preserving communication, provenance, correlated hallucinations, cascading errors, long-horizon evaluation, governance, and generalization.",
+          "Finding 11 identifies the unresolved question of whether multi-agent systems outperform strong baselines under matched quality, cost, latency, and reliability constraints.",
+          "The report states that protocol results do not resolve interactions with topology, agent count, model heterogeneity, memory, or long-horizon control flow.",
+          "Sources are identifiable through labeled entries [S1]–[S10], including surveys, benchmarks, empirical work, and architecture discussions.",
+          "The report qualifies evidence by labeling findings with confidence levels and noting that the evidence is provisional and lacks a settled scholarly consensus."
+        ],
+        "missing": [
+          "Most open problems are presented as terse research questions without explaining in detail what remains unresolved, why it matters, or how it could be investigated.",
+          "Source quality and evidentiary status are uneven: several sources are practitioner blogs, and the report does not clearly distinguish peer-reviewed evidence, preprints, surveys, and informal commentary.",
+          "Specific benchmark findings, study designs, baselines, metrics, and limitations are not supplied for most cited claims.",
+          "The report does not map each major open problem to particular sources, reported limitations, or proposed future directions in a detailed way.",
+          "Memory, learning or adaptation, interoperability, and resource allocation are only briefly represented rather than developed as organized research areas."
+        ],
+        "rationale": "The report provides a substantial and specific open-problem inventory with identifiable sources and some uncertainty qualification, but sourcing and problem-by-problem explanation are not sufficiently deep."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report usefully frames the landscape as a layered, compositional design space rather than a single mutually exclusive taxonomy.",
+        "It separates communication protocols from broader topology and highlights scenario-dependent protocol trade-offs.",
+        "It explicitly cautions against assuming universal multi-agent superiority and emphasizes matched single-agent and workflow baselines.",
+        "It identifies interactions among topology, protocol, agent count, heterogeneity, memory, and long-horizon control as an important unresolved research area."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.7181818181818181,
+    "validity": 1.0,
+    "support": 0.6363636363636364,
+    "completeness": 0.7272727272727273,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F11",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F11",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F11",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F11",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F11",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "A multi-dimensional taxonomy is more appropriate than a mutually exclusive list of architectures.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S5",
+          "S8"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support using multiple dimensions or categories to describe agent systems, but they do not directly establish the comparative judgment that this approach is more appropriate than a mutually exclusive list. S8 provides the strongest support by explicitly proposing a framework spanning system-level and internal communication dimensions. S1 describes four quadrants and notes that production systems commonly compose patterns across quadrants, which weighs against treating architectures as mutually exclusive. S4 and S5 describe taxonomies or multiple architectural patterns, but do not clearly make the claimed comparison.",
+        "supporting_text": "S8: The survey proposes a framework integrating system-level communication (architecture, goals, and protocols) with system-internal communication (strategies, paradigms, objects, and content). S1: “most production agent systems are compositions of two or three from across those quadrants.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The major architectural patterns include single-agent loops, plan-and-execute, hierarchical supervisor-worker systems, graph or workflow systems, decentralized or swarm-like systems, multi-agent debate, and verifier-critic loops.",
+        "citation_ids": [
+          "S1",
+          "S3",
+          "S4",
+          "S5",
+          "S2"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S1 directly supports single-agent loops, plan-and-execute, hierarchical supervisor-worker, multi-agent debate, and verifier-critic patterns. S4 and S5 support decentralized and centralized/orchestrated architectures, while S3 describes networked specialist-agent arrangements. However, the supplied excerpts do not explicitly establish “graph or workflow systems” as a named architectural pattern, and the sources do not collectively demonstrate that this list constitutes the major or exhaustive patterns.",
+        "supporting_text": "S1 names ReAct as the “canonical agent loop” and explicitly defines Plan-and-execute, Supervisor-worker, Multi-agent debate, and Verifier-critic. S4 identifies decentralized orchestration; S5 discusses decentralized systems and provides a LangGraph supervisor/agent workflow implementation."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The design space is compositional: a system may combine specialization, hierarchical orchestration, graph control flow, planning, and critique.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support a compositional design space involving specialist agents, hierarchical orchestration, planning, and critique. S1 explicitly says production systems are compositions of multiple patterns and describes plan-and-execute, supervisor-worker, graph topologies, and verifier-critic. S2 supports specialized agents collaborating through a manager and planning/execution. S3 supports specialist agents arranged in networks and identifies orchestration and control-flow strategies. However, the supplied S1 excerpt does not actually define or substantiate graph control flow in detail, and the sources do not clearly establish that all five listed elements may be combined within one system. Thus, only a narrower compositional claim is supported.",
+        "supporting_text": "S1: “most production agent systems are compositions of two or three” patterns; it describes “Plan-and-execute,” “Supervisor-worker” hierarchical orchestration, and “Verifier-critic.” S2: specialized agents “share information, and sequence their efforts through the manager.” S3: “specialist agents” can be arranged “in a network” with “agent orchestration” and “control-flow strategies.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Centralized and hierarchical systems provide global coordination and clearer accountability, but create bottlenecks and single points of failure.",
+        "citation_ids": [
+          "S5",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S5 directly supports the centralized-system portions: it states that centralized systems route data through one hub, ensuring consistency; the orchestrator maintains global state, makes routing decisions, and provides clear accountability. It also explicitly identifies bottlenecks and a single point of failure. S1 supports the hierarchical aspect by defining supervisor-worker as hierarchical multi-agent coordination, though it does not itself state all of the claimed benefits and drawbacks.",
+        "supporting_text": "S5: “In centralized systems, all data flows through one hub, creating a bottleneck but ensuring consistency.” It says the orchestrator “maintains global state,” provides “clear accountability,” becomes a bottleneck, and that if it fails, “all return processing stops.” S1: “Supervisor-worker. Hierarchical multi-agent,” where the supervisor decomposes tasks, routes them to workers, and aggregates results."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Decentralized or peer-to-peer systems can improve local resilience and reduce dependence on a central hub, but make global consistency and coordination more difficult.",
+        "citation_ids": [
+          "S4",
+          "S5"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S5 directly supports the tradeoff: decentralized systems enable faster local decisions, avoid reliance on a single point of failure, but risk global inconsistency and make coordination harder. However, the cited text does not explicitly state that decentralized systems reduce dependence on a central hub in those terms, and S4 provides only general discussion of decentralized architectures without the specific resilience claim.",
+        "supporting_text": "S5 states that decentralized systems allow direct peer communication and faster local decisions while risking global inconsistency; they can continue operating when multiple agents fail, but coordination becomes exponentially harder."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Communication protocols are a distinct architectural layer whose choice affects system behavior.",
+        "citation_ids": [
+          "S8",
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S8 explicitly distinguishes system-level communication, including protocols and architecture, from system-internal communication. S9 directly identifies a separate “communication protocol layer” and states that protocol choice significantly influences system behavior, with measured differences in latency, completion time, and failure resilience.",
+        "supporting_text": "S8: “we propose a two-level analytical framework distinguishing between system-level communication and system-internal communication”; LLM-MAS are “communication protocol-constrained” and operate within a “predefined communication architecture.” S9: “the communication protocol layer has become a critical…factor shaping performance and reliability” and “the choice of protocol significantly influences system behavior.”"
+      },
+      {
+        "finding_id": "F7",
+        "claim": "No communication protocol is uniformly best; protocol performance is scenario-dependent across utility, latency, overhead, and failure resilience.",
+        "citation_ids": [
+          "S9"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S9 strongly supports scenario-dependent performance and trade-offs across task utility, latency, and failure resilience. It explicitly reports four evaluation axes, including message/byte overhead, but the supplied results do not provide comparative overhead findings sufficient to establish that performance varies across that axis. The broader claim that no protocol is uniformly best is supported by the reported scenario-specific winners and trade-offs, though not as an absolute universal conclusion.",
+        "supporting_text": "S9 states that ProtocolBench reveals “clear, scenario-dependent trade-offs”: A2A has the highest task utility in GAIA, ACP the lowest latency in Streaming Queue, and A2A the strongest Fail-Storm resilience. It also describes comparisons across “task success/quality, end-to-end latency/throughput, message/byte overhead, and failure-time robustness.”"
+      },
+      {
+        "finding_id": "F8",
+        "claim": "The principal motivations for multi-agent systems are decomposition, specialization, parallelism, distributed context, and access to multiple perspectives.",
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S5",
+          "S8"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources clearly support decomposition, specialization, parallelism, and distributing context. They also support collaboration and exchanging ideas, but do not clearly establish “access to multiple perspectives” as a principal motivation, nor do they present this exact five-item list as the principal motivations.",
+        "supporting_text": "S2 describes breaking complex work into subtasks assigned to specialized agents, parallel processing, and dividing extended context across agents. S3 states that MAS divides complex tasks into smaller tasks assigned to distinct agents and highlights specialist agents. S5 describes simultaneous specialized agents and says multi-agent architectures distribute context across agents with separate windows. S8 says multiple agents address goals beyond a single agent’s capacity and that communication facilitates idea exchange and coordinated planning."
+      },
+      {
+        "finding_id": "F9",
+        "claim": "The main research and deployment risks are semantic drift, lossy handoffs, correlated errors, coordination overhead, token and latency costs, scalability limits, security vulnerabilities, and governance failures.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S3",
+          "S8"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources substantiate several listed risks: semantic/contextual drift, semantic loss during protocol handoffs, correlated or undetected errors, coordination overhead, token consumption, latency costs, scalability issues, and security vulnerabilities. However, the supplied excerpts do not meaningfully establish governance failures as a risk, and they do not clearly support the broad framing that these are the main risks. S3 mentions governance as a research direction, but not governance failures specifically.",
+        "supporting_text": "S4 describes “contextual drift,” “interaction protocol semantic loss,” similar agents producing undetected errors, and escalating token consumption. S1 identifies coordination overhead and a latency tax. S8 explicitly lists security vulnerabilities and scalability issues among current challenges. S3 notes variability in LLM behavior and calls for improved reliability, scalability, and governance."
+      },
+      {
+        "finding_id": "F10",
+        "claim": "Evaluation should be multi-dimensional and end-to-end rather than limited to final-answer quality.",
+        "citation_ids": [
+          "S10",
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S10 explicitly presents evaluation across multiple objectives and processes, including behavior, capabilities, reliability, safety, interaction modes, metrics, tooling, and environments, and states that standard LLM evaluation is insufficient for interactive agents. S9 directly contrasts task-level/final accuracy with broader end-to-end measures, arguing that evaluations should also capture latency, communication overhead, and failure robustness.",
+        "supporting_text": "S10: The survey proposes a two-dimensional taxonomy covering evaluation objectives and processes, and says agent evaluation is more complex than evaluating text generation or question answering alone. S9: ProtocolBench measures task success/quality, end-to-end latency/throughput, message/byte overhead, and robustness under failures; it notes that prior work mainly focused on final task accuracy while missing efficiency and stability signals."
+      },
+      {
+        "finding_id": "F11",
+        "claim": "Current evidence does not establish that multi-agent systems generally outperform strong single-agent or alternative workflow baselines under matched cost and reliability constraints.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support a cautious, non-universal conclusion: S1 recommends establishing a single-agent baseline and notes coordination overhead, while S3 reports case-study results but also emphasizes behavioral variability and unresolved reliability, scalability, and governance limitations. However, the saved content does not provide a systematic comparison under matched cost and reliability constraints, so it cannot directly establish the full claim about the state of current evidence.",
+        "supporting_text": "S1: “Start single-agent. Escalate to multi-agent only when single-agent caps out on a measured quality dimension,” and supervisor-worker systems can incur coordination overhead. S3: findings reinforce “variability in LLM behaviour” and identify further work needed to improve reliability and scalability."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "The research landscape is best represented as a layered, compositional design space rather than a single taxonomy.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable synthesis claim in the Summary, but no citation is supplied nearby."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Agent roles and relationships, control topology, communication protocols, and evaluation constitute distinct dimensions of the multi-agent LLM design space.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive landscape claim appears in the Summary without a nearby citation."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "There is no universally superior architecture or protocol established by the available evidence.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable conclusion in the Summary, but no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "A multi-dimensional taxonomy is more appropriate than a mutually exclusive list of architectures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S5",
+          "S8"
+        ],
+        "rationale": "The claim is directly followed by evidence citing S1, S4, S5, and S8."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Major architectural patterns include single-agent loops, plan-and-execute, hierarchical supervisor-worker systems, graph or workflow systems, decentralized or swarm-like systems, multi-agent debate, and verifier-critic loops.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "rationale": "The claim is supported by nearby evidence citing the relevant taxonomy and applied-system sources."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "The design space is compositional: a system may combine specialization, hierarchical orchestration, graph control flow, planning, and critique.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "rationale": "The claim is directly supported by the nearby evidence bullet citing S1, S2, and S3."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Centralized and hierarchical systems provide global coordination and clearer accountability, but create bottlenecks and single points of failure.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S5"
+        ],
+        "rationale": "The claim is followed by evidence describing coordination, traceability, bottlenecks, failure risk, and supervisor-related risks, with citations to S5 and S1."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Decentralized or peer-to-peer systems can improve local resilience and reduce dependence on a central hub, but make global consistency and coordination more difficult.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5"
+        ],
+        "rationale": "The nearby evidence explicitly contrasts decentralized peer communication with inconsistency and coordination difficulties."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Communication protocols are a distinct architectural layer whose choice affects system behavior.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S9"
+        ],
+        "rationale": "The evidence immediately cites S8 and S9 for separating protocols from topology and evaluating protocol effects."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "No communication protocol is uniformly best; protocol performance is scenario-dependent across utility, latency, overhead, and failure resilience.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "The claim is directly supported by the nearby ProtocolBench evidence and citation S9."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "The principal motivations for multi-agent systems are decomposition, specialization, parallelism, distributed context, and access to multiple perspectives.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S3",
+          "S5",
+          "S8"
+        ],
+        "rationale": "The evidence bullet directly lists these motivations and cites S2, S3, S5, and S8."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "The main research and deployment risks include semantic drift, lossy handoffs, correlated errors, coordination overhead, token and latency costs, scalability limits, security vulnerabilities, and governance failures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S3",
+          "S4",
+          "S8"
+        ],
+        "rationale": "The nearby evidence identifies these risks and supplies citations to S1, S3, S4, and S8."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Evaluation should be multi-dimensional and end-to-end rather than limited to final-answer quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9",
+          "S10"
+        ],
+        "rationale": "The claim is supported by adjacent evidence citing the agent-evaluation survey and ProtocolBench."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Current evidence does not establish that multi-agent systems generally outperform strong single-agent or alternative workflow baselines under matched cost and reliability constraints.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "rationale": "The claim is followed by evidence discussing single-agent baselines, practitioner claims, empirical limitations, and missing comparable methodology, with citations supplied."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "The report treats relationship-based, centralized/decentralized, specialized/hybrid, and information-flow taxonomies as different abstraction levels rather than directly competing taxonomies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S5"
+        ],
+        "rationale": "The statement appears in Conflicts and Uncertainty and has a nearby citation to the sources being compared."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "The available evidence does not resolve which topology is preferable under specific scales, failure patterns, or workloads.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S5"
+        ],
+        "rationale": "The uncertainty statement is directly accompanied by citations to the sources presenting the differing views."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Some practitioner sources characterize multi-agent systems as broadly superior for complex tasks, while another recommends first testing whether a single agent has reached its measured quality ceiling.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2"
+        ],
+        "rationale": "The statement identifies contrasting source positions and supplies nearby citations to S1 and S2."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Protocol-level benchmark results demonstrate scenario-dependent differences but do not answer how protocols interact with topology, agent count, model heterogeneity, memory, or long-horizon control flow.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S9"
+        ],
+        "rationale": "The claim appears with nearby citations to the communication survey and protocol benchmark."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The accessible evidence supports a provisional landscape map rather than a settled scholarly consensus, and S6 and S7 provide insufficient substantive content in the retrieved material for strong conclusions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S7"
+        ],
+        "rationale": "The statement is explicitly accompanied by citations to S6 and S7."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "The report recommends determining when multi-agent coordination outperforms strong single-agent, tool-augmented, or conventional workflow baselines under matched quality, cost, latency, and reliability constraints.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed remaining research gap rather than a factual claim requiring source support."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The report recommends developing a common taxonomy covering roles, relationships, topology, control flow, memory, communication protocols, and governance without conflating these layers.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a methodological recommendation or research agenda item; citation is useful but not strictly required."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "The report recommends measuring interactions among topology, protocol, agent count, model heterogeneity, memory design, and task structure.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is framed as a proposed research gap, not as an externally asserted finding."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The report recommends developing messaging, shared-state, compression, and provenance mechanisms that preserve semantics while reducing token and latency costs.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed research direction; citation is optional."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "The report recommends benchmarks for correlated hallucinations, cascading errors, collusion, premature consensus, supervisor drift, prompt-injection propagation, and agent or tool failures.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed benchmark agenda rather than a factual claim about an existing result."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The report recommends long-horizon and open-world evaluations covering utility, capability, reliability, safety, security, latency, throughput, communication overhead, and recovery.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a recommendation about evaluation design; citation is optional."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "The report recommends clarifying governance requirements for access control, auditability, provenance, human intervention, compliance, and containment of unsafe inter-agent behavior.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed governance research agenda item, so citation is optional."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "The report recommends testing whether reported protocol and orchestration results generalize across independent implementations, domains, models, scales, and production deployments.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed validation agenda item rather than an externally asserted finding."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "The report's proposed design graph begins with agent relationship and role structure, selects a control topology and workflow, implements communication through a protocol and internal messaging strategy, and evaluates the complete system under operational, reliability, safety, and governance constraints.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the report's synthesized framework and recommendation; citation would strengthen it but is not strictly required as a proposal."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "Multi-agent systems offer plausible benefits when work is decomposable, specialization or parallelism is valuable, or disagreement improves quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive effectiveness claim in the Conclusion, but it has no nearby citation."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "Multi-agent systems introduce coordination, communication, cost, security, and reliability problems that can outweigh their benefits.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable comparative claim in the Conclusion without a nearby citation."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "The field is mature enough for a structured taxonomy and targeted comparative benchmarks, but not mature enough to support a universal architecture recommendation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This maturity assessment is a substantive conclusion and lacks a nearby citation."
+      }
+    ],
+    "evaluable_support_claims": 11,
+    "total_support_claims": 11,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R5: Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays.",
+    "R2: Identify and characterize the major architectural patterns in multi-agent LLM systems.",
+    "8 cited finding(s) were not fully supported by saved evidence.",
+    "6 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "dde17025de5d2290fbd0fb3edb6e63f6facee474c05c3852bc1cb73f615c7a41",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T10:43:16.858155+00:00",
+    "usage": {
+      "llm_calls": 13,
+      "input_tokens": 72005,
+      "output_tokens": 7509,
+      "estimated_cost": null
+    }
+  }
+}

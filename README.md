@@ -2,7 +2,7 @@
 
 ## What this is
 
-This repository contains five selectable, comparable research architectures spanning
+This repository contains five canonical, comparable research architectures spanning
 the simplest possible model interaction through retrieval, structured evidence state,
 explicit planning, and independent verification. Every architecture produces a report,
 human-readable log, machine trace, and Evaluator-v1-compatible artifacts.
@@ -13,6 +13,9 @@ implementation. It measures what the configured model produces from pretrained
 knowledge and one minimal instruction. The other four architectures use Tavily and may
 perform at most ten searches; they favor an honest incomplete answer over unsupported
 completeness.
+
+It also contains an experimental `prior-guided` V0 variant. The experiment is kept out
+of the canonical V-1 through V3 ladder until benchmark results justify a redesign.
 
 | Version | System | Stable system ID | Search | Ledger | Plan | Verifier |
 |---|---|---|---:|---:|---:|---:|
@@ -71,12 +74,39 @@ Need more research?
    │                                 │
    └── no  → structured final report │
                                      │
-                   (at most 3 searches)
+                   (at most 10 searches)
 ```
 
 The Search Baseline loop remains ordinary Python in `research/runner.py`. The V-1 to V0
 transition asks: **What value does fresh external retrieval add beyond the model's
 pretrained knowledge?** It adds Tavily retrieval and the iterative research loop.
+
+## Experimental: Prior-Guided Search
+
+System version: `prior-guided-baseline-v0`
+
+```text
+Question
+  -> one pretrained-knowledge research coverage map
+  -> original-question Tavily reconnaissance search
+  -> evidence-only analysis and coverage updates
+  -> searches targeting unresolved CORE dimensions
+  -> grounded V0 final report
+```
+
+Hypothesis: V0's grounding constraint improves provenance but may reduce breadth because
+the system can only search for gaps it has already recognized from retrieved evidence.
+The configured model's pretrained knowledge may provide useful topic recall for planning
+without being trusted as factual evidence.
+
+The planner receives only the original question and returns four to eight research
+dimensions. Planner output is planning metadata, not evidence. It cannot provide source
+IDs, cannot be cited, and is excluded from the factual final-synthesis payload. Final
+factual claims still require retrieved `S*` source IDs. Search 1 remains the exact original
+question, and the entire run retains the same maximum of ten Tavily searches as V0.
+
+This experiment adds one logical OpenAI planning request. It does not add a ledger,
+decomposer, verifier, counter-search, evaluator feedback, or fixture information.
 
 ### V1 — Evidence Ledger
 
@@ -227,6 +257,12 @@ V0 Search Baseline remains the default, preserving existing commands:
 python main.py "your research question"
 ```
 
+Run the experimental prior-guided V0 variant:
+
+```bash
+python main.py "your research question" --mode prior-guided
+```
+
 Run Evidence Ledger v1 explicitly:
 
 ```bash
@@ -257,7 +293,9 @@ Progress, the stop reason, and artifact paths are printed to the terminal. Missi
 Run the command from the project root, where `main.py` and `.env` are located. A
 V-1 makes one logical OpenAI research request and zero Tavily requests. Infrastructure
 retries may cause another HTTP attempt, but it never performs a semantic retry or second
-generation pass. Search Baseline may perform up to ten Tavily searches and eleven OpenAI requests. Evidence
+generation pass. Search Baseline may perform up to ten Tavily searches and eleven OpenAI
+requests. Prior-guided mode uses the same ten-search maximum and may make twelve logical
+OpenAI requests: one planning call, up to ten evidence-analysis calls, and one final report. Evidence
 Ledger v1 may perform up to ten Tavily searches, ten evidence-processing requests,
 nine model-based research decisions, and one final-report request. Either mode can incur
 API usage or charges. Decomposed mode has the same search and ledger limits plus one
@@ -373,6 +411,7 @@ Choose the research architecture by placing its name after the script:
 | --- | --- |
 | `python scripts/run_fixture_suite.py llm-only` | One structured OpenAI generation using the canonical report format; no retrieval or research components |
 | `python scripts/run_fixture_suite.py baseline` | Baseline analyzer; no ledger, decomposition, or verification |
+| `python scripts/run_fixture_suite.py prior-guided` | Experimental V0 plus one non-evidence prior-knowledge coverage-planning call |
 | `python scripts/run_fixture_suite.py ledger` | Evidence ledger only |
 | `python scripts/run_fixture_suite.py decomposed` | Evidence ledger and question decomposer |
 | `python scripts/run_fixture_suite.py verified` | Ledger, decomposer, independent verifier, and adversarial counter-search |
