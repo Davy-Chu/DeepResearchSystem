@@ -1,0 +1,524 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 56.875,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.78125,
+    "coverage": 0.78125,
+    "depth": 0.78125,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report defines few-shot CoT as examples containing “reasoning steps,” zero-shot CoT as “Let’s think step by step,” and distinguishes scratchpads, self-consistency, program-of-thought, tool augmentation, and hidden or latent reasoning.",
+          "It explicitly states that “a visible explanation is not automatically a causal trace” and contrasts CoT with direct-answer prompting in the proposed controls."
+        ],
+        "missing": [
+          "Direct answering is discussed mainly as a baseline rather than explicitly defined as the comparison intervention.",
+          "The report does not clearly distinguish CoT from every other inference-time procedure, such as generic verbosity or beam search, in the initial conceptual framing."
+        ],
+        "rationale": "The report establishes the main intervention and distinguishes most relevant neighboring methods, but the comparison taxonomy could be more explicit and systematic."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It discusses arithmetic and symbolic tasks, including GSM8K and multistep multiplication, and reports that CoT often produces strong gains there.",
+          "It separately covers commonsense reasoning, knowledge-intensive questions, planning, logic, constraint satisfaction, and multiple-choice tasks, noting mixed results and possible harms such as hallucination or overthinking.",
+          "It states that direct-answer prompting can perform nearly as well on easy, retrieval-like, or familiar-template tasks."
+        ],
+        "missing": [
+          "Evidence for open-ended reasoning is relatively thin; the discussion is mostly categorical rather than reporting concrete studies or metrics across open-ended tasks.",
+          "The report gives few specific comparative results beyond the general claim about PaLM/GSM8K."
+        ],
+        "rationale": "It covers the required task diversity and avoids a single-benchmark generalization, but empirical detail is uneven and strongest for mathematical or symbolic tasks."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It identifies model scale, parameter count, pretraining, instruction tuning, context length, and decoding as moderators, stating that larger models generally use extra tokens more effectively.",
+          "It discusses task decomposition, difficulty, task structure, distribution similarity, benchmark familiarity, out-of-distribution composition, prompt wording, demonstrations, and direct-answer baselines.",
+          "It explains that demonstrations teach parsing, operations, solution structure, and output format, so CoT/no-CoT comparisons may not be information-matched."
+        ],
+        "missing": [
+          "The report often presents moderators as broad tendencies without separating well-established findings from contested or under-tested ones.",
+          "It does not provide much study-level evidence showing how each moderator changes effect size."
+        ],
+        "rationale": "The major moderators are all addressed and connected to conflicting results, but the evidential status and quantitative support for individual moderators are limited."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "The report distinguishes serial computation, scratchpad/context effects, representation change, latent activation steering, search and aggregation, and formatting or benchmark-compliance effects.",
+          "It explicitly says that “accuracy improvements and explanation faithfulness must be evaluated separately” and that a correct final answer can coexist with an invalid or post hoc explanation.",
+          "It proposes format-matched controls, hidden scratchpads, executable programs, chain perturbations, and counterfactual tests to separate mechanisms."
+        ],
+        "missing": [],
+        "rationale": "This requirement is treated in substantial mechanistic and experimental detail, including the distinction between improved outcomes and faithful displayed reasoning."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "It separately defines single-chain CoT, self-consistency, verifier-guided search, and tool use, warning that gains from sampling many solutions should not automatically be attributed to CoT.",
+          "It discusses greedy decoding, temperature sampling, beam search, voting, calculators, code execution, retrieval, symbolic solvers, and external verification.",
+          "It recommends comparing direct answer, CoT, hidden scratchpad, structured decomposition, and executable-program conditions with matched token budgets, demonstrations, and output formats."
+        ],
+        "missing": [],
+        "rationale": "The report clearly separates the prompt intervention from added sampling, computation, tools, extraction, and verification, and recommends like-for-like controls."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It defines the faithfulness problem as whether the chain is “the actual causal basis of the answer” or a post hoc rationale.",
+          "It cites Turpin et al. and Lanham et al. on explanations being influenced by irrelevant features and not always causally necessary.",
+          "It proposes deleting, replacing, negating, reordering, or contradicting intermediate steps, plus counterfactual, adversarial, execution-validity, and step-level correctness tests."
+        ],
+        "missing": [
+          "The report summarizes cited findings but gives limited methodological detail about their exact tasks, intervention results, or limitations.",
+          "It does not deeply distinguish logical validity, causal faithfulness, and fidelity under distribution shift using concrete comparative evidence."
+        ],
+        "rationale": "It identifies the right validity and causal tests and acknowledges that accuracy is not faithfulness, but the literature assessment remains mostly high-level."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It warns that results are not directly comparable when studies differ in parameter count, pretraining, instruction tuning, context length, demonstrations, decoding, sampling, and aggregation.",
+          "It notes contamination, benchmark familiarity, exact-match scoring, and the need for calibration, process metrics, perturbation robustness, and replication-like checks.",
+          "It cites major research programs including Wei, Kojima, Wang, Nye, Turpin, Lanham, Lightman, PAL, and related work."
+        ],
+        "missing": [
+          "It does not systematically report model versions or sizes, datasets, baselines, decoding settings, metrics, uncertainty, effect-size variation, or replication status for the cited studies.",
+          "Several claims about “subsequent work,” contamination, and limits are not tied to specific sources or documented comparisons.",
+          "The selected references are not critically evaluated for source quality, scope, or reproducibility, and one citation is visibly malformed: “改? Measuring Faithfulness...”."
+        ],
+        "rationale": "The report understands the comparability problem and names many relevant dimensions, but it does not perform the evidence-quality audit required to explain disagreements from documented study-level differences."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion directly rejects both extremes: CoT is “not merely a formatting trick,” but visible chains are not reliably faithful transcripts.",
+          "It gives a qualified synthesis involving serial computation, representation change, latent-mode activation, search, and formatting effects, and distinguishes eliciting useful computation from faithful, generalizable reasoning.",
+          "It provides practical guidance about when CoT helps, when tools or verifiers are needed, and the risks of hallucination, novel distributions, exact arithmetic, and high-stakes use."
+        ],
+        "missing": [
+          "Cost and latency implications are only implicit through longer generation and multiple samples; the report does not explicitly analyze their operational tradeoffs.",
+          "Reliability implications are discussed, but there is limited concrete guidance on calibration, abstention, or when the accuracy gain justifies added computation."
+        ],
+        "rationale": "The synthesis is strong and directly answers the question, but the requested practical treatment of cost and latency is incomplete."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful synthesis that separates final-answer accuracy, computational usefulness, faithfulness, generalization, and calibration rather than treating them as one claim.",
+        "Its central framing of CoT as an “external control interface” combining scratchpad, representation, latent steering, search, and formatting mechanisms is a substantive integrative perspective."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Chain-of-thought prompting can substantially improve task performance when the model has relevant knowledge and competence and the task benefits from decomposition.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report attributes the original performance improvements to Wei et al. (2022), and the citation is nearby to the claim."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Observed CoT gains can arise from improved problem representation, search, and answer selection rather than from the written chain faithfully recording the computation that produced the answer.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive empirical and mechanistic synthesis, but no citation is attached to the executive conclusion."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Wei et al. (2022) reported gains from few-shot CoT prompting on arithmetic, symbolic, and commonsense reasoning tasks, especially for sufficiently large language models.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The cited author and year appear directly with the claim."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Kojima et al. (2022) found that the instruction “Let’s think step by step” improved performance on several reasoning benchmarks without demonstrations.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is directly attributed to Kojima et al. (2022)."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Nye et al. (2021) showed that training models to produce intermediate computations improved performance on algorithmic tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is directly attributed to Nye et al. (2021)."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Wang et al. (2022) improved CoT accuracy by sampling multiple reasoning paths and selecting the modal final answer.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is directly attributed to Wang et al. (2022)."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Program-of-thought methods generate executable code and often outperform ordinary CoT on numerical tasks because execution handles arithmetic and state updates more reliably.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report mentions Gao, Madaan, and colleagues later, but no citation is supplied directly alongside this substantive comparative claim."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Intermediate autoregressive tokens can provide additional computational bandwidth and function as external memory, decomposition scaffolds, variable or subgoal representations, and partial search traces.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive mechanistic claim; the later mention of Nye et al. does not clearly cite each component of the claim."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "PaLM’s performance on GSM8K rose dramatically with CoT prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The surrounding paragraph attributes the reported result to Wei et al., although the citation is not repeated immediately after the sentence."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "CoT gains are sometimes preserved under paraphrase and answer-format controls, and short final-answer constraints after hidden or external reasoning can retain benefits.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "No study or citation is supplied for these empirical assertions."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Self-consistency can improve accuracy through search and aggregation without establishing that any individual chain is faithful.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The self-consistency intervention is cited to Wang et al. (2022); the faithfulness qualification is presented as interpretation but remains within the cited discussion."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "CoT can induce useful intermediate representations such as equations, entities and relations, constraints, subgoals, or executable code.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report gives examples but does not provide a nearby citation covering the general empirical claim."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Turpin et al. (2023) found that CoT explanations can be influenced by irrelevant prompt features and may rationalize decisions rather than transparently report the computation that generated them.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is explicitly attributed to Turpin et al. (2023)."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Lanham et al. (2023) found, using interventions such as removing or changing chain steps, that visible CoT is often not fully causally necessary or faithful.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is explicitly attributed to Lanham et al. (2023)."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Process-supervision and verifier-based studies found that rewarding step-by-step explanations can improve outcomes, while models may still exploit superficial patterns or produce plausible-looking incorrect processes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report refers generally to Uesato et al. and related work but does not provide a complete nearby citation for the combined claim."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Direct-answer prompting performs nearly as well as CoT on some benchmarks, while CoT can harm performance on simple factual, adversarial, or ambiguous tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are empirical benchmark claims without nearby citations."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "CoT is vulnerable to lexical cues, answer-position biases, surface templates, benchmark formats, and other spurious correlations, and some gains disappear when such regularities are controlled.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report invokes shortcut-learning, adversarial-example, and counterfactual-evaluation work only generically, without an actual nearby citation."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "CoT gains are less consistent for novel combinations, systematic generalization, and distribution shifts than for benchmark tasks close to pretraining or demonstration patterns.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive generalization claim, but no specific study is cited nearby."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The original CoT effect was strongly associated with model scale, and smaller models often have greater difficulty maintaining coherent multistep reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report links the scale association to the original CoT results and cites Wei et al. in the surrounding discussion."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "CoT effectiveness varies by task type: it often helps arithmetic and symbolic tasks, has mixed effects on commonsense tasks, may increase hallucination on knowledge-intensive questions, and is error-prone for planning and long constraint tracking.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are multiple empirical domain-level claims without citations attached to the task-type subsections."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Prompt wording, demonstrations, decoding methods, sampling, self-consistency, and verifier use can substantially change the apparent effect attributed to CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report states these methodological effects but supplies no specific citation for them."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Many papers attribute gains to CoT even when the intervention also includes sampling many solutions and aggregating them, which constitutes a search procedure rather than merely a formatting instruction.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the literature and experimental interventions without a supporting citation."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Benchmark contamination or familiarity with questions, paraphrases, and solution templates can weaken claims that CoT performance demonstrates novel reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report names datasets but provides no citation for the contamination assertion."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Exact-match scoring gives full credit to correct answers paired with invalid chains, lucky answers, or fabricated explanations, so process-aware metrics are needed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about evaluation practice and consequences, with no nearby citation."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "Nye et al. (2021) provides relatively strong evidence that intermediate sequences can be computationally substantive, while trained scratchpads differ from zero-shot natural-language rationales.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The research program is explicitly attributed to Nye et al. (2021)."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "Turpin et al. (2023), Lanham et al. (2023), and related faithfulness studies show that verbalized reasoning is often not a reliable explanation of the internal decision process.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim directly names the relevant studies."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "Lightman et al. (2023) found that supervising intermediate steps can improve mathematical reasoning relative to outcome-only supervision.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim is explicitly attributed to Lightman et al. (2023)."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "Generating executable programs or using calculators often produces larger and more dependable gains on formal tasks than free-form CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report lists program-of-thought references, but no citation is placed directly with this comparative claim."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "Reversal, novel-symbol, and compositional-generalization studies find that language models often struggle when familiar surface associations are removed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The report refers to this research program generically and provides no specific citation."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "CoT is best treated as a probabilistic elicitation and search strategy rather than a guaranteed transparent proof.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the report’s synthesis and recommendation, grounded in earlier cited claims; a citation would be useful but is not strictly required as a framing conclusion."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "For high-stakes use, answers, user-facing explanations, causal-faithfulness evidence, and independent verification should be treated as separate components.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is practical methodological guidance rather than a directly verifiable factual assertion."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 0,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R7: Evaluate the evidential strength and comparability of the cited literature, including model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, replication, and source quality.",
+    "29 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "6c7b6c2066ee75cdc903faa7954209fc0777ccfdfa1017baef6dd1972e2fd57a",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T01:00:58.572562+00:00",
+    "usage": {
+      "llm_calls": 2,
+      "input_tokens": 13821,
+      "output_tokens": 4506,
+      "estimated_cost": null
+    }
+  }
+}

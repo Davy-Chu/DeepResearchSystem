@@ -1,0 +1,1315 @@
+{
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+    "summary": "This is an automatically generated incomplete report. The research run ended with stop reason `max_iterations`, and normal finalization did not complete during OpenAI Ledger Report Generation. The validated findings collected before that point are preserved below without claiming that the evidence is complete.",
+    "findings": [
+      {
+        "claim": "In the supplied empirical report, generic CoT prompting produced context-dependent final-answer effects on GPQA Diamond: it generally improved average performance for tested non-reasoning models, but effects ranged from modest or nonsignificant gains to declines under a perfect-accuracy criterion; for tested reasoning models, gains were small and one model declined.",
+        "evidence": [
+          {
+            "summary": "Reports average gains for several non-reasoning models, a nonsignificant gain for GPT-4o-mini, declines for some models under the 100%-correct metric, and only small or negative effects for reasoning models.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "The article reports that CoT has no statistically significant improvement for one-third of model-task combinations and hurts performance in others, including a reported drop in one model's perfect-accuracy rate, reinforcing context-dependent effects.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S11 broadly corroborates the existing context-dependent characterization, but it is an industry blog summarizing external research and does not materially broaden the direct GPQA-specific evidence in C1."
+      },
+      {
+        "claim": "The supplied evidence indicates that generic CoT can impose substantial inference-time cost, with reported increases in response time of 35–600% for non-reasoning models and 20–80% for reasoning models in the GPQA study.",
+        "evidence": [
+          {
+            "summary": "Reports 35–600% longer response times for non-reasoning models and 20–80% longer times for reasoning models when prompted to think step by step.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "Reports that CoT can increase token use by roughly 2–5 times and reiterates response-time increases of 35–600% for non-reasoning models and 20–80% for reasoning models.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S11 provides a consistent but secondary account of the cost increase; it does not establish generality beyond the summarized study conditions."
+      },
+      {
+        "claim": "The supplied sources support a distinction between generic flat CoT and more structured inference procedures: the Hi-CoT paper reports higher accuracy and shorter traces than its CoT comparison on the evaluated mathematical benchmarks, attributing the proposed method to hierarchical decomposition and compression bottlenecks.",
+        "evidence": [
+          {
+            "summary": "Claims a 6.2% average accuracy improvement, up to 61.4% on some configurations, and a 13.9% reduction in trace length versus CoT across 13 model configurations and five mathematical benchmarks.",
+            "source_ids": [
+              "S1"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The results are reported in the supplied abstract and introduction, but no detailed tables, statistical tests, baseline implementation details, or independent replication are provided here."
+      },
+      {
+        "claim": "Several supplied sources describe CoT as eliciting or encouraging stepwise decomposition and improved final-task performance, but these descriptions do not by themselves establish that the visible rationale is faithful to the model’s causal reasoning process.",
+        "evidence": [
+          {
+            "summary": "Characterizes CoT as asking models to show intermediate steps and claims benefits for complex tasks such as mathematics, logic, and planning.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Describes CoT as generating intermediate logical steps and presents explanatory examples of multistep problem solving.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "A controlled intervention study finds that models can remain unchanged when explicit intermediate structures are edited, showing that visible intermediate reasoning need not causally determine the final decision.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "Reports prior CoT perturbation and bias-injection findings, and describes experiments in which models could have answer information available before generating CoT, supporting the possibility of post-hoc reasoning.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "Distinguishes faithfulness from accuracy and summarizes evidence that editing or truncating CoT does not reliably alter answers; it also describes external deterministic solvers as a way to guarantee dependence on an explicit reasoning representation.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "The study frames CoT as both a performance and explainability technique, but its supplied abstract reports predictive comparisons rather than causal or faithfulness tests; this reinforces that performance gains should not automatically be interpreted as faithful underlying reasoning.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The comparative study adds evidence that performance improvements can be observed across tasks, while offering no process-sensitive basis for equating those improvements with faithful visible reasoning. This strengthens the distinction already supported by intervention studies."
+      },
+      {
+        "claim": "The supplied report finds that many tested models produced CoT-like reasoning by default without an explicit step-by-step instruction, making an unprompted or default condition an important baseline when estimating the incremental value of generic CoT.",
+        "evidence": [
+          {
+            "summary": "States that many models perform CoT-like reasoning under the default condition and compares explicit step-by-step prompting with both direct-answer and unprompted conditions.",
+            "source_ids": [
+              "S2"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources do not directly test whether models produce CoT-like reasoning by default under the relevant baseline conditions."
+      },
+      {
+        "claim": "Controlled intervention evidence in the supplied sources indicates that explicit intermediate structures are not reliably causal mediators of LLM decisions: across eight models and three benchmarks, models sometimes failed to change predictions after the structures were edited, with failures reported in up to 60% of cases; external tool execution substantially reduced this fragility.",
+        "evidence": [
+          {
+            "summary": "Reports deterministic counterfactual interventions on structured reasoning mediators across eight models and three benchmarks; models failed to update predictions after interventions in up to 60% of cases, while delegating derivation to an external tool largely removed the fragility.",
+            "source_ids": [
+              "S6"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S6 describes a process-sensitive causal protocol with multiple models and benchmarks, but the supplied material concerns structured reasoning representations rather than a broad set of free-form CoT prompting studies, and detailed results are not included."
+      },
+      {
+        "claim": "In a small-scale comparison across six LLMs and six question-answering datasets involving real-world knowledge and logical verbal reasoning, zero-shot CoT variants showed gains that the study describes as robust across models and datasets, with GPT-4 benefiting most from an automatically discovered reasoning prompt.",
+        "evidence": [
+          {
+            "summary": "The 2024 PeerJ Computer Science study compares six models and six datasets and reports that CoT gains remained robust across models and datasets, although effectiveness varied and GPT-4 benefited most from an automatically discovered prompt.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source is a peer-reviewed comparative study with multiple models and datasets, but the supplied material identifies it as small-scale and provides only the abstract-level findings, without detailed baseline, statistical, or process-evaluation information."
+      }
+    ],
+    "conflicts_and_uncertainties": [],
+    "remaining_gaps": [
+      "There is insufficient like-for-like evidence across task types, model scales and training regimes, prompt variants, decoding settings, and strong non-CoT baselines to determine the general boundary conditions for CoT effectiveness.",
+      "The evidence does not establish whether reported CoT gains remain after controlling for output-format instructions, generated-token or test-time-compute budgets, answer extraction procedures, and other evaluator-visible verbosity effects.",
+      "The supplied evidence does not independently verify the broad performance claims in the Hi-CoT source or clarify how much of its advantage comes from hierarchical structure, altered computation or token allocation, prompt compliance, or other differences from the CoT baseline.",
+      "The literature-level fault lines cannot yet be mapped comprehensively because the supplied material contains one focused empirical report, one recent method paper, and primarily explanatory or industry sources rather than a balanced set of replicated comparative studies.",
+      "The new intervention evidence tests faithfulness of structured intermediate representations and selected CoT-related behaviors, but it does not determine how often ordinary free-form CoT prompting itself causally improves reasoning across task types, model families, prompt designs, and difficulty levels, nor whether unfaithfulness necessarily prevents useful performance gains.",
+      "The cross-model, cross-dataset comparison reports robust zero-shot CoT gains, but the supplied evidence does not provide enough methodological detail to determine how those gains depend on the exact prompt variants, quality of non-CoT baselines, statistical testing, dataset difficulty, or model training and scale.",
+      "SQ1: Under what task conditions and evaluation designs does chain-of-thought prompting improve LLM performance on reasoning tasks compared with appropriate non-CoT baselines? (PARTIAL: At least one linked ledger claim is not yet supported.)",
+      "SQ2: What evidence tests whether chain-of-thought produces or elicits better underlying reasoning versus primarily improving output structure, answer decomposition, or evaluator-visible formatting? (PARTIAL: Open high- or medium-importance research gaps still block a sufficient answer.)",
+      "SQ3: Which methodological and experimental factors account for conflicting findings about chain-of-thought effectiveness? (PARTIAL: At least one linked ledger claim is not yet supported.)",
+      "SQ4: How should the literature’s disagreement be characterized: as a dispute about causal reasoning ability, task performance, output formatting, or the meaning of 'reasoning' itself? (PARTIAL: Open high- or medium-importance research gaps still block a sufficient answer.)"
+    ],
+    "conclusion": "The findings above reflect the evidence validated before the run ended. They should be treated as provisional because normal final synthesis did not complete and important gaps may remain."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "In the supplied empirical report, generic CoT prompting produced context-dependent final-answer effects on GPQA Diamond: it generally improved average performance for tested non-reasoning models, but effects ranged from modest or nonsignificant gains to declines under a perfect-accuracy criterion; for tested reasoning models, gains were small and one model declined.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Reports average gains for several non-reasoning models, a nonsignificant gain for GPT-4o-mini, declines for some models under the 100%-correct metric, and only small or negative effects for reasoning models.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The report gives specific model- and metric-level results with repeated trials, but the supplied material describes one dataset and report rather than a broad literature synthesis.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The supplied evidence indicates that generic CoT can impose substantial inference-time cost, with reported increases in response time of 35–600% for non-reasoning models and 20–80% for reasoning models in the GPQA study.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Reports 35–600% longer response times for non-reasoning models and 20–80% longer times for reasoning models when prompted to think step by step.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The numerical findings are directly stated, but their generality beyond the reported models, task, and prompting setup is not established.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          },
+          {
+            "claim": "The supplied sources support a distinction between generic flat CoT and more structured inference procedures: the Hi-CoT paper reports higher accuracy and shorter traces than its CoT comparison on the evaluated mathematical benchmarks, attributing the proposed method to hierarchical decomposition and compression bottlenecks.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Claims a 6.2% average accuracy improvement, up to 61.4% on some configurations, and a 13.9% reduction in trace length versus CoT across 13 model configurations and five mathematical benchmarks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "LOW",
+            "confidence_reason": "The results are reported in the supplied abstract and introduction, but no detailed tables, statistical tests, baseline implementation details, or independent replication are provided here.",
+            "status": "WEAK",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          },
+          {
+            "claim": "Several supplied sources describe CoT as eliciting or encouraging stepwise decomposition and improved final-task performance, but these descriptions do not by themselves establish that the visible rationale is faithful to the model’s causal reasoning process.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Characterizes CoT as asking models to show intermediate steps and claims benefits for complex tasks such as mathematics, logic, and planning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Describes CoT as generating intermediate logical steps and presents explanatory examples of multistep problem solving.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "The sources directly support claims about prompting behavior and reported output/task benefits, while the supplied material contains no process-sensitive causal or faithfulness tests; therefore it cannot support the stronger underlying-reasoning interpretation.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The supplied report finds that many tested models produced CoT-like reasoning by default without an explicit step-by-step instruction, making an unprompted or default condition an important baseline when estimating the incremental value of generic CoT.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "States that many models perform CoT-like reasoning under the default condition and compares explicit step-by-step prompting with both direct-answer and unprompted conditions.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "This is a direct finding from the supplied report, but it is limited to the tested models and task.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "The supplied sources do not provide controlled process-sensitive tests—such as rationale perturbation, counterfactual interventions, independent process grading, or faithfulness analyses—capable of determining whether CoT improves underlying reasoning rather than only final-answer behavior or observable output structure.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "There is insufficient like-for-like evidence across task types, model scales and training regimes, prompt variants, decoding settings, and strong non-CoT baselines to determine the general boundary conditions for CoT effectiveness.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          },
+          {
+            "description": "The evidence does not establish whether reported CoT gains remain after controlling for output-format instructions, generated-token or test-time-compute budgets, answer extraction procedures, and other evaluator-visible verbosity effects.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3"
+            ]
+          },
+          {
+            "description": "The supplied evidence does not independently verify the broad performance claims in the Hi-CoT source or clarify how much of its advantage comes from hierarchical structure, altered computation or token allocation, prompt compliance, or other differences from the CoT baseline.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3"
+            ]
+          },
+          {
+            "description": "The literature-level fault lines cannot yet be mapped comprehensively because the supplied material contains one focused empirical report, one recent method paper, and primarily explanatory or industry sources rather than a balanced set of replicated comparative studies.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Reports average gains for several non-reasoning models, a nonsignificant gain for GPT-4o-mini, declines for some models under the 100%-correct metric, and only small or negative effects for reasoning models.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Reports 35–600% longer response times for non-reasoning models and 20–80% longer times for reasoning models when prompted to think step by step.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "WEAK",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Claims a 6.2% average accuracy improvement, up to 61.4% on some configurations, and a 13.9% reduction in trace length versus CoT across 13 model configurations and five mathematical benchmarks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Characterizes CoT as asking models to show intermediate steps and claims benefits for complex tasks such as mathematics, logic, and planning.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Describes CoT as generating intermediate logical steps and presents explanatory examples of multistep problem solving.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "States that many models perform CoT-like reasoning under the default condition and compares explicit step-by-step prompting with both direct-answer and unprompted conditions.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "The supplied sources do not provide controlled process-sensitive tests—such as rationale perturbation, counterfactual interventions, independent process grading, or faithfulness analyses—capable of determining whether CoT improves underlying reasoning rather than only final-answer behavior or observable output structure."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "There is insufficient like-for-like evidence across task types, model scales and training regimes, prompt variants, decoding settings, and strong non-CoT baselines to determine the general boundary conditions for CoT effectiveness."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "The evidence does not establish whether reported CoT gains remain after controlling for output-format instructions, generated-token or test-time-compute budgets, answer extraction procedures, and other evaluator-visible verbosity effects."
+          },
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "The supplied evidence does not independently verify the broad performance claims in the Hi-CoT source or clarify how much of its advantage comes from hierarchical structure, altered computation or token allocation, prompt compliance, or other differences from the CoT baseline."
+          },
+          {
+            "gap_id": "G5",
+            "change_type": "NEW",
+            "description": "The literature-level fault lines cannot yet be mapped comprehensively because the supplied material contains one focused empirical report, one recent method paper, and primarily explanatory or industry sources rather than a balanced set of replicated comparative studies."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "A high-priority gap remains: the supplied evidence does not include process-sensitive or faithfulness tests that distinguish genuine reasoning improvements from plausible-looking rationales and output-structure effects. Resolving this is central to the question.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ2",
+        "next_search_query": "chain-of-thought faithfulness process evaluation rationale perturbation interventions independent process supervision studies LLM reasoning versus post hoc explanations",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "chain-of-thought faithfulness process evaluation rationale perturbation interventions independent process supervision studies LLM reasoning versus post hoc explanations",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Controlled intervention evidence in the supplied sources indicates that explicit intermediate structures are not reliably causal mediators of LLM decisions: across eight models and three benchmarks, models sometimes failed to change predictions after the structures were edited, with failures reported in up to 60% of cases; external tool execution substantially reduced this fragility.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Reports deterministic counterfactual interventions on structured reasoning mediators across eight models and three benchmarks; models failed to update predictions after interventions in up to 60% of cases, while delegating derivation to an external tool largely removed the fragility.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S6 describes a process-sensitive causal protocol with multiple models and benchmarks, but the supplied material concerns structured reasoning representations rather than a broad set of free-form CoT prompting studies, and detailed results are not included.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "A controlled intervention study finds that models can remain unchanged when explicit intermediate structures are edited, showing that visible intermediate reasoning need not causally determine the final decision.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Reports prior CoT perturbation and bias-injection findings, and describes experiments in which models could have answer information available before generating CoT, supporting the possibility of post-hoc reasoning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Distinguishes faithfulness from accuracy and summarizes evidence that editing or truncating CoT does not reliably alter answers; it also describes external deterministic solvers as a way to guarantee dependence on an explicit reasoning representation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new sources add direct intervention-based evidence that explicit intermediate structures and CoT-like traces may fail to causally determine outputs. They strengthen the distinction between observable rationale/task benefits and the stronger claim that visible rationales faithfully represent or cause underlying computation. The evidence still does not establish that all CoT effects are unfaithful or that structured-intervention results transfer uniformly to free-form CoT.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "The new intervention evidence tests faithfulness of structured intermediate representations and selected CoT-related behaviors, but it does not determine how often ordinary free-form CoT prompting itself causally improves reasoning across task types, model families, prompt designs, and difficulty levels, nor whether unfaithfulness necessarily prevents useful performance gains.",
+            "importance": "HIGH",
+            "related_claim_ids": [
+              "C4"
+            ],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": [
+          "G1"
+        ]
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Reports deterministic counterfactual interventions on structured reasoning mediators across eight models and three benchmarks; models failed to update predictions after interventions in up to 60% of cases, while delegating derivation to an external tool largely removed the fragility.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "A controlled intervention study finds that models can remain unchanged when explicit intermediate structures are edited, showing that visible intermediate reasoning need not causally determine the final decision.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "Reports prior CoT perturbation and bias-injection findings, and describes experiments in which models could have answer information available before generating CoT, supporting the possibility of post-hoc reasoning.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Distinguishes faithfulness from accuracy and summarizes evidence that editing or truncating CoT does not reliably alter answers; it also describes external deterministic solvers as a way to guarantee dependence on an explicit reasoning representation.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G6",
+            "change_type": "NEW",
+            "description": "The new intervention evidence tests faithfulness of structured intermediate representations and selected CoT-related behaviors, but it does not determine how often ordinary free-form CoT prompting itself causally improves reasoning across task types, model families, prompt designs, and difficulty levels, nor whether unfaithfulness necessarily prevents useful performance gains."
+          },
+          {
+            "gap_id": "G1",
+            "change_type": "RESOLVED",
+            "description": "The supplied sources do not provide controlled process-sensitive tests—such as rationale perturbation, counterfactual interventions, independent process grading, or faithfulness analyses—capable of determining whether CoT improves underlying reasoning rather than only final-answer behavior or observable output structure."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "A final search is warranted because the central unresolved issue is whether CoT gains survive strong non-CoT, output-format, and inference-compute controls. Resolving this would directly inform the main performance-versus-formatting fault line and explain conflicting results.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ1",
+        "next_search_query": "chain-of-thought prompting controlled comparison direct answer baseline matched token budget output format inference-time compute reasoning tasks empirical study",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ2",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "chain-of-thought prompting controlled comparison direct answer baseline matched token budget output format inference-time compute reasoning tasks empirical study",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "In a small-scale comparison across six LLMs and six question-answering datasets involving real-world knowledge and logical verbal reasoning, zero-shot CoT variants showed gains that the study describes as robust across models and datasets, with GPT-4 benefiting most from an automatically discovered reasoning prompt.",
+            "supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The 2024 PeerJ Computer Science study compares six models and six datasets and reports that CoT gains remained robust across models and datasets, although effectiveness varied and GPT-4 benefited most from an automatically discovered prompt.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The source is a peer-reviewed comparative study with multiple models and datasets, but the supplied material identifies it as small-scale and provides only the abstract-level findings, without detailed baseline, statistical, or process-evaluation information.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The article reports that CoT has no statistically significant improvement for one-third of model-task combinations and hurts performance in others, including a reported drop in one model's perfect-accuracy rate, reinforcing context-dependent effects.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S11 broadly corroborates the existing context-dependent characterization, but it is an industry blog summarizing external research and does not materially broaden the direct GPQA-specific evidence in C1.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Reports that CoT can increase token use by roughly 2–5 times and reiterates response-time increases of 35–600% for non-reasoning models and 20–80% for reasoning models.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S11 provides a consistent but secondary account of the cost increase; it does not establish generality beyond the summarized study conditions.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The study frames CoT as both a performance and explainability technique, but its supplied abstract reports predictive comparisons rather than causal or faithfulness tests; this reinforces that performance gains should not automatically be interpreted as faithful underlying reasoning.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The comparative study adds evidence that performance improvements can be observed across tasks, while offering no process-sensitive basis for equating those improvements with faithful visible reasoning. This strengthens the distinction already supported by intervention studies.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources do not directly test whether models produce CoT-like reasoning by default under the relevant baseline conditions.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3"
+            ]
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "The cross-model, cross-dataset comparison reports robust zero-shot CoT gains, but the supplied evidence does not provide enough methodological detail to determine how those gains depend on the exact prompt variants, quality of non-CoT baselines, statistical testing, dataset difficulty, or model training and scale.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The 2024 PeerJ Computer Science study compares six models and six datasets and reports that CoT gains remained robust across models and datasets, although effectiveness varied and GPT-4 benefited most from an automatically discovered prompt.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The article reports that CoT has no statistically significant improvement for one-third of model-task combinations and hurts performance in others, including a reported drop in one model's perfect-accuracy rate, reinforcing context-dependent effects.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Reports that CoT can increase token use by roughly 2–5 times and reiterates response-time increases of 35–600% for non-reasoning models and 20–80% for reasoning models.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The study frames CoT as both a performance and explainability technique, but its supplied abstract reports predictive comparisons rather than causal or faithfulness tests; this reinforces that performance gains should not automatically be interpreted as faithful underlying reasoning.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G7",
+            "change_type": "NEW",
+            "description": "The cross-model, cross-dataset comparison reports robust zero-shot CoT gains, but the supplied evidence does not provide enough methodological detail to determine how those gains depend on the exact prompt variants, quality of non-CoT baselines, statistical testing, dataset difficulty, or model training and scale."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null,
+        "decision_origin": "BUDGET_STOP"
+      },
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ1",
+      "subquestion_status_changes": []
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "In the supplied empirical report, generic CoT prompting produced context-dependent final-answer effects on GPQA Diamond: it generally improved average performance for tested non-reasoning models, but effects ranged from modest or nonsignificant gains to declines under a perfect-accuracy criterion; for tested reasoning models, gains were small and one model declined.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Reports average gains for several non-reasoning models, a nonsignificant gain for GPT-4o-mini, declines for some models under the 100%-correct metric, and only small or negative effects for reasoning models.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "The article reports that CoT has no statistically significant improvement for one-third of model-task combinations and hurts performance in others, including a reported drop in one model's perfect-accuracy rate, reinforcing context-dependent effects.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S11 broadly corroborates the existing context-dependent characterization, but it is an industry blog summarizing external research and does not materially broaden the direct GPQA-specific evidence in C1.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "The supplied evidence indicates that generic CoT can impose substantial inference-time cost, with reported increases in response time of 35–600% for non-reasoning models and 20–80% for reasoning models in the GPQA study.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Reports 35–600% longer response times for non-reasoning models and 20–80% longer times for reasoning models when prompted to think step by step.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "Reports that CoT can increase token use by roughly 2–5 times and reiterates response-time increases of 35–600% for non-reasoning models and 20–80% for reasoning models.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S11 provides a consistent but secondary account of the cost increase; it does not establish generality beyond the summarized study conditions.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "The supplied sources support a distinction between generic flat CoT and more structured inference procedures: the Hi-CoT paper reports higher accuracy and shorter traces than its CoT comparison on the evaluated mathematical benchmarks, attributing the proposed method to hierarchical decomposition and compression bottlenecks.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Claims a 6.2% average accuracy improvement, up to 61.4% on some configurations, and a 13.9% reduction in trace length versus CoT across 13 model configurations and five mathematical benchmarks.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "LOW",
+        "confidence_reason": "The results are reported in the supplied abstract and introduction, but no detailed tables, statistical tests, baseline implementation details, or independent replication are provided here.",
+        "status": "WEAK",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "Several supplied sources describe CoT as eliciting or encouraging stepwise decomposition and improved final-task performance, but these descriptions do not by themselves establish that the visible rationale is faithful to the model’s causal reasoning process.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Characterizes CoT as asking models to show intermediate steps and claims benefits for complex tasks such as mathematics, logic, and planning.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Describes CoT as generating intermediate logical steps and presents explanatory examples of multistep problem solving.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "A controlled intervention study finds that models can remain unchanged when explicit intermediate structures are edited, showing that visible intermediate reasoning need not causally determine the final decision.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "Reports prior CoT perturbation and bias-injection findings, and describes experiments in which models could have answer information available before generating CoT, supporting the possibility of post-hoc reasoning.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "Distinguishes faithfulness from accuracy and summarizes evidence that editing or truncating CoT does not reliably alter answers; it also describes external deterministic solvers as a way to guarantee dependence on an explicit reasoning representation.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "The study frames CoT as both a performance and explainability technique, but its supplied abstract reports predictive comparisons rather than causal or faithfulness tests; this reinforces that performance gains should not automatically be interpreted as faithful underlying reasoning.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The comparative study adds evidence that performance improvements can be observed across tasks, while offering no process-sensitive basis for equating those improvements with faithful visible reasoning. This strengthens the distinction already supported by intervention studies.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "The supplied report finds that many tested models produced CoT-like reasoning by default without an explicit step-by-step instruction, making an unprompted or default condition an important baseline when estimating the incremental value of generic CoT.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "States that many models perform CoT-like reasoning under the default condition and compares explicit step-by-step prompting with both direct-answer and unprompted conditions.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources do not directly test whether models produce CoT-like reasoning by default under the relevant baseline conditions.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3"
+        ]
+      },
+      {
+        "id": "C6",
+        "claim": "Controlled intervention evidence in the supplied sources indicates that explicit intermediate structures are not reliably causal mediators of LLM decisions: across eight models and three benchmarks, models sometimes failed to change predictions after the structures were edited, with failures reported in up to 60% of cases; external tool execution substantially reduced this fragility.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Reports deterministic counterfactual interventions on structured reasoning mediators across eight models and three benchmarks; models failed to update predictions after interventions in up to 60% of cases, while delegating derivation to an external tool largely removed the fragility.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S6 describes a process-sensitive causal protocol with multiple models and benchmarks, but the supplied material concerns structured reasoning representations rather than a broad set of free-form CoT prompting studies, and detailed results are not included.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C7",
+        "claim": "In a small-scale comparison across six LLMs and six question-answering datasets involving real-world knowledge and logical verbal reasoning, zero-shot CoT variants showed gains that the study describes as robust across models and datasets, with GPT-4 benefiting most from an automatically discovered reasoning prompt.",
+        "supporting_evidence": [
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "The 2024 PeerJ Computer Science study compares six models and six datasets and reports that CoT gains remained robust across models and datasets, although effectiveness varied and GPT-4 benefited most from an automatically discovered prompt.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source is a peer-reviewed comparative study with multiple models and datasets, but the supplied material identifies it as small-scale and provides only the abstract-level findings, without detailed baseline, statistical, or process-evaluation information.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ4"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "The supplied sources do not provide controlled process-sensitive tests—such as rationale perturbation, counterfactual interventions, independent process grading, or faithfulness analyses—capable of determining whether CoT improves underlying reasoning rather than only final-answer behavior or observable output structure.",
+      "importance": "HIGH",
+      "status": "RESOLVED",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": 2
+    },
+    {
+      "id": "G2",
+      "description": "There is insufficient like-for-like evidence across task types, model scales and training regimes, prompt variants, decoding settings, and strong non-CoT baselines to determine the general boundary conditions for CoT effectiveness.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "The evidence does not establish whether reported CoT gains remain after controlling for output-format instructions, generated-token or test-time-compute budgets, answer extraction procedures, and other evaluator-visible verbosity effects.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ2",
+        "SQ3"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "The supplied evidence does not independently verify the broad performance claims in the Hi-CoT source or clarify how much of its advantage comes from hierarchical structure, altered computation or token allocation, prompt compliance, or other differences from the CoT baseline.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ2",
+        "SQ3"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G5",
+      "description": "The literature-level fault lines cannot yet be mapped comprehensively because the supplied material contains one focused empirical report, one recent method paper, and primarily explanatory or industry sources rather than a balanced set of replicated comparative studies.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G6",
+      "description": "The new intervention evidence tests faithfulness of structured intermediate representations and selected CoT-related behaviors, but it does not determine how often ordinary free-form CoT prompting itself causally improves reasoning across task types, model families, prompt designs, and difficulty levels, nor whether unfaithfulness necessarily prevents useful performance gains.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [
+        "C4"
+      ],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ2",
+        "SQ4"
+      ],
+      "created_iteration": 2,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G7",
+      "description": "The cross-model, cross-dataset comparison reports robust zero-shot CoT gains, but the supplied evidence does not provide enough methodological detail to determine how those gains depend on the exact prompt variants, quality of non-CoT baselines, statistical testing, dataset difficulty, or model training and scale.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 3,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "Under what task conditions and evaluation designs does chain-of-thought prompting improve LLM performance on reasoning tasks compared with appropriate non-CoT baselines?",
+        "importance": "CORE",
+        "success_criteria": "Identify and compare empirical findings across task types, model capabilities, prompting methods, and baselines; distinguish genuine accuracy or reasoning gains from changes attributable to answer formatting, verbosity, or additional computation.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 3
+      },
+      {
+        "id": "SQ2",
+        "question": "What evidence tests whether chain-of-thought produces or elicits better underlying reasoning versus primarily improving output structure, answer decomposition, or evaluator-visible formatting?",
+        "importance": "CORE",
+        "success_criteria": "Examine studies using process-sensitive evaluations, controlled output formats, rationale interventions or faithfulness tests, and outcome measures beyond final-answer accuracy; state what each design can and cannot establish.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 2
+      },
+      {
+        "id": "SQ3",
+        "question": "Which methodological and experimental factors account for conflicting findings about chain-of-thought effectiveness?",
+        "importance": "CORE",
+        "success_criteria": "Synthesize evidence on model scale and training, task difficulty and domain, prompt wording and demonstrations, decoding and token/computation budgets, benchmark contamination or saturation, baseline quality, and evaluation/reproducibility choices.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ4",
+        "question": "How should the literature’s disagreement be characterized: as a dispute about causal reasoning ability, task performance, output formatting, or the meaning of 'reasoning' itself?",
+        "importance": "CORE",
+        "success_criteria": "Map the main competing interpretations and identify where results genuinely conflict versus where studies measure different constructs; provide a qualified overall assessment rather than treating all CoT effects as equivalent.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Compare studies using like-for-like baselines and preserve distinctions between final-answer accuracy, process quality, faithfulness, calibration, and formatting effects.",
+      "Separate causal claims about internal or underlying reasoning from claims about externally observable task performance.",
+      "Account for interactions among model capability, task characteristics, prompting, inference budget, and evaluation methodology when explaining conflicting results.",
+      "Identify the limits of the available evidence and distinguish robust conclusions from unresolved questions."
+    ],
+    "output_requirements": [
+      "Explain the real fault lines in the literature.",
+      "Explain what accounts for the conflicting results.",
+      "Answer whether chain-of-thought is an effective reasoning strategy, primarily improves output formatting, or has context-dependent effects."
+    ]
+  },
+  "claim_verifications": [],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Hierarchical Chain-of-Thought Prompting: Enhancing LLM ...",
+      "url": "https://arxiv.org/html/2604.00130v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Hierarchical Chain-of-Thought Prompting: Enhancing LLM Reasoning Performance and Efficiency\n\n###### Abstract\n\nChain-of-Thought (CoT) prompting has significantly improved the reasoning capabilities of large language models (LLMs). However, conventional CoT often relies on unstructured, flat reasoning chains that suffer from redundancy and suboptimal performance.\nIn this work, we introduce Hierarchical Chain-of-Thought (Hi-CoT) prompting, a structured reasoning paradigm specifically designed to address the challenges of complex, multi-step reasoning. Hi-CoT decomposes the reasoning process into hierarchical substeps by alternating between instructional planning and step-by-step execution.\nThis decomposition enables LLMs to better manage long reasoning horizons and maintain logical coherence.\nExtensive evaluations across diverse LLMs and mathematical reasoning benchmarks show that Hi-CoT consistently improves average accuracy by 6.2% (up to 61.4% on certain models and tasks) while reducing reasoning trace length by 13.9% compared to CoT prompting. We further show that accuracy and efficiency are maximized when models strictly adhere to the hierarchical structure.\nOur code is available at [this repository](https://github.com/XingshuaiHuang/Hi-CoT).\n\n|  |\n| --- |\n|  |\n\n## 1 Introduction\n\nLarge Language Models (LLMs) have shown strong capabilities on reasoning-intensive tasks when paired with appropriate prompting strategies. One influential approach is Chain-of-Thought (CoT) prompting ([Wei et al., 2022](#bib.bib1)), which encourages models to produce intermediate reasoning steps before a final answer. This simple modification has led to notable gains on multi-step reasoning tasks([Puri et al., 2021](#bib.bib15); [Zhou et al., 2025](#bib.bib16)), such as mathematic tasks ([Cobbe et al., 2021](#bib.bib14); [Liu et al., 2025a](#bib.bib13)).\n\nDespite its success, standard CoT prompting has a strcutural shortcoming. The generated reasoning traces are typically linear and unstructured, which can introduce redundant steps (e.g., repeating explanations) and occasional deviations from the intended line of reasoning ([Wang et al., 2023](#bib.bib24)). Redundancy arises because CoT imposes no compression presssure on the reasoning process. Without an explicit mechanism to filter low-value content, the model can repeat itself, hedge, or wander without penalty. Longer traces do not imply better reasoning ([Liu et al., 2025b](#bib.bib31)); they often reflect disorganized exploration rather than deliberate problem solving, while simultaneously incurring higher inference costs as computational overhead of transformer models grows with the number of generated tokens([Zeng et al., 2026](#bib.bib28); [Omidi et al., 2025](#bib.bib29)). This lack of structure is particularly costly for problems that require coordinated planning across multiple steps, where unguided reasoning frequently fails to maintain logical coherence([He et al., 2024](#bib.bib20); [Lewkowycz et al., 2022](#bib.bib19)).\n\nOne solution is to impose a plan. Plan-and-Solve prompting ([Wang et al., 2023](#bib.bib24)) does exactly this, separating reasoning into a global planning phase followed by step-by-step solution. While this improves flat CoT, it suffers from a fundamental weakness: the plan is fixed upfront and there is no control over individual execution steps. As the reasoning unfolds, the model may drift from its plan, skip steps, or execute inconsistently (a phenomenon we call plan–execution drift). This happens because the model receives no signal to pause, reassess, or compress its current state before each step. Human experts, by contrast, neither reason in flat chains nor commit to a single rigid plan. Instead, they continuously refine their approach at each step (what should I do next, given where I am?) and local execution (carry it out precisely). Each planning step forces compression of the current reasoning state into a targeted subgoal, filtering out accumulated noise before proceeding ([Hu et al., 2025](#bib.bib11)).\n\nMotivated by this insight, we propose Hierarchical Chain-of-Thought (Hi-CoT) prompting, a structured reasoning paradigm that organizes the reasoning process as a sequence of alternating instruction and execution steps, to improve LLM performance and efficiency on complex reasoning tasks. In contrast to Plan-and-Solve, which adopts a fully separated plan–solution structure, Hi-CoT enables fine-grained and adaptive planning/instruction. Each instruction step is conditioned on the outcome of the previous execution, enabling continuous plan refinement rather than sticking blindly to an upfront plan. Hi-CoT operates entirely at inference time and requires no changes to model parameters or architecture. This structure serves as a sequence of compression bottlenecks: before each execution step, the model must distill the current reasoning state into a concise, targeted instruction. This bottleneck mechanism has two effects. First, it filters low-information content from the reasoning trajectory, reducing redundancy and token waste and yeilding a more efficient reasoning process. Second, it keeps each execution step explicitly grounded in a stated goal, preventing drift and maintaining logical coherence across long reasoning horizons.\n\nWe evaluate Hi-CoT extensively across 13 model configurations spanning the Qwen3 and DeepSeek-R1 families, and five mathematical reasoning benchmarks of varying difficulty. Our results demonstrate that Hi-CoT provides a rare combination of improvements: better accuracy and lower inference cost simultaneously. It is a non-trivial outcome, as many prior methods for improving reasoning quality increase inference cost by generating longer or multiple reasoning paths (e.g., Tree-of-Thoughts ([Yao et al., 2023](#bib.bib7)), Self-Consistency ([Wang et al., 2022](#bib.bib4)).\nOur main contributions are:\n\nWe propose Hi-CoT, a zero-shot inference-time framework that enforces hierarchical reasoning via compression bottlenecks, without fine-tuning, extra models, or search.\n\nWe show that Hi-CoT consistently improves average accuracy by 6.2% (up to 61.4%) while reducing reasoning trace length by 13.9% across 13 models and 5 benchmarks, showing that structure can also be a primary bottleneck in LLM reasoning.\n\nWe demonstrate that when models strictly stick to the hierarchical format, accuracy reaches 100% on AMC and MATH500 with traces shortened by up to 75%, suggesting that current LLMs substantially underutilize their latent reasoning capacity under unstructured prompting.\n\n## 2 Related Work\n\n### 2.1 Chain-of-Thought Prompting\n\nChain-of-Thought (CoT) prompting ([Wei et al., 2022](#bib.bib1)) improves LLM reasoning by encouraging intermediate steps before a final answer. Zero-Shot CoT ([Kojima et al., 2022](#bib.bib2)) shows this can be elicited without annotated examples, while Self-Consistency ([Wang et al., 2022](#bib.bib4)) improves robustness by sampling multiple reasoning paths. Auto-CoT ([Zhang et al., 2022](#bib.bib3)) automates the construction of few-shot demonstrations through sampling and pseudo-labeling, and Auto-CCoT ([Li et al., 2025](#bib.bib25)) further strengthens this by selecting valid–invalid reasoning pairs to reinforce correct reasoning. [Cheng et al. (2025)](#bib.bib26) shows that for modern LLMs, CoT exemplars primarily serve to enforce output format rather than improve reasoning quality.\nMore recently, Auto-CCoT ([Li et al., 2025](#bib.bib25)) improves LLM reasoning by automatically generating and selecting informative valid–invalid reasoning pairs from model outputs to reinforce correct reasoning and avoid common errors.\nAmong efficiency-focused extensions, Chain of Draft (CoD) ([Xu et al., 2025](#bib.bib5)) produces concise, info",
+      "score": 0.8638634
+    },
+    {
+      "id": "S2",
+      "title": "The Decreasing Value of Chain of Thought in Prompting",
+      "url": "https://gail.wharton.upenn.edu/research-and-insights/tech-report-chain-of-thought",
+      "content": "[![Wharton](https://gail.wharton.upenn.edu/wp-content/plugins/martech-chupacabra/includes/images/wharton-logo.svg)![Logo for The Wharton School](https://gail.wharton.upenn.edu/wp-content/plugins/martech-chupacabra/includes/images/Wharton-Logo-RGB.png)](https://www.wharton.upenn.edu \"Wharton Home\")\n\n* [Faculty](https://www.wharton.upenn.edu/faculty-research-publications/)\n* [Youth Program](https://globalyouth.wharton.upenn.edu)\n* [Undergrad](https://undergrad.wharton.upenn.edu)\n* [Jacobs MSQF](https://jacobs-msqf.wharton.upenn.edu)\n* [MBA](https://mba.wharton.upenn.edu)\n* [EMBA](https://executivemba.wharton.upenn.edu)\n* [PhD](https://doctoral.wharton.upenn.edu)\n* [Exec Ed](https://executiveeducation.wharton.upenn.edu)\n* [Wharton Online](https://executiveeducation.wharton.upenn.edu/online-learning/)\n\n [Search Wharton](/search/)\n\n[Wharton Generative AI Labs](https://gail.wharton.upenn.edu/ \"Wharton Generative AI Labs\")\n\nTechnical Report\n\n# The Decreasing Value of Chain of Thought in Prompting\n\nJune 8, 2025 •︎ Lennart Meincke, Ethan Mollick, Lilach Mollick, Dan Shapiro\n\nModern AI models show diminishing returns from Chain-of-Thought prompting, with gains rarely worth the time cost.\n\nThis report investigates Chain-of-Thought (CoT) prompting, which encourages LLMs to ‘think step by step.’ We tested this common prompting approach and found that its effectiveness varies significantly by model type and task: non-reasoning models show modest average improvements but increased variability in answers, while reasoning models gain only marginal benefits despite substantial time costs (20-80% increase). These findings challenge the assumption that CoT is universally beneficial.\n\n[Download full report](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285532)\n\nCite as:\n\nMeincke, Lennart and Mollick, Ethan R. and Mollick, Lilach and Shapiro, Dan, Prompting Science Report 2: The Decreasing Value of Chain of Thought in Prompting (June 08, 2025). Available at SSRN: <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285532>\n\n## Benchmarking Standards\n\nPerceived performance is critically affected by the benchmarking approach, as different correctness thresholds significantly transform assessment outcomes. For this study, each question was tested 25 times per condition, revealing inconsistencies that traditional one-time testing methods often mask.\n\nThe research utilized multiple metrics to provide a comprehensive view of performance:\n\nComplete accuracy\n\n0%\n\nZero tolerance for errors\n\nHigh accuracy\n\n0%\n\nHuman-level performance\n\nMajority correct\n\n0%\n\nSimple majority wins\n\n## What is Chain-of-Thought Prompting?\n\nChain-of-Thought prompting instructs models to “think step by step” before answering. Introduced by Wei et al. (2022), it mirrors human problem-solving by breaking down complex tasks. While often considered a best practice, this research shows its value varies considerably depending on the specific model and use case.\n\n## Research Methodology\n\nThe study used the GPQA Diamond dataset of 198 PhD-level multiple-choice questions across biology, physics, and chemistry. The researchers tested:\n\n#### Models:\n\n* **Non-reasoning:** Sonnet 3.5, Gemini 2.0 Flash, GPT-4o-mini, GPT-4o, Gemini Pro 1.5\n* **Reasoning:** o3-mini, o4-mini, Flash 2.5\n\n#### Prompt conditions:\n\nAnswer directly prompt (“Direct\")\n\n\"Answer directly without any explanation or thinking. Just provide the answer.\"\n\nWe instruct the LLM to answer without generating additional reasoning tokens.\n\nThink step by step (“Step by step”)\n\n\"Think step by step.\"\n\nIn this variation, we provide the LLM with a simple CoT prompt that instructs it to “think” step by step before providing an answer. While this is a simple version of CoT, in our tests, different CoT prompt variants had negligible effects.\n\nNo prompt (“Default”)\n\nWe provide no specific suffix to the question and also remove the formatting constraint (“Format your response as follows: ‘The correct answer is (insert answer here)’”), allowing the model to choose how to best reply to the question. In most cases, this produces a short CoT-like thinking output before answering the question.\n\nEach question underwent 25 trials per condition, with performance measured using multiple metrics including 100% correct (perfect accuracy), 90% correct, 51% correct (majority), and average rating.\n\n## Findings for Non-Reasoning Models\n\nCoT prompting generally improved average performance across non-reasoning models:\n\n* **Strongest improvements:** Gemini Flash 2.0 (13.5%) and Sonnet 3.5 (11.7%)\n* **Smallest gain:** GPT-4o-mini (4.4%, not statistically significant)\n\nHowever, perfect accuracy (100% correct) showed mixed results:\n\n* Sonnet 3.5 improved by 10.1%\n* GPT-4o showed no significant change\n* Other models declined significantly, particularly Gemini Pro 1.5 (-17.2%)\n\nThis indicates that while CoT can improve performance on difficult questions, it can also introduce variability that causes errors on “easy” questions the model would otherwise answer correctly.\n\nCoT requests took 35-600% (5-15 seconds) longer than direct requests, representing a significant increase in token usage and response time.\n\nThe researchers also compared CoT prompting against default model behavior (without specific prompting constraints). This revealed that many models perform CoT-like reasoning by default, even without explicit instructions.\n\n## GPQA Diamond performance across non-reasoning models comparing an unprompted answer with Chain-of-Thought.\n\nSonnet 3.5 - Default\n\nSonnet 3.5 - Step by Step\n\nGemini 2.0 Flash - Default\n\nGemini 2.0 Flash - Step by Step\n\nGPT-4o-mini - Default\n\nGPT-4o-mini - Step by Step\n\nGPT-4o - Default\n\nGPT-4o - Step by Step\n\nThe error bars show 95% confidence intervals for individual proportions. For detailed statistical comparisons between conditions, see Table S4.\n\n## Findings for Reasoning Models\n\nGPQA Diamond performance across reasoning models comparing an immediate answer with Chain-of-Thought.\n\nThe error bars show 95% confidence intervals for individual proportions. For detailed statistical comparisons between conditions, see Table S5.\n\nFor models with built-in reasoning capabilities, CoT prompting produced minimal benefits:\n\n* Small average improvements for o3-mini (2.9%) and o4-mini (3.1%)\n* Performance decrease for Gemini Flash 2.5 (-3.3%)\n\nUsing threshold metrics showed few significant changes. The only notable effects were a small gain for o4-mini at the 51% threshold (5.6%) and performance decreases for Gemini Flash 2.5 at 100% and 90% thresholds (-13.1% and -7.1% respectively).\n\nCoT requests required 20-80% (10-20 seconds) more time—a substantial cost for what are often negligible gains in accuracy.\n\n## Practical Implications\n\n#### For non-reasoning models:\n\n* CoT can enhance average performance but may introduce inconsistency in answers\n* Consider that many models already perform reasoning by default\n* Requesting direct answers without explanation can harm performance by preventing natural reasoning\n* Weigh potential performance gains against increased token usage and response time\n\n#### For reasoning models:\n\n* The marginal accuracy benefits may not justify the extra cost and time\n* Generic CoT prompts provide limited value compared to the models’ built-in reasoning\n\nThe decision tree below provides a practical guide for determining when to use Chain-of-Thought prompting based on your specific use case, model type, and priorities.\n\n## Conclusion\n\nChain-of-Thought prompting is not universally optimal. Its effectiveness depends significantly on model type and specific use case. For non-reasoning models, CoT may improve average performance but can introduce inconsistency. For reasoning models, the minimal accuracy gains rarely justify the increased response time.\n\nWhen deciding whether to use CoT, consider the specific model’s characteristics, task requirements, and acceptable tradeoffs between accuracy, consistency, and response time.\n\n[Download full report]",
+      "score": 0.8124067
+    },
+    {
+      "id": "S3",
+      "title": "Contrastive Chain-Of-Thought Prompting",
+      "url": "https://www.kore.ai/blog/contrastive-chain-of-thought-prompting",
+      "content": "Agent Platform { Artemis }\n\nAgent Platform\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6a0dd9b872bd55926f41db60_frame_2147240289.webp)\n\n###### Agent Platform { Artemis }\n\nThe AI-programmable foundation for building, scaling, and optimizing AI agents that work in production.\n\n[learn more](/ai-agent-platform)\n\nEnterprise Modules\n\n###### For Service\n\n[AI Agents](/ai-for-service/ai-agents)[Agent AI Assistance](/ai-for-service/agent-ai)[Agentic Contact Center](/ai-for-service/contact-center)[Quality Assurance](/ai-for-service/quality-ai)[Proactive Outreach](/ai-for-service/outbound-campaigns)\n\n###### For Work\n\n[Enterprise Search](https://kore.ai/ai-for-work/#ai4w-enterprise-search)[Intelligent Orchestrator](https://kore.ai/ai-for-work/#ai4w-intelligent-orchestrator)[Pre-Built AI Agents](https://kore.ai/ai-for-work/#ai4w-pre-built)[Admin Controls](https://kore.ai/ai-for-work/#ai4w-admin-controls)[AI Agent Builder](https://kore.ai/ai-for-work/#ai4w-ai-agent-builder)\n\n[Sales](/ai-for-work/sales)[Marketing](/ai-for-work/marketing)[Engineering](/ai-for-work/engineering)[Legal](/ai-for-work/legal)[Finance](/ai-for-work/finance)\n\n[![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/69c4ff7851594334cc0af967_Nav%20Usecases%20Library.webp)](/use-cases)[###### Use Case Library\n\nFind the right AI use case for your business](/use-cases)\n\nRecent AI Insights\n\n![Configured, not coded. The engineering discipline gap in agent development](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/6a073312c2fd95b325d5f241_configured-not-coded-the-engineering-discipline-gap-in-agent-development.webp)\n\nConfigured, not coded. The engineering discipline gap in agent development\n\nAI INSIGHT\n\n15 May 2026\n\n![Can Today’s AI Agents Survive Their Own Runtime?](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/6a0732948fbd6c250a0ee418_can-todays-ai-agents-survive-their-own-runtime.webp)\n\nCan Today’s AI Agents Survive Their Own Runtime?\n\nAI INSIGHT\n\n15 May 2026\n\n![What's new in AI for Work: features that drive enterprise productivity](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/699860d81b1c2ed2d4b5219d_version-four-24.jpg)\n\nWhat's new in AI for Work: features that drive enterprise productivity\n\nAI INSIGHT\n\n20 Feb 2026\n\n![Parallel Agent Processing](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/69830d53e3656931c47d3225_Parallel%20Agent%20Processing.jpg)\n\nParallel Agent Processing\n\nAI INSIGHT\n\n16 Jan 2026\n\nAgentic AI Apps\n\nAI Solutions\n\nPre-built Applications\n\nReady-to-deploy applications across industries and functions.\n\nAI for Banking\n\nAI for Healthcare\n\nAI for Retail\n\nAI for IT\n\nAI for HR\n\nAI for Recruiting\n\nApplication Accelerators\n\nLeverage pre-built AI agents, templates, and integrations from the Kore.ai Marketplace.\n\n[![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/698f2aa71b1ff9f5915088de_Nav%20Marketplace%20Card.webp)\n\n###### Kore.ai Marketplace](https://marketplace.kore.ai/)\n\nPre-built agents\n\nTemplates\n\nIntegrations\n\nTailored Applications\n\nDesign and build applications on our Agent Platform using our enterprise modules.\n\nPlatform\n\n###### Agent Platform\n\nYour strategic enabler for enterprise AI transformation.\n\n[Learn more](/ai-agent-platform)\n\nEnterprise Modules\n\nAI for Work\n\nAI for Service\n\nTop Resources\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/69b9570e4da32f5ab25cdad5_From%20Search%20to%20Action_%20What%20Makes%20Agentic%20AI%20Work%20in%20Practice.png)\n\nFrom search to action: what makes agentic AI work in practice\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6a44d615620b2def3a5891e6_AI%20agents%20operate%20with%20unmanaged%20risk.webp)\n\nThe Kore.ai Agent Productivity Index 2026\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/68ff5ab61fc2800046405d5d_beyond_ai_islands_how_to_fully_build_an_enterwise_wide_ai_workforce.webp)\n\nBeyond AI islands: how to fully build an enterwise-wide AI workforce\n\nQUICK LINKS\n\n[About Kore.ai](/about-us)[Customer Stories](/customer-stories)[Partners](/partners)[Resources](/resource)[Blog](/blog)[Whitepapers](/whitepaper)[Documentation](https://docs.kore.ai)[Analyst Recognition](/analyst-recognition)[Get support](/support)[Community](https://community.kore.ai)[Academy](https://bots.kore.ai/accounts/?return_to=saml&showLogin=true&hideSSOButtons=true&hideResourcesPageLink=true&comingFromKey=saml&samlReqId=sar-60c99c46-5a03-50f2-8b41-3332f3cec83e&RelayState=9b_KwLhGZXMQHr7mxhbCf2B_VlV-hYt3N-20Gt1tsZHfcku0TRdfoehz)[Careers](/careers)[Contact Us](/contact-us)\n\n[Agent Marketplace](https://marketplace.kore.ai/)\n\nMore\n\nMore\n\nResources\n\nResource Hub\n\nBlog\n\nWhitepapers\n\nWebinars\n\nAI Research Reports\n\nAI Glossary\n\nVideos\n\nAI Pulse\n\nGenerative AI 101\n\nResponsive AI Framework\n\nCXO Toolkit\n\nPrivate equity\n\nsupport\n\nDocumentation\n\nGet support\n\nSubmit RFP\n\nAcademy\n\nCommunity\n\nCOMPANY\n\nAbout us\n\nLeadership\n\nCustomer Stories\n\nPartners\n\nAnalyst Recognition\n\nNewsroom\n\nEvents\n\nCareers\n\nContact us\n\nMicrosoft Partnership\n\nAgentic AI Guides\n\n![forrester cx wave 2024 Kore at top](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900cd6400001f247db03abb_forrester%20cx%20wave%202024.webp)\n\nKore.ai named a leader in The Forrester Wave™: Conversational AI for Customer Service, Q2 2024\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900ce6de331c2b312d89805_Artboard%201%20copy%20316%402x-100.webp)\n\nGenerative AI 101\n\n![](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/6900ceea68aa38e8954d07ad_Artboard%201%20copy%20281%402x-100.webp)\n\nCXO AI toolkit for enterprise AI success\n\nupcoming event\n\nNo items found.\n\n[Talk to an expert\n\nNot sure which product is right for you or have questions? Schedule a call with our experts.](/talk-to-an-expert)[Request a Demo\n\nDouble click on what's possible with Kore.ai](/request-a-demo)\n\n[Sign in](/sign-in)[Get in touch](/contact-us)\n\n![Background Image 1](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfce8b/68c46dcd8e2093861ae743a3_bg-wave-simple-4%20(1).webp)\n\n[Blog](/blog)\n\nGenerative AI\n\n[Contrastive Chain-Of-Thought prompting](/blog/contrastive-chain-of-thought-prompting)\n\n# Contrastive Chain-Of-Thought prompting\n\nPublished Date:\n\nFebruary 3, 2025\n\nLast Updated ON:\n\nApril 10, 2026\n\nContrastive Chain-of-Thought Prompting (CCoT) uses both positive & negative demonstrations to improve LLM reasoning.\n\n## Introduction to Chain-of-Thought (COT)\n\nOf Late there has been a number of [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d) illustrating how Large Language Models (LLMs) are capable of decomposing complex problems into a series of intermediate steps.\n\nThis lead to a phenomenon which some call [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d).\n\n*This* basic principle was first introduced by the concept of [Chain-Of-Thought](https://cobusgreyling.medium.com/chain-of-thought-prompting-in-llms-1077164edf97)(CoT) prompting…\n\nThe basic premise of CoT prompting is to mirror human problem-solving methods, where we as humans decompose larger problems into smaller steps.\n\nThe LLM then addresses each sub-problem with focussed attention hence reducing the likelihood of overlooking crucial details or making wrong assumptions.\n\nThe [Chain-Of-X](https://cobusgreyling.medium.com/the-chain-of-x-phenomenon-in-llm-prompting-efa7831d093d) approach is very successful in interacting with LLMs.\n\n![CCoT prompting](https://cdn.prod.website-files.com/6717a0dfaf71071a80dfcec3/69130efaf5708fd2eee78d52_CCoT-prompting.webp)\n\nCCoT Walkthrough\n\n## CoT vs CCoT\n\nAn interesting element of CoT was the relatively low impact of using invalid demonstrators; and by implication wrong assumptions during the intermediate reasoning steps are propagated down the chain.\n\nChain-Of-X approaches do not illustrate behaviour, but only supply correct examples for the LLM to follow.\n\nConsidering thi",
+      "score": 0.80735475
+    },
+    {
+      "id": "S4",
+      "title": "What is Chain of Thought (CoT) Prompting?",
+      "url": "https://www.nvidia.com/en-us/glossary/cot-prompting",
+      "content": "1. [Glossary](https://www.nvidia.com/en-us/glossary/)\n2. Chain-of-Thought Prompting\n\n# What Is Chain of Thought Prompting?\n\nChain of Thought (CoT) is a prompt engineering technique that helps [large language models](https://www.nvidia.com/en-us/glossary/large-language-models/) (LLMs) reason with more accuracy, the same way you would get a human to: by asking it to show its work. CoT prompting works by first asking a question and providing an answer as input. When a second question is asked, the LLM uses the pattern established from the first question and answer to generate an answer for the second question.\n\n[How Scaling Laws Enable AI Reasoning](https://blogs.nvidia.com/blog/ai-scaling-laws/)\n\n## Chain of Thought: An Approach for Reasoning\n\nCoT is used in a new group of AI reasoning models called long-thinking or test-time scaling models. Other models need the user to prompt the model to break down problems into a series of steps. Test-time scaling systematically automates CoT reasoning. The model is self-directed, so it can initiate and manage its own thoughts without relying on a user's prompt sequence. The automation in the Chain of Thought process is a breakthrough in AI's ability to handle complex reasoning tasks. It aims to improve the language model's performance on complex tasks, such as math, logic, planning, and decision making. These advancements will build more intelligent [agentic AI](https://blogs.nvidia.com/blog/what-is-agentic-ai/) systems, driving far-reaching outcomes for use cases across healthcare, robotics, and finance, where complex decision making is a must.\n\n## Generative AI, Scaling Laws, and Chain of Thought Prompting\n\nIt should be noted that CoT prompting isn't inherently a generative AI technique; rather, it’s a prompt engineering method used within [generative AI](https://www.nvidia.com/en-us/glossary/generative-ai/) systems, particularly large language models, and is applied to a scaling law called test-time compute or “long thinking.” This scaling law suggests that the longer a model \"thinks\" or processes information internally before producing an output, the better its answer becomes.\n\n1. The scaling law for CoT relates to post-training performance improvements.\n2. It demonstrates that allowing an AI model to go through more internal reasoning steps (producing hidden thinking tokens) before giving a final, correct answer leads to better performance.\n3. This scaling law appears to have no upper limit, similar to training scaling laws, but it's exponential. This means that to continue improving outputs, the AI needs to \"think\" for increasingly longer periods.\n\nRecent research has shown that observational scaling laws can reliably predict the gains from post-training techniques like Chain of Thought. This indicates that CoT is not just a technique but follows a predictable scaling pattern across different model sizes and capabilities.\n\n## Why Is Chain of Thought Prompting Important?\n\nCoT prompting is important because it significantly enhances the reasoning capabilities of LLMs, leading to more accurate and reliable outputs for complex tasks. This technique breaks down intricate problems into manageable steps, mirroring human-like reasoning processes.\n\n### **Key Benefits**\n\n1. Improved Problem Solving: CoT enables LLMs to decompose complex problems into a series of intermediate steps, allowing for more accurate reasoning and better handling of multifaceted tasks.\n2. Enhanced Transparency: By providing a glimpse into the model's thought process, CoT allows users to better understand and debug the reasoning paths when they go wrong.\n3. Versatility: CoT has been successfully applied to a wide range of tasks requiring reasoning, making it a versatile technique for various applications.\n4. Cost: It can be implemented easily without the need for fine-tuning, making it a cost-effective method to improve model performance.\n5. Reduced Errors: By guiding models through a structured thought process, CoT helps in reducing logical errors and enhancing the overall accuracy of responses.\n\n### **CoT Prompting Is Particularly Valuable in Areas Such As:**\n\n* Mathematics and arithmetic problems\n* Common-sense and symbolic reasoning tasks\n* Complex decision-making scenarios, including fields like robotics\n\nBy leveraging the extensive knowledge LLMs are trained on and enhancing their logical reasoning capabilities, Chain of Thought prompting has become a crucial technique in pushing the boundaries of AI's problem-solving abilities.\n\n### **How Does CoT Prompting Work?**\n\n1. **Initial Prompting:** The process starts with an initial question (Q1) and its corresponding answer (A1), which serves as an example for the LLM. This establishes a structured reasoning pattern.\n2. **Pattern Recognition:** The LLM analyzes the structure and logic used in the initial question and answer. By understanding this pattern, the model prepares to apply similar reasoning to future questions.\n3. **Sequential Questioning:** When a subsequent question (Q2) is presented, the LLM leverages the reasoning demonstrated in the Q1-A1 pair to generate an informed response to Q2. This chaining allows for a more coherent and logical flow of information, as each question-answer pair builds upon the previous one.\n4. **Reducing Human Involvement:** In CoT prompting, the human role in directly crafting prompts is minimized. Instead of manually designing each prompt, humans focus on providing quality feedback during the training phase. This feedback is incorporated through [Reinforcement Learning](https://www.nvidia.com/en-us/glossary/reinforcement-learning/) with Human Feedback (RLHF), where humans evaluate the model’s responses and offer corrective guidance. The LLM uses this feedback to refine its understanding and boosts the accuracy of its generated answers.\n\n## How Does Chain of Thought Prompting Improve LLM Model Performance?\n\nCoT prompting significantly improves LLM model performance by enhancing the model’s reasoning capabilities and problem-solving skills. This technique guides LLMs through a structured thought process, leading to more precise and reliable outputs, especially for complex tasks.\n\n### **Enhanced Reasoning and Problem Solving**\n\nCoT prompting enables LLMs to break down intricate problems into manageable steps, mirroring human-like reasoning processes. This approach is particularly effective for tasks that require multi-step problem solving, such as mathematical word problems, symbolic reasoning, and common-sense reasoning tasks. By encouraging the model to articulate intermediate reasoning steps, CoT prompting helps identify and correct errors along the way, resulting in more accurate final answers.\n\n### **Enhanced Contextual Understanding**\n\nCoT prompting helps LLMs maintain context throughout complex reasoning tasks. By structuring the thought process, it ensures that the model considers all relevant information, leading to more contextually appropriate and accurate responses. This is particularly beneficial for tasks requiring deep analysis or the application of multiple concepts.\n\n### **Error Reduction**\n\nThe step-by-step nature of CoT prompting allows LLMs to identify and correct errors during the reasoning process. This self-correction mechanism significantly reduces the likelihood of incorrect final outputs, especially in tasks involving multiple calculations or logical steps.\n\nIn conclusion, Chain of Thought prompting substantially improves LLM accuracy by enhancing reasoning capabilities, providing structured problem-solving approaches, and enabling better error detection and correction. This technique has proven particularly effective for complex tasks requiring multi-step reasoning, demonstrating significant improvements across various benchmarks and problem domains.\n\n## Getting Started With Chain of Thought Prompting.\n\nTo learn more, read our explainer on [Scaling Laws](https://blogs.nvidia.com/blog/ai-scaling-laws/).\n\nRelated\n\n[How Scaling Law",
+      "score": 0.7971311
+    },
+    {
+      "id": "S5",
+      "title": "What is chain of thought (CoT) prompting? - IBM",
+      "url": "https://www.ibm.com/think/topics/chain-of-thoughts",
+      "content": "Think 2026  Turn agentic AI into real business value | Think keynotes\n\n# What is chain of thought (CoT) prompting?\n\nBy [Eda Kavlakoglu](https://www.ibm.com/think/author/eda-kavlakoglu.html) , [Vrunda Gadesha](https://www.ibm.com/think/author/vrunda-gadesha) , [Vanna Winland](https://www.ibm.com/think/author/vanna-winland)\n\nChain of thought (CoT) is a [prompt engineering](https://www.ibm.com/think/topics/prompt-engineering) technique that enhances the output of large language models ([LLMs](https://www.ibm.com/think/topics/large-language-models)), particularly for complex tasks involving multistep reasoning. It facilitates problem-solving by guiding the model through a step-by-step reasoning process by using a coherent series of logical steps.\n\nPrompt engineering is used in [artificial intelligence](https://www.ibm.com/think/topics/artificial-intelligence) to refine inputs (prompts) to get the most accurate model outputs. In this study, the concept of chain of thought prompting is introduced which elicits reasoning in LLMs.[1](#f1) The paper argues that prompting models to generate intermediate reasoning steps significantly boosts their ability to accurately solve multistep problems like arithmetic, common sense and symbolic reasoning.\n\nResearchers were inspired by the LLMs’ ability to “think out loud” in natural language, noting that as parameter size increased, so did reasoning ability and accuracy. For this reason, CoT prompting is considered an emergent ability, or an ability that appears as model size or complexity scales up. Large LLMs tend to perform better because they’ve learned more nuanced reasoning patterns from training on massive datasets.\n\nHowever, increasing model size is not the only way to improve problem-solving accuracy across a variety of benchmarks. Advances in [instruction tuning](https://www.ibm.com/think/topics/instruction-tuning) have enabled smaller models to perform CoT reasoning. The IBM® Granite® Instruct models, for instance, are fine-tuned by using specialized training datasets composed of instructional prompts and exemplars for CoT tasks. An exemplar is a prompt example that the model uses as the ideal way to respond.\n\n![Prompt chaining and chain of thoughts comparing two methods AI uses to generate text.](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-prompt?ts=1778780563079&dpr=off)\n\n## Why is CoT prompting effective?\n\nChain of thought prompting simulates human-like reasoning processes by breaking down elaborate problems into manageable, intermediate steps that sequentially lead to a conclusive answer.[2](#f2) This step-by-step problem-solving structure aims to help ensure that the reasoning process is clear, logical and effective.\n\nIn standard prompt formats, the model output is typically a direct response to the provided input. For example, one might provide an input prompt asking, “What color is the sky?\", the AI would generate a simple and direct response, such as \"The sky is blue.\"\n\nHowever, if asked to explain why the sky is blue using CoT prompting, the AI would first define what \"blue\" means (a primary color). The AI would then deduce that the sky appears blue due to the absorption of other colors by the atmosphere. This response demonstrates the AI's ability to construct a logical argument.\n\nTo construct a prompt, a user typically appends an instruction to the end of their prompt. Users commonly add an instruction to their prompt such as “describe your reasoning steps” or “explain your answer step-by-step.\" In essence, this prompting technique asks the LLM to not only generate a result but also detail the series of intermediate steps that led to that answer.[3](#f3)\n\n[Prompt chaining](https://www.ibm.com/think/topics/prompt-chaining) is another popular method used in gen AI applications to improve reliability by using multiple prompts that build on each other sequentially to break down complex tasks. Techniques such as prompt chaining and CoT guide the model to reason through a problem step-by-step rather than jumping to an answer that merely sounds correct. This method can also be helpful for observability and debugging, as it encourages the model to be more transparent in its reasoning. The main difference between these methods is that prompt chaining sequences multiple prompts to break down tasks step-by-step, while CoT prompting elicits the model’s reasoning process within a single prompt.\n\n## Think beyond the prompts and get the full context\n\nStay ahead of the latest in industry news, AI tools and emerging trends in prompt engineering with the Think Newsletter. Plus, get access to new explainers, tutorials and expert insights—delivered straight to your inbox, twice weekly.\n\n## Thank you!\n\nYou are subscribed.\n\n## How does chain of thought prompting work?\n\nChain of thought prompting leverages [large language models (LLMs)](https://www.ibm.com/think/topics/large-language-models) to articulate a succession of reasoning steps, guiding the model toward generating analogous reasoning chains for novel tasks. This is achieved through exemplar-based prompts that illustrate the reasoning process, thus enhancing the model’s capacity for addressing complex reasoning challenges.[4](#f4) Let’s understand the flow of this prompting technique by addressing the classic math word problem—solving a polynomial equation.\n\n### Example: How does chain of thought prompting work for solving polynomial equations?\n\nChain of thought (CoT) prompting can significantly aid in solving polynomial equations by guiding an LLM to follow a series of logical steps, breaking down the problem-solving process.[5](#f5) Let's examine how CoT prompting can tackle a polynomial equation.\n\nConsider the example of solving a quadratic equation.\n\n**Input prompt:** Solve the quadratic equation: **x2 - 5x + 6 = 0**\n\nWhen we give this prompt to [IBM watsonx.ai®](https://www.ibm.com/products/watsonx-ai) chat, we can see the following conversation between human question and AI assistance’s reply.\n\n![Chain of thoughts equations prompt equation](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-image2?ts=1778780564967&dpr=off)\n\nTo generate this type of output, the CoT fundamentals work as illustrated in the following image. The final answer of the chain of thought will be \"The solutions to the equation **x2 − 5x + 6 = 0** are **x = 3** and **x = 2**\"\n\n![Chain of thoughts equations image](https://assets.ibm.com/is/image/ibm/chain-of-thoughts-image3?ts=1778780565576&dpr=off)\n\n## Chain of thought variants\n\nChain of thought (CoT) prompting has evolved into various innovative variants, each tailored to address specific challenges and enhance the model's reasoning capabilities in unique ways. These adaptations not only extend the applicability of CoT across different domains but also refine the model's problem-solving process.[6](#f6)\n\n### Zero-shot chain of thought\n\nThe [zero-shot](https://www.ibm.com/think/topics/zero-shot-learning) chain of thought variant leverages the inherent knowledge within models to tackle problems without prior specific examples or [fine-tuning](https://www.ibm.com/think/topics/fine-tuning) for the task at hand. This approach is particularly valuable when dealing with novel or diverse problem types where tailored training data might not be available.[7](#f7) This approach can leverage the properties of standard prompting and [few-shot](https://www.ibm.com/think/topics/few-shot-learning) prompting.\n\nFor example, when addressing the question “What is the capital of a country that borders France and has a red and white flag?”, a model that uses zero-shot CoT would draw on its embedded geographic and flag knowledge to deduce steps leading to Switzerland as the answer, despite not being explicitly trained on such queries.\n\n### Automatic chain of thought\n\nAutomatic chain of thought (auto-CoT) aims to minimize the manual effort in crafting prompts by automating the generation and selection of effective reasoning paths. This variant e",
+      "score": 0.78473216
+    },
+    {
+      "id": "S6",
+      "title": "Breaking the Chain: A Causal Analysis of LLM Faithfulness to Intermediate Structures",
+      "url": "https://arxiv.org/html/2603.16475v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Breaking the Chain: A Causal Analysis of LLM Faithfulness to Intermediate Structures\n\n###### Abstract\n\nSchema-guided reasoning pipelines ask LLMs to produce explicit intermediate structures — rubrics, checklists, verification queries — before committing to a final decision. But do these structures causally determine the output, or merely accompany it? We introduce a causal evaluation protocol that makes this directly measurable: by selecting tasks where a deterministic function maps intermediate structures to decisions, every controlled edit implies a unique correct output. Across eight models and three benchmarks, models appear self-consistent with their own intermediate structures but fail to update predictions after intervention in up to 60% of cases — revealing that apparent faithfulness is fragile once the intermediate structure changes. When derivation of the final decision from the structure is delegated to an external tool, this fragility largely disappears; however, prompts which ask to prioritize the intermediate structure over the original input do not materially close the gap. Overall, intermediate structures in schema-guided pipelines function as influential context rather than stable causal mediators.\n\n## 1 Introduction\n\nThe ability of a model to base its decisions on an explicit and transparent reasoning process is commonly referred to as faithfulness ([Jacovi and Goldberg, 2020](#bib.bib15); [Turpin et al., 2023](#bib.bib16); [Lanham et al., 2023](#bib.bib18)). As large language models (LLMs) achieve stronger performance on complex tasks, it becomes crucial to ensure that intermediate reasoning steps they produce genuinely explain and influence the final prediction rather than merely accompany it.\n\nIn practice, schema-guided reasoning (SGR) ([Rath, 2025](#bib.bib2); [Karov et al., 2025](#bib.bib1); [Abdullin, 2025](#bib.bib12)) through structured outputs ([Fan et al., 2023](#bib.bib13); [Liu et al., 2024](#bib.bib14)) is becoming increasingly common. In this setting, an LLM is guided to produce reasoning in the form of a predefined “checklist” of intermediate steps. This approach aims to improve transparency by grounding model decisions in explicit intermediate variables, enabling human inspection, debugging, and intervention in high-stakes domains such as medical diagnosis and legal reasoning ([Bussone et al., 2015](#bib.bib26); [Sonkar et al., 2024](#bib.bib23); [Baker et al., 2025](#bib.bib20); [Wu et al., 2025](#bib.bib11)). But do models actually treat such structured intermediate steps as causal mediators of their predictions?\n\n![Refer to caption](2603.16475v1/figures/outline.png)\n\nPrior work has studied faithfulness of free-form chain-of-thought (CoT) reasoning and identified qualitative examples of unfaithfulness ([Turpin et al., 2023](#bib.bib16); [Lanham et al., 2023](#bib.bib18); [Paul et al., 2024](#bib.bib17); [Wu et al., 2025](#bib.bib11)). However, free-form reasoning traces are unconstrained and often contain redundant restatements, self-corrections, and other extraneous content, making it difficult to isolate the components that causally drive the final prediction.\n\nLeveraging Pearl’s front-door causal principle ([Pearl, 1995](#bib.bib10)), we develop an intervention protocol for structured model reasoning that allows us to systematically evaluate the degree of a model’s faithfulness to its intermediate structures. Such controlled intervention environments are necessary for systematically studying reasoning behavior ([Shojaee et al., 2025](#bib.bib3)). We treat the structured reasoning trace as a mediator between the input and the prediction. By enabling targeted interventions on reasoning steps, our protocol provides a more controlled test of causal faithfulness than free-form CoT. Our contributions are as follows:\n\nWe formulate faithfulness to structured intermediate representations as a causal mediation problem and introduce an intervention protocol with deterministic counterfactual targets.\n\nWe evaluate eight instruction-tuned language models on three benchmarks in which the final answer is a deterministic function of the structured mediator.\n\nWe identify a systematic drop in faithfulness under interventions and reveal that this sensitivity is directionally asymmetric: models are more often faithful to counterfactual interventions than to correct ones, with the effect varying across datasets and model families.\n\nThrough tool and prompt case studies, we show that this gap is only weakly affected by stronger instructions, but is substantially reduced when model has tool access.\n\n## 2 Related Work\n\nRecent work has explored a range of methods for evaluating faithfulness in language models. These approaches can be broadly divided into two groups: parametric methods that rely on access to model internals, and reasoning intervention methods.\n\nParametric approaches evaluate faithfulness by estimating the causal contribution of internal representations using techniques such as activation and attribution patching ([Yeo et al., 2025](#bib.bib8); [Syed et al., 2024](#bib.bib22); [Zhang and Nanda, 2024](#bib.bib19)), causal tracing ([Parcalabescu and Frank, 2024](#bib.bib9)), propositional probes ([Feng et al., 2025](#bib.bib21)) and parameter interventions [Tutek et al. (2025)](#bib.bib7). However, because these methods operate on internal representations, their effects are difficult to map onto semantic intermediate stages, making them less suitable for targeted correction by domain experts.\n\nReasoning intervention approaches evaluate faithfulness by modifying reasoning traces or introducing perturbations to the input and measuring whether the model’s prediction changes accordingly. Trace perturbation protocols edit or truncate chain-of-thought reasoning to test whether the final answer depends on the generated reasoning steps [Lanham et al. (2023)](#bib.bib18); [Paul et al. (2024)](#bib.bib17); [Matton et al. (2025)](#bib.bib6); [Wu et al. (2025)](#bib.bib11). Another line of work hides cues in the input and examines whether the model mentions these cues explicitly in its reasoning [Turpin et al. (2023)](#bib.bib16).\n\nSome studies explore richer intermediate reasoning structures than free-form traces. [Xiong et al. (2025)](#bib.bib4) analyze dependence between thinking drafts and answers by editing drafts and [Han et al. (2026)](#bib.bib5) use counterfactual interventions on reasoning traces to evaluate causal influence. However, these methods still operate on model-generated traces without clear structured mediators.\n\nBuilding on the work of [Shojaee et al. (2025)](#bib.bib3), we focus on benchmarks with explicitly structured mediators, enabling controlled interventions and a clearer test of causal mediation. Whereas [Shojaee et al. (2025)](#bib.bib3) focus on model-generated traces, we study interventions that introduce or correct errors in the intermediate steps. This allows us to test whether faithfulness to the mediator is preserved under perturbations.\n\n## 3 Protocol For Faithfulness Evaluation over Intermediate Structures\n\n### 3.1 Problem Formulation\n\nWe consider a setting in which an LLM receives an input XX (e.g., a student’s solution to a task, a true/false claim, or a factual question) and produces two outputs: an intermediate reasoning representation MM (e.g., a rubric, checklist, or structured query) and a final decision YY (e.g., a grade, correctness judgment or entailment label), which is based on MM, as illustrated in Figure [2](#S3.F2 \"Figure 2 ‣ 3 Protocol For Faithfulness Evaluation over Intermediate Structures ‣ Breaking the Chain: A Causal Analysis of LLM Faithfulness to Intermediate Structures\").\n\nBecause LLMs are autoregressive, we view this as a two-stage generation process: first, MM is pro",
+      "score": 0.62303346
+    },
+    {
+      "id": "S7",
+      "title": "Post-hoc reasoning in chain of thought",
+      "url": "https://www.lesswrong.com/posts/ScyXz74hughga2ncZ/post-hoc-reasoning-in-chain-of-thought",
+      "content": "## [LESSWRONG](/)\n\n## [LW](/)\n\n# 20\n\n# [Post-hoc reasoning in chain of thought](/posts/ScyXz74hughga2ncZ/post-hoc-reasoning-in-chain-of-thought)\n\n# 20\n\n**TLDR**\n\nThis work was partly done during the training phase of Neel Nanda's MATS stream. Thanks to Neel Nanda and Arthur Conmy for supervising the beginning of this work, MATS for financial support, and Arthur Conmy and Maggie von Ebers for reading earlier drafts of this post.\n\n## 1. Introduction\n\nA desirable feature of chain of thought is that it is *faithful*--meaning that the chain of thought is an accurate representation of the model's internal reasoning process. Faithful reasoning would be a very powerful tool for interpretability: if chains of thought are faithful, in order to understand a model's internal reasoning, we can simply read its stated reasoning. But previous work has provided evidence that LLMs are not necessarily faithful.\n\nTurpin et al. (2023) show that adding biasing features can cause a model to change its answer and generate plausible reasoning to support it, but the model will not mention the biasing feature in its reasoning.[[1]](#fnb53es56k924)\n\nLanham et al. (2023) explore model behavior when applying corruptions to the chain of thought, and show that models ignore chain of thought when generating their conclusion for many tasks.[[2]](#fnzubr94hplub)\n\nGao (2023) shows that some GPT models arrive at the correct answer to arithmetic word problems even when an intermediate step in the chain of thought is perturbed (by adding between -3 and +3 to a number).[[3]](#fngsvkbjpajqr)\n\nCumulatively, previous work has rejected the hypothesis that LLMs' final answers are solely a function of their chain of thought, i.e., that the causal relationship follows this structure:\n\nnostalgebraist notes that this causal scheme is neither necessary nor sufficient for CoT faithfulness, and further, that it might not even be desirable.[[4]](#fnotk5zj0lmca) If the model knows what the final answer ought to be before CoT, but makes a mistake in its reasoning, we would probably still hope that it responds with the correct answer, disregarding the chain of thought when giving a final answer.\n\nLanham et al. use the term *post-hoc reasoning* to describe the behavior where the model's answer has been decided before generating CoT. Post-hoc reasoning introduces new node to the causal scheme:\n\nFollowing the input question, the model pre-computes an answer prior to its chain of thought. I leave ellipses following the pre-computed answer because it is not a priori clear how the model's pre-computed answer will causally influence the model's final answer. Its influence could pass through the chain of thought, skip it (acting directly on the final answer), or do a combination of the two (e.g., the final answer is half determined by CoT and half by the pre-computed answer directly).\n\nGoing forward, I want to focus on the causal role that the pre-computed answer plays in chain of thought. I use the following definition of post-hoc reasoning, which differs slightly from the one described by Lanham et al.:[[5]](#fn7643omcyt2x)\n\n**Post-hoc reasoning** refers to the behavior where the model pre-computes an answer before chain of thought, and the pre-computed answer causally influences the model's final answer.\n\nThe motivation of this work is to answer the following questions:\n\nTo this end, we perform two sets of experiments:\n\n## 2. Implementation Details\n\nOur experiments are conducted evaluating [Gemma-2 9B instruction-tuned](https://huggingface.co/facebook/gemma-2-9b-it) on four binary classification tasks:\n\nFor each task, we used four in-context examples that illustrate how the model should structure its chain of thought.\n\n## 3. Probing for pre-computed answers\n\nTo test whether we can predict the model's answer before it generates reasoning, we trained linear probes on the model's residual stream activations. For each example:\n\nWe trained classifiers on 100 examples per dataset and evaluated on 150 held-out examples using AUROC.\n\n![](https://res.cloudinary.com/lesswrong-2-0/image/upload/f_auto,q_auto/v1/mirroredImages/ScyXz74hughga2ncZ/d7vgbiu9omncnuxmlgzm)\n\nFor all datasets but Logical Deduction, the AUROC surpasses 0.9 at some layer. This seems to indicate that the model does indeed pre-compute an answer, or some representation that can be reliably linearly decoded into the final answer, prior to the CoT.\n\nWhen we first saw these results, one explanation we considered was that these questions are so simple that the model does not need to use chain of thought to determine the answer. If this were the case, the model might not be engaging in post-hoc reasoning or acting unfaithfully. Consider, for example, an excellent math student who knows the answer to an exam problem on sight. Despite already knowing the answer, the student might still write out the steps to derive it, and respond with the final answer entailed by that derivation. Similarly, the model may already know the answer to a question, but still use the CoT to derive it as instructed.\n\nThe other explanation is that the model is indeed doing post-hoc reasoning. Having already decided its answer, the model may go through the motions of chain of thought, but ultimately use its pre-computed answer to decide the final answer.\n\nTo decide between these two explanations, we need to determine whether the model's pre-computed answer causally influences its final answer. This motivates the second set of experiments: To determine whether there is a causal relationship between the model's pre-computed answer and its final answer, we intervene on the model's pre-computed answer, and measure how often these interventions cause the model to change its answer.\n\n## 4. A 2x2 Framework for Classifying Chains of Thought\n\nBefore showing results from the steering experiments, we establish a framework for classifying different types of model reasoning. Consider two binary dimensions:\n\nThis gives us four distinct reasoning types:\n\n1. **Sound Reasoning**: True premises, entailed answer  \nThe model states true facts and reaches a logically valid conclusion.\n\nLeBron James is a basketball player.  \nShooting a free throw is part of basketball.  \nTherefore, the sentence \"LeBron James shot a free throw\" is plausible.\n\n2. **Non-entailment**: True premises, non-entailed answer  \nThe model states true facts but reaches a conclusion that doesn't follow logically.\n\nLeBron James is a basketball player.  \nShooting a free throw is part of basketball.  \nTherefore, the sentence \"LeBron James shot a free throw\" is implausible.\n\n3. **Confabulation**: False premises, entailed answer  \nThe model states false facts that support a false conclusion.\n\nLeBron James is a soccer player.  \nShooting a free throw is part of basketball.  \nTherefore, the sentence \"LeBron James shot a free throw\" is implausible.\n\n4. **Hallucination**: False premises, non-entailed answer  \nThe model both states false facts, and reaches a conclusion that does not follow from them.\n\nLeBron James is a soccer player.  \nShooting a free throw is part of basketball.  \nTherefore, the sentence \"LeBron James shot a free throw\" is plausible.\n\nNot all chains of thought map cleanly to one of these categories. For example, sometimes the model generates irrelevant (but true) facts. This is sort of like confabulation, insofar as it involves the model trying to justify a false conclusion, but does not technically involve generating false premises. Of course, other chains of thought involve several intermediate conclusions, in which case it would be necessary to classify each reasoning step independently.\n\nConfabulation and non-entailment are particularly relevant for post-hoc reasoning. They represent two ways the model might handle a predetermined answer:\n\n## 5. Steering with Answer Vectors\n\n![](https://res.cloudinary.com/lesswrong-2-0/image/upload/f_auto,q_auto/v1/mirroredImages/ScyXz74hughga2ncZ/r7bfmvubqmm2x0rsbud6)\n\nTo establish causalit",
+      "score": 0.51544976
+    },
+    {
+      "id": "S8",
+      "title": "What Is Chain-of-Thought Faithfulness? Why AI Reasoning ...",
+      "url": "https://www.mindstudio.ai/blog/what-is-chain-of-thought-faithfulness-ai-reasoning",
+      "content": "[![MindStudio](/MindStudio-lockup-blk.svg)](/)\n\n[AI Models](/models)[AI Media Workbench](/product/ai-media-workbench)[Agent Skills Plugin](/product/agent-skills-plugin)[Workflow Capabilities](/capabilities)\n\n[Pricing](/pricing)\n\n[University](https://university.mindstudio.ai/)[Documentation](https://docs.mindstudio.ai/)\n\n[Blog](/blog)[About](/about)\n\n[Log in](https://app.mindstudio.ai/login)[Get Started](/pricing)\n\n[My Workspace](https://app.mindstudio.ai)\n\n[AI Concepts](/blog/tag/ai-concepts)[Prompt Engineering](/blog/tag/prompt-engineering)[LLMs & Models](/blog/tag/llms-models)\n\n# What Is Chain-of-Thought Faithfulness? Why AI Reasoning Traces Are Unreliable\n\nChain-of-thought reasoning and final outputs operate as semi-independent processes. Learn why reasoning traces can't be trusted and what to do instead.\n\nEdited by [Luis Chavez-Mattos](https://www.linkedin.com/in/luchamedia/), Director of Product··[RSS](/rss.xml)\n\n![What Is Chain-of-Thought Faithfulness? Why AI Reasoning Traces Are Unreliable](https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/e44eead7-60c7-40f0-a81b-4608cceb974e.png?fm=auto&w=1200&fit=cover?fm=auto&w=1200&fit=cover)\n\n## The Problem With Trusting AI to Show Its Work\n\nAI reasoning traces feel like transparency. A model walks you through its logic step by step, explains what it’s weighing, and arrives at a conclusion. It looks like a window into the machine’s thinking.\n\nIt usually isn’t.\n\n**Chain-of-thought faithfulness** — the degree to which an AI’s stated reasoning actually reflects how it produced its output — is one of the more important and poorly understood problems in modern AI deployment. Research consistently shows that language models can generate fluent, coherent reasoning traces that have little to do with what actually drove their answer.\n\nThis matters far beyond academic curiosity. If you’re building AI agents, deploying AI in high-stakes workflows, or relying on AI to explain its decisions, you’re probably trusting something that can’t be trusted in the way you assume.\n\nHere’s what’s actually going on.\n\n---\n\n## What Chain-of-Thought Reasoning Is (and What It Was Supposed to Do)\n\nChain-of-thought (CoT) prompting was popularized by research from Google in 2022. The core idea: if you prompt a language model to “think step by step” before giving a final answer, it performs better on complex tasks — especially math, logic, and multi-step reasoning.\n\nThe method works. Models that reason out loud before answering get more questions right than models that answer directly.\n\nThe natural inference — that the model’s stated reasoning *caused* the correct answer — is where things get complicated.\n\n### The interpretability promise\n\nChain-of-thought was quickly adopted not just as a performance booster but as an interpretability tool. If a model explains its reasoning, engineers and users can audit that reasoning. They can check for errors, spot bias, and understand why the model said what it said.\n\nThis assumption drove a lot of excitement around extended thinking models — systems like Claude with extended thinking enabled, OpenAI’s o1 and o3, and DeepSeek-R1. These models don’t just do CoT prompting; they generate lengthy internal reasoning traces before producing a final response.\n\nThe implicit promise was: now you can really see inside the model’s head.\n\nResearch has since complicated that promise significantly.\n\n---\n\n## Defining Faithfulness: What the Term Actually Means\n\n“Faithfulness” in chain-of-thought has a specific technical meaning. It’s not the same as accuracy or plausibility.\n\nA reasoning trace is **faithful** if:\n\n* The reasoning steps actually caused or reflect the model’s underlying computation\n* Removing or altering those steps would change the output in predictable ways\n* The stated reasoning represents the true factors that influenced the conclusion\n\nA trace is **unfaithful** if:\n\n* The model arrived at its conclusion through different processes than described\n* The reasoning is constructed after-the-fact to justify an output already determined\n* The trace sounds correct but doesn’t represent the actual computational path\n\nFaithfulness is distinct from whether the reasoning sounds good (plausibility) or whether the final answer is right (accuracy). A model can produce a perfectly correct answer with completely unfaithful reasoning — and it can produce a confident-sounding, logically coherent trace while being entirely wrong about why it reached its conclusion.\n\n---\n\n## How Researchers Test for Faithfulness\n\nTesting whether an AI’s reasoning is faithful is harder than it sounds. You can’t just read the trace and decide. Researchers have developed several indirect methods.\n\n### Bias injection tests\n\nOne approach, used prominently in a landmark 2023 paper by Turpin and colleagues, involves injecting biases into prompts without mentioning them — things like marking one multiple-choice option with “(I think the answer is A)” or reversing the order of answer choices.\n\nThe finding: models frequently changed their answers to match the suggested bias. But their chain-of-thought reasoning almost never mentioned the bias. Instead, the trace constructed a new, post-hoc justification for the biased answer — as if the model had reached it through principled reasoning.\n\nThis is a strong signal that the reasoning trace isn’t faithfully representing the model’s decision process. The actual influence (the bias cue) was invisible in the stated reasoning.\n\n### Early truncation tests\n\nAnother method involves cutting the reasoning trace short and seeing whether the final answer changes. If the CoT is genuinely causal — if the model is actually using its stated reasoning to reach a conclusion — then truncating mid-trace should affect the output.\n\nResults are mixed. For some tasks, early answers closely match full-trace answers, suggesting the model “knows” its conclusion before completing the stated reasoning.\n\n### Error injection tests\n\nIf you deliberately add errors to a model’s reasoning trace and then ask it to continue, does it catch and correct the errors? Or does it produce an answer consistent with the wrong reasoning?\n\n## Other agents ship a demo. Remy ships an app.\n\nUI\n\nReact + Tailwind ✓ LIVE\n\nAPI\n\nREST · typed contracts ✓ LIVE\n\nDATABASE\n\nreal SQL, not mocked ✓ LIVE\n\nAUTH\n\nroles · sessions · tokens ✓ LIVE\n\nDEPLOY\n\ngit-backed, live URL ✓ LIVE\n\nReal backend. Real database. Real auth. Real plumbing. Remy has it all.\n\n![Remy](/remy/lockup-h-md.svg)The world's most powerful product manager agent[Try Remy today](https://goremy.ai/?utm_source=blog&utm_medium=interstitial&utm_campaign=remy-blog)\n\nThis tests whether the model is actually processing its reasoning trace as a chain of logical steps, or treating it more loosely. Results vary by model and task type, but errors in the trace frequently propagate to the final answer even when they’re obvious mistakes — suggesting the model follows the trace rather than checking it against some independent computation.\n\n---\n\n## Why Reasoning Traces Go Wrong: The Core Mechanisms\n\nSeveral distinct mechanisms produce unfaithful reasoning.\n\n### Post-hoc rationalization\n\nThe most fundamental issue: language models generate tokens sequentially. The output — including the reasoning trace — is produced one token at a time based on statistical patterns. There’s no separate “thinking process” that happens first and then gets transcribed.\n\nWhen a model produces a chain-of-thought, it’s generating text that tends to precede correct answers in its training data. That text might look like reasoning, but the underlying computation isn’t cleanly separable into “thinking” and “answering” phases.\n\nThe result is something like post-hoc rationalization. The model produces text that justifies a conclusion, but that text doesn’t necessarily represent the mechanism by which the conclusion was reached.\n\n### Sycophantic drift\n\nModels trained with reinforcement learning from human feedback (",
+      "score": 0.38894346
+    },
+    {
+      "id": "S9",
+      "title": "Chain-of-Thought (CoT) Reasoning - Quarkus",
+      "url": "https://quarkus.io/ai-chain-of-thought",
+      "content": "[Back to AI Blueprints](/ai-blueprints)\n\n# Chain-of-Thought (CoT) Reasoning\n\nThe architecture of the Chain-of-Thought (CoT) blueprint focuses on guiding a Large Language Model (LLM) through explicit intermediate steps to solve complex problems, improve reasoning, and provide transparency in its decision-making.\n\n## Main Use-Cases\n\n* **Improved Reasoning:** Decompose complex problems to reduce logical errors.\n* **Transparency:** Provide optional explanations for decisions.\n* **Training & Enablement:** Illustrate the \"why\" behind concepts, not just the \"what.\"\n* **Decision Support:** Aid in investments, vendor selection, and risk assessments.\n* **Troubleshooting:** Facilitate structured diagnostics in operations and engineering.\n* **Policy Application:** Apply multi-clause rules with traceable steps.\n\n## Architecture Overview\n\nThe CoT architecture starts with a \"User Query\" that initiates the process. This query is received by the \"Quarkus CoT Service,\" which serves as the orchestrator for the entire reasoning flow. Within the Quarkus service, the core Chain-of-Thought logic, powered by LangChain4j, is executed.\n\n![CoT architecture image](/assets/images/ai/ai-cot.svg) ![CoT architecture image](/assets/images/ai/ai-cot-dark.svg)\n\nThe \"LangChain4j\" package encapsulates the sequential steps of the CoT process:\n\nStep 1: Analyze Factors:\n:   This initial step involves the LLM breaking down the complex user query into its constituent parts, identifying key factors, and performing an initial analysis. This could involve understanding the problem, identifying relevant data points, or defining the scope of the task.\n\nStep 2: Synthesize Options:\n:   Building on the analysis from Step 1, the LLM then synthesizes various options, potential solutions, or different perspectives related to the query. This step demonstrates the model's ability to explore different avenues of thought before arriving at a conclusion.\n\nStep 3: Recommendation:\n:   In the final step, the LLM formulates a \"Recommendation\" or a definitive answer based on the analysis and synthesis performed in the preceding steps. This recommendation is the ultimate output of the CoT process.\n\nFinally, the Response is returned to the user, with the option to include the intermediate reasoning steps when transparency is required. Quarkus orchestrates the execution of single- or multi-prompt chains, while LangChain4j supplies the abstractions for building prompts and capturing reasoning outputs at each step. This structured flow improves the LLM’s performance on complex tasks and, when needed, provides an auditable record of how the answer was derived.\n\n## Further Patterns\n\nFurther patterns in Chain-of-Thought reasoning extend beyond basic single-prompt approaches to offer more sophisticated control and integration. \"Single-prompt CoT\" provides a concise way to elicit reasoning, where a single instruction like \"think step by step\" guides the LLM to return both its thought process and the final answer.\n\nMore advanced scenarios benefit from \"Program-of-Thought,\" which involves multiple chained prompts, where the output of one step feeds into the next, often including optional verification steps for enhanced accuracy.\n\nLastly, a \"Hybrid\" approach combines CoT with Retrieval-Augmented Generation (RAG) to ground the reasoning process in factual information, ensuring that the LLM's logical steps are supported by relevant data. These patterns provide flexibility in how CoT is applied, allowing architects to choose the level of control and factual grounding necessary for their specific enterprise AI applications.\n\n## Guardrails & Privacy\n\nArchitecting Chain-of-Thought (CoT) solutions for enterprise environments necessitates careful consideration of guardrails and privacy. The following points represent an initial excerpt of critical aspects that software architects must account for to ensure responsible and secure AI deployment. These considerations are vital to manage the transparency of reasoning, maintain answer consistency, and control data exposure within the CoT process.\n\n* **Reasoning Exposure:** Decide whether to reveal the Chain of Thought (CoT) or keep it internal.\n* **Consistency Checks:** Implement a final verifier prompt or apply deterministic post-rules.\n* **Token Budgeting:** Limit intermediate verbosity and summarize between steps.\n\n[![Quarkus](/assets/images/quarkus_logo_horizontal_rgb_reverse.svg \"Quarkus\")](/)\n\nQuarkus is open. All dependencies of this project are available under the [Apache Software License 2.0](https://www.apache.org/licenses/LICENSE-2.0) or compatible license. [CC by 3.0](https://creativecommons.org/licenses/by/3.0/)  \n  \nThis website was built with [Jekyll](https://jekyllrb.com/), is hosted on [GitHub Pages](https://pages.github.com/) and is completely open source. If you want to make it better, [fork the website](https://github.com/quarkusio/quarkusio.github.io) and show us what you’ve got.\n\nNavigation\n\n* [Home](/)\n* [About](/about)\n* [Blog](/blog)\n* [Podcast](/insights)\n* [Events](/events)\n* [Newsletter](/newsletter)\n* [User Stories](/userstories)\n* [Roadmap](https://github.com/orgs/quarkusio/projects/13/views/1)\n* [Releases](/releases)\n* [Security policy](/security)\n* [Usage](/usage)\n* [Brand](/brand)\n* [Wallpapers](/desktopwallpapers)\n* [Privacy Policy](https://www.redhat.com/en/about/privacy-policy)\n* [Sitemap](/sitemap)\n\nFollow Us\n\n* [X](https://x.com/quarkusio)\n* [Bluesky](https://bsky.app/profile/quarkus.io)\n* [Mastodon](https://fosstodon.org/@quarkusio)\n* [Threads](https://www.threads.com/@quarkusio)\n* [Facebook](https://www.facebook.com/quarkusio)\n* [Linkedin](https://www.linkedin.com/company/quarkusio/)\n* [Youtube](https://www.youtube.com/channel/UCaW8QG_QoIk_FnjLgr5eOqg)\n* [TikTok](https://www.tiktok.com/@quarkusio)\n* [Instagram](https://www.instagram.com/quarkusio)\n* [GitHub](https://github.com/quarkusio)\n\nGet Help\n\n* [Support](/support)\n* [Guides](/guides)\n* [FAQ](/faq)\n* [Get Started](/get-started)\n* [Stack Overflow](https://stackoverflow.com/questions/tagged/quarkus)\n* [Discussions](https://github.com/quarkusio/quarkus/discussions)\n* [Development mailing list](https://groups.google.com/forum/#!forum/quarkus-dev)\n* [Quarkus Service Status](https://stats.uptimerobot.com/ze1PfweT2p)\n\nLanguages\n\n* [English](https://quarkus.io/)\n* [Português (Brasileiro)](https://pt.quarkus.io/)\n* [Español](https://es.quarkus.io/)\n* [简体中文](https://cn.quarkus.io/)\n* [日本語](https://ja.quarkus.io/)\n\nQuarkus is made of community projects\n\n* [Eclipse Vert.x](https://vertx.io/)\n* [SmallRye](https://smallrye.io)\n* [Hibernate](https://hibernate.org)\n* [Netty](https://netty.io)\n* [RESTEasy](https://resteasy.github.io)\n* [Apache Camel](https://camel.apache.org)\n* [Eclipse MicroProfile](https://microprofile.io)\n* [And many more...](https://code.quarkus.io/)\n\n[![Commonhaus Foundation logo](https://raw.githubusercontent.com/commonhaus/artwork/main/foundation/brand/svg/CF_logo_horizontal_single_reverse.svg)](https://www.commonhaus.org/)\n\nCopyright © [Quarkus](/). All rights reserved. For details on our trademarks, please visit our [Trademark Policy](https://www.commonhaus.org/policies/trademark-policy/) and [Trademark List](https://www.commonhaus.org/trademarks/). Trademarks of third parties are owned by their respective holders and their mention here does not suggest any endorsement or association.",
+      "score": 0.34713915
+    },
+    {
+      "id": "S10",
+      "title": "What is faithful chain-of-thought reasoning and why is it useful for AI safety?",
+      "url": "https://blog.bluedot.org/p/faithful-chain-of-thought",
+      "content": "# [BlueDot Impact](/)\n\n# What is faithful chain-of-thought reasoning and why is it useful for AI safety?\n\n[Sarah](https://substack.com/@longerramblings)\n\nModern Large Language Models (LLMs) are often referred to as “black boxes”. Although we can observe both the inputs that are fed into the model, and the final outputs they produce, we’re not sure what’s happening in between.\n\nAs AIs become more capable, it will become increasingly important that we can evaluate their reasoning process, to determine how and why they output the responses they do. If we can’t, it will be challenging for us to identify bad behaviour such as models [lying to users](https://arxiv.org/abs/2308.14752) or [exploiting shortcuts to achieve reward](https://openai.com/index/faulty-reward-functions/).\n\nOne way to address this is prompting models to display their **chain of thought** (CoT) in natural language – in other words, to “show their work”. This provides insight into how a model has arrived at a particular output. However, the CoT that a model provides is not always a faithful account of its true reasoning process.\n\nResearchers have been working on techniques to elicit **faithful chains of thought** from LLMs. We’ve explained why CoT faithfulness is important for AI safety, and how we might be able to increase it.\n\n## **What is chain of thought reasoning?**\n\nChain of thought reasoning is a technique that encourages models to “think” in stages in order to reach a final answer.\n\nCoT can enhance capabilities, because models that break down problems into stages can solve harder ones (not unlike humans!). It can also be useful for safety, because we can observe the steps the model took to reach its final response. This could help us find faulty reasoning that has led to incorrect answers, or identify if a model is engaging in bad behaviour.\n\nSome LLMs, such as OpenAI’s recent series of “[reasoning models](https://openai.com/index/learning-to-reason-with-llms/)” are specifically trained to use CoT reasoning when responding to user queries. The CoT is partially revealed to the user through model-generated summaries. Here’s OpenAI’s o3, a model trained to use CoT reasoning, displaying two CoT summaries to the user before arriving at a final answer after 40 seconds:\n\nModels that haven’t been trained to use chain-of-thought reasoning can still be prompted to do so, by using instructions such as “let’s think step-by-step”, or by laying out a series of steps for the model to follow. CoT prompting gets ChatGPT-4o to perform a similar step-by-step process to o3:\n\nWe can glean some information about AI’s reasoning process from its CoT. But we don’t have a good way of checking that a CoT is **faithful** – that it is a true account of how the model has arrived at its conclusion.\n\nThis is especially true when models know they are being monitored. In a [recent study](https://openai.com/index/chain-of-thought-monitoring/), OpenAI used an automated monitor to oversee a frontier reasoning model as it was being trained. They *did* find that the model would frequently state its intent to misbehave in its CoT, for example by saying things like “Let’s hack” when preparing to cheat at a coding task.\n\nHowever, when researchers attempted to suppress this behaviour by detecting and negatively rewarding “bad thoughts” in the model’s CoT, it got sneakier. Rather than preventing bad behaviour, this technique simply caused the model to conceal its intent, by hiding bad thoughts from its CoT.\n\nResearchers at Anthropic have [also studied](https://arxiv.org/pdf/2307.13702) CoT faithfulness. They used several techniques including editing model CoTs to see if this actually changed the final answer, or if it remained largely unchanged (which would imply that the CoT was simply an after-the-fact rationalisation). They found that CoTs are often unfaithful, and that they generally become *more so* as model size increases.\n\nUnfaithful chains of thought pose several problems. They make it harder to detect instances of misaligned behaviour like [deception](https://arxiv.org/abs/2308.14752), [reward-hacking](https://openai.com/index/faulty-reward-functions/) and [sandbagging](https://arxiv.org/abs/2406.07358). They also mean that humans may trust AI models in high-stakes deployments because they have produced chains of thought which sound plausible but don’t actually explain their behaviour.\n\n## **How can we make chains of thought more faithful?**\n\nSo, is there a way around this problem?\n\nOne method for generating faithful chains of thought was [proposed](https://arxiv.org/pdf/2301.13379) by a group of researchers at the University of Pennsylvania. It has two stages: a **translation stage** (where the query is translated into an interpretable reasoning chain) and a **problem-solving stage** (where the question is actually answered). Here’s how it works:\n\n*[Source: Faithful Chain-Of-Thought-Reasoning](https://www.youtube.com/watch?v=xlDoP--TauU)*\n\n**Translation stage**\n\n1. We take a question that requires multiple reasoning steps, which we want an LLM to solve using faithful CoT reasoning. For example: “Would an apple sink in water?”\n2. The LLM decomposes the question into a series of sub-questions expressed in natural language, such as “What is the density of an apple?” and “What is the density of water?”.\n3. Now, the model generates code for the purpose of solving each sub-question.\n\n**Problem-solving stage**\n\n1. We now have a reasoning chain, composed of sub-questions that are expressed in both natural language *and* in symbolic language (the code that the model has generated).\n2. We feed this reasoning chain into an external **deterministic solver**. A deterministic solver is a programme that follows exact rules to turn an input into an output, such as a Python or Datalog interpreter. It is guaranteed to always produce the same output for a given input.\n3. Our deterministic solver executes the code generated during the translation phase and outputs a final answer. In the apple example, the LLM generates code specifying that the answer will be “yes” if an apple is more dense than water. Executing this code allows the deterministic solver to output an answer of “no”:\n\nThis method **guarantees** that the final solution is actually produced using the reasoning chain generated in the translation phase. This is one step towards ensuring the CoT is faithful. However, this method doesn’t actually make the translation stage any more interpretable. The process by which the LLM decomposes the query in sub-questions and generates the code for our deterministic solver to execute on is still opaque (leaving plenty of room for undetected errors or bad behaviour!).\n\nThe above describes one approach to eliciting more faithful CoT from LLMs. There are other approaches, such as using **in-context learning** (where examples of faithful reasoning are included in the prompt) or **fine-tuning** (where the model is trained on examples of faithful reasoning). However, a [review](https://www.dan-ley.com/publications/llm-faithfulness/) of popular faithful CoT techniques by Harvard University researchers found that they have limited usefulness, and often decrease model accuracy.\n\nCoT reasoning makes it easier to examine the reasoning processes that LLMs use to generate outputs. However, it has serious limitations. CoT is often unfaithful, and may become even more so as models get larger, or if we attempt to monitor them for bad behaviour. Although researchers are working on techniques to make CoT more faithful, we don’t yet have a complete solution.\n\n*AI is getting more powerful – and fast. We still don’t know how we’ll ensure that very advanced models are safe.*\n\n*We designed a free, 2-hour course to help you understand how AI could transform the world in just a few years. [Start learning today](https://bluedot.org/courses/future-of-ai?utm_source=bluedot-blog&utm_campaign=deliberative-alignment) to join the conversation.*\n\n|  |  |  |\n| --- ",
+      "score": 0.3396091
+    },
+    {
+      "id": "S11",
+      "title": "The Token Economics of Chain-of-Thought: When Thinking Out Loud Costs More Than It's Worth",
+      "url": "https://tianpan.co/blog/2026-04-10-token-economics-chain-of-thought-when-thinking-costs-more",
+      "content": "![TianPan.co Logo](/favicon.ico)\n![TianPan.co Logo](/favicon.ico)\n\n### 2026\n\n# The Token Economics of Chain-of-Thought: When Thinking Out Loud Costs More Than It's Worth\n\n![Tian Pan](https://github.com/tian.png)\n\nChain-of-thought prompting was one of the most important discoveries in applied LLM engineering. Ask a model to \"think step by step,\" and accuracy jumps on math, logic, and multi-hop reasoning tasks. The technique became so standard that many teams apply it reflexively to every prompt in their system — classification, extraction, summarization, routing — without asking whether it's actually helping.\n\n![](https://opengraph-image.blockeden.xyz/api/og-tianpan-co?title=The%20Token%20Economics%20of%20Chain-of-Thought%3A%20When%20Thinking%20Out%20Loud%20Costs%20More%20Than%20It's%20Worth)\n\n![](https://opengraph-image.blockeden.xyz/api/og-tianpan-co?title=The%20Token%20Economics%20of%20Chain-of-Thought%3A%20When%20Thinking%20Out%20Loud%20Costs%20More%20Than%20It's%20Worth)\n\nIt usually isn't. Recent research from Wharton's Generative AI Lab shows that chain-of-thought provides no statistically significant improvement for one-third of model-task combinations, and actively hurts performance in others. Meanwhile, every CoT request inflates your token bill by 2–5x and adds seconds of latency. For production systems handling millions of requests, that's not a prompting strategy — it's an unaudited cost center.\n\n## The Uncomfortable Math[​](#the-uncomfortable-math \"Direct link to The Uncomfortable Math\")\n\nThe token economics of chain-of-thought are straightforward once you measure them. A direct answer to a classification question might use 15–30 output tokens. The same question with \"let's think step by step\" generates 150–400 output tokens as the model narrates its reasoning process. At scale, that's the difference between a $2,000 monthly inference bill and a $10,000 one.\n\nBut the cost isn't just financial. Each additional output token adds latency. CoT requests take 35–600% longer than direct requests — 5 to 15 additional seconds per call in the Wharton study. For user-facing applications where perceived speed matters, you're trading responsiveness for reasoning that may not improve the answer.\n\nThe assumption baked into most CoT usage is simple: more thinking equals better answers. The data tells a more complicated story.\n\n## When Chain-of-Thought Actually Helps[​](#when-chain-of-thought-actually-helps \"Direct link to When Chain-of-Thought Actually Helps\")\n\nCoT earns its token cost in a specific category of tasks: problems that require sequential reasoning where intermediate steps build on each other.\n\nFor these tasks, CoT isn't just generating more tokens — it's creating a computational workspace. The intermediate tokens serve as working memory, letting the model maintain state across reasoning steps that wouldn't fit in a single forward pass.\n\nThe Wharton data confirms this: on non-reasoning models like Gemini Flash 2.0 and Claude Sonnet 3.5, CoT improved average accuracy by 11–13% on genuinely difficult reasoning tasks. That's a real gain worth paying for.\n\n## When It Doesn't — And When It Hurts[​](#when-it-doesnt--and-when-it-hurts \"Direct link to When It Doesn't — And When It Hurts\")\n\nThe problem is that most production LLM calls aren't multi-step reasoning tasks. They're classification, extraction, reformatting, summarization, or routing — tasks where the answer is either immediately obvious to the model or it isn't, and no amount of \"thinking step by step\" changes that.\n\nFor these tasks, CoT introduces three failure modes:\n\n**Overthinking easy questions.** Research shows that CoT can cause errors on questions the model would otherwise answer correctly. The reasoning process introduces variability — the model might talk itself out of a correct first instinct, or introduce irrelevant considerations that derail the final answer. One study found that Gemini Pro 1.5's perfect accuracy rate dropped 17.2% when CoT was applied.\n\n**Redundant reasoning on reasoning models.** Most frontier models in 2025–2026 already perform internal chain-of-thought reasoning. Models like GPT-4o, Claude 3.5+, and Gemini 2.0 have been trained to reason before responding. Layering explicit CoT prompting on top is like asking someone who already thinks before they speak to also think out loud while thinking — you get the verbosity without additional insight. The Wharton study showed reasoning models gained only 2–3% accuracy from explicit CoT while taking 20–80% longer to respond.\n\n**The \"overthinking\" spiral.** LLMs frequently continue generating reasoning steps after they've already reached the correct answer. These redundant tokens don't just waste money — they risk introducing errors. The model can second-guess itself, explore irrelevant tangents, or compound small reasoning mistakes across an unnecessarily long chain. Research on early stopping demonstrates that 41% of reasoning tokens can be eliminated on average without any accuracy loss, with some tasks allowing 57% reduction.\n\n## The Decision Framework[​](#the-decision-framework \"Direct link to The Decision Framework\")\n\nBefore adding CoT to a prompt, run it through three filters:\n\n**Filter 1: Does this task require sequential reasoning?** If the answer is a single classification label, an extracted entity, or a reformatted string, CoT won't help. The model either knows the answer or it doesn't — narrating non-existent reasoning steps just adds noise.\n\n**Filter 2: Is the model already a reasoning model?** If you're using o3, o4-mini, Claude with extended thinking, or Gemini with built-in reasoning, explicit CoT instructions are almost certainly redundant. These models already allocate internal compute to reasoning. You're paying for reasoning tokens twice.\n\n**Filter 3: What's the cost-accuracy tradeoff on your actual distribution?** Don't assume CoT helps based on benchmarks. Measure it on your production traffic. Run an A/B test: the same prompt with and without CoT, scored against your ground truth. If accuracy improves by less than 5% while tokens increase by 200%, the math doesn't work.\n\n## Cheaper Alternatives to Full CoT[​](#cheaper-alternatives-to-full-cot \"Direct link to Cheaper Alternatives to Full CoT\")\n\nIf you do need reasoning but can't afford the token cost of verbose CoT, several techniques close most of the gap at a fraction of the cost.\n\n**Chain-of-Draft (CoD)** instructs the model to produce concise intermediate steps — roughly five words per step instead of full sentences. Research from Zoom Communications shows CoD uses only 7.6–32% of CoT's tokens while matching or exceeding its accuracy. On sports understanding tasks, CoD actually outperformed CoT (98.3% vs. 95.9% with GPT-4o) while using 80% fewer tokens.\n\n**Concise Chain-of-Thought (CCoT)** reduces response length by nearly 49% compared to standard CoT by explicitly requesting brevity in the reasoning steps. The accuracy impact is minimal for most task types.\n\n**Token-budget-aware reasoning** sets an explicit token budget in the prompt. The TALE framework achieves 67% token reduction with less than 3% accuracy decrease by using a binary search to find the minimum token budget that still produces correct answers. On GSM8K, it surpassed vanilla CoT accuracy (84.46% vs. standard) while using only 77 tokens compared to 318.\n\n**Selective CoT application** routes queries through a complexity classifier first. Simple queries get direct prompts; complex ones get CoT. This hybrid approach captures most of CoT's benefits at 20–30% of its total token cost across a mixed workload.\n\n## The Audit You Should Run Today[​](#the-audit-you-should-run-today \"Direct link to The Audit You Should Run Today\")\n\nMost teams have never measured whether their CoT prompts are paying for themselves. Here's the minimal audit:\n\n**Inventory your CoT usage.** Grep your prompt templates for \"step by step,\" \"think through,\" \"reason about,\" or \"let's work through.\" Count how ma",
+      "score": 0.5078369
+    },
+    {
+      "id": "S12",
+      "title": "A comparison of chain-of-thought reasoning strategies across ...",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560",
+      "content": "[Skip to main content](https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560#main-content)\n\n![Image 1](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/us_flag.svg)\n\nAn official website of the United States government\n\nHere's how you know\n\nHere's how you know\n\n![Image 2](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-dot-gov.svg)\n\n**Official websites use .gov**\n\n A **.gov** website belongs to an official government organization in the United States.\n\n![Image 3](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-https.svg)\n\n**Secure .gov websites use HTTPS**\n\n A **lock** ( ) or **https://** means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.\n\n[![Image 4: NCBI home page](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg)](https://www.ncbi.nlm.nih.gov/)\n\n![Image 5: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)Search \n\n![Image 6](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/person.svg)Log in![Image 7](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_less.svg)![Image 8](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_more.svg)\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n*    Log out \n\n Search…   Search NCBI \n\nPrimary site navigation\n\n![Image 9: Close](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons/close.svg) Search  ![Image 10: Search](blob:http://localhost/d03881a649d411fb287ca34fa7ea6fc4)\n\nLogged in as:\n\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n\n Log in \n\n[](https://pmc.ncbi.nlm.nih.gov/ \"Home\")\n\n![Image 11: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)![Image 12: PMC search close ison](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/close.svg)\n\nSearch PMC Full-Text Archive \n\nSearch in PMC![Image 13: Search](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons-bg/search--white.svg)\n\n*   [Journal List](https://pmc.ncbi.nlm.nih.gov/journals/)\n*   [User Guide](https://pmc.ncbi.nlm.nih.gov/about/userguide/)\n\n As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.\n\n Learn more: [PMC Disclaimer](https://pmc.ncbi.nlm.nih.gov/about/disclaimer/) | [PMC Copyright Notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\n![Image 14: PeerJ Computer Science logo](https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-peerjcs.png)\n\nPeerJ Comput Sci\n\n. 2024 Apr 30;10:e1999. doi: [10.7717/peerj-cs.1999](https://doi.org/10.7717/peerj-cs.1999)\n\n*   [Search in PMC](https://pmc.ncbi.nlm.nih.gov/search/?term=%22PeerJ%20Comput%20Sci%22[jour])\n*   [Search in PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=%22PeerJ%20Comput%20Sci%22[jour])\n*   [View in NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22PeerJ%20Comput%20Sci%22[Title%20Abbreviation])\n*   [Add to search](https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560?term=%22PeerJ%20Comput%20Sci%22[jour])\n\n# A comparison of chain-of-thought reasoning strategies across datasets and models\n\n[Konstantin Hebenstreit](https://pubmed.ncbi.nlm.nih.gov/?term=%22Hebenstreit%20K%22[Author])\n\n### Konstantin Hebenstreit\n\n1 Medical University of Vienna, Center for Medical Data Science, Institute of Artificial Intelligence, Vienna, Austria\n\n Find articles by [Konstantin Hebenstreit](https://pubmed.ncbi.nlm.nih.gov/?term=%22Hebenstreit%20K%22[Author])\n\n1, [Robert Praas](https://pubmed.ncbi.nlm.nih.gov/?term=%22Praas%20R%22[Author])\n\n### Robert Praas\n\n2 KTH Royal Institute of Technology, Stockholm, Sweden\n\n Find articles by [Robert Praas](https://pubmed.ncbi.nlm.nih.gov/?term=%22Praas%20R%22[Author])\n\n2, [Louis P. Kiesewetter](https://pubmed.ncbi.nlm.nih.gov/?term=%22Kiesewetter%20L%22[Author])\n\n### Louis P. Kiesewetter\n\n3 Humboldt University, Berlin, Germany\n\n Find articles by [Louis P. Kiesewetter](https://pubmed.ncbi.nlm.nih.gov/?term=%22Kiesewetter%20L%22[Author])\n\n3, [Matthias Samwald](https://pubmed.ncbi.nlm.nih.gov/?term=%22Samwald%20M%22[Author])\n\n### Matthias Samwald\n\n1 Medical University of Vienna, Center for Medical Data Science, Institute of Artificial Intelligence, Vienna, Austria\n\n Find articles by [Matthias Samwald](https://pubmed.ncbi.nlm.nih.gov/?term=%22Samwald%20M%22[Author])\n\n1\n\nEditor: Arkaitz Zubiaga\n\n*   Author information\n*   Article notes\n*   Copyright and License information\n\n1 Medical University of Vienna, Center for Medical Data Science, Institute of Artificial Intelligence, Vienna, Austria\n\n2 KTH Royal Institute of Technology, Stockholm, Sweden\n\n3 Humboldt University, Berlin, Germany\n\nReceived 2023 Dec 28; Accepted 2024 Mar 27; Collection date 2024.\n\n©2024 Hebenstreit et al.\n\nThis is an open access article distributed under the terms of the [Creative Commons Attribution License](https://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, reproduction and adaptation in any medium and for any purpose provided that it is properly attributed. For attribution, the original author(s), title, publication source (PeerJ Computer Science) and either DOI or URL of the article must be cited.\n\n[PMC Copyright notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\nPMCID: PMC11157560 PMID: [38855241](https://pubmed.ncbi.nlm.nih.gov/38855241/)\n\n## [](https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560)Abstract\n\nEmergent chain-of-thought (CoT) reasoning capabilities promise to improve the performance and explainability of large language models (LLMs). However, uncertainties remain about how reasoning strategies formulated for previous model generations generalize to new model generations and different datasets. In this small-scale study, we compare different reasoning strategies induced by zero-shot prompting across six recently released LLMs (davinci-002, davinci-003, GPT-3.5-turbo, GPT-4, Flan-T5-xxl and Cohere command-xlarge). We test them on six question-answering datasets that require real-world knowledge application and logical verbal reasoning, including datasets from scientific and medical domains. Our findings demonstrate that while some variations in effectiveness occur, gains from CoT reasoning strategies remain robust across different models and datasets. GPT-4 benefits the most from current state-of-the-art reasoning strategies and performs best by applying a prompt previously discovered through automated discovery.\n\n**Keywords:**Chain-of-thought reasoning, Large language models, Externalized reasoning, Zero-shot prompting, Question-answering datasets\n\n## [](https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560)Introduction\n\nEmergent chain-of-thought (CoT) reasoning capabilities in large language models (LLMs) promise to improve both predictive performance and explainability of models when applied to complex tasks([Wei et al., 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC11157560#ref-33)). While good performance can be achieved by few-shot in-context prompting with exemplars suitable to a specific task, zer",
+      "score": 0.4757764
+    },
+    {
+      "id": "S13",
+      "title": "Chain-of-Thought Prompting: A Guide for LLM Apps and Agents",
+      "url": "https://www.comet.com/site/blog/chain-of-thought-prompting",
+      "content": "[Skip to content](#wp--skip-link--target)\n\nNew! Track & optimize Claude Code spend across your engineering team. [Learn More→](https://www.comet.com/site/products/opik/features/ai-spend-tracker/)\n\n[![Comet logo](https://www.comet.com/site/wp-content/uploads/2025/07/comet-logo-dark.svg)](https://www.comet.com/site/)\n\n[Get Demo](https://www.comet.com/site/about-us/contact-us/)\n\n[Try Opik Free](/signup?from=llm)\n\n# Chain-of-Thought Prompting: A Guide for LLM Applications and Agents\n\nWords By \n\n[Jamie Gillenwater](https://www.comet.com/site/blog/author/jamie-gillenwater/ \"Posts by Jamie Gillenwater\")\n\nWhen [Google researchers](https://arxiv.org/abs/2201.11903) asked GPT-3 to solve grade-school math problems, the model answered 17.9 percent of the problems correctly. When the researchers changed the prompt to ask the model to show its work first, accuracy jumped to 57.1 percent. [Additional research](https://arxiv.org/abs/2203.11171) shows that when self-consistency was layered on top of the original prompt, the model accuracy increased to 74.4 percent.\n\nThat’s chain-of-thought (CoT) prompting in action. This [prompt engineering](https://www.comet.com/site/blog/prompt-engineering/) technique transforms how LLMs handle complex reasoning that explicitly requests intermediate steps before final answers. For teams building production agentic AI applications that make sequential decisions, understanding CoT is an essential practice, not simply interesting research.\n\n## The Gap Between Pattern Matching and Reasoning\n\nLLMs excel at statistical correlations built from the model training data. If you ask a model “What’s heavier, a pound of feathers or a pound of lead?” and it recognizes the trick question pattern from training data, answering correctly that they weigh the same. The model’s embeddings encode semantic relationships between concepts like weight, mass and materials.\n\nIf you ask the same to solve this problem “If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?”, you will notice the performance degrades significantly.\n\nWhy does the model respond so differently? The first requires matching the question to learned patterns, while the second requires sequential reasoning across multiple steps.\n\nThe problem isn’t a lack of knowledge. The issue is that multi-step reasoning requires sequential computation. When you force a model to produce an immediate answer, you’re asking it to compress several logical operations into a single forward pass. The model needs to parse the question, identify the relevant relationships, perform calculations and format an answer, all at once.\n\nChain-of-thought prompting solves this problem by giving the model space to think. Instead of asking for a direct answer, you can structure your prompts to encourage the model to articulate its reasoning process step by step. [Researchers](https://arxiv.org/abs/2201.11903) proved that adding reasoning examples to prompts dramatically improved performance on tasks requiring arithmetic, commonsense reasoning and symbolic manipulation. The technique works because it aligns with how these models actually process information. By explicitly requesting intermediate reasoning steps, you allow the model to use its natural sequential generation process to work through the problem rather than against it.\n\n## Types of Chain-of-Thought Prompting\n\nYou have a few options for implementing chain-of-thought prompting in your applications, each with different tradeoffs. As teams deploy CoT in production, several extensions have emerged for scenarios with varying complexities.\n\n### Zero-shot CoT\n\nYou can use zero-shot CoT triggers reasoning without examples by simply appending “Let’s think step by step” to your query. [Researchers](https://arxiv.org/abs/2205.11916) found this remarkably simple phrase activates reasoning behavior the model learned during training.\n\nFor general reasoning tasks, starting with zero-shot CoT offers practical advantages. You don’t need to engineer or maintain example libraries. You can use shorter prompts, which reduce costs.\n\nOn arithmetic reasoning tasks, zero-shot CoT improved accuracy from 10.4 to 40.7 percent in the original research, but it can’t match the results of few-shot CoT prompts. When working in specialized domains where the model needs guidance on acceptable reasoning patterns, you should move to few-shot CoT.\n\n### Few-shot CoT\n\nFew-shot CoT provides the model with examples demonstrating the reasoning process you want. You include question-answer pairs where the answers contain explicit reasoning steps, then present your actual query to the model.\n\nThis approach works well for domain-specific reasoning where you can craft examples showing the logic your specific application needs. Financial analysis tools benefit from examples demonstrating numerical reasoning. Medical triage systems improve with examples showing clinical decision-making patterns.\n\nSo what’s the downside? Few-shot prompts require careful engineering. If you do not provide quality examples, the model will follow unproductive reasoning paths. You’ll also consume more tokens with longer prompts, increasing both latency and cost.\n\n### Self-consistency\n\nSelf-consistency combines CoT with sampling to improve reliability. Instead of generating a single reasoning path, you sample multiple responses, then use majority voting to select the most common final answer. [Research](https://arxiv.org/abs/2203.11171) shows self-consistency increased accuracy on GSM8K by 17.9 percent.\n\nDifferent reasoning paths can reach the same correct answer. A model might solve “15 – 3 + 8” as “12 + 8 = 20” or “15 + 8 = 23, then 23 – 3 = 20” or “15 + 8 – 3 = 20.” All three are valid. If one sampling produces faulty logic leading to “21” as the answer, majority voting filters it out.\n\nWhen deciding whether to use self-consistency, remember that you’re making multiple LLM calls per query, multiplying both latency and cost by your sample size. This makes sense for high-value queries where accuracy justifies the resource investment rather than casual chatbot responses. Self-consistency is an excellent solution for financial calculations, medical recommendations and legal analysis.\n\n### Tree-of-Thoughts\n\nTree-of-Thoughts (ToT) is an advanced prompting option that extends CoT from a linear chain to a branching tree. Instead of following a single reasoning path, the model explores multiple possibilities at each step, evaluates them and pursues the most promising branches. This works well for problems with multiple valid approaches where exploring alternatives add value, such as playing games, creative writing, designing.\n\nToT involves significantly more LLM calls. In the [original research](https://arxiv.org/abs/2305.10601), solving 24-point games required dozens of model invocations per problem. Reserve this expensive approach for scenarios where thoroughness matters more than speed.\n\n### Least-to-most\n\nLeast-to-most prompting breaks complex problems into progressively simpler sub-problems. You ask the model to identify the simplest component, solve it, then use that solution as context for the next-simplest component. This works well for compositional reasoning, like parsing nested data structures, solving algebraic equations or generating code for complex features.\n\n### Choosing Your Technique\n\nWith so many options, how do you choose the right technique for your application? Start with zero-shot or few-shot CoT. When accuracy is critical and you can afford multiple samples, add self-consistency. If you are working on creative or strategic tasks, consider ToT. Finally, use least-to-most prompting when the model can break problems into a series of simpler questions.\n\n## Chain-of-Thought for Agentic Systems\n\nWhen building agents that make sequential decisions, the value of CoT prompting compounds. Agents don’t just answer single queries. These agents are planning actions, selecti",
+      "score": 0.45377067
+    }
+  ]
+}

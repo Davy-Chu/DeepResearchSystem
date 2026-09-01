@@ -1,0 +1,642 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "overall_score": 75.8125,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.596875,
+    "coverage": 0.625,
+    "depth": 0.53125,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report describes CoT as asking models to show intermediate steps: “asking models to show intermediate steps” [S4].",
+          "It distinguishes explicit step-by-step prompting from “direct-answer and unprompted conditions” [S2].",
+          "It discusses external deterministic solvers and tool execution as distinct from visible reasoning traces [S6, S10]."
+        ],
+        "missing": [
+          "It does not clearly define the intervention in a systematic way or distinguish few-shot demonstrations from zero-shot CoT.",
+          "Self-consistency, sampling/voting, hidden or internal reasoning, answer-format instructions, retrieval, calculators, and other inference-time procedures are not explicitly separated.",
+          "The report does not establish which comparison conditions are being used in each cited study."
+        ],
+        "rationale": "The report supplies a basic description and mentions direct-answer, unprompted, and tool-based conditions, but the required taxonomy of neighboring interventions and comparison conditions is incomplete. The available evidence is largely descriptive rather than a carefully framed conceptual analysis."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "On GPQA Diamond, generic CoT is reported to produce gains for some non-reasoning models, nonsignificant effects for some combinations, and declines for others [S2, S11].",
+          "Hi-CoT is reported across five mathematical benchmarks and 13 model configurations, with claimed accuracy improvements relative to CoT [S1].",
+          "A comparison across six models and six datasets involving real-world knowledge and logical verbal reasoning reports robust but variable zero-shot CoT gains [S12]."
+        ],
+        "missing": [
+          "The report provides little task-level detail about the mathematical, symbolic, knowledge, commonsense, and open-ended tasks, making it difficult to assess which kinds of reasoning benefit.",
+          "It does not systematically compare CoT with direct answering across all task families.",
+          "The evidence is mostly abstract-level or secondary-source reporting, with limited uncertainty, effect sizes, or replication."
+        ],
+        "rationale": "Multiple task families are represented, and the report acknowledges gains, null effects, and harms. However, the empirical assessment is thin and uneven: GPQA receives the most detail, while other task categories are summarized without enough methodological or quantitative context."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report describes different effects for non-reasoning and reasoning models, including small or negative effects for some reasoning models [S2, S11].",
+          "It reports variation across models and datasets and says that an automatically discovered prompt benefited GPT-4 most [S12].",
+          "It identifies missing evidence concerning “model scales and training regimes, prompt variants, decoding settings, and strong non-CoT baselines.”"
+        ],
+        "missing": [
+          "Model capability is discussed mainly as a reasoning-versus-non-reasoning distinction; systematic scale effects are not established.",
+          "Task difficulty and structural properties are not analyzed in detail.",
+          "Training-distribution similarity is identified as a gap but not explained with evidence.",
+          "Prompt and demonstration design are only briefly mentioned, and baseline prompting behavior is not systematically analyzed beyond the claim that some models reason by default.",
+          "The report does not clearly distinguish supported moderators from hypotheses or contested findings."
+        ],
+        "rationale": "The report recognizes several relevant moderators and explicitly lists important gaps, but it does not develop them into a literature-based explanation of conflicting results. The central boundary conditions remain largely unresolved."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 4 states that performance improvements should not automatically be interpreted as faithful visible reasoning [S6, S7, S10].",
+          "The report distinguishes faithfulness from accuracy and cites editing, truncation, and answer-information-availability findings [S7, S10].",
+          "It explicitly identifies the need to control for “output-format instructions, generated-token or test-time-compute budgets, answer extraction procedures, and other evaluator-visible verbosity effects.”"
+        ],
+        "missing": [
+          "There is little direct evidence separating formatting or extraction effects from genuine intermediate computation effects.",
+          "The report does not compare CoT with equivalent-length verbosity, answer-format controls, irrelevant rationales, or hidden-reasoning conditions.",
+          "It does not explain whether additional context, token allocation, or sequential computation could help even when the displayed trace is unfaithful.",
+          "The conclusion does not synthesize the competing mechanisms into a clear judgment."
+        ],
+        "rationale": "The report identifies the key conceptual distinction and cites process-sensitive evidence, but it mostly states that the relevant controls are missing. It therefore frames the issue better than it resolves it."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report reports substantial token and response-time increases from CoT [S2, S11].",
+          "It notes that external tool execution substantially reduced intervention fragility [S6].",
+          "It warns that gains may reflect “generated-token or test-time-compute budgets,” answer extraction, or other protocol differences."
+        ],
+        "missing": [
+          "Sampling, self-consistency, voting, and decoding temperature are not substantively analyzed.",
+          "Calculators, code, retrieval, and other tools are not separated from the CoT prompt in the empirical comparisons.",
+          "The report does not present like-for-like baselines that hold token budgets, compute, decoding, and extraction procedures constant.",
+          "It does not determine whether reported improvements come from the CoT instruction itself or from longer generation and extra computation."
+        ],
+        "rationale": "The report recognizes cost and some tool-related confounding, but it does not perform the required attribution analysis across inference-time procedures."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 6 reports deterministic counterfactual interventions on structured reasoning mediators across eight models and three benchmarks, with failures to update predictions in up to 60% of cases [S6].",
+          "The report cites CoT perturbation, bias injection, editing, truncation, and cases where answer information may be available before the CoT is generated [S7, S10].",
+          "It explicitly distinguishes faithfulness from accuracy and notes that visible reasoning need not causally determine the final decision [S6, S10]."
+        ],
+        "missing": [
+          "Most intervention evidence concerns structured intermediate representations or selected CoT-related behaviors rather than ordinary free-form CoT prompting.",
+          "The report does not assess the logical validity of traces in detail, such as premise validity, derivation correctness, or consistency with the final answer.",
+          "It does not systematically discuss scrambling, irrelevant-chain controls, or distribution-shift tests.",
+          "It does not establish how often unfaithful traces nonetheless provide useful causal computation."
+        ],
+        "rationale": "This is one of the strongest sections. It includes causal-intervention evidence and correctly separates trace faithfulness from answer accuracy, while acknowledging that the evidence does not generalize straightforwardly to all free-form CoT."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report labels the Hi-CoT evidence low confidence because detailed tables, statistical tests, baseline implementation details, and independent replication are unavailable [S1].",
+          "It characterizes the GPQA evidence as relying partly on an industry blog and notes that this does not materially broaden the direct evidence [S11].",
+          "It identifies missing comparability information about model scales, training regimes, prompt variants, decoding settings, statistical testing, dataset difficulty, and non-CoT baselines [S12].",
+          "It warns that the supplied material consists of one focused empirical report, one method paper, and primarily explanatory or industry sources rather than a balanced replicated literature."
+        ],
+        "missing": [
+          "The report does not systematically inventory model versions and sizes, datasets, metrics, decoding settings, or uncertainty for each study.",
+          "It does not independently verify the cited headline results or reconcile differences in evaluation protocols.",
+          "Replication quality and source quality are discussed, but not with a study-by-study comparative assessment.",
+          "The source set includes blogs and explanatory pages, yet the report does not clearly separate peer-reviewed evidence from secondary claims throughout."
+        ],
+        "rationale": "The report is appropriately cautious and directly flags major comparability and source-quality problems. Nevertheless, it does not supply the detailed cross-study audit needed to fully evaluate the literature."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report repeatedly characterizes CoT as context-dependent, with gains, null effects, and declines across models [S2, S11].",
+          "It reports substantial increases in token use and response time [S2, S11].",
+          "The conclusion explicitly states that the evidence is provisional and that important gaps remain."
+        ],
+        "missing": [
+          "The conclusion does not directly answer whether CoT is effective, primarily formatting, or a combination of mechanisms.",
+          "It does not synthesize established findings versus hypotheses into a clear qualified position on the central question.",
+          "Practical implications for reliability, accuracy, latency, cost, and appropriate deployment are not developed beyond reporting cost and time increases.",
+          "It does not state when practitioners should prefer direct answering, CoT, structured reasoning, or external tools.",
+          "The report ends with unresolved gaps rather than a completed evidence-based synthesis."
+        ],
+        "rationale": "The report provides useful caution and some practical cost information, but its own incomplete-status disclaimer substitutes for a final conclusion. It does not deliver the requested integrated answer or actionable implications."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": []
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 1.0,
+    "validity": 1.0,
+    "support": 1.0,
+    "completeness": 1.0,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "In the supplied empirical report, generic CoT prompting produced context-dependent final-answer effects on GPQA Diamond: it generally improved average performance for tested non-reasoning models, but effects ranged from modest or nonsignificant gains to declines under a perfect-accuracy criterion; for tested reasoning models, gains were small and one model declined.",
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 directly reports the GPQA Diamond methodology and findings summarized in the claim. It states that CoT generally improved average performance for non-reasoning models, including a smallest 4.4% gain that was not statistically significant, while perfect-accuracy results were mixed and some models declined. It also reports small gains for o3-mini and o4-mini and a decline for Gemini Flash 2.5 among reasoning models. S11 independently paraphrases several of these findings, though S2 is the primary direct support.",
+        "supporting_text": "S2: “CoT prompting generally improved average performance across non-reasoning models”; GPT-4o-mini had the “smallest gain” at “4.4%, not statistically significant,” while perfect accuracy was mixed and Gemini Pro 1.5 declined “-17.2%.” For reasoning models, o3-mini and o4-mini showed small average improvements of 2.9% and 3.1%, while Gemini Flash 2.5 declined by 3.3%. S11 likewise reports 11–13% average gains for selected non-reasoning models, a 17.2% perfect-accuracy decline for Gemini Pro 1.5, and only 2–3% gains for reasoning models."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The supplied evidence indicates that generic CoT can impose substantial inference-time cost, with reported increases in response time of 35–600% for non-reasoning models and 20–80% for reasoning models in the GPQA study.",
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 directly reports that, in its GPQA Diamond study, CoT requests took 35–600% longer for non-reasoning models and 20–80% longer for reasoning models. S11 independently repeats both ranges and attributes them to the Wharton study.",
+        "supporting_text": "S2: “CoT requests took 35-600% (5-15 seconds) longer than direct requests” for non-reasoning models, and “required 20-80% (10-20 seconds) more time” for reasoning models. S11 likewise states that CoT requests take 35–600% longer and that reasoning models take 20–80% longer."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The supplied sources support a distinction between generic flat CoT and more structured inference procedures: the Hi-CoT paper reports higher accuracy and shorter traces than its CoT comparison on the evaluated mathematical benchmarks, attributing the proposed method to hierarchical decomposition and compression bottlenecks.",
+        "citation_ids": [
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S1 explicitly contrasts conventional CoT as unstructured and flat with Hi-CoT as a structured, hierarchical procedure. It reports average accuracy improvements and shorter reasoning traces compared with CoT across five mathematical reasoning benchmarks, and attributes the method to hierarchical decomposition and compression bottlenecks.",
+        "supporting_text": "S1 states that conventional CoT uses “unstructured, flat reasoning chains,” while Hi-CoT “decomposes the reasoning process into hierarchical substeps.” It reports that Hi-CoT improves average accuracy by 6.2% and reduces reasoning-trace length by 13.9% “compared to CoT prompting” across five mathematical reasoning benchmarks. It also describes alternating instruction/execution steps as “compression bottlenecks.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Several supplied sources describe CoT as eliciting or encouraging stepwise decomposition and improved final-task performance, but these descriptions do not by themselves establish that the visible rationale is faithful to the model’s causal reasoning process.",
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S10",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources collectively support both parts of the claim. S4, S5, S10, and S12 describe CoT as prompting or encouraging sequential/intermediate reasoning and report improved accuracy or performance on complex or multistep tasks. S6, S7, and S10 explicitly distinguish apparent or visible reasoning from causal faithfulness, reporting failures under interventions, post-hoc reasoning, or that CoT is not always a faithful account. Thus, the claim’s qualified wording—that these descriptions alone do not establish causal faithfulness—is supported.",
+        "supporting_text": "S4: CoT “breaks down intricate problems into manageable steps” and leads to “more accurate final answers.” S5: it guides models through “a step-by-step reasoning process” and intermediate steps “significantly boost” accuracy. S10: CoT “encourages models to ‘think’ in stages,” but “is not always a faithful account” of the true reasoning process. S6 reports that intermediate structures can be “influential context rather than stable causal mediators,” while S7 describes models potentially going “through the motions” of CoT after deciding the answer."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "The supplied report finds that many tested models produced CoT-like reasoning by default without an explicit step-by-step instruction, making an unprompted or default condition an important baseline when estimating the incremental value of generic CoT.",
+        "citation_ids": [
+          "S2"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 explicitly states that the default condition produced short CoT-like output in most cases and that many models performed CoT-like reasoning without explicit instructions. It also describes a direct comparison between default behavior and step-by-step prompting, supporting the importance of the default condition for assessing incremental CoT value.",
+        "supporting_text": "The report defines “Default” as providing no specific suffix and says, “In most cases, this produces a short CoT-like thinking output.” It further states that “many models perform CoT-like reasoning by default, even without explicit instructions,” and reports comparisons between unprompted answers and Chain-of-Thought."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Controlled intervention evidence in the supplied sources indicates that explicit intermediate structures are not reliably causal mediators of LLM decisions: across eight models and three benchmarks, models sometimes failed to change predictions after the structures were edited, with failures reported in up to 60% of cases; external tool execution substantially reduced this fragility.",
+        "citation_ids": [
+          "S6"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved source’s abstract directly reports evaluation across eight models and three benchmarks, failures to update predictions after controlled interventions in up to 60% of cases, and that delegating final-decision derivation to an external tool substantially reduces the fragility. Its conclusion characterizes intermediate structures as influential context rather than stable causal mediators.",
+        "supporting_text": "S6 states: “Across eight models and three benchmarks, models appear self-consistent with their own intermediate structures but fail to update predictions after intervention in up to 60% of cases.” It also says: “When derivation of the final decision from the structure is delegated to an external tool, this fragility largely disappears,” and concludes that intermediate structures function as “influential context rather than stable causal mediators.”"
+      },
+      {
+        "finding_id": "F7",
+        "claim": "In a small-scale comparison across six LLMs and six question-answering datasets involving real-world knowledge and logical verbal reasoning, zero-shot CoT variants showed gains that the study describes as robust across models and datasets, with GPT-4 benefiting most from an automatically discovered reasoning prompt.",
+        "citation_ids": [
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved abstract directly supports all major elements of the claim: the study is small-scale; compares six named LLMs and six question-answering datasets; the datasets involve real-world knowledge application and logical verbal reasoning; the strategies are induced by zero-shot prompting; gains from CoT strategies are described as robust across models and datasets; and GPT-4 benefits most from state-of-the-art strategies, performing best with a prompt previously discovered through automated discovery.",
+        "supporting_text": "The abstract states: “In this small-scale study, we compare different reasoning strategies induced by zero-shot prompting across six recently released LLMs” and “test them on six question-answering datasets that require real-world knowledge application and logical verbal reasoning.” It concludes that “gains from CoT reasoning strategies remain robust across different models and datasets” and that “GPT-4 benefits the most” and performs best with “a prompt previously discovered through automated discovery.”"
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Generic chain-of-thought prompting produced context-dependent final-answer effects on GPQA Diamond for the tested non-reasoning models, including average gains, modest or nonsignificant gains, and declines under a perfect-accuracy criterion.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "rationale": "This is an externally verifiable empirical claim, and the Finding 1 evidence cites sources describing the reported GPQA effects."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "For the tested reasoning models in the GPQA study, generic chain-of-thought gains were small and one model declined.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "rationale": "This is a specific empirical result and is directly attributed to the cited GPQA summaries."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Generic chain-of-thought prompting increased response times by 35–600% for non-reasoning models and 20–80% for reasoning models in the reported GPQA study.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "rationale": "The numerical cost claims require citation and are supported by the nearby evidence citations."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "The Hi-CoT paper reported higher accuracy and shorter reasoning traces than its CoT comparison on the evaluated mathematical benchmarks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "This is a source-specific empirical comparison and is supported by the cited Hi-CoT paper."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "The Hi-CoT paper attributed its proposed method to hierarchical decomposition and compression bottlenecks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "This is a claim about the paper’s method and stated explanation, with a nearby citation to S1."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "The Hi-CoT paper reported a 6.2% average accuracy improvement, improvements of up to 61.4% in some configurations, and a 13.9% reduction in trace length across 13 model configurations and five mathematical benchmarks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "These precise quantitative claims require citation and are explicitly supported by S1 in the report."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Several supplied sources describe chain-of-thought prompting as eliciting or encouraging stepwise decomposition and improving final-task performance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S12"
+        ],
+        "rationale": "This summarizes externally published descriptions and reported performance claims, with citations to the relevant sources."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Descriptions of chain-of-thought prompting as producing intermediate reasoning steps do not, by themselves, establish that the visible rationale faithfully represents the model’s causal reasoning process.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S7",
+          "S10",
+          "S12"
+        ],
+        "rationale": "The claim concerns findings and interpretations from faithfulness and intervention literature; the nearby citations address causal intervention, post-hoc reasoning, and the distinction between accuracy and faithfulness."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "A controlled intervention study found that models can remain unchanged when explicit intermediate structures are edited.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "This is a specific experimental finding and is directly cited."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Many tested models produced CoT-like reasoning under a default condition without an explicit step-by-step instruction.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2"
+        ],
+        "rationale": "This is a source-specific empirical observation and has a nearby citation to S2."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "An unprompted or default condition is an important baseline when estimating the incremental value of explicit generic chain-of-thought prompting.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2"
+        ],
+        "rationale": "This is primarily a methodological implication rather than a standalone externally verifiable fact; the cited observation about default CoT-like reasoning appropriately supports it."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Across eight models and three benchmarks, controlled interventions on structured reasoning mediators found prediction-update failures in up to 60% of cases.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "This is a precise empirical result and is directly supported by S6."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Delegating derivation to an external tool largely removed the fragility observed in the structured-reasoning intervention study.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "This is an experimental finding requiring citation, and S6 is supplied immediately with that claim."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "A comparison across six LLMs and six question-answering datasets involving real-world knowledge and logical verbal reasoning reported gains from zero-shot chain-of-thought variants that it characterized as robust across models and datasets.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12"
+        ],
+        "rationale": "This is a source-specific comparative-study result and is supported by the nearby S12 citation."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "In that comparison, effectiveness varied and GPT-4 benefited most from an automatically discovered reasoning prompt.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12"
+        ],
+        "rationale": "This is a specific empirical claim about comparative effectiveness and has an appropriate citation to S12."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "The report’s evidence is incomplete and its final synthesis is provisional because the research run ended before normal finalization.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the candidate report’s own generation status, explicitly stated in the supplied text, rather than an externally verifiable substantive research claim."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "The supplied evidence does not establish whether chain-of-thought gains remain after controlling for output-format instructions, token or test-time-compute budgets, answer extraction procedures, and related evaluator-visible effects.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an assessment of the evidentiary coverage of the supplied report, not an externally verifiable claim requiring an external citation."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "The supplied evidence does not determine how often ordinary free-form chain-of-thought prompting causally improves reasoning across task types, model families, prompt designs, and difficulty levels.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a stated research gap concerning what the supplied evidence does not establish; it does not assert an external fact requiring citation."
+      }
+    ],
+    "evaluable_support_claims": 7,
+    "total_support_claims": 7,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+    "R3: Explain how observed effects vary with model capability or scale, task difficulty and structure, training-distribution similarity, prompt or demonstration design, and baseline prompting behavior.",
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "9bc47bacb9c81fd5d356682e24e68078275fcf3a27a382409718f6587db79a72",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T01:19:00.250138+00:00",
+    "usage": {
+      "llm_calls": 9,
+      "input_tokens": 37834,
+      "output_tokens": 6009,
+      "estimated_cost": null
+    }
+  }
+}

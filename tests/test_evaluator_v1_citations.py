@@ -204,3 +204,38 @@ def test_llm_only_unverified_references_receive_no_fabricated_provenance() -> No
     assert result.support == 0.0
     assert result.completeness == 0.0
     assert result.score == 0.0
+
+
+def test_llm_only_hallucinated_completeness_id_is_normalized_to_uncited() -> None:
+    item = EvaluationInput(
+        run_directory=Path.cwd(),
+        question="Primitive baseline question",
+        report_markdown="A substantive factual claim with no canonical citation.",
+        report=None,
+        sources=[],
+        system_version=LLM_ONLY_SYSTEM_VERSION,
+        candidate_report_sha256="d" * 64,
+    )
+    hallucinated = CitationCompletenessJudgment(
+        claims=[
+            CitationCompletenessClaim(
+                claim_id="Q1",
+                claim="A substantive factual claim.",
+                classification=CitationRequirement.CITATION_REQUIRED,
+                has_appropriate_citation=True,
+                citation_ids=["S999"],
+                rationale="The judge incorrectly inferred a citation.",
+            )
+        ]
+    )
+
+    result = CitationEvaluator(
+        "unused",
+        "test-model",
+        client=SimpleNamespace(responses=FakeResponses([hallucinated])),
+    ).evaluate(item)
+
+    assert result.error is None
+    assert result.completeness == 0.0
+    assert result.completeness_claims[0].citation_ids == []
+    assert result.completeness_claims[0].has_appropriate_citation is False

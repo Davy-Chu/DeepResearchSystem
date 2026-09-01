@@ -1,0 +1,1612 @@
+{
+  "question": "How close are quantum computers to providing commercially useful advantages over classical computers? Separate demonstrated quantum advantage from theoretical or projected advantages, and identify the biggest remaining technical barriers.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "How close are quantum computers to providing commercially useful advantages over classical computers? Separate demonstrated quantum advantage from theoretical or projected advantages, and identify the biggest remaining technical barriers.",
+    "summary": "The supplied evidence supports a cautious separation between narrow laboratory demonstrations, theoretically established algorithmic speedups, and commercially useful advantage. The Google Sycamore result is a contested benchmark whose classical comparison was materially challenged, while the Q-CTRL/IBM materials-simulation result is a low-confidence vendor claim lacking independent validation. The strongest prospective opportunities are application-specific, particularly selected large quantum- and materials-simulation problems, but projected benefits depend on fault-tolerant hardware, substantial logical-qubit resources, competitive classical baselines, and favorable end-to-end economics. The evidence does not establish a calibrated timeline for broad commercial advantage.",
+    "findings": [
+      {
+        "claim": "Experimentally demonstrated quantum advantage remains narrow and does not yet establish broad commercial usefulness. The Google Sycamore benchmark was reported as 200 seconds on a 53-qubit processor versus Google's estimate of 10,000 years classically, but IBM estimated approximately 2.5 days for the classical computation. The supplied evidence therefore supports a contested laboratory benchmark, not an unqualified practical advantage.",
+        "evidence": [
+          {
+            "summary": "S9 reports both Google's original Sycamore comparison and IBM's substantially lower classical-runtime estimate, which directly challenges the magnitude of the claimed advantage.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The evidence directly records the competing comparisons, but comes from a secondary source and does not establish independent reproduction, a settled best-classical baseline, verification cost, or commercial relevance."
+      },
+      {
+        "claim": "A Q-CTRL report claims a 3,000-times wall-clock speedup for an IBM-based fermionic or materials-simulation task while meeting stated accuracy and practical-time requirements, but a reliable conclusion about genuine, reproducible, or commercially valuable advantage cannot currently be drawn.",
+        "evidence": [
+          {
+            "summary": "Q-CTRL states that its demonstration exceeded an industry-standard classical alternative by more than 3,000 times and met accuracy and practical-time requirements.",
+            "source_ids": [
+              "S2"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The claim is vendor-authored and the supplied evidence does not independently establish the task definition, strongest classical baseline, reproducibility, full costs, or commercial return."
+      },
+      {
+        "claim": "Theoretical and projected advantage is application-specific rather than general. The strongest prospects are selected large problems with favorable quantum algorithms, especially quantum-system or materials simulation; small-to-moderate business problems generally are not expected to benefit unless hardware and end-to-end economics clearly outperform classical alternatives.",
+        "evidence": [
+          {
+            "summary": "MIT Sloan describes advantage as concentrated in sufficiently large problems with major algorithmic gains and identifies matter simulation as a candidate area; it reports that small-to-moderate business problems generally may not benefit.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "The industry analysis projects a narrow advantage map concentrated in quantum-mechanical simulation and reports no demonstrated advantage for supply-chain optimization, machine learning, or derivatives pricing.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "The algorithm overview presents Shor's and Grover's results as advantages for specific structured problem classes rather than as general-purpose improvements.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The latest verification supports the qualified, application-specific formulation. However, the evidence does not independently validate commercial outcomes or all application projections."
+      },
+      {
+        "claim": "Shor's factoring algorithm and Grover's unstructured-search algorithm provide theoretically established algorithmic speedups, but the supplied evidence does not show current hardware delivering a commercial advantage from either result.",
+        "evidence": [
+          {
+            "summary": "S9 describes Shor's polynomial-time factoring approach and Grover's approximately quadratic speedup, while providing no current-hardware or end-to-end commercial demonstration.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The algorithmic claims are directly reported, but the evidence is secondary and lacks resource estimates, fault-tolerant implementation evidence, and commercial comparisons."
+      },
+      {
+        "claim": "Fault-tolerant quantum simulation is projected as a potentially high-value area in chemistry, catalysis, pharmaceuticals, and batteries or energy, but the cited resource requirements, timelines, and economic impacts are projections rather than demonstrated commercial advantages.",
+        "evidence": [
+          {
+            "summary": "The industry analysis projects significant impact in these sectors under assumed future fault-tolerant capabilities, resource estimates, and economic conditions.",
+            "source_ids": [
+              "S5"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The source is a forward-looking industry analysis, and the supplied material does not independently validate its assumptions, timelines, resource estimates, or business outcomes."
+      },
+      {
+        "claim": "The most important remaining technical barriers are noise and physical errors, error-correction overhead, insufficient hardware scale, scalable hardware and control, and verification complexity. These barriers are especially decisive for large-scale simulation and other applications requiring long fault-tolerant computations.",
+        "evidence": [
+          {
+            "summary": "Q-CTRL identifies hardware size, noise, and errors as obstacles to obtaining useful results on relevant problems.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "MIT Sloan reports that hardware and software for the most complex problems may not be available until 2035 or later.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "The industry projection assumes a fault-tolerant system with 2,000 logical qubits and one billion error-corrected operations, illustrating the scale gap underlying projected applications.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "The review identifies noisy current devices, error-correction overhead, hardware scalability, and verification complexity as continuing challenges.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The article describes current hardware as insufficient for practical RSA-2048 factoring, illustrating the scale gap for cryptographic applications.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Multiple supplied sources support the existence of these barriers. Their relative ranking, current numerical values, and application-specific thresholds remain unresolved."
+      },
+      {
+        "claim": "Commercial quantum advantage should be evaluated against a comparably priced and available classical alternative using end-to-end outcomes, including runtime, accuracy, reliability, cost, affordability, and practical usefulness, rather than a theoretical speedup or isolated benchmark.",
+        "evidence": [
+          {
+            "summary": "MIT Sloan distinguishes quantum advantage from quantum economic advantage and emphasizes comparison with a comparably priced classical computer.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Q-CTRL defines practical advantage relative to the best available conventional alternative and emphasizes useful time, accuracy, and affordability.",
+            "source_ids": [
+              "S2"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The latest verification confirms this as the appropriate commercial-evaluation standard, although the supplied evidence does not provide complete measurements for candidate workloads."
+      },
+      {
+        "claim": "For quantum machine learning in digital health, a reliable conclusion about superiority over classical methods cannot currently be drawn from the supplied evidence.",
+        "evidence": [
+          {
+            "summary": "The systematic review is described as evaluating whether QML outperforms existing classical methods, but the supplied excerpt does not provide its findings or quantitative comparisons.",
+            "source_ids": [
+              "S6"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The source establishes the review's scope, not its results; therefore it cannot establish either a QML advantage or its absence."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "The Sycamore claim has meaningful supporting and contradicting evidence: Google's reported 200-second versus 10,000-year comparison is supported, while IBM's approximately 2.5-day estimate contradicts the original classical baseline. The supplied evidence does not settle which comparison is definitive or whether the benchmark has practical value.",
+        "source_ids": [
+          "S9"
+        ]
+      },
+      {
+        "description": "The Q-CTRL/IBM 3,000-times speedup is supported only by a vendor report and lacks independent validation of baseline quality, reproducibility, cost, and commercial ROI.",
+        "source_ids": [
+          "S2"
+        ]
+      },
+      {
+        "description": "Projected advantages in simulation-related industries are conditional scenarios, not empirical demonstrations. Their hardware assumptions, timelines, and economic impacts are not independently established in the supplied ledger.",
+        "source_ids": [
+          "S5"
+        ]
+      },
+      {
+        "description": "The evidence does not quantify physical error rates, logical-qubit availability, error-correction overhead, coherence, connectivity, decoding, throughput, operating cost, or integration requirements relative to commercial workloads.",
+        "source_ids": [
+          "S2",
+          "S4",
+          "S5",
+          "S8",
+          "S9"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "G1: Independent, peer-reviewed verification of the Q-CTRL/IBM materials-simulation speedup, including task definition, classical baseline, costs, accuracy, runtime, reproducibility, and commercial value.",
+      "G2: Quantitative current-versus-required measurements for physical and logical errors, error-correction overhead, logical qubits, coherence, connectivity, decoding, throughput, and operating cost.",
+      "G3: Independent application-specific comparisons for chemistry, pharmaceuticals, catalysis, batteries, optimization, cryptography, and machine learning against the strongest evolving classical methods.",
+      "G4: A calibrated timeline or probability for commercially useful advantage; the cited 2030 and 2035-or-later expectations remain projections with unstated assumptions.",
+      "G5: End-to-end commercial data covering deployment and access costs, energy use, integration, input/output and data-loading costs, reliability, and workload value.",
+      "G6: Primary, peer-reviewed, independently reproduced analysis of the Sycamore benchmark using settled strong classical baselines and accounting for verification and practical relevance.",
+      "G7: Results and quantitative comparisons from the cited digital-health QML review.",
+      "G8: Application-specific resource estimates and end-to-end comparisons for theoretically advantageous algorithms such as factoring and search."
+    ],
+    "conclusion": "On the supplied evidence, quantum computers are not yet shown to provide a broadly commercially useful advantage over classical computers. Demonstrated advantages are confined to narrow laboratory or vendor-reported results: Sycamore is contested, and the Q-CTRL/IBM result is low-confidence and unindependently verified. The theoretical case is stronger but conditional and concentrated in selected large, structured workloads—especially quantum simulation—rather than ordinary small-to-moderate business problems. Commercial usefulness is therefore best characterized as a future, application-dependent possibility rather than an established capability. The decisive unknown is not whether quantum algorithms can have asymptotic advantages, but whether fault-tolerant systems can deliver them at sufficient scale, accuracy, throughput, reliability, and total cost against improving classical alternatives. No supplied evidence supports a reliable general timeline."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "How close are quantum computers to providing commercially useful advantages over classical computers? Separate demonstrated quantum advantage from theoretical or projected advantages, and identify the biggest remaining technical barriers.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "A Q-CTRL blog reports a claimed 3,000-times wall-clock speedup for a materials-simulation task using an IBM quantum computer with compiler and error-suppression software, while asserting that the task had commercial or scientific relevance and met required accuracy; the supplied source does not independently establish the comparison, reproducibility, or commercial ROI.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL states that its IBM-based demonstration solved a fermionic-simulation problem more than 3,000 times faster than an industry-standard classical alternative while meeting accuracy and practical-time requirements.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "LOW",
+            "confidence_reason": "This is a self-reported claim from a vendor blog, and the supplied excerpt does not provide enough methodological detail or independent replication to establish a genuine practical quantum advantage.",
+            "status": "WEAK",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Theoretical quantum advantage is application-specific rather than general: quantum computers are expected to be most promising for some large problems with favorable quantum algorithms, especially quantum-system simulation, while small-to-moderate business problems generally may not benefit.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan summarizes a framework arguing that small-to-moderate business problems generally will not benefit, whereas sufficiently large problems with exponential algorithmic gains may; it identifies matter simulation and related areas as candidate applications.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL describes fermionic simulation as a candidate for long-term advantage because it scales poorly classically and is efficiently solvable in the relevant quantum complexity setting.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The supplied industry analysis projects a narrow and uneven advantage map concentrated in applications aligned with quantum-mechanical simulation, while stating that supply-chain optimization, machine learning, and derivatives pricing lack demonstrated advantage.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The application-specific distinction is consistently stated by MIT Sloan and the supplied industry analyses, but the sources do not constitute a systematic assessment of all algorithms or strongest classical baselines.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Quantum economic or commercial advantage requires comparison with a comparably priced, available classical alternative and consideration of end-to-end performance, not merely a theoretical speedup or an isolated benchmark.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan distinguishes quantum advantage from quantum economic advantage, defining the latter around solving a problem faster with a comparably priced classical computer and emphasizing the race between classical and quantum systems for each problem.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL defines practical quantum advantage as outperforming the best available conventional alternative on a real-world application, including useful time, accuracy, and affordability considerations.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Both supplied sources directly articulate the distinction between scientific/theoretical advantage and practical or economic advantage.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "The largest currently identified barriers to commercial quantum advantage include hardware and software capability for complex problems, noise and errors, the scale of hardware required, and the need for fault-tolerant systems; these barriers are especially decisive for large-scale simulation applications.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL identifies hardware size, noise, and errors as obstacles that degrade algorithms and prevent useful results on relevant problems.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan reports an estimate that the hardware and software for the most complex problems may not be available until 2035 or later, despite projected growth in operational quantum computers.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The supplied projection assumes a fault-tolerant machine with 2,000 logical qubits and one billion error-corrected operations for projected application impacts, illustrating the scale gap between present systems and proposed use cases.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The sources agree on noise, scale, software, and fault tolerance as obstacles, but they do not provide a rigorous comparative ranking of barriers or quantitative present-versus-required hardware data.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The supplied industry projection identifies chemistry, catalysis, pharmaceuticals, and battery or energy applications as potentially high-value areas for fault-tolerant quantum simulation, but its numerical timelines, logical-qubit requirements, and economic impacts are projections rather than demonstrated commercial advantages.",
+            "supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The article projects high or significant impact in pharmaceuticals, catalysis, and battery technology based on assumed future fault-tolerant capability, resource estimates, and economic analyses.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "LOW",
+            "confidence_reason": "The source is an industry strategy article using future scenarios and linked estimates; the supplied material does not independently validate the resource estimates, timelines, or business outcomes.",
+            "status": "WEAK",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "Independent, peer-reviewed evidence is needed to verify the reported Q-CTRL/IBM 3,000-times materials-simulation speedup, including the exact task, classical baseline, hardware and software costs, accuracy, runtime, reproducibility, and end-to-end commercial value.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "The evidence does not quantify current physical error rates, logical-qubit availability, error-correction overhead, coherence, connectivity, decoding, throughput, or operating cost relative to the requirements of proposed commercial applications.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The evidence does not provide independent, application-specific validation of projected advantages in chemistry, pharmaceuticals, catalysis, batteries, optimization, cryptography, or machine learning against the strongest evolving classical methods.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The sources do not establish a calibrated timeline or probability for commercially useful advantage; the cited 2030 and 2035-or-later expectations are projections with unstated assumptions and should not be treated as forecasts established by evidence.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3"
+            ]
+          },
+          {
+            "description": "A complete commercial evaluation is still missing data on deployment and access costs, energy use, integration with classical workflows, input/output and data-loading costs, reliability, and the economic value of candidate workloads.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ5"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "WEAK",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL states that its IBM-based demonstration solved a fermionic-simulation problem more than 3,000 times faster than an industry-standard classical alternative while meeting accuracy and practical-time requirements.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan summarizes a framework arguing that small-to-moderate business problems generally will not benefit, whereas sufficiently large problems with exponential algorithmic gains may; it identifies matter simulation and related areas as candidate applications.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL describes fermionic simulation as a candidate for long-term advantage because it scales poorly classically and is efficiently solvable in the relevant quantum complexity setting.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The supplied industry analysis projects a narrow and uneven advantage map concentrated in applications aligned with quantum-mechanical simulation, while stating that supply-chain optimization, machine learning, and derivatives pricing lack demonstrated advantage.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan distinguishes quantum advantage from quantum economic advantage, defining the latter around solving a problem faster with a comparably priced classical computer and emphasizing the race between classical and quantum systems for each problem.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL defines practical quantum advantage as outperforming the best available conventional alternative on a real-world application, including useful time, accuracy, and affordability considerations.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Q-CTRL identifies hardware size, noise, and errors as obstacles that degrade algorithms and prevent useful results on relevant problems.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "MIT Sloan reports an estimate that the hardware and software for the most complex problems may not be available until 2035 or later, despite projected growth in operational quantum computers.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The supplied projection assumes a fault-tolerant machine with 2,000 logical qubits and one billion error-corrected operations for projected application impacts, illustrating the scale gap between present systems and proposed use cases.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "WEAK",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The article projects high or significant impact in pharmaceuticals, catalysis, and battery technology based on assumed future fault-tolerant capability, resource estimates, and economic analyses.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "Independent, peer-reviewed evidence is needed to verify the reported Q-CTRL/IBM 3,000-times materials-simulation speedup, including the exact task, classical baseline, hardware and software costs, accuracy, runtime, reproducibility, and end-to-end commercial value."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "The evidence does not quantify current physical error rates, logical-qubit availability, error-correction overhead, coherence, connectivity, decoding, throughput, or operating cost relative to the requirements of proposed commercial applications."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "The evidence does not provide independent, application-specific validation of projected advantages in chemistry, pharmaceuticals, catalysis, batteries, optimization, cryptography, or machine learning against the strongest evolving classical methods."
+          },
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "The sources do not establish a calibrated timeline or probability for commercially useful advantage; the cited 2030 and 2035-or-later expectations are projections with unstated assumptions and should not be treated as forecasts established by evidence."
+          },
+          {
+            "gap_id": "G5",
+            "change_type": "NEW",
+            "description": "A complete commercial evaluation is still missing data on deployment and access costs, energy use, integration with classical workflows, input/output and data-loading costs, reliability, and the economic value of candidate workloads."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "SQ1 remains unresolved and is central to separating genuine demonstrated quantum advantage from vendor-reported or laboratory claims. Independent peer-reviewed evidence and strongest classical-baseline comparisons for the reported IBM/Q-CTRL materials-simulation result would materially improve confidence; the query should also capture reproducibility and challenges.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ1",
+        "next_search_query": "Independent peer-reviewed verification or critique of the Q-CTRL IBM 3,000x quantum speedup materials/fermionic simulation claim: exact task, classical baseline, runtime, accuracy, hardware/software costs, reproducibility, and commercial usefulness",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "Independent peer-reviewed verification or critique of the Q-CTRL IBM 3,000x quantum speedup materials/fermionic simulation claim: exact task, classical baseline, runtime, accuracy, hardware/software costs, reproducibility, and commercial usefulness",
+      "source_ids": [],
+      "evidence_processing": {
+        "new_claims": [],
+        "claim_updates": [],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "Independent verification of C2 identified a high-value falsification search: The supplied evidence supports an application-specific, non-general advantage and identifies quantum-system simulation as a particularly promising area. It also supports the view that small-to-moderate business problems often will not benefit, but this is presented as a framework’s conclusion rather than a universally established result. The claim should distinguish theoretical algorithmic potential from demonstrated or economically proven advantage.",
+        "target_type": "CLAIM",
+        "target_id": "C2",
+        "next_search_query": "Find authoritative reviews or peer-reviewed studies reporting cases where quantum algorithms do not outperform strong classical methods, especially for small-to-moderate business problems, optimization, machine learning, and quantum simulation; include boundary conditions and competing classical improvements.",
+        "decision_origin": "VERIFIER_COUNTERSEARCH"
+      },
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ1",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "Find authoritative reviews or peer-reviewed studies reporting cases where quantum algorithms do not outperform strong classical methods, especially for small-to-moderate business problems, optimization, machine learning, and quantum simulation; include boundary conditions and competing classical improvements.",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "The 2019 Google Sycamore result is reported as a narrowly defined experimental benchmark that Google estimated took 200 seconds versus 10,000 years for a classical supercomputer, but the comparison was challenged by IBM, which estimated that a classical supercomputer could perform the task in about 2.5 days; therefore, the supplied evidence supports a contested laboratory quantum-advantage claim rather than an unqualified practical advantage.",
+            "supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article reports Google's 53-qubit Sycamore benchmark and its 200-second versus 10,000-year estimate, while also reporting IBM's substantially lower classical estimate of 2.5 days.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The IBM estimate directly challenges Google's original classical-runtime comparison, reducing confidence that the reported magnitude represents a robust advantage over the best available classical method.",
+                "strength": "DIRECT"
+              }
+            ],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S9 directly reports both the experimental result and the classical-baseline challenge, but it is a secondary article and the supplied material does not establish independent reproduction or commercial usefulness.",
+            "status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Shor's factoring algorithm provides a theoretically established polynomial-time quantum approach to integer factorization, while Grover's algorithm provides a theoretically established quadratic speedup for unstructured search; neither constitutes a demonstrated commercial advantage on current hardware in the supplied evidence.",
+            "supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes Shor's algorithm as solving integer factorization in polynomial time and Grover's algorithm as reducing unstructured search from O(N) to approximately O(√N).",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S9 directly states the algorithmic complexities, but the source is secondary and provides no current hardware demonstration or end-to-end commercial comparison.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3"
+            ]
+          },
+          {
+            "claim": "Current quantum machine-learning evidence in digital health is being evaluated through systematic comparison with existing classical methods, but the supplied excerpt does not report a finding that QML outperforms those methods.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The systematic review explicitly states that it assesses whether QML algorithms outperform existing classical methods for clinical decision-making or health-service delivery.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "LOW",
+            "confidence_reason": "The supplied material contains the review's scope but not its results, so it cannot establish either a QML advantage or its absence.",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Survey-level evidence identifies error-correction overhead, hardware scalability, and verification complexity as continuing challenges for scalable, fault-tolerant quantum computing, alongside limitations of current noisy intermediate-scale devices.",
+            "supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review describes current NISQ machines as noisy and error-prone and identifies error-correction overhead, hardware scalability, and verification complexity among ongoing challenges.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S8 is a review article that directly states these challenges, although the supplied excerpt does not quantify their relative importance or current values.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article presents Shor's and Grover's algorithms as advantages for specific problem classes, while emphasizing that quantum advantage applies only to certain structured tasks rather than generally.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review surveys potential applications across cryptography, optimization, finance, chemistry, and machine learning, while framing quantum computing as an emerging paradigm with application-dependent potential.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The additional sources reinforce that proposed advantages are algorithm- and application-specific, but they remain review or secondary material and do not provide systematic commercial validation.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review directly identifies error-correction overhead, hardware scalability, and verification complexity as challenges to scalable fault-tolerant systems, adding verification complexity to the previously identified barrier set.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article states that current hardware is far below the estimated scale needed for practical RSA-2048 factoring and characterizes current quantum hardware as insufficient for that application.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new review evidence independently supports error correction and scalability as barriers, while S9 illustrates the scale gap for cryptographic applications; quantitative ranking across applications remains unavailable.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "The Sycamore benchmark needs primary, peer-reviewed and independently reproduced analysis using the strongest classical algorithms and hardware, including a settled baseline, verification cost, reproducibility, and any practical or commercial relevance.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "The supplied QML review excerpt does not include its conclusions or quantitative comparisons, leaving unresolved whether any digital-health QML workload has demonstrated superior accuracy, runtime, cost, or end-to-end value over classical methods.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "Theoretical algorithmic speedups for factoring and search require application-specific resource estimates, fault-tolerant hardware assumptions, and end-to-end comparisons before their commercial proximity can be assessed.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article reports Google's 53-qubit Sycamore benchmark and its 200-second versus 10,000-year estimate, while also reporting IBM's substantially lower classical estimate of 2.5 days.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The IBM estimate directly challenges Google's original classical-runtime comparison, reducing confidence that the reported magnitude represents a robust advantage over the best available classical method.",
+                "strength": "DIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article describes Shor's algorithm as solving integer factorization in polynomial time and Grover's algorithm as reducing unstructured search from O(N) to approximately O(√N).",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C8",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "LOW",
+            "previous_status": null,
+            "current_status": "INSUFFICIENT_EVIDENCE",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The systematic review explicitly states that it assesses whether QML algorithms outperform existing classical methods for clinical decision-making or health-service delivery.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C9",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review describes current NISQ machines as noisy and error-prone and identifies error-correction overhead, hardware scalability, and verification complexity among ongoing challenges.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article presents Shor's and Grover's algorithms as advantages for specific problem classes, while emphasizing that quantum advantage applies only to certain structured tasks rather than generally.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review surveys potential applications across cryptography, optimization, finance, chemistry, and machine learning, while framing quantum computing as an emerging paradigm with application-dependent potential.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The review directly identifies error-correction overhead, hardware scalability, and verification complexity as challenges to scalable fault-tolerant systems, adding verification complexity to the previously identified barrier set.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article states that current hardware is far below the estimated scale needed for practical RSA-2048 factoring and characterizes current quantum hardware as insufficient for that application.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G6",
+            "change_type": "NEW",
+            "description": "The Sycamore benchmark needs primary, peer-reviewed and independently reproduced analysis using the strongest classical algorithms and hardware, including a settled baseline, verification cost, reproducibility, and any practical or commercial relevance."
+          },
+          {
+            "gap_id": "G7",
+            "change_type": "NEW",
+            "description": "The supplied QML review excerpt does not include its conclusions or quantitative comparisons, leaving unresolved whether any digital-health QML workload has demonstrated superior accuracy, runtime, cost, or end-to-end value over classical methods."
+          },
+          {
+            "gap_id": "G8",
+            "change_type": "NEW",
+            "description": "Theoretical algorithmic speedups for factoring and search require application-specific resource estimates, fault-tolerant hardware assumptions, and end-to-end comparisons before their commercial proximity can be assessed."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null,
+        "decision_origin": "BUDGET_STOP"
+      },
+      "search_purpose": "COUNTERSEARCH",
+      "search_target_id": "C2",
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "PARTIAL",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "PARTIAL",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "PARTIAL",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        }
+      ]
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "A Q-CTRL blog reports a claimed 3,000-times wall-clock speedup for a materials-simulation task using an IBM quantum computer with compiler and error-suppression software, while asserting that the task had commercial or scientific relevance and met required accuracy; the supplied source does not independently establish the comparison, reproducibility, or commercial ROI.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Q-CTRL states that its IBM-based demonstration solved a fermionic-simulation problem more than 3,000 times faster than an industry-standard classical alternative while meeting accuracy and practical-time requirements.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "LOW",
+        "confidence_reason": "This is a self-reported claim from a vendor blog, and the supplied excerpt does not provide enough methodological detail or independent replication to establish a genuine practical quantum advantage.",
+        "status": "WEAK",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "Theoretical quantum advantage is application-specific rather than general: quantum computers are expected to be most promising for some large problems with favorable quantum algorithms, especially quantum-system simulation, while small-to-moderate business problems generally may not benefit.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "MIT Sloan summarizes a framework arguing that small-to-moderate business problems generally will not benefit, whereas sufficiently large problems with exponential algorithmic gains may; it identifies matter simulation and related areas as candidate applications.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Q-CTRL describes fermionic simulation as a candidate for long-term advantage because it scales poorly classically and is efficiently solvable in the relevant quantum complexity setting.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The supplied industry analysis projects a narrow and uneven advantage map concentrated in applications aligned with quantum-mechanical simulation, while stating that supply-chain optimization, machine learning, and derivatives pricing lack demonstrated advantage.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article presents Shor's and Grover's algorithms as advantages for specific problem classes, while emphasizing that quantum advantage applies only to certain structured tasks rather than generally.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The review surveys potential applications across cryptography, optimization, finance, chemistry, and machine learning, while framing quantum computing as an emerging paradigm with application-dependent potential.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: S4 directly supports that quantum advantage is problem-specific, with the strongest prospects for large problems offering major algorithmic gains and for quantum-system simulation. It also reports the MIT/Accenture framework’s conclusion that small-to-moderate problems common in typical businesses generally will not benefit. The wording is appropriately qualified by “some,” “expected,” and “generally may.”",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ3",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "Quantum economic or commercial advantage requires comparison with a comparably priced, available classical alternative and consideration of end-to-end performance, not merely a theoretical speedup or an isolated benchmark.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "MIT Sloan distinguishes quantum advantage from quantum economic advantage, defining the latter around solving a problem faster with a comparably priced classical computer and emphasizing the race between classical and quantum systems for each problem.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Q-CTRL defines practical quantum advantage as outperforming the best available conventional alternative on a real-world application, including useful time, accuracy, and affordability considerations.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: The supplied evidence directly supports evaluating commercial or economic advantage against an available, comparably priced classical alternative and using real-world performance rather than theoretical or isolated benchmark results. S4 defines quantum economic advantage using a comparably priced classical computer, while S2 emphasizes best available alternatives, practical relevance, and better, faster, or more affordable end-user outcomes.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "The largest currently identified barriers to commercial quantum advantage include hardware and software capability for complex problems, noise and errors, the scale of hardware required, and the need for fault-tolerant systems; these barriers are especially decisive for large-scale simulation applications.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Q-CTRL identifies hardware size, noise, and errors as obstacles that degrade algorithms and prevent useful results on relevant problems.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "MIT Sloan reports an estimate that the hardware and software for the most complex problems may not be available until 2035 or later, despite projected growth in operational quantum computers.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The supplied projection assumes a fault-tolerant machine with 2,000 logical qubits and one billion error-corrected operations for projected application impacts, illustrating the scale gap between present systems and proposed use cases.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The review directly identifies error-correction overhead, hardware scalability, and verification complexity as challenges to scalable fault-tolerant systems, adding verification complexity to the previously identified barrier set.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article states that current hardware is far below the estimated scale needed for practical RSA-2048 factoring and characterizes current quantum hardware as insufficient for that application.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The new review evidence independently supports error correction and scalability as barriers, while S9 illustrates the scale gap for cryptographic applications; quantitative ranking across applications remains unavailable.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "The supplied industry projection identifies chemistry, catalysis, pharmaceuticals, and battery or energy applications as potentially high-value areas for fault-tolerant quantum simulation, but its numerical timelines, logical-qubit requirements, and economic impacts are projections rather than demonstrated commercial advantages.",
+        "supporting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The article projects high or significant impact in pharmaceuticals, catalysis, and battery technology based on assumed future fault-tolerant capability, resource estimates, and economic analyses.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "LOW",
+        "confidence_reason": "The source is an industry strategy article using future scenarios and linked estimates; the supplied material does not independently validate the resource estimates, timelines, or business outcomes.",
+        "status": "WEAK",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C6",
+        "claim": "The 2019 Google Sycamore result is reported as a narrowly defined experimental benchmark that Google estimated took 200 seconds versus 10,000 years for a classical supercomputer, but the comparison was challenged by IBM, which estimated that a classical supercomputer could perform the task in about 2.5 days; therefore, the supplied evidence supports a contested laboratory quantum-advantage claim rather than an unqualified practical advantage.",
+        "supporting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article reports Google's 53-qubit Sycamore benchmark and its 200-second versus 10,000-year estimate, while also reporting IBM's substantially lower classical estimate of 2.5 days.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The IBM estimate directly challenges Google's original classical-runtime comparison, reducing confidence that the reported magnitude represents a robust advantage over the best available classical method.",
+            "strength": "DIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S9 directly reports both the experimental result and the classical-baseline challenge, but it is a secondary article and the supplied material does not establish independent reproduction or commercial usefulness.",
+        "status": "CONFLICTING",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C7",
+        "claim": "Shor's factoring algorithm provides a theoretically established polynomial-time quantum approach to integer factorization, while Grover's algorithm provides a theoretically established quadratic speedup for unstructured search; neither constitutes a demonstrated commercial advantage on current hardware in the supplied evidence.",
+        "supporting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article describes Shor's algorithm as solving integer factorization in polynomial time and Grover's algorithm as reducing unstructured search from O(N) to approximately O(√N).",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S9 directly states the algorithmic complexities, but the source is secondary and provides no current hardware demonstration or end-to-end commercial comparison.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ3"
+        ]
+      },
+      {
+        "id": "C8",
+        "claim": "Current quantum machine-learning evidence in digital health is being evaluated through systematic comparison with existing classical methods, but the supplied excerpt does not report a finding that QML outperforms those methods.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The systematic review explicitly states that it assesses whether QML algorithms outperform existing classical methods for clinical decision-making or health-service delivery.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "LOW",
+        "confidence_reason": "The supplied material contains the review's scope but not its results, so it cannot establish either a QML advantage or its absence.",
+        "status": "INSUFFICIENT_EVIDENCE",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C9",
+        "claim": "Survey-level evidence identifies error-correction overhead, hardware scalability, and verification complexity as continuing challenges for scalable, fault-tolerant quantum computing, alongside limitations of current noisy intermediate-scale devices.",
+        "supporting_evidence": [
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The review describes current NISQ machines as noisy and error-prone and identifies error-correction overhead, hardware scalability, and verification complexity among ongoing challenges.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S8 is a review article that directly states these challenges, although the supplied excerpt does not quantify their relative importance or current values.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4",
+          "SQ5"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "Independent, peer-reviewed evidence is needed to verify the reported Q-CTRL/IBM 3,000-times materials-simulation speedup, including the exact task, classical baseline, hardware and software costs, accuracy, runtime, reproducibility, and end-to-end commercial value.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G2",
+      "description": "The evidence does not quantify current physical error rates, logical-qubit availability, error-correction overhead, coherence, connectivity, decoding, throughput, or operating cost relative to the requirements of proposed commercial applications.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "The evidence does not provide independent, application-specific validation of projected advantages in chemistry, pharmaceuticals, catalysis, batteries, optimization, cryptography, or machine learning against the strongest evolving classical methods.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ2",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "The sources do not establish a calibrated timeline or probability for commercially useful advantage; the cited 2030 and 2035-or-later expectations are projections with unstated assumptions and should not be treated as forecasts established by evidence.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ3"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G5",
+      "description": "A complete commercial evaluation is still missing data on deployment and access costs, energy use, integration with classical workflows, input/output and data-loading costs, reliability, and the economic value of candidate workloads.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ3",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G6",
+      "description": "The Sycamore benchmark needs primary, peer-reviewed and independently reproduced analysis using the strongest classical algorithms and hardware, including a settled baseline, verification cost, reproducibility, and any practical or commercial relevance.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ5"
+      ],
+      "created_iteration": 3,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G7",
+      "description": "The supplied QML review excerpt does not include its conclusions or quantitative comparisons, leaving unresolved whether any digital-health QML workload has demonstrated superior accuracy, runtime, cost, or end-to-end value over classical methods.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ2",
+        "SQ5"
+      ],
+      "created_iteration": 3,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G8",
+      "description": "Theoretical algorithmic speedups for factoring and search require application-specific resource estimates, fault-tolerant hardware assumptions, and end-to-end comparisons before their commercial proximity can be assessed.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 3,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "What quantum computational advantages over classical computers have been experimentally demonstrated to date, and how strong is the evidence that they are genuine, reproducible, and meaningful relative to the best available classical methods?",
+        "importance": "CORE",
+        "success_criteria": "Identify demonstrated tasks, the relevant quantum hardware and performance metric, the classical baseline and comparison conditions, whether the result has been independently reproduced or challenged, and whether the advantage is practical or primarily a laboratory benchmark.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 2
+      },
+      {
+        "id": "SQ2",
+        "question": "What commercially useful advantages are theoretically established or currently projected for quantum computers, and which application areas have credible paths to outperforming classical systems?",
+        "importance": "CORE",
+        "success_criteria": "Distinguish proven theoretical speedups from empirical projections; identify candidate applications such as simulation, optimization, cryptography, or machine learning; state the assumptions about algorithms, hardware scale, error correction, data loading, runtime, accuracy, and classical alternatives; and assess whether the projected benefit is expected to matter economically.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ3",
+        "question": "How close are quantum computers to delivering commercially useful advantages, considering the gap between present demonstrations and the hardware, software, and operational requirements of useful applications?",
+        "importance": "CORE",
+        "success_criteria": "Compare current capabilities with the requirements of credible commercial use cases, including useful circuit size, logical-qubit count, error rates, fault tolerance, runtime, throughput, cost, reliability, and integration into business workflows; provide a calibrated assessment of proximity rather than a binary prediction.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ4",
+        "question": "What are the biggest remaining technical barriers to commercially useful quantum advantage, and which barriers are most decisive for different application classes?",
+        "importance": "CORE",
+        "success_criteria": "Rank or otherwise distinguish barriers such as physical error rates, error-correction overhead, scalable qubit fabrication and control, connectivity, coherence, decoding, algorithm and software maturity, input/output and data-loading costs, benchmarking, and competition from improving classical methods; link each barrier to the applications or claims it constrains.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ5",
+        "question": "How should claims of quantum advantage be evaluated when the relevant comparison is commercial usefulness rather than performance on an isolated computational benchmark?",
+        "importance": "SECONDARY",
+        "success_criteria": "Define evaluation criteria covering end-to-end cost, speed, accuracy, reliability, scalability, energy use, deployment and access costs, opportunity cost, and value relative to classical solutions; explain how these criteria separate scientific quantum advantage from commercially actionable advantage.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Maintain a clear separation between experimentally demonstrated advantage and theoretical or projected advantage throughout the analysis.",
+      "Compare quantum results with the strongest relevant classical algorithms and hardware, not merely historical or deliberately weak baselines.",
+      "Synthesize the evidence into an assessment of how close commercially useful advantage is, while distinguishing application areas and expressing uncertainty rather than giving an undifferentiated overall claim.",
+      "Connect the ranked technical barriers to the evidence and projections for commercial usefulness."
+    ],
+    "output_requirements": [
+      "Answer the question in terms of commercial usefulness over classical computers.",
+      "Present demonstrated and theoretical/projected advantages as separate categories.",
+      "Identify the biggest remaining technical barriers, with an indication of their relative importance.",
+      "Provide an explicit, calibrated conclusion about proximity and uncertainty."
+    ]
+  },
+  "claim_verifications": [
+    {
+      "id": "V1",
+      "claim_id": "C3",
+      "verification_iteration": 1,
+      "claim_version_iteration": 1,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S4",
+        "S2"
+      ],
+      "result": {
+        "claim_id": "C3",
+        "verdict": "VERIFIED",
+        "reason": "The supplied evidence directly supports evaluating commercial or economic advantage against an available, comparably priced classical alternative and using real-world performance rather than theoretical or isolated benchmark results. S4 defines quantum economic advantage using a comparably priced classical computer, while S2 emphasizes best available alternatives, practical relevance, and better, faster, or more affordable end-user outcomes.",
+        "missing_assumptions": [],
+        "source_quality_concerns": [
+          "S2 is a vendor-authored, self-promotional source and is dated May 2026, so its reported demonstrations should not independently establish commercial advantage.",
+          "The supplied excerpt from S4 is truncated, limiting detail about the framework's full evaluation criteria."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "Quantum economic or commercial advantage should be assessed against a comparably priced, available classical alternative using end-to-end, real-world outcomes—including performance, cost, and practical usefulness—not merely a theoretical speedup or an isolated benchmark.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "Quantum economic or commercial advantage requires comparison with a comparably priced, available classical alternative and consideration of end-to-end performance, not merely a theoretical speedup or an isolated benchmark.",
+      "current_claim_text": "Quantum economic or commercial advantage requires comparison with a comparably priced, available classical alternative and consideration of end-to-end performance, not merely a theoretical speedup or an isolated benchmark.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "SUPPORTED"
+    },
+    {
+      "id": "V2",
+      "claim_id": "C2",
+      "verification_iteration": 2,
+      "claim_version_iteration": 1,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S4",
+        "S2",
+        "S5"
+      ],
+      "result": {
+        "claim_id": "C2",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The supplied evidence supports an application-specific, non-general advantage and identifies quantum-system simulation as a particularly promising area. It also supports the view that small-to-moderate business problems often will not benefit, but this is presented as a framework’s conclusion rather than a universally established result. The claim should distinguish theoretical algorithmic potential from demonstrated or economically proven advantage.",
+        "missing_assumptions": [
+          "A suitable quantum algorithm provides a meaningful asymptotic or practical improvement over the best classical method.",
+          "The problem size, accuracy, data-loading requirements, and runtime fall within the capabilities of the eventual quantum hardware.",
+          "Classical algorithms and hardware do not improve enough to eliminate the projected advantage.",
+          "For commercial benefit, the quantum system’s total cost, reliability, throughput, and integration overhead remain competitive.",
+          "“Small-to-moderate” refers to problem size and computational structure, not merely the size of a company or business workflow."
+        ],
+        "source_quality_concerns": [
+          "S4 is a secondary MIT Sloan article summarizing a research framework; the supplied excerpt does not provide the framework’s detailed assumptions or empirical validation.",
+          "S5 is a forward-looking, non-peer-reviewed industry analysis with highly specific 2033 projections and potentially promotional framing.",
+          "S2 is a vendor-authored source, dated May 2026, and its commercial claims are not independent corroboration of general applicability."
+        ],
+        "counter_search_needed": true,
+        "counter_search_query": "Find authoritative reviews or peer-reviewed studies reporting cases where quantum algorithms do not outperform strong classical methods, especially for small-to-moderate business problems, optimization, machine learning, and quantum simulation; include boundary conditions and competing classical improvements.",
+        "recommended_claim_text": "Theoretical quantum advantage is expected to be application-specific rather than general. The strongest prospective case is for selected large problems with quantum algorithms that offer favorable scaling—particularly quantum-system and materials simulation—subject to substantial assumptions about hardware scale, error correction, accuracy, runtime, and comparison with improved classical methods. Small-to-moderate business problems often may not benefit because classical systems can have lower overhead and faster execution, although this is not a universal rule.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "EXECUTED",
+      "counter_search_iteration": 3,
+      "counter_search_source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "reconciliation_applied": false,
+      "previous_claim_text": null,
+      "current_claim_text": null,
+      "previous_confidence": null,
+      "current_confidence": null,
+      "previous_status": null,
+      "current_status": null
+    },
+    {
+      "id": "V3",
+      "claim_id": "C2",
+      "verification_iteration": 3,
+      "claim_version_iteration": 3,
+      "phase": "POST_COUNTERSEARCH",
+      "evidence_source_ids": [
+        "S4",
+        "S2",
+        "S5",
+        "S9",
+        "S8"
+      ],
+      "result": {
+        "claim_id": "C2",
+        "verdict": "VERIFIED",
+        "reason": "S4 directly supports that quantum advantage is problem-specific, with the strongest prospects for large problems offering major algorithmic gains and for quantum-system simulation. It also reports the MIT/Accenture framework’s conclusion that small-to-moderate problems common in typical businesses generally will not benefit. The wording is appropriately qualified by “some,” “expected,” and “generally may.”",
+        "missing_assumptions": [
+          "Potential advantage depends on suitable quantum algorithms, sufficiently large and reliable hardware, and comparison with the best available classical method.",
+          "“May not benefit” does not mean no business problem can benefit; economic advantage also depends on end-to-end cost, runtime, accuracy, and integration."
+        ],
+        "source_quality_concerns": [
+          "The principal support is a secondary MIT Sloan summary rather than the underlying research paper.",
+          "The additional sources are broad reviews or industry/advocacy material and do not independently establish commercial advantage."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "Theoretical and projected quantum advantage is application-specific rather than general: the strongest prospects are concentrated in selected large problems with favorable quantum algorithms—especially quantum simulation—whereas small-to-moderate business problems generally are not expected to benefit unless quantum hardware and end-to-end economics offer a clear advantage over classical alternatives.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "Theoretical quantum advantage is application-specific rather than general: quantum computers are expected to be most promising for some large problems with favorable quantum algorithms, especially quantum-system simulation, while small-to-moderate business problems generally may not benefit.",
+      "current_claim_text": "Theoretical quantum advantage is application-specific rather than general: quantum computers are expected to be most promising for some large problems with favorable quantum algorithms, especially quantum-system simulation, while small-to-moderate business problems generally may not benefit.",
+      "previous_confidence": "MEDIUM",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "SUPPORTED"
+    }
+  ],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Quantum computing - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Quantum_computing",
+      "content": "Quantum computing - Wikipedia                          \n[Jump to content](#bodyContent)\n\nMain menu \n\nMain menu\n\nmove to sidebar hide\n\nNavigation\n\n* [Main page](/wiki/Main_Page \"Visit the main page [z]\")\n* [Contents](/wiki/Wikipedia:Contents \"Guides to browsing Wikipedia\")\n* [Current events](/wiki/Portal:Current_events \"Articles related to current events\")\n* [Random article](/wiki/Special:Random \"Visit a randomly selected article [x]\")\n* [About Wikipedia](/wiki/Wikipedia:About \"Learn about Wikipedia and how it works\")\n* [Contact us](//en.wikipedia.org/wiki/Wikipedia:Contact_us \"How to contact Wikipedia\")\n\nContribute\n\n* [Help](/wiki/Help:Contents \"Guidance on how to use and edit Wikipedia\")\n* [Learn to edit](/wiki/Help:Introduction \"Learn how to edit Wikipedia\")\n* [Community portal](/wiki/Wikipedia:Community_portal \"The hub for editors\")\n* [Recent changes](/wiki/Special:RecentChanges \"A list of recent changes to Wikipedia [r]\")\n* [Upload file](/wiki/Wikipedia:File_upload_wizard \"Add images or other media for use on Wikipedia\")\n* [Special pages](/wiki/Special:SpecialPages \"A list of all special pages [q]\")\n\n  [![](/static/images/icons/enwiki-25.svg)  ![Wikipedia](/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg) ![The Free Encyclopedia](/static/images/mobile/copyright/wikipedia-tagline-en-25.svg)](/wiki/Main_Page)\n\n[Search](/wiki/Special:Search \"Search Wikipedia [f]\") \n\nSearch\n\nAppearance\n\n* [Donate](https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en)\n* [Create account](/w/index.php?title=Special:CreateAccount&returnto=Quantum+computing \"You are encouraged to create an account and log in; however, it is not mandatory\")\n* [Log in](/w/index.php?title=Special:UserLogin&returnto=Quantum+computing \"You're encouraged to log in; however, it's not mandatory. [o]\")\n\nPersonal tools \n\n* [Donate](https://donate.wikimedia.org/?wmf_source=donate&wmf_medium=sidebar&wmf_campaign=en.wikipedia.org&uselang=en)\n* [Create account](/w/index.php?title=Special:CreateAccount&returnto=Quantum+computing \"You are encouraged to create an account and log in; however, it is not mandatory\")\n* [Log in](/w/index.php?title=Special:UserLogin&returnto=Quantum+computing \"You're encouraged to log in; however, it's not mandatory. [o]\")\n\n## Contents\n\nmove to sidebar hide\n\n* [(Top)](#)\n* [1 History](#History)\n* [2 Quantum information processing](#Quantum_information_processing)   Toggle Quantum information processing subsection \n  + [2.1 Quantum information](#Quantum_information)\n  + [2.2 Unitary operators](#Unitary_operators)\n  + [2.3 Quantum parallelism](#Quantum_parallelism)\n  + [2.4 Quantum programming](#Quantum_programming)\n    - [2.4.1 Gate array](#Gate_array)\n    - [2.4.2 Quantum Turing machine](#Quantum_Turing_machine)\n  + [2.5 Quantum-computing paradigms](#Quantum-computing_paradigms)\n  + [2.6 Noisy intermediate-scale quantum computing](#Noisy_intermediate-scale_quantum_computing)\n* [3 Communication](#Communication)   Toggle Communication subsection \n  + [3.1 Quantum communication protocols](#Quantum_communication_protocols)\n* [4 Algorithms](#Algorithms)   Toggle Algorithms subsection \n  + [4.1 Simulation of quantum systems](#Simulation_of_quantum_systems)\n  + [4.2 Cryptography](#Cryptography)\n  + [4.3 Search problems](#Search_problems)\n  + [4.4 Quantum annealing](#Quantum_annealing)\n  + [4.5 Machine learning](#Machine_learning)\n  + [4.6 AI-assisted algorithm discovery](#AI-assisted_algorithm_discovery)\n* [5 Engineering](#Engineering)   Toggle Engineering subsection \n  + [5.1 Challenges](#Challenges)\n    - [5.1.1 Coolant](#Coolant)\n    - [5.1.2 Decoherence](#Decoherence)\n  + [5.2 Modular and distributed architectures](#Modular_and_distributed_architectures)\n  + [5.3 Quantum supremacy](#Quantum_supremacy)\n  + [5.4 State of affairs: 2020s](#State_of_affairs:_2020s)\n  + [5.5 Physical realizations](#Physical_realizations)\n* [6 Theory](#Theory)   Toggle Theory subsection \n  + [6.1 Computability](#Computability)\n  + [6.2 Complexity](#Complexity)\n* [7 List of quantum computers](#List_of_quantum_computers)   Toggle List of quantum computers subsection \n  + [7.1 Types of quantum computers](#Types_of_quantum_computers)\n* [8 See also](#See_also)\n* [9 Notes](#Notes)\n* [10 References](#References)   Toggle References subsection \n  + [10.1 Sources](#Sources)\n* [11 Further reading](#Further_reading)   Toggle Further reading subsection \n  + [11.1 Textbooks](#Textbooks)\n  + [11.2 Academic papers](#Academic_papers)\n* [12 External links](#External_links)\n\nToggle the table of contents\n\n# Quantum computing\n\n44 languages \n\n* [Afrikaans](https://af.wikipedia.org/wiki/Kwantumberekening \"Kwantumberekening – Afrikaans\")\n* [अंगिका](https://anp.wikipedia.org/wiki/%E0%A4%95%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%82%E0%A4%9F%E0%A4%AE_%E0%A4%95%E0%A4%82%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A5%82%E0%A4%9F%E0%A4%BF%E0%A4%82%E0%A4%97 \"क्वांटम कंप्यूटिंग – Angika\")\n* [العربية](https://ar.wikipedia.org/wiki/%D8%AD%D9%88%D8%B3%D8%A8%D8%A9_%D9%83%D9%85%D9%88%D9%85%D9%8A%D8%A9 \"حوسبة كمومية – Arabic\")\n* [Asturianu](https://ast.wikipedia.org/wiki/Computaci%C3%B3n_cu%C3%A1ntica \"Computación cuántica – Asturian\")\n* [भोजपुरी](https://bh.wikipedia.org/wiki/%E0%A4%95%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%82%E0%A4%9F%E0%A4%AE_%E0%A4%95%E0%A4%82%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A5%82%E0%A4%9F%E0%A4%BF%E0%A4%82%E0%A4%97 \"क्वांटम कंप्यूटिंग – Bhojpuri\")\n* [বাংলা](https://bn.wikipedia.org/wiki/%E0%A6%95%E0%A7%8B%E0%A6%AF%E0%A6%BC%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%9F%E0%A6%BE%E0%A6%AE_%E0%A6%95%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A6%BF%E0%A6%89%E0%A6%9F%E0%A6%BF%E0%A6%82 \"কোয়ান্টাম কম্পিউটিং – Bangla\")\n* [Bosanski](https://bs.wikipedia.org/wiki/Kvantno_ra%C4%8Dunarstvo \"Kvantno računarstvo – Bosnian\")\n* [Català](https://ca.wikipedia.org/wiki/Computaci%C3%B3_qu%C3%A0ntica \"Computació quàntica – Catalan\")\n* [Dansk](https://da.wikipedia.org/wiki/Kvantedatabehandling \"Kvantedatabehandling – Danish\")\n* [Deutsch](https://de.wikipedia.org/wiki/Quantenrechner \"Quantenrechner – German\")\n* [Ελληνικά](https://el.wikipedia.org/wiki/%CE%9A%CE%B2%CE%B1%CE%BD%CF%84%CE%B9%CE%BA%CE%AE_%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%BA%CE%AE \"Κβαντική πληροφορική – Greek\")\n* [Esperanto](https://eo.wikipedia.org/wiki/Kvantumkomputiko \"Kvantumkomputiko – Esperanto\")\n* [Español](https://es.wikipedia.org/wiki/Computaci%C3%B3n_cu%C3%A1ntica \"Computación cuántica – Spanish\")\n* [Euskara](https://eu.wikipedia.org/wiki/Konputazio_kuantiko \"Konputazio kuantiko – Basque\")\n* [فارسی](https://fa.wikipedia.org/wiki/%D8%B1%D8%A7%DB%8C%D8%A7%D9%86%D8%B4_%DA%A9%D9%88%D8%A7%D9%86%D8%AA%D9%88%D9%85%DB%8C \"رایانش کوانتومی – Persian\")\n* [Suomi](https://fi.wikipedia.org/wiki/Kvanttilaskenta \"Kvanttilaskenta – Finnish\")\n* [Français](https://fr.wikipedia.org/wiki/Informatique_quantique \"Informatique quantique – French\")\n* [Gaeilge](https://ga.wikipedia.org/wiki/R%C3%ADomhaireacht_chandamach \"Ríomhaireacht chandamach – Irish\")\n* [עברית](https://he.wikipedia.org/wiki/%D7%9E%D7%97%D7%A9%D7%95%D7%91_%D7%A7%D7%95%D7%95%D7%A0%D7%98%D7%99 \"מחשוב קוונטי – Hebrew\")\n* [हिन्दी](https://hi.wikipedia.org/wiki/%E0%A4%95%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%82%E0%A4%9F%E0%A4%AE_%E0%A4%95%E0%A4%AE%E0%A5%8D%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A5%82%E0%A4%9F%E0%A4%BF%E0%A4%82%E0%A4%97 \"क्वांटम कम्प्यूटिंग – Hindi\")\n* [Bahasa Indonesia](https://id.wikipedia.org/wiki/Komputasi_kuantum \"Komputasi kuantum – Indonesian\")\n* [Italiano](https://it.wikipedia.org/wiki/Computazione_quantistica \"Computazione quantistica – Italian\")\n* [日本語](https://ja.wikipedia.org/wiki/%E9%87%8F%E5%AD%90%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0 \"量子コンピューティング – Japanese\")\n* [Taqbaylit](https://kab.wikipedia.org/wiki/Aselkim_n_Tunt \"Aselkim n Tunt – Kabyle\")\n* [한국어](https://ko.wikipedia.org/wiki/%EC%96%91%EC%9E%90_%EC%BB%B4%ED%93%A8%ED%8C%85 \"양자 컴퓨팅 – Korean\")\n* [Монгол](https://mn.wikipedia.org/wiki/%D0%9A%D0%B2%D0%B0%D0%BD%D1%82%D1%8B%D0%BD_%",
+      "score": 0.7623715
+    },
+    {
+      "id": "S2",
+      "title": "Practical quantum advantage signals a new commercial era for quantum computing | Q-CTRL",
+      "url": "https://q-ctrl.com/blog/practical-quantum-advantage-signals-a-new-commercial-era-for-quantum-computing",
+      "content": "Technical blog\n\n# Practical quantum advantage signals a new commercial era for quantum computing\n\nAchieving practical quantum advantage and delivering a 3,000 times speedup in materials simulation. See how our software enables ROI on today's quantum hardware.\n\n![Pixelated white molecular or atomic structure on a dark purple background.](https://cdn.prod.website-files.com/64fe49580f2049d94a40e0fe/69fa99fa1ba78c47cc0eda5e_q-ctrl%20practical%20quantum%20advantage%20in%20simulation%203000%20times%20speedup.png)\n\n5 min read\n\nMay 6, 2026\n\n![Portrait of Michael J. Biercuk](https://cdn.prod.website-files.com/64fe49580f2049d94a40e0fe/665668db668382e1a3b19405_65e8023fd2949e7a10930956_62b3ba1dca322dec020d9cde_Prof_Michael_J_Biercuk.webp)\n\nMichael J. Biercuk\n\nFounder & Chief Executive Officer\n\n,\n\nQ-CTRL\n\n![Portrait of Yuval Baum](https://cdn.prod.website-files.com/64fe49580f2049d94a40e0fe/679acfde8d51e24f1ff6a049_Yuval-Baum-Head-of-Quantum-Computing-Research%201.webp)\n\nYuval Baum\n\nVP of Quantum Computing Research\n\n,\n\nQ-CTRL\n\nShare\n\nThe quantum computing sector has been growing rapidly as it chases what [McKinsey calls](https://www.mckinsey.com/~/media/mckinsey/business%20functions/mckinsey%20digital/our%20insights/steady%20progress%20in%20approaching%20the%20quantum%20advantage/quantum-technology-monitor-april-2024.pdf) a $2T market opportunity. There are more and more publicly listed quantum computing companies, each valued in the billions. There are even new [Quantum ETFs](https://www.defianceetfs.com/qtum/) on the market, providing retail investors with access to the sector, alongside dozens of venture-backed startups in the private markets. Governments and enterprises are pouring in billions themselves to secure asymmetric capabilities aligned to their toughest problems.\n\nThere’s really one thing the sector has been missing: quantum computers that outperform their competitors for problems that end users truly value.\n\nThanks to Q-CTRL and the IBM Quantum Platform provided by our partners, that changed today.\n\nToday, we are proud to [announce](https://q-ctrl.com/blog/q-ctrl-delivers-3-000x-speedup-in-materials-discovery-for-the-energy-sector-with-quantum-computing-and-demonstrates-evidence-of-practical-quantum-advantage) that we have achieved Practical Quantum Advantage*.* In our [latest research](https://arxiv.org/abs/2605.04025), we demonstrate that a publicly available quantum computer augmented by our infrastructure software can:\n\n* Execute a problem of *known value* at a scale that is meaningful and challenging\n* Reach a solution over 3,000 times faster in wall-clock time than the state-of-the-art industry-standard alternative.\n* Complete the task in a practically relevant amount of time and simultaneously deliver solution accuracy that meets or exceeds existing tooling and user expectations.\n\nThese demonstrations usher in a new commercial era where quantum computers begin to deliver true positive ROI to their customers, not just their builders.\n\n## Understanding the meaning of quantum advantage\n\nQuantum computers face many challenges, from the size of the hardware required to solve useful problems to the errors that degrade performance and cause algorithms to fail. R&D teams have been pushing ahead on hardware roadmaps towards larger machines and taking the first steps to correct the errors that inevitably creep in.\n\nAs the systems have developed, the industry has made exceptional strides. Most notably, in 2019, Google claimed Quantum Computational Supremacy, solving a problem that no conceivable conventional supercomputer could ever solve.\n\nThis was a major scientific milestone, but still left much wanting commercially. Most importantly, the problem being solved was only good for proving quantum computers could run it; it had no commercial or practical relevance.\n\nAt another extreme is absolute Quantum Advantage. This is the holy grail in quantum computing, where a quantum computer outperforms the best conceivable classical algorithm run on the world’s most powerful supercomputers for a commercially significant problem.\n\nHardware providers, including IBM, have taken major steps in this direction over the last few years, bringing quantum computers to parity with high-performance classical computers for some very challenging problems.\n\nBut absolute Quantum Advantage is framed theoretically, around what *could* be done, causing its relevance to wane.\n\nIn our latest demonstration, we have focused on the Goldilocks zone for commercial impact: Practical Quantum Advantage.\n\n**Practical Quantum Advantage refers to the point where quantum computers outperform the best *available* conventional alternative in a real-world application of *known* commercial or scientific relevance.**\n\nPractical Quantum Advantage enables end users to solve meaningful problems better, faster, or more affordably than the classical alternatives a user would actually use or buy to solve their problem *right now*.\n\nIt is not a new contrived solution to a problem few have thought of before, but a solution for the problems people want and need to solve. And it’s not a theoretical argument about what could be done in principle, but rather a real-world demonstration of what can actually be done today.\n\nThe Boston Consulting Group first [predicted](https://www.bcg.com/publications/2019/quantum-computers-create-value-when) in 2019 that quantum advantage would be less than a decade away. Not long ago, IBM predicted that quantum advantage for certain simulation problems could come as early as 2026.\n\nAt Q-CTRL, we are proud to realize both of these predictions with our technology.\n\n## Q-CTRL’s quantum simulation demonstrations\n\nWe have focused our quantum computing demonstrations on building simulations of the physics underpinning how electrons in materials give rise to the properties we use for energy transmission, storage, and generation.\n\nWith approximately [one-third](http://dx.doi.org/10.1088/2632-2153/ab6ac4) of global supercomputer time currently dedicated to chemistry and materials simulation, delivering new computational capabilities can be transformative for applications critical to the future of energy. However, these applications remain constrained by massive computational bottlenecks.\n\nHere we didn’t focus on a new tailored algorithm or application that *could* have relevance one day. Instead, we chose one that researchers are actively working to solve.\n\nThe specific computational problem we studied is Fermionic Simulation, which is known to scale poorly for classical computers, making it a prime candidate for long-term sustainable advantage as quantum computing capabilities mature. Formally, this problem resides in a known complexity class called BQP, which quantum computers can efficiently solve.\n\nPut simply, because quantum computers follow the same rules as the physical features being simulated, quantum computers have a potential edge over their classical counterparts.\n\nUp until now, quantum computers have been limited by noise and errors, which degrade performance and have prevented users from achieving useful results on relevant problems.\n\nWe overcome this problem using our [performance-management infrastructure software](https://q-ctrl.com/fire-opal), enabling real applications to be run at previously impossible scales. Think of us like VMWare for quantum: **we don’t build new algorithms, we build the tools that let end users run those algorithms and achieve meaningful outputs.**\n\nIn this case, we ran an existing algorithm for Fermionic Simulation and focused on pushing the envelope of what the quantum computer could actually solve.\n\nThrough this technology, we have enabled today’s quantum calculations for materials engineering to exceed the threshold where they can be solved exactly using classical methods, and beyond any prior successful attempt on a quantum computer.\n\nUsing an IBM quantum computer and a specially designed compiler and error-suppression toolchain, we ran an",
+      "score": 0.68496037
+    },
+    {
+      "id": "S3",
+      "title": "Quantum Computing vs Classical Computing: Key Differences",
+      "url": "https://www.bluequbit.io/blog/quantum-computing-vs-classical-computing",
+      "content": "Our Quantum Advantage challenge with $20,000 BTC award is live.\n\n[More Details →](https://app.bluequbit.io/hackathons/GFgHTGbTylwmMsCp)\n\n[![Logo Deqart](https://cdn.prod.website-files.com/639a397b9711984d91a35d74/63a042ea84d8d44f97a1cc3e_Group%2097846.svg)](/)\n\n[Platform Access](https://app.bluequbit.io/)\n\n![](https://cdn.prod.website-files.com/639a397b9711984d91a35d74/639adfd6b9bb747186953ef8_Icons.svg)![](https://cdn.prod.website-files.com/639a397b9711984d91a35d74/63e8e60dbe8e5c311ed976e2_icon_Close.svg)\n\n# Quantum Computing vs. Classical Computing: What’s the Difference?\n\nMay 18, 2026\n\n6 min\n\nread\n\n[![](https://cdn.prod.website-files.com/63d774102fb109fd799a5006/68daeb8dc77de81407588994_hayk_blog_img.png)\n\nHayk Tepanyan\n\nCo-founder & CTO](/blog-author/hayk-tepanyan)\n\n![](https://cdn.prod.website-files.com/63d774102fb109fd799a5006/679a237a2ade88cbe695b9a4_thumbnail_quantumm_computing_vs_classical_computing.jpg)\n\nFor much of the past few decades, classical computing has been at the center of technology. But there’s a new contender slowly making its way to the top: quantum computing. This fresh approach to processing information has the potential to reshape industries in their entirety. So, what can quantum computers do that their classical counterparts can’t? Fundamentally speaking, they can use interference for probability amplification and solve certain problems exponentially faster than classical systems. This translates into practical advantages for tasks like optimization, cryptography, and large-scale simulations.\n\nAll that said, quantum computers are not replacements for classical machines—at least not yet. They are rather powerful tools designed to handle specific problems that are too complex for classical computers. Besides, they come with unique challenges and requirements, such as relying on probabilistic rather than deterministic calculations.\n\nThis article explores the concept of quantum computing vs classical computing, pointing out how their principles, operations, and capabilities set them apart. It also highlights the advantages quantum systems have over their classical counterparts—most importantly, how faster they can be.\n\n## How Classical Computers Work\n\nClassical computers process information using bits, which can exist in one of two states: 0 or 1. These bits are controlled by billions of microscopic transistors packed into a CPU (Central Processing Unit). A transistor acts like a tiny electronic switch that turns electrical signals on or off, allowing the computer to perform calculations, store data, and execute instructions.\n\nModern CPU architecture is built around deterministic logic, meaning the same input always produces the same output. Operations are performed through logic gates such as AND, OR, and NOT, which combine transistors to manipulate binary data. This deterministic approach is what makes classical systems reliable for everything from spreadsheets and web browsing to large-scale cloud infrastructure and AI training.\n\n## How Quantum Computers Work\n\nQuantum computers process information using qubits instead of classical bits. Unlike a regular bit that must be either 0 or 1, a qubit can exist in a combination of states simultaneously through a phenomenon known as superposition.\n\n|\\psi\\rangle = \\alpha|0\\rangle + \\beta|1\\rangle\n\nQuantum systems also use entanglement, where qubits become correlated in ways that allow information to be processed collectively rather than independently. Computation is performed using quantum gates, which manipulate qubit states similarly to how logic gates manipulate bits in classical systems. Once the computation is complete, the qubits are measured, causing their quantum states to collapse into classical outputs that can be interpreted by a traditional computer.\n\nSeveral different hardware approaches are being developed to build stable qubits:\n\n* **Superconducting qubits**: Used by companies like IBM and Google, these rely on superconducting electrical circuits cooled to extremely low temperatures inside dilution refrigerators.\n* **Trapped-ion qubits**: Used by companies such as IonQ, these systems trap electrically charged atoms using electromagnetic fields and manipulate them with lasers.\n* **Photonic qubits**: These use particles of light (photons) to carry quantum information. Photonic systems are attractive because photons can operate at room temperature and are naturally suited for quantum networking and communication applications.\n\nDifferent qubit technologies have different strengths in scalability, stability, speed, and error correction, which is why the industry is still exploring multiple approaches simultaneously.\n\n## Difference Between Quantum Computing and Classical Computing\n\nQuantum computing differs from classical computing when it comes to its principles, operations, and capabilities. These differences allow quantum computers to solve complex problems more efficiently while requiring unique operating conditions.\n\n### 1. Quantum Computers Use Qubits Instead of Bits\n\nClassical computers use bits, which represent either a 0 or 1, while quantum computers rely on qubits that use superposition. This allows qubits to exist as 0, 1, or both at the same time, allowing quantum computers to process multiple possibilities simultaneously. In other words, quantum systems can use interference to amplify success probability, boosting their efficiency for complex [quantum computing applications](https://www.bluequbit.io/blog/quantum-computing-applications) like optimization and cryptography. Qubits can also become entangled, meaning their states are linked, which lets the system process correlated information collectively rather than independently.\n\n### 2. Quantum Power Scales Exponentially, Unlike Classical Power\n\nClassical computing power grows in a linear way, with each additional bit expanding processing capacity incrementally. Quantum computing power, on the other hand, grows exponentially since adding qubits allows the system to explore exponentially more states at the same time. For example, a quantum computer with 50 qubits can evaluate over a quadrillion states simultaneously—a task impossible for classical computers. This gives quantum systems a great advantage for solving complex problems such as simulating molecular interactions.\n\n### 3. Quantum Computers Need Specialized Operating Conditions\n\nQuantum computers need highly controlled environments to work because qubits are extremely sensitive to their surroundings. Factors like temperature, electromagnetic interference, and vibrations can cause decoherence, disrupting quantum states and computations. To counter this, quantum systems often operate at near absolute zero temperatures, though this depends on the hardware. Superconducting qubits require dilution refrigerators, while photonic systems can operate at room temperature. Unlike classical computers, which can function in standard conditions, quantum computers require advanced infrastructure like isolated chambers.\n\n### 4. Quantum Programs Depend on Probability, Not Certainty\n\nWhile classical programs yield deterministic results, quantum programs work based on probabilities due to the nature of quantum mechanics. Qubits in superposition represent a range of possible states, and their probabilities collapse into a specific result only when measured. This allows quantum computers to explore multiple solutions at once, making them ideal for tasks like pattern recognition. That being said, it also needs repeated runs and statistical analysis to get accurate results.\n\n### 5. Quantum Operations Must Be Reversible, Unlike Classical Ones\n\nIn classical computing, bits are transformed, and information can be discarded during computations. Quantum computing, however, requires reversible operations to preserve quantum information throughout the process. This is crucial because reversing operations allows quantum systems to maintain coherence and take advantage of phenomena lik",
+      "score": 0.62303346
+    },
+    {
+      "id": "S4",
+      "title": "Quantum computing: What leaders need to know now | MIT Sloan",
+      "url": "https://mitsloan.mit.edu/ideas-made-to-matter/quantum-computing-what-leaders-need-to-know-now",
+      "content": "Get MIT Sloan's latest expert insights in your inbox.\n[Sign up for the MIT Sloan Thinking Forward newsletter.](/thinking-forward)\n\n## Which program is right for you?\n\n![MIT Sloan Campus life]()\n\nA full-time, two-year MBA program.\n\nA two-year, dual-degree program awarding an MBA from MIT Sloan and an SM from MIT School of Engineering.\n\nDeferred admission program; candidates work two to five years before enrolling in the MBA program.\n\nAn MBA program designed for working professionals.\n\nA 12- or 18-month graduate program in finance.\n\nA 12-month graduate program in business analytics.\n\nA doctoral program that researches management science, economics, finance, marketing, operations, strategy, and other business disciplines.\n\nUndergraduate degrees offered in management, business analytics, and finance.\n\nCombine an international MBA with a graduate degree in management science; available to partner and affiliate school students only.\n\n### **Executive** Programs\n\nA 20-month executive MBA program for mid-career professionals.\n\nA one-year, full-time MBA program for mid-career professionals.\n\nA master's degree program combining engineering and management for mid-career professionals.\n\nNon-degree programs for senior executives and high-potential managers.\n\nA non-degree, customizable program for mid-career professionals.\n\n![IBM's quantum computer](/sites/default/files/styles/article_header_desktop/public/2024-01/ibm-quantum-computer_0.jpg.webp?h=1522696c&itok=ISn3xi7f)\n\n[Ideas Made to Matter](/ideas-made-to-matter)\n\n[Quantum Computing](/ideas-made-to-matter/topics/quantum-computing)\n\n# Quantum computing: What leaders need to know now\n\nA framework from MIT researchers can help businesses anticipate when quantum computing might be useful — and when it might not.\n\nBy\n\nOnce-obscure technologies can manifest in no time, creating a scramble for companies to figure out how to effectively leverage them for competitive advantage.\n\n[Quantum computing](https://www.technologyreview.com/2019/01/29/66141/what-is-quantum-computing/), an innovation most can’t define and still don’t properly understand, might be the next obscure technology to have a seismic effect on business. Quantum computing applies the laws of quantum mechanics to simulate and solve complex problems that are too difficult for the current genre of classical computers.\n\nIn some cases, computers with these quantum abilities can solve large-scale problems much faster than their classical counterparts can. Examples include simulating the behavior of matter, analyzing compounds to create new drugs, optimizing factory floors or global supply chains, and identifying fraud and risk patterns in financial transactions, among others.\n\nThe current field of quantum computers isn’t quite ready for prime time: [McKinsey](https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-quantum-computing) has estimated that 5,000 quantum computers will be operational by 2030 but that the hardware and software necessary for handling the most complex problems won’t be available until 2035 or later. Yet organizations need to start thinking now about where they might leverage the technology to solve real-world business problems. Some companies already expect to [invest more than $15 million](https://connectedworld.com/quantum-leaps-interest-and-investment-in-quantum-computing/) annually on quantum computing, according to a November 2022 report.\n\nA group of MIT researchers, in partnership with Accenture, has developed a framework to help tech-savvy executives start to evaluate the potential of quantum computing for problem-solving at their companies.\n\n“Implicitly, there’s a race going on between the classical computer and quantum computer. For each type of question you want to solve, you want to know which type of computer will win so you can take the best advantage of it,” [Neil Thompson](https://ide.mit.edu/people/neil-thompson/), a research scientist at MIT Sloan and the MIT Computer Science and Artificial Intelligence Laboratory, said at the 2023 MIT Initiative on the Digital Economy annual conference.\n\nSome companies already expect to invest more than $15 million annually on quantum computing.\n\nThompson is a co-author of “[The Quantum Tortoise and the Classical Hare: A Simple Framework for Understanding Which Problems Quantum Computing Will Accelerate (and Which It Won’t)](https://arxiv.org/abs/2310.15505),” along with [Sukwoong Choi](https://sukwoongchoi.github.io/), an assistant professor at the University of Albany and a digital fellow at the MIT Initiative on the Digital Economy, and [William S. Moses](https://cs.illinois.edu/about/people/department-faculty/wsmoses), an assistant professor at University of Illinois Urbana-Champaign.\n\n “This framework provides a way to analyze the potential impact of switching to quantum computing before making the investment,” Thompson said.\n\nThe researchers’ takeaway is that small to moderate-sized problems, the most common types for typical businesses, will not benefit from quantum computing. Those trying to solve large problems with exponential algorithmic gains and those that need to process very large datasets, however, will derive advantages. “Quantum computing is not going to be better for everything, just for some things,” Thompson said.\n\n## **An overview of quantum computing**\n\nThe idea for building a system that leverages physics principles to simulate problems too difficult to model with traditional digital systems was first proposed in the 1980s. The concept was buttressed by MIT mathematician [Peter Shor](https://math.mit.edu/directory/profile.html?pid=247), who developed the first well-known quantum algorithm for breaking encryption in the 1990s.\n\nUnlike today’s computers and supercomputers that use binary electrical signals to represent ones or zeros, quantum computers employ quantum bits ([qubits](https://news.mit.edu/2023/superconducting-qubit-foundry-accelerates-progress-quantum-research-0705#:~:text=Quantum%20bits%20(qubits)%20are%20building,made%20out%20of%20superconducting%20elements.)), which are subatomic particles. When managed properly, qubits can represent combinations of both ones and zeros simultaneously. The more qubits, the greater potential for large-scale compute power for problem-solving.\n\n## **When quantum will be useful**\n\nThe crux of the framework in “The Quantum Tortoise and the Classical Hare” is the fact that classical computers (the hare) generally operate faster than quantum computers (the tortoise) but require more steps to accomplish a task — which the researchers liken to following an inefficient path from point A to point B.\n\nWith their ability to run more efficient algorithms, quantum computers have the potential to take a more direct path — but because they have slower processing speeds, it could actually take longer to solve the problem. The researchers’ framework aims to help businesses determine whether the shorter route or the faster computer is more valuable, depending on what problem they are trying to solve.\n\nScientists are striving to achieve [quantum advantage](https://theconversation.com/what-is-quantum-advantage-a-quantum-computing-scientist-explains-an-approaching-milestone-marking-the-arrival-of-extremely-powerful-computers-213306), which is the ability to use quantum computers to solve problems that are beyond the reach of classical computers. (Some companies are estimated to reach the quantum advantage [by 2030](https://semiengineering.com/the-race-toward-quantum-advantage/).)\n\nBut the researchers said the focus on quantum advantage overshadows the usefulness of quantum computers as they become cost-competitive with classical computers. To compensate, their framework establishes the benchmark of **quantum economic advantage**, which occurs when a particular problem can be solved more quickly with a quantum computer than with a comparably priced classical computer.\n\nTo determine the quantum economic advantage, business an",
+      "score": 0.55420566
+    },
+    {
+      "id": "S5",
+      "title": "Quantum Computing by 2033: Which Industries Win or Wait?",
+      "url": "https://postquantum.com/quantum-utility-map/quantum-computing-2033-industries",
+      "content": "[![PostQuantum - Quantum Computing, Quantum Security, PQC](https://postquantum.com/wp-content/uploads/2024/05/Post-Quantum-Marin-Ivezic-250x35-1.png)](https://postquantum.com/ \"PostQuantum - Quantum Computing, Quantum Security, PQC\")\n\n* [Search for](#)\n\n[The Quantum Utility Map](https://postquantum.com/quantum-utility-map/)[Quantum Computing](https://postquantum.com/quantum-computing/)\n\n# Quantum Computing by 2033: Which Industries Win, Which Wait, and Why\n\n[![Photo of Marin Ivezic](https://secure.gravatar.com/avatar/ed53c567bc35d72dfc8e9a08403662f52deaf93d4990736d7dca4ea0dd4ee55f?s=140&d=mm&r=g)](https://postquantum.com/author/marin/)  [Marin Ivezic](https://postquantum.com/author/marin/ \"Marin Ivezic\")  [Follow on X](http://infosec \"Follow on X\")   [Send an email](/cdn-cgi/l/email-protection#d8b5b9aab1b698b1aebda2b1bbf6bbb7b5 \"Send an email\")  May 6, 2026\n\n10 minutes read\n\n![Quantum Computing 2033 Impacted Industries](https://postquantum.com/wp-content/uploads/2026/04/quantum-computing-2033-industries-scaled.jpg)\n\n## Table of Contents\n\n*This article is part of my [Quantum Utility Map](https://postquantum.com/quantum-utility-map-series/) Deep Dive series, which maps fault-tolerant quantum algorithms to their real-world impact. The technical foundation for everything discussed here is in [The Quantum Utility Ladder](https://postquantum.com/quantum-utility-map/quantum-utility-ladder-fault-tolerant-algorithms/).*\n\n---\n\n## Part 1: The Competitive Picture\n\nImagine it is 2033. Your largest competitor has access to a fault-tolerant quantum computer with 2,000 logical qubits, executing one billion error-corrected operations. This scenario is consistent with [IBM’s published roadmap](https://postquantum.com/industry-news/ibm-quantum-roadmap/) for their Blue Jay system. [IonQ](https://postquantum.com/industry-news/ionqroadmap-crqc/) and Google project comparable capability on similar timelines.\n\nThe question worth asking: will that machine matter for *your* industry?\n\nBased on a comprehensive analysis of [every peer-reviewed fault-tolerant algorithm resource estimate published through early 2026](https://postquantum.com/quantum-utility-map/quantum-utility-ladder-fault-tolerant-algorithms/), the answer depends entirely on what your business does. The quantum advantage map is narrow, uneven, and concentrated in sectors where the underlying physics aligns with what quantum computers are mathematically good at.\n\nThis article is the strategic briefing for leaders who need to know whether their industry sits in that zone, and what to do about it either way.\n\n### What 2,000 logical qubits can actually do\n\nA 2,000-logical-qubit fault-tolerant quantum computer executing one billion gates is a genuinely powerful machine, but its power is specific. It excels at one thing above all others: simulating the quantum-mechanical behavior of molecules, materials, and physical systems.\n\nThat specificity is a strength. The behavior of matter at the atomic level determines whether a drug works, whether a battery degrades, whether a catalyst can convert CO₂ to fuel, whether a new material conducts electricity at room temperature. These are problems where classical computers hit a hard wall: the computational resources needed to simulate quantum systems grow exponentially with system size. Quantum computers face no such wall. They speak the same language as the systems they simulate.\n\nWhat 2,000 logical qubits cannot do, at least with any demonstrated advantage, is optimize your supply chain, accelerate your machine learning pipeline, or price your derivatives faster than classical computers. The reasons are structural, and I will address them directly.\n\n### The industries where quantum creates genuine competitive separation\n\n#### Pharmaceuticals and biotechnology\n\n**Competitive impact by 2033: High**\n\nAt 2,000 logical qubits, a quantum computer can simulate the electronic structure of drug-relevant molecular systems that no classical computer can handle exactly: the enzyme active sites that determine drug metabolism, the photosensitizer molecules used in cancer therapy, the protein-ligand binding events that govern whether a drug candidate succeeds or fails.\n\nConsider the most concrete example. [Cytochrome P450 enzymes metabolize roughly 50% of marketed drugs](https://postquantum.com/quantum-utility-map/quantum-utility-ladder-fault-tolerant-algorithms/) through extreme spin-state fluctuations at their heme cores. Accurate simulation of these systems requires approximately 4,900 logical qubits and roughly 73 hours of runtime. At 2,000 logical qubits, you cannot yet simulate the full P450 system, but you can simulate the catalytic fragments and binding pockets that determine drug-metabolism pathways: the rate-limiting step in computational drug design.\n\nA pharmaceutical company with quantum access can computationally screen drug candidates for metabolic stability, predicting which molecules will be broken down too quickly, which will accumulate toxically, which will interact dangerously with other drugs. A competitor without this capability must screen classically (less accurately for these strongly correlated systems) or experimentally (slower and more expensive).\n\nThe advantage at 2,000 logical qubits is real but bounded. You will not close without quantum access. But you will lose specific drug programs to competitors who can answer molecular questions you cannot, and over a decade, those accumulated losses compound into a measurable R&D productivity gap.\n\n**What to do now:** Build quantum-ready computational chemistry workflows. Ensure your computational chemistry team understands [quantum phase estimation](https://postquantum.com/quantum-utility-map/quantum-utility-ladder-fault-tolerant-algorithms/) and Hamiltonian simulation. Identify the three to five molecular systems in your pipeline where classical density functional theory is known to be unreliable. These are your first quantum use cases.\n\n#### Chemicals and catalysis\n\n**Competitive impact by 2033: High**\n\nThe chemicals industry may have the strongest near-term case for quantum computing’s industrial impact. Billions are spent annually searching for better catalysts, and the key bottleneck is predicting how catalysts work at the quantum level.\n\nThe signature target: understanding how the FeMo-cofactor of nitrogenase fixes atmospheric nitrogen at ambient temperature, a trick that the industrial Haber-Bosch process replicates only at 450°C and 200 atmospheres while consuming [roughly 1–2% of global energy production](https://en.wikipedia.org/wiki/Haber_process). Quantum resource estimates for this problem have fallen by [five orders of magnitude in eight years](https://postquantum.com/quantum-utility-map/quantum-utility-ladder-fault-tolerant-algorithms/), and the current best estimate places it squarely within the 2,000-logical-qubit regime.\n\nA [detailed economic analysis](https://arxiv.org/abs/2406.06335) of homogeneous nitrogen fixation catalysts connects physics, economics, and runtime in a way few papers do: the highest-utility calculation is valued at approximately $200,000, with the quantum workload estimated at 139,000 QPU-hours. That is an R&D budget line item.\n\nBeyond nitrogen fixation, CO₂-to-methanol conversion catalysts (~4,000 logical qubits), next-generation industrial catalysts, and the vast design space of transition-metal catalysis all become partially accessible at this scale.\n\n**What to do now:** Begin identifying the catalyst design problems in your pipeline where DFT (density functional theory) produces unreliable results. Establish relationships with quantum computing providers. Consider the [Bellonzi economic framework](https://arxiv.org/abs/2406.06335) as a template for evaluating quantum ROI on your specific problems.\n\n#### Battery technology and energy storage\n\n**Competitive impact by 2033: Significant**\n\nThe battery industry faces a specific quantum-amenable bottleneck: understanding degradation ",
+      "score": 0.52597815
+    },
+    {
+      "id": "S6",
+      "title": "A systematic review of quantum machine learning for digital health",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12048600",
+      "content": "[Skip to main content](https://pmc.ncbi.nlm.nih.gov/articles/PMC12048600#main-content)\n\n![Image 1](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/us_flag.svg)\n\nAn official website of the United States government\n\nHere's how you know\n\nHere's how you know\n\n![Image 2](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-dot-gov.svg)\n\n**Official websites use .gov**\n\n A **.gov** website belongs to an official government organization in the United States.\n\n![Image 3](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-https.svg)\n\n**Secure .gov websites use HTTPS**\n\n A **lock** ( ) or **https://** means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.\n\n[![Image 4: NCBI home page](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg)](https://www.ncbi.nlm.nih.gov/)\n\n![Image 5: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)Search \n\n![Image 6](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/person.svg)Log in![Image 7](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_less.svg)![Image 8](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_more.svg)\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n*    Log out \n\n Search…   Search NCBI \n\nPrimary site navigation\n\n![Image 9: Close](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons/close.svg) Search  ![Image 10: Search](blob:http://localhost/d03881a649d411fb287ca34fa7ea6fc4)\n\nLogged in as:\n\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n\n Log in \n\n[](https://pmc.ncbi.nlm.nih.gov/ \"Home\")\n\n![Image 11: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)![Image 12: PMC search close ison](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/close.svg)\n\nSearch PMC Full-Text Archive \n\nSearch in PMC![Image 13: Search](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons-bg/search--white.svg)\n\n*   [Journal List](https://pmc.ncbi.nlm.nih.gov/journals/)\n*   [User Guide](https://pmc.ncbi.nlm.nih.gov/about/userguide/)\n\n As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.\n\n Learn more: [PMC Disclaimer](https://pmc.ncbi.nlm.nih.gov/about/disclaimer/) | [PMC Copyright Notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\n![Image 14: NPJ Digital Medicine logo](https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-npjdigitmed.png)\n\nNPJ Digit Med\n\n. 2025 May 2;8:237. doi: [10.1038/s41746-025-01597-z](https://doi.org/10.1038/s41746-025-01597-z)\n\n*   [Search in PMC](https://pmc.ncbi.nlm.nih.gov/search/?term=%22NPJ%20Digit%20Med%22[jour])\n*   [Search in PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=%22NPJ%20Digit%20Med%22[jour])\n*   [View in NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22NPJ%20Digit%20Med%22[Title%20Abbreviation])\n*   [Add to search](https://pmc.ncbi.nlm.nih.gov/articles/PMC12048600?term=%22NPJ%20Digit%20Med%22[jour])\n\n# A systematic review of quantum machine learning for digital health\n\n[Riddhi S. Gupta](https://pubmed.ncbi.nlm.nih.gov/?term=%22Gupta%20R%22[Author])\n\n### Riddhi S. Gupta\n\n1 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537School of Mathematics and Physics, The University of Queensland, St Lucia, 4067 QLD Australia \n\n Find articles by [Riddhi S. Gupta](https://pubmed.ncbi.nlm.nih.gov/?term=%22Gupta%20R%22[Author])\n\n1, [Carolyn E. Wood](https://pubmed.ncbi.nlm.nih.gov/?term=%22Wood%20C%22[Author])\n\n### Carolyn E. Wood\n\n1 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537School of Mathematics and Physics, The University of Queensland, St Lucia, 4067 QLD Australia \n\n Find articles by [Carolyn E. Wood](https://pubmed.ncbi.nlm.nih.gov/?term=%22Wood%20C%22[Author])\n\n1, [Teyl Engstrom](https://pubmed.ncbi.nlm.nih.gov/?term=%22Engstrom%20T%22[Author])\n\n### Teyl Engstrom\n\n2 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537QDHeC. Centre for Health Services Research. Faculty of Medicine, The University of Queensland, Herston, 4006 QLD Australia \n\n Find articles by [Teyl Engstrom](https://pubmed.ncbi.nlm.nih.gov/?term=%22Engstrom%20T%22[Author])\n\n2, [Jason D. Pole](https://pubmed.ncbi.nlm.nih.gov/?term=%22Pole%20J%22[Author])\n\n### Jason D. Pole\n\n2 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537QDHeC. Centre for Health Services Research. Faculty of Medicine, The University of Queensland, Herston, 4006 QLD Australia \n\n Find articles by [Jason D. Pole](https://pubmed.ncbi.nlm.nih.gov/?term=%22Pole%20J%22[Author])\n\n2, [Sally Shrapnel](https://pubmed.ncbi.nlm.nih.gov/?term=%22Shrapnel%20S%22[Author])\n\n### Sally Shrapnel\n\n1 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537School of Mathematics and Physics, The University of Queensland, St Lucia, 4067 QLD Australia \n\n2 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537QDHeC. Centre for Health Services Research. Faculty of Medicine, The University of Queensland, Herston, 4006 QLD Australia \n\n Find articles by [Sally Shrapnel](https://pubmed.ncbi.nlm.nih.gov/?term=%22Shrapnel%20S%22[Author])\n\n1 2\n\n*   Author information\n*   Article notes\n*   Copyright and License information\n\n1 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537School of Mathematics and Physics, The University of Queensland, St Lucia, 4067 QLD Australia \n\n2 https://ror.org/00rqy9422grid.1003.20000 0000 9320 7537QDHeC. Centre for Health Services Research. Faculty of Medicine, The University of Queensland, Herston, 4006 QLD Australia \n\nReceived 2024 Oct 3; Accepted 2025 Mar 29; Collection date 2025.\n\n© The Author(s) 2025\n\n**Open Access** This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit [http://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).\n\n[PMC Copyright notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\nPMCID: PMC12048600 PMID: [40316703](https://pubmed.ncbi.nlm.nih.gov/40316703/)\n\n## [](https://pmc.ncbi.nlm.nih.gov/articles/PMC12048600)Abstract\n\nThe growth in digitization of health data provides opportunities for using algorithmic techniques for data analysis. This systematic review assesses whether quantum machine learning (QML) algorithms outperform existing classical methods for clinical decisioning or health service delivery. Included ",
+      "score": 0.5550741
+    },
+    {
+      "id": "S7",
+      "title": "What is Quantum Machine Learning (QML)? Complete 2026 Guide",
+      "url": "https://www.articsledge.com/post/quantum-machine-learning-qml",
+      "content": "top of page\n\n# What is Quantum Machine Learning (QML)? Complete 2026 Guide\n\n* Feb 23\n* 33 min read\n\nImagine teaching a computer to learn patterns not with ones and zeros, but with particles that exist in multiple states at once. That's not science fiction anymore. Right now, in labs from California to Tokyo, researchers are combining two of the most powerful [**technologies**](https://www.articsledge.com/post/quantum-technology) of our time—[**quantum computing**](https://www.articsledge.com/post/quantum-computer) and [**machine learning**](https://www.articsledge.com/post/machine-learning-ml)—to create something that could reshape how we [**discover new drugs**](https://www.articsledge.com/post/ai-drug-discovery), predict [**financial**](https://www.articsledge.com/post/ai-finance) [**markets**](https://www.articsledge.com/post/ai-marketing), and solve problems that would take classical computers thousands of years. Quantum Machine Learning is here, it's real, and it's moving faster than most people realize.\n\n**Don’t Just Read About AI — Own It.**[**Right Here**](https://www.articsledge.com/category/all-products)\n\n* **Quantum Machine Learning (QML)** uses [**quantum computers**](https://www.articsledge.com/post/quantum-computer) to run [**machine learning algorithms**](https://www.articsledge.com/post/quantum-machine-learning-qml-algorithms), potentially offering exponential speedups for certain tasks\n* **Current state (2026)**: Still mostly experimental, with several hundred quantum computers worldwide running QML algorithms on 50-1,000+ qubits\n* **Real** [**applications**](https://www.articsledge.com/post/ai-applications)include [**drug discovery**](https://www.articsledge.com/post/ai-drug-discovery) (Roche, Moderna), financial modeling (JPMorgan, Goldman Sachs), and materials science (BASF, ExxonMobil)\n* **Key challenge**: Quantum computers are noisy and error-prone, limiting practical deployment today\n* **Market projection**: The quantum computing market (including QML) is expected to reach $8.6 billion by 2027 and $64.98 billion by 2030 (according to McKinsey and Markets and Markets)\n* **Bottom line**: QML is transitioning from pure research to early commercial pilots, with mainstream adoption likely 5-15 years away\n\n## What is Quantum Machine Learning?\n\nQuantum Machine Learning (QML) is a field that combines quantum computing with [**machine learning algorithms**](https://www.articsledge.com/post/quantum-machine-learning-qml-algorithms) to process information using quantum mechanical phenomena like superposition and entanglement. [**QML algorithms**](https://www.articsledge.com/post/quantum-machine-learning-qml-algorithms) run on [**quantum computers**](https://www.articsledge.com/post/quantum-computer) and can potentially solve certain problems exponentially faster than classical computers, particularly for tasks involving large [**datasets**](https://www.articsledge.com/post/dataset), complex optimization, and pattern recognition in high-dimensional spaces.\n\n**Bonus:** [**What is Quantum AI? The Complete Guide to Understanding Quantum Artificial Intelligence**](https://www.articsledge.com/post/quantum-artificial-intelligence-ai)\n\n**Bonus Plus:** [**AI in Business: Applications, Benefits & Implementation Guide**](https://www.articsledge.com/post/ai-business)\n\n**Bonus Plus Pro:** [**AI Humanoid Robots: How They Work, Who's Building Them, and What's Next**](https://www.articsledge.com/post/ai-humanoid-robots)\n\n## Table of Contents\n\n1. [What is Quantum Machine Learning? Core Definition](#viewer-aft0d19363)\n2. [The Building Blocks: Quantum Computing Basics](#viewer-fjzdw19381)\n3. [How Quantum Machine Learning Works](#viewer-4403h19413)\n4. [Current State of QML in 2026](#viewer-82sgq19466)\n5. [Real-World Applications and Use Cases](#viewer-ldq5w19542)\n6. [Case Studies: QML in Action](#viewer-bicfn19705)\n7. [Types of Quantum Machine Learning](#viewer-yaqux19792)\n8. [Pros and Cons of Quantum Machine Learning](#viewer-g9eih19861)\n9. [Myths vs Facts About QML](#viewer-46mya19910)\n10. [Challenges and Limitations](#viewer-mss2t19944)\n11. [Quantum vs Classical Machine Learning: Comparison](#viewer-06amc19988)\n12. [Getting Started with QML: Practical Guide](#viewer-8t8kf20136)\n13. [The Competitive Landscape](#viewer-vsfsk20321)\n14. [Future Outlook: 2026-2030](#viewer-x1jpz20412)\n16. [Key Takeaways](#viewer-7a86v20598)\n17. [Actionable Next Steps](#viewer-a824420641)\n19. [Sources & References](#viewer-nqx4v20733)\n\n## What is Quantum Machine Learning? Core Definition\n\nQuantum Machine Learning sits at the intersection of two revolutionary technologies: quantum computing and [**artificial intelligence**](https://www.articsledge.com/post/artificial-intelligence-ai).\n\nAt its simplest, QML means using quantum computers to run machine learning algorithms. But it's more than just swapping hardware. QML leverages quantum mechanical properties—superposition, entanglement, and [**interference**](https://www.articsledge.com/post/quantum-interference)—to process and learn from data in ways that classical computers fundamentally cannot.\n\nClassical machine learning uses bits (0s and 1s) and runs on processors built with transistors. Quantum machine learning uses [**qubits (quantum bits)**](https://www.articsledge.com/post/quantum-bit-qubit) that can exist in multiple states simultaneously, running on [**quantum processors**](https://www.articsledge.com/post/quantump-processing-unit-qpu) cooled to near absolute zero.\n\nThe goal? To solve machine learning problems faster, more [**accurately**](https://www.articsledge.com/post/ai-accuracy), or at scales impossible for traditional computers.\n\n### Why QML Matters\n\nMachine learning already powers everything from [**Netflix**](https://www.articsledge.com/post/netflix-s-personalization-engine-and-sales-conversions)[**recommendations**](https://www.articsledge.com/post/recommendation-engine) to cancer [**diagnosis**](https://www.articsledge.com/post/ai-diagnosis). But classical ML hits walls with certain problems. Training large [**neural networks**](https://www.articsledge.com/post/neural-networks) takes weeks and consumes enormous energy. Optimizing complex systems with millions of variables can be computationally intractable. Searching through vast chemical spaces for new drugs requires brute force that's often impractical.\n\nQuantum computers promise to shatter these barriers for specific problem types. According to a 2024 report from the National Quantum Initiative Coordination Office (a U.S. government program), [**quantum algorithms**](https://www.articsledge.com/post/quantum-algorithm) could provide exponential speedups for certain machine learning tasks, particularly those involving high-dimensional data and complex optimization (National Quantum Initiative, 2024).\n\nThe catch? We're still in the early experimental phase. Most QML algorithms work beautifully in theory but struggle on today's noisy [**quantum hardware**](https://www.articsledge.com/post/quantum-hardware).\n\n## The Building Blocks: Quantum Computing Basics\n\nYou can't understand QML without grasping a few quantum concepts. Don't worry—we'll keep it simple.\n\n### Qubits vs Bits\n\nA classical bit is either 0 or 1. A qubit can be 0, 1, or both at once thanks to **superposition**. When you measure a qubit, it collapses to either 0 or 1, but before measurement, it exists in a probability cloud of both states.\n\nThis means 2 qubits can represent 4 states simultaneously (00, 01, 10, 11). Three qubits can represent 8 states. Fifty qubits can represent over 1 quadrillion states at once. This exponential scaling is why quantum computers are powerful for certain tasks.\n\nWhen qubits become entangled, measuring one instantly affects the others, no matter how far apart they are. This quantum correlation allows quantum computers to process information in ways classical computers cannot. Einstein famously called this \"spooky action at a distance.\"\n\n### Quantum Gates\n\nJust as cla",
+      "score": 0.5379402
+    },
+    {
+      "id": "S8",
+      "title": "Frontiers | Quantum computing: foundations, algorithms, and emerging applications",
+      "url": "https://www.frontiersin.org/journals/quantum-science-and-technology/articles/10.3389/frqst.2025.1723319/full",
+      "content": "![]()\n![]()\n![]()\n![]()\n\n## MINI REVIEW article\n\nFront. Quantum Sci. Technol., 29 December 2025\n\nSec. Basic Science for Quantum Technologies\n\nVolume 4 - 2025 | <https://doi.org/10.3389/frqst.2025.1723319>\n\n![Frontiers in Quantum Science and Technology](https://d2csxpduxe849s.cloudfront.net/media/E32629C6-9347-4F84-81FEAEF7BFA342B3/038D6E80-A5AE-4E75-B45CF695844D2981/webimage-35085D96-0DB8-454F-918A509D310922D8.jpg)\n\n[Frontiers in Quantum Science and Technology](https://www.frontiersin.org/journals/quantum-science-and-technology)\n\n#### [Basic Science for Quantum Technologies](https://www.frontiersin.org/journals/quantum-science-and-technology/sections/basic-science-for-quantum-technologies)\n\n### Editor & Reviewers\n\nEdited by\n\nTing Yu\n\nReviewed by\n\nSIVA SUBRAMANIAN R\n\nYevhen Vasiliu\n\nOutline\n\nAbstract\n\n1 Introduction\n\n2 Literature review\n\n3 Fundamentals of quantum computing\n\n4 Quantum algorithms\n\n5 Applications of quantum\n\n6 Verification and reliability in quantum programs\n\n7 Quantum computing in finance and machine learning\n\n8 Challenges and limitations\n\n9 Current status and future outlook\n\n10 Conclusion\n\nAuthor contributions\n\nFunding\n\nConflict of interest\n\nGenerative AI statement\n\nPublisher’s note\n\nReferences\n\nFIGURE 1\n\n![](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g001.webp)\n\nFIGURE 2\n\n![](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g002.webp)\n\nFIGURE 3\n\n![](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g003.webp)\n\nFIGURE 4\n\n![](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g004.webp)\n\nFIGURE 5\n\n![](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g005.webp)\n\nTABLE 1\n\nComparison between quantum and classical computing across key operational, algorithmic, and technological aspects.\n\nTABLE 2\n\nChronological summary of major theoretical and technological milestones in quantum computing, illustrating the field’s evolution from foundational quantum physics to modern multi-qubit architectures.\n\nTABLE 3\n\nComprehensive summary of foundational and emerging quantum algorithms, highlighting their computational principles, performance advantages, limitations, and suitability across current NISQ devices and future fault-tolerant architectures.\n\nTABLE 4\n\nComparison of leading quantum computing hardware platforms in terms of qubit technology, scale, gate fidelity, coherence time, and quantum volume.\n\nTABLE 5\n\nComparison of major formal verification techniques for quantum programs.\n\n## MINI REVIEW article\n\nFront. Quantum Sci. Technol., 29 December 2025\n\nSec. Basic Science for Quantum Technologies\n\nVolume 4 - 2025 | <https://doi.org/10.3389/frqst.2025.1723319>\n\n# Quantum computing: foundations, algorithms, and emerging applications\n\nV. Raseena \\*\n\nSAFI Institute of Advanced Study (Autonomous), Malappuram, India\n\nArticle metrics\n\n## Abstract\n\nQuantum computing is an emerging paradigm that leverages the principles of quantum mechanics to solve computational problems beyond the reach of classical computers. This article provides an overview of the fundamental concepts of qubits, the distinctive features of quantum mechanics such as superposition and entanglement, and the challenges of building scalable, fault-tolerant systems. It surveys key quantum algorithms and their potential applications in fields including cryptography, optimization, finance, chemistry, and machine learning. Additionally, it highlights the importance of verification frameworks for ensuring the reliability of quantum programs. A literature review of significant contributions is presented, drawing insights from recent surveys on quantum algorithms, qubit technologies, and software verification approaches. The article concludes by discussing ongoing challenges, such as error correction overhead, hardware scalability, and verification complexity, and suggests directions for future research.\n\n## 1 Introduction\n\nImagine a machine that does not compute by flipping a long string of zeros and ones, but by coaxing tiny quantum objects into behaving like complex waves of possibility. That’s the intuitive leap behind quantum computing: instead of bits that are definitely 0 or 1, quantum computers use qubits that can exist in superpositions of states, become entangled so their fates are linked across space, and exploit interference to amplify correct answers while canceling wrong ones. These phenomena: superposition, entanglement, and interference are the conceptual tools that let quantum algorithms explore many possible solutions at once in ways classical algorithms cannot.\n\nBecause of those properties, quantum machines have the potential to transform domains where classical approaches struggle. Simulating complex molecules for chemistry and materials science, tackling hard optimization problems in logistics and finance, and accelerating certain kinds of machine-learning and search tasks. Researchers have already demonstrated early milestones where quantum processors performed narrowly defined tasks far faster than classical machines, milestones sometimes called quantum supremacy or quantum advantage. These show the field is progressing from theory toward demonstrable speedups (Benioff, 1980; Feynman, 1982; Deutsch, 1985; Shor, 1995; Grover, 1996).\n\nThe current era, often referred to as the NISQ (Noisy Intermediate-Scale Quantum) era, is characterized by machines with tens to hundreds of qubits that are inherently noisy and prone to errors. Fully fault-tolerant, error-corrected quantum computing remains an engineering challenge, but progress is rapid. Large technology companies and startups alike continue to publish new processors, algorithms, and roadmaps. Quantum computing is no longer just a theoretical curiosity, it is an active, multidisciplinary race among physicists, engineers, and computer scientists to turn exotic quantum effects into practical advantage (Preskill, 2018).\n\n## 2 Literature review\n\nThe literature on quantum computing is broad and rapidly evolving, spanning foundational theory, algorithms, hardware, applications, and software/verification tooling. Below we summarize key strands of work and representative references that capture both historical foundations and modern survey-level syntheses.\n\n### 2.1 Foundational theories and early contributions\n\nThe theoretical foundations of quantum computation were laid in the late 20th century. Yuri Manin was among the first to suggest that computation could be performed according to the principles of quantum mechanics, introducing the concept of quantum automata in his 1980 work *Computable and Uncomputable* (Benioff, 1980). Shortly afterward, Paul Benioff proposed quantum-mechanical models of Turing machines, showing how computation could be embedded in quantum physics (Feynman, 1982). Richard Feynman famously argued that quantum systems are hard to simulate efficiently on classical computers and proposed the idea of using quantum devices to simulate nature, a key motivation for quantum computing (Deutsch, 1985). David Deutsch formalized the notion of a universal quantum computer and articulated the Church–Turing principle in the quantum setting, establishing that quantum mechanics could define a new model of computation (Shor, 1995). These foundational works set the conceptual stage for later algorithms and hardware efforts (Grover, 1996; Brassard et al., 2000). The historical development and major milestones of quantum computing are illustrated in [Figures 1](#F1), [2](#F2).\n\nFIGURE 1\n\n![Collage titled \"History – Techies of Quantum Computing\" featuring four individuals: Paul Benioff, Yuri Manin, Richard Feynman, and David Deutsch, labeled as the Father of Quantum Computing. Background has a circuit pattern.](https://www.frontiersin.org/files/Articles/1723319/xml-images/frqst-04-1723319-g001.webp)\n\nQuantum computing, Slideshare presentation (2021) (See Ref Quantum Computing, 2021).",
+      "score": 0.45856747
+    },
+    {
+      "id": "S9",
+      "title": "What Quantum Computers Can Do Better Than Classical Computers",
+      "url": "https://postquantum.com/quantum-computing/quantum-classical",
+      "content": "[![PostQuantum - Quantum Computing, Quantum Security, PQC](https://postquantum.com/wp-content/uploads/2024/05/Post-Quantum-Marin-Ivezic-250x35-1.png)](https://postquantum.com/ \"PostQuantum - Quantum Computing, Quantum Security, PQC\")\n\n* [Search for](#)\n\n[Quantum Computing](https://postquantum.com/quantum-computing/)\n\nTrending\n\n# What Quantum Computers Can Do Better Than Classical Computers\n\n[![Photo of Marin Ivezic](https://secure.gravatar.com/avatar/ed53c567bc35d72dfc8e9a08403662f52deaf93d4990736d7dca4ea0dd4ee55f?s=140&d=mm&r=g)](https://postquantum.com/author/marin/)  [Marin Ivezic](https://postquantum.com/author/marin/ \"Marin Ivezic\")  [Follow on X](http://infosec \"Follow on X\")   [Send an email](/cdn-cgi/l/email-protection#452824372c2b052c33203f2c266b262a28 \"Send an email\")  April 18, 2025\n\n34 minutes read\n\n![Quantum Computers Classical](https://postquantum.com/wp-content/uploads/2025/04/Quantum-Computers-Classical-scaled.jpg)\n\n## Table of Contents\n\nOn a crisp autumn night in 2019, a team of Google engineers crowded around a dilution refrigerator housing a chip called Sycamore. When their measurements came in, cheers erupted – the 53-qubit processor had performed in 200 seconds a calculation that, by Google’s estimate, would have taken the world’s fastest supercomputer 10,000 years.  This milestone, [heralded as the first demonstration of quantum supremacy](https://postquantum.com/industry-news/google-sycamore/), was a dramatic proof-of-concept that under the right conditions a quantum computer can outrun any classical machine. IBM quickly tempered the excitement, arguing that with clever algorithms the task could actually be done on a classical supercomputer in just 2.5 days, not millennia. Debate aside, Google’s experiment showed the world a tantalizing glimpse of the future: a future where quantum computers tackle problems that overwhelm even our mightiest classical computers. It raises the question – beyond stunt experiments, what kinds of problems are quantum computers uniquely suited for, and why?\n\nTo understand where quantum computers shine, it helps to grasp how fundamentally different they are under the hood. A classical computer processes bits that are strictly 0 or 1, like light switches firmly in the “on” or “off” position. A quantum computer, by contrast, uses quantum bits, or qubits, which can inhabit a mysterious blend of states thanks to a quantum phenomenon called [superposition](https://postquantum.com/quantum-computing/quantum-superposition/). In essence, a qubit can be 0, 1, or both at the same time – a bit like a coin spinning in mid-air, showing neither heads nor tails but a blur of possibilities. In fact, eight qubits can exist in all $$2^8=256$$ combinations of 0s and 1s simultaneously. It’s as if those qubits conduct parallel computations in a single device – exploring a multitude of outcomes at once – whereas eight classical bits could only hold one of those 256 numbers at any moment.\n\nQubits can also become [entangled](https://postquantum.com/quantum-computing/quantum-entanglement/), linking their states so that a measurement on one instantly influences the other, no matter how far apart they are. Albert Einstein famously called entanglement “spooky action at a distance,” but this spooky coordination is a real and crucial resource for quantum computing.\n\nFinally, qubits exhibit [quantum interference](https://postquantum.com/quantum-computing/quantum-interference/) – their probability waves can combine, reinforcing some outcomes and canceling others. This is the secret sauce that lets quantum algorithms amplify the probability of correct answers while wiping out incorrect ones, like noise-canceling headphones for computations. By choreographing how quantum states evolve, a well-designed algorithm makes the probability waves of wrong answers cancel each other out (destructive interference), while amplifying the waves of correct answers (constructive interference). In essence, quantum computation uses interference to “zero in” on solutions among an exponentially large set of possibilities. A classical computer would have to slog through possibilities one by one, but a quantum computer can use interference to eliminate vast swaths of wrong paths in a single computation. This is why, for certain problems with the right structure, quantum computers can find answers much faster than any classical machine. Imagine a quantum computer searching a maze: rather than brute-force checking every path, it’s as though the wrong turns cancel themselves out and the right path is magically enhanced. However, this advantage applies only to specific kinds of problems. The challenge is “choreographing” interference for useful tasks – something only a few algorithms achieve so far\n\nThese exotic features – superposition, entanglement, interference – give quantum computers a novel computational toolkit. But what does that mean in practice? What specific problems can harness these effects to beat a classical computer?\n\n## When Quantum Outruns Classical\n\n### Factoring the Unfactorable: Shor’s Algorithm and Cryptography\n\nOne of the most famous quantum breakthroughs is [Shor’s algorithm](https://postquantum.com/post-quantum/shors-algorithm-a-quantum-threat/) for integer factorization. In 1994, mathematician Peter Shor discovered a quantum algorithm that could factor large numbers exponentially faster than any known classical method. In practical terms, this means a sufficiently powerful quantum computer could crack RSA encryption (which relies on the difficulty of factoring huge numbers) – a task essentially impossible for classical computers. Shor’s algorithm was a watershed moment that showed in principle the dramatic speedups quantum computing can offer: it turned a problem thought to require astronomical time into one solvable in polynomial time.\n\nShor’s result remains the poster child for quantum advantage. It demonstrated how a quantum machine could break the most advanced cryptographic systems of the time. For example, today’s 2048-bit RSA keys would take classical supercomputers longer than the age of the universe to factor. A quantum computer running Shor’s algorithm, by contrast, could factor it in a feasible time if the computer is large enough. How large? One estimate is that about 20 million qubits would be needed to crack a 2048-bit RSA key in roughly 8 hours. This is far beyond today’s quantum hardware (which is just crossing the 1000-qubit scale), so RSA and other cryptography isn’t doomed yet. But the threat is serious enough that the world is actively developing post-quantum cryptography to replace RSA before quantum computers reach that power.\n\nIn summary, factorization is a prime example of a problem that quantum computers can eventually do better (indeed, unimaginably faster) than classical ones. Shor’s algorithm leverages quantum Fourier transforms and interference to find factors in polynomial time, a direct application of quantum parallelism that has no known efficient classical counterpart. It remains a critical driver of quantum research – and a reason governments and companies are racing to build bigger quantum machines.\n\n### Searching Unstructured Data: Grover’s Algorithm\n\nAnother foundational quantum algorithm is [Grover’s algorithm](https://postquantum.com/post-quantum/grovers-algorithm/), developed by Lov Grover in 1996, which tackles the task of searching an unstructured database. Suppose you have N unsorted items and you want to find one special item – classically, you might have to check O(N) items on average. Grover’s quantum algorithm finds the item in roughly O(√N) steps. This is a quadratic speedup: not as dramatic as Shor’s exponential leap, but still a significant acceleration for large N.\n\nGrover’s algorithm works by repeatedly amplifying the probability of the correct answer using interference, essentially “marking” the correct item’s amplitude and then interfering all states so that the marked one stands ",
+      "score": 0.4179133
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+# Frozen Reference Research Evaluation
+
+**Evaluator:** evaluator-v1
+
+**Fixture:** quantum-commercial-advantage
+
+**System Version:** evidence-ledger-decomposer-v1
+
+**Model:** gpt-5.6-luna
+
+## Summary
+
+- Overall: 72.0 / 100
+- Evaluation completeness: 100%
+- Comprehensiveness: 0.57
+- Coverage: 0.63
+- Depth: 0.45
+- Citation quality: 0.92
+- Citation validity: 1.00
+- Citation support: 0.85
+- Citation completeness: 1.00
+- Deterministic integrity: 1.00
+
+## Comprehensiveness
+
+### R1
+
+- Coverage: 0.50
+- Depth: 0.25
+- Rationale: The report contains several relevant distinctions and metrics, but it does not establish the requested time boundary or a sufficiently explicit category-and-metric framework.
+- Candidate evidence:
+  - The report distinguishes 'practical advantage' from theoretical advantage and emphasizes comparison using 'runtime and cost' rather than asymptotic complexity: Finding 4.
+  - It distinguishes narrow beyond-classical demonstrations from commercially useful advantage: Findings 2, 8, and 10.
+  - It discusses projected advantages, including the hypothetical '2,000-logical-qubit, fault-tolerant machine' projected for 2033: Finding 6.
+- Missing:
+  - No explicit evidence date or cutoff period is stated, despite references to 2026 sources.
+  - The four required categories are not explicitly defined as a coherent framework: demonstrated computational advantage, end-to-end commercial advantage, theoretical algorithmic advantage, and projected hardware/resource-based advantage.
+  - Metrics are mentioned, but the report does not systematically define how runtime, cost, throughput, reliability, solution quality, and end-to-end overhead will be applied across categories.
+
+### R2
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: This is one of the strongest sections. It provides multiple recent examples and important caveats, but coverage is concentrated on IBM-associated 2026 claims and is not fully systematic.
+- Candidate evidence:
+  - Finding 7 describes IBM Heron demonstrations involving doped-Clifford sampling, quantum-magnet/Floquet dynamics, and validated computations, including reported qubit scales, T-gate counts, validation, and classical comparisons.
+  - Finding 12 distinguishes the doped-Clifford complexity-based claim from the Qedma and Algorithmiq claims based more on empirical failure or disagreement among tested classical methods.
+  - Finding 8 distinguishes narrow, task-specific beyond-classical results from broad commercial workloads and cites C&EN, IEEE Spectrum, and IBM's discussion of Google's 2019 result.
+  - Finding 13 explains that the 70-qubit result used error-detected encoded data qubits rather than fault-tolerant logical qubits.
+- Missing:
+  - The report does not give a balanced, systematic survey of representative demonstrations across major platforms and time periods; historical demonstrations such as Google's 2019 sampling experiment are only briefly mentioned.
+  - For some demonstrations, the exact classical baseline, task definition, output-quality metric, and total quantum-plus-classical comparison are not fully presented.
+  - The report largely relies on cited summaries rather than directly describing primary experimental papers and independent replication results.
+
+### R3
+
+- Coverage: 0.75
+- Depth: 0.50
+- Rationale: The report appropriately treats commercial advantage as unproven and exposes important missing tests, but its assessment remains provisional and does not complete the end-to-end evaluation required.
+- Candidate evidence:
+  - Finding 8 states that the IBM demonstrations are not evidence of commercially useful advantage across general workloads.
+  - Finding 1 reports Q-CTRL's claimed 3,000-times wall-clock speedup for a fermionic-simulation materials-engineering task, while explicitly noting the lack of independent replication and insufficient information about the classical baseline.
+  - Finding 4 says commercial usefulness requires comparison with the actual or comparably priced classical alternative using runtime, cost, and accuracy.
+  - The Remaining Gaps section explicitly notes missing total cost, reproducibility, state/application value, strongest classical algorithms, total quantum-plus-classical runtime, and sampling quality.
+- Missing:
+  - The report does not fully evaluate whether any economically meaningful workload has actually beaten the strongest practically relevant classical alternative on an end-to-end metric.
+  - State preparation, data loading, repeated runs, preprocessing/postprocessing, system availability, and operating cost are identified as gaps but are not analyzed for a particular claim.
+  - Subsequent classical improvements are mentioned for Google's result and as an unresolved issue, but not systematically applied to the reported commercial claims.
+  - The conclusion does not clearly state a consolidated answer such as 'no commercially useful advantage has yet been demonstrated, subject to the unverified S2 claim.'
+
+### R4
+
+- Coverage: 0.50
+- Depth: 0.25
+- Rationale: The report recognizes the distinction between theoretical promise and forecasts, but it provides little algorithmic substance or assumption analysis.
+- Candidate evidence:
+  - Finding 3 identifies quantum simulation and selected other areas as theoretically or prospectively promising while warning that this does not imply broad superiority.
+  - Finding 6 labels the 2,000-logical-qubit/one-billion-operation/2033 scenario as a forecast rather than a demonstration.
+  - Finding 4 contrasts asymptotic or theoretical advantage with practical comparison against classical cost and performance.
+- Missing:
+  - The report does not state the relevant complexity or performance benefits for important algorithms, such as exponential versus polynomial speedups, sampling complexity, amplitude-estimation improvements, or quantum simulation scaling.
+  - Algorithmic assumptions such as oracle access, fault-tolerant gates, input/data loading, sparsity, precision, and output extraction are not explained.
+  - Resource estimates and roadmaps are not connected quantitatively to physical-qubit overhead, logical error rates, circuit depth, runtime, or end-to-end application requirements.
+  - Theoretical claims, hardware-dependent projections, and vendor roadmaps are distinguished only generally, not through a structured comparison.
+
+### R5
+
+- Coverage: 0.50
+- Depth: 0.25
+- Rationale: The report names several candidate areas and gives a broad indication that simulation is more promising, but it does not perform the requested comparative application assessment.
+- Candidate evidence:
+  - Finding 3 mentions simulation, drug discovery, optimization, financial patterns, cryptography, and large-scale simulation as candidate areas.
+  - Finding 5 and Finding 6 emphasize chemistry, pharmaceuticals, catalysis, and molecular simulation as projected areas of usefulness.
+  - Finding 3 reports that S5 projects no demonstrated advantage in supply-chain optimization, machine learning, and derivatives pricing.
+- Missing:
+  - The application areas are not compared in a structured way against one another.
+  - For each area, the report does not separately assess theoretical promise, scientific usefulness, commercial value, and evidence strength.
+  - It does not explain in sufficient detail why chemistry/materials may be more plausible than optimization, finance, or machine learning, or what data-access and verification constraints affect each area.
+  - Cryptography is mentioned but its commercial relevance and distinct role—security impact rather than routine speedup—are not analyzed.
+
+### R6
+
+- Coverage: 0.75
+- Depth: 0.50
+- Rationale: The report gives a good general barrier inventory and some explanation of error-correction and connectivity, but lacks prioritization and architecture-specific analysis.
+- Candidate evidence:
+  - Finding 5 identifies noise, decoherence, environmental sensitivity, error accumulation, specialized operating conditions, and error-tolerant hardware/software as barriers.
+  - Finding 11 discusses physical error rates, validation/error correction, circuit depth, connectivity, SWAP overhead, and classical-quantum integration, and states that qubit count alone is insufficient.
+  - Finding 13 distinguishes error-detected data qubits from fault-tolerant logical qubits and explains why the reported demonstration does not establish scalable fault tolerance.
+  - The Remaining Gaps section identifies missing physical-to-logical overhead, logical error rates, sustained circuit throughput, and resource requirements.
+- Missing:
+  - The barriers are not clearly prioritized by importance or by workload; the report says several are important but does not identify which are most decisive.
+  - It does not adequately cover control and decoding, correlated errors, fabrication/material variability, calibration stability, or sustained logical operation in detail.
+  - Architecture-specific barriers are largely absent: cryogenic constraints for superconducting systems, photon loss for photonic systems, ion transport/gate-speed constraints, and connectivity or measurement constraints by platform are not separated from general barriers.
+  - The causal connection from each barrier to specific useful workloads is only partially developed.
+
+### R7
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: Evidence quality and uncertainty are handled thoughtfully, especially for the recent IBM claims, but source hierarchy and evidentiary standards are not fully systematic.
+- Candidate evidence:
+  - The report repeatedly labels vendor-authored claims as low confidence, especially the Q-CTRL 3,000-times claim and the 2033 projection: Findings 1 and 6.
+  - Finding 7 notes that the IBM demonstrations were preprints rather than peer-reviewed publications and reports the lack of independent replication.
+  - Finding 12 distinguishes complexity-based evidence from empirical comparisons and heuristic error-mitigation claims.
+  - Finding 8 discusses improved classical simulation of Google's 2019 result, and multiple findings note that improved classical methods could weaken current claims.
+  - The Conflicts and Uncertainty and Remaining Gaps sections explicitly identify unresolved validation, baseline, reproducibility, cost, and scaling issues.
+- Missing:
+  - The report does not systematically classify all sources into primary experiments, independent replications, critiques, theoretical work, vendor claims, and roadmaps.
+  - It relies substantially on vendor blogs, industry reporting, and secondary analyses, without enough direct assessment of the underlying primary papers or independent replications.
+  - Uncertainty about the negative conclusion is acknowledged, but the report does not provide a clear evidentiary standard or explain what level of missing evidence would be needed to conclude that commercial advantage is absent.
+
+### R8
+
+- Coverage: 0.50
+- Depth: 0.25
+- Rationale: The report contains the ingredients for a cautious conclusion, but its own incomplete-status disclaimer substitutes for the requested final maturity judgment and milestone synthesis.
+- Candidate evidence:
+  - The report repeatedly characterizes current results as narrow, task-specific, and not commercially useful: Findings 8 and 10.
+  - The Summary and Conclusion explicitly state that the report is incomplete and provisional because the research run stopped at max_iterations.
+  - The Remaining Gaps section lists concrete missing evidence, including independently audited classical comparisons, total cost, application value, logical error rates, and scalable fault-tolerant resource requirements.
+- Missing:
+  - There is no completed, clear synthesis answering how close the field is; the conclusion only says the findings are provisional.
+  - The report does not provide a calibrated maturity judgment distinguishing present demonstrated status from nearer-term and longer-term prospects.
+  - It does not set out concrete milestones in a synthesized form, such as independently replicated end-to-end application advantage, fault-tolerant logical-qubit operation at required scale, sustained logical throughput, and cost/reliability superiority.
+  - It avoids unsupported dates appropriately, but does not replace them with a clear conditional assessment of what evidence would materially change the conclusion.
+
+### Novel Value
+
+- The report offers a useful evidentiary distinction among three IBM-associated demonstrations, separating a complexity-based doped-Clifford claim from empirical classical-method comparisons in the Qedma and Algorithmiq work.
+- It highlights the important distinction between error-detected encoded data qubits and fault-tolerant logical qubits, preventing the reported 70-qubit result from being conflated with scalable fault-tolerant computing.
+- It identifies the unverified 3,000-times Q-CTRL claim as potentially important but low-confidence and specifies the missing baseline, replication, cost, and end-to-end evidence needed to assess it.
+- It usefully emphasizes that validation or beyond-classical sampling is not equivalent to commercially useful advantage.
+
+## Citations
+
+### Support
+
+#### F1: SUPPORTED
+
+- Claim: S2 reports a 3,000-times wall-clock speedup for a fermionic-simulation materials-engineering task using an IBM quantum computer augmented with compiler and error-suppression software, while claiming practically relevant runtime and accuracy at least matching existing tooling.
+- Sources: S2
+- Rationale: S2 explicitly describes Fermionic Simulation applied to materials engineering, reports a solution achieved “over 3,000 times faster in wall-clock time,” and states that the task was completed in a practically relevant time with accuracy meeting or exceeding existing tooling and user expectations. It also identifies an IBM quantum computer and a compiler and error-suppression toolchain.
+- Supporting text: S2 says the studied problem was “Fermionic Simulation,” describes “today’s quantum calculations for materials engineering,” and reports a solution “over 3,000 times faster in wall-clock time.” It further states that the task can be completed in a practically relevant time while delivering accuracy that “meets or exceeds existing tooling and user expectations,” using “an IBM quantum computer and a specially designed compiler and error-suppression toolchain.”
+
+#### F2: SUPPORTED
+
+- Claim: The reported S2 demonstration, even if its benchmark comparison is accepted, is evidence for a specific application-level or practical-advantage claim rather than proof of broad quantum advantage across commercially important workloads.
+- Sources: S2, S6, S8
+- Rationale: S2 explicitly defines “Practical Quantum Advantage” as outperforming the best available conventional alternative in a real-world application of known commercial or scientific relevance, and distinguishes it from “absolute Quantum Advantage,” framed around the best conceivable classical algorithm for a commercially significant problem. S6 further characterizes the reported demonstrations as beating classical systems only “in certain niche problems,” while S8 describes quantum advantage in terms of solving problems beyond classical computers but notes that defining advantage is difficult. Together, the sources support interpreting the demonstration as limited evidence tied to a particular application or task, not proof of broad advantage across commercially important workloads.
+- Supporting text: S2: “Practical Quantum Advantage refers to the point where quantum computers outperform the best available conventional alternative in a real-world application of known commercial or scientific relevance”; S2 contrasts this with “absolute Quantum Advantage,” involving “a commercially significant problem.” S6: the demonstrations “may beat fully classical systems in certain niche problems.”
+
+#### F3: SUPPORTED
+
+- Claim: Theoretical and projected quantum advantages are concentrated in selected problem classes—especially quantum-system simulation—and do not imply that quantum computers will outperform classical computers on ordinary small or moderate business problems.
+- Sources: S4, S5, S3
+- Rationale: The cited sources collectively support the claim’s important content. S4 states that quantum computing benefits only some problems, identifies simulation of matter among the examples, and explicitly says that small- to moderate-sized problems common to typical businesses will not benefit. S5 describes the advantage map as narrow and concentrated, identifies quantum-mechanical simulation as the strongest capability, and says there is no demonstrated advantage for supply-chain optimization and similar tasks. S3 likewise characterizes quantum computers as tools for specific problems rather than replacements for classical machines.
+- Supporting text: S4: “small to moderate-sized problems, the most common types for typical businesses, will not benefit from quantum computing” and “Quantum computing is not going to be better for everything, just for some things.” S5: “The quantum advantage map is narrow, uneven, and concentrated” and quantum computing “excels at” simulating molecules, materials, and physical systems. S3: quantum computers “are not replacements for classical machines” and are designed for “specific problems” too complex for classical computers.
+
+#### F4: PARTIALLY_SUPPORTED
+
+- Claim: Commercial usefulness depends on comparison against the actual available or comparably priced classical alternative, including runtime and cost, rather than on asymptotic complexity or the ability to solve a contrived benchmark.
+- Sources: S4, S2, S9
+- Rationale: The sources strongly support comparing quantum performance with practical classical alternatives using runtime, cost, and real-world relevance. However, they do not fully establish the broad claim that commercial usefulness depends on these factors rather than on asymptotic complexity; S2 actually presents poor classical scaling as relevant to candidate selection. The claim about contrived benchmarks is supported, especially by S2, but the complete contrast is too strong.
+- Supporting text: S4 defines “quantum economic advantage” as solving a problem more quickly than a comparably priced classical computer. S2 says practical advantage requires outperforming the best available conventional alternative in a real-world application, and rejects contrived problems lacking practical relevance. S9 says advantage must be demonstrated through efficiency, cost-effectiveness, accuracy, or a combination, and evaluated against leading classical methods.
+
+#### F5: SUPPORTED
+
+- Claim: The supplied sources identify noise, errors, decoherence, and the hardware/software needed for complex error-tolerant computation as major barriers to useful quantum applications.
+- Sources: S2, S3, S4, S7, S9, S6
+- Rationale: The sources directly identify noise and errors as degrading quantum performance and preventing useful results, explain that environmental sensitivity causes decoherence, and state that specialized hardware, software, error correction, and validation are needed to scale useful or fault-tolerant computation. S4 specifically says the hardware and software for the most complex problems may not be available until 2035 or later.
+- Supporting text: S2: “quantum computers have been limited by noise and errors, which degrade performance and have prevented users from achieving useful results.” S3: temperature, electromagnetic interference, and vibrations “can cause decoherence.” S4: “the hardware and software necessary for handling the most complex problems” may not be available until 2035 or later. S7 describes error propagation and spacetime codes as steps toward fault-tolerant computing; S9 says quantum advantage requires high-performing hardware and software.
+
+#### F6: SUPPORTED
+
+- Claim: A projected 2,000-logical-qubit, fault-tolerant machine executing approximately one billion error-corrected operations is presented by S5 as potentially useful for selected chemistry, pharmaceutical, and catalysis workloads by 2033, but this is a forecast rather than a demonstrated capability.
+- Sources: S5
+- Rationale: S5 describes a 2033 scenario involving a fault-tolerant machine with 2,000 logical qubits executing one billion error-corrected operations, links the scenario to published roadmaps and projections, and discusses concrete potential applications in pharmaceuticals, chemicals, and catalysis. Its future-oriented framing and references to projected capabilities support characterizing this as a forecast rather than a demonstrated capability.
+- Supporting text: S5 says: “Imagine it is 2033” and describes “a fault-tolerant quantum computer with 2,000 logical qubits, executing one billion error-corrected operations.” It identifies pharmaceuticals and biotechnology and chemicals and catalysis as high-impact industries, while noting the machine has “no demonstrated advantage” for some other tasks.
+
+#### F7: SUPPORTED
+
+- Claim: IBM and collaborators report three 2026 demonstrations on Heron processors involving doped-Clifford sampling, quantum-magnet/Floquet-dynamics experiments, and validated quantum computations; the demonstrations are presented as producing results beyond leading classical simulations or as classically hard computations with built-in validation, but the papers were supplied as preprints rather than peer-reviewed publications.
+- Sources: S6, S7, S8, S11, S12, S13
+- Rationale: The saved sources consistently describe three 2026 demonstrations involving IBM Heron processors: doped-Clifford sampling with UChicago, Floquet/quantum-magnet dynamics with Qedma and collaborators, and a third validated computation involving Algorithmiq. They describe the results as beyond classical simulation or classically hard, with validation or trust mechanisms built into or applied to the computations. S6 explicitly states that all three papers were preprints before peer review, and S13 likewise states that none had undergone peer review.
+- Supporting text: S7: “Three papers demonstrate quantum advantage with built-in validation”; it identifies doped Clifford sampling, Floquet dynamics revealing phenomena beyond leading classical simulations, and trusted quantum results. S6: the three demonstrations were performed on IBM’s Quantum Heron R3 processors and “have been published as preprints, before peer review.” S13: “All three papers are preprints; none has undergone peer review.”
+
+#### F8: PARTIALLY_SUPPORTED
+
+- Claim: The reported 2026 IBM demonstrations are evidence of narrow, task-specific beyond-classical performance or classically hard computation, not evidence of commercially useful advantage across general workloads.
+- Sources: S6, S7, S8, S10
+- Rationale: S6, S7, and S8 support the positive portion: the demonstrations concern particular, niche or specially constructed computations that are described as beyond classical simulation or classically hard. S6 explicitly calls them “certain niche problems,” while S7 describes doped-Clifford sampling and other specific demonstrations. However, the supplied text does not directly establish that the results are not commercially useful, nor does it explicitly rule out advantage across general workloads. S10 is from 2019 and provides general caution about interpreting quantum-advantage claims, but it does not directly assess the reported 2026 demonstrations.
+- Supporting text: S6: the results show quantum computers may beat fully classical systems “in certain niche problems,” and one expert says the proof applies to “at least one set of samples.” S7: the demonstrations involve specific classically hard sampling problems and particular quantum phenomena. S8: it describes “three results” out of reach of classical computers, rather than general workloads.
+
+#### F9: SUPPORTED
+
+- Claim: IBM's 2025 advantage framework treated rigorous validation and demonstrable separation in efficiency, cost-effectiveness, or accuracy as unmet criteria for its candidate advantage experiments, indicating that candidate demonstrations and validated beyond-classical results do not automatically establish practical advantage.
+- Sources: S9, S13
+- Rationale: S9 directly states that IBM presented candidate advantage experiments but argued that advantage had not yet been achieved because the framework's key criteria—rigorous validation and demonstrable quantum separation measured by efficiency, cost-effectiveness, accuracy, or a combination—had not been met. S13 further characterizes the associated tracker entries as active candidates requiring further benchmarking rather than adjudicated demonstrations. Together, the sources support the claim that candidate demonstrations, even when supported by validation or apparent classical separation, do not automatically establish practical quantum advantage.
+- Supporting text: S9: IBM said the community had not achieved advantage because it lacked “rigorous validation” and a “demonstrable quantum separation” in efficiency, cost-effectiveness, accuracy, or some combination. S13: the tracker treats the entries as “active candidates requiring further benchmarking, not as adjudicated demonstrations.”
+
+#### F10: PARTIALLY_SUPPORTED
+
+- Claim: The 2026 validation demonstrations improve evidence that noisy quantum computations can be trusted in classically hard regimes, but they do not demonstrate fault-tolerant, commercially useful computation at application-relevant scale.
+- Sources: S7, S8, S6, S11, S12, S13
+- Rationale: The sources strongly support the first part: the demonstrations introduced validation, error-detection, fidelity bounds, cross-platform checks, or process-based trust for computations described as classically hard or beyond tested classical methods. The sources also support a narrower limitation: the demonstrations were preprints, involved noisy/error-prone hardware, and the 70 'logical qubits' were described in S13 as error-detected rather than fault-tolerant logical qubits. However, the cited material does not directly establish the full negative claim that they do not demonstrate commercially useful computation at application-relevant scale. It discusses possible applications and niche problems, but does not define or systematically assess commercial usefulness or application-relevant scale.
+- Supporting text: S12 says the work provides “trust that the computation returned accurate results” beyond leading classical simulation methods and that verification “increas[es] confidence” under noise. S7 describes “rigorous fidelity bounds” in a classically difficult regime. S13 qualifies that the 70 qubits were “error-detected data qubits, not fault-tolerant logical qubits,” and states that the Qedma and Algorithmiq results are more empirical. S6 says the demonstrations used noisy, error-prone hardware and addressed “certain niche problems.”
+
+#### F11: PARTIALLY_SUPPORTED
+
+- Claim: Scaling toward useful advantage requires simultaneously improving physical error rates, validation and error correction, circuit depth, connectivity, and the integration of quantum processors with classical computation; improved qubit count alone is insufficient.
+- Sources: S7, S9, S6, S13, S11
+- Rationale: The sources collectively support most components of the claim: S9 links useful quantum computing to scaling quantum-plus-classical systems and discusses hardware performance, lower two-qubit error rates, greater circuit complexity/depth, and improved qubit topology/connectivity. S7, S11, and S13 describe validation, error detection/correction, and fidelity or error-rate improvements. S6 explicitly characterizes the demonstrations as highly assisted by classical processors. However, the sources do not directly state that all listed improvements must occur simultaneously, nor do they explicitly establish the general proposition that increasing qubit count alone is insufficient. Those points are a reasonable synthesis but are not fully supported as stated.
+- Supporting text: S9: “Quantum advantage means that quantum + classical methods can provably outperform purely classical methods,” and says advantage requires high-performing hardware; Nighthawk’s topology enables more complex circuits with fewer SWAP gates, while Heron has lower two-qubit gate errors. S7: spacetime codes detect errors and improve logical-operation fidelity, making validation part of the computational framework. S6: the demonstrations used quantum computers “highly assisted by classical processors.”
+
+#### F12: SUPPORTED
+
+- Claim: The three 2026 IBM-associated demonstrations have materially different evidentiary strengths: the IBM–University of Chicago doped-Clifford experiment makes a complexity-based beyond-classical claim with a device-dependent fidelity certificate, whereas the Qedma Floquet and Algorithmiq Loschmidt-echo studies primarily report empirical failure or disagreement among tested classical methods and rely partly on error-mitigation or heuristic assumptions.
+- Sources: S13, S11
+- Rationale: S13 directly characterizes the demonstrations as having unequal evidentiary weight. It describes the IBM–UChicago result as an explicit quantum-advantage claim supported by complexity-theoretic hardness arguments and a device-dependent fidelity lower bound, while describing the Qedma and Algorithmiq results as empirical comparisons involving classical-method divergence or disagreement. It also states that Qedma’s hardest trajectories use a heuristic extrapolation that can introduce bias, and that Algorithmiq’s global-rescaling estimate is heuristic and lacks a quantitative accuracy bound. S11 provides consistent descriptions of the three demonstrations and their validation methods, although it presents them more favorably.
+- Supporting text: S13: “The papers do not carry equal evidentiary weight.” The IBM/UChicago paper is described as making “an explicit quantum advantage claim backed by complexity-theoretic hardness arguments and a device-dependent fidelity certificate,” while the Qedma and Algorithmiq papers make “more empirical claims about regimes where tested classical methods become unreliable.” S13 further says Qedma’s QESEM-Extrapolated results use a “lower-overhead heuristic” and that Algorithmiq’s global rescaling is “a heuristic” without a quantitative bound on its distance from the ground truth.
+
+#### F13: SUPPORTED
+
+- Claim: The 70-qubit doped-Clifford demonstration used error-detected encoded data qubits rather than fault-tolerant logical qubits of the type assumed in large-scale fault-tolerant resource estimates; its reported 10-fold error suppression and approximately 15–16 minute execution therefore do not establish scalable fault-tolerant operation.
+- Sources: S13, S12
+- Rationale: S13 directly characterizes the 70 qubits as error-detected data qubits rather than fault-tolerant logical qubits of the kind used in resource estimates. It also reports roughly 10-fold error suppression and 16.1 minutes of QPU execution. S12 independently reports 10-fold lower effective logical error rates and approximately 15 minutes, while describing the work as a step toward scaling rather than as scalable fault-tolerant operation. Thus the cited evidence supports the claim’s factual basis and conclusion.
+- Supporting text: S13: IBM describes the computation as using “70 logical qubits,” but says these are “error-detected data qubits, not fault-tolerant logical qubits” of the kind assumed in resource estimates; the code suppressed the effective gate-error measure by roughly 10×, and execution took 16.1 minutes. S12: the team executed 70 encoded logical qubits with 10× lower effective logical error rates, and IBM’s computer took approximately 15 minutes; the release calls the work a “significant step on the path forward” toward scaling.
+
+### Missing Citations
+
+- None identified.
+
+## Deterministic Checks
+
+- `run_metadata_loads`: PASS
+- `report_exists`: PASS
+- `sources_present`: PASS
+- `structured_report_parses`: PASS
+- `report_question_matches`: PASS
+- `source_ids_unique`: PASS
+- `source_ids_syntactically_valid`: PASS
+- `source_urls_present`: PASS
+- `evidence_objects_valid`: PASS
+- `confidence_values_valid`: PASS
+- `citation_ids_syntactically_valid`: PASS
+- `citation_ids_resolve`: PASS
+- `structured_claim_evidence_available`: PASS
+- `ledger_claim_ids_unique`: PASS
+- `ledger_evidence_relationships_resolve`: PASS
+- `ledger_confidence_values_valid`: PASS
+- `ledger_evidence_ids_unique`: NOT_EVALUABLE — Current ledger relations have no independent evidence-ID field.
+
+## Main Weaknesses
+
+1. R1: Set a time boundary and define the categories used to answer the question.
+2. R4: Separate theoretical algorithmic advantages from hardware-dependent projections.
+3. R8: Give a calibrated, evidence-based judgment about how close quantum computers are to commercial advantage.
+4. 4 cited finding(s) were not fully supported by saved evidence.
+
+## Audit Metadata
+
+- Fixture version: 1.0
+- Rubric hash: `ae3a5680c375b6650be217402137fd59a302eee5fb85b0bc360a9292a5734293`
+- Candidate report hash: `4c37a6161808b24b64b4022bd7ec2fb24026fc8ce851b7a90cc3bdb97b1580d2`
+- LLM calls: 15
+- Evaluated at: 2026-09-01T01:20:52.388935+00:00

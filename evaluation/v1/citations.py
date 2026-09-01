@@ -142,7 +142,15 @@ class CitationEvaluator:
                     judgment: CitationCompletenessJudgment,
                 ) -> None:
                     for claim in judgment.claims:
-                        if not set(claim.citation_ids).issubset(allowed_markdown_ids):
+                        invalid_ids = set(claim.citation_ids) - allowed_markdown_ids
+                        if invalid_ids and is_llm_only:
+                            # The primitive run has no canonical source store. If the
+                            # judge invents an S-ID while reading raw model prose, make
+                            # the absence explicit rather than making the entire
+                            # evaluator result unavailable.
+                            claim.citation_ids = []
+                            claim.has_appropriate_citation = False
+                        elif invalid_ids:
                             raise ValueError(
                                 "Completeness judge returned citation IDs absent from the report"
                             )
