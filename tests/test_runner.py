@@ -59,7 +59,11 @@ class FakeReporter:
         )
 
 
-def run_with(search: FakeSearch, analyzer: FakeAnalyzer, max_iterations: int | None = None):
+def run_with(
+    search: FakeSearch,
+    analyzer: FakeAnalyzer,
+    max_iterations: int | None = None,
+):
     kwargs = {} if max_iterations is None else {"max_iterations": max_iterations}
     return ResearchRunner(search, analyzer, FakeReporter(), **kwargs).run("Original question")
 

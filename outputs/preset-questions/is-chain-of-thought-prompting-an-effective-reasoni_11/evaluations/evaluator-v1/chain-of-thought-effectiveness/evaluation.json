@@ -1,0 +1,934 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "baseline-zero",
+  "overall_score": 76.28392857142858,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.6593749999999999,
+    "coverage": 0.6875,
+    "depth": 0.59375,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report defines the intervention broadly as a bundle that can “allocate extra serial computation,” provide “an external scratchpad or task schema,” alter “answer readout,” and induce “a particular output format.”",
+          "The conclusion distinguishes “ordinary prompted CoT” from “process-trained or latent reasoning systems.”"
+        ],
+        "missing": [
+          "It does not explicitly define standard CoT as eliciting intermediate natural-language reasoning before the final answer.",
+          "It does not clearly distinguish CoT from direct answering, answer-format instructions, self-consistency, sampling, tool augmentation, or other inference-time procedures.",
+          "The report discusses latent reasoning and process-trained systems, but not as a systematic comparison of alternative interventions."
+        ],
+        "rationale": "The report gives useful high-level framing, but the central intervention and comparison conditions are not operationally defined in enough detail."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It reports gains over direct or standard few-shot prompting on “arithmetic, symbolic, and some commonsense tasks.”",
+          "It qualifies the effects as concentrated on “difficult, decomposable questions” and potentially “neutral or negative on simpler tasks.”",
+          "It separately discusses code generation, where generic CoT reportedly produced only “slight gains,” and arithmetic versus CommonsenseQA results for latent CoT."
+        ],
+        "missing": [
+          "Knowledge-intensive tasks and genuinely open-ended reasoning are only lightly covered; the evidence is primarily arithmetic, symbolic, commonsense, and code benchmarks.",
+          "The report does not provide concrete comparative effect sizes, uncertainty, or sufficiently detailed task-level results."
+        ],
+        "rationale": "It covers multiple task families and avoids a universal claim, but coverage of knowledge and open-ended reasoning is limited and mostly asserted through source labels."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report identifies task difficulty and decomposability as moderators: gains are concentrated on “difficult, decomposable questions.”",
+          "It discusses distribution similarity and robustness, citing fragility under changes in “task structure, chain length, and surface format.”",
+          "It distinguishes ordinary prompted CoT from “trained reasoning models” and says generic step-by-step instructions offer little incremental benefit for some built-in reasoning models.",
+          "It discusses structured and strategic demonstrations, including “strategic CoT” and structured code representations."
+        ],
+        "missing": [
+          "Model scale or capability is not analyzed systematically; the report refers to model regimes but gives little evidence about scaling thresholds or size effects.",
+          "Prompt demonstrations, delimiters, and baseline prompting behavior are mentioned mainly as confounds or gaps rather than documented moderators with controlled comparisons.",
+          "The report does not consistently distinguish well-supported moderators from speculative explanations."
+        ],
+        "rationale": "The major fault lines are identified, especially task structure, distribution shift, and model regime, but scale, prompt design, and baseline behavior receive incomplete empirical treatment."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The summary explicitly presents a three-way account: “useful intermediate computation can occur; generic additional computation can help; and surface format/readout conventions can independently alter performance.”",
+          "It states that “accuracy and faithfulness are separate properties” and that the visible chain is not reliably the computation producing the answer.",
+          "It discusses terminal-answer effects, compression, latent/nonverbal representations, and the possibility that chains are redundant, post-hoc, or causally used."
+        ],
+        "missing": [
+          "Although the mechanisms are clearly separated conceptually, the report does not give a fully systematic account of which experiments cleanly discriminate semantic reasoning from verbosity or formatting across task types."
+        ],
+        "rationale": "This is one of the strongest sections: it directly addresses reasoning versus formatting and avoids equating improved outcomes with faithful visible reasoning. The remaining limitation is evidential detail rather than conceptual coverage."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report says ordinary CoT changes “surface CoT, latent-state trajectories, and generic serial compute” simultaneously.",
+          "It calls for controls matching “total generated tokens, inference-time compute, demonstrations, delimiters, answer placement, and output format.”",
+          "It discusses token budgets, compression, truncation, and additional computation."
+        ],
+        "missing": [
+          "Sampling and self-consistency or voting are not substantively discussed.",
+          "Calculators, code execution, retrieval, and other external tools are not separated from CoT effects.",
+          "Answer extraction is mentioned indirectly through “readout” and terminal-answer effects but is not treated as a distinct protocol variable.",
+          "There are no actual like-for-like comparisons reported; the report mainly identifies the need for them."
+        ],
+        "rationale": "The report recognizes compute and protocol confounds, but it does not adequately cover the full range of inference-time procedures required by the rubric."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It explicitly separates “accuracy and faithfulness” and states that correct final answers do not establish that the visible chain was followed.",
+          "It cites causal mediation and causal-abstraction studies, including evidence that some models partially realize the causal structure described by their chains.",
+          "It mentions “early answering,” chain truncation, corruption, conflicting-answer controls, and reasoning errors in correct-answer chains."
+        ],
+        "missing": [
+          "The report does not explain the designs, assumptions, or limitations of these faithfulness tests in enough detail to assess their validity.",
+          "Logical validity of traces is discussed only briefly through “reasoning errors”; the distinction between a logically invalid but causally used trace and a valid but causally irrelevant trace could be sharper.",
+          "It does not substantially discuss counterfactual interventions or distribution-shift tests as direct faithfulness tests, beyond brief references."
+        ],
+        "rationale": "It addresses both causal relevance and faithfulness and names appropriate intervention methods, but methodological interpretation is relatively compressed."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report repeatedly qualifies its synthesis, noting that sources “do not form a formal meta-analysis.”",
+          "It states that headline claims are “not directly comparable” and cites differences between explanatory sources and intervention studies.",
+          "It acknowledges unresolved generalization across “model scales, free-response tasks, domains, open versus closed models, and frontier systems.”"
+        ],
+        "missing": [
+          "There is little concrete comparison of model versions or sizes, datasets, baselines, decoding settings, metrics, uncertainty, replication, or effect sizes.",
+          "The source list mixes peer-reviewed papers with blogs, YouTube, Medium, vendor material, Substack, and position pieces, but the report does not systematically assess source quality or explain how weaker sources affect confidence.",
+          "Confidence labels such as “High” are not supported by a transparent evidence inventory or replication analysis.",
+          "Several claims are attributed only to source numbers without enough study details for independent comparability assessment."
+        ],
+        "rationale": "The report recognizes comparability problems and some evidence limitations, but it does not itself perform the detailed evidence-quality assessment required by the rubric."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion directly rejects both extremes: CoT is “neither merely cosmetic nor universally faithful or necessary.”",
+          "It gives a qualified use condition: CoT can help on “difficult, decomposable, in-distribution tasks” and should be treated as “a conditional tool, not a universal reasoning mechanism.”",
+          "It recommends compute- and format-matched controls and causal-use testing.",
+          "It discusses efficiency through “token reductions,” “verbosity,” and “additional computation,” and identifies brittleness and misleading chains as reliability concerns."
+        ],
+        "missing": [
+          "Cost and latency implications are not discussed explicitly enough beyond token usage and inference-time computation.",
+          "The practical guidance is not stratified by application risk, task type, or whether external verification is available.",
+          "The conclusion could more clearly distinguish established empirical findings from hypotheses such as the exact division among semantic computation, generic serial compute, and formatting effects."
+        ],
+        "rationale": "The synthesis answers the question well and provides sensible evaluation guidance, but practical implications for cost, latency, and deployment reliability are only partially developed."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful three-way synthesis separating semantic intermediate computation, generic additional serial computation, and formatting/readout effects.",
+        "It emphasizes that final-answer gains, causal use of traces, faithfulness, and robustness are distinct outcomes.",
+        "It identifies a concrete unresolved experimental ideal: controls matching tokens, compute, demonstrations, delimiters, answer placement, and output format simultaneously."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.8907142857142858,
+    "validity": 1.0,
+    "support": 0.9285714285714286,
+    "completeness": 0.7666666666666667,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S23",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S33",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S19",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S16",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S34",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S38",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S41",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S37",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S15",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S34",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S38",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S41",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S37",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "CoT is an effective accuracy intervention in some regimes, especially difficult tasks requiring sequential or compositional reasoning, but not a universal improvement.",
+        "citation_ids": [
+          "S4",
+          "S9",
+          "S13",
+          "S18",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources collectively support the claim. S4 and S9 report substantial accuracy gains from CoT on complex, multi-step, arithmetic, commonsense, and symbolic reasoning tasks. S9 and S13 specifically connect CoT’s value to sequential or compositional reasoning and task difficulty. S13 states that CoT is often unnecessary for simple questions and may not always help challenging ones, while S18 reports mixed results across benchmarks and no improvement from an additional latent-reasoning iteration. S1 further shows only slight gains from ordinary CoT in code generation, indicating that improvement is not universal.",
+        "supporting_text": "S9: CoT “dramatically improved performance” on arithmetic, commonsense, and symbolic-manipulation tasks and addresses “sequential reasoning.” S13: CoT is “often unnecessary for simple questions”; for challenging questions it is more likely to alter the initial choice, “though not always positively.” S18: verbalized/latent CoT improved some benchmarks but reduced CommonsenseQA accuracy; S1 says CoT brought only “slight improvements” in code generation."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The visible chain is not a reliable proxy for the computation that produced the answer. Accuracy and faithfulness are separate properties.",
+        "citation_ids": [
+          "S23",
+          "S33",
+          "S6",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The cited sources collectively support both parts of the claim. S23 and S33 explain that a generated chain may be plausible yet not causally determine the final answer, while S6 reports that corruption sensitivity can track explicit answer text rather than computation. S13 directly distinguishes final-answer correctness from reasoning correctness, reporting that many correct answers contain erroneous reasoning.",
+        "supporting_text": "S33: “there is no guarantee that the LLM is using its generated CoT tokens to work out its answer.” S13: “many responses, although correct in their final answer, contain errors in their reasoning process.” S6: “Sensitivity follows the answer text, not the computation.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Answer placement and output format are major confounds, particularly in studies that infer reasoning from chain corruption.",
+        "citation_ids": [
+          "S6",
+          "S3",
+          "S5"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S6 directly identifies answer placement and chain format as a systematic confound in corruption studies, showing that sensitivity can track explicit answer text rather than computation. S3 and S5 independently support the broader point that formatting can substantially change model performance, though they do not specifically examine chain-corruption studies. Together, the sources support the claim, with the strongest evidence coming from S6.",
+        "supporting_text": "S6: “We identify a systematic confound” in which corruption studies detect “where the answer text appears, not where computation occurs”; it also reports that models follow explicit terminal answers over intermediate reasoning. S3: small formatting changes reportedly shift performance from 3% to over 80%. S5: semantically identical instructions produced large performance differences across formats."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Many apparent CoT gains reflect a mixture of intermediate computation, additional serial compute, and learned schemas rather than natural-language wording alone.",
+        "citation_ids": [
+          "S19",
+          "S20",
+          "S16",
+          "S18",
+          "S34",
+          "S38",
+          "S41"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The snapshots strongly support that CoT effects cannot be attributed to natural-language wording alone: S19/S20 explicitly distinguish surface traces, latent-state trajectories, and generic serial compute, and note that CoT changes visible traces and compute allocation simultaneously. S16 and S18 provide examples of non-verbal or latent intermediate representations retaining or improving performance, while S34/S38 and S41 document extra token computation, token overhead, and concise reasoning. However, the cited material does not meaningfully establish the specific role of “learned schemas,” nor does it demonstrate that many apparent gains quantitatively reflect all three factors as a mixture. Thus, the broader decomposition is supported, but the claim’s learned-schema and “many gains” components are not fully supported.",
+        "supporting_text": "S19/S20: CoT prompting changes both visible traces and compute allocation; the sources distinguish surface CoT, latent-state dynamics, and generic serial compute. S16: Abstract-CoT uses a learned abstract reasoning language and matches verbalized-CoT performance with far fewer tokens. S18: latent vectors can provide performance uplift over a matched direct-answer mode. S41: CoT effectiveness is attributed to additional computation from intermediate tokens, whose number also drives inference cost."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Representation quality matters: structured, strategic, executable, or causally selected intermediate steps can outperform generic verbal CoT.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S10",
+          "S37"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The supplied sources collectively support the claim’s important components. S1 reports that structured CoT outperforms ordinary CoT by up to 13.79% in Pass@1. S2 reports that eliciting strategy before generating CoT improves results, including gains on GSM8K and Tracking_Objects. S10 describes executable symbolic reasoning chains and reports that Faithful CoT outperforms vanilla CoT on 9 of 10 datasets. S37 reports that causally sufficient and necessary step selection reduces redundancy and token use while maintaining or improving accuracy. Although the methods and task domains differ, together they directly support the broader claim that intermediate-step representation and selection quality can matter relative to generic verbal CoT.",
+        "supporting_text": "S1: “SCoT prompting outperforms CoT prompting by up to 13.79% in Pass@1.” S2: SCoT first elicits an effective problem-solving strategy to guide high-quality CoT paths and reports substantial accuracy improvements. S10: Faithful CoT “outperforms vanilla CoT on 9 out of the 10 datasets,” using chains executed by a deterministic solver. S37: causal sufficiency/necessity selection “significantly reduces reasoning redundancy while maintaining or improving prediction accuracy.”"
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Task distribution and model regime explain much of the disagreement. Ordinary prompted CoT, trained reasoning models, and latent-reasoning systems are different interventions.",
+        "citation_ids": [
+          "S11",
+          "S8",
+          "S14",
+          "S27",
+          "S18"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources collectively support both parts of the claim. S11 reports that CoT performance depends strongly on task and distribution shift. S8 finds that CoT effects vary by model type and task, distinguishing non-reasoning from built-in reasoning models. S14 and S27 describe trained reasoning models as a distinct intervention from standard prompted CoT, involving training and additional inference-time thinking. S18 explicitly distinguishes natural-language CoT from latent reasoning in vector space and evaluates it as a separate framework.",
+        "supporting_text": "S11: CoT is dissected across task, length, and format, and becomes fragile under distribution shifts. S8: CoT effectiveness varies significantly by model type and task; reasoning models receive only minimal benefits from generic CoT prompts. S27: o1 was trained through reinforcement learning to perform CoT automatically, unlike merely prompting an LLM to think in steps. S18: latent reasoning generates the reasoning process in the model’s latent space rather than as natural-language tokens."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Additional computation can help, but more tokens or verbosity are not automatically better.",
+        "citation_ids": [
+          "S15",
+          "S34",
+          "S38",
+          "S41",
+          "S37"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources support both parts of the claim. S15 states that increasing inference-time computation can improve reasoning, while also describing uncontrolled, extended reasoning chains and presenting methods that achieve concise, efficient reasoning under constrained budgets. S34 and S38 report that CoT adds token overhead, that token-budget choice matters, and that reasonable budgets can reduce tokens while largely preserving accuracy; overly small budgets can even lead to greater actual usage. S41 identifies redundant tokens and reports that concise reasoning can reduce output length while maintaining accuracy. S37 similarly distinguishes necessary from unnecessary steps and reports that pruning redundancy reduces token usage without sacrificing accuracy.",
+        "supporting_text": "S15: “Increasing computation during inference ... has been shown to improve the reasoning capabilities of LLMs,” but the paper also targets “controllable reasoning” and more concise outputs. S34/S38: a reasonable token budget reduced output from 258 to 86 tokens while retaining the correct answer, whereas a smaller budget produced 157 tokens; the choice of budget is crucial. S41: reasoning traces contain “many redundant tokens,” and its method reduced output tokens by 30% while maintaining average accuracy. S37: unnecessary steps can reduce efficiency or hinder performance, while pruning redundant steps reduces token usage without sacrificing accuracy."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "CoT improves accuracy on some difficult, decomposable, sequential, or compositional tasks, but is not a universal improvement and can be neutral or negative on simpler tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S9",
+          "S13",
+          "S18"
+        ],
+        "rationale": "This is an empirical claim about comparative task performance, and the Finding 1 evidence supplies nearby citations."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Generic CoT produces only slight gains in at least one cited real-world code-generation benchmark, motivating structured alternatives.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "The claim reports a benchmark result and is directly cited in the accompanying evidence."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "The visible chain of thought is not a reliable proxy for the computation that produced the answer, and accuracy does not establish faithfulness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S23",
+          "S33",
+          "S6",
+          "S13"
+        ],
+        "rationale": "This is a substantive claim about causal use and faithfulness, with multiple nearby citations."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Causal mediation studies report weak or inconsistent use of generated chains by vanilla language models despite sometimes improved final accuracy; instruction tuning or CoT-related training can improve mediation without making it uniform.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S23"
+        ],
+        "rationale": "This is a detailed empirical characterization and is cited in the evidence for Finding 2."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Some models partially realize the causal structure described by their chains in arithmetic tasks, while other internal processes may also contribute.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S33"
+        ],
+        "rationale": "The claim concerns results of a causal-abstraction study and has a nearby citation."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Models sometimes answer early, produce reasoning errors despite a correct final answer, or retain an answer after chain truncation or corruption.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S13"
+        ],
+        "rationale": "These are specific behavioral findings and are directly cited."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Answer placement and output format can substantially affect measured CoT performance and can confound inferences from chain-corruption studies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S3",
+          "S5"
+        ],
+        "rationale": "This is an empirical format-sensitivity claim with nearby supporting citations."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Models often follow an explicit terminal answer even when intermediate reasoning supports another answer, and removing only the terminal answer statement sharply reduces positional sensitivity across model families and datasets.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "The claim reports specific results of the format-ablation study and is directly cited."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Semantically equivalent changes in separators, spacing, connectors, and layout can produce very large performance changes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S5"
+        ],
+        "rationale": "This is a substantive formatting-effect claim and has nearby citations, although the report itself notes that the evidence is partly secondary."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Apparent CoT gains can reflect a mixture of intermediate computation, additional serial computation, and learned task schemas rather than natural-language wording alone.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19",
+          "S20",
+          "S16",
+          "S18",
+          "S34",
+          "S38",
+          "S41"
+        ],
+        "rationale": "This is a central explanatory claim supported by citations in Finding 4."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Nonverbal intermediate representations can preserve or improve performance in at least some trained systems, so human-readable verbalization is not always necessary.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S16",
+          "S18"
+        ],
+        "rationale": "The claim concerns comparative performance of latent or abstract reasoning systems and is cited nearby."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Large portions of generated chains can sometimes be compressed while retaining most accuracy, indicating that raw verbosity is not itself essential.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S34",
+          "S38",
+          "S41"
+        ],
+        "rationale": "This is an empirical token-budget claim with nearby citations."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Structured CoT for code, strategic CoT, symbolic representations, deterministic execution, and causal step-selection methods can outperform or improve on generic verbal CoT in reported comparisons.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S10",
+          "S37"
+        ],
+        "rationale": "The claim summarizes reported method comparisons and is supported by the Finding 5 citations."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "CoT is more fragile under distribution shifts involving task structure, chain length, and surface format, and performs better near the training distribution.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11"
+        ],
+        "rationale": "This is a distribution-shift result and has a nearby citation."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Built-in reasoning models may receive little incremental benefit from a generic step-by-step instruction, whereas trained reasoning models use extended inference-time computation and distinct training procedures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S14",
+          "S27"
+        ],
+        "rationale": "The claim compares model regimes and is directly supported by citations in Finding 6."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "A latent-CoT model improves arithmetic performance over a shared-weight direct-answer mode but slightly worsens CommonsenseQA.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S18"
+        ],
+        "rationale": "This is a specific comparative result and is cited nearby."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Additional computation can improve robustness or performance, but token reductions and concise reasoning can preserve much of the accuracy, so more tokens or verbosity are not automatically better.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S15",
+          "S34",
+          "S38",
+          "S41"
+        ],
+        "rationale": "This combines empirical claims about budget sensitivity and redundancy, with citations in Finding 7."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Simply truncating or overconstraining a chain can fail, distinguishing redundant exposition from useful computation and structured solution segments.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S15",
+          "S37",
+          "S38"
+        ],
+        "rationale": "This is a behavioral and intervention claim with nearby citations."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The literature contains apparently conflicting findings: classic CoT work reports reasoning gains, while faithfulness and distribution-shift studies report unfaithful or brittle chains.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S9",
+          "S11",
+          "S23"
+        ],
+        "rationale": "This is a literature-synthesis claim and the conflict paragraph supplies citations."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Causal-abstraction evidence and early-answering or answer-suffix studies can be reconciled by heterogeneity across models, tasks, examples, and interventions rather than a universal yes/no result.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S33",
+          "S6",
+          "S13",
+          "S23"
+        ],
+        "rationale": "The proposed reconciliation is an evidence-based synthesis with nearby citations."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Latent and abstract CoT findings show that natural-language chains are not necessary for useful intermediate computation, but do not show that verbal CoT is never causally useful.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S16",
+          "S18",
+          "S19",
+          "S20"
+        ],
+        "rationale": "Both parts are substantive interpretations of cited research and have nearby citations."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Compression studies and extended-reasoning studies distinguish verbose narration from useful, appropriately allocated computation, but the sources do not quantify the boundary between them.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S15",
+          "S34",
+          "S38",
+          "S41"
+        ],
+        "rationale": "The empirical contrast is cited; the limitation is a claim about what the supplied sources establish."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The latent-trajectory position paper treats hidden-state dynamics as a working hypothesis rather than a task-independent verdict.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S19",
+          "S20"
+        ],
+        "rationale": "This characterizes a source's stated position and is explicitly cited nearby."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "No supplied study simultaneously matches total generated tokens, inference-time compute, demonstrations, delimiters, answer placement, and output format while comparing ordinary verbal CoT with direct-answer or nonverbal-scratchpad controls.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a scoped assessment of the supplied literature rather than an externally verifiable substantive finding; the report provides no citation."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The proportions of CoT gains attributable to semantic intermediate content, generic serial computation, learned schemas, and terminal-answer or readout conventions remain unknown.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive literature-gap claim, but no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "It remains unclear whether structured, executable, concise, or latent methods improve out-of-distribution reasoning and calibration rather than mainly benchmark accuracy and efficiency.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about unresolved empirical evidence and lacks a nearby citation."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "The generality of causal-abstraction and mediation findings across model scales, domains, task formats, and frontier systems remains unresolved.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive generalizability claim with no citation attached."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "It remains uncertain whether latent-reasoning findings from specialized post-trained models transfer to ordinary pretrained or instruction-tuned models using prompted verbal CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally assessable transfer claim and no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "Chain-of-thought prompting is a bundle of interventions that can allocate extra serial computation, provide an external scratchpad or task schema, alter answer readout, and induce a particular output format.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the report's central explanatory claim, but the conclusion itself has no nearby citation."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "On difficult, decomposable, in-distribution tasks and in models capable of using intermediate representations, CoT can improve problem solving.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical conclusion that should be cited in the conclusion, even though related evidence appears earlier."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "Visible chains can be redundant or unfaithful, can be unnecessary when the answer is already selected, and can become misleading under distribution shift or answer-conditioned generation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This combines several substantive behavioral claims, but the conclusion supplies no nearby citations."
+      },
+      {
+        "claim_id": "Q32",
+        "claim": "Verbal CoT should be evaluated against format- and compute-matched controls, with causal-use tests distinguishing ordinary prompted CoT from process-trained or latent-reasoning systems.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a methodological recommendation rather than a factual claim requiring external verification."
+      }
+    ],
+    "evaluable_support_claims": 7,
+    "total_support_claims": 7,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+    "R7: Evaluate the evidential strength and comparability of the cited literature, including model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, replication, and source quality.",
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.",
+    "1 cited finding(s) were not fully supported by saved evidence.",
+    "7 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "0f1c059fd0608a44f4bfb8161665e7d23e98652304bf5b2612594a1513601a97",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T09:19:18.485788+00:00",
+    "usage": {
+      "llm_calls": 9,
+      "input_tokens": 77821,
+      "output_tokens": 6641,
+      "estimated_cost": null
+    }
+  }
+}

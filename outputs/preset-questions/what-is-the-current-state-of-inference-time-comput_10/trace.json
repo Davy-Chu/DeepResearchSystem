@@ -1,0 +1,1149 @@
+{
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "baseline-zero",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 10,
+  "stop_reason": "sufficient_evidence",
+  "final_report": {
+    "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+    "summary": "The accumulated evidence supports a cautious but clear conclusion: adding computation at inference time can improve LLM reasoning performance, particularly through multiple candidate solutions, verification, search, and multi-agent pipelines. However, the gains are conditional on the task, model, method, budget, candidate diversity, and verifier quality. The evidence does not establish a universal accuracy-versus-compute scaling law or a universally compute-optimal method. Matched-budget results are encouraging for multi-agent methods, while self-consistency remains a strong lower-budget baseline. Verification quality, complete cost accounting, cross-domain transfer, and independent replication remain central limitations.",
+    "findings": [
+      {
+        "claim": "Additional inference-time compute has been empirically validated as useful for some LLM reasoning tasks, but its benefits are not universal.",
+        "evidence": [
+          {
+            "summary": "Sys2Bench evaluated four inference-time techniques across eleven datasets, seven LLMs, and five task categories, finding that no single technique consistently performs well across all reasoning and planning tasks.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "A comparative study likewise reports that strategy performance varies across arithmetic, compositional, and object-counting tasks, with no uniformly dominant method.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "A matched-budget study found substantial gains over chain-of-thought in selected configurations, but only across MMLU-Pro and BBH.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Multiple studies using different evaluation scopes converge on conditional usefulness and rule out a universally reliable method."
+      },
+      {
+        "claim": "Self-consistency and majority voting are well-supported practical baselines, especially at lower or moderate inference budgets.",
+        "evidence": [
+          {
+            "summary": "The comparative study reports reliable, compute-efficient improvements from majority voting when answer diversity is sufficient.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Compute-matched experiments find self-consistency outperforming generative verification at lower budgets; GenRM surpasses it only after substantially more compute in the reported mathematical settings.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "Other results indicate that self-consistency can saturate earlier than interactive multi-agent methods, so its relative advantage depends on budget and task.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The baseline is supported across several sources, but exact frontiers depend on benchmark, model, and cost-accounting protocol."
+      },
+      {
+        "claim": "Matched-budget evidence supports multi-agent methods, particularly mixture-of-agents and debate, as potentially more compute-efficient than self-consistency in selected settings.",
+        "evidence": [
+          {
+            "summary": "A study of 34 configurations across MMLU-Pro and BBH reports that debate and mixture-of-agents outperform self-consistency by 1.3 and 2.7 percentage points, respectively, at comparable budgets.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          },
+          {
+            "summary": "On MMLU-Pro with a 70B model, the study reports 71.4% accuracy for mixture-of-agents at up to 20 times the chain-of-thought budget, compared with 68.7% for self-consistency and 70.0% for debate.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The comparisons are explicitly budget-matched and include multiple configurations and model sizes, but the evidence comes from one study and two benchmarks, with overlapping source versions."
+      },
+      {
+        "claim": "The optimal allocation of inference compute between candidate generation and verification is nontrivial and budget-dependent.",
+        "evidence": [
+          {
+            "summary": "S6 identifies a coverage–precision trade-off: too few generated solutions reduce the chance of finding a correct candidate, while too little verification makes selection unreliable. Its experiments favor scaling solution generation more aggressively than verification in the tested settings.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "S6 reports that self-consistency is more efficient at lower budgets, while GenRM becomes advantageous only at substantially higher budgets.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "Verifier choice, aggregation method, and candidate diversity materially affect outcomes.",
+            "source_ids": [
+              "S1",
+              "S4",
+              "S8"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The trade-off is directly examined in compute-matched experiments and is reinforced by independent evidence on verifier behavior."
+      },
+      {
+        "claim": "Verifier reliability is a major bottleneck for inference-time scaling.",
+        "evidence": [
+          {
+            "summary": "VerifyBench evaluates about 4,000 expert-level questions across mathematics, physics, chemistry, and biology and finds precision–recall trade-offs between specialized and general-purpose verifiers.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The benchmark reports sensitivity to input format, response length, and domain, along with limited cross-domain generalization and false-positive risks.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "Other studies report that verifier choice and aggregation substantially affect performance, and that looser semantic verification can improve acceptance while risking accuracy loss.",
+            "source_ids": [
+              "S1",
+              "S4"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "A systematic cross-domain benchmark and several method-specific studies converge on verifier limitations."
+      },
+      {
+        "claim": "Task difficulty appears to affect the return on inference-time compute, with larger gains reported on harder tasks in at least one matched-budget study.",
+        "evidence": [
+          {
+            "summary": "S12/S13 report approximately +8.5 to +9 percentage-point gains on medium and hard MMLU-Pro tasks at 15–20 times the chain-of-thought budget, versus about +2.2 points on easy tasks.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          },
+          {
+            "summary": "The authors propose adaptive allocation that assigns more inference compute to harder examples.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The pattern is directly reported but is concentrated on MMLU-Pro and has not been shown to transfer broadly across domains."
+      },
+      {
+        "claim": "Step-level speculative decoding is a promising efficiency technique, but its quality and scalability are not yet field-wide validated.",
+        "evidence": [
+          {
+            "summary": "LOOKAHEAD REASONING reports that combining step-level and token-level speculation raises reported peak speedup from 1.4× to 2.1× while preserving answer quality on selected GSM8K, AIME, and other benchmarks.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "The method relies on semantic verification of proposed reasoning steps and acknowledges a trade-off between acceptance rate and accuracy.",
+            "source_ids": [
+              "S1"
+            ]
+          }
+        ],
+        "confidence": "LOW",
+        "confidence_reason": "The evidence comes from one paper and selected experiments; independent replication, broader model coverage, long-context behavior, and realistic serving costs are not established."
+      },
+      {
+        "claim": "Cross-model consensus is a promising verification signal, but its benefits and ceiling are domain-dependent.",
+        "evidence": [
+          {
+            "summary": "S7 reports that an independently trained multi-model jury selected correct answers better than self-consistency and a single model scoring its own candidates across seven benchmarks, matching strong trained verifiers in one math setting and performing best in a reported out-of-domain science setting.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "The same study reports a predictive consensus law with mean absolute error 0.03 and identifies a shared-error floor that is near zero on tested math tasks but nontrivial on science.",
+            "source_ids": [
+              "S7"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The study provides broad experiments and quantitative analysis, but does not establish general superiority under equal total FLOPs, latency, or serving cost."
+      },
+      {
+        "claim": "Evidence for multimodal inference-time scaling is positive but preliminary and does not directly establish language-only scaling laws.",
+        "evidence": [
+          {
+            "summary": "A study across ten multimodal datasets reports better average performance and higher upper bounds for multimodal thought than text-only thought when using sampling and tree-search methods.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "It also reports higher token consumption and strong dependence of tree search on verifier performance.",
+            "source_ids": [
+              "S9"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The results span multiple tasks but are preliminary and lack normalized end-to-end cost comparisons."
+      },
+      {
+        "claim": "A universal, predictable accuracy-versus-compute scaling law and a universally optimal inference-time method remain speculative.",
+        "evidence": [
+          {
+            "summary": "The survey describes scaling-law-like improvements but lists mechanism clarification, broader generalization, and further scaling as open challenges.",
+            "source_ids": [
+              "S14"
+            ]
+          },
+          {
+            "summary": "Sys2Bench finds no technique that consistently performs well across all eleven datasets, seven models, and five task categories.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "Matched-budget multi-agent results are restricted to two benchmarks and do not resolve cross-domain generality.",
+            "source_ids": [
+              "S12",
+              "S13"
+            ]
+          },
+          {
+            "summary": "A blog presents inference-time compute as suggestive of a new scaling law but notes that the mechanisms of prominent closed reasoning systems are not fully known.",
+            "source_ids": [
+              "S3"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Positive local trends are well documented, but the supplied evidence lacks broad, controlled, independently replicated curves across methods, tasks, models, budgets, and total costs."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Some studies report multi-agent methods outperforming self-consistency under matched budgets, while other studies find self-consistency especially reliable or efficient. The difference is plausibly due to task, budget, interaction protocol, model heterogeneity, and cost accounting rather than a direct contradiction.",
+        "source_ids": [
+          "S4",
+          "S6",
+          "S12",
+          "S13"
+        ]
+      },
+      {
+        "description": "Generative verification can eventually outperform self-consistency at high budgets, but self-consistency is stronger at lower budgets in the reported experiments. This indicates budget-dependent frontiers rather than a settled ranking.",
+        "source_ids": [
+          "S6",
+          "S12",
+          "S13"
+        ]
+      },
+      {
+        "description": "Cross-model consensus is reported as a strong selector, but its comparisons may use different candidate pools and compute accounting from self-consistency or trained verifiers. General compute-optimal superiority is therefore unresolved.",
+        "source_ids": [
+          "S7",
+          "S6",
+          "S4"
+        ]
+      },
+      {
+        "description": "LOOKAHEAD reports near-preserved quality alongside speed improvements, but semantic verification itself can trade accuracy for acceptance. The reported quality preservation should be treated as conditional on the tested verifier and setup.",
+        "source_ids": [
+          "S1"
+        ]
+      },
+      {
+        "description": "The claim that larger models can be more compute-efficient than smaller models with heavily scaled inference is reported, but the crossover point and generality are not established.",
+        "source_ids": [
+          "S12",
+          "S13"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "Complete accuracy-versus-total-FLOP and wall-clock curves comparing self-consistency, GenRM/Best-of-N, PRMs, search, debate, mixture-of-agents, refinement, and cross-model consensus.",
+      "Independent replication of multi-agent Pareto results beyond MMLU-Pro and BBH, including mathematics, code, science, planning, difficult proofs, and contamination-resistant benchmarks.",
+      "End-to-end accounting for verifier computation, communication, memory-transfer costs, batching, and latency under realistic multi-user serving.",
+      "Quantification of how much multi-agent gains arise from independent sampling versus interaction, aggregation, or heterogeneous model capabilities.",
+      "Transfer tests for compute-allocation rules, verifier behavior, and scaling trends on out-of-distribution tasks.",
+      "Direct evidence about closed reasoning systems such as o1 or o3, whose internal inference procedures and budgets are undisclosed in the supplied sources.",
+      "Robust validation of step-level speculative decoding across models, long contexts, difficult reasoning tasks, and realistic deployment workloads."
+    ],
+    "conclusion": "Inference-time compute scaling is empirically real but conditional. The most defensible current view is that additional sampling, verification, search, and multi-agent computation can improve reasoning accuracy, with matched-budget evidence suggesting that interactive multi-agent methods may be especially efficient in selected settings. Self-consistency remains a strong and often efficient baseline, particularly at lower budgets. The main limiting factor is increasingly selection and verification quality, not merely the availability of more candidate reasoning traces. What has not been established is a universal accuracy-versus-compute law, a single compute-optimal strategy, or reliable transfer of current heuristics across domains, models, and deployment cost regimes. Evidence for newer directions such as step-level speculative decoding, cross-model consensus, and multimodal scaling is promising but too narrow to support broad claims."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The supplied evidence supports a cautious conclusion that inference-time compute can improve reasoning in selected settings, while revealing strong dependence on task, diversity, verifier quality, and efficiency constraints. However, it does not provide sufficiently detailed or independent quantitative scaling curves to characterize the current state across models and budgets, nor enough evidence to validate the proposed general scaling law or newer speculative methods.",
+      "next_search_query": "LLM inference-time compute scaling laws accuracy versus compute self-consistency verifier search cross-model benchmark 2024 2025",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is empirically useful for some reasoning tasks, but its benefits are task-, model-, and method-dependent rather than universal.",
+          "evidence": [
+            {
+              "summary": "Sys2Bench evaluates four inference-time techniques across eleven datasets, seven LLMs, and five task categories, and reports that no single technique consistently performs well across all reasoning and planning tasks.",
+              "source_ids": [
+                "S5"
+              ]
+            },
+            {
+              "summary": "A comparative thesis reports that PRM-guided selection, heterogeneous multi-agent debate, majority voting, and beam search perform differently across arithmetic, compositional, and object-counting tasks; no strategy dominates uniformly.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "Two sources converge on heterogeneous, task-dependent outcomes, but one is a 2026 thesis and the retrieved material does not provide detailed experimental tables or independent replication."
+        },
+        {
+          "claim": "Sampling multiple reasoning trajectories and aggregating or verifying them is one of the better-supported forms of inference-time scaling, especially when candidate answers are sufficiently diverse and verification is reliable.",
+          "evidence": [
+            {
+              "summary": "The comparative thesis reports that majority voting gives reliable, compute-efficient improvements across most tested settings when answer diversity is sufficient.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "The literature overview describes self-consistency as aggregating multiple responses through voting, and distinguishes proposer-based generation from verifier-based selection as a general framework for test-time computation.",
+              "source_ids": [
+                "S3"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The evidence supports usefulness in tested settings, but the retrieved content does not quantify scaling curves, compare against equal-cost baselines in detail, or establish broad generalization."
+        },
+        {
+          "claim": "Verifier quality and aggregation design are central bottlenecks: additional inference compute does not guarantee improvement if the verifier selects incorrectly or if candidate outputs are insufficiently diverse.",
+          "evidence": [
+            {
+              "summary": "The thesis states that verifier choice and aggregation method substantially affect PRM performance, with last-step aggregation particularly important; it also reports heterogeneous debate outperforming self-debate in its experiments.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "The overview frames test-time scaling as a proposer–verifier problem and notes that self-critique and iterative refinement can help, but only under certain model conditions.",
+              "source_ids": [
+                "S3"
+              ]
+            },
+            {
+              "summary": "LOOKAHEAD REASONING explicitly notes that a looser semantic verifier can increase draft acceptance while risking accuracy loss from erroneous steps, and uses a 7B LLM judge as a practical compromise.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "Multiple sources identify verifier reliability as consequential, but the retrieved evidence does not isolate verifier error rates or establish which verifier designs are robust across domains."
+        },
+        {
+          "claim": "Longer reasoning traces and additional FLOPs are not an unlimited or automatically efficient scaling axis; token-level speculative decoding encounters diminishing returns as draft length grows.",
+          "evidence": [
+            {
+              "summary": "The LOOKAHEAD paper argues that the probability of accepting an entire longer token draft falls rapidly, while verification cost grows linearly, producing a speedup plateau or decline.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "In its reported experiments, token-level speculative decoding reached about 1.4× speedup, while combining it with step-level speculation increased peak speedup to about 2.1× while preserving reported answer quality on GSM8K, AIME, and other benchmarks.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The source provides both a mechanism and reported benchmark results, but it is a single paper, the material does not show broad independent replication, and speedup is not the same as improved reasoning accuracy."
+        },
+        {
+          "claim": "Hierarchical, step-level speculative decoding is promising as an inference-efficiency technique, but its scalability and quality preservation remain provisional rather than established field-wide conclusions.",
+          "evidence": [
+            {
+              "summary": "LOOKAHEAD REASONING proposes drafting several future reasoning steps, batching target-model expansions, and semantically verifying steps; it reports improved speedup and typically no more than 2% accuracy deviation in a specific replacement experiment involving DeepSeek-R1 32B.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "The paper claims that additional compute can be used to draft more or deeper steps, avoiding the token-level speculative-decoding ceiling.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The evidence is limited to one retrieved paper and selected experiments; semantic-equivalence verification, model compatibility, latency under realistic serving loads, and behavior on tasks beyond those tested are not independently validated."
+        },
+        {
+          "claim": "A broad 'new inference-time scaling law'—for example, a predictable, generally applicable accuracy-versus-compute law—remains speculative on the supplied evidence.",
+          "evidence": [
+            {
+              "summary": "The blog characterizes inference-time compute as appearing to produce a new scaling law and cites impressive closed-model results, but explicitly says the mechanisms of models such as o1 and o3 are not fully clear.",
+              "source_ids": [
+                "S3"
+              ]
+            },
+            {
+              "summary": "The multi-task benchmark instead concludes that simply scaling inference-time computation has limitations and that no single technique consistently wins across tasks.",
+              "source_ids": [
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The sources directly distinguish promising performance observations from the absence of a universal method or established law; the available evidence does not include controlled, cross-model scaling-law analysis."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The blog presents inference-time compute as a likely new scaling law and emphasizes broad performance gains, whereas Sys2Bench reports that simply scaling inference-time computation has important limitations and no universally effective technique. This is a conditional disagreement: gains may occur on particular reasoning tasks or with suitable methods, but do not establish universal scaling.",
+          "source_ids": [
+            "S3",
+            "S5"
+          ]
+        },
+        {
+          "description": "LOOKAHEAD reports preserved answer quality and improved speed, while also acknowledging that semantic verification can trade accuracy for acceptance. Thus the reported quality preservation is conditional on the verifier and experimental setup, not evidence that speculative scaling is inherently lossless.",
+          "source_ids": [
+            "S1"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What are the quantitative accuracy-versus-compute curves for major inference-time strategies across model sizes, task types, and substantially larger budgets?",
+        "How often do gains from majority voting, PRM selection, debate, search, or refinement persist on contamination-resistant and out-of-distribution reasoning tasks?",
+        "What verifier accuracy, calibration, and aggregation rules are required for reliable scaling, and how do verifier costs change the total compute-optimal frontier?",
+        "Do results from public models and benchmarks transfer to closed reasoning systems such as o1/o3, whose inference procedures are not disclosed in the supplied sources?",
+        "Does step-level speculative decoding maintain quality and speed advantages under diverse models, long contexts, difficult proofs, and realistic multi-user serving workloads?"
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "LLM inference-time compute scaling laws accuracy versus compute self-consistency verifier search cross-model benchmark 2024 2025",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The new sources materially strengthen the evidence for compute-matched trade-offs and verifier bottlenecks, but the central field-wide question—whether there is a robust accuracy-versus-compute law across domains and methods—remains unanswered. The most valuable next search is for independent, compute-normalized cross-method evaluations rather than additional proposals.",
+      "next_search_query": "independent compute-matched benchmark inference-time scaling self-consistency verifier search debate LLM reasoning accuracy FLOPs across tasks",
+      "findings": [
+        {
+          "claim": "Under fixed inference budgets, scaling solution generation through self-consistency can be more compute-efficient than spending comparable compute on generative verification at practical budgets; verification may become advantageous only at much larger budgets.",
+          "evidence": [
+            {
+              "summary": "S6 reports compute-matched experiments in which self-consistency outperforms GenRM at lower budgets. GenRM first surpasses self-consistency only after approximately 8× the compute and needs roughly 128× additional compute to obtain a reported 3.8% gain over self-consistency.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "S6 reports this pattern across Llama and Qwen families, 7B and 70B models, a thinking model, and several math reasoning tasks, rather than in a single model configuration.",
+              "source_ids": [
+                "S6"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S6 directly addresses compute-matched comparisons and reports breadth across models and tasks, but the supplied excerpt is concentrated on mathematical reasoning and does not establish a universal budget frontier."
+        },
+        {
+          "claim": "The compute-optimal allocation between generating candidate solutions and verifying them is nontrivial, but the available evidence favors scaling candidate generation more aggressively than the number of verification chains in the GenRM setting.",
+          "evidence": [
+            {
+              "summary": "S6 identifies a coverage–precision trade-off: too few solutions reduce the chance of generating a correct candidate, while too few verifications make correct-candidate identification unreliable. It derives GenRM inference-scaling laws and reports that compute-optimal inference scales solution generation more aggressively than verification.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "Prior findings identify verifier quality, aggregation, and candidate diversity as major determinants of whether extra inference compute helps.",
+              "source_ids": [
+                "S3",
+                "S4",
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The mechanism and compute-matched result are directly reported by S6, but the generality of its fitted scaling laws beyond the evaluated models, budgets, and math tasks remains uncertain."
+        },
+        {
+          "claim": "Verification remains a central bottleneck, and current verifiers have measurable accuracy–recall and generalization trade-offs across domains and input formats.",
+          "evidence": [
+            {
+              "summary": "VerifyBench evaluates about 4,000 expert-level questions across mathematics, physics, chemistry, and biology. It reports that specialized verifiers can achieve leading accuracy but have recall deficiencies, while general LLM verifiers are more inclusive but have unstable accuracy and higher false-positive risk.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "S8 reports strong sensitivity to whether the verifier receives an extracted answer or a complete response, to output length, and to the evaluation domain; it characterizes cross-domain generalization as limited.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "Earlier evidence similarly reports that verifier choice and aggregation substantially affect results and that semantic verification can trade increased acceptance against accuracy loss.",
+              "source_ids": [
+                "S4",
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "S8 supplies a systematic, multidisciplinary benchmark with human annotations, and its conclusions align with several earlier sources. The evidence supports verifier limitations, though not a single universally best verifier."
+        },
+        {
+          "claim": "Cross-model consensus is a promising alternative verification signal, especially when model errors are decorrelated, but it has a domain-dependent shared-error ceiling.",
+          "evidence": [
+            {
+              "summary": "S7 reports that an independently trained multi-model jury selected correct answers better than self-consistency and substantially better than a single model scoring its own candidates across seven benchmarks; it matched the strongest trained verifiers on an in-domain math benchmark and was strongest on an out-of-domain science benchmark in the reported comparisons.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S7 reports a parameter-free law predicting consensus accuracy from panel statistics with mean absolute error 0.03, and identifies a shared-error floor that is near zero on the tested math tasks but nontrivial on science.",
+              "source_ids": [
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The source reports broad experiments and a quantitative predictive model, but it is one study and the supplied material does not establish whether its panel-cost trade-offs beat self-consistency under equal total FLOPs in general."
+        },
+        {
+          "claim": "Inference-time scaling has some empirical support beyond text-only reasoning, including multimodal reasoning, but multimodal results are preliminary and incur additional token costs.",
+          "evidence": [
+            {
+              "summary": "S9 studies sampling- and tree-search-based scaling across 10 multimodal datasets and reports that multimodal thought achieves better average performance and higher upper bounds than text-only thought in its experiments.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S9 reports higher token consumption for multimodal thought and states that tree-search success depends heavily on verifier performance, motivating better multimodal verifiers.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S9 is a systematic preliminary study over multiple tasks, but it concerns multimodal models and does not directly establish language-only scaling laws or compute-optimality under normalized FLOP and latency budgets."
+        },
+        {
+          "claim": "The empirically validated conclusion is conditional usefulness of extra inference computation—not a universal, predictable accuracy-versus-compute scaling law for LLM reasoning.",
+          "evidence": [
+            {
+              "summary": "S5 finds no single inference-time technique consistently performs well across eleven datasets, seven LLMs, and five task categories; S4 likewise reports no uniformly dominant strategy.",
+              "source_ids": [
+                "S5",
+                "S4"
+              ]
+            },
+            {
+              "summary": "S6 demonstrates that even the relative advantage of solution sampling versus generative verification changes with the available compute budget.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "S3 presents a possible new scaling-law perspective but acknowledges that the mechanisms of prominent closed reasoning systems are not fully known.",
+              "source_ids": [
+                "S3"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "Multiple sources converge on task-, model-, method-, and budget-dependent behavior. The supplied evidence does not contain controlled cross-model scaling-law analyses sufficient to support a general law."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S6 shows GenRM eventually surpassing self-consistency at high compute, while the earlier evidence emphasizes majority voting as reliable and compute-efficient and reports no universally dominant method. This is not a direct contradiction: GenRM's advantage is conditional on sufficiently large budgets and particular settings, whereas self-consistency is more efficient at practical lower budgets.",
+          "source_ids": [
+            "S6",
+            "S4",
+            "S5"
+          ]
+        },
+        {
+          "description": "S7 presents cross-model consensus as outperforming self-consistency and trained verifiers in its reported selector experiments, whereas earlier findings describe majority voting as one of the better-supported methods. The comparison may involve different candidate-pool and compute accounting protocols; superiority of the jury is therefore not established as a general compute-optimal result.",
+          "source_ids": [
+            "S7",
+            "S4",
+            "S6"
+          ]
+        },
+        {
+          "description": "S9 reports multimodal thought and tree search improving performance, but also reports higher token costs and strong dependence on verifier quality. Thus performance gains do not imply improved efficiency or verifier-independent scaling.",
+          "source_ids": [
+            "S9"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How do accuracy-versus-total-FLOP curves compare for self-consistency, GenRM/Best-of-N, PRMs, debate, search, cross-model consensus, and refinement under identical candidate-generation and verification accounting?",
+        "Do S6's compute-optimal GenRM allocation laws transfer beyond the reported math tasks, model families, and budget range, especially to code, science, long-horizon planning, and difficult proofs?",
+        "What are the actual end-to-end costs and latency trade-offs of cross-model consensus relative to repeated sampling from one model?",
+        "How do verifier precision, recall, calibration, and false-positive rates translate into optimal reasoning-system compute on out-of-distribution tasks?",
+        "Are the reported multimodal gains robust after normalizing for visual-token cost, wall-clock latency, model capacity, and verifier compute?",
+        "Can the reported results transfer to closed systems such as o1/o3 whose internal inference procedures and compute budgets are undisclosed?"
+      ]
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "independent compute-matched benchmark inference-time scaling self-consistency verifier search debate LLM reasoning accuracy FLOPs across tasks",
+      "source_ids": [
+        "S10",
+        "S11"
+      ],
+      "needs_more_research": true,
+      "research_reason": "S10 materially improves the evidence by adding matched-budget Pareto analysis and suggests that multi-agent methods can outperform self-consistency. However, the central question about a general inference-time scaling law remains unanswered: the new evidence is limited to two benchmarks, selected model sizes, and one study, while cross-domain curves, independent replication, and total-cost accounting are still missing.",
+      "next_search_query": "independent replication matched-compute inference-time scaling mixture-of-agents debate self-consistency MMLU-Pro BBH math code science accuracy FLOPs",
+      "findings": [
+        {
+          "claim": "Matched-budget evidence increasingly supports multi-agent inference strategies as a compute-efficient scaling approach, but only in the evaluated settings.",
+          "evidence": [
+            {
+              "summary": "S10 evaluates self-consistency, self-refinement, debate, and mixture-of-agents under matched compute budgets across MMLU-Pro and BBH, multiple configurations, and 8B/70B models. It reports that multi-agent methods are more Pareto-efficient than single-agent baselines, with mixture-of-agents (MoA) generally strongest.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "On MMLU-Pro, S10 reports 70B accuracy increasing from 64.3% with CoT to 71.4% with MoA at comparable budgets, while self-consistency reaches 68.7% and debate 70.0%.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "This is stronger than an unmatched-compute comparison because S10 explicitly analyzes Pareto fronts and budget matching, but it covers only two benchmarks and one reported study."
+        },
+        {
+          "claim": "Inference-time scaling produces larger gains on harder tasks, and adaptive allocation by task difficulty is a plausible practical strategy.",
+          "evidence": [
+            {
+              "summary": "S10 reports average gains of approximately +8.5 to +9 percentage points on medium and hard MMLU-Pro tasks at 15–20 times the CoT budget, compared with about +2.2 points on easy tasks.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "S10 recommends allocating more test-time computation to harder tasks and less to easier ones based on these results.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The difficulty-dependent pattern is directly reported, but the evidence is concentrated on MMLU-Pro and does not establish that the same routing rule transfers across domains."
+        },
+        {
+          "claim": "Self-consistency is useful but can saturate earlier than interactive multi-agent methods; this refines rather than overturns prior evidence that sampling and voting are strong practical baselines.",
+          "evidence": [
+            {
+              "summary": "S10 reports that self-consistency saturates earlier, whereas debate and especially MoA retain gains at higher budgets and outperform self-consistency under equal-budget comparisons in its experiments.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "S4 and S6 previously found majority voting/self-consistency reliable at practical budgets, with generative verification becoming advantageous only at substantially larger budgets in the reported math settings.",
+              "source_ids": [
+                "S4",
+                "S6"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The sources are compatible because method rankings depend on budget, task, and protocol; however, the studies use different benchmarks and accounting choices."
+        },
+        {
+          "claim": "A simple structural heuristic for MoA appears promising: use more parallel generations than sequential aggregation layers; debate similarly benefits more from scaling agents than rounds in S10.",
+          "evidence": [
+            {
+              "summary": "S10 reports that Pareto-optimal MoA configurations generally use one more parallel proposer model than the number of sequential aggregation layers, and recommends emphasizing agents over debate rounds.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "This is a useful empirical design observation from one study, not a validated general scaling rule across architectures, model families, or tasks."
+        },
+        {
+          "claim": "Larger base models can sometimes be more compute-efficient than heavily scaling inference-time computation on smaller models.",
+          "evidence": [
+            {
+              "summary": "S10 states that larger models can achieve better accuracy and better compute efficiency than smaller models subjected to extensive test-time scaling.",
+              "source_ids": [
+                "S10"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The claim is reported in S10 but lacks detailed cross-size curves and independent replication, so it should not be treated as a general replacement for inference-time scaling."
+        },
+        {
+          "claim": "The best-supported overall conclusion remains conditional usefulness of additional inference computation, not a universal accuracy-versus-compute scaling law.",
+          "evidence": [
+            {
+              "summary": "S10 finds substantial gains and Pareto improvements under selected matched-budget configurations, but only on MMLU-Pro and BBH; it does not establish a single method or law across broad reasoning domains.",
+              "source_ids": [
+                "S10"
+              ]
+            },
+            {
+              "summary": "S5 reports no single inference-time technique consistently succeeds across eleven datasets, seven LLMs, and five task categories; S4 likewise finds no uniformly dominant strategy.",
+              "source_ids": [
+                "S4",
+                "S5"
+              ]
+            },
+            {
+              "summary": "S6 shows that the relative advantage of solution generation and generative verification changes with the available budget, while S8 shows that verifier performance varies by domain and response format.",
+              "source_ids": [
+                "S6",
+                "S8"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The new matched-budget evidence strengthens the empirical case for scaling while the multi-task and verifier evidence continues to rule out a presently established universal law."
+        },
+        {
+          "claim": "Claims about broad field maturation, theoretical limits, or large gains summarized by S11 should not be treated as independently validated evidence for the current state of inference-time scaling.",
+          "evidence": [
+            {
+              "summary": "S11 is an area-summary page that lists many claims and headline results, but the supplied content does not provide primary-paper methods, controlled comparisons, or enough detail to verify those claims.",
+              "source_ids": [
+                "S11"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The source is secondary and largely declarative; it can identify potentially relevant work but cannot by itself establish empirical conclusions."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S10 finds MoA and debate outperforming self-consistency under matched budgets, while S4 and S6 describe majority voting/self-consistency as reliable and compute-efficient. This is a conditional disagreement likely attributable to task, budget, interaction design, and compute-accounting differences rather than a direct contradiction.",
+          "source_ids": [
+            "S10",
+            "S4",
+            "S6"
+          ]
+        },
+        {
+          "description": "S10 suggests persistent multi-agent gains at high budgets, whereas S5 finds no method consistently effective across all task categories. The new result supports a stronger conditional claim about selected benchmarks, not universal superiority.",
+          "source_ids": [
+            "S10",
+            "S5"
+          ]
+        },
+        {
+          "description": "S10 reports that larger models can be more compute-efficient than smaller models with scaled inference, while the broader literature supports test-time compute as an alternative efficiency axis. These conclusions can both hold, but the crossover point and generality are unresolved.",
+          "source_ids": [
+            "S10",
+            "S5"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What are full accuracy-versus-total-FLOP and wall-clock curves for MoA, debate, self-consistency, search, PRM/GenRM, and cross-model consensus across math, code, science, planning, and out-of-distribution tasks?",
+        "Do S10's multi-agent Pareto results replicate independently, especially beyond MMLU-Pro and BBH and under realistic memory-transfer and serving costs?",
+        "At what model size, task difficulty, and budget does scaling a larger model dominate scaling a smaller model at inference time?",
+        "How much of MoA/debate's gain comes from additional independent samples versus interaction, aggregation, or access to heterogeneous model capabilities?",
+        "How do the proposed agent/layer heuristics behave with different architectures, numbers of models, longer contexts, and stronger or weaker verifiers?",
+        "Are gains robust on contamination-resistant benchmarks and difficult long-horizon reasoning rather than primarily knowledge-heavy or short-answer benchmarks?",
+        "What are the end-to-end compute-optimal frontiers after including verifier, communication, memory-transfer, and latency costs?"
+      ]
+    },
+    {
+      "iteration_number": 4,
+      "search_query": "independent replication matched-compute inference-time scaling mixture-of-agents debate self-consistency MMLU-Pro BBH math code science accuracy FLOPs",
+      "source_ids": [
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "needs_more_research": false,
+      "research_reason": "The accumulated evidence is sufficient for a responsible state-of-the-field answer: conditional usefulness of inference-time compute is empirically validated, while universal scaling laws and compute-optimal method rankings remain unestablished. The new sources add matched-budget multi-agent evidence but do not close the major generalization and cost-accounting gaps enough to justify another search.",
+      "next_search_query": null,
+      "findings": [
+        {
+          "claim": "The strongest empirical conclusion is that additional inference-time compute can improve LLM reasoning accuracy, but the improvement is conditional on task, model, method, and budget; the evidence does not establish a universal accuracy-versus-compute scaling law.",
+          "evidence": [
+            {
+              "summary": "A systematic study of four methods across MMLU-Pro and BBH, 34 configurations, multiple model sizes, and matched budgets reports gains over chain-of-thought, but its results vary by method and task.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "summary": "A broader multi-task evaluation across eleven datasets, seven LLMs, and five task categories finds that no single inference-time technique consistently performs well everywhere.",
+              "source_ids": [
+                "S5"
+              ]
+            },
+            {
+              "summary": "A survey reports studies observing scaling-law-like improvements while identifying generalization, functional understanding, and further scaling as unresolved challenges.",
+              "source_ids": [
+                "S14"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The new matched-budget study strengthens evidence that scaling can work, while the multi-task benchmark and survey indicate that these gains do not yet amount to a general law."
+        },
+        {
+          "claim": "Matched-budget experiments provide credible evidence that multi-agent methods can be more compute-efficient than self-consistency and other single-agent strategies in selected settings.",
+          "evidence": [
+            {
+              "summary": "S12/S13 report that debate and mixture-of-agents outperform self-consistency by 1.3 and 2.7 percentage points, respectively, at equal computing budgets; MoA dominates the reported Pareto front.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "summary": "On MMLU-Pro with a 70B model, MoA improves accuracy from 64.3% with CoT to 71.4% at up to 20× the CoT budget, compared with 68.7% for self-consistency and 70.0% for debate under comparable budgets.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "summary": "Earlier evidence likewise reports matched-compute advantages for multi-agent methods on MMLU-Pro and BBH, while other studies find self-consistency preferable at lower practical budgets.",
+              "source_ids": [
+                "S10",
+                "S6"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The comparison is explicitly budget-matched and spans two benchmarks and model sizes, but it is one study, with overlapping source versions, and does not establish general superiority across domains or serving-cost definitions."
+        },
+        {
+          "claim": "Self-consistency remains a useful practical baseline, but it may saturate earlier than interactive multi-agent methods; the relative ranking is budget-dependent rather than settled.",
+          "evidence": [
+            {
+              "summary": "S12/S13 report earlier saturation for self-consistency and persistent gains for debate and MoA at higher budgets.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "summary": "S6 reports self-consistency outperforming GenRM at lower budgets, with GenRM surpassing it only after substantially more compute.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "The comparative thesis reports majority voting as reliable and compute-efficient across many tested settings.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The apparent disagreement is consistent with budget- and task-dependent frontiers, but the studies use different methods, benchmarks, and cost accounting."
+        },
+        {
+          "claim": "The most promising design heuristics for multi-agent scaling are empirically supported only within a narrow validation envelope.",
+          "evidence": [
+            {
+              "summary": "S12/S13 find MoA configurations are often Pareto-optimal when the number of parallel generations exceeds the number of sequential aggregation layers by one, and recommend emphasizing agents over debate rounds.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "summary": "The same study reports larger gains on harder MMLU-Pro tasks—approximately +8.5 to +9 percentage points versus about +2.2 on easy tasks at 15–20× CoT compute—suggesting adaptive allocation by difficulty.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "These are useful observations from one study and two benchmarks, not independently validated general scaling rules."
+        },
+        {
+          "claim": "Verification is a limiting factor for inference-time scaling, and extra candidate generation does not guarantee gains.",
+          "evidence": [
+            {
+              "summary": "VerifyBench finds domain- and format-sensitive verifier behavior, including precision–recall trade-offs, false positives, and limited cross-domain generalization.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "S6 finds a coverage–precision trade-off between generating enough candidate solutions and allocating enough verification, with compute-optimal allocation favoring generation more strongly in its mathematical settings.",
+              "source_ids": [
+                "S6"
+              ]
+            },
+            {
+              "summary": "Earlier work reports that verifier choice, aggregation, candidate diversity, and semantic-verification strictness materially affect outcomes.",
+              "source_ids": [
+                "S1",
+                "S3",
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The systematic verifier benchmark aligns with multiple studies and directly documents failure modes, although it does not identify a universally best verifier."
+        },
+        {
+          "claim": "Evidence for other scaling axes—including search, speculative decoding, cross-model consensus, and multimodal reasoning—is promising but too limited to support broad conclusions about compute-optimality.",
+          "evidence": [
+            {
+              "summary": "LOOKAHEAD reports speedups and near-preserved accuracy from step-level speculative decoding in selected experiments, but relies on one paper and particular verifier/model setups.",
+              "source_ids": [
+                "S1"
+              ]
+            },
+            {
+              "summary": "Cross-model consensus outperforms several selectors in reported experiments but has a domain-dependent shared-error floor and lacks general equal-FLOP validation.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "Multimodal thought and tree search improve reported performance across ten multimodal datasets, but require more tokens and depend heavily on verifier quality.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "The survey identifies broader task generalization and efficiency optimization as open challenges.",
+              "source_ids": [
+                "S14"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "There is meaningful positive evidence, but the studies do not provide broad, independently replicated total-cost frontiers."
+        },
+        {
+          "claim": "Claims that inference-time scaling has already produced a field-wide, predictable scaling law—or that any particular method is universally optimal—remain speculative.",
+          "evidence": [
+            {
+              "summary": "A survey describes scaling-law-like observations but explicitly lists clarification of mechanisms, broader generalization, and further scaling as unresolved.",
+              "source_ids": [
+                "S14"
+              ]
+            },
+            {
+              "summary": "The multi-task benchmark finds no method that consistently succeeds across all evaluated task categories.",
+              "source_ids": [
+                "S5"
+              ]
+            },
+            {
+              "summary": "Matched-budget multi-agent results are restricted to MMLU-Pro and BBH and therefore do not resolve cross-domain generality.",
+              "source_ids": [
+                "S12",
+                "S13"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "Positive results are real but heterogeneous, and the available evidence lacks broad controlled curves across models, tasks, budgets, and complete end-to-end costs."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "S12/S13 report MoA and debate outperforming self-consistency under matched budgets, whereas S4 and S6 characterize majority voting/self-consistency as especially reliable or efficient. This is a conditional disagreement likely caused by task, budget, interaction protocol, and cost accounting—not a direct contradiction.",
+          "source_ids": [
+            "S12",
+            "S13",
+            "S4",
+            "S6"
+          ]
+        },
+        {
+          "description": "Some sources describe inference-time compute as exhibiting scaling-law-like behavior, while S5 finds no universally effective technique. The evidence supports local or conditional scaling trends, not a universal law.",
+          "source_ids": [
+            "S14",
+            "S3",
+            "S5"
+          ]
+        },
+        {
+          "description": "S12/S13 recommend a specific MoA ratio and more aggressive task scaling for difficult examples, but the recommendation is not independently replicated and may not transfer beyond the tested benchmarks.",
+          "source_ids": [
+            "S12",
+            "S13",
+            "S5"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What are complete accuracy-versus-total-FLOP and wall-clock curves for sampling, verification, search, debate, MoA, refinement, and consensus across math, code, science, planning, and out-of-distribution tasks?",
+        "Do the MoA and debate Pareto results replicate independently beyond MMLU-Pro and BBH, especially on contamination-resistant and long-horizon reasoning benchmarks?",
+        "How much of multi-agent improvement comes from independent sampling versus interaction, aggregation, or heterogeneous model capabilities?",
+        "How should verifier precision, recall, calibration, communication, memory-transfer, and latency costs be incorporated into compute-optimal allocation?",
+        "Do the reported scaling behaviors transfer to closed reasoning systems whose inference procedures and budgets are undisclosed?",
+        "At what model size, task difficulty, and budget does scaling a larger model dominate scaling inference compute on a smaller model?",
+        "Are speculative-decoding quality and speed gains robust across models, long contexts, difficult proofs, and realistic multi-user serving?"
+      ]
+    }
+  ],
+  "evidence_ledger": {
+    "claims": []
+  },
+  "research_gaps": [],
+  "research_plan": null,
+  "claim_verifications": [],
+  "current_iteration": 4,
+  "remaining_search_budget": 6,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Scaling Speculative Decoding with LOOKAHEAD ...",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/file/fb65f4aed3027871f349dbc91cd27ae4-Paper-Conference.pdf",
+      "content": "Scaling Speculative Decoding with LOOKAHEAD REASONING Yichao Fu1 Rui Ge1∗ Zelei Shao1∗ Zhijie Deng2† Hao Zhang1† 1UCSD 2Shanghai Jiao Tong University Abstract Reasoning models excel by generating long chain-of-thoughts, but decoding the resulting thousands of tokens is slow. Token-level speculative decoding (SD) helps, but its benefit is capped, because the chance that an entire γ-token guess is correct falls exponentially as γ grows. This means allocating more compute for longer token drafts faces an algorithmic ceiling – making the speedup modest and hardware-agnostic. We raise this ceiling with LOOKAHEAD REASONING, which exploits a second, step-level layer of parallelism. Our key insight is that reasoning models generate step-by-step, and each step needs only to be semantically correct, not exact token matching. In LOOKAHEAD REASONING, a lightweight draft model proposes several future steps; the target model expands each proposal in one batched pass, and a verifier keeps semantically correct steps while letting the target regenerate any that fail. Token-level SD still operates within each reasoning step, so the two layers of parallelism multiply. We show LOOKAHEAD REASONING lifts the peak speedup of SD both theoretically and empirically. Across GSM8K, AIME, and other benchmarks, LOOKAHEAD REASONING improves the speedup of SD from 1.4x to 2.1x while preserving answer quality, and its speedup scales better with additional GPU throughput. Our code is available at https://github.\ncom/hao-ai-lab/LookaheadReasoning 1 Introduction Large reasoning models (LRMs) have recently pushed the state of the art in math problem solving and program synthesis by generating explicit, long Chains of Thoughts (CoT) [1]. In these models, an answer unfolds as a sequence of intermediate reasoning “steps”, and each step arrives token by token via autoregressive decoding. If a solution needs N steps and each step needs T tokens, the model must generate O(NT) tokens, often running into tens of thousands of tokens and minutes of wall-clock time. For instance, OpenAI’s o1 model [2] may take more than 2 minutes to solve a single problem from the International Mathematical Olympiad (IMO) challenges.\nSpeculative decoding (SD) mitigates this token-level dependency by spending additional FLOPs to shorten the critical path of generation: a cheap draft model proposes γ future tokens and the expensive target model then verifies them in parallel; if every guess matches, the decoding can fast forward γ + 1 positions at once. However, in the face of LRMs with long decode, two facts limit how far this idea can scale. First, the probability of an entire γ-token sequence is correct drops almost exponentially with γ (§2), so the expected number of accepted tokens quickly saturates as γ grows.\nSecond, the verifier must still verify the target logits for all γ positions, and that cost grows linearly.\nThis results in a speedup curve that climbs with small γ, plateaus after a few dozen tokens, and can even decline once the verification cost dominates. For example, in a real profiling, we observe SD’s speedup caps at 1.4x (Figure 2). As this ceiling is algorithmic rather than hardware-bound, this means ∗Work done during an internship at UCSD.\n†Corresponding authors.\n39th Conference on Neural Information Processing Systems (NeurIPS 2025).\nFigure 1: One cycle of LOOKAHEAD REASONING. The draft model proposes γ = 3 steps { ˆ s1, ˆ s2, ˆ s3}. The target model then generate {s1, s2, s3} based on prefixes and { ˆ s1, ˆ s2, ˆ s3}, respectively.\nVerifier checks if draft and target steps are semantically equivalent (e.g., s1 ≈ˆ s1). If the first two steps are equivalent but the third is not, LOOKAHEAD REASONING outputs the verified draft steps ( ˆ s1, ˆ s2) followed by the target’s correction (s3). This allows accepting multiple steps with only a lowered latency (e.g., 2t + T) compared to the sequential target calls in autoregressive decoding (e.g., 3T), where t is draft step time and T is target step time.\n0 50 100 150 200 # draft tokens 1.2 1.4 1.6 1.8 2.0 Speedup Ours + NGRAM NGRAM Figure 2: Speedup vs Draft Tokens. Speedup over autoregressive decoding, comparing LOOKA-HEAD REASONING combined with token-level SD (NGram-based) (red line) to SD alone (blue line).\nOur method is orthogonal to token-level SD and improves the maximum speedup from 1.4× to 2.1×.\nthat allocating more FLOPs in SD yields only diminishing returns, making SD’s acceleration not scale with future accelerators. As LRMs produce ever-longer generations, the number of tokens SD can safely skip does not grow proportionally, so the end-to-end latency remains substantial.\nThis paper makes a key observation that reasoning is naturally hierarchical: a full chain-of-thought breaks into discrete steps, and each step unrolls tokens by token. To reach the correct answer, a reasoning step requires only semantic correctness but not exact token matches. To illustrate, we replaced over 50% of DeepSeek-R1 32B’s reasoning steps with semantically equivalent ones from another smaller model. The impact on overall task accuracy was minimal, with deviations typically not exceeding 2% (§4.1). This looser requirement exposes a coarser unit for speculation: in addition to guessing the next few tokens, a model can guess and verify the next few reasoning steps. These step proposals and verification are independent, so they can be batched and executed in parallel, making full use of GPU’s batching capacity. At the same time, token-level speculation can still operate within each step, achieving two complementary layers of parallelism rather than one.\nThis paper develops LOOKAHEAD REASONING based on this insight, with one operational cycle shown in Figure 1. First, a lightweight draft model autoregressively generates several sequential, future reasoning steps {ˆ s1, ˆ s2, ˆ s3}. Concurrently, the target LRM generates corresponding follow-up steps {s1, s2, s3}, where each si is generated based on a prefix formed by the initial context concatenated with the sequence of preceding draft steps ˆ s1, . . . , ˆ si−1. Notably, the generations of {s1, s2, s3} are issued as a batch running in parallel to exploit additional cross-request parallelism on GPUs. A lightweight verifier, implemented as a small LLM-as-a-Judge or an embedding model, then begins with the first speculative step to determine if the draft’s original speculative step ˆ s1 semantically aligns with this oracle step s1. If the step passes verification, we keep it and proceed 2 to the verification of ˆ s2 and s2, which are already available due to batched execution. If it fails, we drop it and revert to the target model’s standard generation. Concurrently, token-level speculation can operate independently when the target/draft model generates the content of each step.\nLOOKAHEAD REASONING operates at step level, an axis orthogonal to token-level speculation.\nBecause step-level speculation absorbs compute that would otherwise hit the speedup ceiling by token-level speculation, the method scales better with hardware. Additional FLOPs can draft more (or deeper) steps instead of lengthening token guesses, sidestepping diminishing returns faced by token-level-only speculative decoding. For example, on GSM8K, LOOKAHEAD REASONING lifts token-level SD’s peak speedup from 1.4x to 2.1x (combined), as depicted in Figure 2. Even when available compute is limited, we prove that the peak speedup given limited compute shall be achieved only by combining both levels of speculation (§3.3).\nA key design consideration is the choice of verifier. While an ideal semantic verifier ensures no accuracy loss, practical ones balance compute cost against judgment accuracy. For instance, a looser verification may boost draft acceptance (and speedup) but risks accuracy drop from erroneous steps.\nWe finally opted for a 7B LLM-As-a-Judge, striking a balance between these competing factors (§4.3).\nTo sum up, our contributions can be listed as",
+      "score": 0.9575061074153309
+    },
+    {
+      "id": "S2",
+      "title": "GitHub - ThreeSR/Awesome-Inference-Time-Scaling: Paper List of Inference/Test Time Scaling/Computing · GitHub",
+      "url": "https://github.com/ThreeSR/Awesome-Inference-Time-Scaling",
+      "content": "[Skip to content](#start-of-content)   \n \n\n## Navigation Menu\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=ThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\nYou signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert\n\n{{ message }}\n\n[ThreeSR](/ThreeSR)   /  **[Awesome-Inference-Time-Scaling](/ThreeSR/Awesome-Inference-Time-Scaling)**  Public\n\n* [Notifications](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)  You must be signed in to change notification settings\n* [Fork 20](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n* [Star  399](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Branches](/ThreeSR/Awesome-Inference-Time-Scaling/branches)[Tags](/ThreeSR/Awesome-Inference-Time-Scaling/tags)\n\nOpen more actions menu\n\n## Latest commit\n\n## History\n\n[216 Commits](/ThreeSR/Awesome-Inference-Time-Scaling/commits/master/)\n\n216 Commits\n\n## Folders and files\n\n| Name | Name | Last commit message | Last commit date |\n| --- | --- | --- | --- |\n| [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") | [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") |  |  |\n| [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") | [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") |  |  |\n| [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") | [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") |  |  |\n| [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") | [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") |  |  |\n| [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") | [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") |  |  |\n| [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") | [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") |  |  |\n|  |\n\n## Repository files navigation\n\n# Awesome-Inference-Time-Scaling\n\n**Paper List of Inference/Test Time Scaling/Computing**\n\nMaintained by [Rui Sun](https://threesr.github.io/)\n\nIf you think our paper list is helpful, please Star⭐. Thanks! We will continue to update.\n\n[![Scaling](/ThreeSR/Awesome-Inference-Time-Scaling/raw/master/fig/Scaling.webp)](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fig/Scaling.webp)\n\nGenerated by DALL·E.\n\n## Plan\n\nCollect papers and scale up paper list (Still Ongoing)\n\nCategorize all papers for better reference (Next Step)\n\n## How to Contribute?\n\nWe understand that Inference/Test Time Scaling/Computing is a broad field. If you feel that our list is incomplete, **we warmly welcome your contributions (open a pull request or issue, I will handle it).**\n\nIf you can follow this format, that would be great.\n\nFirst, you can fork my repo. Then, add the paper you think relevant. After that, open a pull request. Through my verification, I will accept and merge.\n\nBelow is the way you can use to run the code in my repo to call Semantic Scholar API to obtain the information and insert it to the README.\n\n```\npython fetch_semantic_info.py --paper_name \"Paper Name or Key Word of the name\" \n```\n\nExample:\n\n```\npython fetch_semantic_info.py --paper_name \"Scaling Autonomous Agents via Automatic Reward Modeling And Planning\" \n```\n\nIf you find our code useful when you would like to organize your own repo, feel free to use. Also, thanks for the free use of [Semantic Scholar API](https://www.semanticscholar.org/product/api).\n\n## Citation\n\n🤝 **This is a community-curated list.** The citation is intentionally credited to **\"Rui Sun and others\"** — every contributor (via PRs, issues, or paper suggestions) becomes part of the *and others*. If this list is useful to your work, please consider doing both:\n\n* 🌱 **Contribute** — open a PR or issue with a paper you think belongs here. The more we grow this together, the more useful it becomes for the whole community.\n* 📌 **Cite** — sharing this single citation across the community amplifies its visibility on Google Scholar and helps sustain the project. Every citation is a citation we all share.\n\n```\n@misc sun2025awesomeinferencetimescaling author{Rui Sun and others}{} title{Awesome-Inference-Time-Scaling: Paper List of Inference/Test-Time Scaling/Computing}{} year{2025}{} publisher{GitHub}{} howpublished{\\url{https://github.com/ThreeSR/Awesome-Inference-Time-Scaling}}{} doi{10.5281/zenodo.20262169}{}\n```\n\n## 📖 Paper List (Listed in Time Order)\n\n🔹 [MaxProof: Scaling Mathematical Proof with Generative-Verifier RL and Population-Level Test-Time Scaling](https://www.semanticscholar.org/paper/33a1741fb2d3e7ac05649ef34c1b0a111fd8d5cf)\n\n* 👤 **Authors:** Jiacheng Chen, Xinyu Zhang, Shunkai Zhang, Yanmohan Wang, Lin Li, Tiancheng Qin, Qin Wang, Zhengmao Zhu, Tianle Li, Jingyang Li, Zehan Li, Binyan Jiang, Jin-Feng Zhu, Han Ding, F. Yu, Chenyu Du, Zijian Song, Jiayuan Song, Zhi Zhang, Yunan Huang, Weiyu Cheng, Pengyu Zhao, Yuntao Cheng\n* 🗓️ **Date:** 2026-06-11\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand No abstract available.\n\n🔹 [Share More, Search Less: Collaborative Parallel Thinking for Efficient Test-Time Scaling](https://arxiv.org/abs/2605.27030)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.27030)\n* 👤 **Authors:** Xinglin Wang, Haobin Lin, Shaoxiong Feng, Peiwen Yuan, Yiwei Li, Jiayi Shi, Yueqi Zhang, Chuyi Tan, Ji Zhang, Boyuan Pan, Yao Hu, Kan Li\n* 🗓️ **Date:** 2026-05-26\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand Test-Time Scaling (TTS) enhances the reasoning capabilities of large language models by allocating additional inference compute to explore the solution space. However, existing parallel TTS methods typically keep branches isolated during search: intermediate discoveries remain branch-private and cannot guide other branches in time. This information isolation causes substantial redundant exploration, as branches repeatedly rediscover information already found elsewhere and require more search steps to collect complete decision information needed to reach correct answers. To bridge this gap, we propose \\textbf{Collaborative Parallel Thinking (CPT)}, a training-free inference framework that enables search-time information sharing across parallel branches. CPT extracts compact intermediate information from ongoing branches, maintains a deduplicated query-level information pool, and broadcasts pool entries through the input context, allowing each branch in subsequent search steps to reuse discoveries made by other branches rather than rediscover the same information. Empirically, experiments on HMMT and AIME benchmarks show that CPT establishes a stronger accuracy--latency Pareto frontier than strong baselines across rollout budgets and model scales, highlighting search-time collaboration as an effective direction for efficient parallel TTS.\n\n🔹 [Stop When Reasoning Converges: Semantic-Preserving Early Exit for Reasoning Models](https://arxiv.org/abs/2605.17672)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.17672)\n* 👤 **Authors:** Dehai Min, Giovanni Vaccarino, Huiyi Chen, Yongliang Wu, Gal Yona, Lu",
+      "score": 0.9465600723213153
+    },
+    {
+      "id": "S3",
+      "title": "Scaling LLM Test Time Compute",
+      "url": "https://www.jonvet.com/blog/llm-test-time-compute",
+      "content": "[engineering notes](/)\n\n[Blog](/blog)[Tools](/tools)[About](/about)\n\n\n\n[Subscribe](/subscribe)\n\nPublished on\n\n# Scaling LLM Test Time Compute\n\nAuthors\n:   * ![avatar](/_next/image?url=%2Fstatic%2Fimages%2Fme.png&w=96&q=75)\n\n      Name\n      :   Jonas Vetterle\n\n      Twitter\n      :   [@jvetterle](https://twitter.com/jvetterle)\n\nIn recent months, several AI labs have released models that make use of an additional amount of compute at *test time*. Examples include OpenAI's o1 and Google's Gemini Flash 2.0, and most recently OpenAI's o3 (announced for 2025) whose performance on challenging datasets like [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) and [FrontierMath](https://epoch.ai/frontiermath) has been nothing short of impressive.\n\nAlthough it's not fully clear how closed-source models like the above work under the hood, what they have in common is that they're no longer just generating a response straightaway. Instead, these models can spend an additional arbitrary amount of time and compute refining their response, which leads to better performance on reasoning tasks like solving math problems.\n\nThis is exciting, because it seems like there is a new scaling law at play. In addition to training LLMs on more data and for more steps (that's the [pre-training Scaling Laws](/blog/llm-scaling-laws) we all know and love, but have started to show signs of [diminishing returns](/blog/llm-scaling-in-2025)), we can also throw more compute at a problem at *inference* time - \"letting models think\" - and get better performance.\n\n![scaling_laws](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fscaling_laws.png&w=2048&q=75)[OpenAI 2024](https://openai.com/index/learning-to-reason-with-llms/)\n\nWhat's behind this progress? It's a combination of many things: new and old techniques from the Reinforcement Learning field being applied to LLM training, bigger and better data sets with human annotations, methods that are easier to scale because remove the need for human annotations, and the list goes on.\n\nThis blog post should be seen as a snapshot in time, as the field is moving very fast. Consider it a literature review, which doesn't aim to be exhaustive, but gives an overview of interesting papers on test-time compute for LLMs.\n\n## What is test-time compute?\n\nTest time compute refers to the amount of compute that is used to generate completions from a language model (LLM) at test or inference time. This is in contrast to (pre- or post-) training compute, which is the amount of compute used to train the model on a large corpus of data.\n\nAs of 2025, test-time compute is widely considered to be one of the likely key drivers of performance improvements in LLMs, as we're running into data bottlenecks and diminishing returns from the original [pre-training LLM Scaling Laws](/blog/llm-scaling-laws).\n\nTest-time compute can refer to many things: creating chains of thought, revising answers, using external verifiers, backtracking, sampling multiple times and selecting the best answer and so on.\n\nWhat all of these have in common is that they require more compute than just generating a single completion. In that sense, models like OpenAI's o1, o3 and Gemini 2.0 Flash (all of which use test-time compute) represent a different paradigm than the models that came before them.\n\n## Reasons to scale test-time compute\n\nPerhaps the most obvious reason to scale test-time compute is because it can lead to better performance, at least in certain domains.\n\nConsider for example the fact that o3 has achieved the highest score yet of any LLM on the notoriously difficult (for machines) [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) dataset. Or the fact that o3 achieved 25% on the [FrontierMath](https://epoch.ai/frontiermath) dataset, which is even more challenging and out of reach for any other model before o3.\n\n![kaplan](/_next/image?url=%2Fstatic%2Fimages%2Fllm-scaling-in-2025%2Fo-series-performance.jpg&w=1920&q=75)[Arc Prize website](https://arcprize.org/blog/oai-o3-pub-breakthrough)\n\nBut that's not the only reason to scale test-time compute. For example, we know that LLMs often give wrong answers or hallucinate. Letting LLMs \"think\" for longer and revise their answers can help mitigate this.\n\nAnother reason is that training and inference time compute can be traded off to a certain extent. So under certain circumstances it might be more cost-effective to use a smaller model and more test-time compute than a larger model and less test-time compute. Or maybe you just want to reduce the size of a model so that it can fit on smaller devices, while maintaining the same level of performance.\n\n## Categories of test-time compute scaling methods\n\nThere are different ways of categorizing test-time compute scaling methods. I like the categorisation in this paper by Snell et al. (2024) [[6]](#snell_2024) which unifies different approaches of test time compute and runs extensive experiments to determine a compute-optimal scaling strategy. Broadly speaking there are two main ways to improve the quality of LLM completions:\n\n* **At the input level: Modify the prompt in order to get better completions.** In other words, we modify the proposal distribution, i.e. the distribution from which different LLM completions are sampled\n* **At the output level: Sample multiple candidate completions and pick the best one or modify them in some way**\n\nViewed through this lense, the question of what exactly we are scaling at test time is broken down into a **Proposer** and a **Verifier**. The Proposer is an LLM that generates multiple candidate completions and the Verifier is another model that scores each one and picks the best.\n\n## LLM Proposal Distribution Optimization\n\nMethods in this category aim to improve inference time performance of LLMs by modifying the distribution from which completions are sampled. This is either achieved by\n\n* prompting off-the-shelf LLMs in a way that guides them towards better completions\n* or by fine-tuning LLMs, i.e. rather than using in-context learning, modifying the model parameters to improve completions.\n\n### Using off-the-shelf LLMs\n\nMethods that fall into this category don't require any fine-tuning of the LLM, they just work with off-the-shelf models. Most of LLM practitioners have probably put a *\"Take a deep breath and think through it step by step\"* at the end of their prompt and seen that it helps. I certainly have, and it's been a simple hack to get a bit of extra performance. Alternatively, just breaking up your prompt into smaller parts or asking the LLM to revise its answer can also help. Creating Chain-Of-Thought prompts is another way to guide the LLM to think through a problem step by step: letting it generate intermediate completions sequentially and then using them as input for the next step.\n\nThere is a lot of literature on this topic. For example, Saunders et al. (2022) [[4]](#saunders_2022) introduce the concept of **self-critique** which means that\n\n* a model generates an answer to a question\n* it then a model generates a critique of that answer\n* and both answer and critique are given again to the model to generate a refined answer\n\nPerhaps surprisingly, this method leads to better performance for sufficiently large models. The author argue that this is because it is easier to spot errors in an answer than to avoid them in the first place, which sounds plausible to me!\n\nMadaan et al. (2023) [[3]](#madaan_2023) take a very similar approach, and let the model provide feedback and refine its own completions iteratively until a stopping criterion is met.\n\n![self_refine](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fself_refine.png&w=2048&q=75)[Madaan et al. 2023](https://arxiv.org/pdf/2303.17651)\n\n### Fine-tuning LLMs\n\nWhile using off-the-shelf LLMs is nice because it allows anyone to use these techniques, even if they just have access to closed-source models behind APIs, fine-tuning an LLMs to refine their answers c",
+      "score": 0.9437196272669081
+    },
+    {
+      "id": "S4",
+      "title": "A Comparative Study of Inference-Time Scaling Strategies for ...",
+      "url": "https://repository.rit.edu/cgi/viewcontent.cgi?article=13689&context=theses",
+      "content": "Rochester Institute of Technology Rochester Institute of Technology RIT Digital Institutional Repository RIT Digital Institutional Repository Theses 4-2026 A Comparative Study of Inference-Time Scaling Strategies for A Comparative Study of Inference-Time Scaling Strategies for Large Language Models Large Language Models Oluwamayowa Owolabi oo8583@rit.edu Follow this and additional works at: https://repository.rit.edu/theses Recommended Citation Recommended Citation Owolabi, Oluwamayowa, \"A Comparative Study of Inference-Time Scaling Strategies for Large Language Models\" (2026). Thesis. Rochester Institute of Technology. Accessed from This Thesis is brought to you for free and open access by the RIT Libraries. For more information, please contact repository@rit.edu. A Comparative Study of Inference-Time Scaling Strategies for Large Language Models by Oluwamayowa Owolabi THESIS Submitted to the B. Thomas Golisano College of Computing and Information Sciences Department of Computer Science in partial fulfillment of the requirements for the Master of Science in Computer Science Degree at the Rochester Institute of Technology May 2026 i A Comparative Study of Inference-Time Scaling Strategies for Large Language Models APPROVED BY SUPERVISING COMMITTEE Prof. Christopher Homan, Advisor Prof. Eduardo Coelho De Lima, Reader Prof. Richard Lange, Observer Date : 4/25/2026 Abstract Large language models (LLMs) have demonstrated strong performance on a range of reasoning tasks, however, their reliability often depends not only on model size or training data, but also on inference-time strategies. However, existing inference-time methods are typically evaluated in isolation and under differing experimental assumptions, making it difficult to draw system-atic conclusions about their relative effectiveness. This thesis proposes a controlled empirical study of inference-time scaling strategies for large language models under fixed inference-time compute budgets. The findings reveal that no single strategy dominates uniformly. PRM-guided selection with the IBM Granite verifier achieves the highest absolute accuracy across arithmetic and compositional tasks. Multi-agent debate with heterogeneous critic-solver pairs achieves the highest overall accuracy on object counting, surpassing PRM guidance. Majority voting provides reliable, compute-efficient improvements across most settings when answer di-versity is sufficient, and while beam search helps, it does not usually provide much benefit with width growth. We also show that verifier choice and aggregation method (notably, last-step aggregation) substantially affect PRM performance, and that model heterogeneity in debate consistently outperforms self-debate.\ni Acknowledgments I would like to express my deepest gratitude to my thesis advisor, Prof. Chris Homan, for his invaluable guidance, thoughtful feedback, and patience throughout this research. I am also grateful to the faculty and staff of the Department of Computer Science at the Rochester In-stitute of Technology for providing a rigorous and supportive academic environment. Finally, I acknowledge the computational resources provided by the university’s SLURM cluster, without which this extensive empirical study would not have been possible.\niii Contents 1 Introduction 1 1.1 Research Questions and Contributions . . . . . . . . . . . . . . . . . . . . . . .\n2 1.1.1 Research Questions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2 1.1.2 Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2 1.2 Significance of the Study . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n3 2 Background and Literature Review 4 2.1 Foundations of Inference-Time Computation . . . . . . . . . . . . . . . . . . . .\n5 2.1.1 The Shift from Training-Time to Inference-Time Scaling . . . . . . . . .\n5 2.1.2 Conceptual Framework: Mechanisms of Inference-Time Scaling . . . . .\n7 2.1.3 The Scaling Paradigm: Compute-Performance Trade-offs . . . . . . . .\n7 2.1.4 Definitions and Terminology . . . . . . . . . . . . . . . . . . . . . . . . .\n8 2.2 Generation-Based Strategies . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n8 2.2.1 Decoding as Search: Beam Search . . . . . . . . . . . . . . . . . . . . .\n8 2.2.2 Scaling via Diversity: Sampling and Self-Consistency . . . . . . . . . . .\n9 2.2.3 Controlling Generation: The Role of Stop Sequences . . . . . . . . . . .\n10 2.3 Verification-Based Strategies . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n12 2.3.1 Outcome-Supervised Reward Models (ORMs) . . . . . . . . . . . . . . .\n12 2.3.2 Process-Supervised Reward Models (PRMs) . . . . . . . . . . . . . . . .\n13 2.3.3 Methods for PRM Data Construction . . . . . . . . . . . . . . . . . . .\n14 2.3.4 Key Challenges in PRM Development . . . . . . . . . . . . . . . . . . .\n15 2.3.5 Summary: Verification-Based Strategies . . . . . . . . . . . . . . . . . .\n16 2.4 Interaction-Based Strategies: Multi-Agent Debate . . . . . . . . . . . . . . . . .\n16 2.4.1 Conceptual Foundations of Multi-Agent Debate . . . . . . . . . . . . . .\n17 2.4.2 Variations in MAD Design . . . . . . . . . . . . . . . . . . . . . . . . . .\n17 2.4.3 Critical Re-Evaluation of MAD Efficacy . . . . . . . . . . . . . . . . . .\n18 2.4.4 Model Heterogeneity as a Path Forward . . . . . . . . . . . . . . . . . .\n19 2.4.5 Implications for Research and Practice . . . . . . . . . . . . . . . . . . .\n20 2.4.6 Recursive Approaches . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n20 2.5 Comparative Analysis Across Strategies . . . . . . . . . . . . . . . . . . . . . .\n20 2.5.1 Comparative Framework . . . . . . . . . . . . . . . . . . . . . . . . . . .\n21 2.5.2 Dimensions of Comparison . . . . . . . . . . . . . . . . . . . . . . . . .\n21 2.5.3 Efficiency Considerations . . . . . . . . . . . . . . . . . . . . . . . . . .\n22 2.5.4 Task-Strategy Alignment . . . . . . . . . . . . . . . . . . . . . . . . . .\n22 2.6 Summary and Identified Research Gaps . . . . . . . . . . . . . . . . . . . . . .\n22 v CONTENTS vi 2.6.1 Identified Research Gaps . . . . . . . . . . . . . . . . . . . . . . . . . .\n23 2.6.2 Positioning the Present Study . . . . . . . . . . . . . . . . . . . . . . . .\n23 3 Experimental Design 24 3.1 Research Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n24 3.1.1 Experimental Goals . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n24 3.1.2 Factorial Design Structure . . . . . . . . . . . . . . . . . . . . . . . . . .\n25 3.1.3 Controlled Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n25 3.1.4 Independent Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n25 3.1.5 Dependent Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n26 3.1.6 Experimental Workflow . . . . . . . . . . . . . . . . . . . . . . . . . . .\n30 3.2 Data Sources . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n31 3.2.1 Arithmetic Reasoning Datasets . . . . . . . . . . . . . . . . . . . . . . .\n31 3.2.2 Symbolic Reasoning Datasets . . . . . . . . . . . . . . . . . . . . . . . .\n31 3.2.3 Compositional Logic Datasets . . . . . . . . . . . . . . . . . . . . . . . .\n31 3.3 Analytical Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n32 3.4 Software and Tools . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n33 3.4.1 Base Language Models . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n33 3.4.2 Process Reward Models . . . . . . . . . . . . . . . . . . . . . . . . . . .\n33 4 Findings and Data Analysis 35 4.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n35 4.2 GSM8K Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n35 4.2.1 Baseline Performance . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n35 4.2.2 Beam Search Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+      "score": 0.943426766159184
+    },
+    {
+      "id": "S5",
+      "title": "Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights",
+      "url": "https://arxiv.org/html/2502.12521",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\n\n###### Abstract\n\nWe examine the reasoning and planning capabilities of large language models (LLMs) in solving complex tasks. Recent advances in inference-time techniques demonstrate the potential to enhance LLM reasoning without additional training by exploring intermediate steps during inference. Notably, OpenAI’s o1 model shows promising performance through its novel use of multi-step reasoning and verification.\nHere, we explore how scaling inference-time techniques can improve reasoning and planning, focusing on understanding the tradeoff between computational cost and performance.\nTo this end, we construct a comprehensive benchmark, known as *Sys2Bench*, and perform extensive experiments evaluating existing inference-time techniques on eleven diverse tasks across five categories, including arithmetic reasoning, logical reasoning, common sense reasoning, algorithmic reasoning, and planning.\nOur findings indicate that simply scaling inference-time computation has limitations, as no single inference-time technique consistently performs well across all reasoning and planning tasks.\n\n|  |\n| --- |\n|  |\n\n## 1 Introduction\n\nLarge language models (LLMs) ([Brown et al., 2020](#bib.bib3)) have demonstrated exceptional performance across a range of natural language processing (NLP) tasks, including question answering, machine translation, sentiment analysis, and text summarization ([Devlin et al., 2019](#bib.bib9); [Vaswani et al., 2017](#bib.bib34)). Beyond NLP, LLMs have also been adapted for multimodal tasks involving vision ([Parashar et al., 2024](#bib.bib26); [Lin et al., 2025](#bib.bib21)) and audio ([Wu et al., 2024](#bib.bib40)). Building on their success in these diverse domains, researchers are increasingly using LLMs as AI agents ([Deng et al., 2024](#bib.bib8); [Wang et al., 2024](#bib.bib35)) for complex tasks, such as robotics ([Liu et al., 2023](#bib.bib23)) and scientific discovery ([Wang et al., 2024](#bib.bib35)). These tasks require the reasoning and planning capabilities of LLMs, extending beyond simpler text comprehension.\n\nReasoning and planning in LLMs refer to their ability to solve complex problems by understanding, processing, and generating solutions across various domains ([Hao et al., 2024](#bib.bib13)). These capabilities can be analyzed from multiple perspectives; we propose a classification that organizes reasoning and planning tasks into five categories, namely arithmetic, logical, commonsense, algorithmic, and plan generation challenges.\nRecent advances in inference-time techniques demonstrate the potential to enhance LLM reasoning and planning without additional training. These techniques focus on decomposing complex problems into simpler intermediate steps during inference. For instance, Chain-of-Thought ([Wei et al., 2022](#bib.bib38)) encourages step-by-step reasoning, while Tree-of-Thought ([Yao et al., 2024](#bib.bib44)) chooses optimal reasoning paths using tree search. Notably, OpenAI’s O1 model, a large reasoning model (LRM) ([Valmeekam et al., 2024](#bib.bib33)), achieves state-of-the-art performance on various reasoning tasks, demonstrating the effectiveness of inference-time techniques. This success has inspired the research community to focus more on scaling inference-time techniques in the hope of similar performance improvements.\n\nAlthough inference time techniques have improved LLM reasoning and planning, evaluation of these methods has been limited to specific tasks, models, and datasets. Moreover, these methods have additional computational costs, presenting a trade-off between computational overhead and performance gains. To overcome this limitation we introduce Sys2Bench, a comprehensive benchmark covering multiple tasks and models. Specifically, we perform experiments on eleven datasets and seven different LLMs, testing four widely used inference-time techniques. Based on our findings, we argue that simply scaling inference-time computation has limitations. Instead, we need to explore diverse approaches to enhance the holistic reasoning capabilities of LLMs, as no single inference-time technique consistently outperforms others across all tasks.\n\n## 2 Related Work\n\nLLM Reasoning is the ability of LLMs to logically process information and draw coherent conclusions, enabling them to solve complex problems ([Saparov and He, 2023](#bib.bib29)). The success of LLMs in Natural Language Generation ([Radford et al., 2018](#bib.bib27)) and Natural Language Understanding ([Vaswani et al., 2017](#bib.bib34); [Devlin et al., 2019](#bib.bib9)) has sparked interest in exploring reasoning capabilities. A range of datasets have been introduced to evaluate reasoning, covering tasks in arithmetic ([Ling et al., 2017](#bib.bib22); [Cobbe et al., 2021](#bib.bib5)), logic ([Chollet, 2019](#bib.bib4); [Wang et al., 2022](#bib.bib36)), common sense ([Yang et al., 2018](#bib.bib43); [Geva et al., 2021](#bib.bib11)), and algorithmic reasoning ([Yao et al., 2024](#bib.bib44)). We introduce these tasks in more detail in\nSection [3](#S3 \"3 Sys2Bench Problems and Datasets ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\"), and report results across these tasks in Section [5](#S5 \"5 Experiments ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\").\n\nLLM Planning involves constructing a sequence of actions to achieve defined goals ([Valmeekam et al., 2023](#bib.bib32); [Zheng et al., 2024](#bib.bib47)). LLMs have been employed as planners or high-level controllers for robotic tasks [Liu et al. (2023)](#bib.bib23); [Huang et al. (2022)](#bib.bib16) and as agents for web navigation ([Deng et al., 2024](#bib.bib8)), scientific discovery ([Wang et al., 2024](#bib.bib35)), and autonomous vehicles ([Yang et al., 2023](#bib.bib42)). Despite their broad adoption, studies reveal that LLMs often struggle to generate valid plans for complex tasks ([Kambhampati et al., 2024](#bib.bib17); [Xie et al., 2024](#bib.bib41)). We provide details on evaluated planning problems in Section [3](#S3 \"3 Sys2Bench Problems and Datasets ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\"), with results and analyses in Section [5](#S5 \"5 Experiments ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\").\n\nInference Time Techniques for LLMs are methods applied during output generation to improve performance, and alignment with downstream tasks ([Welleck et al., 2024](#bib.bib39)). These techniques aid reasoning and planning by breaking complex tasks into smaller, manageable steps for systematic problem-solving. For instance, Chain-of-Thought prompting (CoT) ([Wei et al., 2022](#bib.bib38)) and its variants ([Zhou et al., 2023](#bib.bib49); [Kojima et al., 2022](#bib.bib18)) decompose problems into sequential steps, while self-consistency ([Wang et al., 2023](#bib.bib37)) refines CoT by aggregating multiple responses through voting. Tree of Thought ([Yao et al., 2024](#bib.bib44)), Graph of Thought ([Besta et al., 2024](#bib.bib2)), and Monte Carlo Tree Search ([Hao et al., 2023](#bib.bib12); [Zhou et al., 2024](#bib.bib48)) enhance problem-solving by systematically exploring reasoning paths. Details on inference-time methods are in Section [4](#S4 \"4 Sys2Bench Baseline Methods ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\"), with results in Section [5](#S5 \"5 Experiments ‣ Inference-Time Computations for LLM Reasoning and Planning: A Benchmark and Insights\").\n\n## 3 Sys2Bench Problems and Datasets\n\n|  |  |  |  |  |  |  |\n| --- | --- | --- | --- | --- | --- | --- |\n|  | Algorithmic Reasonin",
+      "score": 0.9409459689476536
+    },
+    {
+      "id": "S6",
+      "title": "When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning",
+      "url": "https://arxiv.org/html/2504.01005v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\n\n###### Abstract\n\nScaling test-time compute has emerged as a key strategy for enhancing the reasoning capabilities of large language models (LLMs), particularly in tasks like mathematical problem-solving. A traditional approach, Self-Consistency (SC), generates multiple solutions to a problem and selects the most common answer via majority voting. Another common method involves scoring each solution with a reward model (verifier) and choosing the best one. Recent advancements in Generative Reward Models (GenRM) reframe verification as a next-token prediction task, enabling inference-time scaling along a new axis. Specifically, GenRM generates multiple verification chains-of-thought to score each solution. Under a limited inference budget, this introduces a fundamental trade-off: should you spend the budget on scaling solutions via SC or generate fewer solutions and allocate compute to verification via GenRM? To address this, we evaluate GenRM against SC under a *fixed inference budget*. Interestingly, we find that SC is more compute-efficient than GenRM for most practical inference budgets across diverse models and datasets. For instance, GenRM first matches SC after consuming up to 8×8\\times the inference compute and requires significantly more compute to outperform it. Furthermore, we derive inference scaling laws for the GenRM paradigm, revealing that compute-optimal inference favors scaling solution generation more aggressively than scaling the number of verifications. Our work provides practical guidance on optimizing test-time scaling by balancing solution generation and verification. The code is available at <https://github.com/nishadsinghi/sc-genrm-scaling>.\n\n## 1 Introduction\n\nLarge Language Models (LLMs) have shown substantial improvements in their reasoning capabilities with increased test-time compute ([Guo et al., 2025](#bib.bib18); [Goyal et al., 2023](#bib.bib14); [Snell et al., 2024](#bib.bib37)) across diverse domains such as math and science. One of the most straightforward and effective ways to scale test-time compute is by generating multiple solution chains-of-thought (CoTs) for a given problem and performing majority voting over them, a technique known as Self-Consistency (SC) ([Wang et al., 2022](#bib.bib40)). Alternatively, a reward model (aka ‘verifier’)\ncan be used to score the solutions and identify the best one. This strategy, commonly referred to as Best-of-N (BoN), has been widely employed to enhance LLM reasoning capabilities ([Cobbe et al., 2021](#bib.bib9)). A robust reward model can detect errors and discard incorrect solutions, even when they are overrepresented among the generated solutions, making this approach particularly effective.\n\nRecent studies ([Zhang et al., 2024](#bib.bib45); [Mahan et al., 2024](#bib.bib31); [Ankner et al., 2024](#bib.bib1)) have framed verification as a next-token prediction task, leading to a new class of reward models known as Generative Reward Models (GenRM). These models enable test-time scaling along a new axis: generating multiple verification CoTs and aggregating their verdicts to score a given solution. Prominently, prior work compares the performance of GenRM (BoN) and SC at a fixed number of solutions. For instance, Llama GenRM (BoN) with 3232 verification CoTs surpasses SC across different solution counts (Figure [1](#S0.F1 \"Figure 1 ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")(a)). This comparison suggests that GenRM is more efficient, achieving the same performance as SC with 4×4\\times fewer solutions. However, this conclusion is misleading in practical scenarios where inference compute budgets (FLOPs) are limited, as the current comparisons overlook the significant computational cost of generating many verifications for several candidate solutions of a given problem. This gives rise to the question: At a fixed inference compute budget, is it more effective to perform SC over many solutions, or use GenRM to select the best solution from a smaller set of solutions by scaling the number of verifications?\n\nTo address this, we present a framework to estimate the inference budget for Self-Consistency and GenRMs. Subsequently, we conduct a compute-matched analysis, comparing the effectiveness of these test-time scaling strategies under a fixed computational budget (§[3.1](#S3.SS1 \"3.1 Compute-Matched Analysis of Test-time Scaling Strategies ‣ 3 Methodology ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")). Specifically, we assume an LLM is used for both problem-solving (solution generator) and generative verification (reward model). The generative verification capability can be leveraged through either prompting or task-specific fine-tuning. Consequently, the inference compute comparison between SC and GenRMs is based on the total number of solutions and verifications generated by the LLM, as illustrated in Figure [2](#S1.F2 \"Figure 2 ‣ 1 Introduction ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\").\n\nIn our experiments, we compare the performance of scaling solutions and verifications with GenRM against simply scaling solutions via SC across various inference compute budgets. Our results indicate that SC outperforms GenRM at lower compute budgets, while GenRM performs better at higher budgets (Figure [1](#S0.F1 \"Figure 1 ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")(b)). In particular, GenRM first surpasses SC after 8×8\\times compute and requires an additional 128×128\\times inference compute to achieve a 3.8%3.8\\% performance gain over SC. While prior work realized GenRM in limited settings, we demonstrate the robustness of our findings across various model families (e.g., Llama ([Grattafiori et al., 2024](#bib.bib15)) and Qwen ([Yang et al., 2024](#bib.bib42))), model sizes (e.g., 7B and 70B), thinking models (e.g., QwQ-32B ([Qwen, 2025](#bib.bib34))), and reasoning tasks (e.g., math) (§[5.1](#S5.SS1 \"5.1 Fixed Budget Comparison between Self-Consistency and GenRM ‣ 5 Experiments ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")).\n\nAs the compute budget is scaled and GenRM starts outperforming SC, a second challenge emerges: with GenRM, the available compute can be split between generating solutions and verifying them in different ways, leading to varying performance. For example, in Figure [1](#S0.F1 \"Figure 1 ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")(b), using 8 verifications (red curve) performs better than 4 verifications (green curve) at a budget proportional to 282^{8} FLOPs. This shows a key tradeoff in GenRM: sampling too few solutions may lower the chances of generating a correct one (low coverage), while performing too few verifications can make it harder to identify the correct solution (low precision). Hence, this raises the question: Under GenRM, how to allocate a given compute budget between generating solutions and verifying them to achieve optimal performance?\n\nTo address this, we derive inference scaling laws for GenRM, which describe how the optimal number of solutions and verifications scales with the total compute budget (§[3.2](#S3.SS2 \"3.2 Inference Scaling Laws for GenRM ‣ 3 Methodology ‣ When To Solve, When To Verify: Compute-Optimal Problem Solving and Generative Verification for LLM Reasoning\")). We observe that while both need to be scaled in tand",
+      "score": 0.9585120723658977
+    },
+    {
+      "id": "S7",
+      "title": "LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning",
+      "url": "https://arxiv.org/html/2607.10139v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning\n\n###### Abstract\n\nSelecting the correct answer from a pool of candidate reasoning chains is the engine of test-time scaling, yet the standard selectors each carry a cost: self-consistency inherits the errors of the single model it resamples, and trained reward models need labeled data and transfer poorly off-distribution. We study a third signal, free at inference time: cross-model consensus, the degree to which independently trained models, each solving the problem once, agree on a final answer. We treat the panel as an LLM-jury, in which the structure of agreement, not any model’s score of another, is the verification signal. Across seven benchmarks it selects correct answers better than self-consistency and far better than a model scoring its own candidates: on competition math it closes the entire gap to an oracle selector, while self-scoring closes almost none. The mechanism is error decorrelation: independently trained models err differently, so their wrong answers scatter while the correct one accumulates agreement. We make this precise with a parameter-free law, derived in closed form, that predicts consensus accuracy from three measured panel statistics to a mean absolute error of 0.030.03 and exposes the method’s ceiling: a *shared-error floor* where models share a misconception, near zero on math but non-trivial on science. Against four trained verifiers spanning discriminative, outcome, and generative reward models, the free LLM-jury matches the strongest inside their math training domain and is the top selector outside it. Cross-model consensus is thus a verifier we can characterize in advance: a law that says when to trust it, and a floor that marks where it cannot.\n\n|  |\n| --- |\n|  |\n\n## 1 Introduction\n\nModern reasoning systems spend compute at inference time by sampling many candidate solutions and selecting among them ([Wei et al., 2022](#bib.bib1); [Brown et al., 2024](#bib.bib19); [Snell et al., 2025](#bib.bib4); [Muennighoff et al., 2025](#bib.bib5)). As the sample count grows a correct answer almost always appears somewhere in the pool, so the bottleneck shifts from generation to selection: the *verifier* that picks which candidate to return, not the generator, increasingly bounds end-to-end accuracy ([Zhao et al., 2025](#bib.bib20); [Liu et al., 2025a](#bib.bib31)). Yet the two verifiers that dominate practice each carry a structural cost. *Self-consistency* takes a majority vote over repeated samples of a single model ([Wang et al., 2023](#bib.bib2)); because every sample comes from the same model, it inherits that model’s systematic errors, so a confidently wrong model errs on most samples and votes its own error into the majority. *Trained reward models* (outcome and process reward models, or PRMs) ([Lightman et al., 2023](#bib.bib3); [Wang et al., 2024b](#bib.bib14); [Zhang et al., 2025c](#bib.bib15); [Liu et al., 2025b](#bib.bib16)) score candidates with a learned network, but require annotated training data and, as we show, transfer poorly outside the distribution they are trained on. Both leave a gap: a verifier that is at once *label-free*, *general*, and able to catch the errors a single model is blind to.\n\nWe study a third signal that fills this gap, needing neither extra samples of one model nor any training: cross-model consensus, the degree to which several *independently trained* models, each solving the problem once, agree on a final answer. We call this panel an LLM-jury (Figure [1](#S1.F1 \"Figure 1 ‣ 1 Introduction ‣ LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning\")): like jurors who deliberate independently before a verdict, each model solves the problem on its own and the *structure of their agreement* is the signal, a unanimous panel marking a trustworthy answer and a split one a problem to escalate. Crucially, our jurors never see the candidates or one another’s work, unlike a panel of LLM *judges* that read and score generations ([Verga et al., 2024](#bib.bib25)); this is why, as we show, a model scoring its own candidates is the weakest of the selectors we compare.\n\nAgreement tracks correctness for a simple reason, the classical bias–variance–diversity logic of ensembles ([Krogh and Vedelsby, 1994](#bib.bib32); [Dietterich, 2000](#bib.bib33)) made concrete for reasoning: when models’ mistakes are *decorrelated*, wrong answers scatter while the correct one accumulates agreement, whereas resampling a single model repeats the *same* mistake and manufactures a confident but wrong majority. The magnitude of this effect is large: on competition math, a model scoring its own twelve candidates captures essentially 0%0\\% of the achievable selection gain over self-consistency, while three models that never see one another’s work capture 100%100\\% of it: the signal that separates a correct answer from a wrong one lives *between* independently trained models, not inside any one. Recent multi-model methods ([Wang et al., 2024a](#bib.bib12); [Jiang et al., 2023](#bib.bib13); [Li et al., 2024](#bib.bib29)) exploit a version of this, but as an aggregation heuristic for a better answer; our claim is not that “voting helps” (known) but that the LLM-jury is a *predictable, training-free verifier with a quantified ceiling* that rivals trained reward models and generalizes where they do not. We establish this by isolating the scoring signal on a fixed candidate pool (so a better selector cannot be confused with better candidates), giving a theory that predicts when the signal can be trusted, and comparing it directly against the trained verifiers it aims to replace. Our core contributions are:\n\nAgreement as a verifier. We show that on a fixed Best-of-NN pool across seven benchmarks, the LLM-jury selects correct answers better than self-consistency and a single-model LLM-verifier (up to +20+20 points on AIME, p=0.001p{=}0.001); the self-scoring verifier captures ≈0%\\approx 0\\% of the oracle gap, so a model cannot adjudicate its own candidates. The advantage is robust to the generator and persists even with a frontier-model panel (§[5.1](#S5.SS1 \"5.1 Cross-model consensus is a strong Best-of-𝑁 verifier ‣ 5 Experiments ‣ LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning\")).\n\nA closed-form predictive law and its ceiling. A parameter-free law, validated against simulation, predicts consensus accuracy and its full selective-prediction curve from measured panel statistics to a mean absolute error of 0.030.03, and transfers across benchmarks (leave-one-benchmark-out). The same law pins the method’s limit: a *shared-error floor* of ≈0\\approx 0 on math but non-zero on science, set by how alike models’ errors are (§[5.2](#S5.SS2 \"5.2 The parameter-free law predicts consensus behavior and its ceiling ‣ 5 Experiments ‣ LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning\")).\n\nA free selector that matches trained verifiers and generalizes further. On an identical trace pool the LLM-jury is the strongest selector against four trained verifiers spanning discriminative PRMs, an outcome RM, and a generative verifier (Qwen2.5-Math-PRM 7B/72B, AceMath-72B, ThinkPRM-14B): it ties the strongest in their math training domain (MATH-500) and is the top selector out of it (GPQA), at zero training cost; the same signal further extends to executable code and to a compute-saving agreement cascade (§[5.3](#S5.SS3 \"5.3 Cross-model consensus outperforms trained reward models ‣ 5 Experiments ‣ LLMs as a Jury: Cross-Model Consensus Can Outperform Process Reward Models for LLM Reasoning\")).\n\nDecorrelation is the mechanism. Through matc",
+      "score": 0.9579775299951341
+    },
+    {
+      "id": "S8",
+      "title": "VerifyBench: A Systematic Benchmark for Evaluating ...",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/40448/44409",
+      "content": "VerifyBench: A Systematic Benchmark for Evaluating Reasoning Verifiers Across Domains Xuzhao Li1*†, Xuchen Li2,3,4*, Shiyu Hu5, Yongzhen Guo1‡, Wentao Zhang4,6‡ 1Ant Group 2Institute of Automation, Chinese Academy of Sciences 3University of Chinese Academy of Sciences 4Zhongguancun Academy 5Nanyang Technological University 6Peking University xuzhaoli2001@gmail.com, xuchenli1030@gmail.com, yongzhen.gyz@antgroup.com, wentao.zhang@pku.edu.cn Abstract Large language models (LLMs) increasingly rely on rein-forcement learning (RL) to enhance their reasoning capa-bilities through feedback. A critical challenge is verifying the consistency of model-generated responses and reference answers, since these responses are often lengthy, diverse, and nuanced. Rule-based verifiers struggle with complexity, prompting the use of model-based verifiers. Existing research primarily focuses on building better verifiers, yet a systematic evaluation of different types of verifiers’ performance across domains remains lacking, severely constraining the reliable development of Reinforcement Learning with Verifiable Re-ward (RLVR). To address this, we propose VerifyBench–a cross-domain comprehensive benchmark for systematically evaluating verifiers. We construct about 4,000 expert-level questions covering mathematics, physics, chemistry, and bi-ology. Questions are equipped with reference answers and diverse responses. The reliability of the evaluation is en-sured through a rigorous collection and annotation process conducted by a multidisciplinary expert team. We design a four-dimensional experimental framework to comprehen-sively compare the performance boundaries of specialized verifiers and general LLMs under combined conditions of ex-tracted answers vs. complete responses, and short vs. long outputs. Our evaluation uncovers fundamental trade-offs in verifiers: while specialized verifiers achieve leading accuracy (the best model reaching 96.48% in chemistry), they exhibit deficiencies in recall; general models show stronger inclu-sivity but unstable accuracy. More importantly, we discover verifiers’ high sensitivity to input structure and inherent lim-itations in cross-domain generalization, providing critical in-sights into the bottlenecks of current verifier technology.\nIntroduction Large language models (LLMs) (Guo et al. 2025; Achiam et al. 2023; Team et al. 2025) have achieved significant *These authors contributed equally.\n†Work done during Xuzhao’s internship.\n‡Corresponding Authors.\nCopyright © 2026, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved.\nTraining Data LLM Verifier Question Response Reward RLVR Reference Answer Trained Verifier General LLM Math Biology Chemistry Physics Verifier Output Length Response Architecture Long Token Short Token VerifyBench 1.6 × 106 16 × 105 sodium chloride NaCl HOOC −COO− HC2O4 − 𝑦= 2𝑥+ 1 𝑥= 𝑦/2 −1 Figure 1: Overview of the Reinforcement Learning with Verifier (RLVR) paradigm and the VerifyBench evaluation framework. The upper section illustrates the verifier’s role in the RL feedback loop for LLMs. The lower section high-lights VerifyBench’s multidisciplinary scope and the key ex-perimental variables: different verifier types, response input formats (\\boxed{} vs. \\complete{}), and verifier out-put token lengths.\nbreakthroughs in complex reasoning, planning, and sym-bolic problem-solving (Cao et al. 2025). This progress is largely driven by Reinforcement Learning with Verifiable Reward (RLVR) (Luo et al. 2025; Zeng et al. 2025), which employs an external feedback loop to refine policy model.\nAs depicted in Figure 1, this mechanism enables LLMs to generalize and produce high-quality responses. In re-cent work, this paradigm has been extended beyond rule-based reward (Hynek Kydl´ ıˇ cek 2024) to include verifier-based learning (Chen et al. 2025; Ma et al. 2025a), where model outputs are evaluated by a separate verifier model.\nThe Fortieth AAAI Conference on Artificial Intelligence (AAAI-26) 31796 However, the inherent unreliability of current verifier sys-tems remains a critical challenge (Huang et al. 2025). Rule-based verifiers, relying on rigid pattern matching, are lim-ited in generalization and brittle with diverse, nuanced LLM responses. They frequently misclassify semantically correct but non-canonical responses, especially in complex domains like mathematics. This fundamental limitation creates mis-alignment between model performance and reward signals, directly hindering RLVR’s scalability and trustworthiness in real-world deployment.\nTo overcome these constraints, model-based verifiers have emerged, including specialized models (finetuned on labeled data) and general-purpose LLMs (Yang et al. 2025; Cai et al. 2024; Qwen et al. 2025) acting as judges. While promising enhanced flexibility, their practical application in-troduces new issues (Huang et al. 2025). Crucially, despite intense focus on verifier development, a systematic and com-prehensive evaluation of diverse verifier types across var-ied domains and conditions remains absent. This significant gap impedes robust RLVR development, leaving practition-ers without clear guidance.\nTo fill this critical void, we introduce VerifyBench: a cross-domain comprehensive benchmark for systematic evaluation of verifiers. VerifyBench is constructed from about 4,000 expert-level questions spanning mathematics, physics, chemistry, and biology. Questions include reliable reference answers and diverse Chain-of-Thought (CoT) (Ma et al. 2025b; Wei et al. 2022) responses. Gold-standard judgment labels are established through a rigorous, fine-grained human annotation process by a multidisciplinary expert team, ensuring unparalleled reliability. This enables systematic and reliable analysis of verifier behavior across a four-dimensional experimental framework, varying input granularity (boxed final answers vs. full reasoning traces) and output constraints.\nOur benchmark and experimental design are driven by three primary goals. First, to provide a systematic, multi-disciplinary evaluation platform for verifiers across STEM domains. Second, to comprehensively analyze intricate be-havioral differences between verifier types. Third, by simu-lating realistic RLVR deployment scenarios through varied input and output conditions, we uncover how these factors affect verifier reliability and expose critical bottlenecks in their current design.\nThrough controlled experiments, we rigorously evaluate both specialized verifiers (finetuned LLMs) and general-purpose LLMs (zero-shot or few-shot verifiers). Our find-ings reveal fundamental trade-offs in verifier design: spe-cialized models offer leading accuracy but exhibit deficien-cies in recall and struggle with diverse expressions. Con-versely, general LLMs demonstrate high inclusiveness es-pecially with larger model sizes, but they suffer from in-consistent structured judgment and a heightened risk of false positives. Importantly, we empirically uncover veri-fiers’ acute sensitivity to input structure and inherent limi-tations in cross-domain generalization, providing critical in-sights into the fundamental challenges facing current veri-fiers. VerifyBench offers a rigorous foundation for develop-ing trustworthy verifier evaluations in RL-trained LLMs.\nOur main contributions are as follows: • We introduce VerifyBench, a novel, multidisciplinary benchmark of about 4,000 expert-level questions across mathematics, physics, chemistry, and biology, featur-ing fine-grained human annotations and diverse CoT re-sponses from state-of-the-art LLM, specifically designed for systematic verifier evaluation.\n• We conduct a comprehensive empirical study comparing various verifier types—specialized models vs. general-purpose LLMs—under varying input contexts and out-put constraints. This systematic framework reveals fun-damental judgmental trade-offs and highlights their lim-itations, particularly concerning accuracy",
+      "score": 0.9457375019758544
+    },
+    {
+      "id": "S9",
+      "title": "[PDF] Investigating Inference-time Scaling for Chain of Multi-modal Thought",
+      "url": "https://aclanthology.org/2025.findings-acl.808.pdf",
+      "content": "Findings of the Association for Computational Linguistics: ACL 2025, pages 15654–15667 July 27 - August 1, 2025 ©2025 Association for Computational Linguistics Investigating Inference-time Scaling for Chain of Multi-modal Thought: A Preliminary Study Yujie Lin1,3*, Ante Wang1,3*, Moye Chen2, Jingyao Liu1, Hao Liu2 Jinsong Su1,3,4† and Xinyan Xiao2 1School of Informatics, Xiamen University, China 2Baidu Inc., Beijing, China 3Key Laboratory of Digital Protection and Intelligent Processing of Intangible Cultural Heritage of Fujian and Taiwan (Xiamen University), Ministry of Culture and Tourism, China 4Shanghai Artificial Intelligence Laboratory {yjlin,wangante}@stu.xmu.edu.cn jssu@xmu.edu.cn Abstract Recently, inference-time scaling of chain-of-thought (CoT) has been demonstrated as a promising approach for addressing multi-modal reasoning tasks. While existing stud-ies have predominantly centered on text-based thinking, the integration of both visual and tex-tual modalities within the reasoning process remains unexplored. In this study, we pioneer the exploration of inference-time scaling with multi-modal thought, aiming to bridge this gap.\nTo provide a comprehensive analysis, we sys-tematically investigate popular sampling-based and tree search-based inference-time scaling methods on 10 challenging tasks spanning var-ious domains. Besides, we uniformly adopt a consistency-enhanced verifier to ensure ef-fective guidance for both methods across dif-ferent thought paradigms. Results show that multi-modal thought promotes better perfor-mance against conventional text-only thought, and blending the two types of thought fosters more diverse thinking. Despite these advan-tages, multi-modal thoughts necessitate higher token consumption for processing richer visual inputs, which raises concerns in practical ap-plications. We hope that our findings on the merits and drawbacks of this research line will inspire future works in the field.1 1 Introduction The remarkable performance of OpenAI’s o1 in tackling reasoning tasks has sparked widespread research interest in studying inference-time scal-ing across various communities (Chen et al., 2025).\nThis technique is built upon the success of Chain-of-Thought (CoT, Wei et al. 2022), which enables large language models (LLMs) to solve a problem through step-by-step reasoning. It makes use of *These authors contributed equally.\n†Corresponding author.\n1Our code can be found at https://github.com/ DeepLearnXMU/TTS_COMT According to the auxiliary line AD, △ABD and △ACD share side AD. And since AB = AC and ∠BAD = ∠CAD, by the SAS theorem, △ABD is congruent to △ACD. Thus ∠B = ∠C.\nTo prove this proposition, I need to draw the angle bisector AD of ∠A.\nC A B 1 2 D To prove this proposition, I need to draw the angle bisector AD of ∠A.\nAssuming that ∠ABD is equal to ∠ACD, by the ASA criterion, ∠1 and ∠2 are congruent, which implies ∠B = ∠C.\nText-only Thought In △ABC, AB = AC, prove ∠B = ∠C.\nMulti-modal Thought C A B 1 2 Figure 1: Solving the problem using text-only thought vs. multi-modal thought. Additional visual information from the latter offers richer and more intuitive features, making it easier to yield better subsequent steps.\nadditional computation at inference time to con-duct “slow thinking” (Kahneman, 2011) to further improve the accuracy of responses. Taking the rich experience of pioneering research in language-only approaches (Xu, 2023; Yao et al., 2024b; Snell et al., 2024; Wu et al., 2024; Luo et al., 2024; Xie et al., 2024; Wang et al., 2024b,a; Li et al., 2025; Wang et al., 2025; Bi et al., 2025), rapid progress has been made in addressing multi-modal reasoning tasks leveraging typical methods such as Best-of-N, Beam Search, and Monte Carlo Tree Search (MCTS) (Xu et al., 2024; Yao et al., 2024a).\nAlthough effective, these methods mostly follow the practice of text-based thinking, overlooking the crucial role of thinking in the visual modality in multi-modal scenarios. This oversight leads to sub-optimal performance, thus highlighting the need for new approaches that integrate both modalities. Con-sider the process of solving geometric problems as an example: humans often utilize auxiliary lines to facilitate problem-solving. Analogously, rich and intuitive visual information, e.g., drawn auxiliary lines, can enhance the model’s ability to generate improved solutions, as shown in Figure 1. Recent studies (Lu et al., 2022, 2023; Zhou et al., 2024; Hu 15654 et al., 2024; Zhang et al., 2024b; Chen et al., 2024b; Cheng et al., 2025) have also demonstrated the ben-efits of incorporating supplementary visual infor-mation at each reasoning step compared with con-ventional text-based methods (Zhang et al., 2023; Zheng et al., 2023; Mitra et al., 2024). Therefore, an important yet under-explored question arises: What is the potential of inference-time scaling of multi-modal thinking?\nTo this end, we conduct the first study on this problem, shedding light on the merits and con-straints of this new research line.\nWe follow Wei et al. (2022) and Hu et al. (2024) to elicit text-only and multi-modal thought, respectively.\nFor inference-time scaling, we investigate popu-lar sampling-based and tree search-based methods.\nSampling-based method generates multiple inde-pendent samples in parallel, applying techniques like Self-Consistency (Wang et al., 2023) or Best-of-N (Chen et al., 2024a; Wan et al., 2024) to se-lect the most reliable reasoning trails. However, this approach is inefficient because it requires ex-ploring full solution paths, even if a mistake has occurred early. Tree search-based method tackles this issue by utilizing sophisticated search algo-rithms, such as Beam Search (Yao et al., 2024b) and MCTS (Tian et al., 2024a). Both these methods ask for a critic to discriminate the promising sam-ples or search steps. We consistently employ an advanced Large Vision Language Model (LVLM) as a verifier to infer critic scores and, alternatively, enhance this method by aggregating results from multiple trials. In this way, it effectively provides reliable feedback without the need for specific train-ing.\nWe conduct a comparison of inference-time scal-ing using multi-modal and text-only thought across 10 datasets, encompassing tasks related to geomet-ric reasoning, mathematical reasoning, and visual question answering. The main findings are as fol-lows: • The use of multi-modal thought achieves sig-nificantly better performance and higher upper bounds compared to text-only thought on aver-age, demonstrating the potential of this line of research.\n• Although effective, it requires higher token con-sumption to process richer visual inputs. This result calls for more efficient reasoning mecha-nisms, especially for practical concerns.\n• Further analyses show that tree search-based methods effectively mitigate reasoning errors, such as invalid processed images.\nHowever, their success heavily relies on verifier perfor-mance, highlighting the need to develop more effective multi-modal verifiers.\nWe hope that these findings can inspire future re-search to develop more advanced and robust meth-ods for multi-modal reasoning.\n2 Preliminaries In this section, we firstly establish the formulation for both text-only and multi-modal thought (§2.1), and then provide a detailed explanation of two inference-time scaling paradigms (§2.2): sampling-based and tree search-based methods. In addition, we present a prompting-based verifier equipped with a consistency-enhanced mechanism to effec-tively guide these inference-time scaling meth-ods (§2.3).\n2.1 Thought Formulation Chain-of-Thought (CoT, Wei et al. 2022) is a tech-nique that encourages the model to generate inter-mediate reasoning steps S = (s1, ..., sn) before reaching the final answer a. In the context of multi-modal reasoning tasks, given a problem q and im-ages I, each reasoning step si is sampled from an LVLM M: si ∼M \u0000q, I, s1:i−1 \u0001 .\n(1) This expansion allows for more computatio",
+      "score": 0.945391043656534
+    },
+    {
+      "id": "S10",
+      "title": "[PDF] Multi-Agent Reasoning Improves Compute Efficiency - ACL Anthology",
+      "url": "https://aclanthology.org/2026.acl-srw.1.pdf",
+      "content": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 4: Student Research Workshop), pages 1–14 July 2-7, 2026 ©2026 Association for Computational Linguistics Multi-Agent Reasoning Improves Compute Efficiency: Pareto-Optimal Test-Time Scaling Florian Valentin Wunderlich, Lars Benedikt Kaesberg, Jan Philip Wahle, Terry Ruas, Bela Gipp University of Göttingen, Germany Correspondence: florian.wunderlich@uni-goettingen.de Abstract Advances in inference methods have enabled language models to improve their predictions without additional training. These methods often prioritize raw performance over cost-effective compute usage.\nHowever, computational efficiency is key for real-world applications with resource constraints.\nWe provide a systematic analysis of the inference scaling strategies self-consistency, self-refinement, multi-agent debate, and mixture-of-agents, to study their computational performance tradeoffs. We evaluate methods on two reasoning benchmarks (MMLU-Pro, BBH) and include extensive parameter configurations (e.g., scaling the number of parallel predictions, agents, and debate rounds) across different model sizes.\nAcross 34 configurations and over 100 evaluations, we compute the Pareto-optimal front to select methods that achieve the best accuracy with the lowest computational budget.\nNotably, inference scaling improves accuracy by up to +7.1% points over chain-of-thought at the highest evaluated budgets (20× the CoT compute budget) on MMLU-Pro.\nWith an equal computing budget, debate and mixture-of-agents outperform self-consistency by 1.3% and 2.7% points, respectively. While self-consistency saturates earlier, multi-agent gains persist, particularly on more complicated tasks. We identify a simple multi-agent design guideline: mixture-of-agents is most efficient when the number of parallel generations exceeds the number of sequential aggregations.\n1 Introduction The energy and computational demands of large language models (LLMs) are growing rapidly (Jin et al., 2025).\nWith increasing real-world applications, such as complementing search results at scale, efficiency becomes a core concern.\nMany works focus on improving inference model Pipelines (a) & Pipeline Parameters (b) Self-Consistency ● + sequences Self-Refinement − ●iterations Debate + + agents −rounds Debate rule: focus on scaling agents rather than rounds.\nMixture-of-Agents ++ + models + layers Mixture-of-Agents rule: use one more proposer model than layers.\nCompute benefits by task difficulty (c) Easy Medium Hard +2.2% +8.5% +9.0% Figure 1: Test-time scaling efficiency ratings of: (a) Pipeline choice (self-consistency, self-refinement, debate, mixture-of-agents); (b) Pipeline parameters: green plus (recommended), red minus (discouraged), yellow circle (mixed results); (c) Chain-of-thought (orange) compared to the average performance gain across all tested pipeline configurations when using 15–20× the chain-of-thought compute budget (blue), across tasks of varying difficulty for MMLU-Pro.\nperformance without training, but use much larger inference compute budgets than others. This makes comparing methods difficult as they can use orders of magnitude more compute than others. The main goal of this study is to systematically analyze how to achieve the maximum performance gain within a given compute budget, as well as how to achieve a given performance level with minimal compute usage.\nInference-time strategies such as self-consistency (Wang et al., 2023), self-refinement (Madaan et al., 2023), debate (Du et al., 2023), and mixture-of-agents (MoA) (Wang et al., 2024a) 1 differ in their approach to scale inference compute, for example, through additional sampling, iterative refinement, or multi-agent orchestration. They also differ structurally (Zhang et al., 2025b): single-agent methods scale generations either in parallel with different samples (e.g., self-consistency) or sequentially with longer reasoning chains (e.g., self-refinement).\nMulti-agent systems such as MoA and debate use multiple interacting agents and scale along both axes simultaneously (Zhang et al., 2025a; Du et al., 2023; Wang et al., 2024a), thereby enabling interactions among different reasoning paths.\nStudies have shown that scaling test-time compute can be more energy-efficient (Jin et al., 2025) and efficient with respect to the number of floating point operations (FLOPs) (Wu et al., 2024; Snell et al., 2024) than increasing the model size alone.\nSeparately, work on multi-agent systems demonstrated performance gains over baselines such as chain-of-thought (CoT) (Du et al., 2023) or larger models (Wang et al., 2024a).\nDespite rapid progress, three gaps remain: (i) Methods are frequently studied in isolation regarding their performance, but are not compared under matched compute budgets; (ii) Efficiency is usually measured with respect to FLOPs, rarely accounting for memory-transfer costs that affect processing time; (iii) Studies lack practical recommendations on method choice under constrained compute budgets (e.g., whether to use a single-agent method or a multi-agent method and how to parameterize it).\nWe address these gaps by analyzing four inference paradigms under matched compute budgets: self-consistency, self-refinement, debate, and MoA. To adjust compute budgets, we use three levers of test-time scaling: pipeline choice, pipeline parameters (agents, rounds, proposer models, layers, sequences, refinement iterations), and model size.\nIn addition to FLOPs, we also consider memory-transfer costs to measure compute times that are a closer approximation to practical applications on accelerators. Finally, we provide recommendations for practitioners using multi-agent systems.\nOur results show clear trends across benchmarks (MMLU-Pro, BBH) and model sizes (70B, 8B).\nMulti-agent pipelines are more efficient than single-agent baselines when scaled Pareto-optimally, with MoA dominating the Pareto-front. On MMLU-Pro, MoA improves the 70B-model accuracy from 64.3% (CoT) to 71.4% (+7.1 pp), outperforming self-consistency (68.7%) and debate (70.0%) by +2.7 and +1.4 percentage points under comparable inference budgets. Pareto-optimal MoA efficiency is predominantly achieved when the number of parallel model generations exceeds the number of sequential aggregation steps by one. Larger models can be better and also more efficient than scaling up test-time compute with smaller models.\nThe greatest inference-time compute gains were observed on harder tasks (+9 pp for 15–20x CoT budget), motivating an adaptive routing approach that allocates more test-time scaling to harder tasks and less to easier tasks.\nIn general, we recommend a simple multi-agent design guideline: mixture-of-agents is one of the most robust and best-performing methods when the number of parallel generations exceeds the number of sequential aggregations.\nKey Contributions: §3 We conduct a systematic study across four scaling methods (self-consistency, self-refinement, multi-agent debate, mixture-of-agents) and their parameterization.\n§4.1 We demonstrate that multi-agent systems are more efficient than single-agent methods when scaled optimally. We find that mixture-of-agents consistently outperforms debate, self-consistency, and self-refinement.\n§4.3 We explore scaling behaviors of multi-agent systems and observe that configuring mixture-of-agents with one model more than layers predominantly yields Pareto-optimal performance, providing a practical design guideline.\n§4.4 We show that larger models without test-time compute can be more compute-efficient than smaller models with heavily scaled test-time compute.\n2 Related Work Scaling laws for LLMs have historically focused on model parameter counts, training compute, and dataset size, with empirical studies showing predictable performance improvements as these factors increase (Kaplan et al., 2020).\nRecent research has shifted its focus toward optimizing test",
+      "score": 0.9681326610227989
+    },
+    {
+      "id": "S11",
+      "title": "REASONING Research Area Summary",
+      "url": "https://papers.lunadong.com/area/reasoning",
+      "content": "# 🔍 REASONING\n\nComprehensive Research Area Summary\n\nTopic Groups\n\nAvg Breakthrough Score\n\nYear Range\n\n## 📖 What is REASONING?\n\nResearch on enabling large language models to perform multi-step problem solving through prompting strategies, training methods, inference-time scaling, and hybrid neural-symbolic approaches.\n\n### 💡 Why it Matters\n\nReliable multi-step reasoning is essential for LLMs to tackle complex real-world tasks in mathematics, code, science, and decision-making, yet standard models frequently fail on problems requiring sequential logic.\n\n### 🎯 Key Paradigms\n\n**Prompting-based Reasoning**\n\nEliciting reasoning through prompt design including chain-of-thought, structured prompts, in-context learning, and prompt optimization.\n\n**Training Methods for Reasoning**\n\nCore parameter-update training methods: supervised fine-tuning on reasoning traces, RL with verifiable rewards, preference optimization, and parameter-efficient adaptation.\n\n**Reasoning Data, Distillation & Verification**\n\nCreating reasoning training data, transferring reasoning capabilities to smaller models, and verifying reasoning quality through reward models and self-correction.\n\n**Latent and Non-verbal Reasoning**\n\nAlternative reasoning paradigms combining neural models with symbolic logic, formal verification, and continuous latent-space reasoning.\n\n**Test-time Compute Scaling**\n\nAllocating additional computation at inference time through search, adaptive compute, and efficient decoding strategies.\n\n### 📚 Related Fields\n\n* **Reinforcement Learning & Post-training** — *see the [comprehensive summary](/area/rl)*\n\n## 📅 Field Evolution Timeline\n\n2022-01 to 2023-06 Foundation Era\n\nCore prompting paradigms and theoretical foundations for chain-of-thought reasoning\n\n* Chain-of-thought prompting demonstrated that few-shot reasoning demonstrations unlock emergent multi-step capabilities in large language models, achieving state-of-the-art on GSM8K\n* Self-consistency decoding introduced sample-and-vote reasoning, boosting accuracy by +17.9% over standard CoT on GSM8K\n* Zero-shot CoT showed that a single instruction ('Let's think step by step') triggers reasoning without any demonstrations\n* STaR pioneered iterative self-training with rationalization, enabling models to bootstrap reasoning from few examples\n* Circuit complexity theory proved that bounded-depth transformers cannot solve arithmetic without CoT but can with intermediate steps\n\nChain-of-thought prompting established that complex reasoning is an emergent ability of scale, fundamentally changing how LLMs are prompted\n\n2023-07 to 2024-12 Training and Scaling Era\n\nRL-based reasoning training, knowledge distillation, and the rise of trained reasoning models\n\n* Expressiveness proofs established that CoT extends transformer expressiveness from TC0 to P/poly, enabling simulation of any Boolean circuit\n* MAmmoTH introduced hybrid CoT+Program-of-Thought training, tripling MATH accuracy for 7B models\n* REFT pioneered using PPO after SFT warm-up for math reasoning, and compute-optimal test-time scaling showed >4x efficiency gains over best-of-N\n* Step-DPO demonstrated that decomposing preference optimization to individual reasoning steps surpasses GPT-4-level math performance with only 10K data pairs\n* LIMO revealed that fewer than 1,000 curated examples can outperform 100x-data training, challenging assumptions about data scale requirements\n\nThe release of OpenAI o1 and DeepSeek-R1 shifted the field from prompt-based CoT to RL-trained reasoning models, making long CoT and reinforcement learning the dominant paradigm\n\n2025-01 to 2025-09 Efficiency and Safety Revolution\n\nMaking reasoning efficient, safe, and accessible through compression, adaptive compute, safety alignment, and small model training\n\n* T1 and Seed1.5-Thinking scaled RL with exploration to achieve 86.7-92.4% on competition math, matching frontier proprietary models\n* Structural distillation proved that reasoning structure matters more than content, enabling 17K samples to achieve +40% on AIME 2024\n* L1 introduced length-controlled policy optimization enabling user-specified reasoning budgets at +100% relative gain over baselines\n* Short-chain preference challenged the longer-is-better assumption, showing correct chains are systematically shorter and enabling 40% compute savings\n* Seed-Prover demonstrated extreme test-time scaling for theorem proving, solving 5 of 6 IMO 2025 problems and achieving 99.6% on MiniF2F-test\n* Self-reflection vector steering revealed that self-reflection is latent in pre-trained models, enabling bidirectional control of accuracy vs. efficiency\n\nRecognition that reasoning capability and safety risk are deeply intertwined — the same mechanisms enabling useful inference also create novel attack surfaces for adversarial exploitation\n\n2025-10 to 2026-03 Maturation and Theory Era\n\nTheoretical foundations, latent reasoning architectures, mechanistic interpretability, and precision post-training\n\n* Intrinsic Stability Theory formally proved that autoregressive reasoning has an exponential decay in reliability with chain length, establishing fundamental limits\n* Reasoning Flow Framework revealed that logic is encoded in trajectory curvature rather than position or semantics, consistent across model families and scales\n* NRT eliminated the need for external verifiers by treating reasoning as a latent variable, boosting GSM8K from 29% to 76%\n* SPoT achieved +6.2% accuracy with only 4K data pairs and 28 minutes of training via surgical oracle-guided editing\n* Particle filtering framework provided the first rigorous theoretical grounding for parallel LLM reasoning via Sequential Monte Carlo\n* ChaosBench-Logic revealed that frontier models achieve 91-94% on atomic questions but drop to 0% on compositional reasoning\n\nEmergence of the SFT-as-RL-initialization paradigm, where fine-tuning objectives are explicitly designed to preserve exploration capacity for downstream reinforcement learning\n\n🔧\n\n## Reasoning Elicitation through Prompting\n\n**What:** Research on eliciting, evaluating, and improving complex reasoning in language models through prompting strategies, architectural innovations, and training paradigms beyond specific sub-topic techniques like chain-of-thought or self-consistency.\n\n**Why:** Effective reasoning elicitation enables LLMs to solve multi-step problems reliably while reducing computational cost, data requirements, and vulnerability to adversarial inputs.\n\n**Baseline:** Standard Chain-of-Thought (CoT) prompting that generates step-by-step textual reasoning before producing a final answer, often with verbose and redundant intermediate steps.\n\n* Reasoning chains become excessively long and redundant, increasing latency without improving accuracy\n* Models may memorize solution templates rather than developing genuine multi-step reasoning capabilities\n* Precise computation and semantic understanding require fundamentally different reasoning modes that text-only chains cannot bridge\n\n### 🧪 Running Example\n\n❓ In a sarcastic product review saying '5 stars for breaking after just 2 days — truly built to last!' count the sarcastic phrases and compute what fraction of the 3 sentences contain sarcasm.\n\n**Baseline:** Standard CoT would attempt to reason in text: it might correctly identify sarcasm but struggle with precise counting and fraction computation, or produce a verbose 20-step chain for a simple calculation, wasting tokens on redundant reasoning.\n\n**Challenge:** This example mixes semantic understanding (detecting sarcasm) with precise computation (counting and fractions). Adding irrelevant context (e.g., product specs) degrades reasoning. Changing the review structure slightly (a 'hard perturbation') could break memorized patterns entirely.\n\n✅ Chain of Code (LMulator): Writes code to count phrases and compute the fraction, but when the code calls an undefined `detect\\_sarcasm()` function, the LM simulates its output semantically, combining pr",
+      "score": 0.9584272555727822
+    },
+    {
+      "id": "S12",
+      "title": "Multi-Agent Reasoning Improves Compute Efficiency",
+      "url": "https://arxiv.org/pdf/2605.01566",
+      "content": "Multi-Agent Reasoning Improves Compute Efficiency: Pareto-Optimal Test-Time Scaling Florian Valentin Wunderlich, Lars Benedikt Kaesberg, Jan Philip Wahle, Terry Ruas, Bela Gipp University of Göttingen, Germany Correspondence: florian.wunderlich@uni-goettingen.de Abstract Advances in inference methods have enabled language models to improve their predictions without additional training. These methods often prioritize raw performance over cost-effective compute usage.\nHowever, computational efficiency is key for real-world applications with resource constraints.\nWe provide a systematic analysis of the inference scaling strategies self-consistency, self-refinement, multi-agent debate, and mixture-of-agents, to study their computational performance tradeoffs. We evaluate methods on two reasoning benchmarks (MMLU-Pro, BBH) and include extensive parameter configurations (e.g., scaling the number of parallel predictions, agents, and debate rounds) across different model sizes.\nAcross 34 configurations and over 100 evaluations, we compute the Pareto-optimal front to select methods that achieve the best accuracy with the lowest computational budget.\nNotably, inference scaling improves accuracy by up to +7.1% points over chain-of-thought at the highest evaluated budgets (20× the CoT compute budget) on MMLU-Pro.\nWith an equal computing budget, debate and mixture-of-agents outperform self-consistency by 1.3% and 2.7% points, respectively. While self-consistency saturates earlier, multi-agent gains persist, particularly on more complicated tasks. We identify a simple multi-agent design guideline: mixture-of-agents is most efficient when the number of parallel generations exceeds the number of sequential aggregations.\n1 Introduction The energy and computational demands of large language models (LLMs) are growing rapidly (Jin et al., 2025).\nWith increasing real-world applications, such as complementing search results at scale, efficiency becomes a core concern.\nMany works focus on improving inference model Pipelines (a) & Pipeline Parameters (b) Self-Consistency ● + sequences Self-Refinement − ●iterations Debate + + agents −rounds Debate rule: focus on scaling agents rather than rounds.\nMixture-of-Agents ++ + models + layers Mixture-of-Agents rule: use one more proposer model than layers.\nCompute benefits by task difficulty (c) Easy Medium Hard +2.2% +8.5% +9.0% Figure 1: Test-time scaling efficiency ratings of: (a) Pipeline choice (self-consistency, self-refinement, debate, mixture-of-agents); (b) Pipeline parameters: green plus (recommended), red minus (discouraged), yellow circle (mixed results); (c) Chain-of-thought (orange) compared to the average performance gain across all tested pipeline configurations when using 15–20× the chain-of-thought compute budget (blue), across tasks of varying difficulty for MMLU-Pro.\nperformance without training, but use much larger inference compute budgets than others. This makes comparing methods difficult as they can use orders of magnitude more compute than others. The main goal of this study is to systematically analyze how to achieve the maximum performance gain within a given compute budget, as well as how to achieve a given performance level with minimal compute usage.\nInference-time strategies such as self-consistency (Wang et al., 2023), self-refinement (Madaan et al., 2023), debate (Du et al., 2023), and mixture-of-agents (MoA) (Wang et al., 2024a) 1 arXiv:2605.01566v1 [cs.AI] 2 May 2026 differ in their approach to scale inference compute, for example, through additional sampling, iterative refinement, or multi-agent orchestration. They also differ structurally (Zhang et al., 2025b): single-agent methods scale generations either in parallel with different samples (e.g., self-consistency) or sequentially with longer reasoning chains (e.g., self-refinement).\nMulti-agent systems such as MoA and debate use multiple interacting agents and scale along both axes simultaneously (Zhang et al., 2025a; Du et al., 2023; Wang et al., 2024a), thereby enabling interactions among different reasoning paths.\nStudies have shown that scaling test-time compute can be more energy-efficient (Jin et al., 2025) and efficient with respect to the number of floating point operations (FLOPs) (Wu et al., 2024; Snell et al., 2024) than increasing the model size alone.\nSeparately, work on multi-agent systems demonstrated performance gains over baselines such as chain-of-thought (CoT) (Du et al., 2023) or larger models (Wang et al., 2024a).\nDespite rapid progress, three gaps remain: (i) Methods are frequently studied in isolation regarding their performance, but are not compared under matched compute budgets; (ii) Efficiency is usually measured with respect to FLOPs, rarely accounting for memory-transfer costs that affect processing time; (iii) Studies lack practical recommendations on method choice under constrained compute budgets (e.g., whether to use a single-agent method or a multi-agent method and how to parameterize it).\nWe address these gaps by analyzing four inference paradigms under matched compute budgets: self-consistency, self-refinement, debate, and MoA. To adjust compute budgets, we use three levers of test-time scaling: pipeline choice, pipeline parameters (agents, rounds, proposer models, layers, sequences, refinement iterations), and model size.\nIn addition to FLOPs, we also consider memory-transfer costs to measure compute times that are a closer approximation to practical applications on accelerators. Finally, we provide recommendations for practitioners using multi-agent systems.\nOur results show clear trends across benchmarks (MMLU-Pro, BBH) and model sizes (70B, 8B).\nMulti-agent pipelines are more efficient than single-agent baselines when scaled Pareto-optimally, with MoA dominating the Pareto-front. On MMLU-Pro, MoA improves the 70B-model accuracy from 64.3% (CoT) to 71.4% (+7.1 pp), outperforming self-consistency (68.7%) and debate (70.0%) by +2.7 and +1.4 percentage points under comparable inference budgets. Pareto-optimal MoA efficiency is predominantly achieved when the number of parallel model generations exceeds the number of sequential aggregation steps by one. Larger models can be better and also more efficient than scaling up test-time compute with smaller models.\nThe greatest inference-time compute gains were observed on harder tasks (+9 pp for 15–20x CoT budget), motivating an adaptive routing approach that allocates more test-time scaling to harder tasks and less to easier tasks.\nIn general, we recommend a simple multi-agent design guideline: mixture-of-agents is one of the most robust and best-performing methods when the number of parallel generations exceeds the number of sequential aggregations.\nKey Contributions: §3 We conduct a systematic study across four scaling methods (self-consistency, self-refinement, multi-agent debate, mixture-of-agents) and their parameterization.\n§4.1 We demonstrate that multi-agent systems are more efficient than single-agent methods when scaled optimally. We find that mixture-of-agents consistently outperforms debate, self-consistency, and self-refinement.\n§4.3 We explore scaling behaviors of multi-agent systems and observe that configuring mixture-of-agents with one model more than layers predominantly yields Pareto-optimal performance, providing a practical design guideline.\n§4.4 We show that larger models without test-time compute can be more compute-efficient than smaller models with heavily scaled test-time compute.\n2 Related Work Scaling laws for LLMs have historically focused on model parameter counts, training compute, and dataset size, with empirical studies showing predictable performance improvements as these factors increase (Kaplan et al., 2020).\nRecent research has shifted its focus toward optimizing test-time compute, as it enables improvements without requiring model retraining. As part of 2 this development, various inference-time strategies have been introduced",
+      "score": 0.981134763466022
+    },
+    {
+      "id": "S13",
+      "title": "Multi-Agent Reasoning Improves Compute Efficiency:Pareto-Optimal Test-Time Scaling",
+      "url": "https://arxiv.org/html/2605.01566v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Multi-Agent Reasoning Improves Compute Efficiency: Pareto-Optimal Test-Time Scaling\n\n###### Abstract\n\nAdvances in inference methods have enabled language models to improve their predictions without additional training.\nThese methods often prioritize raw performance over cost-effective compute usage.\nHowever, computational efficiency is key for real-world applications with resource constraints.\nWe provide a systematic analysis of the inference scaling strategies self-consistency, self-refinement, multi-agent debate, and mixture-of-agents, to study their computational performance tradeoffs.\nWe evaluate methods on two reasoning benchmarks (MMLU-Pro, BBH) and include extensive parameter configurations (e.g., scaling the number of parallel predictions, agents, and debate rounds) across different model sizes.\nAcross 34 configurations and over 100 evaluations, we compute the Pareto-optimal front to select methods that achieve the best accuracy with the lowest computational budget.\nNotably, inference scaling improves accuracy by up to +7.1% points over chain-of-thought at the highest evaluated budgets (20× the CoT compute budget) on MMLU-Pro.\nWith an equal computing budget, debate and mixture-of-agents outperform self-consistency by 1.3% and 2.7% points, respectively.\nWhile self-consistency saturates earlier, multi-agent gains persist, particularly on more complicated tasks.\nWe identify a simple multi-agent design guideline: mixture-of-agents is most efficient when the number of parallel generations exceeds the number of sequential aggregations.\n\n![Refer to caption](2605.01566v1/page1figure.png)\n\n## 1 Introduction\n\nThe energy and computational demands of large language models (LLMs) are growing rapidly [Jin et al. (2025)](#bib.bib9).\nWith increasing real-world applications, such as complementing search results at scale, efficiency becomes a core concern.\nMany works focus on improving inference model performance without training, but use much larger inference compute budgets than others.\nThis makes comparing methods difficult as they can use orders of magnitude more compute than others.\nThe main goal of this study is to systematically analyze how to achieve the maximum performance gain within a given compute budget, as well as how to achieve a given performance level with minimal compute usage.\n\nInference-time strategies such as self-consistency [Wang et al. (2023)](#bib.bib24), self-refinement [Madaan et al. (2023)](#bib.bib16), debate [Du et al. (2023)](#bib.bib6), and mixture-of-agents (MoA) [Wang et al. (2024a)](#bib.bib23) differ in their approach to scale inference compute, for example, through additional sampling, iterative refinement, or multi-agent orchestration.\nThey also differ structurally [Zhang et al. (2025b)](#bib.bib29): single-agent methods scale generations either in parallel with different samples (e.g., self-consistency) or sequentially with longer reasoning chains (e.g., self-refinement).\nMulti-agent systems such as MoA and debate use multiple interacting agents and scale along both axes simultaneously [Zhang et al. (2025a)](#bib.bib28); [Du et al. (2023)](#bib.bib6); [Wang et al. (2024a)](#bib.bib23), thereby enabling interactions among different reasoning paths.\n\nStudies have shown that scaling test-time compute can be more energy-efficient [Jin et al. (2025)](#bib.bib9) and efficient with respect to the number of floating point operations (FLOPs) [Wu et al. (2024)](#bib.bib27); [Snell et al. (2024)](#bib.bib20) than increasing the model size alone.\nSeparately, work on multi-agent systems demonstrated performance gains over baselines such as chain-of-thought (CoT) [Du et al. (2023)](#bib.bib6) or larger models [Wang et al. (2024a)](#bib.bib23).\nDespite rapid progress, three gaps remain: (i) Methods are frequently studied in isolation regarding their performance, but are not compared under matched compute budgets; (ii) Efficiency is usually measured with respect to FLOPs, rarely accounting for memory-transfer costs that affect processing time; (iii) Studies lack practical recommendations on method choice under constrained compute budgets (e.g., whether to use a single-agent method or a multi-agent method and how to parameterize it).\n\nWe address these gaps by analyzing four inference paradigms under matched compute budgets: self-consistency, self-refinement, debate, and MoA. To adjust compute budgets, we use three levers of test-time scaling: pipeline choice, pipeline parameters (agents, rounds, proposer models, layers, sequences, refinement iterations), and model size.\nIn addition to FLOPs, we also consider memory-transfer costs to measure compute times that are a closer approximation to practical applications on accelerators.\nFinally, we provide recommendations for practitioners using multi-agent systems.\n\nOur results show clear trends across benchmarks (MMLU-Pro, BBH) and model sizes (70B, 8B).\nMulti-agent pipelines are more efficient than single-agent baselines when scaled Pareto-optimally, with MoA dominating the Pareto-front. On MMLU-Pro, MoA improves the 70B-model accuracy from 64.3% (CoT) to 71.4% (+7.1 pp), outperforming self-consistency (68.7%) and debate (70.0%) by +2.7 and +1.4 percentage points under comparable inference budgets.\nPareto-optimal MoA efficiency is predominantly achieved when the number of parallel model generations exceeds the number of sequential aggregation steps by one.\nLarger models can be better and also more efficient than scaling up test-time compute with smaller models.\nThe greatest inference-time compute gains were observed on harder tasks (+9 pp for 15–20x CoT budget), motivating an adaptive routing approach that allocates more test-time scaling to harder tasks and less to easier tasks.\nIn general, we recommend a simple multi-agent design guideline: mixture-of-agents is one of the most robust and best-performing methods when the number of parallel generations exceeds the number of sequential aggregations.\n\nKey Contributions:\n\nWe conduct a systematic study across four scaling methods (self-consistency, self-refinement, multi-agent debate, mixture-of-agents) and their parameterization.\n\nWe demonstrate that multi-agent systems are more efficient than single-agent methods when scaled optimally. We find that mixture-of-agents consistently outperforms debate, self-consistency, and self-refinement.\n\nWe explore scaling behaviors of multi-agent systems and observe that configuring mixture-of-agents with one model more than layers predominantly yields Pareto-optimal performance, providing a practical design guideline.\n\nWe show that larger models without test-time compute can be more compute-efficient than smaller models with heavily scaled test-time compute.\n\n## 2 Related Work\n\nScaling laws for LLMs have historically focused on model parameter counts, training compute, and dataset size, with empirical studies showing predictable performance improvements as these factors increase [Kaplan et al. (2020)](#bib.bib14).\nRecent research has shifted its focus toward optimizing test-time compute, as it enables improvements without requiring model retraining.\nAs part of this development, various inference-time strategies have been introduced.\nSelf-consistency [Wang et al. (2023)](#bib.bib24) enhances reasoning abilities by sampling multiple CoT paths [Wei et al. (2023)](#bib.bib26) and voting for the most consistent outcome.\nSelf-refinement [Madaan et al. (2023)](#bib.bib16) begins with an initial LLM output and then uses an iterative process of providing itself with feedback and refining its previous solution based on that feedback.\nUsing multiple LLMs, MoA [Wang et al. (2024a)](#bib.bib23) distributes the reasoning across different layers, with each layer having multiple proposer models for the first layers an",
+      "score": 0.9791929563631425
+    },
+    {
+      "id": "S14",
+      "title": "A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well",
+      "url": "https://arxiv.org/html/2503.24235v3",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\n\n###### Abstract\n\nAs enthusiasm for scaling computation (data and parameters) in the pretraining era gradually diminished, test-time scaling (TTS)—also referred to as “test-time computing”—has emerged as a prominent research focus. Recent studies demonstrate that TTS can further elicit the problem-solving capabilities of large language models (LLMs), enabling significant breakthroughs not only in specialized reasoning tasks, such as mathematics and coding, but also in general tasks like open-ended Q&A.\nHowever, despite the explosion of recent efforts in this area,\nthere remains an urgent need for a comprehensive survey offering systemic understanding.\nTo fill this gap, we propose a unified, hierarchical framework structured along four core dimensions of TTS research: what to scale, how to scale, where to scale, and how well to scale.\nBuilding upon this taxonomy, we conduct an extensive review of methods, application scenarios, and assessment aspects, and present an organized decomposition that highlights the unique contributions of individual techniques within the broader TTS landscape. From this analysis, we distill the major developmental trajectories of TTS to date and offer hands-on guidelines for practical deployment. Furthermore, we identify several open challenges and offer insights into promising future directions, including further scaling, clarifying the functional essence of techniques, generalizing to more tasks, and more attributions.\nOur repository is available on <https://github.com/testtimescaling/testtimescaling.github.io/>.\n\n|  |\n| --- |\n|  |\n\n## 1 Introduction\n\nLarge language models (LLMs) ([Brown et al., 2020](#bib.bib15); [OpenAI, 2024a](#bib.bib176)) have emerged in recent years as a transformative milestone toward artificial general intelligence (AGI) ([Goertzel, 2014](#bib.bib63); [Bubeck et al., 2023](#bib.bib16)).\nThese models remarkably learn general intelligence by *training-time scaling*, where the models ingest more data and parameters ([Kaplan et al., 2020](#bib.bib108); [Hoffmann et al., 2022](#bib.bib78)).\nHowever, the progress of pretraining scaling has gradually slowed due to its resource-intensive nature and the bounded availability of human data, prompting researchers to shift their focus toward how to fully elicit the intelligence encoded in LLMs at test time to maximize their real-world effectiveness ([Wei et al., 2022](#bib.bib257); [Ouyang et al., 2022](#bib.bib179); [Li et al., 2024d](#bib.bib133))?\n\n![Refer to caption](2503.24235v3/figures/TTS-intro.png)\n\nHuman cognition may suggest a clue. When faced with complex problems, people tend to engage in deeper, more deliberate thinking, often producing better outcomes ([Kahneman, 2011](#bib.bib104); [Kahneman, 2003](#bib.bib105); [Evans, 1984](#bib.bib51)).\nInspired by this principle, recent research ([Wei et al., 2022](#bib.bib257); [Wang et al., 2023b](#bib.bib250)) has introduced methods that *allocate additional computation during inference* to boost task performance.\nNotably, some studies ([Brown et al., 2024](#bib.bib14); [Wu et al., 2024d](#bib.bib265)) observe patterns akin to scaling laws: increasing inference-time compute yields consistent performance improvements.\nThis family of methods, referred to as test-time scaling (TTS), progressively elicits the model’s intelligence in the test-time, as depicted in Figure [1](#S1.F1 \"Figure 1 ‣ 1 Introduction ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\").\nThe remarkable successes of reasoning models, such as o1 ([OpenAI, 2024b](#bib.bib177)) and R1 ([DeepSeek-AI, 2025](#bib.bib48)),\nhave further amplified interest in TTS, highlighting its potential as a key driver of LLM reasoning and utility.\nHowever, despite this surge in research activity, the field currently lacks a unified and systematic framework to synthesize insights, compare techniques, or identify consistent trends in TTS . To address this gap, we present a comprehensive survey of TTS, offering a hierarchical and extensible framework to analyze methods, map research efforts, and guide future progress.\n\nTo the best of our knowledge, this is the first survey to comprehensively examine TTS *across multiple orthogonal dimensions*, offering a structured perspective for both theoretical inquiry and practical deployment.\nOur framework dissects TTS into four key dimensions: what to scale, how to scale, where to scale, and how well to scale. Our work emphasizes a fine-grained, decomposition-based understanding of TTS.\nWhile prior efforts have examined TTS from specific lenses—such as input modification and output verification ([Snell et al., 2024](#bib.bib217)), or through the lens of System 2 AI and Long Chain-of-Thought (CoT) ([Li et al., 2025h](#bib.bib134); [Ji et al., 2025](#bib.bib96); [Chen et al., 2025c](#bib.bib27))—these works are structured around a timeline, tracing the evolution of techniques over time.\nWe analyze the full pipeline, from scaling formulations and algorithmic mechanisms to task domains and performance dimensions. We provide a structured foundation that allows future research to be seamlessly integrated into our taxonomy, making it easier to understand their contributions.\nSpecifically, what to scale in Sec. [2](#S2 \"2 What to Scale ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\") is about what to be scaled at the inference stage. How to scale in Sec. [3](#S3 \"3 How to Scale ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\") depicts how they are implemented. We categorize various techniques, recognizing that a single work may involve multiple techniques;\nWhere to scale in Sec. [4](#S4 \"4 Where to Scale ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\") covers the tasks and datasets where these techniques are applied. Finally, how well to scale inSec. [5](#S5 \"5 How Well to Scale ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\") refers to evaluating the different attributions of TTS methods.\nWe further provide fine-grained subcategories under each axis and systematically map representative works to highlight their contributions and trade-offs (Sec. [6](#S6 \"6 Organization and Trends in Test-time scaling ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\")).\nFrom this structured analysis, we extract major trends in TTS development and offer *hands-on guidance* (Sec. [7](#S7 \"7 A Hand-on Guideline for Test-time Scaling ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\")) for real-world deployment. Grounded in our multi-dimensional taxonomy, we also identify persistent challenges and promising research directions (Sec. [8](#S8 \"8 Challenges and Opportunities ‣ A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well\")): advancing test-time scalability, clarifying the fundamental essence of the effectiveness of different techniques in TTS, broadening generalization to a wider range of downstream tasks, and optimizing TTS methods along additional dimensions such as efficiency.\n\n##### Our contributions are threefold:\n\nA Unified, Multi-Dimensional Taxonomy. We propose a four-axis taxonomy—what to scale, how to scale, where to scale, and how well to scale—that supports structured classification, comparison, and extensibility for TTS methods.\n\nSystematical Literature Organization and Pragmatic Analysis.\nUsing our taxonomy, we survey the TTS landscape, analyze representative methods, and present guidelines for research application and deploym",
+      "score": 0.9647303038185218
+    }
+  ]
+}

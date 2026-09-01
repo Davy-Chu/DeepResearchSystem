@@ -1,0 +1,829 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "To what extent do social-media recommendation algorithms contribute to political polarization? Separate evidence that algorithms change what users see from evidence that they actually change political beliefs or behavior, and explain why the literature reaches different conclusions.",
+  "system_version": "baseline-zero",
+  "overall_score": 70.33791208791207,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.5976190476190476,
+    "coverage": 0.6190476190476191,
+    "depth": 0.5476190476190477,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report distinguishes exposure from downstream outcomes, stating that algorithms change users’ “political-information environments” while belief and polarization effects are “more conditional.”",
+          "It separately lists affective polarization, issue polarization, policy attitudes, knowledge, partisanship, and engagement as outcomes."
+        ],
+        "missing": [
+          "It never defines political polarization or clearly distinguishes affective polarization, ideological extremity, partisan identity, and behavioral polarization.",
+          "It does not explicitly distinguish polarization from ideological exposure, media diversity, political knowledge, partisan following, engagement, or general political activity.",
+          "The conceptual distinction is implied rather than developed, and some listed outcomes are not polarization measures."
+        ],
+        "rationale": "The report recognizes that exposure changes are not identical to polarization, but it does not provide the requested conceptual definition or systematic distinctions among related outcomes."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It states that recommendation systems alter “ranking, prominence, sequencing, content mix, engagement, and sometimes which accounts users follow.”",
+          "It reports randomized Meta and X interventions changing exposure to ideological, uncivil, untrustworthy, moderate, mixed, and traditional-media content.",
+          "It reports that on X, algorithmic exposure promoted conservative content, demoted traditional-media posts, increased engagement, and increased following of conservative activist accounts.",
+          "It contrasts personalized and chronological feeds and notes that ranking changes can increase exposure to moderate and ideologically mixed sources as well as political or untrustworthy content."
+        ],
+        "missing": [
+          "The distinction between algorithmic effects and user follows, clicks, searches, subscriptions, and network composition is only partial; these user-driven inputs are mentioned mainly as feedback signals.",
+          "There is little direct discussion of observational audits, content supply, or the size and uncertainty of exposure effects.",
+          "The report does not consistently separate changes caused by ranking from changes caused by recommendation, account networks, or users’ own choices."
+        ],
+        "rationale": "This is one of the report’s strongest sections: it provides concrete experimental evidence and acknowledges that exposure effects can run in different ideological directions, but it does not fully disentangle algorithmic ranking from user and network processes."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It reports an X experiment producing shifts toward more conservative policy priorities and selected political perceptions but no significant change in affective polarization or self-reported partisanship.",
+          "It reports a reranking experiment changing feelings toward the opposing party by roughly two points on a 100-point scale after one week.",
+          "It reports that like-minded exposure increased attitude and affective polarization, while algorithmic selection generally did not amplify that effect, apart from a small topic-specific attitude-polarization effect.",
+          "It reports that the three-month Meta/Facebook and Instagram intervention changed exposure without significant changes in issue polarization, affective polarization, political knowledge, or related attitudes."
+        ],
+        "missing": [
+          "Statistical uncertainty is described mostly through significance/no-significance; confidence intervals, precision, power, and uncertainty around the reported effect sizes are not supplied.",
+          "The report gives only one approximate magnitude and does not consistently characterize substantive importance across outcomes.",
+          "It does not fully clarify whether the X reranking result was an effect on polarization itself, a specific affect measure, or a broader attitudinal outcome."
+        ],
+        "rationale": "The report clearly separates feed composition from attitudes and presents both positive and null findings with some magnitude information. Its treatment is substantial but not fully quantitative or methodologically detailed."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It states that the supplied evidence does not establish effects on voting, turnout, protest, donations, or offline participation.",
+          "It distinguishes measured platform engagement and account-following behavior from consequential political action.",
+          "It reports increased engagement and following of conservative activist accounts in the X experiment, and reduced time spent and activity in the Meta chronological-feed intervention."
+        ],
+        "missing": [
+          "The report does not systematically evaluate online political behaviors such as sharing, posting, following, or participation beyond a few examples.",
+          "It provides little detail about whether observed engagement or following changes are politically consequential, their magnitudes, or their uncertainty.",
+          "It appropriately notes that offline behavioral evidence is limited, but does not distinguish causal evidence for each behavioral outcome."
+        ],
+        "rationale": "It correctly avoids inferring voting or participation effects from exposure and identifies some online behavioral results. However, behavioral evidence is treated mainly as an evidentiary gap rather than evaluated in depth."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It identifies randomized feed interventions, X reranking experiments, comparisons of algorithmically selected and randomly selected material, and observational or review-style evidence.",
+          "It notes self-selection, social networks, content choices, other media, nonuniform platform environments, and difficulty attributing long-term effects.",
+          "It distinguishes direct feed interventions from broader claims that personalization or engagement optimization causes polarization."
+        ],
+        "missing": [
+          "Audits, surveys, and simulations are not clearly differentiated or evaluated.",
+          "Important threats such as noncompliance, treatment contamination, attrition, network spillovers, content-supply changes, and measurement error are not developed; attrition and compliance are only listed as unavailable details in the gaps section.",
+          "The relative causal strength of each design is not explicitly ranked or explained.",
+          "The report does not explain whether chronological substitutions, reranking, and algorithm-versus-random-selection treatments identify different causal estimands."
+        ],
+        "rationale": "The report recognizes experimental versus observational reasoning and mentions several confounders, but it does not provide the requested systematic methodological comparison or detailed threat assessment."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It states that results vary by platform, election context, country, duration, participant population, algorithm version, and whether ranking alone or the broader social-media environment is changed.",
+          "It contrasts Meta/Facebook and Instagram chronological-feed interventions with X feed and reranking experiments and with algorithmic-selection versus like-minded-exposure experiments.",
+          "It notes that ranking can produce moderate or mixed exposure in some settings and conservative or antagonistic exposure in others."
+        ],
+        "missing": [
+          "The report largely lists contextual differences without explaining how particular differences in country, language, election timing, user composition, or platform design generate different results.",
+          "It does not provide concrete comparative findings across multiple countries or language settings.",
+          "Simulated environments and audits are not substantively compared with real-world feed interventions.",
+          "The account of platform and intervention differences remains somewhat generic."
+        ],
+        "rationale": "The report covers the main dimensions of variation and gives useful platform/intervention contrasts, but the comparative explanation is more enumerative than analytical."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It describes effects as “narrow and heterogeneous” and says results differ by platform, content, intervention, duration, and outcome.",
+          "It identifies unresolved questions about persistence over months or years, generalization to less politically engaged users, and subgroup effects.",
+          "It notes feedback between user preferences, networks, interactions, and algorithmic curation."
+        ],
+        "missing": [
+          "There is no concrete evidence about subgroup differences across users, content types, exposure intensity, or political predispositions.",
+          "Cumulative effects, persistence, and feedback loops are raised mostly as possibilities or unresolved questions rather than assessed with evidence.",
+          "The report does not distinguish evidence-supported heterogeneity from speculative long-term accumulation mechanisms.",
+          "Changing algorithms and external validity are mentioned but not analyzed in relation to time horizons."
+        ],
+        "rationale": "The report acknowledges heterogeneity and temporal uncertainty, but offers little actual assessment of who is affected, under what exposure conditions, or whether effects persist."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It concludes that exposure effects are strongly supported while downstream effects are conditional and not uniform.",
+          "It explains disagreement through different interventions, platforms, endpoints, time horizons, samples, election contexts, and algorithm versions.",
+          "It explicitly contrasts short-term X effects with null or outcome-specific Meta and other experimental results.",
+          "It concludes that algorithms are “socio-technical amplifiers and organizers of political exposure” rather than uniformly or primarily causing polarization, and states that consequential political behavior remains unestablished."
+        ],
+        "missing": [
+          "The explanation does not explicitly discuss differences in statistical power, precision, or effect-size thresholds as sources of disagreement.",
+          "It does not fully quantify the overall extent of contribution or compare algorithmic effects with other causes of polarization.",
+          "Some causal claims, such as algorithms “meaningfully” contributing to polarization risk, are broader than the presented outcome-specific evidence and are not tied to a clearly defined polarization construct.",
+          "The synthesis could more sharply separate exposure, attitudes, online behavior, and offline behavior in the final calibrated assessment."
+        ],
+        "rationale": "The report provides a nuanced and generally well-calibrated synthesis, explains several major sources of divergent findings, and avoids a sweeping causal conclusion. It falls short of a fully comprehensive synthesis because conceptualization, statistical precision, relative contribution, and effect-size interpretation remain underdeveloped."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report’s most useful synthesis is its consistent separation of large, experimentally demonstrated changes in feed exposure from smaller, conditional, and sometimes null downstream attitude effects.",
+        "It usefully combines positive, null, and outcome-specific findings across Meta and X rather than treating algorithmic influence as uniformly polarizing.",
+        "It appropriately identifies consequential political behavior as an unresolved evidentiary boundary instead of inferring it from engagement or exposure changes."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.816025641025641,
+    "validity": 1.0,
+    "support": 0.8333333333333334,
+    "completeness": 0.6923076923076923,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S17",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S17",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S17",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Recommendation algorithms clearly change what users see, even when content is not removed.",
+        "citation_ids": [
+          "S4",
+          "S7",
+          "S11"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly support that recommendation or feed-ranking algorithms alter content visibility and exposure without stating that the content is removed. S4 explains that algorithms rank, filter, and recommend content, determining what emerges and receives visibility. S7 reports an experiment in which replacing default algorithmic feeds with chronological feeds substantially changed participants’ exposure to political, untrustworthy, uncivil, and moderate content. S11 likewise finds that X’s algorithm promotes conservative content and demotes traditional-media posts. Together, these findings clearly support the claim’s important factual content.",
+        "supporting_text": "S4: Algorithms “categorise, rank, filter, and recommend content,” influencing what receives visibility. S7: Changing to chronological feeds “affected exposure to content,” including increases or decreases in several content categories. S11: The X algorithm “promotes conservative content and demotes posts by traditional media.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Changes in exposure can produce measurable changes in political attitudes or affect, but the effects are narrow and heterogeneous rather than a uniform increase in polarization.",
+        "citation_ids": [
+          "S11",
+          "S5",
+          "S20",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources support both parts of the claim. S11 reports that changing exposure to X’s algorithm shifted political opinions on particular issues, while not significantly affecting affective polarization or self-reported partisanship, and describes asymmetric effects depending on the direction of the feed change. S12 similarly finds that like-minded exposure increased attitude and affective polarization more than opposing exposure, but algorithmic selection did not generally amplify those effects and produced only a small direct effect for one topic. S5 and S20 report measurable but modest changes in affective polarization from increased versus decreased exposure. Together, these findings indicate measurable effects that vary by exposure type, outcome, and topic rather than a uniform increase in polarization.",
+        "supporting_text": "S11: “Switching from a chronological to an algorithmic feed increased engagement and shifted political opinion towards more conservative positions” but “neither switching the algorithm on nor switching it off significantly affected affective polarization.” S12: “Exposure to like-minded arguments increased participants’ attitude polarization and affective polarization,” while algorithmic curation “did not amplify these effects” and had only “small direct effects on attitude polarization.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Large changes in users’ on-platform experience do not necessarily change polarization or political knowledge.",
+        "citation_ids": [
+          "S7"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S7 directly reports substantial changes in users’ on-platform experience after switching to chronological feeds, while finding no significant changes in issue polarization, affective polarization, or political knowledge during the three-month study.",
+        "supporting_text": "“Despite these substantial changes in users’ on-platform experience, the chronological feed did not significantly alter levels of issue polarization, affective polarization, political knowledge, or other key attitudes.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Algorithms are better characterized as structuring and sometimes amplifying existing political tendencies than as independently creating polarization from nothing.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S7",
+          "S13",
+          "S17",
+          "S11",
+          "S12",
+          "S21"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources collectively support the claim. S1 explicitly says algorithms mostly reinforce existing social drivers. S13 describes polarization-related effects as emergent from human–algorithm interactions rather than attributable solely to either users or algorithms. S7 and S17 report that changing Meta’s feed algorithms substantially altered exposure and on-platform experiences but did not significantly change polarization or key political attitudes, while S17 says algorithms make it easier for users to pursue what they are already inclined to do. S12 similarly finds that like-minded exposure increased polarization, but algorithmic selection generally did not amplify that effect, aside from a small direct effect for one topic. S11 provides a qualification: X’s algorithm shifted some political opinions, although it did not significantly affect affective polarization or partisanship. Thus, the evidence supports a nuanced characterization of algorithms as structuring exposure and sometimes amplifying or influencing existing tendencies, not as independently generating polarization from nothing.",
+        "supporting_text": "S1: “Existing evidence suggests that algorithms mostly reinforce existing social drivers.” S13: “Many pathologies of social media are attributed either to human behavior or to the algorithms ... when they are in fact the result of both”; these are “emergent effects of human-algorithm interactions.” S17: algorithms help users by “making it easier for people to do what they’re inclined to do.” S7: changing to chronological feeds did not significantly alter issue or affective polarization. S12: like-minded arguments increased polarization, but these effects “were not amplified by algorithmic selection,” with only a slight topic-specific direct effect."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "The supplied evidence does not establish that recommendation algorithms change consequential political behavior.",
+        "citation_ids": [
+          "S7",
+          "S11",
+          "S12",
+          "S17",
+          "S20"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S7 and S17 support the narrower conclusion that changing Meta’s feed algorithms did not significantly alter several measured political attitudes during a short 2020-election study, while S12 reports only small or limited polarization effects. However, S11 directly reports that switching on X’s algorithm shifted political opinion and account-following behavior, and S20 describes causal changes in political attitudes from reranking X feeds. The sources therefore do not support the broad claim that the evidence does not establish algorithmic effects on consequential political behavior.",
+        "supporting_text": "S7: the chronological feed “did not significantly alter levels of issue polarization, affective polarization, political knowledge, or other key attitudes” over three months. S17: changing Facebook’s algorithms produced “little impact on polarization,” with limitations including the short study period."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "The literature reaches different conclusions because studies estimate different causal effects rather than one common phenomenon called algorithmic polarization.",
+        "citation_ids": [
+          "S5",
+          "S7",
+          "S11",
+          "S12",
+          "S6",
+          "S17",
+          "S13"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support the narrower point that studies examine different interventions, platforms, outcomes, and mechanisms, producing differing findings. S7 compares algorithmic versus chronological feeds and finds no significant change in several polarization measures; S11/S6 reports that X’s algorithm shifted some political opinions but not affective polarization or partisanship; and S12 distinguishes exposure to like-minded content from the effects of algorithmic selection. However, the sources do not explicitly establish the broader causal explanation that the literature reaches different conclusions because of these differences, nor do they directly reject a single common phenomenon called “algorithmic polarization.”",
+        "supporting_text": "S7: the study changed feed ranking and found no significant effects on issue or affective polarization. S11/S6: switching to an algorithmic X feed shifted political opinion but did not significantly affect affective polarization or partisanship. S12: like-minded exposure increased polarization, while algorithmic selection generally did not amplify that effect. S13: observed effects can emerge from interactions between platform design and user behavior, and there are many different social-media algorithms."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Recommendation systems change users’ political-information environments by altering ranking, prominence, sequencing, content mix, engagement, and sometimes which accounts users follow.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable substantive summary claim, but the Summary paragraph has no nearby citation."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Evidence that recommendation systems change political beliefs or polarization is more conditional than evidence that they change exposure.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This comparative synthesis is externally verifiable and appears in the uncited Summary paragraph."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Some experiments find short-term changes in affective polarization or selected policy attitudes, while others find no significant change in issue polarization, affective polarization, knowledge, or partisanship despite substantial exposure changes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim summarizes empirical findings but has no nearby citation in the Summary."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "The supplied studies do not establish effects on consequential political behavior such as voting, turnout, protest, donations, or offline participation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable conclusion about study outcomes; the Summary supplies no nearby citation, although a related claim is cited later."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Platforms use behavioral and predicted-relevance signals to rank, filter, and recommend content, distinguishing personalized feeds from chronological feeds.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S7"
+        ],
+        "rationale": "The evidence bullet directly supports this claim and supplies nearby citations."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Randomized interventions on Meta and X changed exposure to political, ideological, uncivil, untrustworthy, moderate, mixed, and traditional-media content.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S11"
+        ],
+        "rationale": "The claim appears in a cited evidence bullet."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "On X, algorithmic exposure promoted conservative content, demoted traditional-media posts, increased engagement, and increased following of conservative activist accounts.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11"
+        ],
+        "rationale": "The claim has a directly adjacent citation."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "A randomized X-feed experiment found shifts toward more conservative policy priorities and selected political perceptions, increased following of conservative activist accounts, and no significant change in affective polarization or self-reported partisanship.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11"
+        ],
+        "rationale": "The claim is presented in a cited evidence bullet."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "A separate X reranking experiment reportedly changed feelings toward the opposing party by roughly two points on a 100-point scale after one week when exposure to partisan-animosity and antidemocratic content was increased or decreased.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S20"
+        ],
+        "rationale": "The quantitative and experimental claim has nearby citations."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Experiments found that like-minded exposure increased attitude and affective polarization, but algorithmic selection generally did not amplify that effect; only one topic showed a small additional attitude-polarization effect.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12"
+        ],
+        "rationale": "The empirical claim is directly cited."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "In the 2020 Facebook and Instagram experiment, replacing personalized ranking with chronological feeds substantially changed exposure and reduced time spent and activity, but did not significantly change issue polarization, affective polarization, political knowledge, or related attitudes over three months.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "The evidence bullet directly cites the intervention and its outcomes."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "The Facebook ranking intervention increased some exposure to political and untrustworthy content while also increasing exposure to moderate friends and ideologically mixed sources on Facebook.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "The claim has a nearby citation."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Users’ preferences, networks, interactions, and content choices supply signals to ranking systems, creating feedback between self-selection and algorithmic curation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S7",
+          "S13",
+          "S17"
+        ],
+        "rationale": "The claim is presented with multiple nearby citations."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Cross-cutting interactions and diverse news exposure may be more common than the simple echo-chamber account suggests, including through weak ties such as coworkers, relatives, and acquaintances.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S21"
+        ],
+        "rationale": "The scholarly-review claim has a direct nearby citation."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "The available experiments measured attitudes, affect, knowledge, platform engagement, and account-following behavior, but did not demonstrate effects on voting, turnout, protest, donations, or comparable political action.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S11",
+          "S12",
+          "S17",
+          "S20"
+        ],
+        "rationale": "The claim about measured and unmeasured outcomes is directly accompanied by citations."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Studies manipulate different treatments, including ideological exposure, reranking existing posts, replacing personalized feeds with chronological feeds, and comparing algorithmically selected with randomly selected material.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S7",
+          "S11",
+          "S12"
+        ],
+        "rationale": "The methodological comparison is cited in the associated evidence bullet."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Studies measure different endpoints, including exposure, engagement, policy attitudes, political perceptions, affective polarization, issue polarization, partisanship, knowledge, and following behavior.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S7",
+          "S11",
+          "S12"
+        ],
+        "rationale": "The claim has nearby citations."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Results vary by platform, election context, country, duration, participant population, algorithm version, and whether ranking alone or the broader social-media environment is changed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S6",
+          "S7",
+          "S11",
+          "S12",
+          "S17"
+        ],
+        "rationale": "The claim is presented with citations to the relevant comparative evidence."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Short experiments may detect immediate exposure or attitude changes but not cumulative effects, while user self-selection and other media make long-term causal attribution difficult.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S13",
+          "S17"
+        ],
+        "rationale": "This methodological claim has nearby citations."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Targeted X reranking studies report short-term changes in affective polarization, whereas the Meta experiment found substantial exposure changes without significant polarization effects and the X feed experiment found policy-attitude and following effects without significant changes in affective polarization or partisanship.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S7",
+          "S11",
+          "S20"
+        ],
+        "rationale": "The conflict claim is directly accompanied by citations."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Ranking changes can increase exposure in multiple directions, including toward moderate or ideologically mixed sources, and another experiment found little general amplification from algorithmic selection.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S4",
+          "S7",
+          "S12"
+        ],
+        "rationale": "The claim has nearby citations."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Long-term effects, consequential political behavior, relative causal contributions, and generalizability remain unresolved in the supplied evidence.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S11",
+          "S12",
+          "S17"
+        ],
+        "rationale": "The uncertainty statement has nearby citations."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Recommendation algorithms make a meaningful contribution to polarization risk by determining which political content becomes prominent and by sometimes reinforcing or redirecting users’ existing tendencies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive causal synthesis in the Conclusion, but it has no nearby citation."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Some interventions change affective polarization or selected policy attitudes, while others produce no detectable change in polarization despite large exposure effects.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This empirical synthesis in the Conclusion is uncited nearby."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The supplied evidence supports viewing algorithms as socio-technical amplifiers and organizers of political exposure that interact with user preferences, networks, content supply, and broader media environments.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable interpretive claim in the uncited Conclusion."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "Effects of recommendation algorithms on consequential political behavior remain unestablished on the supplied evidence.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The Conclusion makes this substantive evidence claim without a nearby citation."
+      }
+    ],
+    "evaluable_support_claims": 6,
+    "total_support_claims": 6,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define political polarization and distinguish it from related outcomes such as ideological exposure, engagement, media diversity, political knowledge, partisan following, or general political activity.",
+    "R5: Distinguish the causal strength and limitations of the main types of evidence.",
+    "R7: Assess whether effects vary across users, content, outcomes, exposure intensity, and time horizons.",
+    "2 cited finding(s) were not fully supported by saved evidence.",
+    "8 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "social-media-polarization",
+    "fixture_version": "1.0",
+    "rubric_hash": "0a6b1b066d5fe11922b29a875e67b54f06d262533b8526272d8d350999e2c54e",
+    "candidate_report_hash": "412fd95c37a3e422f9e59c39452ca995071fbe6f2637e221b6890487917f38aa",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T08:31:33.608947+00:00",
+    "usage": {
+      "llm_calls": 8,
+      "input_tokens": 65378,
+      "output_tokens": 6025,
+      "estimated_cost": null
+    }
+  }
+}

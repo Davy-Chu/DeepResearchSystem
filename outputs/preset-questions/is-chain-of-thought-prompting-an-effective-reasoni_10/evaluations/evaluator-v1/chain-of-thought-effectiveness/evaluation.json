@@ -1,0 +1,865 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "baseline-zero",
+  "overall_score": 77.33333333333333,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.6375,
+    "coverage": 0.65625,
+    "depth": 0.59375,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report states that “CoT” denotes several interventions and lists “few-shot and zero-shot CoT,” “self-consistency,” “contrastive prompting,” “hierarchical planning,” “Tree of Thoughts,” “least-to-most decomposition,” and “latent CoT” as distinct variants.",
+          "The report’s conclusion characterizes CoT as a “conditional test-time scaffold.”"
+        ],
+        "missing": [
+          "It does not clearly define ordinary chain-of-thought prompting as eliciting intermediate step-by-step text before the final answer.",
+          "Direct answering is mentioned only indirectly, without an explicit comparison definition.",
+          "Hidden or internal reasoning is not substantively distinguished from visible CoT.",
+          "Self-consistency, tools, and other procedures are listed but not clearly separated in terms of what they add or how they differ experimentally.",
+          "It does not explain that verbose or stepwise text is not necessarily CoT in the relevant causal sense."
+        ],
+        "rationale": "The report recognizes that CoT is not a single uniform intervention, but it does not establish the conceptual boundaries and comparison conditions required by the rubric."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report cites gains on arithmetic, commonsense, and symbolic reasoning tasks, including GSM8K.",
+          "It reports cross-model, cross-dataset gains across scientific, medical, knowledge-based, and logical QA datasets.",
+          "It states that benefits may be concentrated in mathematical and symbolic reasoning while also noting positive cross-domain evidence."
+        ],
+        "missing": [
+          "Open-ended reasoning is not substantively assessed as a distinct task type.",
+          "The report gives few concrete null or harmful results by task family beyond general statements about marginal or negative effects for reasoning-native models.",
+          "The evidence is summarized largely through secondary or high-level source descriptions rather than detailed task-by-task comparisons."
+        ],
+        "rationale": "It covers mathematical, symbolic, commonsense, knowledge, scientific, medical, and logical tasks and acknowledges heterogeneity, but open-ended reasoning and detailed cross-task comparison are underdeveloped."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report identifies model capability and scale as moderators, citing emergent benefits at sufficiently large scales and different effects for non-reasoning versus reasoning-native models.",
+          "It discusses task difficulty and structure, including larger effects on challenging arithmetic tasks and an inverted-U relationship between CoT length and performance.",
+          "It identifies baseline prompting behavior and prompt design as major fault lines, especially few-shot CoT versus zero-shot CoT.",
+          "It discusses chain length, structured versus flat CoT, and the possibility that stronger models need fewer steps."
+        ],
+        "missing": [
+          "Training-distribution similarity is not directly analyzed as a moderator.",
+          "Prompt and demonstration design are discussed mainly through the few-shot/zero-shot distinction; exemplar quality, ordering, domain match, and wording are not systematically treated.",
+          "The report does not clearly distinguish well-established moderators from those supported only by limited recent preprints.",
+          "Interactions among capability, task structure, prompt design, and baseline behavior are proposed but not demonstrated with matched evidence."
+        ],
+        "rationale": "The report explains several major sources of disagreement, especially model regime, difficulty, length, and baseline, but omits or only gestures toward training-distribution similarity and gives limited comparative moderator analysis."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It explicitly states that final-answer accuracy and faithful reasoning are distinct and that a displayed CoT need not be what caused the answer.",
+          "It reports that filler tokens alone did not improve accuracy, suggesting that mere verbosity is insufficient.",
+          "It discusses output-format alignment as a possible primary function of few-shot exemplars for strong recent models.",
+          "It cites faithfulness tests involving truncation and injected mistakes, and notes that structured Hi-CoT can outperform flat CoT while acknowledging that this does not isolate semantic reasoning from other prompt effects."
+        ],
+        "missing": [
+          "The report does not provide a systematic taxonomy of additional-context, verbosity, semantic computation, and answer-extraction mechanisms.",
+          "The evidence separating these mechanisms remains limited; format-, token-, and length-matched controls are mostly proposed as gaps rather than reported results.",
+          "It does not deeply analyze whether displayed intermediate content changes computation or merely changes the response policy."
+        ],
+        "rationale": "This is one of the report’s strongest areas: it directly rejects both the simplistic ‘reasoning’ and ‘mere formatting’ interpretations and cites relevant interventions, while acknowledging that causal isolation remains incomplete."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report says that CoT variants may add demonstrations, decomposition, search, aggregation, retrieval, or formatting constraints and should not be pooled as one mechanism.",
+          "It identifies self-consistency and other structured variants as distinct interventions.",
+          "It lists as an unresolved gap whether zero-shot CoT improves reasoning when output format, response length, token budget, sampling, and parsing are held constant."
+        ],
+        "missing": [
+          "Sampling and self-consistency/voting are not quantitatively separated from the CoT prompt itself.",
+          "Longer generation and additional token computation are discussed but not controlled in reported comparisons.",
+          "Calculators, code execution, retrieval, and other external tools are not actually evaluated or separated from CoT effects.",
+          "The report offers few like-for-like baseline results; most controls appear as recommendations or remaining gaps."
+        ],
+        "rationale": "The report recognizes the confounding problem but does not adequately evaluate the effects of decoding, computation budget, extraction, and external scaffolding separately."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It explicitly distinguishes correct final answers from logically correct, relevant, and evidence-supported reasoning steps.",
+          "It cites faithfulness tests using early answering, chain truncation, and injected mistakes, reporting substantial task variation and weak correlation between faithfulness and accuracy gains.",
+          "It notes that traces can be post-hoc, incorrect, or weakly related to the accuracy gain.",
+          "It identifies independent verification of logically correct and causally involved chains as an unresolved gap."
+        ],
+        "missing": [
+          "Trace scrambling and irrelevant-chain controls are not discussed in concrete detail.",
+          "Counterfactual interventions are not clearly distinguished from truncation or mistake injection.",
+          "Distribution-shift tests of trace faithfulness are mentioned only indirectly as a remaining concern, not presented as evidence.",
+          "The report does not assess the logical validity of traces across a broad set of tasks in detail."
+        ],
+        "rationale": "It covers the crucial accuracy-versus-faithfulness distinction and names meaningful causal tests, but the empirical treatment of validity and causal relevance is summarized rather than comprehensive."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report repeatedly warns that studies use different model generations, baselines, tasks, and protocols and that headline scores should not be treated as universal.",
+          "It notes that common GSM8K evaluators mishandled boxed-answer formats and that different GPQA metrics produced different conclusions.",
+          "It flags that hierarchical and length-calibrated claims come primarily from recent preprints and lack independent replication.",
+          "It acknowledges that the retrieved material lacks matched protocols sufficient to reconcile cross-domain claims quantitatively."
+        ],
+        "missing": [
+          "Model versions and sizes are not systematically reported across the cited studies.",
+          "Datasets, prompt wording, demonstrations, decoding settings, token budgets, and metrics are not presented in enough detail to assess comparability.",
+          "Uncertainty, confidence intervals, effect-size variability, and statistical significance are largely absent.",
+          "Replication quality and source reliability are not evaluated systematically; the source list includes blogs, news pages, Medium posts, aggregators, and incomplete excerpts alongside primary papers.",
+          "The report sometimes gives high confidence while relying on summarized or secondary evidence without documenting the underlying methods."
+        ],
+        "rationale": "It correctly identifies comparability and evaluation problems, but it does not perform the detailed evidence-quality audit required by the rubric."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion directly characterizes CoT as conditional rather than universally effective or merely formatting.",
+          "It states that CoT can improve final answers in earlier-model and difficult multi-step settings while few-shot exemplars may mainly standardize format for strong recent models.",
+          "It recommends format- and token-matched controls and separate measures of final accuracy, step-level validity, and faithfulness.",
+          "The report explicitly identifies unresolved gaps and limits confidence in claims about hierarchical and length-calibrated CoT."
+        ],
+        "missing": [
+          "Cost and latency implications are not substantively discussed, despite the rubric explicitly requiring them.",
+          "The practical tradeoff between longer traces, additional sampling, reliability, and computational expense is not evaluated.",
+          "Recommendations for when practitioners should use direct answering, zero-shot CoT, few-shot CoT, or external tools are only implicit rather than operationalized.",
+          "Some practical conclusions depend on evidence whose comparability and source quality the report itself has not fully established."
+        ],
+        "rationale": "The synthesis is qualified, directly answers the central question, and gives useful evaluation guidance, but it omits explicit treatment of cost and latency and provides limited concrete deployment guidance."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report usefully reframes the dispute as conditional rather than binary: CoT can improve accuracy in some model/task regimes while few-shot exemplars may mainly align format for stronger models.",
+        "It identifies baseline choice—classic CoT versus direct prompting versus few-shot CoT versus zero-shot CoT—as a central explanation for apparently conflicting findings.",
+        "It separates final-answer accuracy from faithfulness and emphasizes that visible traces are not automatically causal explanations.",
+        "It highlights evaluation and answer-extraction errors, including boxed-answer parsing, as a potentially decisive source of disagreement.",
+        "It brings together model regime, task difficulty, chain length, prompt design, parsing, and faithfulness as interacting fault lines rather than treating CoT as a single intervention."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.9694444444444446,
+    "validity": 1.0,
+    "support": 0.9444444444444444,
+    "completeness": 1.0,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "CoT is an effective conditional intervention for final-answer performance, especially in some earlier-model and difficult multi-step settings.",
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly report that chain-of-thought prompting improves final-answer performance relative to standard prompting on arithmetic, commonsense, and symbolic reasoning tasks. S20 and S27 especially support effectiveness in difficult multi-step problems and show that benefits are strongest for sufficiently large models, while S13 reports gains across multiple models and datasets. The phrase “conditional intervention” is an interpretation of the prompting comparison, but the important factual content is supported.",
+        "supporting_text": "S20: “chain-of-thought prompting improves performance on a range of arithmetic, commonsense, and symbolic reasoning tasks” and “outperforms standard prompting.” S27: CoT enables models to solve “complex reasoning problems that are not solvable with standard prompting,” with a 58% GSM8K result for PaLM 540B versus 55% prior state of the art. S13: “gains from CoT reasoning strategies remain robust across different models and datasets.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "For strong recent models, the incremental value of few-shot CoT exemplars may be primarily output-format alignment rather than additional reasoning.",
+        "citation_ids": [
+          "S25"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S25 directly reports that, for recent strong models such as the Qwen2.5 series, traditional CoT exemplars do not improve reasoning performance over Zero-Shot CoT and primarily align output format with human expectations. The claim’s cautious wording (“may be”) is supported, though the source specifically concerns mathematical reasoning tasks.",
+        "supporting_text": "The abstract states that adding traditional CoT exemplars “does not improve reasoning performance compared to Zero-Shot CoT” and that their “primary function is to align the output format with human expectations.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "The classic positive result and the newer formatting result use different baselines, which explains much of their apparent contradiction.",
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S25",
+          "S5"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support that the classic study reported substantial gains for few-shot CoT relative to standard prompting, while newer work reports that CoT exemplars mainly align output format and do not improve reasoning for recent strong models. However, the saved text does not explicitly establish that the studies use different baselines in a way that explains “much” of the contradiction. S5 mentions differing benchmarking approaches and thresholds, but does not directly connect that difference to the classic-versus-newer result.",
+        "supporting_text": "S20/S27: CoT prompting is reported to outperform standard prompting, including 58% on GSM8K versus a 15% standard-prompting result in the cited figure. S25: for recent strong models, traditional CoT exemplars do not improve reasoning performance and their primary function is to align output format. S5: “Perceived performance is critically affected by the benchmarking approach,” and the study compares direct, step-by-step, and default conditions using multiple accuracy thresholds."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Final-answer accuracy and faithful reasoning are distinct outcomes; a correct answer does not establish that the displayed CoT caused the answer or accurately represents the model’s computation.",
+        "citation_ids": [
+          "S8",
+          "S10",
+          "S18",
+          "S20"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The cited sources collectively support both parts of the claim. S10 explicitly states that an answer can be correct even when the reasoning is incorrect. S8 discusses post-hoc reasoning and reports that faithfulness is not strongly correlated with accuracy improvement, directly separating answer performance from reasoning faithfulness. S18 and S20 describe CoT as an interpretable or human-like representation while acknowledging that this does not establish whether the neural network is actually reasoning; S20 also says the chain “can [be] interpreted as” a solution but “mimics” a step-by-step thought process. Together, these support the caution that displayed CoT need not be the causal or faithful representation of the model’s underlying computation.",
+        "supporting_text": "S10: “the answer can be correct even when the reasoning is incorrect.” S8: faithfulness “is not strongly correlated with the accuracy improvement” conferred by CoT. S18/S20: CoT may provide an “interpretable window” and “suggest” how the model arrived at an answer, but the cited limitation says this does not answer whether the network is actually reasoning; S20 says the chain “mimics” a step-by-step thought process."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "The evidence does not support the universal claim that CoT is merely formatting.",
+        "citation_ids": [
+          "S25",
+          "S27",
+          "S8",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources provide evidence against interpreting CoT as merely formatting in all cases. S27 reports that CoT improves arithmetic and commonsense reasoning, S8 describes tasks where models rely on generated reasoning steps and finds that filler tokens do not reproduce the gains, and S1 reports accuracy improvements from structured Hi-CoT. Although S25 finds that CoT exemplars primarily align output format for recent strong models, it also notes possible benefits for weaker models, so its finding is not universal.",
+        "supporting_text": "S27: CoT enables decomposition into intermediate steps and improves performance across arithmetic and commonsense tasks. S8: AQuA and LogiQA models must rely on generated reasoning steps, while replacing CoT with filler tokens produces no accuracy increase. S1: Hi-CoT improves average accuracy by 6.2% over standard CoT."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Model capability and task difficulty are major moderators of CoT effectiveness.",
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S5",
+          "S25"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources consistently indicate that CoT effectiveness varies with model capability and task characteristics. S20 and S27 report that CoT benefits emerge particularly for sufficiently large models and improve performance on complex or multi-step reasoning tasks. S5 explicitly says effectiveness varies by model type and use case, with different effects for non-reasoning versus reasoning models and benefits on difficult questions. S25 reports that CoT exemplars may benefit weaker models but do not improve strong models, further supporting model capability as a moderator.",
+        "supporting_text": "S27: CoT benefits “only materialize with a sufficient number of model parameters (around 100B)” and apply to complex reasoning problems. S5: “its effectiveness varies significantly by model type and task.” S25: traditional CoT exemplars “may benefit weaker models” but do not enhance strong models."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "CoT length and structure create another fault line: more reasoning steps are not automatically better.",
+        "citation_ids": [
+          "S14",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S14 directly supports the length claim, finding that performance initially improves as reasoning steps increase but eventually declines, with an optimal CoT length. S1 supports the structure claim by describing unstructured flat chains as redundant and stating that longer traces do not imply better reasoning; it also reports improved accuracy and shorter traces from hierarchical structure.",
+        "supporting_text": "S14: “as the number of reasoning steps increases, performance initially improves but eventually decreases” and “longer is not always better.” S1: “Longer traces do not imply better reasoning” and hierarchical CoT improves accuracy while reducing reasoning-trace length."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "Evaluation protocol can materially change the apparent value of CoT.",
+        "citation_ids": [
+          "S25",
+          "S5"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "Both sources directly support the claim. S25 reports that an evaluation bias in open-source GSM8K frameworks significantly underestimated Zero-shot CoT performance, changing the comparison with Few-shot CoT. S5 states that perceived performance is critically affected by the benchmarking approach and shows that conclusions vary across metrics such as average performance, perfect accuracy, and majority correctness.",
+        "supporting_text": "S25: An evaluation bias in GSM8K “significantly underestimates the performance of Zero-shot CoT”; after correcting it, the authors reassessed Few-shot versus Zero-shot CoT. S5: “Perceived performance is critically affected by the benchmarking approach,” with CoT producing different results under average-performance versus threshold-based metrics."
+      },
+      {
+        "finding_id": "F9",
+        "claim": "“CoT” denotes several different interventions, not one uniform treatment.",
+        "citation_ids": [
+          "S6",
+          "S9",
+          "S12",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources consistently describe CoT as having multiple implementations, variants, or techniques that differ in prompting instructions, examples, sampling, structure, or automation. This directly supports the claim that “CoT” is not one uniform treatment.",
+        "supporting_text": "S6 says there is “not a single Chain of Thought prompt template” and describes “various ways to implement” it, including zero-shot, few-shot, self-consistency, contrastive, faithful, tabular, and automatic CoT. S12 calls them “several distinct variants,” including Few-Shot, Zero-Shot, and Auto-CoT. S9 lists eight distinct CoT techniques, while S1 distinguishes standard CoT, Zero-Shot CoT, Self-Consistency, Auto-CoT, and other extensions."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "CoT can improve final-answer accuracy relative to direct prompting in some earlier-model and difficult multi-step settings.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S13"
+        ],
+        "rationale": "This empirical performance claim is supported by nearby citations to the classic CoT study and a cross-model evaluation."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "The original CoT work reported gains on arithmetic, commonsense, and symbolic reasoning tasks, with benefits emerging at sufficiently large model scales.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S20",
+          "S27"
+        ],
+        "rationale": "The claim is explicitly accompanied by citations to the original work and a research account describing it."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "A cross-model, cross-dataset study reported zero-shot CoT gains across six models and six question-answering datasets.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13"
+        ],
+        "rationale": "This specific study result has a nearby citation."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "For strong recent models, few-shot CoT exemplars may contribute primarily to output-format alignment rather than additional reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25"
+        ],
+        "rationale": "The claim is explicitly attributed to the cited 2025 study."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "The cited 2025 study reported that traditional and enhanced few-shot CoT exemplars did not improve recent strong models over zero-shot CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25"
+        ],
+        "rationale": "The reported comparative result is directly cited."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "The classic positive CoT results compared few-shot CoT with direct or standard few-shot prompting on earlier large models, whereas the newer formatting study compared few-shot CoT with zero-shot CoT on stronger recent models.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S25"
+        ],
+        "rationale": "Both sides of the baseline and model-generation comparison are cited nearby."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "A separate repeated-trial evaluation found modest gains for some non-reasoning models but marginal or negative incremental effects for reasoning-native models.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "This empirical evaluation claim has a nearby citation."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Final-answer accuracy and faithful reasoning are distinct outcomes; a correct answer does not establish that displayed CoT caused the answer or accurately represents the model’s computation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S10",
+          "S18",
+          "S20"
+        ],
+        "rationale": "The report cites faithfulness evaluations, REVEAL, and the original CoT presentation directly alongside this claim."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Faithfulness tests based on early answering and injected mistakes found substantial task variation and little correlation between faithfulness and CoT accuracy gains.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8"
+        ],
+        "rationale": "The specific findings are presented with a nearby citation."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "The evidence does not support the universal claim that CoT is merely formatting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25",
+          "S27",
+          "S8",
+          "S1"
+        ],
+        "rationale": "This synthesis is supported by cited positive-performance, formatting, faithfulness, and structured-CoT evidence."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Filler tokens alone did not improve accuracy in the summarized faithfulness experiments.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8"
+        ],
+        "rationale": "The experimental result is explicitly cited."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Structured Hi-CoT reportedly achieved higher accuracy and shorter traces than flat CoT on its tested mathematical benchmarks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "The benchmark comparison is directly accompanied by the Hi-CoT source."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Model capability and task difficulty moderate CoT effectiveness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S20",
+          "S27",
+          "S5",
+          "S25"
+        ],
+        "rationale": "The report supports this generalization with classic and recent evaluation sources."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "CoT length and structure affect performance, and more reasoning steps are not automatically better.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S14",
+          "S1"
+        ],
+        "rationale": "The claim is based on cited length and hierarchical-structure studies."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "One recent study reported an inverted-U relationship in which performance improves with longer CoT initially and later declines because of noise and accumulated intermediate errors.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S14"
+        ],
+        "rationale": "This specific empirical relationship is cited directly."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Evaluation protocol can materially change the apparent value of CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25",
+          "S5"
+        ],
+        "rationale": "The report cites both parsing-related and repeated-trial metric evidence."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Common GSM8K evaluators reportedly underestimated zero-shot CoT by mishandling formats such as boxed answers, and corrected extraction often made zero-shot CoT comparable to or better than few-shot CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25"
+        ],
+        "rationale": "The detailed parsing claim is explicitly attributed to the cited study."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Conclusions from repeated-trial GPQA evaluation differed across average accuracy, majority correctness, perfect accuracy, and variability, while one-shot testing could hide instability.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5"
+        ],
+        "rationale": "The evaluation-metric findings have a nearby citation."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "CoT refers to multiple interventions, including few-shot and zero-shot CoT, self-consistency, contrastive prompting, hierarchical planning, Tree of Thoughts, least-to-most decomposition, and latent CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S9",
+          "S12"
+        ],
+        "rationale": "The taxonomy is explicitly supported by nearby sources."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "These CoT variants differ in whether they add demonstrations, decomposition, search, aggregation, retrieval, or formatting constraints, so their effects should not automatically be pooled as one mechanism.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S9"
+        ],
+        "rationale": "The intervention differences and resulting comparability concern are cited nearby."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Positive cross-domain evidence exists in scientific, medical, knowledge-based, and logical question answering, while other summarized work suggests the largest benefits may concentrate in mathematical and symbolic reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S13",
+          "S28"
+        ],
+        "rationale": "Both the cross-domain evidence and the contrasting summary are cited."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Claims about hierarchical or length-calibrated CoT are based primarily on recent preprints and are not independently replicated in the retrieved material.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S14"
+        ],
+        "rationale": "This is a characterization of the report’s evidence base; citations are supplied, though the meta-level statement is partly self-descriptive."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "The retrieved excerpt for S11 contains no usable methods, results, or conclusions.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This reports the contents and limitations of the candidate’s retrieved material rather than an external substantive claim."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "The report identifies open questions about whether zero-shot CoT improves reasoning over format-matched direct-answer or hidden-reasoning conditions under controls for output format, response length, token budget, sampling, and parsing.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a proposed research gap or experimental design requirement, not an externally verifiable factual assertion."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The report concludes that CoT should be treated as a conditional test-time scaffold rather than a universally effective reasoning strategy or reliable readout of latent reasoning.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S8",
+          "S25",
+          "S27"
+        ],
+        "rationale": "This is an interpretive synthesis, and the conclusion is supported by citations to the main performance and faithfulness evidence."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "CoT is best evaluated for the target model and task using format- and token-matched controls and separate measures of final accuracy, step-level validity, and faithfulness.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a methodological recommendation rather than a factual claim about the external world."
+      }
+    ],
+    "evaluable_support_claims": 9,
+    "total_support_claims": 9,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.",
+    "R7: Evaluate the evidential strength and comparability of the cited literature, including model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, replication, and source quality.",
+    "1 cited finding(s) were not fully supported by saved evidence."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "585124eefa44979165eaf3eadaca72ea397d2b1099964366728a0f3c695742a9",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T08:24:30.448604+00:00",
+    "usage": {
+      "llm_calls": 11,
+      "input_tokens": 66837,
+      "output_tokens": 6627,
+      "estimated_cost": null
+    }
+  }
+}

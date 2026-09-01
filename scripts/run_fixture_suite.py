@@ -176,7 +176,7 @@ def select_fixtures(
 
 
 def research_command(config: SuiteConfig, fixture: FrozenFixture) -> list[str]:
-    return [
+    command = [
         config.python_executable,
         str(config.project_root / "main.py"),
         fixture.question,
@@ -185,6 +185,7 @@ def research_command(config: SuiteConfig, fixture: FrozenFixture) -> list[str]:
         "--output-root",
         str(config.outputs_root),
     ]
+    return command
 
 
 def benchmark_command(

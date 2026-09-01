@@ -1,0 +1,854 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "baseline-zero",
+  "overall_score": 70.86590909090908,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.5625,
+    "coverage": 0.5625,
+    "depth": 0.5625,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report refers to “additional inference-time compute” through “multiple candidate solutions, verification, search, and multi-agent pipelines.”",
+          "It distinguishes inference-time scaling from universal accuracy-versus-compute laws and discusses multimodal versus language-only scaling."
+        ],
+        "missing": [
+          "It never explicitly defines inference-time compute scaling as allocating additional computation during inference.",
+          "It does not systematically distinguish serial reasoning length, parallel sampling, search, verification, refinement, tool use, or adaptive budgets.",
+          "It does not clearly separate these interventions from training changes, larger model size, or merely supplying more context, nor discuss debatable boundaries."
+        ],
+        "rationale": "The report names several relevant mechanisms but provides no explicit scope or definitions framework. Its treatment is therefore only a vague partial mention."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 1 synthesizes evidence from Sys2Bench across eleven datasets, seven models, and five task categories, reporting that no technique consistently wins.",
+          "Finding 2 compares self-consistency with generative verification and reports that self-consistency is stronger at lower budgets while GenRM wins after substantially more compute in tested mathematical settings.",
+          "Finding 3 reports matched-budget gains of 1.3 and 2.7 percentage points for debate and mixture-of-agents over self-consistency on MMLU-Pro and BBH.",
+          "Finding 6 reports larger gains on medium and hard MMLU-Pro tasks than easy tasks."
+        ],
+        "missing": [
+          "The report does not provide a sufficiently broad synthesis of effect sizes, uncertainty intervals, variance, or statistical significance across the cited studies.",
+          "Replication and independence of the controlled comparisons are discussed as limitations, but replicated versus isolated effects are not systematically classified.",
+          "Some major forms of scaling, including serial length, refinement, tool use, and search, receive little controlled comparative evidence."
+        ],
+        "rationale": "There is substantial empirical comparison with models, tasks, budgets, strategies, and several quantitative effects. Coverage falls short of full because uncertainty and replication synthesis is limited and the evidence base is uneven across mechanisms."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report separately discusses self-consistency, verification, multi-agent debate, mixture-of-agents, cross-model consensus, speculative decoding, and tree-search methods.",
+          "Finding 4 identifies a coverage–precision trade-off between generating candidates and verifying them, and reports that verifier choice, aggregation, and candidate diversity matter.",
+          "Finding 5 reports verifier false positives, format and response-length sensitivity, domain limitations, and precision–recall trade-offs.",
+          "The report notes that semantic verification can improve acceptance while risking accuracy loss and that tree search depends strongly on verifier performance."
+        ],
+        "missing": [
+          "Serial reasoning length is not analyzed as a distinct mechanism, including possible error propagation or degradation from excessively long reasoning.",
+          "Refinement, best-of-N as a distinct method, and tool use are not substantively compared.",
+          "Adaptive allocation is mentioned mainly through the MMLU-Pro proposal, without evidence about when it succeeds or fails.",
+          "The report does not systematically compare search, sampling, verification, refinement, and interaction under common budgets."
+        ],
+        "rationale": "The report gives meaningful treatment of sampling, verification, search-related methods, and multi-agent interaction, including several failure modes. It does not cover all principal mechanisms or provide a complete comparative account."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report states that self-consistency can saturate earlier than interactive multi-agent methods.",
+          "It reports that self-consistency is better at lower budgets while GenRM becomes advantageous at higher budgets, indicating budget-dependent frontiers.",
+          "Finding 6 reports larger returns on medium and hard MMLU-Pro tasks than easy tasks.",
+          "Finding 10 explicitly rejects a universal, predictable accuracy-versus-compute scaling law."
+        ],
+        "missing": [
+          "Monotonicity is not directly assessed across complete compute curves.",
+          "Diminishing returns, saturation, and performance degradation are not quantitatively characterized across models, strategies, or budgets.",
+          "The report gives little evidence on how behavior varies with model capability beyond a brief unresolved statement about larger versus smaller models.",
+          "No functional scaling relationship or clear account of long-run limits is provided."
+        ],
+        "rationale": "The report correctly emphasizes conditional, budget-dependent behavior and rejects universal laws, but it offers only scattered evidence about curve shapes and does not fully characterize scaling behavior."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 3 reports explicitly matched-budget comparisons and quantitative accuracy differences between multi-agent methods and self-consistency.",
+          "Finding 7 reports a peak speedup increase from 1.4× to 2.1× for LOOKAHEAD while preserving quality on selected benchmarks.",
+          "The report repeatedly flags incomplete accounting for verifier computation, communication, memory transfer, batching, latency, and serving costs.",
+          "It notes that the crossover between larger models and smaller models with more inference compute is unresolved."
+        ],
+        "missing": [
+          "There is no systematic comparison using FLOPs, total tokens, wall-clock latency, throughput, energy, or monetary cost.",
+          "Matched-budget conditions are narrow and do not consistently specify whether all verifier, communication, or model-serving costs are included.",
+          "Alternatives such as a larger or differently trained model are not evaluated with matched deployment assumptions; the larger-versus-smaller claim is only identified as unresolved.",
+          "Quality-efficiency trade-offs for realistic multi-user deployment are not empirically synthesized."
+        ],
+        "rationale": "The report recognizes the need for realistic accounting and includes some matched-budget and speedup evidence, but it does not itself deliver a comprehensive resource-constrained evaluation."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report cites Sys2Bench across reasoning and planning tasks and VerifyBench across mathematics, physics, chemistry, and biology.",
+          "It discusses MMLU-Pro and BBH, selected GSM8K and AIME results, and a multimodal study across ten datasets.",
+          "It notes limited cross-domain verifier generalization, domain-dependent consensus ceilings, and that matched-budget multi-agent results are restricted to two benchmarks.",
+          "The remaining gaps explicitly call for testing code, science, planning, difficult proofs, contamination-resistant benchmarks, and out-of-distribution tasks."
+        ],
+        "missing": [
+          "Coding, knowledge-intensive/open-domain reasoning, interactive tool use, ambiguous tasks, safety-relevant workloads, and languages beyond the reported settings are not substantively evaluated.",
+          "Synthetic versus naturalistic data is not discussed.",
+          "Proprietary versus open models is addressed only indirectly through the statement that closed systems have undisclosed procedures and budgets.",
+          "Real-world transfer and deployment behavior are identified as gaps rather than analyzed."
+        ],
+        "rationale": "The report includes several domains and explicitly warns against transfer, but the generalization assessment remains concentrated on mathematics, science, selected reasoning benchmarks, and multimodal tasks."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report assigns confidence levels and repeatedly labels findings as conditional, preliminary, or unresolved.",
+          "The Conflicts and Uncertainty section explains disagreements through task, budget, interaction protocol, model heterogeneity, and accounting differences.",
+          "The report identifies narrow benchmark coverage, overlapping source versions, lack of independent replication, incomplete total-cost accounting, undisclosed proprietary procedures, verifier weaknesses, and limited out-of-domain testing.",
+          "The Remaining Gaps section specifies needed evidence, including full compute curves, independent replications, realistic serving accounting, transfer tests, and validation across models and tasks."
+        ],
+        "missing": [
+          "Benchmark contamination, selective reporting, and weak baselines are listed or implied only incompletely; they are not developed as evidence-quality problems in the main analysis.",
+          "The report does not clearly organize claims into established, plausible-but-conditional, and speculative categories beyond confidence labels and prose.",
+          "It gives few concrete proposals for resolving contamination, selective reporting, or replication concerns beyond broad calls for more studies.",
+          "Some cited evidence is secondary or preliminary, but source-quality differences are not systematically assessed."
+        ],
+        "rationale": "This is one of the strongest parts of the report: it clearly marks uncertainty, conflicts, narrow evidence, and concrete research gaps. Full coverage is withheld because several rubric-specific evidence-quality threats are only briefly or indirectly treated."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion states that inference-time scaling is “empirically real but conditional.”",
+          "It identifies additional sampling, verification, search, and multi-agent computation as useful in some settings while preserving self-consistency as a strong lower-budget baseline.",
+          "It explicitly says that no universal accuracy-versus-compute law, single compute-optimal strategy, or reliable cross-domain transfer has been established.",
+          "It characterizes newer directions such as speculative decoding, cross-model consensus, and multimodal scaling as promising but too narrow for broad claims."
+        ],
+        "missing": [
+          "The conclusion could more explicitly separate well-replicated findings from evidence based on single studies or limited benchmarks.",
+          "It does not directly summarize the status of serial reasoning length, refinement, tool use, or adaptive allocation, leaving the overall synthesis incomplete for the full rubric scope.",
+          "The confidence of specific claims is conveyed in the findings but not fully consolidated into a concise evidence hierarchy in the conclusion."
+        ],
+        "rationale": "The conclusion is balanced, conditional, and directly answers the question. It falls short of full synthesis because several mechanism-specific evidence statuses are not integrated into the final summary."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report provides a useful conditional synthesis rather than asserting a universal scaling law.",
+        "It combines matched-budget comparisons, verifier limitations, cross-domain caveats, and deployment-accounting gaps into a coherent account of why method rankings are not settled.",
+        "It identifies concrete unresolved comparisons, including total-cost curves, independent replication, adaptive allocation, and transfer beyond mathematics and selected benchmarks."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.9038636363636364,
+    "validity": 1.0,
+    "support": 0.85,
+    "completeness": 0.9545454545454546,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Additional inference-time compute has been empirically validated as useful for some LLM reasoning tasks, but its benefits are not universal.",
+        "citation_ids": [
+          "S5",
+          "S4",
+          "S12",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources report empirical evaluations showing accuracy improvements from increased inference-time computation on reasoning benchmarks, while also documenting task- and strategy-dependent limitations. S12/S13 report up to a 7.1 percentage-point improvement over chain-of-thought at higher budgets on MMLU-Pro and larger gains on harder tasks. S5 states that no single inference-time technique consistently performs well across all reasoning and planning tasks, and S4 likewise finds that no strategy dominates uniformly and that beam search often provides little benefit with increased width.",
+        "supporting_text": "S12/S13: “inference scaling improves accuracy by up to +7.1% points over chain-of-thought” on MMLU-Pro, with the greatest gains on harder tasks. S5: “simply scaling inference-time computation has limitations,” since “no single inference-time technique consistently performs well across all reasoning and planning tasks.” S4: “no single strategy dominates uniformly.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Self-consistency and majority voting are well-supported practical baselines, especially at lower or moderate inference budgets.",
+        "citation_ids": [
+          "S4",
+          "S6",
+          "S12",
+          "S13"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support self-consistency/majority voting as established, straightforward, compute-efficient baseline methods, and S6 directly reports that self-consistency outperforms GenRM at lower compute budgets and is more efficient for most practical budgets. However, S12 and S13 qualify this: under equal budgets, debate and mixture-of-agents outperform self-consistency, which saturates earlier. The sources do not clearly establish the broader characterization that both self-consistency and majority voting are uniformly “well-supported” practical baselines at moderate budgets.",
+        "supporting_text": "S6 describes self-consistency as a “straightforward and effective” method using multiple solutions and majority voting, and reports that it outperforms GenRM at lower compute budgets. S4 says majority voting provides “reliable, compute-efficient improvements across most settings.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Matched-budget evidence supports multi-agent methods, particularly mixture-of-agents and debate, as potentially more compute-efficient than self-consistency in selected settings.",
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "Both saved snapshots report matched or equal-compute comparisons in which debate and mixture-of-agents outperform self-consistency, by 1.3 and 2.7 percentage points respectively. They also limit the result to evaluated benchmarks/configurations and note stronger persistence on more complicated tasks, supporting the claim’s qualified wording about selected settings and potential efficiency.",
+        "supporting_text": "S12/S13: “With an equal computing budget, debate and mixture-of-agents outperform self-consistency by 1.3% and 2.7% points, respectively,” and “multi-agent gains persist, particularly on more complicated tasks.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "The optimal allocation of inference compute between candidate generation and verification is nontrivial and budget-dependent.",
+        "citation_ids": [
+          "S6",
+          "S1",
+          "S4",
+          "S8"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S6 directly supports both key elements: allocating compute between solution generation and verification involves a tradeoff, and the preferred allocation changes with the total inference budget. It reports that self-consistency performs better at lower budgets while generative verification performs better at higher budgets, and explicitly frames the allocation as an optimization problem. S1, S4, and S8 provide related tradeoffs involving verification and compute, but are not necessary for the claim.",
+        "supporting_text": "S6 states that under a limited inference budget there is a tradeoff between scaling candidate solutions and allocating compute to verification. It further reports that self-consistency outperforms GenRM at lower compute budgets, whereas GenRM performs better at higher budgets, and asks how to split a given budget between generating solutions and verifying them for optimal performance."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Verifier reliability is a major bottleneck for inference-time scaling.",
+        "citation_ids": [
+          "S8",
+          "S1",
+          "S4"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S8 directly characterizes verifier unreliability as a critical challenge and identifies bottlenecks in verifier technology, but frames the impact primarily for RLVR rather than inference-time scaling broadly. S1 supports a narrower inference-time claim: verifier judgment accuracy must be balanced against compute cost, since erroneous verification can reduce accuracy. S4 indicates verifier choice substantially affects PRM performance, but the supplied excerpt does not call reliability a major bottleneck. Together, the sources support that verifier reliability is an important limitation in some inference-time verification and scaling methods, not the broad claim as stated.",
+        "supporting_text": "S8: “the inherent unreliability of current verifier systems remains a critical challenge” and creates “critical bottlenecks in their current design.” S1: practical verifiers must balance “compute cost against judgment accuracy,” and loose verification “risks accuracy drop from erroneous steps.” S4: “verifier choice and aggregation method ... substantially affect PRM performance.”"
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Task difficulty appears to affect the return on inference-time compute, with larger gains reported on harder tasks in at least one matched-budget study.",
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "Both saved snapshots describe a study comparing inference strategies under matched compute budgets and explicitly report that the greatest inference-time compute gains occurred on harder tasks. The evidence supports the cautious wording that task difficulty appears to affect returns, and that this was observed in at least one study.",
+        "supporting_text": "S12/S13: The study analyzes four inference paradigms “under matched compute budgets” and reports: “The greatest inference-time compute gains were observed on harder tasks (+9 pp for 15–20x CoT budget),” while its figure summarizes gains of +2.2% on easy, +8.5% on medium, and +9.0% on hard tasks."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Step-level speculative decoding is a promising efficiency technique, but its quality and scalability are not yet field-wide validated.",
+        "citation_ids": [
+          "S1"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S1 supports that step-level speculative decoding is presented as an efficiency technique with empirical speedup gains and better scaling with additional GPU throughput, and it notes verifier accuracy/speed tradeoffs. However, the source does not establish that quality and scalability are not yet field-wide validated; it reports results from the paper’s own benchmarks rather than a field-wide validation assessment.",
+        "supporting_text": "The paper describes step-level speculation as exposing “a coarser unit for speculation,” reports speedup improving from 1.4× to 2.1× while preserving answer quality, and states that speedup “scales better with additional GPU throughput.” It also says practical verifiers must balance compute cost against judgment accuracy."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "Cross-model consensus is a promising verification signal, but its benefits and ceiling are domain-dependent.",
+        "citation_ids": [
+          "S7"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S7 directly presents cross-model consensus as a verification signal, reports strong performance across multiple benchmarks, and explicitly describes a ceiling caused by shared errors that varies by domain: near zero on math but non-trivial on science. This supports both the promise of the method and the claim that its benefits and limitations depend on the domain.",
+        "supporting_text": "The source calls cross-model consensus a “training-free verifier,” reports that it outperforms self-consistency and several trained verifiers, and identifies a “shared-error floor” that is “near zero on math but non-trivial on science.”"
+      },
+      {
+        "finding_id": "F9",
+        "claim": "Evidence for multimodal inference-time scaling is positive but preliminary and does not directly establish language-only scaling laws.",
+        "citation_ids": [
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S9 explicitly presents the work as a “Preliminary Study” and reports positive results for multimodal inference-time scaling, including significantly better average performance and higher upper bounds than text-only thought. It also frames the study as focused on multimodal reasoning and does not claim to establish language-only scaling laws; therefore the claim’s qualification is supported by the source’s scope.",
+        "supporting_text": "The paper is titled “Investigating Inference-time Scaling for Chain of Multi-modal Thought: A Preliminary Study.” Its findings state that multimodal thought achieves “significantly better performance and higher upper bounds compared to text-only thought,” while the study focuses on multimodal reasoning across 10 datasets."
+      },
+      {
+        "finding_id": "F10",
+        "claim": "A universal, predictable accuracy-versus-compute scaling law and a universally optimal inference-time method remain speculative.",
+        "citation_ids": [
+          "S14",
+          "S5",
+          "S12",
+          "S13",
+          "S3"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources support both parts of the claim. S14 says some studies observe scaling-law-like performance improvements but also states that the field lacks a unified framework and identifies open challenges. S5 directly reports that simply scaling inference-time computation has limitations and that no single technique consistently performs well across all evaluated tasks. S12/S13 show method- and task-dependent Pareto tradeoffs rather than a universal optimum, while S3 characterizes the scaling-law idea as something that only “seems” to be emerging and notes that the field is moving quickly.",
+        "supporting_text": "S14: “some studies ... observe patterns akin to scaling laws,” while the field “lacks a unified and systematic framework” and faces open challenges. S5: “no single inference-time technique consistently performs well across all reasoning and planning tasks.” S13: methods have different computational tradeoffs and MoA is recommended in the evaluated setting, not universally."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Additional inference-time compute improves LLM reasoning performance on some tasks, but the benefits are not universal.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S4",
+          "S12",
+          "S13"
+        ],
+        "rationale": "This is an empirical generalization supported by the cited benchmark and comparative studies."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "No single inference-time technique consistently performs well across all evaluated reasoning and planning tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S4"
+        ],
+        "rationale": "This cross-task empirical claim has nearby citations to Sys2Bench and a comparative study."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Self-consistency and majority voting are practical baselines, particularly at lower or moderate inference budgets.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S6",
+          "S12",
+          "S13"
+        ],
+        "rationale": "The report attributes this baseline performance and budget dependence to multiple cited studies."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "At comparable budgets in selected settings, debate and mixture-of-agents can outperform self-consistency.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "rationale": "The claim is based on explicitly matched-budget results and is directly cited."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "In one reported MMLU-Pro comparison using a 70B model, mixture-of-agents achieved 71.4% accuracy, compared with 68.7% for self-consistency and 70.0% for debate.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "rationale": "These specific numerical results are externally verifiable and have nearby source citations."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "The allocation of inference compute between candidate generation and verification involves a coverage–precision trade-off and depends on the available budget.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "This empirical characterization is directly attributed to compute-matched experiments."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "In the reported experiments, self-consistency is more efficient at lower budgets, while GenRM becomes advantageous only at substantially higher budgets.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "The budget-dependent comparison is an empirical result with a nearby citation."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Verifier choice, aggregation method, and candidate diversity materially affect inference-time scaling outcomes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S8"
+        ],
+        "rationale": "This methodological claim is supported by the cited studies discussing verifier and aggregation effects."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Verifier reliability is a major bottleneck for inference-time scaling, including because verifier performance varies by domain and input characteristics and can produce false positives.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8",
+          "S1",
+          "S4"
+        ],
+        "rationale": "The report supplies nearby citations to a cross-domain verifier benchmark and method-specific studies."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Harder tasks received larger inference-time gains than easier tasks in at least one matched-budget MMLU-Pro study.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "rationale": "This task-difficulty pattern and its numerical characterization are explicitly cited."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "The cited matched-budget study reported approximately 8.5–9 percentage-point gains on medium and hard MMLU-Pro tasks at 15–20 times the chain-of-thought budget, versus about 2.2 points on easy tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "rationale": "These are specific empirical figures with nearby citations."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Step-level speculative decoding combined with token-level speculation reportedly increased peak speedup from 1.4× to 2.1× while preserving answer quality on selected benchmarks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "The specific speedup and quality claim is attributed to the cited paper."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Cross-model consensus can outperform self-consistency and single-model scoring as a verification signal in some evaluated settings, but its performance varies by domain.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "The report cites the study presenting cross-benchmark and out-of-domain comparisons."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "The cited cross-model consensus study reported a predictive consensus law with mean absolute error of 0.03 and a shared-error floor that differed between tested mathematics and science tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7"
+        ],
+        "rationale": "These quantitative and domain-specific findings are externally verifiable and cited."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Multimodal thought using sampling and tree search achieved better average performance and higher upper bounds than text-only thought across ten multimodal datasets, while consuming more tokens and depending strongly on verifier performance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "The complete empirical claim has a nearby citation to the multimodal study."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "A universal, predictable accuracy-versus-compute scaling law and a universally optimal inference-time method have not been established by the supplied evidence.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S14",
+          "S5",
+          "S12",
+          "S13",
+          "S3"
+        ],
+        "rationale": "This synthesis depends on empirical and survey claims about limited generalization and is supported by the cited sources."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "The reported differences between multi-agent methods and self-consistency may reflect task, budget, interaction protocol, model heterogeneity, or cost-accounting differences rather than a direct contradiction.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S6",
+          "S12",
+          "S13"
+        ],
+        "rationale": "This explanatory interpretation is presented with citations to the studies whose results differ."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "The relative ranking of generative verification and self-consistency is budget-dependent in the reported experiments rather than universally settled.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S12",
+          "S13"
+        ],
+        "rationale": "The claim summarizes cited lower- and higher-budget comparisons."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The general compute-optimal superiority of cross-model consensus over self-consistency or trained verifiers remains unresolved because comparisons may use different candidate pools and compute accounting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S6",
+          "S4"
+        ],
+        "rationale": "This comparative limitation is externally inspectable and has nearby citations."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "The report states that larger models may be more compute-efficient than smaller models with heavily scaled inference, but that the crossover point and generality are not established.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12",
+          "S13"
+        ],
+        "rationale": "Both the reported relationship and its limitation are attributed to the cited study."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The mechanisms and inference budgets of closed reasoning systems such as o1 or o3 are undisclosed in the supplied sources.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This externally verifiable claim appears in the remaining-gaps section without a nearby citation."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Independent replication, broader model coverage, long-context evaluation, and realistic serving-cost analysis for step-level speculative decoding remain unestablished in the report.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "This is primarily a limitation assessment based on the scope described for the cited paper; the nearby citation is appropriate but not strictly necessary for stating a research gap."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Complete total-FLOP, wall-clock, verifier-cost, communication-cost, memory-transfer, batching, and latency comparisons across inference-time methods remain research gaps identified by the report.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are proposed evaluation requirements and gap statements rather than factual claims about the external world."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "The report concludes that inference-time compute scaling is empirically real but conditional, and that no universal compute-optimal strategy or reliable cross-domain transfer has been established.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S5",
+          "S6",
+          "S8",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "Although synthesizing the report, this conclusion makes externally grounded claims about empirical evidence and generality, with supporting citations supplied throughout the nearby findings and source references."
+      }
+    ],
+    "evaluable_support_claims": 10,
+    "total_support_claims": 10,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+    "R3: Compare the principal inference-scaling mechanisms and their observed conditions of success or failure.",
+    "R4: Characterize how reasoning quality changes as inference compute increases.",
+    "3 cited finding(s) were not fully supported by saved evidence.",
+    "1 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "inference-time-compute-scaling",
+    "fixture_version": "1.0",
+    "rubric_hash": "d32d6ea1035324f019e9421c7b216e4501bdab866df8e60cda19db2afb8a4c2f",
+    "candidate_report_hash": "540e41c301de904fa35d9923b98e69604be59feea4baf1899c50fbf8c8cdd0ea",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T09:20:50.006501+00:00",
+    "usage": {
+      "llm_calls": 13,
+      "input_tokens": 66021,
+      "output_tokens": 6534,
+      "estimated_cost": null
+    }
+  }
+}
