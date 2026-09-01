@@ -36,17 +36,17 @@ ARCHITECTURE_COMPONENTS = {
 }
 MAX_RESEARCH_OPENAI_CALLS = {
     "llm-only": 1,
-    "baseline": 4,
-    "ledger": 6,
-    "decomposed": 7,
-    "verified": 10,
+    "baseline": 11,
+    "ledger": 20,
+    "decomposed": 21,
+    "verified": 31,
 }
 MAX_TAVILY_CALLS = {
     "llm-only": 0,
-    "baseline": 3,
-    "ledger": 3,
-    "decomposed": 3,
-    "verified": 3,
+    "baseline": 10,
+    "ledger": 10,
+    "decomposed": 10,
+    "verified": 10,
 }
 LABELED_PATH = r"(?m)^{label}:\s*\r?\n(?P<path>[^\r\n]+)$"
 

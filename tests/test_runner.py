@@ -59,8 +59,9 @@ class FakeReporter:
         )
 
 
-def run_with(search: FakeSearch, analyzer: FakeAnalyzer):
-    return ResearchRunner(search, analyzer, FakeReporter()).run("Original question")
+def run_with(search: FakeSearch, analyzer: FakeAnalyzer, max_iterations: int | None = None):
+    kwargs = {} if max_iterations is None else {"max_iterations": max_iterations}
+    return ResearchRunner(search, analyzer, FakeReporter(), **kwargs).run("Original question")
 
 
 def test_runner_stops_when_evidence_is_sufficient() -> None:
@@ -95,7 +96,7 @@ def test_maximum_iteration_guard() -> None:
             analysis(True, "query four"),
         ]
     )
-    result = run_with(search, analyzer)
+    result = run_with(search, analyzer, max_iterations=3)
     assert len(search.queries) == 3
     assert result.state.stop_reason == "max_iterations"
 

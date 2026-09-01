@@ -1,0 +1,1119 @@
+{
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "baseline-zero",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 10,
+  "stop_reason": "sufficient_evidence",
+  "final_report": {
+    "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+    "summary": "Inference-time compute scaling is empirically validated as a useful, but conditional, method for improving LLM reasoning. The clearest evidence comes from mathematical and other objectively verifiable tasks, where parallel sampling, sequential feedback, verifier-guided search, and adaptive compute allocation can improve accuracy or efficiency. The evidence does not support a universal law that more reasoning tokens always produce better answers, nor that inference scaling generally dominates larger models or more training. Benefits vary with task, difficulty, base-model capability, verifier quality, and compute budget; returns can diminish, and the practical value of upper-bound experiments using perfect verifiers remains uncertain.",
+    "findings": [
+      {
+        "claim": "Inference-time compute scaling is a broad family of methods that spend additional computation during inference through longer reasoning traces, multiple candidate generations, feedback or refinement, search, and verifier-based selection.",
+        "evidence": [
+          {
+            "summary": "Overviews characterize test-time compute as including chain-of-thought, repeated sampling, self-critique, revision, backtracking, external verification, and selecting among candidate completions.",
+            "source_ids": [
+              "S1",
+              "S3",
+              "S10",
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The definition and taxonomy are consistent across several sources, but most of these sources are surveys or practitioner articles rather than a systematic primary-literature synthesis."
+      },
+      {
+        "claim": "Additional inference-time computation can improve reasoning accuracy, with the strongest validation on mathematical and objectively verifiable tasks.",
+        "evidence": [
+          {
+            "summary": "The official ICLR record reports gains from process-based verifier search and adaptive response-distribution updates on math reasoning problems.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "A Microsoft Research study covering nine models and eight challenging tasks reports that inference-time scaling improves performance overall, though with substantial variation across domains and difficulty levels.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The conclusion is supported by primary-study records, including a broad multi-model, multi-task evaluation. The retrieved excerpts do not include full experimental tables or uncertainty estimates."
+      },
+      {
+        "claim": "Parallel sampling, sequential feedback, and verifier-guided selection are empirically useful when extra computation finds a correct candidate or enables reliable selection and revision.",
+        "evidence": [
+          {
+            "summary": "The multi-task study evaluates independent repeated generations and sequential generations with feedback, and reports further gains with strong feedback or perfect verifiers.",
+            "source_ids": [
+              "S9",
+              "S12"
+            ]
+          },
+          {
+            "summary": "The ICLR study reports positive results for dense process-verifier search and adaptive updates to the response distribution.",
+            "source_ids": [
+              "S7"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The methods and positive results are described in primary-study material. However, perfect verifiers and strong feedback are favorable conditions and do not establish equivalent performance with realistic imperfect verifiers."
+      },
+      {
+        "claim": "Prompt-adaptive or compute-optimal allocation can be substantially more efficient than applying a fixed inference budget, at least in the studied mathematical-reasoning setting.",
+        "evidence": [
+          {
+            "summary": "The ICLR study reports that a compute-optimal strategy improved test-time scaling efficiency by more than four times relative to a best-of-N baseline on math reasoning problems, with effectiveness varying by prompt difficulty.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "The broader evaluation finds substantial variability in token use and task-dependent scaling behavior, supporting non-uniform allocation rather than a single universally optimal budget.",
+            "source_ids": [
+              "S9",
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The efficiency result is directly reported by an official conference source and the need for task-dependent allocation is supported by a broader study. The retrieved material does not specify all details of the efficiency metric or establish broad replication."
+      },
+      {
+        "claim": "Inference-time compute can outperform parameter scaling under restricted matched-FLOP conditions, but only in a limited regime where the smaller model already has a non-trivial chance of solving the problem.",
+        "evidence": [
+          {
+            "summary": "The ICLR abstract reports that, in a FLOPs-matched evaluation, a smaller model using test-time compute outperformed a model 14 times larger on problems where the smaller model already had somewhat non-trivial success rates.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "A secondary account of the same study reports similar benchmark-specific results and emphasizes dependence on task difficulty.",
+            "source_ids": [
+              "S4"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The conditional comparison appears in an official primary-study record and is consistent with the secondary summary. It does not show that inference scaling generally beats larger models."
+      },
+      {
+        "claim": "More reasoning tokens are not a reliable proxy for better reasoning, and inference-time scaling does not obey a universally monotonic accuracy relationship.",
+        "evidence": [
+          {
+            "summary": "The Microsoft Research study reports diminishing benefits as problem complexity increases, cases where more tokens do not improve accuracy, and persistent performance gaps even under high scaling for some tasks.",
+            "source_ids": [
+              "S12"
+            ]
+          },
+          {
+            "summary": "The related multi-task study reports that longer generations can indicate model struggle and that token usage is not consistently associated with accuracy.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "A separate study claims stronger non-monotonic behavior, including inverted-U curves and correct-to-incorrect answer flips under forced longer reasoning.",
+            "source_ids": [
+              "S2"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The weaker conclusion—that more tokens are not universally beneficial—is supported by two broad study summaries. The prevalence and quantitative shape of outright accuracy reversals remain less certain because the retrieved evidence for those claims is limited."
+      },
+      {
+        "claim": "Perfect-verifier and very-high-call-count experiments demonstrate potential headroom, not current practical capability.",
+        "evidence": [
+          {
+            "summary": "The multi-task study reports improvements when conventional and reasoning models are scaled with perfect verifiers or strong feedback, and with up to 50 times more inference calls; it frames these experiments as estimates of upper bounds or future potential.",
+            "source_ids": [
+              "S9",
+              "S12"
+            ]
+          },
+          {
+            "summary": "Verifier-focused analysis identifies verifier quality, exploration efficiency, computational overhead, and domain complexity as major practical limitations.",
+            "source_ids": [
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The distinction between upper-bound experiments and deployed systems is explicit in the study material. The practical gap is also identified by a separate analysis, although that analysis is not itself a primary benchmark study."
+      },
+      {
+        "claim": "There is no general winner between inference-time scaling and training-time or parameter scaling.",
+        "evidence": [
+          {
+            "summary": "Test-time compute outperforms a much larger model in a restricted matched-FLOP regime, while the summarized study reports that pretraining/model scaling can be more effective on the hardest problems.",
+            "source_ids": [
+              "S4",
+              "S7"
+            ]
+          },
+          {
+            "summary": "Cross-task evaluations find heterogeneous benefits and diminishing returns as task complexity increases.",
+            "source_ids": [
+              "S9",
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The evidence is conditionally consistent: the preferred allocation depends on task difficulty, base-model capability, verifier quality, and how FLOPs, latency, memory, energy, and monetary cost are counted."
+      },
+      {
+        "claim": "Claims that verifier-based scaling will broadly democratize domain adaptation or transfer reliably to enterprise and open-ended use cases remain speculative.",
+        "evidence": [
+          {
+            "summary": "A conceptual analysis proposes user-designed rule-based, programmatic, or model-based verifiers as a route to domain adaptation, while also listing unresolved challenges in verifier quality, exploration, cost, and domain complexity.",
+            "source_ids": [
+              "S13"
+            ]
+          },
+          {
+            "summary": "A practitioner guide discusses legal review, code review, and other enterprise applications, but the retrieved primary evidence does not establish comparable gains for those settings.",
+            "source_ids": [
+              "S11",
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The proposed mechanism is plausible and its limitations are acknowledged, but the retrieved evidence is conceptual or practitioner-level for these applications rather than robust empirical validation."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Some sources present additional thinking as broadly performance-improving, while multi-task evidence shows diminishing returns, cases where extra tokens do not help, and possible overthinking. These findings can coexist across different tasks, difficulty levels, and budgets, but the general frequency and severity of negative returns remain uncertain.",
+        "source_ids": [
+          "S1",
+          "S2",
+          "S9",
+          "S12"
+        ]
+      },
+      {
+        "description": "Inference scaling can beat much larger models under restricted FLOP-matched conditions, while model or pretraining scaling may be more effective on the hardest tasks. No universal allocation rule follows from the available comparisons.",
+        "source_ids": [
+          "S4",
+          "S7"
+        ]
+      },
+      {
+        "description": "Perfect-verifier experiments show substantial potential, but practical verifier quality may be much lower and can determine whether scaling helps or misleads the search.",
+        "source_ids": [
+          "S12",
+          "S13"
+        ]
+      },
+      {
+        "description": "The retrieved evidence is stronger for benchmark tasks with objective answers than for factuality, coding, agentic planning, legal review, or other open-ended production workloads.",
+        "source_ids": [
+          "S11",
+          "S12",
+          "S13"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "Complete accuracy-versus-compute curves, confidence intervals, saturation points, and rates of correct-to-incorrect flips for current reasoning models are not available in the retrieved material.",
+      "The reported fourfold efficiency improvement and 14-times parameter comparison are stated in primary abstracts, but the underlying tables, cost definitions, and robustness analyses were not retrieved for independent verification.",
+      "Independent replication across models, datasets, and contamination-controlled evaluations remains unclear.",
+      "The evidence does not establish how practical imperfect verifiers compare with perfect-verifier upper bounds.",
+      "It remains unclear whether adaptive difficulty estimation and stopping policies generalize out of distribution without sacrificing rare long-horizon solutions.",
+      "Comparisons do not standardize total FLOPs, latency, memory, energy, and monetary cost simultaneously.",
+      "The retrieved material does not isolate the contribution of longer reasoning trajectories from parallel sampling, feedback, search, refinement, or the post-training that produced reasoning models.",
+      "The contribution of inference-time computation to proprietary reasoning-model performance cannot be separated from training, reinforcement learning, tools, architecture, and other post-training methods."
+    ],
+    "conclusion": "The empirically defensible state of the field is conditional scaling, not unlimited scaling. Extra inference computation can materially improve LLM reasoning—especially on mathematical and verifiable tasks—through sampling, feedback, search, verification, and adaptive allocation. Compute-optimal strategies can be more efficient than fixed-budget baselines, and inference compute can sometimes substitute for model size when the smaller model already has useful latent capability. However, more tokens alone are not a dependable quality measure: benefits vary by task and difficulty, diminish in harder regimes, and may sometimes reverse through overthinking. Perfect-verifier and superscaling results indicate future headroom rather than guaranteed deployable performance. Evidence is currently too thin to claim a universal inference-time scaling law, broad superiority over training or larger models, reliable transfer to open-ended production tasks, or robust practical gains from adaptive stopping and domain-specific verifiers."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The current evidence supports a cautious high-level conclusion—test-time compute improves some reasoning benchmarks, has task- and budget-dependent returns, and can become inefficient or harmful—but it is dominated by secondary summaries and incomplete excerpts. A focused search for the primary empirical papers and reproducibility results would materially improve confidence, especially on the central question of what has actually been validated.",
+      "next_search_query": "primary studies inference-time test-time compute scaling LLM reasoning Snell 2024 MATH overthinking diminishing returns adaptive stopping reproducibility",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is an umbrella covering longer chains of thought, multiple sampled solutions, revision/self-refinement, search or backtracking, and verifier-based selection.",
+          "evidence": [
+            {
+              "summary": "The sources describe test-time compute as generating more than one direct completion and include chain-of-thought, revision, external verifiers, backtracking, repeated sampling, and candidate selection.",
+              "source_ids": [
+                "S1",
+                "S3"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The taxonomy is consistent across two overview sources, but both are secondary sources rather than a systematic primary-literature synthesis."
+        },
+        {
+          "claim": "There is empirical evidence that allocating additional inference compute can improve reasoning accuracy on some mathematical and reasoning benchmarks.",
+          "evidence": [
+            {
+              "summary": "A summary of the Berkeley/Google DeepMind study reports experiments on PaLM 2 and MATH in which verifier-guided search, adaptive response-distribution updates, and iterative revision improved accuracy over baseline sampling methods.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "The overview articles state that multiple generations, self-consistency, self-refinement, and search-based methods often improve answer quality, particularly on reasoning tasks.",
+              "source_ids": [
+                "S1",
+                "S3"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The direction of the result is supported by several sources, but the retrieved material does not provide the primary paper’s experimental tables, uncertainty estimates, or enough detail to independently verify the reported effect sizes."
+        },
+        {
+          "claim": "Under some benchmark and compute-budget conditions, test-time scaling can be more compute-efficient than increasing model size.",
+          "evidence": [
+            {
+              "summary": "The report on the Snell et al. study claims that a smaller model with optimized test-time compute matched or exceeded a much larger model and produced several-fold FLOP savings on MATH; it also reports that the advantage depended on task difficulty.",
+              "source_ids": [
+                "S4"
+              ]
+            },
+            {
+              "summary": "The overview identifies a training/inference compute tradeoff in which a smaller model with more inference computation may outperform a larger model with less inference computation in selected settings.",
+              "source_ids": [
+                "S1"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The claim is plausible within the reported PaLM 2/MATH comparison and is presented as benchmark-specific, but the evidence here comes mainly from a secondary summary and does not establish general superiority across models, tasks, or production workloads."
+        },
+        {
+          "claim": "The benefit of additional reasoning compute is not reliably monotonic: returns can diminish, and excessive reasoning can sometimes reduce accuracy by causing a model to abandon a previously correct answer.",
+          "evidence": [
+            {
+              "summary": "S2 reports systematic budget-forcing experiments from 500 to 16,000 reasoning tokens and claims diminishing marginal returns, correct-to-incorrect answer flips, and difficulty-dependent optimal thinking lengths.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S2 cites related work reporting inverted-U accuracy curves, excessive reasoning on easy problems, and over-verification or over-exploration.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "This is directly claimed by a research paper, but the retrieved excerpt contains the abstract and setup rather than the results, model list, datasets, statistical analyses, or replication evidence. Its arXiv identifier also appears future-dated relative to much of the surrounding material, so its maturity and independent validation are unclear."
+        },
+        {
+          "claim": "Adaptive allocation of inference compute—spending more effort on difficult problems and stopping earlier on easy ones—is a promising deployment strategy, but not yet a broadly validated rule.",
+          "evidence": [
+            {
+              "summary": "S2 reports that optimal reasoning length varies with problem difficulty and that moderate-budget stopping can preserve comparable accuracy while reducing computation.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S1 and S5 recommend treating inference effort as a task-dependent cost/quality/latency decision rather than applying maximum reasoning to every request.",
+              "source_ids": [
+                "S1",
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The need for task-dependent allocation follows from the reported benchmark results and operational discussion, but robust difficulty estimation, stopping criteria, and out-of-distribution performance are not established by the retrieved evidence."
+        },
+        {
+          "claim": "Inference-time scaling does not guarantee correctness and cannot be assumed to solve distribution shift, poor training data, or all high-complexity problems.",
+          "evidence": [
+            {
+              "summary": "S5 explicitly states that inference scaling is not a guaranteed accuracy mechanism and says that extra reasoning may fail on out-of-distribution or very high-complexity tasks; it also reports an Apple study in which reasoning models wasted tokens on simple tasks and failed at sufficiently high complexity.",
+              "source_ids": [
+                "S5"
+              ]
+            },
+            {
+              "summary": "S4 reports that pretraining remained more effective than test-time compute on the most challenging problems in the summarized study.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "LOW",
+          "confidence_reason": "The limitation is important and conditionally consistent with S4, but S5 is a practitioner article and the Apple-study claims are only summarized, not presented from the primary source."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The broad narrative that more inference compute improves accuracy is qualified, and potentially contradicted, by evidence that longer reasoning has diminishing returns or can hurt accuracy. These are conditional rather than necessarily irreconcilable: gains may hold over some budget range or task difficulty, while overthinking occurs at higher budgets or on easier tasks.",
+          "source_ids": [
+            "S1",
+            "S2",
+            "S4"
+          ]
+        },
+        {
+          "description": "Test-time compute is portrayed as more effective than model scaling in some settings, while the summarized study reports that pretraining/model scaling is more effective on the hardest tasks. This indicates no general winner; the conclusion depends on task difficulty, baseline capability, and the compute metric used.",
+          "source_ids": [
+            "S1",
+            "S4"
+          ]
+        },
+        {
+          "description": "S1 and S3 describe broad progress and widespread provider adoption, whereas the retrieved evidence does not establish how closed proprietary systems implement inference scaling or whether their gains are attributable specifically to inference compute rather than training, reinforcement learning, or model improvements.",
+          "source_ids": [
+            "S1",
+            "S3"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How do the primary studies compare inference compute with model scaling under equalized total FLOPs, latency, memory, and monetary cost?",
+        "How reproducible are the reported gains across independent models, datasets, domains, and contamination-controlled evaluations rather than mainly MATH and related reasoning benchmarks?",
+        "Which methods scale reliably: longer single trajectories, parallel sampling, verifier-guided search, self-refinement, or combinations—and how sensitive are results to verifier quality?",
+        "What is the empirical shape of accuracy versus compute for current reasoning models, including confidence intervals, saturation points, and the frequency of correct-to-incorrect flips?",
+        "Can models or external controllers estimate problem difficulty and stop reliably without introducing calibration errors or losing rare long-horizon solutions?",
+        "Do inference-time gains transfer to factuality, coding, agentic tasks, and real-world user outcomes, or are they concentrated on problems with objectively checkable answers?",
+        "What portion of proprietary-model gains comes from inference-time computation versus post-training, reinforcement learning, data, tools, and architecture?",
+        "The retrieved material lacks primary experimental details for nearly all numerical claims, so exact percentages and claimed 4x/14x comparisons should not be treated as independently verified."
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "primary studies inference-time test-time compute scaling LLM reasoning Snell 2024 MATH overthinking diminishing returns adaptive stopping reproducibility",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The central conditional result is now supported by an official ICLR primary-study record, so another search is not needed merely to confirm that test-time compute can help on math reasoning. However, the original question asks for the current state broadly, and major conclusions about cross-domain transfer, independent replication, non-monotonicity, and deployment costs remain thinly evidenced. A focused search for primary evaluations beyond math would materially improve the answer.",
+      "next_search_query": "primary empirical study inference-time compute scaling LLM reasoning coding factuality agentic tasks independent replication accuracy compute curves",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is empirically established as a useful way to improve performance on at least some mathematical reasoning tasks, using mechanisms such as verifier-guided search and adaptive test-time updates.",
+          "evidence": [
+            {
+              "summary": "The official ICLR 2025 oral abstract reports experiments scaling inference computation through process-based verifier reward models and adaptive updates to the response distribution, finding improvements on math reasoning problems.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "Prior sources describe gains from repeated sampling, self-consistency, revision, search, and verifier-based selection on selected reasoning benchmarks.",
+              "source_ids": [
+                "S1",
+                "S3",
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "S7 is an official conference record for the primary study and directly states the evaluated mechanisms and positive results. However, the evidence still concentrates heavily on mathematical benchmarks."
+        },
+        {
+          "claim": "Compute-optimal, prompt-adaptive allocation can substantially improve the efficiency of test-time scaling relative to a fixed best-of-N strategy, at least in the studied math-reasoning setting.",
+          "evidence": [
+            {
+              "summary": "The ICLR abstract reports that a compute-optimal strategy improved the efficiency of test-time compute scaling by more than 4x compared with a best-of-N baseline for math reasoning.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "Earlier evidence likewise indicates that the best inference budget depends on problem difficulty and supports allocating more effort to harder problems.",
+              "source_ids": [
+                "S2",
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The result is directly reported by an official conference source, though the abstract does not provide the underlying curves, variance estimates, or details needed to assess robustness and the precise definition of efficiency."
+        },
+        {
+          "claim": "Under matched FLOP conditions, test-time compute can outperform parameter scaling in a restricted regime: problems on which a smaller model already has a non-trivial success rate.",
+          "evidence": [
+            {
+              "summary": "S7 reports that, in a FLOPs-matched evaluation, test-time compute allowed a smaller base model to outperform a 14x larger model on problems where the smaller model had somewhat non-trivial success rates.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "The earlier study summary reports a similar benchmark-specific comparison and emphasizes dependence on task difficulty.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The comparison is stated in an official primary-study abstract and independently matches the earlier summary. It is explicitly conditional, so it does not establish that inference scaling generally dominates larger models."
+        },
+        {
+          "claim": "The main empirical conclusion is conditional rather than a universal scaling law: the effectiveness of inference-time methods varies substantially with prompt difficulty and likely with the available base-model capability.",
+          "evidence": [
+            {
+              "summary": "S7 states that the effectiveness of both verifier search and adaptive distribution updating critically varies with prompt difficulty, motivating compute-optimal allocation.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "Prior evidence reports diminishing returns, difficulty-dependent optimal thinking lengths, and possible accuracy degradation from excessive reasoning.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "Difficulty dependence is directly reported in S7, but the retrieved material does not expose the complete accuracy-versus-compute functions or establish whether the pattern generalizes across models and domains."
+        },
+        {
+          "claim": "Broad claims that more inference compute monotonically improves reasoning accuracy remain unsupported; overthinking, saturation, and correct-to-incorrect flips are plausible but insufficiently independently validated in the retrieved evidence.",
+          "evidence": [
+            {
+              "summary": "S2 claims diminishing returns, inverted-U behavior, and correct answers becoming incorrect under forced longer reasoning, but the available material lacks detailed results and replication evidence.",
+              "source_ids": [
+                "S2"
+              ]
+            },
+            {
+              "summary": "S7 establishes prompt-dependent effectiveness but does not claim monotonic improvement at all budgets.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S5 reports limitations on easy, out-of-distribution, and highly complex tasks, but is a practitioner-level secondary source.",
+              "source_ids": [
+                "S5"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The non-monotonicity concern is supported by a direct research claim and consistent conditional findings, but evidence for its prevalence and quantitative shape is thin."
+        },
+        {
+          "claim": "The field has a broad and active method space, but a paper list or conceptual survey is not evidence that the listed methods are effective or production-ready.",
+          "evidence": [
+            {
+              "summary": "S8 describes itself as a community-curated, ongoing paper list and includes methods involving collaborative parallel thinking, early exit, and proof scaling, including entries with future dates relative to the retrieved context.",
+              "source_ids": [
+                "S8"
+              ]
+            },
+            {
+              "summary": "S6 gives a secondary overview of parallel sampling, sequential reasoning, refinement, and selection, but provides no independently verifiable experimental tables in the retrieved excerpt.",
+              "source_ids": [
+                "S6"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The sources directly characterize themselves as an overview and a community-curated list. They are useful for mapping the research landscape but weak evidence for efficacy, generality, or maturity."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The claim that additional inference compute improves accuracy is compatible with, but qualified by, evidence of diminishing or negative returns at some budgets. The disagreement is conditional: gains may occur in a useful budget range, while excessive reasoning can hurt, especially on easier problems.",
+          "source_ids": [
+            "S1",
+            "S2",
+            "S7"
+          ]
+        },
+        {
+          "description": "Test-time compute can beat parameter scaling in a restricted FLOPs-matched regime, while earlier evidence indicates that pretraining or larger models can be more effective on the hardest problems. There is no general winner across difficulty levels and compute accounting choices.",
+          "source_ids": [
+            "S1",
+            "S4",
+            "S7"
+          ]
+        },
+        {
+          "description": "Overview and curated-list sources suggest a rapidly expanding ecosystem of techniques, but this should not be conflated with broad empirical validation. The retrieved evidence does not establish that newer listed methods outperform established baselines independently.",
+          "source_ids": [
+            "S6",
+            "S8"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How do inference-time methods compare across coding, factuality, planning, agentic, and open-ended tasks rather than mainly objectively checkable math problems?",
+        "What are the full accuracy-versus-compute curves, confidence intervals, saturation points, and rates of correct-to-incorrect flips for current reasoning models?",
+        "How robust are the reported 4x efficiency and 14x parameter-scaling comparisons under independent replication and alternative accounting for latency, memory, monetary cost, and total FLOPs?",
+        "Which components are responsible for gains: longer trajectories, parallel sampling, verifier quality, search, refinement, or adaptive stopping?",
+        "Can difficulty estimation and stopping policies generalize out of distribution without sacrificing rare but valid long-horizon solutions?",
+        "How much of the performance of proprietary reasoning systems is attributable specifically to inference-time compute rather than training, post-training, reinforcement learning, tools, or architecture?",
+        "The retrieved sources do not provide enough primary detail to determine whether non-monotonic scaling is a widespread law or a benchmark/model-specific effect."
+      ]
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "primary empirical study inference-time compute scaling LLM reasoning coding factuality agentic tasks independent replication accuracy compute curves",
+      "source_ids": [
+        "S9",
+        "S10"
+      ],
+      "needs_more_research": true,
+      "research_reason": "The main qualitative conclusion is now reasonably supported: inference-time scaling works conditionally, especially for verifiable reasoning, but has diminishing returns and no universal scaling law. Further research would materially improve the answer by testing independent replication and practical verifier performance outside primarily math-oriented benchmarks.",
+      "next_search_query": "independent replication inference-time scaling LLM reasoning multi-task verifier practical cost accuracy curves superscaling",
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is empirically useful, but its benefits are strongly task- and difficulty-dependent rather than universal.",
+          "evidence": [
+            {
+              "summary": "A study of nine state-of-the-art models across eight tasks—including math/STEM, planning, navigation, spatial reasoning, and NP-hard problems—reports that inference-time scaling improves performance, but effectiveness varies across domains and diminishes as task complexity increases.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "The official ICLR study likewise reports that verifier search and adaptive response-distribution updates vary critically with prompt difficulty.",
+              "source_ids": [
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "S9 provides broad multi-model, multi-task empirical evidence, while S7 independently supports difficulty dependence. Exact effect sizes and robustness details remain unavailable in the retrieved excerpts."
+        },
+        {
+          "claim": "The strongest empirical validation remains concentrated in mathematical and objectively verifiable reasoning tasks.",
+          "evidence": [
+            {
+              "summary": "Earlier primary-study evidence directly reports gains from verifier-guided search, adaptive inference updates, and compute-optimal allocation on math reasoning problems.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S9 states that math has been the main testbed and evaluates broader tasks, but reports heterogeneous benefits rather than uniformly large gains outside math.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "Positive results on math are supported by an official primary-study record and the broader S9 evaluation. Evidence for general transfer to other task families is mixed rather than conclusive."
+        },
+        {
+          "claim": "Parallel sampling, sequential feedback, and verifier-guided selection can improve performance when additional computation exposes a correct path or enables reliable selection among paths.",
+          "evidence": [
+            {
+              "summary": "S9 evaluates independent parallel generations and sequential generations with feedback, and reports gains from continued scaling with perfect verifiers or strong feedback across the studied benchmarks.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S7 reports positive results for process-based verifier search and adaptive response-distribution updates.",
+              "source_ids": [
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The mechanisms and positive outcomes are directly described in primary-study materials. However, perfect verifiers are an upper-bound condition and do not establish that equally strong practical verifiers are generally available."
+        },
+        {
+          "claim": "Compute-optimal, prompt-adaptive allocation is empirically promising and can be substantially more efficient than fixed best-of-N scaling in a restricted math setting.",
+          "evidence": [
+            {
+              "summary": "S7 reports more than a fourfold efficiency improvement over a best-of-N baseline for math reasoning, with effectiveness varying by prompt difficulty.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S9 reports high variability in token usage and argues that purposeful, cost-effective scaling is needed; repeated calls can also produce cost nondeterminism.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The fourfold result is directly reported by an official conference source, and S9 supplies broader supporting evidence for adaptive efficiency concerns. The abstract-level evidence does not reveal the exact efficiency metric or whether the result replicates broadly."
+        },
+        {
+          "claim": "Under restricted matched-FLOP conditions, inference-time compute can outperform parameter scaling when the smaller model already has a non-trivial chance of solving the problem.",
+          "evidence": [
+            {
+              "summary": "S7 reports that a smaller model with test-time compute outperformed a 14-times-larger model on problems where the smaller model already had somewhat non-trivial success rates.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "The same comparison is summarized in S4, with the qualification that the advantage depends on task difficulty.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The conditional comparison is stated in an official primary-study abstract and is consistent with the earlier summary. It does not establish general superiority over larger models."
+        },
+        {
+          "claim": "More tokens alone are not a validated proxy for better reasoning, and scaling can exhibit diminishing or even negative returns.",
+          "evidence": [
+            {
+              "summary": "S9 reports that longer generations can indicate model struggle, that higher token use is not consistently associated with higher accuracy, and that gains diminish as task complexity increases.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S2 claims diminishing marginal returns, inverted-U behavior, and correct-to-incorrect answer flips under forced longer reasoning, but provides insufficient retrieved detail for independent assessment.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S9 supplies broad empirical support for diminishing returns and weak token-accuracy correlation. The stronger claim about frequent correct-to-incorrect flips remains mainly dependent on the thinly documented S2 evidence."
+        },
+        {
+          "claim": "Perfect-verifier and superscaling results show headroom for future inference-time improvements, but they should not be mistaken for current practical capability.",
+          "evidence": [
+            {
+              "summary": "S9 reports that perfect verifiers consistently improve both conventional and reasoning models, and that up to 50-times more inference calls further improve performance, although gains diminish on highly complex tasks.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S9 explicitly frames repeated-call and perfect-verifier experiments as estimates of potential upper bounds or future improvement, not necessarily deployed systems.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The study directly reports these experiments and characterizes their interpretation. Practical generalization depends on verifier quality, latency, cost, and whether the model can use feedback effectively."
+        },
+        {
+          "claim": "The current evidence does not support a universal inference-time scaling law or a general claim that inference compute is preferable to training or larger models.",
+          "evidence": [
+            {
+              "summary": "S9 finds heterogeneous task effects, diminishing returns with complexity, and cases where more tokens do not improve accuracy.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S4 reports that pretraining was more effective than test-time compute on the hardest problems, while S7 reports a restricted regime where test-time compute beats parameter scaling.",
+              "source_ids": [
+                "S4",
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The apparently contrasting results are conditionally consistent and jointly establish that the winner depends on task difficulty, base-model capability, verifier quality, and cost accounting."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "Broad claims that additional inference compute improves reasoning are qualified by S9's findings that benefits diminish with task complexity and that longer outputs or higher token use can correlate with struggle rather than accuracy. This is a conditional conflict, not a direct contradiction.",
+          "source_ids": [
+            "S7",
+            "S9"
+          ]
+        },
+        {
+          "description": "S7 and S4 show that test-time compute can beat much larger models in a restricted matched-FLOP regime, whereas S4 reports that pretraining/model scaling is more effective on the hardest problems. No general compute-allocation winner is established.",
+          "source_ids": [
+            "S4",
+            "S7"
+          ]
+        },
+        {
+          "description": "S9 reports gains from perfect verifiers and superscaling even for conventional models, but those results represent upper-bound potential and may not translate to practical systems with imperfect verifiers and finite latency budgets.",
+          "source_ids": [
+            "S9"
+          ]
+        },
+        {
+          "description": "S2 suggests inverted-U accuracy curves and correct-to-incorrect flips, while S9 establishes only broader diminishing returns and weak token-accuracy correlation in the retrieved material. The prevalence and quantitative shape of non-monotonicity remain unresolved.",
+          "source_ids": [
+            "S2",
+            "S9"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "How much of S9's cross-task findings survives independent replication, especially on coding, factuality, agentic planning, and real-world tasks?",
+        "What are the complete accuracy-versus-compute curves, confidence intervals, saturation points, and rates of correct-to-incorrect flips?",
+        "How do practical verifiers compare with the perfect-verifier upper bounds, and how sensitive are gains to verifier errors?",
+        "Can adaptive stopping and difficulty estimation generalize out of distribution without losing rare long-horizon solutions?",
+        "How should inference compute be compared with model scaling under equalized total FLOPs, latency, memory, monetary cost, and energy?",
+        "Which gains come from longer trajectories versus parallel sampling, feedback, search, refinement, or post-training that produced reasoning models?",
+        "Do superscaling gains remain economically and operationally useful once repeated-call cost nondeterminism and latency are included?",
+        "The retrieved sources do not provide enough detail to independently verify exact numerical claims such as the reported fourfold efficiency gain or the 14-times parameter comparison."
+      ]
+    },
+    {
+      "iteration_number": 4,
+      "search_query": "independent replication inference-time scaling LLM reasoning multi-task verifier practical cost accuracy curves superscaling",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "needs_more_research": false,
+      "research_reason": "The new Microsoft Research source materially strengthens the central conclusion with broad primary multi-model, multi-task evidence: inference-time scaling works in some settings, but benefits are heterogeneous, diminish with complexity, and are not guaranteed by token count alone. The remaining gaps concern quantitative robustness, practical cost accounting, verifier realism, and transfer to open-ended or production tasks. Those gaps should be reported as limitations rather than pursued further for the broad original question.",
+      "next_search_query": null,
+      "findings": [
+        {
+          "claim": "Inference-time compute scaling is empirically useful, but its benefits are strongly task- and difficulty-dependent rather than universal.",
+          "evidence": [
+            {
+              "summary": "A Microsoft Research study evaluates nine state-of-the-art models across eight challenging tasks, including math/STEM, planning, navigation, spatial reasoning, and NP-hard problems. It reports that scaling benefits vary across tasks and diminish as problem complexity increases.",
+              "source_ids": [
+                "S12"
+              ]
+            },
+            {
+              "summary": "The study also reports that simply generating more tokens does not necessarily improve accuracy in challenging regimes.",
+              "source_ids": [
+                "S12"
+              ]
+            },
+            {
+              "summary": "The prior ICLR study likewise found that verifier search and adaptive response-distribution updates varied critically with prompt difficulty.",
+              "source_ids": [
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "S12 is a primary research report from Microsoft Research with broad multi-model, multi-task coverage, and its conclusions are consistent with S7. The retrieved text does not include full tables or uncertainty estimates."
+        },
+        {
+          "claim": "The strongest empirical validation remains concentrated in mathematical and objectively verifiable reasoning tasks.",
+          "evidence": [
+            {
+              "summary": "The official ICLR study reports positive results for process-based verifier search, adaptive inference updates, and compute-optimal allocation on math reasoning problems.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S12 characterizes lengthened scratchpads as established for mathematical tasks while stating that broader effects remain less clear; its cross-task results are heterogeneous.",
+              "source_ids": [
+                "S12"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "Positive math results are supported by a primary conference record, while S12 directly qualifies generalization beyond math. Evidence for open-ended and production tasks remains limited."
+        },
+        {
+          "claim": "Parallel sampling, sequential feedback, and verifier-guided selection can improve performance when additional computation exposes a correct path or enables reliable selection among candidate paths.",
+          "evidence": [
+            {
+              "summary": "S12 evaluates repeated independent calls and sequential calls with feedback, and reports significant gains when inference is further scaled with perfect verifiers or strong feedback.",
+              "source_ids": [
+                "S12"
+              ]
+            },
+            {
+              "summary": "S7 reports improvements from process-based verifier search and adaptive updates to the response distribution.",
+              "source_ids": [
+                "S7"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The methods and positive results are described in primary-study materials. However, perfect verifiers and strong feedback are favorable conditions that may not reflect practical verifier quality."
+        },
+        {
+          "claim": "Compute-optimal, prompt-adaptive allocation is promising and can be substantially more efficient than fixed best-of-N scaling in a restricted math setting.",
+          "evidence": [
+            {
+              "summary": "S7 reports that compute-optimal allocation improved test-time scaling efficiency by more than fourfold relative to a best-of-N baseline for math reasoning, with effectiveness varying by prompt difficulty.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "S12 reports substantial variability across tasks and models, supporting the need to avoid treating a fixed inference budget as universally optimal.",
+              "source_ids": [
+                "S12"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The fourfold result is directly reported by an official conference source, and S12 independently supports heterogeneous scaling behavior. The exact efficiency metric and robustness across settings are not available in the retrieved material."
+        },
+        {
+          "claim": "Under restricted matched-FLOP conditions, inference-time compute can outperform parameter scaling when the smaller model already has a non-trivial chance of solving the problem.",
+          "evidence": [
+            {
+              "summary": "S7 reports that a smaller model using test-time compute outperformed a 14-times-larger model on problems where the smaller model had somewhat non-trivial baseline success rates.",
+              "source_ids": [
+                "S7"
+              ]
+            },
+            {
+              "summary": "The same result is summarized in S4, with dependence on task difficulty.",
+              "source_ids": [
+                "S4"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The conditional comparison is stated in an official primary-study abstract and is consistent with S4. It does not establish general superiority over larger models."
+        },
+        {
+          "claim": "Broad claims that more inference compute monotonically improves accuracy are not empirically established.",
+          "evidence": [
+            {
+              "summary": "S12 reports diminishing benefits with increasing problem complexity, cases where more tokens do not yield higher accuracy, and persistent performance gaps even under very high scaling for some tasks.",
+              "source_ids": [
+                "S12"
+              ]
+            },
+            {
+              "summary": "S9 similarly reports weak or inconsistent association between token use and accuracy and diminishing returns as complexity increases.",
+              "source_ids": [
+                "S9"
+              ]
+            },
+            {
+              "summary": "S2 claims stronger non-monotonic effects, including inverted-U curves and correct-to-incorrect flips, but the retrieved evidence lacks detailed results and independent replication.",
+              "source_ids": [
+                "S2"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "The weaker conclusion—non-universal and non-monotonic-in-general scaling—is supported by S12 and S9. The prevalence and exact shape of correct-to-incorrect flips remain less certain because they rely mainly on the thinly documented S2 evidence."
+        },
+        {
+          "claim": "Perfect-verifier and high-call-count experiments demonstrate potential headroom, but they should not be interpreted as current practical capability.",
+          "evidence": [
+            {
+              "summary": "S12 reports significant gains for all evaluated models when scaling with perfect verifiers or strong feedback, while noting that these evaluations approximate upper bounds and potential future improvements.",
+              "source_ids": [
+                "S12"
+              ]
+            },
+            {
+              "summary": "S9 likewise characterizes perfect-verifier and superscaling results as upper-bound estimates rather than necessarily deployable systems.",
+              "source_ids": [
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "HIGH",
+          "confidence_reason": "Both sources explicitly distinguish these experiments from ordinary deployed inference. Practical results depend on verifier availability, verifier error, latency, and cost."
+        },
+        {
+          "claim": "Verifier-based scaling is conceptually attractive for domain adaptation, but its practical generality remains speculative.",
+          "evidence": [
+            {
+              "summary": "S13 explains that task-specific verifiers can guide generation and may be rule-based, programmatic, or model-based.",
+              "source_ids": [
+                "S13"
+              ]
+            },
+            {
+              "summary": "S13 also identifies verifier quality, exploration efficiency, computational overhead, and domain complexity as unresolved limitations.",
+              "source_ids": [
+                "S13"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "S13 provides a useful conceptual account and explicit limitations, but it is a blog post rather than independent empirical validation. Its claims about extensibility and democratization should therefore be treated as proposals, not established outcomes."
+        },
+        {
+          "claim": "Operationally, inference-time scaling creates a cost-quality-latency tradeoff rather than a free accuracy improvement.",
+          "evidence": [
+            {
+              "summary": "S11 describes inference scaling as increasing per-inference token generation, sampling passes, and search depth, with latency and inference cost as the principal bottlenecks.",
+              "source_ids": [
+                "S11"
+              ]
+            },
+            {
+              "summary": "S12 and S9 show that additional computation can produce gains in some settings but not necessarily higher accuracy in all regimes.",
+              "source_ids": [
+                "S12",
+                "S9"
+              ]
+            }
+          ],
+          "confidence": "MEDIUM",
+          "confidence_reason": "The cost mechanism is directly described, and the conditional quality benefits are supported by empirical studies. The retrieved sources do not provide a standardized comparison of monetary cost, latency, energy, and total FLOPs."
+        }
+      ],
+      "conflicts": [
+        {
+          "description": "The general claim that additional inference computation improves reasoning is qualified by evidence from S12 and S9 that gains diminish, more tokens may fail to improve accuracy, and some tasks retain large gaps even under high scaling. S2 additionally suggests possible accuracy reversals, but the frequency and generality of those reversals are unresolved.",
+          "source_ids": [
+            "S2",
+            "S9",
+            "S12"
+          ]
+        },
+        {
+          "description": "S7 shows test-time compute beating a much larger model in a restricted matched-FLOP regime, while S4 reports that pretraining/model scaling can be more effective on the hardest problems. These findings are conditional rather than contradictory and do not identify a universal winner.",
+          "source_ids": [
+            "S4",
+            "S7"
+          ]
+        },
+        {
+          "description": "S12's perfect-verifier results show substantial potential for conventional models, but S13 emphasizes that practical verifier quality and exploration efficiency are major bottlenecks. Upper-bound verifier results therefore cannot be directly generalized to deployed systems.",
+          "source_ids": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "description": "S11 and S13 describe broad enterprise and domain-adaptation applications, but the primary empirical evidence remains concentrated on benchmarks with objective checking; the retrieved studies do not establish comparable gains for legal review, coding, factuality, or open-ended use cases.",
+          "source_ids": [
+            "S11",
+            "S12",
+            "S13"
+          ]
+        }
+      ],
+      "unresolved_questions": [
+        "What are the complete accuracy-versus-compute curves, confidence intervals, saturation points, and rates of correct-to-incorrect flips for current reasoning models?",
+        "How reproducible are the reported gains across independent models, datasets, and contamination-controlled evaluations?",
+        "How do inference-time compute and model scaling compare under equalized total FLOPs, latency, memory, monetary cost, and energy?",
+        "How much do results change when perfect verifiers are replaced by realistic imperfect verifiers?",
+        "Which components account for gains: longer trajectories, parallel sampling, feedback, search, refinement, or adaptive stopping?",
+        "Can difficulty estimation and stopping policies generalize out of distribution without losing rare long-horizon solutions?",
+        "Do gains transfer reliably to coding, factuality, agentic planning, navigation, and real-world user outcomes?",
+        "How much of proprietary reasoning-model performance is attributable specifically to inference-time computation rather than training, post-training, reinforcement learning, tools, or architecture?",
+        "Do repeated-call and superscaling gains remain economically and operationally useful once latency, cost nondeterminism, and verifier construction are included?",
+        "The retrieved material does not independently expose enough primary detail to verify exact numerical claims such as the reported fourfold efficiency gain or 14-times parameter comparison."
+      ]
+    }
+  ],
+  "evidence_ledger": {
+    "claims": []
+  },
+  "research_gaps": [],
+  "research_plan": null,
+  "claim_verifications": [],
+  "current_iteration": 4,
+  "remaining_search_budget": 6,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Scaling LLM Test Time Compute",
+      "url": "https://www.jonvet.com/blog/llm-test-time-compute",
+      "content": "[engineering notes](/)\n\n[Blog](/blog)[Tools](/tools)[About](/about)\n\n\n\n[Subscribe](/subscribe)\n\nPublished on\n\n# Scaling LLM Test Time Compute\n\nAuthors\n:   * ![avatar](/_next/image?url=%2Fstatic%2Fimages%2Fme.png&w=96&q=75)\n\n      Name\n      :   Jonas Vetterle\n\n      Twitter\n      :   [@jvetterle](https://twitter.com/jvetterle)\n\nIn recent months, several AI labs have released models that make use of an additional amount of compute at *test time*. Examples include OpenAI's o1 and Google's Gemini Flash 2.0, and most recently OpenAI's o3 (announced for 2025) whose performance on challenging datasets like [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) and [FrontierMath](https://epoch.ai/frontiermath) has been nothing short of impressive.\n\nAlthough it's not fully clear how closed-source models like the above work under the hood, what they have in common is that they're no longer just generating a response straightaway. Instead, these models can spend an additional arbitrary amount of time and compute refining their response, which leads to better performance on reasoning tasks like solving math problems.\n\nThis is exciting, because it seems like there is a new scaling law at play. In addition to training LLMs on more data and for more steps (that's the [pre-training Scaling Laws](/blog/llm-scaling-laws) we all know and love, but have started to show signs of [diminishing returns](/blog/llm-scaling-in-2025)), we can also throw more compute at a problem at *inference* time - \"letting models think\" - and get better performance.\n\n![scaling_laws](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fscaling_laws.png&w=2048&q=75)[OpenAI 2024](https://openai.com/index/learning-to-reason-with-llms/)\n\nWhat's behind this progress? It's a combination of many things: new and old techniques from the Reinforcement Learning field being applied to LLM training, bigger and better data sets with human annotations, methods that are easier to scale because remove the need for human annotations, and the list goes on.\n\nThis blog post should be seen as a snapshot in time, as the field is moving very fast. Consider it a literature review, which doesn't aim to be exhaustive, but gives an overview of interesting papers on test-time compute for LLMs.\n\n## What is test-time compute?\n\nTest time compute refers to the amount of compute that is used to generate completions from a language model (LLM) at test or inference time. This is in contrast to (pre- or post-) training compute, which is the amount of compute used to train the model on a large corpus of data.\n\nAs of 2025, test-time compute is widely considered to be one of the likely key drivers of performance improvements in LLMs, as we're running into data bottlenecks and diminishing returns from the original [pre-training LLM Scaling Laws](/blog/llm-scaling-laws).\n\nTest-time compute can refer to many things: creating chains of thought, revising answers, using external verifiers, backtracking, sampling multiple times and selecting the best answer and so on.\n\nWhat all of these have in common is that they require more compute than just generating a single completion. In that sense, models like OpenAI's o1, o3 and Gemini 2.0 Flash (all of which use test-time compute) represent a different paradigm than the models that came before them.\n\n## Reasons to scale test-time compute\n\nPerhaps the most obvious reason to scale test-time compute is because it can lead to better performance, at least in certain domains.\n\nConsider for example the fact that o3 has achieved the highest score yet of any LLM on the notoriously difficult (for machines) [ARC](https://arcprize.org/blog/oai-o3-pub-breakthrough) dataset. Or the fact that o3 achieved 25% on the [FrontierMath](https://epoch.ai/frontiermath) dataset, which is even more challenging and out of reach for any other model before o3.\n\n![kaplan](/_next/image?url=%2Fstatic%2Fimages%2Fllm-scaling-in-2025%2Fo-series-performance.jpg&w=1920&q=75)[Arc Prize website](https://arcprize.org/blog/oai-o3-pub-breakthrough)\n\nBut that's not the only reason to scale test-time compute. For example, we know that LLMs often give wrong answers or hallucinate. Letting LLMs \"think\" for longer and revise their answers can help mitigate this.\n\nAnother reason is that training and inference time compute can be traded off to a certain extent. So under certain circumstances it might be more cost-effective to use a smaller model and more test-time compute than a larger model and less test-time compute. Or maybe you just want to reduce the size of a model so that it can fit on smaller devices, while maintaining the same level of performance.\n\n## Categories of test-time compute scaling methods\n\nThere are different ways of categorizing test-time compute scaling methods. I like the categorisation in this paper by Snell et al. (2024) [[6]](#snell_2024) which unifies different approaches of test time compute and runs extensive experiments to determine a compute-optimal scaling strategy. Broadly speaking there are two main ways to improve the quality of LLM completions:\n\n* **At the input level: Modify the prompt in order to get better completions.** In other words, we modify the proposal distribution, i.e. the distribution from which different LLM completions are sampled\n* **At the output level: Sample multiple candidate completions and pick the best one or modify them in some way**\n\nViewed through this lense, the question of what exactly we are scaling at test time is broken down into a **Proposer** and a **Verifier**. The Proposer is an LLM that generates multiple candidate completions and the Verifier is another model that scores each one and picks the best.\n\n## LLM Proposal Distribution Optimization\n\nMethods in this category aim to improve inference time performance of LLMs by modifying the distribution from which completions are sampled. This is either achieved by\n\n* prompting off-the-shelf LLMs in a way that guides them towards better completions\n* or by fine-tuning LLMs, i.e. rather than using in-context learning, modifying the model parameters to improve completions.\n\n### Using off-the-shelf LLMs\n\nMethods that fall into this category don't require any fine-tuning of the LLM, they just work with off-the-shelf models. Most of LLM practitioners have probably put a *\"Take a deep breath and think through it step by step\"* at the end of their prompt and seen that it helps. I certainly have, and it's been a simple hack to get a bit of extra performance. Alternatively, just breaking up your prompt into smaller parts or asking the LLM to revise its answer can also help. Creating Chain-Of-Thought prompts is another way to guide the LLM to think through a problem step by step: letting it generate intermediate completions sequentially and then using them as input for the next step.\n\nThere is a lot of literature on this topic. For example, Saunders et al. (2022) [[4]](#saunders_2022) introduce the concept of **self-critique** which means that\n\n* a model generates an answer to a question\n* it then a model generates a critique of that answer\n* and both answer and critique are given again to the model to generate a refined answer\n\nPerhaps surprisingly, this method leads to better performance for sufficiently large models. The author argue that this is because it is easier to spot errors in an answer than to avoid them in the first place, which sounds plausible to me!\n\nMadaan et al. (2023) [[3]](#madaan_2023) take a very similar approach, and let the model provide feedback and refine its own completions iteratively until a stopping criterion is met.\n\n![self_refine](/_next/image?url=%2Fstatic%2Fimages%2Fllm-test-time-compute%2Fself_refine.png&w=2048&q=75)[Madaan et al. 2023](https://arxiv.org/pdf/2303.17651)\n\n### Fine-tuning LLMs\n\nWhile using off-the-shelf LLMs is nice because it allows anyone to use these techniques, even if they just have access to closed-source models behind APIs, fine-tuning an LLMs to refine their answers c",
+      "score": 0.9425896922724671
+    },
+    {
+      "id": "S2",
+      "title": "When More Thinking Hurts: Overthinking in LLM Test-Time Compute ...",
+      "url": "https://arxiv.org/html/2604.10739v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\n###### Abstract\n\nScaling test-time compute through extended chains of thought has become a dominant paradigm for improving large language model reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined.\nWe systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit “overthinking”, where extended reasoning is associated with abandoning previously correct answers.\nFurthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.\n\n## 1 Introduction\n\nScaling inference-time compute through lengthy chains of thought has achieved remarkable success on mathematical reasoning benchmarks ([DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent work has established that test-time compute scaling can be more effective than model scaling for many tasks ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7)). The prevailing assumption in this line of research is straightforward: more thinking leads to better answers. Models are encouraged to reason longer, with performance curves consistently showing accuracy improvements as token budgets increase. Yet the assumption that thinking length and answer quality are monotonically related has never been systematically examined.\n\nWe challenge this assumption by drawing an analogy from economics: the law of diminishing marginal returns. Just as additional units of input eventually yield smaller increments of output, additional tokens of reasoning may provide progressively less benefit. More critically, extended thinking might even be harmful. A model could “overthink” a problem, second-guessing a correct initial intuition and ultimately arriving at a wrong answer ([Chen et al., 2024a](#bib.bib17)). This phenomenon would have significant implications for how we deploy and evaluate test-time scaling systems.\n\nUnderstanding when to stop thinking is practically important for two reasons. First, compute costs are substantial: generating 8,000 tokens costs 16×\\times more than generating 500 tokens. If much of this extended reasoning provides minimal benefit, resources are being wasted. Second, if overthinking degrades performance on certain problems, then adaptive stopping strategies could simultaneously reduce costs and improve accuracy.\n\nTo investigate these questions, we conduct a systematic study of marginal utility in test-time compute scaling. We evaluate models across a wide range of compute budgets, measuring not just final accuracy but the incremental benefit of additional reasoning. We track individual problems through their reasoning trajectories, identifying “flip events” where answers change from correct to incorrect. Based on these analyses, we characterize when overthinking occurs and explore early-stopping strategies. In summary, we:\n\nProvide a comprehensive analysis of marginal utility in test-time compute scaling, introducing flip event tracking to measure when extended reasoning helps versus hurts.\n\nIdentify and quantify the “overthinking” phenomenon, where extended reasoning is associated with models abandoning correct answers.\n\nIntroduce cost-aware evaluation metrics and propose that researchers report efficiency frontiers alongside accuracy curves.\n\n## 2 Related Work\n\n### 2.1 Test-Time Scaling\n\nScaling inference compute has emerged as a powerful paradigm complementing training-time scaling ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7); [Zhou et al., 2026](#bib.bib25)). Methods include searching over generations, sampling multiple completions, and training models to produce extended reasoning chains ([OpenAI, 2024](#bib.bib15); [DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent surveys have comprehensively examined the landscape of long chain-of-thought reasoning ([Chen et al., 2025](#bib.bib16); [Sui et al., 2025](#bib.bib13); [Zhou et al., 2025b](#bib.bib23); [Zhou and Zhou, 2025](#bib.bib26)). These works consistently report accuracy improvements with compute, but do not systematically examine marginal returns or the possibility of overthinking.\n\n### 2.2 Overthinking in LLMs\n\nRecent work has begun to identify the “overthinking” phenomenon in reasoning models. [Chen et al. (2024b)](#bib.bib11) first documented that o1-like models consume excessive tokens on simple problems with minimal accuracy benefit. [Wu et al. (2025b)](#bib.bib12) demonstrated that task accuracy follows an inverted U-shaped curve with chain-of-thought length. Several concurrent works examine related aspects: [Srivastava et al. (2025)](#bib.bib18) study accuracy-verbosity trade-offs on basic math tasks through an “overthinking score” metric; [Ghosal et al. (2025)](#bib.bib19) question test-time scaling effectiveness and propose parallel thinking as an alternative; [Lu et al. (2025)](#bib.bib24) survey adaptive test-time compute methods; and [Zhang et al. (2025)](#bib.bib20) use structural analysis tools to identify “over-verification” and “over-exploration” patterns. Our work complements these efforts by introducing flip event tracking to measure individual-problem answer changes, difficulty-stratified analysis revealing that easy problems overthink at 2K tokens versus 8K for hard problems, and a cost-aware evaluation framework with tunable λ\\lambda parameter for accuracy-compute trade-offs.\n\n### 2.3 Selective Prediction\n\nOur work connects to selective classification ([Geifman and El-Yaniv, 2017](#bib.bib4)) and selective question answering ([Kamath et al., 2020](#bib.bib5); [Zhou et al., 2025a](#bib.bib21); [Zhou et al., 2025c](#bib.bib22)), which allow models to abstain when uncertain. [Jurayj et al. (2025)](#bib.bib14) recently applied these ideas to test-time scaling, showing that confidence thresholds improve performance under risk. We extend this perspective by considering compute costs rather than response risks.\n\n### 2.4 Efficient Inference\n\nPrior work on efficient inference focuses on model compression, early exit ([Schwartz et al., 2020](#bib.bib9)), and speculative decoding ([Leviathan et al., 2023](#bib.bib8)). Our work suggests a complementary approach: adaptive reasoning length based on problem characteristics and overthinking detection.\n\n## 3 Methods\n\nWe investigate how the benefit of additional reasoning changes as compute budgets increase. Our analysis focuses on three aspects: marginal utility measurement, flip event detection, and overthinking indicators. We describe each below:\n\n### 3.1 Compute Budget\n\nFollowing [Muennighoff et al. (2025)](#bib.bib2), we quantify a model’s compute budget by the number of tokens in its reasoning trace. We use budget forcing to control reasoning length: we append “Wait” tokens if the model attempts to conclude early, and force-decode the end-of-thinking delimiter once the budget is reached. We evaluate budgets in the range [500,16000][500,16000] tokens, with increments of 500 tokens.\n\n### 3.2 Marginal Utility\n\nWe define the marginal utility at budget tt as the change in accuracy when increasing the budget from tt to t+Δ​tt+\\Delta t:\n\n|  |  |  |  |\n| --- | --- | --- | --- |\n|  | MU​(t)=Acc​(t+Δ​t)−Acc​(t)\\text{MU}(t)=\\text{Acc}(t+\\Delta t)-\\text{Acc}(t) |  | (1) |\n\nwhere Acc​(t)\\text{Acc}(t) denotes the accuracy at budget tt. We use Δ​t=500\\Delta ",
+      "score": 0.9191609914822982
+    },
+    {
+      "id": "S3",
+      "title": "Categories of Inference-Time Scaling for Improved LLM ...",
+      "url": "https://magazine.sebastianraschka.com/p/categories-of-inference-time-scaling",
+      "content": "# Categories of Inference-Time Scaling for Improved LLM Reasoning\n\n### And an Overview of Recent Inference-Scaling Papers (Including Recursive Language Models)\n\n[Sebastian Raschka, PhD](https://substack.com/@rasbt)\n\n∙ Paid\n\nInference scaling has become one of the most effective ways to improve answer quality and accuracy in deployed LLMs.\n\nThe idea is straightforward. If we are willing to spend a bit more compute, and more time at inference time (when we use the model to generate text), we can get the model to produce better answers.\n\nEvery major LLM provider relies on some flavor of inference-time scaling today. And the academic literature around these methods has grown a lot, too.\n\nBack in March, I wrote an overview of the inference scaling landscape and summarized some of the early techniques.\n\n[#### The State of LLM Reasoning Model Inference\n\n[Sebastian Raschka, PhD](https://substack.com/profile/27393275-sebastian-raschka-phd)\n\n·\n\nMarch 8, 2025\n\n[Read full story](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)\n\nIn this article, I want to take that earlier discussion a step further, group the different approaches into clearer categories, and highlight the newest work that has appeared over the past few months.\n\nAs part of drafting a full book chapter on inference scaling for *[Build a Reasoning Model (From Scratch)](https://mng.bz/Nwr7)*, I ended up experimenting with many of the fundamental flavors of these methods myself. With hyperparameter tuning, this quickly turned into thousands of runs and a lot of thought and work to figure out which approaches should be covered in more detail in the chapter itself. (The chapter grew so much that I eventually split it into two, and both are now available in the early access program.)\n\nPS: I am especially happy with how the chapter(s) turned out. It takes the base model from about 15 percent to around 52 percent accuracy, which makes it one of the most rewarding pieces of the book so far.\n\nWhat follows here is a collection of ideas, notes, and papers that did not quite fit into the final chapter narrative but are still worth sharing.\n\nI also plan to add more code implementations to the [bonus materials on GitHub](https://github.com/rasbt/reasoning-from-scratch) over time.\n\n**Table of Contents (Overview)**\n\n1. Inference-Time Scaling Overview\n2. Chain-of-Thought Prompting\n3. Self-Consistency\n4. Best-of-N Ranking\n5. Rejection Sampling with a Verifier\n6. Self-Refinement\n7. Search Over Solution Paths\n8. Conclusions, Categories, and Combinations\n9. Bonus: What Do Proprietary LLMs Use?\n\nYou can use the left-hand navigation bar in the article’s web view to jump directly to any section.\n\n# 1. Inference-Time Scaling Overview\n\n*Inference-time scaling* (also called *inference-compute scaling*, *test-time scaling*, or just *inference scaling*) is an umbrella term for methods that allocate more compute and time during inference to improve model performance.\n\nThis idea has been around for a long time, and one can think of ensemble methods in classic machine learning as an early example of inference-time scaling. I.e., using multiple models requires more compute resources but can give better results.\n\n​Even in LLM contexts, this idea has been around for a long time. However, I remember it became particularly popular (again) when OpenAI showed an inference-time scaling and training plot in one of their o1 announcement blog articles last year ([Learning to Reason with LLMs](https://openai.com/index/learning-to-reason-with-llms/)).\n\n*Figure 1: Spending additional resources during inference (left) and training (right) generally improves the model’s accuracy.*\n\nI think this figure, adapted from OpenAI’s [blog post](https://openai.com/index/learning-to-reason-with-llms/), nicely captures the idea behind the two knobs we can use to improve LLMs. We can spend more resources during training (more data, bigger models, more or longer training stages) or inference.\n\nActually, in practice, it’s even better to do both at the same time: train a stronger model and use additional inference scaling to make it even better.\n\nIn this article, I only focus on the left part of the figure, inference-time scaling techniques, i.e., those training-free techniques that don’t change the model weights.\n\n## This post is for paid subscribers\n\n[Already a paid subscriber? **Sign in**](https://substack.com/sign-in?redirect=%2Fp%2Fcategories-of-inference-time-scaling&for_pub=sebastianraschka&change_user=false)\n\n© 2026 Raschka AI Research (RAIR) Lab LLC · [Privacy](https://substack.com/privacy) ∙ [Terms](https://substack.com/tos) ∙ [Collection notice](https://substack.com/ccpa#personal-data-collected)\n\n[Start your Substack](https://substack.com/signup?utm_source=substack&utm_medium=web&utm_content=footer)[Get the app](https://substack.com/app/app-store-redirect?utm_campaign=app-marketing&utm_content=web-footer-button)\n\n[Substack](https://substack.com) is the home for great culture",
+      "score": 0.9100987062278056
+    },
+    {
+      "id": "S4",
+      "title": "Scaling Test-Time Compute: A New Paradigm in LLM Performance",
+      "url": "https://neurohive.io/en/state-of-the-art/scaling-test-time-compute-a-new-paradigm-in-llm-performance",
+      "content": "[Skip to content](#main)\n\n\n# Scaling Test-Time Compute: A New Paradigm in LLM Performance\n\n* + [State-of-the-Art](https://neurohive.io/en/state-of-the-art/)\n\n![search types](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nResearchers from UC Berkeley and Google DeepMind [published](https://arxiv.org/pdf/2408.03314) a groundbreaking paper titled *“Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters.”* This paper introduces a transformative perspective on how we improve large language models (LLMs). Instead of merely increasing model size, they argue that optimizing test-time compute leads to greater efficiency. The numbers tell the story — this approach results in more than **4× efficiency gains** compared to simply scaling model parameters, opening new possibilities for deploying smaller, yet powerful models in diverse applications.\n\n![Graphical Comparison of Test-Time Compute vs Model Scaling](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nGraphical Comparison of Test-Time Compute vs Model Scaling\n\n### Model Description and Key Insights\n\nIn the study, the researchers evaluated two key strategies for enhancing LLM performance during test-time: *dense verifier reward models* and *adaptive updates to response distributions*. Their tests focused on inference-time computation using the PaLM 2 models on the challenging MATH dataset. The results were clear: optimized test-time compute could lead to significant improvements. For example, using a compute-optimal strategy, the models achieved over **21.6% improvement in accuracy** in the test set compared to traditional methods such as best-of-N sampling.\n\nAnother critical finding showed that by scaling test-time compute efficiently, a smaller base model could outperform a model **14× larger** that didn’t utilize additional computation at test time. This demonstrates that test-time compute can be a more effective way to improve model performance than scaling the size of the model alone, particularly on tasks like reasoning and problem-solving.\n\n![Comparing PRM Search Methods by Difficulty Level](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nComparing PRM Search Methods by Difficulty Level\n\n### Evaluation and Comparison\n\nThe researchers tested their theories using the MATH dataset, consisting of 500 high-school level competition math problems. On easier problems, allowing the model to iteratively revise its responses led to accuracy improvements of **up to 27.8%**, while parallel sampling only showed marginal gains of **5.4%**. On more complex tasks, adaptive search techniques utilizing dense verifier models improved performance by **19.1%** compared to traditional methods.\n\nWhen comparing the test-time compute approach with larger models, it was found that the smaller model, when properly optimized for test-time compute, could reduce the FLOPs (floating-point operations per second) used during inference by **4×** while still delivering equivalent or superior results. This means that a smaller model using optimized test-time compute could perform similarly to a model that required **4×** the computational power for pretraining.\n\n![FLOPs Comparison Between Smaller and Larger Models]](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nFLOPs Comparison Between Smaller and Larger Models]\n\n### Evolution from Traditional Methods\n\nTraditional methods have long focused on scaling up model parameters during pretraining, which can be costly in terms of both computation and energy. However, this study shows that simply increasing the size of the model may not be the most efficient approach, especially for tasks that don’t require significant problem-solving capabilities. In fact, the researchers demonstrated that with easy and medium-difficulty tasks, additional test-time compute was **35% more effective** than scaling up pretraining.\n\nOn the most challenging tasks, however, the researchers found that pretraining was still essential. For problems outside the base model’s capabilities, scaling pretraining was **30.6% more effective** than relying solely on test-time compute.\n\n![](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nSequential vs Parallel Sampling in Revision Models\n\n### Practical Applications\n\nThe results of this study suggest a significant shift in how we approach deploying LLMs in practical applications. By focusing on test-time compute, smaller models can achieve the same, if not better, performance compared to much larger models—at a fraction of the cost. This has substantial implications for industries that require LLM deployment in resource-constrained environments, such as mobile devices or edge computing. For instance, using this strategy, a **16-generation model** was able to outperform a **64-generation baseline**, resulting in a **4× reduction in compute** while maintaining performance levels.\n\nThis approach also provides a pathway for creating self-improving AI agents. These agents can dynamically allocate compute resources based on the difficulty of the task at hand, improving performance over time without the need for constant retraining.\n\n### Conclusion\n\nThe findings of this research highlight the potential for optimized test-time compute to revolutionize the development and deployment of LLMs. By strategically allocating computation at inference, smaller models can deliver performance previously thought to require much larger architectures. This offers a more sustainable, cost-effective, and powerful approach to AI development.\n\n[![bnr2mob](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://imp.i384100.net/c/7328847/1320998/14726)\n\nTagged in: [Deep Learning](https://neurohive.io/en/tag/deep-learning/)[LLM](https://neurohive.io/en/tag/llm/)[NLP](https://neurohive.io/en/tag/nlp-en/)\n\nПросмотров: 18142\n\nAuthor: [Konstantine Mozgovoy](https://neurohive.io/en/author/nerv/)\n\nSource: <https://arxiv.org/pdf/2408.03314>\n\nSubscribe\n\n0 Comments\n\nOldest\n\nNewest Most Voted\n\n### More from Neurohive\n\n[![abc-bench-pipeline-workflow](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/claude-sonnet-4-5-leads-on-comprehensive-backend-benchmark-outperforming-in-both-code-and-environment-configuration/)\n\n#### [Claude Sonnet 4.5 Leads on Comprehensive Backend Benchmark, Outperforming in Both Code and Environment Configuration](https://neurohive.io/en/state-of-the-art/claude-sonnet-4-5-leads-on-comprehensive-backend-benchmark-outperforming-in-both-code-and-environment-configuration/)\n\n[![Detecting Boilerplate Responses LLM](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/datasets/from-millions-spent-on-thank-you-to-efficient-inference-boilerplate-detection-in-a-single-token/)\n\n#### [From Millions Spent on “Thank You” to Efficient Inference: Boilerplate Detection in a Single Token](https://neurohive.io/en/datasets/from-millions-spent-on-thank-you-to-efficient-inference-boilerplate-detection-in-a-single-token/)\n\n[![How to choose a generative ai platform](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/guides/how-to-choose-a-generative-ai-platform/)\n\n#### [How To Choose A Generative AI Platform](https://neurohive.io/en/guides/how-to-choose-a-generative-ai-platform/)\n\n[![kimi k3](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/kimi-k3-review/)\n\n#### [Kimi K3 Review: Moonshot AI’s Architecture, Benchmarks, Open Weights, and Fable 5 Comparison](https://neurohive.io/en/state-of-the-art/kimi-k3-review/)\n\n[![TurboVLA model robot munipulation](data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)](https://neurohive.io/en/state-of-the-art/turbovla-rob",
+      "score": 0.9079464412648693
+    },
+    {
+      "id": "S5",
+      "title": "Inference Scaling (Test-Time Compute): Why Reasoning Models ...",
+      "url": "https://towardsdatascience.com/inference-scaling-test-time-compute-why-reasoning-models-raise-your-compute-bill",
+      "content": "[Skip to content](#wp--skip-link--target)\n\n[![Towards Data Science](https://towardsdatascience.com/wp-content/uploads/2025/02/TDS-Vector-Logo.svg)](https://towardsdatascience.com/)\n\nPublish AI, ML & data-science insights to a global community of data professionals.\n\nSign in\n\n[Submit an Article](https://contributor.insightmediagroup.io/)\n\n* [LinkedIn](https://www.linkedin.com/company/towards-data-science/?originalSubdomain=ca)\n* [X](https://x.com/TDataScience)\n\n[Large Language Models](https://towardsdatascience.com/category/artificial-intelligence/large-language-models/)\n\n# Inference Scaling (Test-Time Compute): Why Reasoning Models Raise Your Compute Bill\n\nWhy reasoning models dramatically increase token usage, latency, and infrastructure costs in production systems\n\n[Mostafa Ibrahim](https://towardsdatascience.com/author/mostafaibrahim18/)\n\n11 min read\n\n![](https://towardsdatascience.com/wp-content/uploads/2026/05/ChatGPT-Image-May-1-2026-09_49_00-AM.jpg)\n\nImage generated with ChatGPT\n\n## Introduction: the compute bill era\n\nFor years, making a model smarter meant increasing parameters during training. Today, flagship models like GPT 5.5 and the o1 series achieve high performance by spending more compute resources on every single response.\n\nThis process is known as inference scaling or test time compute. It allows a model to use extra processing power during generation to check its own logic and iterate until it finds the best answer. For product teams, this turns model selection into a high stakes operations tradeoff. Enabling reasoning mode is an adaptive resource commitment rather than a casual toggle. While a model pauses to think, it generates hidden reasoning tokens. These tokens never appear in the final chat bubble, but they represent a massive surge in billable compute on your monthly invoice.\n\nTo navigate these challenges, teams need the Cost-Quality-Latency triangle to balance competing priorities. This framework aligns stakeholders who often have conflicting goals. Finance teams monitor shrinking margins caused by high token costs. Infrastructure engineers manage p95 latency to prevent system timeouts. Product managers decide if a better answer is worth a thirty second delay. Risk teams ensure that extra reasoning does not bypass safety guardrails or grounding. By using a task taxonomy, organizations categorize work into use, maybe, and avoid buckets. This strategy routes simple tasks to efficient models while saving the compute budget for high stakes logic.\n\n![](https://contributor.insightmediagroup.io/wp-content/uploads/2026/04/image-278-1024x313.png)\n\nImage By Author\n\n## What inference scaling is (and isn’t)\n\nTraditionally, model intelligence was fixed during training. This training time scaling involved spending millions on GPUs to create a static neural network. Inference scaling, or test time compute, moves that resource allocation to the generation phase. Rather than performing a single forward pass for every request, the model spends extra processing power to search for the best answer while the user waits.\n\nOperationally, reasoning mode functions by generating hidden thinking tokens. It uses [chain of thought](https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought/) to navigate logic before finalizing a response.\n\n* **Decomposition**: Breaking multi-step problems into intermediate logic.\n* **Self-Correction**: Identifying internal errors and iterating during the thinking phase.\n* **Strategic Selection**: Generating multiple internal answers to score and select the most accurate output.\n\nThe result is a mental model of adaptive spend per prompt. Easy tasks like basic summarization stay cheap and fast because the model identifies that no complex logic is needed. Difficult prompts, such as distributed system architecture reviews, earn a larger compute budget. In these scenarios, the model pauses to generate thousands of tokens to verify its reasoning.\n\nIt is important to understand what this technology is not. Inference scaling is not a guaranteed accuracy button and cannot fix issues caused by poor training data. It is also not a safety layer. A model can reason through a logic puzzle while still producing biased or restricted content. As foundational [research](https://arxiv.org/pdf/2201.11903) suggests, while performance scales with compute, models still perform significantly better on familiar tasks than on out of distribution problems.\n\n|  |  |  |\n| --- | --- | --- |\n| **Feature** | **Training-Time Scaling** | **Inference-Time Scaling** |\n| Investment Timing | Pre-deployment phase | Moment of generation |\n| Operational Logic | Single forward pass through the network | Iterative reasoning loops and self correction |\n| Model Intelligence | Static once training is finished | Dynamic based on prompt complexity |\n| Scalability Hook | Requires a new model version | Scales by increasing thinking time |\n\n## Framework: Cost–Quality–Latency triangle\n\n### Define each corner using production language\n\nThe Cost-Quality-Latency triangle is the essential framework for every inference decision. Teams must define each corner using metrics that align engineering and finance priorities.\n\n* **Cost:** Includes visible output tokens and hidden reasoning tokens generated during internal thinking loops, alongside retries used to verify logic. It also measures GPU time per request. Because these models occupy hardware memory for longer durations, they reduce total system concurrency, forcing teams to scale hardware or limit user access.\n* **Quality:** Measures effectiveness through task success rates and defect rates for hallucinations. Teams also use factuality checks and rubric scores where a model judge grades logic or tone.\n* **Latency:** Focuses on p50 and p95 metrics. While p50 shows the typical experience, p95 monitors the slowest five percent of requests. Delays from complex thinking can trigger timeouts that make applications feel broken.\n\nA latency critical profile for a chatbot prioritizes speed and accepts higher logic risks. Conversely, a quality critical profile for architectural planning accepts delays and higher token spend to ensure results are sound.\n\n### Why the bill explodes in production\n\n[Apple Machine Learning Research](https://machinelearning.apple.com/research/illusion-of-thinking) identifies a dangerous efficiency gap between reasoning models and standard LLMs. This study found that Large Reasoning Models often fall into a thinking trap where they burn thousands of tokens on [simple tasks](https://arxiv.org/pdf/2506.23840) like adding 1 to 9900. On these low complexity items, standard models provide better accuracy without the extra cost. While heavy token consumption shows an advantage in medium complexity logic, both model types fail as tasks reach high complexity. This proves that extra thinking tokens cannot fix fundamental flaws in exact math. Your compute bill explodes for no reason if you apply reasoning to the wrong task level. To avoid overthinking, teams must match model effort to task complexity using a clear taxonomy.\n\nReasoning models break traditional linear pricing by introducing two distinct multipliers that impact both budget and infrastructure.\n\n1. **Per Request Cost Escalation**: Token consumption is no longer linear. Models like GPT 5.5 use [interleaved thinking](https://developers.openai.com/api/docs/guides/reasoning) to generate reasoning tokens before and after tool calls. This search based approach explores multiple logical paths, scaling compute usage exponentially relative to task complexity.\n2. **Capacity and Concurrency Drops**: Even if token prices decrease, hardware occupancy remains a bottleneck. A standard model predicts in one second while a reasoning model can occupy GPU memory for thirty seconds. This extended occupancy reduces the total number of users your hardware can serve simultaneously.\n3. **Performance Variance**: Reasoning increases the spread between ty",
+      "score": 0.830236320141262
+    },
+    {
+      "id": "S6",
+      "title": "Test-Time Compute: Sampling, Refinement, Optimal Inference",
+      "url": "https://mbrenndoerfer.com/writing/test-time-compute-scaling-sampling-refinement-optimal-inference",
+      "content": "# Test-Time Compute: Sampling, Refinement, Optimal Inference\n\nMichael Brenndoerfer·March 27, 2026·53 min read\n\nPart of[Language AI Handbook](/books/language-ai-handbook)\n\n[Data, Analytics & AI](/writing/categories/data-analytics-ai)[Software Engineering](/writing/categories/software-engineering)[Machine Learning](/writing/categories/machine-learning)[Language AI Handbook](/writing/categories/language-ai-handbook)\n\nCovers test-time compute strategies: multiple sampling, iterative refinement, compute-optimal inference, and inference-time scaling laws for language models.\n\nChoose your expertise level to adjust how many terms are explained. Beginners see more tooltips, experts see fewer to maintain reading flow. Hover overunderlined terms for instant definitions.\n\nArticle links\n\nMake inline references clickable\n\n## Test-Time ComputeLink Copied\n\nTraining a language model is expensive. You run billions of gradient updates over trillions of tokens, burn weeks of GPU time, and produce a set of weights that are frozen before the model ever sees a real user query. After that, every inference call uses exactly the same amount of compute, regardless of whether the question is \"What is 2 + 2?\" or \"Prove the Riemann hypothesis.\" This uniformity is economical but wasteful: trivial questions receive the same resources as intractable ones.\n\nTest-time compute refers to the deliberate allocation of additional computation *at inference time* to improve output quality. Instead of accepting whatever the model produces in a single forward pass, you spend more FLOPS, generate more candidates, or let the model iterate over its own answers. The key insight is that some problems are easier to *verify* than to *solve*, and a model that can check its own work, even imperfectly, can use that signal to self-improve during the generation process.\n\nThis chapter examines the main strategies for scaling test-time compute: generating and ranking multiple samples, applying iterative self-refinement, designing [compute-optimal](/writing/chinchilla-scaling-laws-compute-optimal-training-resource-allocation) inference budgets, and the emerging empirical [scaling laws](/writing/power-laws-deep-learning-neural-network-scaling) that govern how answer quality changes as you spend more inference FLOPS. As we explored in the preceding chapters on Process Reward Models and [Constitutional AI](/writing/rlaif-constitutional-ai-scalable-alignment), giving a model the ability to evaluate its own output is a prerequisite for most of these techniques to work.\n\n## Why Test-Time Compute MattersLink Copied\n\nThe dominant paradigm in deep learning is the pretrain-then-deploy pipeline: train once, infer cheaply. This makes sense when you want to serve millions of identical requests per day. But it creates a ceiling on quality that more training alone cannot raise, because the bottleneck is not the model's parameter count but the determinism of single-pass [greedy decoding](/writing/beam-search-decoding-sequence-generation).\n\nThe pretrain-then-deploy pipeline treats every inference call as equally important, and allocates the same fixed computation to every query regardless of its difficulty. This works well for an easy task like sentiment classification, where a single pass almost always produces a correct answer. But for a hard task like constructing a mathematical proof or debugging a subtle concurrency issue, the probability of a correct single-pass answer may be only a few percent. The model has the relevant knowledge, but the decoding process is too noisy or too shallow to surface it reliably in one attempt. Scaling training compute helps but reaches its own plateau: at some point, adding more parameters or training tokens yields diminishing returns, and the residual errors are driven by decoding stochasticity rather than lack of knowledge.\n\nConsider how a human expert solves a hard problem. They do not produce the final answer in one uninterrupted stream of thought. They draft, re-read, spot errors, try alternatives, abandon dead ends, and synthesize the best path found so far. All of this happens at \"test time,\" after the expert has finished their formal training. The question test-time compute research asks is: can we build models that do the same thing?\n\nThere is a deeper reason to expect that test-time compute can work: for many tasks, verification is fundamentally easier than generation. Running a candidate proof through a formal checker, executing a candidate program against test cases, or checking whether a candidate answer is internally consistent are all substantially simpler operations than producing the proof, program, or answer in the first place. A model that can generate many plausible attempts and verify each one can exploit this asymmetry. It combines the generative power of a large language model with the [reliability](/writing/monitoring-reliability-ai-agents) of a checking process, producing outputs that neither component could achieve alone.\n\nThe historical analogy is [Monte Carlo](/writing/introduction-stock-market-monte-carlo-simulation) methods in classical computation. When a deterministic algorithm for a problem is slow or unknown, you can instead sample many random solutions and accept the first one that passes a cheap test. Test-time compute is the neural network version of the same idea, applied to natural language and structured reasoning rather than numerical optimization. Just as [Monte Carlo integration](/writing/numerical-methods-algorithms-quantitative-finance) improves with more samples even when the analytic solution is intractable, test-time compute improves answer quality even when the model's individual output distribution is imperfect.\n\nThere are two complementary ways to spend extra compute at inference:\n\n* **More parallel samples**: Generate  independent candidate answers from the same prompt, then select the best one. This works because the model's output distribution contains good answers at non-trivial probability; you just need enough draws to land on one.\n* **Deeper sequential reasoning**: Let the model produce a chain of intermediate steps, verify each step, and revise before committing to the next. This increases depth rather than breadth, and is especially useful when the answer space has structure that rewards [step-by-step reasoning](/writing/step-by-step-problem-solving-chain-of-thought-reasoning).\n\nThese two strategies are not mutually exclusive. You can generate  reasoning chains (breadth) and evaluate each one step by step (depth). The best empirical results tend to combine both, and much of the recent research on large reasoning models, including OpenAI's o1 and o3 family, rests on precisely this combination.\n\nTest-Time Compute vs. Fine-Tuning\n\nTest-time compute spends FLOPS during inference, after training. Fine-tuning updates weights, changing the model permanently. Both can improve output quality, but they have different cost profiles and generalization properties. Test-time compute scales with request volume; fine-tuning is a one-time cost that may not generalize to new tasks. In practice, many production systems combine both: a fine-tuned model that has learned to reason and a test-time sampling strategy that exploits that reasoning capability.\n\n## Multiple SamplingLink Copied\n\nMultiple sampling is the simplest test-time compute strategy. Given a prompt , you run the model  times to produce a set of candidate responses. Formally, the candidate set is:\n\nwhere:\n\n* is the input prompt\n* is the -th candidate response\n* is the number of independent samples drawn\n* Each  is sampled independently from the model's distribution:\n\nThe quality of this set depends on two factors. First, the **coverage** of the sample set: does it contain at least one good answer? Second, the **selector's precision**: can you reliably pick the best answer from the candidates? Both matter, and each is independently improvable. Coverage is primarily a function of the mode",
+      "score": 0.9452284696318496
+    },
+    {
+      "id": "S7",
+      "title": "ICLR Oral Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Parameters for Reasoning",
+      "url": "https://iclr.cc/virtual/2025/oral/31924",
+      "content": "[Skip to yearly menu bar](#child-menu)\n\n## Main Navigation\n\n[![conference_logo](/static/core/img/iclr-navbar-logo.svg)](/)\n\n* [ICLR](#) \n  + [Help/FAQ](/FAQ)  \n\n    ---\n  + [Contact ICLR](/Help/Contact)  \n\n    ---\n  + [Create Profile](/Profile/create)  \n\n    ---\n  + [Code of Conduct](/public/CodeOfConduct)  \n\n    ---\n  + [Journal To Conference Track](/public/JournalToConference)  \n\n    ---\n  + [Diversity & Inclusion](/public/DiversityInclusion)  \n\n    ---\n  + [Proceedings at OpenReview](https://openreview.net/group?id=ICLR.cc)  \n\n    ---\n  + [Future Meetings](/Conferences/FutureMeetings)  \n\n    ---\n  + [Press](/Conferences/2025/Press)  \n\n    ---\n  + [Exhibitor Information](/Sponsors/sponsorinfo)  \n\n    ---\n  + [ICLR Blog](https://blog.iclr.cc/)  \n\n    ---\n  + [ICLR Twitter](https://twitter.com/iclr_conf?ref_src=twsrc%5Etfw)  \n\n    ---\n  + [About ICLR](/About)  \n\n    ---\n  + [Downloads](/Downloads)  \n\n    ---\n  + [Privacy Policy](/public/PrivacyPolicy)  \n\n    ---\n  + [Reset Password](/resetpassword)\n* [My Stuff](/MyStuff)\n\n [Login](/accounts/login?nextp=/virtual/2025/poster/30716 )\n\nOral\n\n# Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Parameters for Reasoning\n\nCharlie Snell ⋅ Jaehoon Lee ⋅ Kelvin Xu ⋅ Aviral Kumar\n\n2025 Oral\n\n[ [OpenReview](https://openreview.net/forum?id=2025-Oral--12182-79b40403 \"OpenReview\")]\n\n### Abstract\n\nEnabling LLMs to improve their outputs by using more test-time compute is a critical step towards building self-improving agents that can operate on open-ended natural language. In this paper, we scale up inference-time computation in LLMs, with a focus on answering: if an LLM is allowed to use a fixed but non-trivial amount of inference-time compute, how much can it improve its performance on a challenging prompt? Answering this question has implications not only on performance, but also on the future of LLM pretraining and how to tradeoff inference-time and pre-training compute. Little research has attempted to understand the scaling behaviors of test-time inference methods, with current work largely providing negative results for a number of these strategies. In this work, we analyze two primary mechanisms to scale test-time computation: (1) searching against dense, process-based verifier reward models (PRMs); and (2) updating the model's distribution over a response adaptively, given the prompt at test time. We find that in both cases, the effectiveness of different approaches to scaling test-time compute critically varies depending on the difficulty of the prompt. This observation motivates applying a \"compute-optimal\" scaling strategy, which acts to, as effectively as possible, allocate test-time compute per prompt in an adaptive manner. Using this compute-optimal strategy, we can improve the efficiency of test-time compute scaling for math reasoning problems by more than 4x compared to a best-of-N baseline. Additionally, in a FLOPs-matched evaluation, we find that on problems where a smaller base model attains somewhat non-trivial success rates, test-time compute can be used to outperform a 14x larger model.\n\n### Video\n\nChat is not available.\n\nSuccessful Page Load\n\n| ICLR uses cookies for essential functions only. We do not sell your personal information. [Our Privacy Policy »](/public/PrivacyPolicy) |  |",
+      "score": 0.9413340085922519
+    },
+    {
+      "id": "S8",
+      "title": "ThreeSR/Awesome-Inference-Time-Scaling: Paper List of ... - GitHub",
+      "url": "https://github.com/ThreeSR/Awesome-Inference-Time-Scaling",
+      "content": "[Skip to content](#start-of-content)   \n \n\n## Navigation Menu\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\n[Sign in](/login?return_to=https%3A%2F%2Fgithub.com%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Sign up](/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=ThreeSR%2FAwesome-Inference-Time-Scaling)\n\nAppearance settings\n\nYou signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert\n\n{{ message }}\n\n[ThreeSR](/ThreeSR)   /  **[Awesome-Inference-Time-Scaling](/ThreeSR/Awesome-Inference-Time-Scaling)**  Public\n\n* [Notifications](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)  You must be signed in to change notification settings\n* [Fork 20](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n* [Star  399](/login?return_to=%2FThreeSR%2FAwesome-Inference-Time-Scaling)\n\n[Branches](/ThreeSR/Awesome-Inference-Time-Scaling/branches)[Tags](/ThreeSR/Awesome-Inference-Time-Scaling/tags)\n\nOpen more actions menu\n\n## Latest commit\n\n## History\n\n[216 Commits](/ThreeSR/Awesome-Inference-Time-Scaling/commits/master/)\n\n216 Commits\n\n## Folders and files\n\n| Name | Name | Last commit message | Last commit date |\n| --- | --- | --- | --- |\n| [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") | [fig](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/fig \"fig\") |  |  |\n| [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") | [scripts/claude\\_code](/ThreeSR/Awesome-Inference-Time-Scaling/tree/master/scripts/claude_code \"This path skips through empty directories\") |  |  |\n| [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") | [.gitignore](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/.gitignore \".gitignore\") |  |  |\n| [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") | [CITATION.cff](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/CITATION.cff \"CITATION.cff\") |  |  |\n| [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") | [README.md](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/README.md \"README.md\") |  |  |\n| [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") | [fetch\\_semantic\\_info.py](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fetch_semantic_info.py \"fetch_semantic_info.py\") |  |  |\n|  |\n\n## Repository files navigation\n\n# Awesome-Inference-Time-Scaling\n\n**Paper List of Inference/Test Time Scaling/Computing**\n\nMaintained by [Rui Sun](https://threesr.github.io/)\n\nIf you think our paper list is helpful, please Star⭐. Thanks! We will continue to update.\n\n[![Scaling](/ThreeSR/Awesome-Inference-Time-Scaling/raw/master/fig/Scaling.webp)](/ThreeSR/Awesome-Inference-Time-Scaling/blob/master/fig/Scaling.webp)\n\nGenerated by DALL·E.\n\n## Plan\n\nCollect papers and scale up paper list (Still Ongoing)\n\nCategorize all papers for better reference (Next Step)\n\n## How to Contribute?\n\nWe understand that Inference/Test Time Scaling/Computing is a broad field. If you feel that our list is incomplete, **we warmly welcome your contributions (open a pull request or issue, I will handle it).**\n\nIf you can follow this format, that would be great.\n\nFirst, you can fork my repo. Then, add the paper you think relevant. After that, open a pull request. Through my verification, I will accept and merge.\n\nBelow is the way you can use to run the code in my repo to call Semantic Scholar API to obtain the information and insert it to the README.\n\n```\npython fetch_semantic_info.py --paper_name \"Paper Name or Key Word of the name\" \n```\n\nExample:\n\n```\npython fetch_semantic_info.py --paper_name \"Scaling Autonomous Agents via Automatic Reward Modeling And Planning\" \n```\n\nIf you find our code useful when you would like to organize your own repo, feel free to use. Also, thanks for the free use of [Semantic Scholar API](https://www.semanticscholar.org/product/api).\n\n## Citation\n\n🤝 **This is a community-curated list.** The citation is intentionally credited to **\"Rui Sun and others\"** — every contributor (via PRs, issues, or paper suggestions) becomes part of the *and others*. If this list is useful to your work, please consider doing both:\n\n* 🌱 **Contribute** — open a PR or issue with a paper you think belongs here. The more we grow this together, the more useful it becomes for the whole community.\n* 📌 **Cite** — sharing this single citation across the community amplifies its visibility on Google Scholar and helps sustain the project. Every citation is a citation we all share.\n\n```\n@misc sun2025awesomeinferencetimescaling author{Rui Sun and others}{} title{Awesome-Inference-Time-Scaling: Paper List of Inference/Test-Time Scaling/Computing}{} year{2025}{} publisher{GitHub}{} howpublished{\\url{https://github.com/ThreeSR/Awesome-Inference-Time-Scaling}}{} doi{10.5281/zenodo.20262169}{}\n```\n\n## 📖 Paper List (Listed in Time Order)\n\n🔹 [MaxProof: Scaling Mathematical Proof with Generative-Verifier RL and Population-Level Test-Time Scaling](https://www.semanticscholar.org/paper/33a1741fb2d3e7ac05649ef34c1b0a111fd8d5cf)\n\n* 👤 **Authors:** Jiacheng Chen, Xinyu Zhang, Shunkai Zhang, Yanmohan Wang, Lin Li, Tiancheng Qin, Qin Wang, Zhengmao Zhu, Tianle Li, Jingyang Li, Zehan Li, Binyan Jiang, Jin-Feng Zhu, Han Ding, F. Yu, Chenyu Du, Zijian Song, Jiayuan Song, Zhi Zhang, Yunan Huang, Weiyu Cheng, Pengyu Zhao, Yuntao Cheng\n* 🗓️ **Date:** 2026-06-11\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand No abstract available.\n\n🔹 [Share More, Search Less: Collaborative Parallel Thinking for Efficient Test-Time Scaling](https://arxiv.org/abs/2605.27030)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.27030)\n* 👤 **Authors:** Xinglin Wang, Haobin Lin, Shaoxiong Feng, Peiwen Yuan, Yiwei Li, Jiayi Shi, Yueqi Zhang, Chuyi Tan, Ji Zhang, Boyuan Pan, Yao Hu, Kan Li\n* 🗓️ **Date:** 2026-05-26\n* 📑 **Publisher:** arXiv.org\n* 📝 **Abstract:**  Expand Test-Time Scaling (TTS) enhances the reasoning capabilities of large language models by allocating additional inference compute to explore the solution space. However, existing parallel TTS methods typically keep branches isolated during search: intermediate discoveries remain branch-private and cannot guide other branches in time. This information isolation causes substantial redundant exploration, as branches repeatedly rediscover information already found elsewhere and require more search steps to collect complete decision information needed to reach correct answers. To bridge this gap, we propose \\textbf{Collaborative Parallel Thinking (CPT)}, a training-free inference framework that enables search-time information sharing across parallel branches. CPT extracts compact intermediate information from ongoing branches, maintains a deduplicated query-level information pool, and broadcasts pool entries through the input context, allowing each branch in subsequent search steps to reuse discoveries made by other branches rather than rediscover the same information. Empirically, experiments on HMMT and AIME benchmarks show that CPT establishes a stronger accuracy--latency Pareto frontier than strong baselines across rollout budgets and model scales, highlighting search-time collaboration as an effective direction for efficient parallel TTS.\n\n🔹 [Stop When Reasoning Converges: Semantic-Preserving Early Exit for Reasoning Models](https://arxiv.org/abs/2605.17672)\n\n* 🔗 **arXiv PDF Link:** [Paper Link](https://arxiv.org/pdf/2605.17672)\n* 👤 **Authors:** Dehai Min, Giovanni Vaccarino, Huiyi Chen, Yongliang Wu, Gal Yona, Lu",
+      "score": 0.9281987816892585
+    },
+    {
+      "id": "S9",
+      "title": "Inference-Time Scaling for Complex Tasks",
+      "url": "https://arxiv.org/html/2504.00294v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Inference-Time Scaling for Complex Tasks: Where We Stand and What Lies Ahead\n\n![[Uncaptioned image]](2504.00294v1/figures/GitHub-Mark-ea2971cee799.png)\n\n###### Abstract\n\nInference-time scaling can enhance the reasoning capabilities of large language models (LLMs) on complex problems that benefit from step-by-step problem solving. Although lengthening generated scratchpads has proven effective for mathematical tasks, the broader impact of this approach on other tasks remains less clear. In this work, we investigate the benefits and limitations of scaling methods across nine state-of-the-art models and eight challenging tasks, including math and STEM reasoning, calendar planning, NP-hard problems, navigation, and spatial reasoning. We compare conventional models (e.g., GPT-4o) with models fine-tuned for inference-time scaling (e.g., o1) through evaluation protocols that involve repeated model calls, either independently or sequentially with feedback. These evaluations approximate lower and upper performance bounds and potential for future performance improvements for each model, whether through enhanced training or multi-model inference systems. Our extensive empirical analysis reveals that the advantages of inference-time scaling vary across tasks and diminish as problem complexity increases. In addition, simply using more tokens does not necessarily translate to higher accuracy in these challenging regimes. Results from multiple independent runs with conventional models using perfect verifiers show that, for some tasks, these models can achieve performance close to the average performance of today’s most advanced reasoning models. However, for other tasks, a significant performance gap remains, even in very high scaling regimes. Encouragingly, all models demonstrate significant gains when inference is further scaled with perfect verifiers or strong feedback, suggesting ample potential for future improvements.\n\n## 1 Introduction\n\nInference-time scaling refers to allocating increasing computational resources during inference of machine learning models to enhance their performance on complex tasks. Recently, this approach has encompassed post-training techniques that encourage models to generate longer and step-by-step solutions, explore different alternatives at each step, or even backtrack to previous steps when an inference path does not appear promising.\nSeveral models to date ([OpenAI, 2025](#bib.bib34); [Jaech et al., 2024](#bib.bib24); [Anthropic, 2025](#bib.bib5); [Guo et al., 2025](#bib.bib18); [Google, 2025b](#bib.bib16)) exhibit one or more aspects of such desirable behavior at inference time and improve the state of the art on complex tasks. While the exact training techniques and data that enabled major model releases are not always shared, earlier studies and replication surveys ([Lightman et al., 2023](#bib.bib29); [Wang et al., 2023a](#bib.bib43); [Zelikman et al., 2022](#bib.bib49)) as well as open source releases ([Guo et al., 2025](#bib.bib18); [Wang et al., 2024c](#bib.bib42)), introduce techniques for lengthening generation traces via strong verifiers, self-reflection, chain-of-thought finetuning and reinforcement learning (RL).\n\nThese recipes have shown to be effective for math problems, which remain the main testbed for understanding the impact of inference-time scaling. In this work, we present an extensive empirical analysis of inference-time scaling for complex tasks, that studies both conventional models and reasoning models (i.e. models tuned for inference-time scaling), and measures their current abilities and future potential, if inference were to be scaled further.\n\nFirst, we present a comprehensive study of reasoning capabilities of nine state-of-the-art foundation models for a rich set of tasks.\nWe utilize existing open source benchmarks for evaluating problems on math and STEM reasoning, calendar planning, navigation, and spatial reasoning and introduce two new benchmarks for evaluating NP-hard problems. We present performance-cost tradeoffs as well as common failure patterns within and across benchmarks, beyond single-score measurements and leaderboards.\nThrough our analysis, we find that, while all the chosen tasks can benefit from scratchpad-like, step-by-step problem solving (often referred to as reasoning), this paradigm i) does not serve all domains and tasks equally, and ii) improvements diminish with increased problem difficulty. Surprisingly, we also observe that longer generations relative to the same model can sometimes be an indicator of models struggling, rather than improved reflection. Similarly, when comparing different reasoning models, higher token usage is not always associated with better accuracy. These findings motivate the need for more purposeful and cost-effective scaling approaches.\n\nFurther, we simulate two different types of inference-time scaling approaches. *Independent parallel generations* sample multiple answers from the same model at a high temperature, and then aggregate to obtain a final result through different operators. If a model reacts positively to such an approach, it shows that there exists at least one correct inference path and that there is still space for improving the models (including those tuned for inference-time scaling) through stronger verification methods. Another lens on these results is to use them for estimating model reliability and variance across different attempts, or its expected performance in real-world pipelines that implement redundant answer sampling.\n\n*Sequential generations* iteratively leverage the feedback of the same model when the original model’s answer is incorrect, and pass that feedback to the model under test to give it another opportunity to improve its answer. This setup helps understand the model’s ability to leverage feedback and also its potential for being involved in generating synthetic data for fine-tuning or RL techniques that may be used offline or online for improving the same model or another weaker model ([Gulcehre et al., 2023](#bib.bib17); [Hosseini et al., 2024](#bib.bib22)). Results of these simulations measure the potential and limitations of models for further improvement and estimate the possible benefits of future training and RL techniques for improved reasoning.\n\nWe summarize our top findings below\n:\n\nAll studied tasks benefit from using models trained for scaling inference-time compute. Although inference-time scaling improves performance, its effectiveness varies between domains and tasks, with diminishing returns as task complexity increases.\n\nThere is high variability in token use, even across models with similar accuracies on a task, indicating space for improving token efficiency and that higher token consumption does not indicate higher accuracy across models.\nRepeated queries to the same model can yield highly variable token usage, introducing cost nondeterminism for developers and users - even when the model consistently provides correct answers.\n\nContinued scaling with perfect verifiers consistently improves performance across benchmarks for both reasoning and conventional models, indicating further potential for model improvement. This emphasizes the importance of building improved and generalizable verifiers that can be used for further development.\n\nExperiments with superscaling (up to 50× more inference calls) further improve performance across reasoning and conventional models. Conventional models can leverage this additional computation to approach reasoning model performance in some cases, although gains diminish in highly complex settings.\n\n## 2 Benchmarks and Methods\n\n#### Inference-time scaling approaches and aggregators.\n\nThroughout this paper we focus on three test-time scaling approache",
+      "score": 0.94469843825605
+    },
+    {
+      "id": "S10",
+      "title": "What is test-time compute and how to scale it? - Hugging Face",
+      "url": "https://huggingface.co/blog/Kseniase/testtimecompute",
+      "content": "![Hugging Face's logo](/front/assets/huggingface_logo-noborder.svg)\n\n# What is test-time compute and how to scale it?\n\n![](https://cdn-avatars.huggingface.co/v1/production/uploads/5f106ce5348d4c7346cd19ab/Uu08yZZlFuj3dtG4wld3n.jpeg)\n![](/avatars/b1cc9a1184daf504d7ac86026a451a70.svg)\n![](https://cdn-avatars.huggingface.co/v1/production/uploads/1615519738679-noauth.jpeg)\n![](/avatars/47d10c42966a7e45a796489284284788.svg)\n![](https://cdn-avatars.huggingface.co/v1/production/uploads/1624676266012-60aef0fbee40717d1a8fa6a5.png)\n![](/avatars/432a4a481a2d809f82a0e4b3a893e210.svg)\n![Ksenia Se's avatar](https://cdn-avatars.huggingface.co/v1/production/uploads/64838b28c235ef76b63e4999/ZhQCYoU3vps71Ag7Jezj6.jpeg)\n![Alyona Vert's avatar](https://cdn-avatars.huggingface.co/v1/production/uploads/67439ea36c443ab085201447/hcCttUtkG0NTsTlcMd1dC.jpeg)\n\n#### we dive into test-time compute and discuss five+ open-source methods for its effective scaling for deep step-by-step models' reasoning.\n\n* [The core idea behind OpenAI’s o1 model](#the-core-idea-behind-openais-o1-model \"The core idea behind OpenAI’s o1 model\")\n* [What basically is Test-Time Compute (TTC)?](#what-basically-is-test-time-compute-ttc \"What basically is Test-Time Compute (TTC)?\")\n* [DeepSeek-R1’s way of scaling test-time compute](#deepseek-r1s-way-of-scaling-test-time-compute \"DeepSeek-R1’s way of scaling test-time compute\")\n* [Test-time compute scaling meets multimodality](#test-time-compute-scaling-meets-multimodality \"Test-time compute scaling meets multimodality\")\n  + [What if we use long-form text examples for training MLLMs?](#what-if-we-use-long-form-text-examples-for-training-mllms \"What if we use long-form text examples for training MLLMs?\")\n  + [Collective learning with Collective Monte Carlo Tree Search](#collective-learning-with-collective-monte-carlo-tree-search \"Collective learning with Collective Monte Carlo Tree Search\")\n  + [Generating images with CoT](#generating-images-with-cot \"Generating images with CoT\")\n* [Search-o1: Enhancing retrieval and agentic capabilities](#search-o1-enhancing-retrieval-and-agentic-capabilities \"Search-o1: Enhancing retrieval and agentic capabilities\")\n* [A brief overview of 3 more research](#a-brief-overview-of-3-more-research \"A brief overview of 3 more research\")\n* [Not without limitations](#not-without-limitations \"Not without limitations\")\n* [Conclusion: What does the future hold for test-time compute?](#conclusion-what-does-the-future-hold-for-test-time-compute \"Conclusion: What does the future hold for test-time compute?\")\n* [Bonus: Resources to dive deeper](#bonus-resources-to-dive-deeper \"Bonus: Resources to dive deeper\")\n\nFor a long time, many AI and ML researchers and users preferred models that generate outputs immediately. But the recent shift to slow thinking, introduced with OpenAI’s o1 model, turned everything upside down. Since this breakthrough, it has become clear how remarkable a model’s reasoning capabilities can be when it is not “in a hurry” and has time to “think” through multiple steps – a process known as Chain-of-Thought reasoning. These aspects tie into a fascinating topic: test-time compute. Today, we’ll take a broader look at test-time compute, discussing five methods to scale it and how it can enhance AI models’ reasoning. This article is a true gem!\n\n📨 **Click follow! If you want to receive our articles straight to your inbox, please [subscribe here](https://www.turingpost.com/subscribe)**\n\n**In today’s episode, we will cover:**\n\n## The core idea behind OpenAI’s o1 model\n\nWhile many developers were running after high speed of input processing which leads to immediate outputs, OpenAI decided to bet on the deeper “thinking” of their o1 model, which resulted in **increasing test-time compute**. The concept of test-time compute aligns with what's known now as \"System-2 thinking,\" which involves slow, deliberate, and logical reasoning, as opposed to \"System-1 thinking,\" which is fast and intuitive.\n\n## What basically is Test-Time Compute (TTC)?\n\nTTC refers to the amount of computational power used by an AI model when it is generating a response or performing a task after it has been trained. In simple terms, it's the processing power and time required when the model is actually being used, rather than when it is being trained.\n\n**Key aspects of Test-Time Compute (TTC):**\n\n**Inference process:** When you input a question or a prompt into a model, it processes the input and generates a response. The computational cost of this process is called test-time compute.\n**Scaling at test time:** Some advanced AI models, like OpenAI's o1 series, dynamically increase their reasoning time during inference. This means they can spend more time thinking about complex questions, improving accuracy at the cost of higher compute usage.\n\nBy allocating more computational resources during inference, o1 models can perform deeper reasoning, leading to more accurate and thoughtful responses. o1 uses step-by-step thinking, in other words, Chain-of-Thought method, before arriving at a final answer. Thanks to this, the o1 model excels at tasks that require complex problem-solving.\n\nSince o1 is so powerful but, at the same time, a closed model, it has pushed other developers to create new models, based on o1 principles, trying to scale at TTC, or uncover secrets of o1 and bring these technologies to the community. Let’s dive into five research which explore, use and expand the o1’s core idea to make it accessible for the developers. →\n\n## DeepSeek-R1’s way of scaling test-time compute\n\nAlmost everyone is buzzing about the amazing performance results of the DeepSeek-R1 model and the power of reinforcement learning (RL), but the core idea behind adding RL remains somewhat overlooked. On the surface, R1 seems designed to compete with OpenAI’s o1 model and other top models. However, as DeepSeek stated in their DeepSeek-R1 paper, the main goal was to achieve strong reasoning capabilities by leveraging the principle of deep, step-by-step thinking. The drive to develop something outstanding and the challenge of improving reasoning during inference pushed DeepSeek to explore their own approach to scaling test-time compute.\n\n**How RL and supervised fine-tuning (SFT) contributed to advanced reasoning?**\n\nDeepSeek explored **three key areas**:\n\nLet’s look at these areas one by one:\n\nDeepSeek-R1-Zero learns reasoning through pure RL using Group Relative Policy Optimization (GRPO), an adaptation of Proximal Policy Optimization (PPO). GRPO reduces training costs and improves performance by eliminating the need for a separate value function model, evaluating actions by comparing them within groups using average rewards as a baseline.\n\nThe model is rewarded for accuracy, like solving math problems with step-by-step reasoning, and for presenting its reasoning in a structured format.\n\n**It resulted in the following:**\n\n[![image/png](https://cdn-uploads.huggingface.co/production/uploads/64838b28c235ef76b63e4999/1m9qBTpPbuj9JvRtww6xc.png)](https://cdn-uploads.huggingface.co/production/uploads/64838b28c235ef76b63e4999/1m9qBTpPbuj9JvRtww6xc.png)\n*Image Credit: The original DeepSeek-R1 paper*\n\n![image/png](https://cdn-uploads.huggingface.co/production/uploads/64838b28c235ef76b63e4999/1m9qBTpPbuj9JvRtww6xc.png)\n\nHowever, DeepSeek-R1-Zero sometimes mixed languages or produced disorganized answers, making it hard to understand. This was solved through a multi-step training process of DeepSeek-R1.\n\nAfter these steps, DeepSeek-R1 became far more readable and user-friendly and achieved reasoning performance on par with advanced OpenAI models, like o1-1217.\n\n[![image/png](https://cdn-uploads.huggingface.co/production/uploads/64838b28c235ef76b63e4999/xZSc5JbJkmOMwUjC8h7af.png)](https://cdn-uploads.huggingface.co/production/uploads/64838b28c235ef76b63e4999/xZSc5JbJkmOMwUjC8h7af.png)\n*Image Credit: The original DeepSeek-R1 paper*\n\n![image/png](https://cdn-uploads.huggingface.co/production/up",
+      "score": 0.9371006854604401
+    },
+    {
+      "id": "S11",
+      "title": "What is Inference-Time Scaling? How to Optimize the Trade-off Between AI Inference Cost and Accuracy | Unimon",
+      "url": "https://unimon.co.th/en/blog/test-time-compute-inference-scaling-guide",
+      "content": "# What is Inference-Time Scaling? How to Optimize the Trade-off Between AI Inference Cost and Accuracy\n\n[AI & Machine Learning](/en/blog?category=ai-ml)[LLM Operations & RAG](/en/blog?category=ai-ml&facets=llm-ops)\n\n![What is Inference-Time Scaling? How to Optimize the Trade-off Between AI Inference Cost and Accuracy](/_next/image?url=https%3A%2F%2Fxlawjotwdonvcisfgnkc.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Farticle-images%2Farticles%2F153%2Fcover-en.png%3Ft%3D1777867351261&w=3840&q=75)\n\n## Lead\n\nTest-Time Compute (inference-time scaling) is a collective term for techniques that deliberately increase computation during the phase when an LLM generates its response, thereby improving reasoning accuracy. In contrast to the conventional scaling laws that invest large amounts of data and computation at training time, the idea of extending performance through additional computation at inference time has spread rapidly alongside the emergence of reasoning models.\n\nThis article is aimed at developers, PdMs, and executives who leverage LLMs in B2B contexts. It systematically covers the foundational concepts of inference-time scaling, key techniques, how to incorporate them into enterprise AI, cost-accuracy tradeoff design, and common pitfalls. By the end, readers will have a solid basis for deciding whether—and to what extent—to apply inference-time scaling to their own use cases.\n\n**Inference-time scaling is an approach that \"increases thinking time\" rather than \"increases training.\" Specifically, it refers to a set of techniques that improve answer quality by increasing inference computation through step-by-step reasoning, multiple sampling passes, and exploratory comparison of candidate solutions.**\n\nThis section organizes the definition, the differences from training-time scaling, and the background behind the emergence of reasoning models. Understanding the distinction between the two makes it clear why this way of thinking is necessary for designing enterprise AI.\n\n### Definition and Differences from Training-Time Scaling\n\nInference-time scaling is a collective term for techniques that improve model performance by increasing the amount of computation at the inference stage—namely, the number of tokens generated, the number of sampling passes, and the search depth. Techniques such as Chain-of-Thought (CoT), Self-consistency, Best-of-N, Tree-of-Thoughts, and Reflection fall within this framework.\n\nPre-training Scaling, which was the mainstream approach in conventional LLM development, is based on the Scaling Law: increasing the number of parameters, the volume of training data, and the training compute leads to better performance. However, large-scale training is prone to constraints in cost, data, and power consumption, and a flattening of the performance curve has been noted.\n\n| Dimension | Training-Time Scaling | Inference-Time Scaling |\n| --- | --- | --- |\n| When costs are incurred | Concentrated at training time | Incurred per inference |\n| Bottleneck | Data and compute resources | Latency and inference cost |\n| What is improved | Foundational model capabilities | Output quality at the task level |\n| Flexibility of application | Requires retraining | Can be applied to existing models |\n\nThe two are not opposing concepts but complementary ones. Even when using the same base model, practical accuracy can vary significantly depending on how much computation is invested at inference time.\n\n→ Related: [LLM Cost Optimization Guide](/articles/llm-cost-optimization-guide), [How to Choose Between Fine-Tuning and RAG](/articles/fine-tuning-vs-rag-comparison)\n\n### Background Behind the Emergence of Reasoning Models\n\nInference-time scaling began attracting serious attention when OpenAI's line of reasoning models, DeepSeek's reasoning-enhanced models, Google's reasoning models, and others adopted architectures that consume a large number of tokens for their internal thought processes. These models internally generate a long sequence of tokens for \"thinking\" before producing a final answer.\n\nThe impact on the industry has been significant, and debate has emerged in two directions.\n\nThe first is a **shift in inference cost structure**. Against a cost design that previously assumed \"calling lightweight models many times,\" reasoning models involve an order-of-magnitude greater amount of computation per request. Cost estimates now need to be redesigned to include not just the per-token price for input and output, but also the pricing for internal reasoning tokens—which many providers charge at a separate rate.\n\nThe second is a **shift in evaluation criteria**. Beyond \"is it fast / is it cheap,\" the ability to correctly handle difficult problems has become a differentiating factor for enterprise AI, and applications are expanding into areas that were previously difficult for LLMs alone—such as competitive analysis, contract review, and handling complex inquiries.\n\nWhat I have been sensing firsthand in recent B2B engagements is that the expectation that \"using reasoning models will solve everything\" and the anxiety that \"inference costs are unpredictable and we can't ship to production\" are both intensifying simultaneously. The tradeoff design covered in the latter half of this article is a framework for settling on an implementation policy between these two poles.\n\n## Why Does Inference-Time Scaling Matter Now?\n\n**While the Scaling Law on the training side is said to be approaching its ceiling, the inference side still has significant room to grow. Furthermore, as enterprise AI use cases expand from \"templated responses\" to \"processing that involves judgment,\" accuracy requirements have risen by a notch. These two factors have elevated inference-time scaling into a practical topic.**\n\nThis section organizes the limitations of training-time scaling, the trend toward inference cost optimization, and the typical scenarios in enterprise AI where accuracy requirements rise to the next level.\n\n### Limits of Training Scaling and the Shift Toward Inference Cost Optimization\n\nLLM development around 2020 proceeded under the simple premise that \"more parameters and more training data means smarter models.\" However, as the development costs of frontier models reached the hundreds of billions of yen scale, multiple studies have reported diminishing returns on performance relative to additional investment.\n\nThe approach attracting attention as an alternative is shifting computation to the inference side. Specifically, this includes techniques such as:\n\n* Solving the same problem multiple times via different paths and selecting the answer by majority vote\n* Having a separate LLM call critique and revise a previously generated answer\n* Using search algorithms to compare multiple reasoning branches\n\nThese methods require no additional training and can be applied to existing models. As gains on the training side slow down, the room for differentiation in enterprise AI has shifted toward how inference is engineered.\n\nIn parallel, providers are developing pricing structures tailored to reasoning models, and billing that counts \"internal thinking tokens\" in addition to input/output tokens is becoming more widespread. It is fair to say that the main battleground for cost optimization has moved from training investment to inference workflow design.\n\n→ Related: [Context Engineering](/articles/context-engineering-llm-paradigm-guide), [Hybrid LLM × SLM Routing](/articles/hybrid-llm-slm-routing-design-guide)\n\n### Scenarios Where Accuracy Demands Are Rising in Enterprise AI\n\nInference-time scaling is especially effective for problems where \"a single pass is not enough to determine the answer.\" Some concrete examples:\n\n* **Legal and contract review**: Checking consistency between clauses, extracting risk provisions. Single-pass generation tends to miss things.\n* **Code review and vulnerability detection**: Multiple perspectives (security / readability / performance) must be examined in pa",
+      "score": 0.9458840825484176
+    },
+    {
+      "id": "S12",
+      "title": "Inference-Time Scaling for Complex Tasks: Where We Stand and What Lies Ahead - Microsoft Research",
+      "url": "https://www.microsoft.com/en-us/research/publication/inference-time-scaling-for-complex-tasks-where-we-stand-and-what-lies-ahead",
+      "content": "![Microsoft](https://uhf.microsoft.com/images/microsoft/RE1Mu3b.png)\n\n# Inference-Time Scaling for Complex Tasks: Where We Stand and What Lies Ahead\n\nMSR-TR-2025-16 | March 2025\n\nPublished by Microsoft\n\nInference-time scaling can enhance the reasoning capabilities of large language models (LLMs) on complex problems that benefit from step-by-step problem solving. Although lengthening generated scratchpads has proven effective for mathematical tasks, the broader impact of this approach on other tasks remains less clear. In this work, we investigate the benefits and limitations of scaling methods across nine state-of-the-art models and eight challenging tasks, including math and STEM reasoning, calendar planning, NP-hard problems, navigation, and spatial reasoning. We compare conventional models (e.g., GPT-4o) with models fine-tuned for inference-time scaling (e.g., o1) through evaluation protocols that involve repeated model calls, either independently or sequentially with feedback. These evaluations approximate lower and upper performance bounds and potential for future performance improvements for each model, whether through enhanced training or multi-model inference systems. Our extensive empirical analysis reveals that the advantages of inference-time scaling vary across tasks and diminish as problem complexity increases. In addition, simply using more tokens does not necessarily translate to higher accuracy in these challenging regimes. Results from multiple independent runs with conventional models using perfect verifiers show that, for some tasks, these models can achieve performance close to the average performance of today’s most advanced reasoning models. However, for other tasks, a significant performance gap remains, even in very high scaling regimes. Encouragingly, all models demonstrate significant gains when inference is further scaled with perfect verifiers or strong feedback, suggesting ample potential for future improvements.\n\n## Related Tools\n\n### Eureka ML Insights\n\nSeptember 16, 2024\n\nThis repository contains the code for the Eureka ML Insights, a framework for standardizing evaluations of large foundation models, beyond single-score reporting and rankings. The framework is designed to help researchers and practitioners run reproducible evaluations of generative models using a variety of benchmarks and metrics efficiently. The framework allows the user to define custom pipelines for data processing, inference, and evaluation, and provides a set of pre-defined evaluation pipelines for key benchmarks.\n\n## Research Areas\n\n## Research Labs\n\nFollow us:\n\nShare this page:",
+      "score": 0.9220498104599869
+    },
+    {
+      "id": "S13",
+      "title": "Inference-Time Scaling with Verifiers: Democratizing AI Reasoning | Jaesik Yoon",
+      "url": "https://jaesikyoon.com/blog/2025/inference-time-scaling-with-verifiers",
+      "content": "# Inference-Time Scaling with Verifiers: Democratizing AI Reasoning\n\nCreated on June 16, 2025\n\nAs generative models become increasingly powerful, a fundamental question re-emerges: how can we effectively leverage these models for reasoning tasks? While large-scale models have demonstrated remarkable capabilities in generation, adapting them to specific reasoning problems remains a significant challenge. This article explores one promising direction: inference-time scaling with verifiers, which represents not just a technical improvement, but a potential paradigm shift in how AI systems adapt to diverse real-world problems.\n\n## Bridging Generation and Reasoning\n\n### Understanding Reasoning Tasks from a Generative Perspective\n\nFrom the perspective of generative models, reasoning tasks present a unique challenge. While general generation tasks involve sampling from relatively broad probability distributions, reasoning tasks require finding solutions within extremely sparse, highly selective distributions.\n\nConsider a simple example: when generating text continuations for “Today’s weather is…”, a model can validly produce numerous outputs—sunny, cloudy, rainy, etc. However, for a reasoning task like “2, 4, 8, 16, ?”, only one answer is correct: 32. This represents a fundamental shift from distributed probability mass to extremely concentrated solutions.\n\nIn this light, we can understand the challenge of applying generative models to reasoning as an adaptation problem: **how do we guide a model trained on general distributions to navigate toward the sparse regions required by specific reasoning tasks?**\n\n### Existing Approaches Reconsidered\n\nMany existing methods for improving reasoning ability in large generative models can be reconsidered through this lens:\n\n**Chain of Thought (CoT)** [1](#ref1) attempts to more precisely match the sparse distribution of reasoning tasks by adding intermediate token generation steps, essentially providing stepping stones toward the correct answer.\n\n**Reinforcement Learning with Verifiable Rewards (RLVR)** [2](#ref2) fine-tunes models to adapt to sparse reasoning distributions using pre-collected datasets and reward signals.\n\n**Inference-time scaling with verifiers** [3](#ref3) [4](#ref4) offers a different approach: rather than modifying the model itself, it uses task-specific verifiers to guide the generation process toward valid solutions during inference.\n\n### What Are Verifiers?\n\nVerifiers are external functions or models that evaluate whether a generated solution meets the requirements of a specific reasoning task. Unlike the base generative model, verifiers are designed to be:\n\n* Task-specific rather than general-purpose\n* Focused on correctness rather than fluency\n* Implementable by domain experts without deep AI knowledge\n\nFor example, a mathematical verifier might check whether an equation is correctly solved, while a coding verifier might test whether generated code produces expected outputs.\n\n## Democratizing AI Through User-Designed Verifiers\n\nThe true significance of inference-time scaling with verifiers lies not in their technical details, but in the paradigm shift they enable.\n\n### Shifting Design Authority\n\nTraditional AI model deployment concentrates design authority with model creators and AI researchers. They must anticipate all possible use cases and design specialized models for each scenario. This approach faces two key limitations: the impossibility of predicting all use cases, and researchers’ limited domain expertise across diverse fields.\n\nIn contrast, inference-time scaling with verifiers clearly separates task-specific knowledge modeling from general model design. This separation allows:\n\n* Model creators to focus on building flexible, general-purpose systems\n* Domain experts to design specific verifiers for their use cases\n* Users to adapt AI systems without requiring deep knowledge of model architecture\n\nThe verifier design requires only domain-specific knowledge to evaluate solution validity, not detailed understanding of artificial intelligence systems. This shift empowers users who know what they want to achieve but lack AI expertise.\n\n### Unbounded Extensibility for Reasoning\n\nSince verifier design requires only domain knowledge rather than AI expertise, it opens reasoning capabilities to unprecedented extensibility. Verifiers can be:\n\n* Rule-based systems implementing domain logic\n* Simple programs that check solution properties\n* Lightweight models trained on small, task-specific datasets\n\nThis accessibility contrasts sharply with approaches like RLVR, which require substantial computational resources and extensive training data for each new domain.\n\n## Limitations and Challenges\n\nDespite its promise, inference-time scaling faces several challenges:\n\n**Computational overhead**: When target distributions differ drastically from prior distributions, exploration during inference becomes computationally expensive. The sampling process may require extensive search to find valid solutions.\n\n**Verifier quality**: The effectiveness of the entire system depends critically on verifier design. Poor verifiers can mislead the generation process or fail to recognize valid solutions.\n\n**Exploration efficiency**: The quality of exploration strategies becomes critical. Inefficient search algorithms can lead to prohibitive computational costs without guaranteeing solution discovery.\n\n**Domain complexity**: In complex domains, designing effective verifiers may itself require significant expertise and may not be as straightforward as the democratic vision suggests.\n\n## Future Directions\n\nThese limitations suggest several promising research directions:\n\n**Hybrid approaches**: Combining mild fine-tuning with inference-time scaling might offer optimal results—shifting the prior closer to target distributions while maintaining flexibility.\n\n**Efficient search**: Improving exploration algorithms to reduce computational overhead while maintaining solution quality.\n\n## Conclusion\n\nInference-time scaling with verifiers represents more than a technical advancement—it fundamentally reimagines how AI systems adapt to human needs. By viewing reasoning as navigation from general to sparse distributions and empowering users to guide this navigation through custom verifiers, we unlock a new paradigm of AI accessibility.\n\nHowever, realizing this vision requires addressing significant technical challenges around computational efficiency, verifier design, and system scalability. The most promising path forward likely involves thoughtful integration of multiple approaches rather than wholesale adoption of any single technique.\n\nAs this field evolves, the key will be maintaining the democratic promise of user-guided adaptation while ensuring the resulting systems remain practical, reliable, and beneficial across diverse applications.\n\n## Acknowledgments\n\nThis blog post is reviewed by [Minsu Kim](https://minsuukim.github.io). Thank you for the valuable feedback and suggestions.\n\n## References\n\n[1] Jason Wei, et al. [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903). In *Advances in Neural Information Processing Systems*, 2022.\n\n[2] Guo, Daya, et al. [Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning](https://arxiv.org/abs/2501.12948). arXiv preprint arXiv:2501.12948 (2025).\n\n[3] Yoon, Jaesik, et al. [Monte Carlo Tree Diffusion for System 2 Planning](https://arxiv.org/abs/2502.07202). In *International Conference on Machine Learning*, 2025.\n\n[4] Lee, Gyubin, et al. [Adaptive Cyclic Diffusion for Inference Scaling](https://arxiv.org/abs/2505.14036). arXiv preprint arXiv:2505.14036 (2025).",
+      "score": 0.9215919313585834
+    }
+  ]
+}

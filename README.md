@@ -11,7 +11,7 @@ The LLM-only architecture is deliberately below the assignment's MVP minimum bar
 a lower-bound experimental baseline, not a viable research system or the MVP
 implementation. It measures what the configured model produces from pretrained
 knowledge and one minimal instruction. The other four architectures use Tavily and may
-perform at most three searches; they favor an honest incomplete answer over unsupported
+perform at most ten searches; they favor an honest incomplete answer over unsupported
 completeness.
 
 | Version | System | Stable system ID | Search | Ledger | Plan | Verifier |
@@ -257,19 +257,19 @@ Progress, the stop reason, and artifact paths are printed to the terminal. Missi
 Run the command from the project root, where `main.py` and `.env` are located. A
 V-1 makes one logical OpenAI research request and zero Tavily requests. Infrastructure
 retries may cause another HTTP attempt, but it never performs a semantic retry or second
-generation pass. Search Baseline may perform up to three Tavily searches and four OpenAI requests. Evidence
-Ledger v1 may perform up to three Tavily searches, three evidence-processing requests,
-two model-based research decisions, and one final-report request. Either mode can incur
+generation pass. Search Baseline may perform up to ten Tavily searches and eleven OpenAI requests. Evidence
+Ledger v1 may perform up to ten Tavily searches, ten evidence-processing requests,
+nine model-based research decisions, and one final-report request. Either mode can incur
 API usage or charges. Decomposed mode has the same search and ledger limits plus one
-question-decomposition request, for a maximum of three Tavily requests and seven OpenAI
-requests (one decomposition, three evidence updates, two decisions, and one report).
-Verified mode retains the same hard maximum of three Tavily searches. A verifier-requested
+question-decomposition request, for a maximum of ten Tavily requests and twenty-one OpenAI
+requests (one decomposition, ten evidence updates, nine decisions, and one report).
+Verified mode retains the same hard maximum of ten Tavily searches. A verifier-requested
 counter-search consumes the next slot in that budget and goes through the same Tavily
-client and Evidence Processor; it is not a hidden fourth search. A claim can receive at
+client and Evidence Processor; it is not a hidden eleventh search. A claim can receive at
 most one adversarial counter-search, after which the same claim is forcibly reverified
-without permitting another counter-search. In the worst case, verified mode makes ten
-OpenAI requests: one decomposition, three evidence updates, up to three verification
-calls, up to two ordinary decisions, and one report request.
+without permitting another counter-search. In the worst case, verified mode makes thirty-one
+OpenAI requests: one decomposition, ten evidence updates, up to ten verification
+calls, up to nine ordinary decisions, and one report request.
 
 ## Evaluating a Saved Run
 

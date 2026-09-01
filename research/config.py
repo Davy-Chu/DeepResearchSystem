@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 from dotenv import load_dotenv
 
-MAX_RESEARCH_ITERATIONS = 3
+MAX_RESEARCH_ITERATIONS = 10
 TAVILY_MAX_RESULTS = 5
 MAX_SOURCE_CHARS = 8000
 DEFAULT_OPENAI_MODEL = "gpt-5.6-terra"
