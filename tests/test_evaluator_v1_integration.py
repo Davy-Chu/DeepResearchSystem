@@ -162,7 +162,21 @@ def test_evaluator_v1_scores_llm_only_report_with_same_frozen_fixture(
             question="Exact benchmark question",
             system_version="llm-only-baseline-v0",
             model="research-model",
-            report="# Raw report\n\nA substantive claim without a verified citation.",
+            report=FinalReport(
+                question="Exact benchmark question",
+                summary="A substantive claim without a verified citation.",
+                findings=[
+                    Finding(
+                        claim="A substantive claim.",
+                        evidence=[EvidenceItem(summary="Unverified model knowledge.")],
+                        confidence=Confidence.LOW,
+                        confidence_reason="No retrieved evidence is available.",
+                    )
+                ],
+                conflicts_and_uncertainties=[],
+                remaining_gaps=[],
+                conclusion="A substantive claim.",
+            ),
             duration_seconds=0.1,
             input_tokens=10,
             output_tokens=20,

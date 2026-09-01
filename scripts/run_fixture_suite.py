@@ -25,7 +25,7 @@ from research.versions import SYSTEM_VERSION_BY_MODE
 
 
 ARCHITECTURE_COMPONENTS = {
-    "llm-only": "one raw OpenAI generation (no retrieval or research components)",
+    "llm-only": "one structured OpenAI generation (no retrieval or research components)",
     "baseline": "baseline analyzer only (no ledger, decomposer, or verifier)",
     "ledger": "evidence ledger only",
     "decomposed": "evidence ledger + question decomposer",

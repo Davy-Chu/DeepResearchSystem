@@ -1,0 +1,204 @@
+# Research Report
+
+## Research Question
+
+What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models, with a focus on data quality, bias, and evaluation?
+
+## Summary
+
+Synthetic data can substantially reduce the cost of training and fine-tuning large language models, improve coverage of specialized or rare tasks, enable privacy-preserving data generation, and produce large volumes of instruction, preference, and reasoning examples. However, these benefits depend on the quality and provenance of the generator and on retaining a sufficiently strong connection to real-world data. Synthetic data can reproduce or amplify model biases, contain subtle factual and stylistic errors, narrow diversity, and create feedback loops in which models train on increasingly model-generated distributions. Evaluation is especially vulnerable: synthetic examples may be easier, more templated, or contaminated by the generating model, causing benchmark gains that do not translate into real-world reliability. The safest approach is generally hybrid: use synthetic data for targeted augmentation and data development, but anchor training and evaluation in independently collected, human- or domain-validated real data, with explicit provenance, deduplication, subgroup analysis, adversarial testing, and post-deployment monitoring.
+
+## Findings
+
+### Finding 1
+
+**Claim**
+
+Synthetic data can lower the marginal cost of producing large-scale instruction, preference, and domain-specific training examples.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+The techniques have been described in peer-reviewed or widely documented research and have been replicated in multiple open-model training efforts.
+
+**Evidence**
+
+- Self-Instruct showed that a language model can generate instruction–input–output examples that substantially expand instruction-tuning data, while Constitutional AI used model-generated critiques and revisions to reduce reliance on direct human preference labels. These approaches established synthetic data as a practical way to scale alignment data.
+- Phi-1 and related small-model work used carefully curated synthetic and textbook-like data to obtain strong coding performance with far less total data than many much larger models, illustrating the potential value of quality and task targeting over raw volume.
+
+### Finding 2
+
+**Claim**
+
+Synthetic data is useful for coverage: it can target rare skills, long-tail cases, structured formats, languages, safety scenarios, and controllable difficulty levels that are expensive or difficult to collect from people.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+The controllability advantage follows directly from the generation process and is supported by multiple training recipes, although the quality of any particular generated set remains task-dependent.
+
+**Evidence**
+
+- Teacher–student and self-instruction methods can generate examples conditioned on specified skills, task templates, difficulty, or output formats, allowing deliberate coverage rather than relying only on naturally occurring data.
+- Synthetic data has been used to create mathematical, coding, multilingual, and tool-use examples, where automatically checkable answers or execution environments can provide stronger quality control than unconstrained text generation.
+
+### Finding 3
+
+**Claim**
+
+Synthetic data can improve privacy and reduce some data-collection burdens, but it is not automatically private or safe from memorization and inference attacks.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+The distinction between formal differential privacy and informal synthetic generation is well established; memorization has been demonstrated empirically, though risk varies with model, data, and generation settings.
+
+**Evidence**
+
+- Differentially private synthetic-data methods can provide formal privacy guarantees when the generation pipeline is itself differentially private; ordinary prompting of a model to produce 'synthetic' records does not provide that guarantee.
+- Language models can memorize and emit portions of training data, so a generator may reproduce names, passages, confidential facts, or rare personal information in synthetic outputs. Filtering and privacy auditing are therefore required.
+
+### Finding 4
+
+**Claim**
+
+Synthetic data can degrade data quality through hallucinations, internal inconsistencies, formatting artifacts, and loss of information that is difficult for the generator to represent.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+Hallucination and distributional-artifact risks are directly observed in language-model outputs and in synthetic-corpus studies, though their magnitude depends strongly on generation and filtering procedures.
+
+**Evidence**
+
+- A model-generated answer can be fluent but factually wrong, and repeated generation can propagate errors without an external ground-truth check. This is particularly dangerous for medicine, law, finance, safety procedures, and current events.
+- Synthetic corpora often contain recognizable stylistic signatures, repetitive phrasing, generic explanations, and reduced lexical or conceptual diversity. Filtering based only on perplexity or similarity can remove useful difficult examples while retaining plausible errors.
+
+### Finding 5
+
+**Claim**
+
+Training recursively on model-generated data can cause distributional collapse, especially when synthetic data replaces rather than supplements fresh human-originated data.
+
+**Confidence:** Medium
+
+**Why this confidence level**
+
+The degradation mechanism is plausible and experimentally demonstrated, but its severity in industrial pipelines depends on mixture ratios, filtering, model capacity, task, and whether synthetic data is generated from models trained on overlapping data.
+
+**Evidence**
+
+- The 'model collapse' study found that recursive training on generated data can lose the tails of the original distribution and progressively distort the learned distribution; rare events and minority patterns are especially vulnerable.
+- The result does not mean every mixture of synthetic and real data collapses. Later analyses and practical training reports indicate that preserving high-quality real data, controlling the synthetic-to-real ratio, and maintaining provenance can substantially reduce the risk.
+
+### Finding 6
+
+**Claim**
+
+Synthetic data can reproduce and amplify social, cultural, linguistic, and demographic biases present in the generator, its source data, its prompts, or the selection and filtering pipeline.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+Bias inheritance and amplification are well supported conceptually and empirically, although the direction and size of effects must be measured for each population, language, and use case.
+
+**Evidence**
+
+- A generator trained on imbalanced web data may overproduce dominant languages, occupations, cultural assumptions, and demographic stereotypes. Sampling or ranking only high-confidence outputs can further suppress minority or unconventional responses.
+- Synthetic augmentation does not necessarily correct bias: if the model encodes a biased association, generating more examples may multiply that association. Bias can also be introduced by safety or quality filters that reject dialectal, minority, reclaimed, or culturally specific language.
+
+### Finding 7
+
+**Claim**
+
+Synthetic data can reduce some measured biases when deliberately generated as counterfactual or balanced examples, but apparent balance may be superficial and may not improve behavior on naturally occurring cases.
+
+**Confidence:** Medium
+
+**Why this confidence level**
+
+Targeted augmentation is useful for specific measured failure modes, but generalization from generated counterfactuals to real-world fairness is not guaranteed.
+
+**Evidence**
+
+- Counterfactual data augmentation and targeted prompts can create examples that vary protected attributes while holding task content constant, offering a practical way to probe or reduce particular associations.
+- Generated counterfactuals may be linguistically unnatural, omit intersectional identities, or encode the annotator/model's assumptions about what counts as a bias. Improvements on synthetic fairness tests therefore require confirmation on independently collected human data.
+
+### Finding 8
+
+**Claim**
+
+Synthetic data can make evaluation less reliable by creating benchmark contamination, distribution mismatch, and artificial ease.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+Contamination and train–test leakage are established evaluation threats; synthetic generation increases the number of pathways by which leakage and stylistic overlap can occur.
+
+**Evidence**
+
+- If training data are generated from a model that has seen a benchmark, or if benchmark-like prompts are used during generation, the resulting model may perform well through memorization or format familiarity rather than generalization.
+- Synthetic test sets frequently share templates, vocabulary, answer styles, and assumptions with synthetic training sets. A model can therefore exploit generator-specific artifacts that are absent in real user interactions.
+
+### Finding 9
+
+**Claim**
+
+Evaluation should use independent, human- or domain-validated real-world data in addition to synthetic tests, and should assess both average performance and worst-case subgroup behavior.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+These controls are consistent with established measurement and model-evaluation practice and address known weaknesses of synthetic benchmarks and automated judging.
+
+**Evidence**
+
+- Robust evaluation should separate training, development, and test provenance; keep held-out sources and generators; use fresh tasks; report confidence intervals; and test factuality, calibration, refusal behavior, robustness, and latency or cost where relevant.
+- For high-stakes uses, evaluation should include domain experts, adversarial and red-team testing, subgroup and intersectional slices, temporal holdouts, out-of-distribution inputs, and post-deployment incident monitoring. Automated judges should be treated as measurements with error, not as ground truth.
+
+### Finding 10
+
+**Claim**
+
+The practical value of synthetic data is highest when generation is task-specific and verification is cheap or independent; it is lowest when correctness is open-ended and errors are consequential.
+
+**Confidence:** High
+
+**Why this confidence level**
+
+The distinction follows from whether an independent oracle exists and is consistently reflected in published synthetic-data pipelines.
+
+**Evidence**
+
+- Code can often be checked by compilation and tests, mathematics by symbolic or numerical verification, and structured extraction by database constraints. Open-ended factual, social, medical, and legal claims are much harder to validate automatically.
+- A strong teacher, retrieval system, simulator, executable environment, or human/domain review can make synthetic examples more trustworthy, but these safeguards add cost and do not eliminate correlated errors from the generator.
+
+## Conflicts and Uncertainty
+
+- The extent to which model collapse occurs in real production training is unsettled. Some theoretical and controlled studies find serious recursive degradation, while carefully mixed pipelines using high-quality synthetic data can improve performance.
+- Reported gains from synthetic instruction tuning are difficult to compare because datasets, teacher models, filtering, real-data mixtures, and evaluation contamination controls differ substantially.
+- There is no universal synthetic-to-real data ratio or filtering recipe. Optimal choices vary by domain, model scale, generator quality, verification method, and whether the target is factual knowledge, reasoning, style, safety, or tool use.
+- Fairness results are highly sensitive to language, culture, identity taxonomy, and deployment context; aggregate benchmark improvements can conceal harm to smaller or intersecting groups.
+
+## Remaining Gaps
+
+- More longitudinal evidence is needed on recursive use of synthetic data across multiple generations of commercial models and fine-tuning datasets.
+- Evaluation methods for detecting subtle generator artifacts, synthetic-text overfitting, and loss of long-tail knowledge remain immature.
+- There is limited standardized reporting of synthetic-data provenance, generator checkpoints, prompt templates, filtering rules, human-review rates, and synthetic-to-real ratios.
+- More evidence is needed on low-resource languages, dialects, disability-related language, and intersectional demographic groups.
+- Privacy assessments should routinely test whether synthetic records reproduce rare individuals or confidential content, rather than assuming that non-identical outputs are private.
+
+## Conclusion
+
+Synthetic data is neither inherently beneficial nor inherently harmful. It is a powerful data-engineering instrument: it can make instruction tuning cheaper, target missing capabilities, create controllable edge cases, and support privacy-aware development when formal protections are used. Its main failure modes are quality drift, correlated hallucinations, narrowed diversity, inherited or amplified bias, privacy leakage, and misleading evaluation gains. A defensible real-world strategy is to use synthetic data as a supplement rather than a replacement for independently sourced real data; retain provenance; deduplicate against training and test sets; verify examples with executable checks, retrieval, experts, or humans where appropriate; measure subgroup and tail performance; and reserve genuinely independent real-world data for final evaluation. Synthetic data should be judged by downstream reliability and harm rates, not by volume or benchmark gains alone.
+
+## Sources
+
+- No usable sources were retrieved.

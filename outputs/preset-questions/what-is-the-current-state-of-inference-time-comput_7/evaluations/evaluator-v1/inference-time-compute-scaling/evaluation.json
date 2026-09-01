@@ -1,0 +1,582 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 52.75,
+  "evaluation_completeness": 0.8,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.7124999999999999,
+    "coverage": 0.75,
+    "depth": 0.625,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The Summary defines scaling as “spending additional inference compute” through “sampling multiple solutions, using verifiers, decomposing problems, or conducting search.”",
+          "Finding 7 distinguishes useful reasoning computation from merely increasing visible chain-of-thought length.",
+          "The report discusses sampling, verification, search, and adaptive allocation as inference mechanisms."
+        ],
+        "missing": [
+          "It does not explicitly define the boundary between inference-time scaling and adjacent interventions such as training or post-training changes, increased model size, or supplying more input context.",
+          "Tool use, refinement/revision, and the debatable status of context/retrieval are mentioned only in the gaps rather than clearly classified."
+        ],
+        "rationale": "The report identifies several central forms and distinguishes token length from effective computation, but it does not fully provide the requested taxonomy or explicit contrasts with training, model size, and added context."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 1 reports improvements from self-consistency, best-of-N sampling, verifier-guided selection, and test-time compute allocation across arithmetic, commonsense, symbolic, mathematical, and coding tasks.",
+          "Finding 2 states that comparative experiments find different strategies dominate in different model and task regimes.",
+          "The report repeatedly qualifies gains as dependent on model, task, verifier, sampling budget, and aggregation method."
+        ],
+        "missing": [
+          "It gives almost no concrete effect sizes, budget values, confidence intervals, variance estimates, or clearly specified controlled comparison results.",
+          "Claims of replication are broad and are not tied to independent studies or matched baselines in enough detail to distinguish replicated patterns from isolated results."
+        ],
+        "rationale": "The report synthesizes the direction and conditions of controlled findings, but the empirical evidence is presented mostly as qualitative summaries rather than the detailed comparisons and uncertainty requested."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 2 separately discusses self-consistency, verifier-based selection, tree/process search, and sequential reasoning length.",
+          "Finding 3 identifies latent competence, useful correctness signals, correlated errors, low candidate quality, and verifier limitations as conditions affecting success.",
+          "Finding 4 discusses verifier ceilings, reward hacking, plausible invalid solutions, ranking difficulty, and compounding errors.",
+          "Finding 6 covers adaptive allocation, uncertainty estimation, and variable marginal returns.",
+          "Finding 7 notes redundant, circular, or post-hoc reasoning and that longer reasoning can degrade performance."
+        ],
+        "missing": [
+          "Refinement/revision is not treated as a fully distinct mechanism; it appears mainly as one strategy named in the conflicts section.",
+          "Tool-use and execution-feedback mechanisms are mentioned in the conclusion and gaps but are not compared empirically with the other mechanisms.",
+          "The report does not systematically characterize how search depth, candidate correlation, or verifier accuracy quantitatively change outcomes."
+        ],
+        "rationale": "Most principal mechanisms and their failure modes are addressed with useful conditionality, but refinement and tool use receive substantially less treatment than sampling, search, and verification."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The Summary says scaling is not a universal law and that gains depend on model, task, verifier, and budget.",
+          "Finding 3 reports diminishing or saturating returns, little improvement, and occasional degradation.",
+          "Finding 11 says curves can show diminishing returns, threshold effects, or early plateaus and differ by model, task, method, and budget.",
+          "The Conclusion describes gains as often substantial but diminishing and highly task- and model-dependent."
+        ],
+        "missing": [
+          "The report does not provide concrete scaling curves, quantitative breakpoints, or enough examples linking particular behavior to particular model capabilities, task difficulties, or compute ranges.",
+          "It asserts several curve shapes but does not establish how frequently each occurs or whether degradation is robust rather than an occasional observation."
+        ],
+        "rationale": "It clearly rejects a universal monotonic law and covers diminishing returns, saturation, thresholds, and degradation, but the characterization remains qualitative and thinly evidenced."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 5 reports regimes where a smaller model with more inference computation can outperform a larger model under a fixed compute budget.",
+          "It notes that repeated sampling and search increase latency and cost and that the preferred allocation depends on accuracy, latency, and throughput.",
+          "The report calls for common accounting in FLOPs, latency, energy, and monetary cost."
+        ],
+        "missing": [
+          "No concrete tokens, FLOPs, latency, throughput, energy, or monetary-cost measurements are reported.",
+          "The fixed-compute comparisons are not specified sufficiently to identify models, tasks, budgets, or deployment assumptions.",
+          "There is no substantial comparison with differently trained models or a realistic analysis of when inference scaling is preferable under production constraints."
+        ],
+        "rationale": "The report recognizes the relevant trade-offs and cites the existence of matched-budget results, but it supplies little actual resource accounting or deployment-grounded analysis."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 9 distinguishes relatively strong evidence on math, code, symbolic reasoning, theorem proving, and synthetic environments from weaker evidence on factual research, social judgment, long-horizon interaction, and real-world planning.",
+          "The Summary identifies open-ended knowledge work, realistic agent tasks, long-horizon planning, and distribution shift as thinly evidenced areas.",
+          "The report contrasts proprietary reasoning-model evidence with open implementations and notes differences between visible and hidden reasoning."
+        ],
+        "missing": [
+          "Languages beyond the mainly English benchmark ecosystem are not assessed.",
+          "Safety-relevant workloads, multimodal settings, and naturalistic versus synthetic evaluations are only briefly or indirectly addressed.",
+          "The report does not provide actual transfer results across domains, languages, proprietary/open models, or synthetic/naturalistic task distributions."
+        ],
+        "rationale": "The report gives a useful domain map and clearly marks weak generalization claims, but it provides limited empirical transfer evidence and omits or underdevelops several rubric-specified dimensions."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The Conflicts and Uncertainty section identifies contamination or familiarity, weak comparability, incomplete compute accounting, hidden reasoning, selective budget reporting, and difficulty isolating training from inference effects.",
+          "It explicitly notes limited replication/independent evidence for proprietary systems and insufficient information about model size, training mixture, inference algorithms, and verifier details in the o1 report.",
+          "The Remaining Gaps section specifies needed evidence, including factorial ablations, standardized accounting, contamination-resistant evaluations, verifier studies, long-run production evidence, and testing at very large budgets.",
+          "The Conclusion explicitly labels universal scaling laws, broad transfer, and attribution of frontier gains as speculative or too uncertain."
+        ],
+        "missing": [
+          "Selective reporting and independence of studies are mentioned only briefly and are not assessed study by study.",
+          "Benchmark contamination is raised as a possibility without evidence quantifying its impact.",
+          "The report does not sharply classify each major claim into established, conditional, and speculative categories in a systematic evidence table."
+        ],
+        "rationale": "This is a strong limitations-and-gaps discussion that directly identifies thin evidence and proposes resolving experiments, but it lacks detailed assessment of study independence, contamination magnitude, and reporting bias."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The Conclusion states that inference-time scaling is “real, useful” for structured tasks while rejecting the idea that it is simply making the model think longer.",
+          "It qualifies gains as diminishing and task- and model-dependent.",
+          "It identifies open-ended reasoning, factual research, long-horizon agency, safety, universal compute-quality curves, global method rankings, and attribution of proprietary gains as insufficiently established.",
+          "The Summary and Conclusion directly separate validated structured-task benefits from speculative general-purpose claims."
+        ],
+        "missing": [
+          "Although the conclusion is balanced and direct, it could be stronger by tying its confidence levels to specific quantitative comparisons rather than mainly qualitative synthesis."
+        ],
+        "rationale": "It answers the question directly, preserves uncertainty, distinguishes established from speculative claims, and avoids blanket endorsement or dismissal."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful synthesis that treats inference-time scaling as a family of mechanisms rather than a single scaling law.",
+        "It identifies verifier quality, candidate correlation, and adaptive allocation as central conditional variables.",
+        "It explicitly separates structured benchmark evidence from open-ended and deployment-relevant claims and lists concrete experiments needed to resolve the uncertainty."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Additional inference-time computation can improve benchmark reasoning performance; this is empirically validated.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The most reliable mechanisms are sampling-and-selection, self-consistency, and search or verification—not merely making one chain of thought longer.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Inference-time compute is most valuable when the base model has latent competence and the task has a useful correctness signal.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Verifier quality is a central bottleneck and creates a hard ceiling for many inference-time scaling methods.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Inference-time scaling can trade compute for accuracy more flexibly than training-time scaling, but its economic advantage is not yet established in general.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Adaptive compute allocation—spending more effort on hard examples and less on easy ones—is more promising than assigning the same budget to every query.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Longer visible chain-of-thought is not equivalent to more effective reasoning compute, and verbosity is an unreliable proxy for reasoning quality.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F8",
+        "claim": "The headline performance of proprietary reasoning models should not be treated as clean evidence for a general inference-time scaling law.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F9",
+        "claim": "There is substantial empirical support on math, code, symbolic reasoning, and formal verification, but much weaker evidence on open-ended real-world reasoning.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F10",
+        "claim": "Inference-time scaling does not automatically solve reliability problems such as hallucination, shared-mode errors, reward hacking, or distribution shift.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F11",
+        "claim": "A universal, smooth, predictable inference-time scaling law has not been established.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Across multiple studies, additional inference-time computation—such as sampling multiple solutions, using verifiers, decomposing problems, or conducting search—can improve reasoning accuracy, especially on math, code, and formal tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a multi-study empirical claim, but no inline or nearby source citation is supplied."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Adaptive allocation of inference compute is better supported than simply generating longer answers.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This comparative empirical conclusion requires supporting studies; none are cited nearby."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "The evidence is thinner for open-ended knowledge work, realistic agent tasks, long-horizon planning, distribution-shift reliability, and claims that inference-time scaling produces generally more intelligent or robust systems.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are externally verifiable claims about the state and distribution of evidence, but no supporting citations are attached."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Reported inference-time scaling gains depend substantially on the base model, task distribution, evaluator or verifier quality, sampling budget, and whether answer selection or majority voting is allowed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about moderators of performance and requires citations."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "The field has not converged on a general scaling law, a standard compute metric, or a clear economic optimum between training-time and inference-time computation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the research field and literature; the bibliography alone does not provide a nearby citation."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Additional inference-time computation can improve benchmark reasoning performance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the central empirical finding and has no supplied citation in the finding or evidence section."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Self-consistency improves results over single-sample chain-of-thought on arithmetic, commonsense, and symbolic reasoning benchmarks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This reports benchmark results and requires a study citation; none is supplied nearby."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Best-of-N sampling and verifier-guided selection produce large gains on mathematical and coding tasks when candidate solutions can be reliably scored.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical performance claim with no nearby citation."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Sampling-and-selection, self-consistency, search, and verification are generally more reliable mechanisms than merely making one chain of thought longer.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim compares empirical methods and requires citations to comparative experiments."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Tree- and process-search methods can outperform greedy generation on structured tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a comparative experimental claim without a nearby citation."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Inference-time compute is most valuable when the base model has latent competence and the task has a useful correctness signal.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This generalizes from ablations and cross-task comparisons and therefore requires supporting citations."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Best-of-N and verifier methods show diminishing or saturating returns when candidate quality is low, candidate errors are highly correlated, or the verifier cannot distinguish correct from plausible incorrect answers.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about scaling behavior and failure conditions, with no nearby citation."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Verifier quality is a central bottleneck and can impose a ceiling on many inference-time scaling methods.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim concerns observed verifier limitations and requires evidence."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Inference-time scaling can trade compute for accuracy more flexibly than training-time scaling, but its general economic advantage has not been established.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This combines empirical cost-performance comparisons with a literature-level conclusion; no nearby citations are supplied."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "In some regimes, a smaller model with more inference computation can outperform a larger model under a fixed compute budget.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific reported experimental result and requires a citation."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Adaptive per-instance compute allocation can achieve better accuracy-compute tradeoffs than uniform sampling in controlled experiments.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an experimental comparison without a supplied nearby citation."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Longer visible chain-of-thought is not equivalent to more effective reasoning compute, and token count alone is an unreliable proxy for reasoning quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This relies on studies of reasoning length and explanation quality, but no citation is attached."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Proprietary reasoning-model performance does not by itself establish a general inference-time scaling law because relevant training, model, inference, verifier, and compute-accounting details are undisclosed or insufficiently controlled.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This evaluates the evidentiary status of proprietary reports and requires citations to those reports and relevant analyses."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Empirical support is substantial for math, code, symbolic reasoning, and formal verification, but weaker for open-ended real-world reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the evaluation literature and evidence distribution, with no nearby citations."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Inference-time scaling does not automatically solve hallucination, correlated or shared-mode errors, reward hacking, or distribution-shift reliability problems.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are externally verifiable claims about documented failure modes and need supporting sources."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Self-consistency can amplify a shared misconception when sampled solutions are correlated.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the behavior of a specific method and requires evidence."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Verifier-guided search can optimize a verifier rather than the intended task when the verifier has superficial checks or systematic blind spots.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical failure-mode claim without a nearby citation."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Reported inference-time scaling curves differ by model, task, method, verifier, and budget, with some showing diminishing returns, threshold effects, or early plateaus.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This summarizes cross-study empirical observations and requires citations."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "There is no standardized definition of inference compute; studies variously count generated tokens, sampled candidates, search nodes, verifier calls, latency, FLOPs, or monetary cost.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a literature-survey claim about measurement practice and needs citations."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "The current evidence is too thin to rank inference-time methods globally, quantify a universal compute-to-quality curve, or determine whether frontier reasoning-model gains primarily come from inference-time computation rather than undisclosed training and post-training procedures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive synthesis of the evidence base and requires citations supporting the underlying comparisons and limitations."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 11,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R5: Evaluate inference scaling against realistic resource constraints and alternatives.",
+    "R1: Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+    "R2: Synthesize controlled evidence about whether and where additional inference-time compute improves reasoning performance.",
+    "25 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "inference-time-compute-scaling",
+    "fixture_version": "1.0",
+    "rubric_hash": "d32d6ea1035324f019e9421c7b216e4501bdab866df8e60cda19db2afb8a4c2f",
+    "candidate_report_hash": "65bf9d536bcaa568da018497d4c171233d997de0fa509d72af60458023346a2f",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T05:47:43.394164+00:00",
+    "usage": {
+      "llm_calls": 3,
+      "input_tokens": 8840,
+      "output_tokens": 3907,
+      "estimated_cost": null
+    }
+  }
+}

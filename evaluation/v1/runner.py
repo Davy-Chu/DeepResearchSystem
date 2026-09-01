@@ -21,6 +21,7 @@ from evaluation.v1.models import (
 )
 from evaluation.v1.openai_utils import UsageTracker
 from evaluation.v1.scoring import overall_score
+from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
 class EvaluatorRunner:
@@ -50,11 +51,16 @@ class EvaluatorRunner:
             deterministic.score,
         )
 
-        support_fraction = (
-            citations.evaluable_support_claims / citations.total_support_claims
-            if citations.total_support_claims
-            else (1.0 if citations.support is not None else 0.0)
-        )
+        if item.system_version == LLM_ONLY_SYSTEM_VERSION:
+            # LLM-only deliberately has no retrieved source snapshots. Citation
+            # support is fully evaluated as zero, rather than failing to run.
+            support_fraction = 1.0 if citations.support is not None else 0.0
+        else:
+            support_fraction = (
+                citations.evaluable_support_claims / citations.total_support_claims
+                if citations.total_support_claims
+                else (1.0 if citations.support is not None else 0.0)
+            )
         completeness_parts = [
             1.0 if comprehensiveness.status == ComponentStatus.COMPLETED else 0.0,
             1.0 if citations.validity is not None else 0.0,

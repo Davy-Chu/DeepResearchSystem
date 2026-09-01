@@ -18,21 +18,40 @@ from research.llm_only_runner import (
     STOP_REASON,
     save_llm_only_artifacts,
 )
+from research.models import Confidence, EvidenceItem, FinalReport, Finding
 from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
-RAW_REPORT = "# Strange   Report\n\nSome   unusual spacing.\n\n\nA final paragraph.\n"
+STRUCTURED_REPORT = FinalReport(
+    question="What is X?",
+    summary="A concise summary.",
+    findings=[
+        Finding(
+            claim="X has a documented property.",
+            evidence=[EvidenceItem(summary="The property is described.")],
+            confidence=Confidence.MEDIUM,
+            confidence_reason="The model has no retrieved evidence.",
+        )
+    ],
+    conflicts_and_uncertainties=[],
+    remaining_gaps=["No external sources were retrieved."],
+    conclusion="The answer remains unverified.",
+)
 
 
 class FakeResponses:
-    def __init__(self, output_text: str = RAW_REPORT) -> None:
-        self.output_text = output_text
+    def __init__(self, output_parsed: FinalReport | None = STRUCTURED_REPORT) -> None:
+        self.output_parsed = output_parsed
         self.calls: list[dict[str, object]] = []
 
-    def create(self, **kwargs: object):
+    def parse(self, **kwargs: object):
         self.calls.append(kwargs)
         return SimpleNamespace(
-            output_text=self.output_text,
+            output_parsed=(
+                self.output_parsed.model_copy(deep=True)
+                if self.output_parsed is not None
+                else None
+            ),
             usage=SimpleNamespace(input_tokens=17, output_tokens=29),
         )
 
@@ -60,12 +79,13 @@ def test_one_call_uses_exact_minimal_prompt_and_no_tools() -> None:
                 ),
             }
         ],
+        "text_format": FinalReport,
     }
     assert "tools" not in responses.calls[0]
     assert "instructions" not in responses.calls[0]
     assert result.openai_calls == 1
     assert result.tavily_calls == 0
-    assert result.report == RAW_REPORT
+    assert result.report == STRUCTURED_REPORT
 
 
 def test_empty_question_is_rejected_before_model_call() -> None:
@@ -80,23 +100,24 @@ def test_empty_question_is_rejected_before_model_call() -> None:
     assert responses.calls == []
 
 
-def test_empty_response_fails_without_semantic_retry() -> None:
-    responses = FakeResponses(" \n")
+def test_missing_parsed_response_fails_without_semantic_retry() -> None:
+    responses = FakeResponses(None)
     runner = LLMOnlyResearchRunner(
         "unused", "research-model", client=SimpleNamespace(responses=responses)
     )
 
-    with pytest.raises(ValueError, match="empty LLM-only report"):
+    with pytest.raises(ValueError, match="no parsed LLM-only FinalReport"):
         runner.run("What is X?")
 
     assert len(responses.calls) == 1
 
 
-def test_raw_report_fake_citation_and_minimal_trace_are_preserved(
+def test_canonical_report_and_minimal_trace_are_preserved_without_fake_provenance(
     tmp_path: Path,
 ) -> None:
-    raw = RAW_REPORT + "\nClaim A is true [1].\n\n[1] https://fake.example/paper\n"
-    responses = FakeResponses(raw)
+    model_report = STRUCTURED_REPORT.model_copy(deep=True)
+    model_report.findings[0].evidence[0].source_ids = ["S99"]
+    responses = FakeResponses(model_report)
     result = LLMOnlyResearchRunner(
         "unused",
         "research-model",
@@ -105,7 +126,13 @@ def test_raw_report_fake_citation_and_minimal_trace_are_preserved(
 
     report_path, trace_path, log_path = save_llm_only_artifacts(result, tmp_path)
 
-    assert report_path.read_bytes() == raw.encode("utf-8")
+    report_markdown = report_path.read_text(encoding="utf-8")
+    assert report_markdown.startswith("# Research Report\n")
+    assert "## Research Question" in report_markdown
+    assert "## Summary" in report_markdown
+    assert "## Findings" in report_markdown
+    assert "## Sources" in report_markdown
+    assert "S99" not in report_markdown
     trace = json.loads(trace_path.read_text(encoding="utf-8"))
     assert trace["system_version"] == LLM_ONLY_SYSTEM_VERSION
     assert trace["openai_calls"] == 1
@@ -116,12 +143,13 @@ def test_raw_report_fake_citation_and_minimal_trace_are_preserved(
     assert trace["evidence_ledger"] is None
     assert trace["claim_verifications"] == []
     assert trace["stop_reason"] == STOP_REASON
+    assert trace["final_report"]["findings"][0]["evidence"][0]["source_ids"] == []
     assert "No Tavily calls occurred" in log_path.read_text(encoding="utf-8")
 
     evaluation_input = load_evaluation_input(tmp_path)
-    assert evaluation_input.report is None
+    assert evaluation_input.report == result.report
     assert evaluation_input.sources == []
-    assert evaluation_input.report_markdown == raw
+    assert evaluation_input.report_markdown == report_markdown
 
 
 def test_deterministic_research_checks_are_not_applicable(tmp_path: Path) -> None:
@@ -184,5 +212,6 @@ def test_cli_llm_only_does_not_construct_other_research_components(
     assert len(responses.calls) == 1
     run_directories = [path for path in tmp_path.iterdir() if path.is_dir()]
     assert len(run_directories) == 1
-    assert (run_directories[0] / "report.md").read_bytes() == RAW_REPORT.encode("utf-8")
-
+    report_text = (run_directories[0] / "report.md").read_text(encoding="utf-8")
+    assert report_text.startswith("# Research Report\n")
+    assert "## Findings" in report_text

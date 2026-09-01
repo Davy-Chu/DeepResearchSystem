@@ -45,13 +45,14 @@ cleaner architectural ablations because they retain the same retrieval environme
 System version: `llm-only-baseline-v0`
 
 ```text
-Question -> one OpenAI call -> raw report
+Question -> one structured OpenAI call -> canonical report renderer
 ```
 
 The model receives only: `Do deep research and create a report on the following
 question:` followed by the question. There is no custom system prompt, tool access,
 retrieval, research loop, evidence state, decomposition, verification, self-correction,
-or report rewriting. The returned text is saved unchanged. Missing fresh evidence and
+or report rewriting. The response uses the same `FinalReport` schema and Markdown
+renderer as V0+, while unverified source IDs are removed because no retrieval occurs. Missing fresh evidence and
 unverified model-generated citations are intentional limitations.
 
 ### V0 — Search Baseline
@@ -370,7 +371,7 @@ Choose the research architecture by placing its name after the script:
 
 | Command | Research components |
 | --- | --- |
-| `python scripts/run_fixture_suite.py llm-only` | One raw OpenAI generation; no retrieval or research components |
+| `python scripts/run_fixture_suite.py llm-only` | One structured OpenAI generation using the canonical report format; no retrieval or research components |
 | `python scripts/run_fixture_suite.py baseline` | Baseline analyzer; no ledger, decomposition, or verification |
 | `python scripts/run_fixture_suite.py ledger` | Evidence ledger only |
 | `python scripts/run_fixture_suite.py decomposed` | Evidence ledger and question decomposer |

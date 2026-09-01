@@ -11,6 +11,8 @@ from typing import Any
 from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
+from research.models import FinalReport
+from research.report import render_markdown
 from research.versions import LLM_ONLY_SYSTEM_VERSION
 
 
@@ -23,7 +25,7 @@ class LLMOnlyRunResult:
     question: str
     system_version: str
     model: str
-    report: str
+    report: FinalReport
     duration_seconds: float
     input_tokens: int | None
     output_tokens: int | None
@@ -58,15 +60,24 @@ class LLMOnlyResearchRunner:
 
         prompt = PROMPT_PREFIX + question
         started = perf_counter()
-        response = self.client.responses.create(
+        response = self.client.responses.parse(
             model=self.model,
             reasoning={"effort": "low"},
             input=[{"role": "user", "content": prompt}],
+            text_format=FinalReport,
         )
         duration = perf_counter() - started
-        report = response.output_text
-        if not isinstance(report, str) or not report.strip():
-            raise ValueError("OpenAI returned an empty LLM-only report")
+        report = response.output_parsed
+        if report is None:
+            raise ValueError("OpenAI returned no parsed LLM-only FinalReport")
+
+        # LLM-only has no retrieved source store. Preserve its substantive output,
+        # but never turn model-invented source IDs into apparent provenance.
+        for finding in report.findings:
+            for evidence in finding.evidence:
+                evidence.source_ids = []
+        for conflict in report.conflicts_and_uncertainties:
+            conflict.source_ids = []
 
         usage = getattr(response, "usage", None)
         return LLMOnlyRunResult(
@@ -83,15 +94,14 @@ class LLMOnlyResearchRunner:
 def save_llm_only_artifacts(
     result: LLMOnlyRunResult, output_directory: Path
 ) -> tuple[Path, Path, Path]:
-    """Persist raw report text plus honest minimal trace and readable log."""
+    """Persist a canonically rendered report plus honest minimal trace and log."""
 
     output_directory.mkdir(parents=True, exist_ok=True)
     report_path = output_directory / "report.md"
     trace_path = output_directory / "trace.json"
     log_path = output_directory / "research_log.md"
 
-    with report_path.open("w", encoding="utf-8", newline="") as output:
-        output.write(result.report)
+    report_path.write_text(render_markdown(result.report, []), encoding="utf-8")
 
     trace = {
         "system_version": result.system_version,
@@ -109,6 +119,7 @@ def save_llm_only_artifacts(
         "research_gaps": [],
         "claim_verifications": [],
         "stop_reason": STOP_REASON,
+        "final_report": result.report.model_dump(mode="json"),
     }
     trace_path.write_text(
         json.dumps(trace, indent=2, ensure_ascii=False) + "\n",
@@ -134,7 +145,7 @@ def _render_log(result: LLMOnlyRunResult) -> str:
 
 ## Architecture
 
-Question → one OpenAI call → raw report
+Question -> one structured OpenAI call -> canonical report renderer
 
 ## Execution
 
@@ -144,7 +155,8 @@ Question → one OpenAI call → raw report
 4. No decomposition occurred.
 5. No Evidence Ledger or Research State was created.
 6. No verification or counter-search occurred.
-7. The model response was saved unchanged as `report.md`.
+7. The parsed `FinalReport` was rendered with the same Markdown format as V0+.
+8. Unverified model-produced source IDs were removed because no retrieval occurred.
 
 ## Performance
 
@@ -157,4 +169,3 @@ Question → one OpenAI call → raw report
 - Duration: {result.duration_seconds:.3f} seconds
 - Stop reason: {STOP_REASON}
 """
-
