@@ -1,0 +1,922 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "overall_score": 77.1125,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.7093749999999999,
+    "coverage": 0.71875,
+    "depth": 0.6875,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report distinguishes additive synthetic data from recursive replacement: “synthetic data can be useful ... when it supplements rather than replaces independently sourced real data.”",
+          "It separately discusses synthetic fine-tuning and notes a gap in distinguishing “synthetic pretraining from synthetic fine-tuning effects.”",
+          "It describes “synthetic, human, and mixed-data training regimes” as distinct comparison conditions."
+        ],
+        "missing": [
+          "It does not clearly define the full range of relevant settings, including LLM-generated versus programmatically generated data.",
+          "Pretraining, fine-tuning, pure-synthetic, and mixed synthetic-real regimes are mentioned but not systematically explained in terms of why their risks and benefits differ.",
+          "The report does not clearly distinguish synthetic data used for pretraining from synthetic data used for supervised fine-tuning beyond identifying this as an evidence gap."
+        ],
+        "rationale": "The report recognizes that training regime and the replacement-versus-mixing distinction matter, but it does not provide a complete, explicit taxonomy of synthetic-data settings or explain each distinction in sufficient depth."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 2 identifies benefits including scaling “scarce task-specific examples,” targeting “rare or underrepresented cases,” supporting “privacy-sensitive development,” and accelerating prototyping.",
+          "Finding 3 describes controllable variation across “formats, classes, audiences, and edge cases.”",
+          "The report mentions limited-label augmentation, minority-class generation, low-resource-language adaptation, and reduced manual collection or annotation."
+        ],
+        "missing": [
+          "The report provides limited concrete evidence that these data-quality improvements reliably improve downstream model quality; it mainly presents use cases and one vendor-stated performance example.",
+          "It does not substantially discuss label availability or label quality as a distinct benefit, beyond limited-label augmentation."
+        ],
+        "rationale": "The report covers the main mechanisms by which synthetic data can improve scale, coverage, diversity, and rare-case availability, and appropriately distinguishes operational benefits from demonstrated performance. Evidence for broad real-world quality gains remains limited."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 3 states that synthetic data may “narrow distributions or contain artifacts” and that apparent diversity does not establish factuality or meaningful coverage.",
+          "Finding 4 covers “compounding approximation errors,” distribution-tail loss, diversity reduction, and degradation under recursive full replacement.",
+          "Finding 5 reports reduced adversarial robustness despite preserved output quality in one synthetic fine-tuning study.",
+          "The conclusion identifies “distribution narrowing and error propagation under recursive replacement” as major risks."
+        ],
+        "missing": [
+          "Factual or semantic errors and incorrect labels are mentioned only indirectly; the report does not clearly trace them to accuracy, generalization, or robustness failures.",
+          "Contamination is discussed mainly as an evaluation and benchmark problem rather than as a synthetic-data quality failure mode.",
+          "Repetition and low diversity are addressed through collapse and narrowing, but their distinct effects and conditions are not developed in detail."
+        ],
+        "rationale": "The report gives a strong account of collapse, artifacts, distribution mismatch or narrowing, and robustness consequences, with useful conditionality around recursive replacement. Several requested failure modes are only implicit or underdeveloped."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 2 says synthetic data can target “minority-class and edge-case generation.”",
+          "Finding 6 and Finding 7 acknowledge representational gaps and state that the evidence is insufficient to determine whether synthetic, human, or mixed data produces better subgroup outcomes.",
+          "The report recommends subgroup analysis and comparisons across synthetic, human, and mixed-data regimes."
+        ],
+        "missing": [
+          "It does not explain concrete bias-reduction mechanisms such as rebalancing, counterfactual generation, fairness-aware generation, filtering, or subgroup weighting.",
+          "It does not distinguish clearly between a more balanced synthetic dataset and an actual improvement in model behavior, although it implies this distinction through its call for subgroup evaluation.",
+          "It does not specify the fairness comparisons or outcome measures needed beyond general subgroup analysis and comparative baselines."
+        ],
+        "rationale": "The report recognizes targeted minority coverage and appropriately withholds a universal claim of bias reduction, but it offers little substantive treatment of how synthetic data could actively reduce bias or how such interventions should be validated."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 6 identifies reproduction of “representational, linguistic, cultural, demographic, and occupational biases” from source models and training distributions.",
+          "It reports Western and English-language over-representation, majority or WEIRD persona preferences, low-resource disadvantages, and demographic and occupational representation gaps.",
+          "Finding 4 explains that iterative replacement can compound biases and remove rare or low-probability portions of the distribution.",
+          "Finding 7 explicitly distinguishes documented bias observations from the absence of sufficient comparative evidence about synthetic versus human or mixed data."
+        ],
+        "missing": [
+          "Stereotypical associations and spurious correlations are not explicitly discussed.",
+          "The report does not substantially explain how large-scale generation can amplify particular demographic biases apart from the general model-collapse mechanism.",
+          "The distinction between bias measured in the generated dataset and bias observed in the trained model is present only indirectly and could be made more explicit."
+        ],
+        "rationale": "The report covers generator and source-distribution bias, imbalance, underrepresentation, and possible iterative amplification, while appropriately noting the lack of comparative subgroup evidence. Some specific mechanisms and the dataset-versus-model distinction need fuller treatment."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 9 recommends held-out independent tests, contamination and leakage checks, distribution and linguistic-diversity measures, subgroup and low-resource-language analysis, adversarial robustness, safety, and self-preference testing.",
+          "Finding 3 calls for validation against the target distribution and warns that diversity does not establish factuality or transfer.",
+          "Finding 8 recommends filtering, accuracy checks, deduplication, held-out evaluation, and regression testing.",
+          "The report warns that aggregate benchmarks, synthetic test cases, saturation, contamination, and leakage can produce misleading results."
+        ],
+        "missing": [
+          "The report does not explicitly lay out semantic or label correctness as a separate evaluation dimension, though it refers to accuracy checks and factuality.",
+          "It does not specifically discuss limitations of statistical metrics, human evaluation, model-based metrics, or perplexity-style metrics.",
+          "Training utility is implied by performance comparisons but is not clearly framed as a complementary measure alongside data fidelity and generalization."
+        ],
+        "rationale": "The proposed evaluation is broad and appropriately emphasizes held-out real-world validation, diversity, contamination, robustness, and downstream utility. However, the rubric’s requested critique of specific metric families is largely absent."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Finding 9 calls for “comparisons across synthetic, human, and mixed-data training regimes.”",
+          "The report recommends “subgroup and low-resource-language analysis” and concludes that deployment decisions should require “subgroup and out-of-distribution testing.”",
+          "It states that balance or synthetic evaluation is insufficient by noting that synthetic data may appear diverse without establishing transfer or real-world coverage, and that comparative subgroup evidence is currently inadequate."
+        ],
+        "missing": [
+          "The report does not specify concrete subgroup fairness outcomes such as subgroup error rates, performance gaps, calibration, or disparity measures.",
+          "It does not explicitly state that held-out evaluation should preferably use real data, although it repeatedly recommends independently validated held-out or real-world tests.",
+          "Representation effects are mentioned, but the recommended evaluation protocol does not clearly separate representation metrics from behavioral fairness metrics."
+        ],
+        "rationale": "The report has the correct comparative and subgroup-sensitive evaluation orientation and rejects synthetic-only evidence, but it could be more operational about metrics, held-out real data, and the distinction between representation and model behavior."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion gives a conditional judgment: synthetic data is useful when it supplements real data and undergoes “filtering, deduplication, validation, and rigorous model-level evaluation.”",
+          "The report contrasts benefits from carefully curated additive data with degradation under recursive replacement and explicitly rejects treating synthetic data as uniformly beneficial or harmful.",
+          "It identifies practical safeguards including synthetic-to-real comparisons, subgroup and out-of-distribution testing, contamination checks, robustness and safety evaluation, and data-lineage documentation.",
+          "The report acknowledges uncertainty, limited generalizability, conflicting findings, and gaps in deployment-oriented evidence."
+        ],
+        "missing": [
+          "The conclusion does not systematically relate outcomes to generator capability, target-model capability, synthetic-to-real ratio, task or domain, prompting, and training regime, although some of these appear in scattered findings or gaps.",
+          "Decision criteria for selecting an appropriate synthetic-to-real ratio or determining when evidence is sufficient for deployment are not specified.",
+          "The report does not substantially discuss how curation and filtering quality should be measured when making deployment decisions."
+        ],
+        "rationale": "This is a strong conditional conclusion with meaningful uncertainty and practical safeguards. It falls short of full depth because several key conditioning factors and explicit deployment decision thresholds are not integrated into the conclusion."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report provides a useful synthesis distinguishing additive synthetic-data use from recursive replacement and linking that distinction to model-collapse risk.",
+        "It identifies a meaningful evidence gap: documented bias in generated data does not establish whether synthetic, human, or mixed training improves subgroup outcomes.",
+        "It connects data-level validation to model-level and deployment-oriented evaluation, including held-out real-world testing, contamination checks, robustness, safety, and subgroup analysis.",
+        "It avoids a universal verdict and frames synthetic data as conditionally useful under curation, mixing with real data, and rigorous evaluation."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.8183333333333334,
+    "validity": 1.0,
+    "support": 0.7,
+    "completeness": 0.9444444444444444,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S15",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S13",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F9",
+        "source_id": "S14",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F10",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Synthetic data can improve training efficiency and task-specific performance when carefully curated and used with substantial real data, but the supplied performance evidence is limited in generalizability.",
+        "citation_ids": [
+          "S1",
+          "S4"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support that curated synthetic data can improve task-specific performance and accelerate development, and S1 describes combining synthetic data with retained real data. However, they do not clearly establish improved training efficiency in a broad or measured sense, nor do they directly characterize the cited performance evidence as having limited generalizability. The evidence is narrow—specific models, benchmarks, and use cases—and S1 labels key results as vendor-stated, which supports a cautious narrower conclusion.",
+        "supporting_text": "S1 reports that a 1.3B-parameter Phi-1 trained on curated web data plus 1B synthetic tokens achieved 50.6% HumanEval pass@1, while emphasizing that synthetic data should accumulate alongside real data. S4 states that synthetic examples can improve robustness and model performance and enable rapid iteration, but that utility depends on validation and alignment with the target application."
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Synthetic data can scale scarce task-specific examples, target rare or underrepresented cases, support privacy-sensitive development, and accelerate prototyping; these are operational benefits rather than guaranteed real-world performance improvements.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S7",
+          "S10"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly support the operational benefits in the claim: scaling data where it is scarce, generating examples for rare or underrepresented cases, enabling privacy-sensitive development, and speeding prototyping. The qualification that these benefits are not guaranteed performance improvements is also supported by the sources’ repeated emphasis on validation, quality, distribution alignment, and risks such as bias and model collapse. S7 is only a summary of a removed post, but the other cited sources provide sufficient support.",
+        "supporting_text": "S4 states that synthetic data can expand limited training sets, create examples for underrepresented classes, support privacy-preserving sharing, and enable rapid prototyping. S10 describes creating diverse domain-specific datasets at scale to address scarcity, sensitivity, and cost/time constraints, while S1 emphasizes that utility depends on curation and generation regime and warns that indiscriminate use can degrade models."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Synthetic generation can target variation across formats, classes, audiences, and edge cases, but apparent diversity does not establish meaningful coverage, factuality, or transfer to deployment conditions.",
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S9",
+          "S10",
+          "S12"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support the first part: synthetic data can be deliberately varied across formats, underrepresented classes, audiences, and rare or edge-case scenarios. They also support a narrower caution that diversity alone is insufficient: quality, validation, deduplication, alignment with the target distribution, and real-data seeding are emphasized, and S12 reports that diversity affects distribution collapse but does not establish all downstream properties. However, the supplied text does not directly establish the full negative formulation that apparent diversity fails to demonstrate factuality or transfer to deployment conditions. S4 and S10 recommend validation and alignment, but do not provide evidence specifically proving failures of factuality or deployment transfer.",
+        "supporting_text": "S4 describes generation across conversational dialogues, QA, classification, summarization, code, and structured extraction; targeted generation for underrepresented classes and edge cases; and says utility depends on validation and alignment with the target application. S9 says prompts can cover common cases, edge cases, and tricky scenarios, while raw LLM output requires filtering, validation, and deduplication. S1 says Cosmopedia varied audience and format, and warns that volume without curation amplifies failure modes. S10 says synthetic data can capture intent variations and rare edge cases, but recommends seeding with real data and evaluating quality. S12 finds that source diversity can mitigate distribution collapse while studying separate downstream effects."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "When real data is replaced by recursively generated synthetic data, successive generations can undergo model collapse: errors and biases may compound, while rare, low-probability, and diverse portions of the original distribution become underrepresented or lost. This risk is conditional on the training regime and is not inherent to all synthetic-data use.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S5",
+          "S6",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly support the claim. S1 and S6 describe recursive training with replacement of real data, compounding errors and biases, narrowing output diversity, and depletion of rare or low-probability modes. S1, S6, and S12 also indicate that outcomes depend on the data-aggregation or source-diversity regime, with real-data mixing, accumulation, or diverse synthetic sources mitigating collapse. S2 and S5 provide corroborating summaries that recursive synthetic training can narrow distributions or cause degradation, while synthetic data is not categorically unusable.",
+        "supporting_text": "S1: “successive generations ... progressively lose the tails of the original data distribution”; “All three errors compound across training generations”; and risk “depends on the generation regime.” S6: synthetic replacement “amplif[ies] errors and biases,” while rare modes are “systematically omitted”; collapse severity depends on “replacement vs. accumulation.” S12: “higher source diversity” mitigates distribution collapse."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Synthetic fine-tuning has mixed quality and safety effects: greater source diversity can preserve output diversity and mitigate collapse, while one controlled study reports reduced adversarial robustness despite preserved output quality.",
+        "citation_ids": [
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S12 directly reports that higher synthetic-source diversity mitigates distribution collapse and preserves output-distribution breadth and text diversity. It also states that synthetic fine-tuning decreases adversarial robustness while preserving output quality. The source describes this as the paper’s study findings, supporting the claim’s characterization of mixed quality and safety effects.",
+        "supporting_text": "The abstract says diverse synthetic sources can “mitigate distribution collapse,” preserving output-distribution breadth and text diversity. Its listed main findings say synthetic fine-tuning decreases adversarial robustness while preserving output quality."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Synthetic data generation can reproduce representational, linguistic, cultural, demographic, and occupational biases from source models and training distributions, particularly for Western, English-language, majority-group, and low-resource contexts.",
+        "citation_ids": [
+          "S11",
+          "S13",
+          "S15"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources substantially support that LLM-generated outputs can reproduce or express representational, linguistic, cultural, demographic, and occupational biases associated with model behavior and skewed training data. S11 specifically describes Western/English-language overrepresentation, majority/WEIRD preference, low-resource and non-Western degradation, demographic underrepresentation, and occupational imbalances. S13 supports social, cultural, persona-related, multilingual, and low-resource-language biases in LLMs. However, the claim specifically attributes these effects to “synthetic data generation,” while the sources primarily document biases in LLMs and generative-AI applications rather than directly demonstrating that synthetic data generation reproduces every listed bias from source models and training distributions.",
+        "supporting_text": "S11 states that LLMs inherit statistical artifacts from training corpora, perform worse for non-Western populations, prefer majority/WEIRD categories, underrepresent non-English and marginalized groups, and show occupational imbalances such as near-absence of Black workers. S13 reports social and cultural biases, varying interpretations across personas and nationalities, and stereotypes in low-resource languages. S15 explains that nonrepresentative training data causes models to learn patterns that do not reflect the broader population and warns that training generative models on generated data can create a quality-degrading feedback loop."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "A reliable comparative conclusion about demographic, linguistic, or cultural bias in models trained on synthetic versus human-generated or mixed data cannot currently be drawn from the supplied evidence.",
+        "citation_ids": [
+          "S11",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources document demographic, linguistic, and cultural biases in LLMs generally, and S12 compares human and synthetic fine-tuning on distributional, robustness, and self-preference outcomes. However, the supplied text does not provide a direct, systematic comparison of demographic, linguistic, or cultural bias across models trained on synthetic versus human-generated or mixed data. Therefore, it supports the cautious conclusion that a reliable comparative claim cannot currently be drawn from this evidence.",
+        "supporting_text": "S12 reports that the study examines distribution collapse, adversarial robustness, and self-preference bias—not demographic, linguistic, or cultural bias—and states that human data is most effective for reducing self-preference bias, followed by multi-source synthetic data. S11, S13, and S14 discuss existing demographic, language, and cultural biases in LLMs but do not compare those biases by training-data origin."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "For synthetic fine-tuning, generation alone is insufficient: practical pipelines require filtering, validation, deduplication, and subsequent held-out or regression evaluation.",
+        "citation_ids": [
+          "S7",
+          "S9"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S9 directly supports that raw LLM output is not training-ready and requires filtering, validation, and deduplication. Its pipeline diagram also includes held-out evaluation and a regression suite. However, S7 is only a summary of a removed post and does not provide usable detailed evidence for all elements of the claim. Additionally, S9's explicit four-stage pipeline lists seed creation, generation, filtering, and deduplication, while validation and evaluation appear elsewhere rather than as clearly specified required stages.",
+        "supporting_text": "S9 states: “raw LLM output is not training-ready. It requires filtering, validation, and deduplication.” Its pipeline diagram shows “Held out eval plus regression suite.”"
+      },
+      {
+        "finding_id": "F9",
+        "claim": "Evaluation should not rely on aggregate benchmark scores or synthetic test cases alone. It should include independently validated held-out tests, contamination and leakage checks, subgroup and low-resource-language analysis, distribution and linguistic-diversity measures, adversarial-robustness testing, safety and self-preference measures, and comparisons across synthetic, human, and mixed-data training regimes.",
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S9",
+          "S10",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support several important components of the claim: evaluation should go beyond a few aggregate benchmark scores; benchmarks can suffer from contamination and leakage; held-out evaluation is shown in the S9 pipeline; evaluation should address fairness, safety, and realistic settings; low-resource languages and subgroup bias warrant analysis; and S12 directly examines distribution collapse, linguistic diversity, adversarial robustness, safety-guardrail weakening, self-preference bias, and human versus synthetic training data. However, the sources do not establish the full prescriptive framework, especially the requirement for independently validated held-out tests, explicit mixed-data training comparisons, or the claim that synthetic test cases alone are insufficient. S4 and S10 mainly describe synthetic data generation and evaluation use cases rather than independently validating all listed evaluation dimensions.",
+        "supporting_text": "S5: “Determining whether an LLM is truly stronger is not as simple as looking at a few benchmark scores,” and traditional benchmarks face “data contamination, leakage,” fairness, reproducibility, and safety concerns. S9 includes “Held out eval plus regression suite.” S12 studies “distribution collapse, adversarial robustness, and self-preference bias,” including linguistic-diversity measures, safety-guardrail weakening, and comparisons involving human and synthetic fine-tuning data. S10 identifies low-resource/underrepresented languages and side-by-side model comparison as relevant evaluation concerns."
+      },
+      {
+        "finding_id": "F10",
+        "claim": "Synthetic records should not be treated as reliably privacy-preserving without formal memorization and re-identification testing, lineage, governance, and fidelity metadata.",
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S7",
+          "S10"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support caution about assuming synthetic data is automatically privacy-preserving and support governance, lineage, fidelity metadata, and validation. However, they do not specifically provide evidence for formal memorization testing or re-identification testing, nor do they establish all listed safeguards as necessary conditions. S4 and S10 make broad privacy-safety claims, while S2 explicitly says lineage and fidelity metadata are non-negotiable and S10 describes validation/evaluation tools.",
+        "supporting_text": "S2: “Ungoverned synthetic data creates audit gaps when models fail; lineage and fidelity metadata are non-negotiable.” S10: synthetic data is described as “privacy-safe,” but the source also recommends preview validation and comprehensive quality evaluation. S1 notes that privacy substitution has GDPR pseudonymization risk and distinct failure modes."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Synthetic data can improve training efficiency and task-specific performance when carefully curated and used with substantial real data, although the supplied performance evidence has limited generalizability.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4"
+        ],
+        "rationale": "This is an externally verifiable empirical claim, and citations are supplied directly in the Finding 1 evidence."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Synthetic data can scale scarce task-specific examples, target rare or underrepresented cases, support privacy-sensitive development, and accelerate prototyping, without guaranteeing real-world performance improvements.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S7",
+          "S10"
+        ],
+        "rationale": "The claim concerns documented use cases and performance limitations; nearby evidence cites the relevant sources."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Synthetic generation can target variation across formats, classes, audiences, and edge cases, but apparent diversity does not establish meaningful coverage, factuality, or transfer to deployment conditions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S9",
+          "S10",
+          "S12"
+        ],
+        "rationale": "These are externally verifiable claims about generation capabilities and limitations, with citations supplied in Finding 3."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "When real data is replaced by recursively generated synthetic data, successive generations can undergo model collapse, with compounding errors and biases and loss or underrepresentation of rare, low-probability, and diverse portions of the original distribution; this risk is conditional on the training regime.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S5",
+          "S6",
+          "S12"
+        ],
+        "rationale": "The claim describes an empirical or theoretical failure mode and its conditions; the Finding 4 evidence provides nearby citations."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Synthetic fine-tuning can have mixed quality and safety effects: greater source diversity may preserve output diversity and mitigate collapse, while one controlled study reports reduced adversarial robustness despite preserved output quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12"
+        ],
+        "rationale": "This is a study-specific empirical claim, and the study is cited directly in the Finding 5 evidence."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Synthetic data generation can reproduce representational, linguistic, cultural, demographic, and occupational biases from source models and training distributions, including biases affecting Western, English-language, majority-group, and low-resource contexts.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S13",
+          "S15"
+        ],
+        "rationale": "The claim concerns observed bias patterns and mechanisms; citations are supplied in Finding 6."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "The supplied evidence does not support a reliable comparative conclusion about demographic, linguistic, or cultural bias in models trained on synthetic versus human-generated or mixed data.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is a claim about the state and limits of the evidence, supported by the cited sources in Finding 7."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "For synthetic fine-tuning, generation alone is insufficient; practical pipelines require filtering, validation, deduplication, and held-out or regression evaluation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S9"
+        ],
+        "rationale": "The claim makes externally verifiable assertions about recommended pipeline controls, with nearby citations in Finding 8."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Evaluation of synthetic-data-trained models should include independently validated held-out tests, contamination and leakage checks, subgroup and low-resource-language analysis, distribution and diversity measures, adversarial-robustness testing, safety and self-preference measures, and comparisons among synthetic, human, and mixed-data regimes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S9",
+          "S10",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is a substantive evaluation recommendation grounded in specific reported limitations and methods; citations are supplied in Finding 9."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Synthetic records should not be treated as reliably privacy-preserving without formal memorization and re-identification testing, lineage, governance, and fidelity metadata.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S7",
+          "S10"
+        ],
+        "rationale": "The claim concerns privacy risks and governance controls, with citations supplied directly in Finding 10."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Carefully curated, additive synthetic data can provide benefits, whereas recursively replacing real data with synthetic data can cause substantial degradation; these are different training regimes and do not support treating synthetic data as uniformly beneficial or harmful.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S6",
+          "S12"
+        ],
+        "rationale": "This comparative synthesis makes claims about outcomes under distinct regimes and is supported by citations in the Conflicts and Uncertainty section."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "In the supplied fine-tuning study, synthetic fine-tuning reportedly preserved output quality while reducing adversarial robustness; human fine-tuning reportedly reduced both output quality and adversarial robustness, and human data was more effective than multi-source synthetic data at reducing self-preference bias.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S12"
+        ],
+        "rationale": "These are specific comparative study results, and the nearby conflict statement cites S12."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "The supplied evidence does not establish whether synthetic, human-generated, or mixed data yields lower subgroup bias.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is an evidence-limit claim repeated in the conflicts section with nearby citations."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "The evidence is insufficient to distinguish synthetic pretraining from synthetic fine-tuning effects on factuality, transfer, distribution shift, robustness, and collapse risk.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about the evidence base, but the Remaining Gaps bullet has no nearby citation."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Independent deployment-oriented studies are needed to determine whether synthetic benchmarks and edge-case results predict real-world factuality, safety, calibration, robustness, and failure rates.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is primarily a forward-looking research recommendation rather than a standalone factual assertion; a citation could strengthen it but is not essential."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Formal memorization and re-identification evaluations are needed before treating synthetic data as a privacy-preserving substitute.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S7",
+          "S10"
+        ],
+        "rationale": "Although listed under Remaining Gaps without an inline citation, the same substantive claim is directly supported and cited in Finding 10."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Synthetic data can be useful for scaling, targeted coverage, and fine-tuning efficiency when it supplements rather than replaces independently sourced real data and is subjected to filtering, deduplication, validation, and rigorous model-level evaluation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4",
+          "S6",
+          "S7",
+          "S9",
+          "S12"
+        ],
+        "rationale": "This conclusion combines externally verifiable benefits, regime conditions, and controls, all supported by citations in the findings and conflicts sections."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Major risks of synthetic data include distribution narrowing and error propagation under recursive replacement, inherited or concealed bias, misleading benchmark results, degraded adversarial robustness, and unverified privacy assumptions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S4",
+          "S5",
+          "S6",
+          "S10",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is a consolidated risk claim, and its component risks are cited throughout the report."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Controlled synthetic evaluations have not been shown by the supplied evidence to reliably predict real-world outcomes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S9",
+          "S10",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is an externally verifiable claim about evaluation validity and is supported by the citations attached to Finding 9."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Deployment decisions should require explicit synthetic-to-real comparisons, subgroup and out-of-distribution testing, contamination checks, robustness and safety evaluation, and documentation of data lineage and generation procedures.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S5",
+          "S9",
+          "S10",
+          "S12",
+          "S13",
+          "S14"
+        ],
+        "rationale": "This is primarily a normative recommendation, so citation is optional; the report nevertheless supplies nearby supporting citations for its component evaluation practices."
+      }
+    ],
+    "evaluable_support_claims": 10,
+    "total_support_claims": 10,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R4: Assess whether and under what conditions synthetic data can reduce harmful bias.",
+    "R1: Define the synthetic-data settings relevant to the analysis and explain why their differences matter.",
+    "6 cited finding(s) were not fully supported by saved evidence.",
+    "1 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "synthetic-data-llm-training",
+    "fixture_version": "1.0",
+    "rubric_hash": "36414e911184eea8ef62c41ba8423e71054770da6d3e515f90d477a9870e806e",
+    "candidate_report_hash": "316aa099176af4687560a34719f5bca25b0f215b9bad2b6744728773ad146369",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T23:24:33.796690+00:00",
+    "usage": {
+      "llm_calls": 12,
+      "input_tokens": 82292,
+      "output_tokens": 7504,
+      "estimated_cost": null
+    }
+  }
+}

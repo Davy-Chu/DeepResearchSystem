@@ -1,0 +1,1434 @@
+{
+  "question": "To what extent do social-media recommendation algorithms contribute to political polarization? Separate evidence that algorithms change what users see from evidence that they actually change political beliefs or behavior, and explain why the literature reaches different conclusions.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "To what extent do social-media recommendation algorithms contribute to political polarization? Separate evidence that algorithms change what users see from evidence that they actually change political beliefs or behavior, and explain why the literature reaches different conclusions.",
+    "summary": "The supplied evidence supports a clear causal effect of feed-ranking interventions on political-content exposure, but provides more limited and mixed evidence that those changes produce downstream political polarization. Randomized and quasi-experimental studies show that changing ranking or selection can alter the prominence, quantity, ideological mix, and source characteristics of political content users encounter. Downstream effects vary: some short interventions produced small changes in affective or attitudinal polarization, whereas a three-month Facebook/Instagram experiment found no significant changes in issue polarization, affective polarization, political knowledge, or other key attitudes. No supplied study establishes durable belief change, voting effects, offline participation, or other political behavior effects. Differences in platform, intervention, topic, population, outcome, duration, and research design likely explain much of the divergent literature, but the supplied sources do not permit a systematic comparison of all such factors.",
+    "findings": [
+      {
+        "claim": "Recommendation or feed-ranking systems can causally change what users see, even when users’ followed accounts and the available content remain unchanged.",
+        "evidence": [
+          {
+            "summary": "The X reranking experiment changed the ordering and prominence of posts while preserving users’ followed accounts, the available posts, and the underlying content.",
+            "source_ids": [
+              "S4",
+              "S5",
+              "S7"
+            ]
+          },
+          {
+            "summary": "A randomized Facebook/Instagram experiment replacing machine-learning ranking with reverse-chronological feeds substantially changed political-content exposure, including the amount of political and untrustworthy content and, on Facebook, exposure to moderate friends and ideologically mixed sources.",
+            "source_ids": [
+              "S6"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "These claims are directly supported by randomized or researcher-controlled feed interventions, although some interventions replaced or simulated platform ranking rather than testing every platform’s naturally occurring production algorithm."
+      },
+      {
+        "claim": "The supplied evidence documents ideological separation in political-news exposure and interaction, but observational evidence cannot isolate the contribution of algorithmic ranking from users’ own choices.",
+        "evidence": [
+          {
+            "summary": "An analysis of approximately 208 million U.S. Facebook adults found limited overlap between liberal and conservative political-news consumption and increasing ideological segregation from algorithmic selection to user exposure and then interaction.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The same analysis found asymmetric political-news engagement, with conservatives interacting with political news more often than liberals, but the evidence does not identify algorithmic ranking as the cause of these later-stage differences.",
+            "source_ids": [
+              "S8"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The observational analysis is large and directly documents exposure and engagement patterns, but follows multiple stages at which user follows, clicks, and interactions can shape what is seen or consumed."
+      },
+      {
+        "claim": "Changing algorithmic exposure can sometimes produce short-term changes in affective or attitudinal polarization, but the effects are not uniform or consistently attributable to algorithmic selection itself.",
+        "evidence": [
+          {
+            "summary": "In two German quasi-experiments, exposure to like-minded arguments increased attitude and affective polarization more than exposure to opposing arguments; algorithmic selection generally did not amplify those effects, though it produced a small additional attitude-polarization effect for one topic.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "In a one-week randomized X reranking experiment involving 1,256 U.S. users during the 2024 presidential campaign, increasing exposure to antidemocratic attitudes and partisan animosity made opposing-party evaluations approximately 2.48 points cooler, while reducing such exposure made them approximately 2.11 points warmer on a 100-point scale.",
+            "source_ids": [
+              "S4",
+              "S5",
+              "S7"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The German study is directly described in the supplied article abstract, and multiple supplied accounts report the X result. The effects are nevertheless limited to particular topics, samples, platforms, and short timeframes; the X evidence is supplied partly through institutional or commentary sources rather than the primary report."
+      },
+      {
+        "claim": "Substantial algorithmically induced changes in exposure do not necessarily produce measurable average changes in political attitudes.",
+        "evidence": [
+          {
+            "summary": "The randomized Facebook/Instagram experiment found substantial changes in political-content exposure after replacing default machine-learning ranking with chronological ordering, but no significant changes in issue polarization, affective polarization, political knowledge, or other key attitudes over three months.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "The supplied review characterizes the relationship between algorithmic mechanisms and polarization as non-straightforward and suggests that algorithms often reinforce pre-existing social drivers rather than acting independently of users and broader social dynamics.",
+            "source_ids": [
+              "S3"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The null downstream result is directly tied to a randomized three-month experiment, while the review provides a broader interpretive framework. The result does not establish that longer-term or subgroup effects never occur."
+      },
+      {
+        "claim": "The overall causal chain is better established for exposure than for durable political beliefs or behavior: the supplied studies show ranking and exposure effects, limited short-term attitude effects in some settings, and no established effects on durable beliefs or offline political behavior.",
+        "evidence": [
+          {
+            "summary": "The evidence distinguishes feed-ranking and exposure changes from downstream outcomes; some short-term interventions changed affective or attitudinal polarization, while the Facebook/Instagram experiment found no significant changes in key political attitudes over three months.",
+            "source_ids": [
+              "S1",
+              "S5",
+              "S6",
+              "S7"
+            ]
+          },
+          {
+            "summary": "The supplied studies do not provide direct evidence about voting, political participation, contacting politicians, sharing as a political behavior, or other offline activity, and they do not establish durable belief change.",
+            "source_ids": [
+              "S1",
+              "S3",
+              "S5",
+              "S6",
+              "S7"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "This is the latest qualified wording for C5. It preserves mixed downstream findings and does not convert the absence of demonstrated effects into proof that durable or behavioral effects cannot occur."
+      },
+      {
+        "claim": "The literature reaches different conclusions because the studies manipulate or observe different stages of the causal process and use different platforms, interventions, populations, outcomes, and time horizons.",
+        "evidence": [
+          {
+            "summary": "The supplied evidence compares a three-month Facebook/Instagram ranking intervention with a one-week X reranking intervention and two German panel quasi-experiments; these studies differ in platform, country, campaign context, topics, intervention design, and duration.",
+            "source_ids": [
+              "S1",
+              "S5",
+              "S6",
+              "S7"
+            ]
+          },
+          {
+            "summary": "The large Facebook observational analysis measures selection, exposure, and interaction, but cannot separate algorithmic ranking from user behavior, whereas the randomized and quasi-experimental studies provide stronger causal leverage but study narrower interventions and samples.",
+            "source_ids": [
+              "S1",
+              "S6",
+              "S8"
+            ]
+          },
+          {
+            "summary": "The review describes feedback between algorithmic mechanisms and pre-existing social drivers, supporting the possibility that user preferences and social dynamics moderate or mediate algorithmic effects.",
+            "source_ids": [
+              "S3"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The supplied evidence supports these methodological and contextual contrasts, but the open gap remains because the sources do not provide a systematic comparison of polarization definitions, intervention intensity, sample selection, and platform algorithms across the full literature."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "The evidence is substantively mixed rather than uniformly positive or null: the X reranking experiment and the German experiments report some short-term affective or attitudinal effects, while the three-month Facebook/Instagram experiment reports no significant average changes in key political attitudes. These results should not be collapsed into a single estimate because they concern different interventions, platforms, populations, outcomes, and timeframes.",
+        "source_ids": [
+          "S1",
+          "S4",
+          "S5",
+          "S6",
+          "S7"
+        ]
+      },
+      {
+        "description": "Observational evidence shows ideological segregation in political-news exposure and interaction, but cannot establish that recommendation ranking caused the segregation independently of follows, clicks, searches, and other user choices.",
+        "source_ids": [
+          "S8"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "The supplied evidence does not adequately quantify changes in the quantity, ideological diversity, source mix, or slant of ordinary users’ political exposure across major platforms while separating algorithmic ranking from users’ own choices.",
+      "No supplied source directly examines algorithm-driven effects on voting, political participation, contacting politicians, or other offline political behavior; durable belief change remains unresolved.",
+      "Causal attitude evidence is limited to short interventions and specific contexts, especially a German panel study and a one-week U.S. X experiment; generalizability across platforms, countries, populations, issues, and longer time horizons is unresolved.",
+      "The supplied sources do not permit a systematic comparison of polarization definitions, outcome measures, intervention intensity, sample selection, and platform algorithms across observational, experimental, and quasi-experimental studies.",
+      "The research process stopped because of the maximum-iteration limit. The counter-search for durable beliefs and political behavior produced S8, but that source added observational exposure and engagement evidence rather than resolving the behavioral gap."
+    ],
+    "conclusion": "To the extent shown by the supplied ledger, recommendation algorithms contribute reliably to political polarization at the exposure stage: controlled changes to ranking can alter which political content is prominent, how much of it users encounter, and in some cases its ideological or source mix. Evidence that these exposure changes alter political beliefs or behavior is weaker and mixed. Some short-term interventions changed affective or attitudinal polarization, but another substantial three-month intervention found no significant average changes in key political attitudes. Durable belief change and political behavior effects are not established. The most defensible synthesis is therefore neither that algorithms are harmless nor that they are a general, sufficient cause of polarization: they can shape the informational environment and may amplify polarization under particular conditions, while downstream effects depend on platform, users, content, intervention, outcome, and time horizon."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "To what extent do social-media recommendation algorithms contribute to political polarization? Separate evidence that algorithms change what users see from evidence that they actually change political beliefs or behavior, and explain why the literature reaches different conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "In two German quasi-experiments using a three-wave panel design, exposure to like-minded political arguments increased attitude and affective polarization more than exposure to opposing arguments; algorithmic selection did not generally amplify these exposure effects, although it produced a small additional attitude-polarization effect for one topic.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The study experimentally compared algorithmically selected with randomly selected like-minded or opposing arguments and reported stronger polarization after like-minded exposure, no general amplification by algorithmic selection, and a small direct effect for one topic.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "S1 directly reports the experimental design and findings, but the result is limited to the studied topics, population, and online environments.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "A browser-extension experiment on more than 1,200 U.S. X users during the 2024 presidential campaign found that reranking users’ existing feeds to increase or decrease exposure to antidemocratic attitudes and partisan animosity changed affective polarization after one week: increased exposure made evaluations of the opposing party approximately 2.48 points cooler and reduced exposure made them approximately 2.11 points warmer on a 100-point scale.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "The article reports a randomized browser-extension intervention with 1,256 U.S. participants and opposing-party feeling changes of 2.48 degrees cooler under increased exposure and 2.11 degrees warmer under reduced exposure.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The university report describes the same reranking experiment, its one-week duration, sample exceeding 1,200, and approximately two-point shifts in feelings toward the opposing party.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "Two sources consistently describe the same experiment, but S4 is commentary and S5 is institutional news coverage rather than the primary study report; the evidence supplied does not establish longer-term effects or effects on behavior.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The X reranking experiment changed the ordering and prominence of posts while leaving the followed accounts, the set of available posts, and the underlying content unchanged; thus it provides causal evidence that algorithmic ranking can alter political exposure without changing users’ networks or removing content.",
+            "supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The report states that the extension reranked posts in real time, did not remove content, and preserved the people users followed and the same available posts.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "The commentary says the intervention changed ranking while keeping content and users constant and reports different exposure to antidemocratic and partisan-animosity content.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The intervention description directly supports a ranking-mediated exposure effect, but the supplied material provides limited detail about compliance, the exact exposure distributions, and generalizability beyond X.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The supplied review characterizes algorithmic effects on polarization as non-straightforward and suggests that algorithms often reinforce pre-existing social drivers rather than operating independently of users’ preferences and broader social dynamics.",
+            "supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The review describes a feedback loop between algorithmic mechanisms and social drivers, states that the role of algorithms in polarization is far from straightforward, and says existing evidence suggests algorithms mostly reinforce existing social drivers.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "S3 is a review-level synthesis, but the supplied excerpt does not provide enough underlying study detail to quantify the relative contributions of algorithms and user selection.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "The available evidence supports a distinction between algorithm-caused changes in exposure or ranking and downstream polarization: direct experimental evidence in the supplied sources demonstrates both ranking changes and some affective or attitudinal changes, but does not establish effects on political behavior or durable belief change.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The panel experiments separate exposure to like-minded or opposing arguments from algorithmic versus random selection and measure attitude and affective polarization, finding limited direct algorithmic amplification.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The X intervention manipulated feed ranking and measured short-term partisan feelings, not political behavior or long-term beliefs.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The review emphasizes that the algorithm-polarization relationship is complex and requires further empirical research.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Across the supplied sources, exposure/ranking and short-term attitude outcomes are measured separately from behavior; no supplied source reports a behavioral outcome or durable belief effect.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "The supplied evidence does not adequately quantify how recommendation algorithms change the quantity, ideological diversity, source mix, or slant of ordinary users’ political exposure across major platforms, while separating algorithmic ranking from users’ follows, searches, clicks, and engagement.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "No supplied source provides direct evidence about algorithm-driven changes in political behavior, such as voting, participation, sharing, contacting politicians, or offline political activity; durable belief change is also unresolved.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The causal attitude evidence is limited in the supplied material to short interventions and specific contexts: a German panel experiment and a one-week U.S. X reranking experiment during the 2024 campaign. Generalizability across platforms, countries, populations, political issues, and longer time horizons remains unresolved.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "description": "The supplied sources do not permit a systematic comparison of why observational, experimental, and quasi-experimental studies reach different conclusions, including differences in polarization definitions, outcome measures, intervention intensity, sample selection, and platform algorithms.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The study experimentally compared algorithmically selected with randomly selected like-minded or opposing arguments and reported stronger polarization after like-minded exposure, no general amplification by algorithmic selection, and a small direct effect for one topic.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "The article reports a randomized browser-extension intervention with 1,256 U.S. participants and opposing-party feeling changes of 2.48 degrees cooler under increased exposure and 2.11 degrees warmer under reduced exposure.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The university report describes the same reranking experiment, its one-week duration, sample exceeding 1,200, and approximately two-point shifts in feelings toward the opposing party.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The report states that the extension reranked posts in real time, did not remove content, and preserved the people users followed and the same available posts.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "The commentary says the intervention changed ranking while keeping content and users constant and reports different exposure to antidemocratic and partisan-animosity content.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The review describes a feedback loop between algorithmic mechanisms and social drivers, states that the role of algorithms in polarization is far from straightforward, and says existing evidence suggests algorithms mostly reinforce existing social drivers.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "The panel experiments separate exposure to like-minded or opposing arguments from algorithmic versus random selection and measure attitude and affective polarization, finding limited direct algorithmic amplification.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "The X intervention manipulated feed ranking and measured short-term partisan feelings, not political behavior or long-term beliefs.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "The review emphasizes that the algorithm-polarization relationship is complex and requires further empirical research.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "The supplied evidence does not adequately quantify how recommendation algorithms change the quantity, ideological diversity, source mix, or slant of ordinary users’ political exposure across major platforms, while separating algorithmic ranking from users’ follows, searches, clicks, and engagement."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "No supplied source provides direct evidence about algorithm-driven changes in political behavior, such as voting, participation, sharing, contacting politicians, or offline political activity; durable belief change is also unresolved."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "The causal attitude evidence is limited in the supplied material to short interventions and specific contexts: a German panel experiment and a one-week U.S. X reranking experiment during the 2024 campaign. Generalizability across platforms, countries, populations, political issues, and longer time horizons remains unresolved."
+          },
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "The supplied sources do not permit a systematic comparison of why observational, experimental, and quasi-experimental studies reach different conclusions, including differences in polarization definitions, outcome measures, intervention intensity, sample selection, and platform algorithms."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "A high-importance gap remains: the supplied evidence does not establish whether recommendation-driven exposure changes durable political beliefs or political behavior. Filling this gap would materially improve the required distinction between exposure effects and downstream consequences.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ2",
+        "next_search_query": "Causal empirical studies of social-media recommendation or feed-ranking algorithms changing political beliefs, affective polarization, voting, political participation, sharing, or offline behavior; prioritize randomized or quasi-experimental designs, long-term outcomes, and evidence from Facebook, YouTube, TikTok, and X.",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "Causal empirical studies of social-media recommendation or feed-ranking algorithms changing political beliefs, affective polarization, voting, political participation, sharing, or offline behavior; prioritize randomized or quasi-experimental designs, long-term outcomes, and evidence from Facebook, YouTube, TikTok, and X.",
+      "source_ids": [
+        "S6",
+        "S7"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "In a randomized 2020 U.S. election experiment on Facebook and Instagram, replacing default machine-learning feed ranking with reverse-chronological ordering substantially changed users’ on-platform experience and political-content exposure: it increased political and untrustworthy content on both platforms, decreased uncivil or slur-containing content on Facebook, and increased exposure to moderate friends and ideologically mixed sources on Facebook. Despite these exposure changes, it did not significantly change issue polarization, affective polarization, political knowledge, or other key attitudes during the three-month study.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The randomized experiment directly compared default algorithmic feeds with chronological feeds during the 2020 U.S. election and reported substantial changes in content exposure but null effects on polarization, political knowledge, and other key attitudes over three months.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "S6 presents a randomized comparison across Facebook and Instagram, directly measuring both feed exposure and multiple political outcomes over three months. The findings support a strong exposure effect but a null average effect on the measured attitudes and knowledge outcomes within these platforms and this population.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The institutional report describes the same X feed-reranking intervention, involving about 1,200 volunteers during the 2024 election and seven-day upranking or downranking of antidemocratic and partisan-animosity content; downranking produced warmer views of the opposing party and upranking produced colder views.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S7 independently summarizes results consistent with S4 and reports a similar approximately two-point affective-polarization shift, but it is institutional news coverage rather than the primary study report and gives a somewhat different intervention-duration description. The evidence remains strong for a short-term affective effect but does not establish durability or behavioral effects.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The report states that the external web tool reordered X posts without removing them, placing posts containing antidemocratic attitudes and partisan animosity lower or higher in users’ feeds.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S7 reinforces that feed ordering alone can change exposure while preserving the underlying posts, but the source is a secondary institutional account and does not resolve questions about intervention compliance or generalizability.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The randomized Facebook and Instagram study found that substantially changing algorithmic ranking and political-content exposure did not significantly change polarization or other key attitudes over three months, illustrating that exposure effects need not translate into average attitude effects.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The review-level account of a complex, reinforcing relationship is now complemented by a randomized multi-platform study showing substantial exposure changes but null average polarization effects. This supports a non-straightforward relationship, while not disproving effects in other contexts or among particular users.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The Facebook and Instagram experiment directly separated algorithmic ranking from users’ existing networks and measured both exposure and downstream political outcomes: ranking changed what users saw, but issue polarization, affective polarization, political knowledge, and other key attitudes did not significantly change during three months.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The X reranking report describes a contrasting short-term result in which changing the prominence of antidemocratic and partisan-animosity content changed opposing-party evaluations, reinforcing that downstream effects vary by intervention and context.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new Facebook/Instagram randomized evidence strengthens the exposure-versus-outcome distinction and introduces a credible null result alongside the previously recorded positive short-term X result. Together, the sources support exposure effects more consistently than durable or general downstream polarization effects.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The randomized experiment directly compared default algorithmic feeds with chronological feeds during the 2020 U.S. election and reported substantial changes in content exposure but null effects on polarization, political knowledge, and other key attitudes over three months.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The institutional report describes the same X feed-reranking intervention, involving about 1,200 volunteers during the 2024 election and seven-day upranking or downranking of antidemocratic and partisan-animosity content; downranking produced warmer views of the opposing party and upranking produced colder views.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The report states that the external web tool reordered X posts without removing them, placing posts containing antidemocratic attitudes and partisan animosity lower or higher in users’ feeds.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The randomized Facebook and Instagram study found that substantially changing algorithmic ranking and political-content exposure did not significantly change polarization or other key attitudes over three months, illustrating that exposure effects need not translate into average attitude effects.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "The Facebook and Instagram experiment directly separated algorithmic ranking from users’ existing networks and measured both exposure and downstream political outcomes: ranking changed what users saw, but issue polarization, affective polarization, political knowledge, and other key attitudes did not significantly change during three months.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "The X reranking report describes a contrasting short-term result in which changing the prominence of antidemocratic and partisan-animosity content changed opposing-party evaluations, reinforcing that downstream effects vary by intervention and context.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "Independent verification of C5 identified a high-value falsification search: The supplied experiments support a causal distinction: changing feed ranking or selection changed users’ exposure, while some interventions also changed affective or attitudinal polarization. However, the evidence is short-term and platform- and outcome-specific; it does not establish durable belief change or political behavior effects. The wording should also acknowledge that one experiment changed on-platform activity, although not demonstrated political behavior.",
+        "target_type": "CLAIM",
+        "target_id": "C5",
+        "next_search_query": "Are there randomized or quasi-experimental studies showing that social-media recommendation or feed-ranking algorithms produce durable changes in political beliefs, voting, political participation, or other political behavior, including null findings and long-term follow-ups?",
+        "decision_origin": "VERIFIER_COUNTERSEARCH"
+      },
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ2",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "Are there randomized or quasi-experimental studies showing that social-media recommendation or feed-ranking algorithms produce durable changes in political beliefs, voting, political participation, or other political behavior, including null findings and long-term follow-ups?",
+      "source_ids": [
+        "S8"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "An observational analysis of approximately 208 million U.S. Facebook adults during September 2020–February 2021 found that liberals and conservatives consumed political news with limited overlap, and that ideological segregation increased across the stages from algorithmic selection to user exposure and then interaction. The analysis also found asymmetric engagement, with conservatives interacting with political news more often than liberals. These findings document differences in exposure and on-platform behavior but do not by themselves identify the causal effect of algorithmic ranking apart from users’ choices.",
+            "supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "NPR reports that the study analyzed political-news links among 208 million U.S. Facebook adults, found little overlap between liberal and conservative news consumption, and observed increasing segregation from algorithm-selected content to content seen and interacted with by users. It also reports higher political-news engagement among conservatives.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The source directly summarizes a very large observational analysis, but the supplied material does not establish that algorithmic ranking caused the ideological segregation or engagement asymmetry because user selection and interaction also occur at the later stages.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C6",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The NPR account independently describes the Facebook/Instagram research as showing that changing algorithmic systems substantially changes what users see, while also reporting observational evidence that political-news segregation increases between algorithmic selection, user exposure, and interaction. This adds evidence about ideological source separation but does not alter C6’s randomized findings on exposure and measured attitudes.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S8 reinforces the broader exposure finding and adds large-scale observational evidence about ideological segregation, while the randomized study remains the direct basis for C6’s causal exposure and null-outcome conclusions. The new source does not contradict those conclusions, but its observational findings should not be treated as causal evidence of algorithmic polarization.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The source distinguishes changes in what users see from downstream interaction: ideological segregation increased from algorithmic selection to exposure and interaction, but the report does not show that algorithmic ranking caused the later behavioral differences. This reinforces the need to separate exposure evidence from behavior effects.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S8 strengthens the exposure-versus-downstream-outcomes distinction by showing that observational differences emerge across selection, exposure, and interaction stages, while leaving causal attribution to algorithms unresolved. It provides no direct evidence of voting, offline participation, or durable belief change.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2",
+              "SQ3",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "NPR reports that the study analyzed political-news links among 208 million U.S. Facebook adults, found little overlap between liberal and conservative news consumption, and observed increasing segregation from algorithm-selected content to content seen and interacted with by users. It also reports higher political-news engagement among conservatives.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C6",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The NPR account independently describes the Facebook/Instagram research as showing that changing algorithmic systems substantially changes what users see, while also reporting observational evidence that political-news segregation increases between algorithmic selection, user exposure, and interaction. This adds evidence about ideological source separation but does not alter C6’s randomized findings on exposure and measured attitudes.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The source distinguishes changes in what users see from downstream interaction: ideological segregation increased from algorithmic selection to exposure and interaction, but the report does not show that algorithmic ranking caused the later behavioral differences. This reinforces the need to separate exposure evidence from behavior effects.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null,
+        "decision_origin": "BUDGET_STOP"
+      },
+      "search_purpose": "COUNTERSEARCH",
+      "search_target_id": "C5",
+      "subquestion_status_changes": []
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "In two German quasi-experiments using a three-wave panel design, exposure to like-minded political arguments increased attitude and affective polarization more than exposure to opposing arguments; algorithmic selection did not generally amplify these exposure effects, although it produced a small additional attitude-polarization effect for one topic.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "The study experimentally compared algorithmically selected with randomly selected like-minded or opposing arguments and reported stronger polarization after like-minded exposure, no general amplification by algorithmic selection, and a small direct effect for one topic.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: The supplied article abstract explicitly reports two quasi-experiments using a three-wave experimental panel survey, stronger attitude and affective-polarization effects from like-minded than opposing arguments, no general amplification by algorithmic selection, and a small direct attitude-polarization effect for one topic. The article metadata also identifies Germany. This supports the claim within the study’s limited two-topic experimental setting.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "A browser-extension experiment on more than 1,200 U.S. X users during the 2024 presidential campaign found that reranking users’ existing feeds to increase or decrease exposure to antidemocratic attitudes and partisan animosity changed affective polarization after one week: increased exposure made evaluations of the opposing party approximately 2.48 points cooler and reduced exposure made them approximately 2.11 points warmer on a 100-point scale.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "The article reports a randomized browser-extension intervention with 1,256 U.S. participants and opposing-party feeling changes of 2.48 degrees cooler under increased exposure and 2.11 degrees warmer under reduced exposure.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The university report describes the same reranking experiment, its one-week duration, sample exceeding 1,200, and approximately two-point shifts in feelings toward the opposing party.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "The institutional report describes the same X feed-reranking intervention, involving about 1,200 volunteers during the 2024 election and seven-day upranking or downranking of antidemocratic and partisan-animosity content; downranking produced warmer views of the opposing party and upranking produced colder views.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S7 independently summarizes results consistent with S4 and reports a similar approximately two-point affective-polarization shift, but it is institutional news coverage rather than the primary study report and gives a somewhat different intervention-duration description. The evidence remains strong for a short-term affective effect but does not establish durability or behavioral effects.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "The X reranking experiment changed the ordering and prominence of posts while leaving the followed accounts, the set of available posts, and the underlying content unchanged; thus it provides causal evidence that algorithmic ranking can alter political exposure without changing users’ networks or removing content.",
+        "supporting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The report states that the extension reranked posts in real time, did not remove content, and preserved the people users followed and the same available posts.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "The commentary says the intervention changed ranking while keeping content and users constant and reports different exposure to antidemocratic and partisan-animosity content.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "The report states that the external web tool reordered X posts without removing them, placing posts containing antidemocratic attitudes and partisan animosity lower or higher in users’ feeds.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S7 reinforces that feed ordering alone can change exposure while preserving the underlying posts, but the source is a secondary institutional account and does not resolve questions about intervention compliance or generalizability.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "The supplied review characterizes algorithmic effects on polarization as non-straightforward and suggests that algorithms often reinforce pre-existing social drivers rather than operating independently of users’ preferences and broader social dynamics.",
+        "supporting_evidence": [
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "The review describes a feedback loop between algorithmic mechanisms and social drivers, states that the role of algorithms in polarization is far from straightforward, and says existing evidence suggests algorithms mostly reinforce existing social drivers.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The randomized Facebook and Instagram study found that substantially changing algorithmic ranking and political-content exposure did not significantly change polarization or other key attitudes over three months, illustrating that exposure effects need not translate into average attitude effects.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The review-level account of a complex, reinforcing relationship is now complemented by a randomized multi-platform study showing substantial exposure changes but null average polarization effects. This supports a non-straightforward relationship, while not disproving effects in other contexts or among particular users.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4",
+          "SQ2"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "The supplied evidence supports distinguishing algorithmic changes in feed ranking or content exposure from downstream political effects. Experiments show that altering ranking can substantially change what users see and how active they are on-platform, while some short-term interventions produced small changes in affective or attitudinal polarization. Other evidence, including the three-month Facebook/Instagram experiment, found no significant changes in key political attitudes. The supplied studies do not establish durable belief change or offline political behavior.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "The panel experiments separate exposure to like-minded or opposing arguments from algorithmic versus random selection and measure attitude and affective polarization, finding limited direct algorithmic amplification.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "The X intervention manipulated feed ranking and measured short-term partisan feelings, not political behavior or long-term beliefs.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "The review emphasizes that the algorithm-polarization relationship is complex and requires further empirical research.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The Facebook and Instagram experiment directly separated algorithmic ranking from users’ existing networks and measured both exposure and downstream political outcomes: ranking changed what users saw, but issue polarization, affective polarization, political knowledge, and other key attitudes did not significantly change during three months.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "The X reranking report describes a contrasting short-term result in which changing the prominence of antidemocratic and partisan-animosity content changed opposing-party evaluations, reinforcing that downstream effects vary by intervention and context.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The source distinguishes changes in what users see from downstream interaction: ideological segregation increased from algorithmic selection to exposure and interaction, but the report does not show that algorithmic ranking caused the later behavioral differences. This reinforces the need to separate exposure evidence from behavior effects.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: The supplied evidence supports the exposure–outcome distinction. Randomized or quasi-experimental studies show that changing feed-ranking or selection changes users’ content exposure and on-platform activity, while S1 and the reported X-feed experiment find some short-term changes in affective or attitudinal polarization. However, the evidence is platform-, intervention-, topic-, and time-specific, and S6 found no significant changes in issue or affective polarization, knowledge, or other key attitudes over three months. The evidence therefore does not establish durable belief change or offline political behavior, but the claim should explicitly describe the downstream findings as limited and mixed rather than implying a general experimental demonstration.",
+        "status": "WEAK",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2",
+          "SQ4",
+          "SQ3"
+        ]
+      },
+      {
+        "id": "C6",
+        "claim": "In a randomized 2020 U.S. election experiment on Facebook and Instagram, replacing default machine-learning feed ranking with reverse-chronological ordering substantially changed users’ on-platform experience and political-content exposure: it increased political and untrustworthy content on both platforms, decreased uncivil or slur-containing content on Facebook, and increased exposure to moderate friends and ideologically mixed sources on Facebook. Despite these exposure changes, it did not significantly change issue polarization, affective polarization, political knowledge, or other key attitudes during the three-month study.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "The randomized experiment directly compared default algorithmic feeds with chronological feeds during the 2020 U.S. election and reported substantial changes in content exposure but null effects on polarization, political knowledge, and other key attitudes over three months.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The NPR account independently describes the Facebook/Instagram research as showing that changing algorithmic systems substantially changes what users see, while also reporting observational evidence that political-news segregation increases between algorithmic selection, user exposure, and interaction. This adds evidence about ideological source separation but does not alter C6’s randomized findings on exposure and measured attitudes.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "S8 reinforces the broader exposure finding and adds large-scale observational evidence about ideological segregation, while the randomized study remains the direct basis for C6’s causal exposure and null-outcome conclusions. The new source does not contradict those conclusions, but its observational findings should not be treated as causal evidence of algorithmic polarization.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2",
+          "SQ3",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C7",
+        "claim": "An observational analysis of approximately 208 million U.S. Facebook adults during September 2020–February 2021 found that liberals and conservatives consumed political news with limited overlap, and that ideological segregation increased across the stages from algorithmic selection to user exposure and then interaction. The analysis also found asymmetric engagement, with conservatives interacting with political news more often than liberals. These findings document differences in exposure and on-platform behavior but do not by themselves identify the causal effect of algorithmic ranking apart from users’ choices.",
+        "supporting_evidence": [
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "NPR reports that the study analyzed political-news links among 208 million U.S. Facebook adults, found little overlap between liberal and conservative news consumption, and observed increasing segregation from algorithm-selected content to content seen and interacted with by users. It also reports higher political-news engagement among conservatives.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source directly summarizes a very large observational analysis, but the supplied material does not establish that algorithmic ranking caused the ideological segregation or engagement asymmetry because user selection and interaction also occur at the later stages.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ4"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "The supplied evidence does not adequately quantify how recommendation algorithms change the quantity, ideological diversity, source mix, or slant of ordinary users’ political exposure across major platforms, while separating algorithmic ranking from users’ follows, searches, clicks, and engagement.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G2",
+      "description": "No supplied source provides direct evidence about algorithm-driven changes in political behavior, such as voting, participation, sharing, contacting politicians, or offline political activity; durable belief change is also unresolved.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "The causal attitude evidence is limited in the supplied material to short interventions and specific contexts: a German panel experiment and a one-week U.S. X reranking experiment during the 2024 campaign. Generalizability across platforms, countries, populations, political issues, and longer time horizons remains unresolved.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "The supplied sources do not permit a systematic comparison of why observational, experimental, and quasi-experimental studies reach different conclusions, including differences in polarization definitions, outcome measures, intervention intensity, sample selection, and platform algorithms.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ3",
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "What evidence shows that social-media recommendation algorithms change users’ exposure to political content, including the quantity, diversity, ideological slant, or source of what they see?",
+        "importance": "CORE",
+        "success_criteria": "Summarize credible empirical evidence identifying algorithmic recommendations as a cause of changes in political content exposure, distinguishing algorithmic effects from users’ own follows, searches, clicks, and choices where possible; report relevant populations, platforms, timeframes, and uncertainty.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ2",
+        "question": "What evidence shows that algorithm-driven changes in political-content exposure alter users’ political beliefs, attitudes, affective polarization, or political behavior?",
+        "importance": "CORE",
+        "success_criteria": "Assess causal evidence linking recommendation algorithms—not merely social-media use or exposure in general—to changes in political beliefs or behavior, distinguishing null, positive, and negative effects and identifying the outcomes and time horizons studied.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 2
+      },
+      {
+        "id": "SQ3",
+        "question": "Why do studies reach different conclusions about the relationship between recommendation algorithms and political polarization?",
+        "importance": "CORE",
+        "success_criteria": "Compare explanations involving differing definitions and measures of polarization, platform and algorithm differences, user selection and behavior, experimental versus observational designs, intervention intensity, population and country context, study duration, and other methodological or contextual factors supported by the literature.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ4",
+        "question": "How should the evidence be synthesized to characterize the extent of algorithms’ contribution to political polarization while preserving the distinction between exposure effects and belief or behavior effects?",
+        "importance": "CORE",
+        "success_criteria": "Develop a calibrated overall assessment that separates direct evidence of changed exposure from evidence of downstream attitude or behavior change, states the strength and limits of causal inference, and identifies where conclusions are robust, mixed, or unresolved.",
+        "status": "PARTIAL",
+        "status_reason": "At least one linked ledger claim is not yet supported.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Maintain a clear causal chain distinction: recommendation algorithms changing what users see versus those exposure changes causing changes in political beliefs or behavior.",
+      "Explain conflicting findings rather than treating them as interchangeable, accounting for differences in measures, methods, platforms, users, contexts, and timeframes.",
+      "Assess the extent of contribution rather than making an all-or-nothing judgment, and communicate relevant uncertainty."
+    ],
+    "output_requirements": [
+      "Answer the question about social-media recommendation algorithms and political polarization.",
+      "Present separate treatment of evidence on changes in users’ exposure and evidence on changes in political beliefs or behavior.",
+      "Explain why the literature reaches different conclusions."
+    ]
+  },
+  "claim_verifications": [
+    {
+      "id": "V1",
+      "claim_id": "C1",
+      "verification_iteration": 1,
+      "claim_version_iteration": 1,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S1"
+      ],
+      "result": {
+        "claim_id": "C1",
+        "verdict": "VERIFIED",
+        "reason": "The supplied article abstract explicitly reports two quasi-experiments using a three-wave experimental panel survey, stronger attitude and affective-polarization effects from like-minded than opposing arguments, no general amplification by algorithmic selection, and a small direct attitude-polarization effect for one topic. The article metadata also identifies Germany. This supports the claim within the study’s limited two-topic experimental setting.",
+        "missing_assumptions": [
+          "The claim applies to the studied German sample, topics, simulated online environments, and study duration rather than to recommendation algorithms generally.",
+          "The evidence concerns polarization outcomes, not political behavior or longer-term belief change beyond the measured panel period."
+        ],
+        "source_quality_concerns": [
+          "Only the publisher page and abstract are supplied, so detailed sample, design, statistical uncertainty, and implementation limitations cannot be independently assessed from the saved evidence.",
+          "No independent corroborating source is provided."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "In two German quasi-experiments using a three-wave panel survey, exposure to like-minded political arguments produced larger increases in attitude and affective polarization than exposure to opposing arguments. Algorithmic selection did not generally amplify these exposure effects, although it produced a small additional attitude-polarization effect for one topic; these findings do not establish effects on political behavior or generalize beyond the study’s topics, sample, and experimental setting.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "In two German quasi-experiments using a three-wave panel design, exposure to like-minded political arguments increased attitude and affective polarization more than exposure to opposing arguments; algorithmic selection did not generally amplify these exposure effects, although it produced a small additional attitude-polarization effect for one topic.",
+      "current_claim_text": "In two German quasi-experiments using a three-wave panel design, exposure to like-minded political arguments increased attitude and affective polarization more than exposure to opposing arguments; algorithmic selection did not generally amplify these exposure effects, although it produced a small additional attitude-polarization effect for one topic.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "SUPPORTED"
+    },
+    {
+      "id": "V2",
+      "claim_id": "C5",
+      "verification_iteration": 2,
+      "claim_version_iteration": 2,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S1",
+        "S5",
+        "S3",
+        "S6",
+        "S7"
+      ],
+      "result": {
+        "claim_id": "C5",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The supplied experiments support a causal distinction: changing feed ranking or selection changed users’ exposure, while some interventions also changed affective or attitudinal polarization. However, the evidence is short-term and platform- and outcome-specific; it does not establish durable belief change or political behavior effects. The wording should also acknowledge that one experiment changed on-platform activity, although not demonstrated political behavior.",
+        "missing_assumptions": [
+          "That the supplied sources are sufficient to characterize the broader available literature.",
+          "That short experimental follow-ups can support a conclusion about the absence of durable effects; they primarily show that such effects were not established in these studies.",
+          "That changes in on-platform activity do not count as political behavior."
+        ],
+        "source_quality_concerns": [
+          "S5 and S7 are institutional news reports rather than the underlying peer-reviewed article, so their methodological detail is limited.",
+          "The evidence covers a small set of interventions, mainly Facebook/Instagram and X, in the United States and Germany, over periods ranging from about one week to three months.",
+          "The experiments manipulate ranking or selection, which establishes effects of those interventions but not necessarily the effects of every platform’s production recommendation system."
+        ],
+        "counter_search_needed": true,
+        "counter_search_query": "Are there randomized or quasi-experimental studies showing that social-media recommendation or feed-ranking algorithms produce durable changes in political beliefs, voting, political participation, or other political behavior, including null findings and long-term follow-ups?",
+        "recommended_claim_text": "In the supplied experiments, interventions that changed algorithmic ranking or selection clearly changed users’ political-content exposure and, in some cases, affective or attitudinal polarization. These studies did not establish durable belief change or political behavior effects; one did find changes in general on-platform activity. Thus, the evidence is stronger for exposure effects than for lasting downstream political consequences.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "WEAK"
+      },
+      "counter_search_status": "EXECUTED",
+      "counter_search_iteration": 3,
+      "counter_search_source_ids": [
+        "S8"
+      ],
+      "reconciliation_applied": false,
+      "previous_claim_text": null,
+      "current_claim_text": null,
+      "previous_confidence": null,
+      "current_confidence": null,
+      "previous_status": null,
+      "current_status": null
+    },
+    {
+      "id": "V3",
+      "claim_id": "C5",
+      "verification_iteration": 3,
+      "claim_version_iteration": 3,
+      "phase": "POST_COUNTERSEARCH",
+      "evidence_source_ids": [
+        "S1",
+        "S5",
+        "S3",
+        "S6",
+        "S7",
+        "S8"
+      ],
+      "result": {
+        "claim_id": "C5",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The supplied evidence supports the exposure–outcome distinction. Randomized or quasi-experimental studies show that changing feed-ranking or selection changes users’ content exposure and on-platform activity, while S1 and the reported X-feed experiment find some short-term changes in affective or attitudinal polarization. However, the evidence is platform-, intervention-, topic-, and time-specific, and S6 found no significant changes in issue or affective polarization, knowledge, or other key attitudes over three months. The evidence therefore does not establish durable belief change or offline political behavior, but the claim should explicitly describe the downstream findings as limited and mixed rather than implying a general experimental demonstration.",
+        "missing_assumptions": [
+          "The short-term attitude effects reported in S1 and the X-feed reranking study generalize beyond the studied topics, recruited samples, platforms, and election contexts.",
+          "Changes in feed ranking are being treated as evidence about recommendation algorithms, although some interventions replaced the platform ranking system or used researcher-designed reranking rules rather than testing naturally occurring platform changes.",
+          "The absence of measured effects over three months in S6 is not evidence that longer-term effects or unmeasured political behaviors do not occur."
+        ],
+        "source_quality_concerns": [
+          "The strongest positive X-feed evidence is supplied through university news coverage rather than the primary Science article, so details about design, estimation, attrition, and outcome measurement cannot be independently assessed from the supplied text.",
+          "S1 describes two quasi-experiments and reports a small direct attitude effect for only one topic, limiting broad generalization.",
+          "The evidence set contains relatively few studies and is concentrated in U.S. 2020/2024 election settings and one German study."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "The supplied evidence supports distinguishing algorithmic changes in feed ranking or content exposure from downstream political effects. Experiments show that altering ranking can substantially change what users see and how active they are on-platform, while some short-term interventions produced small changes in affective or attitudinal polarization. Other evidence, including the three-month Facebook/Instagram experiment, found no significant changes in key political attitudes. The supplied studies do not establish durable belief change or offline political behavior.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "WEAK"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "The available evidence supports a distinction between algorithm-caused changes in exposure or ranking and downstream polarization: direct experimental evidence in the supplied sources demonstrates both ranking changes and some affective or attitudinal changes, but does not establish effects on political behavior or durable belief change.",
+      "current_claim_text": "The supplied evidence supports distinguishing algorithmic changes in feed ranking or content exposure from downstream political effects. Experiments show that altering ranking can substantially change what users see and how active they are on-platform, while some short-term interventions produced small changes in affective or attitudinal polarization. Other evidence, including the three-month Facebook/Instagram experiment, found no significant changes in key political attitudes. The supplied studies do not establish durable belief change or offline political behavior.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "WEAK"
+    }
+  ],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "How algorithmically curated online environments influence users’ political polarization: Results from two experiments with panel data - ScienceDirect",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2451958823000763",
+      "content": "[Skip to main content](https://www.sciencedirect.com/science/article/pii/S2451958823000763#screen-reader-main-content)[Skip to article](https://www.sciencedirect.com/science/article/pii/S2451958823000763#screen-reader-main-title)\n\n[![Image 2: Elsevier logo](https://www.sciencedirect.com/shared-assets/24/images/elsevier-non-solus-new-grey.svg)](https://www.sciencedirect.com/)\n\n*   [Journals & Books](https://www.sciencedirect.com/browse/journals-and-books)\n\n*   Help   \n*   [Search](https://www.sciencedirect.com/search) \n\n[My account](https://www.sciencedirect.com/user/login?targetURL=%2Fscience%2Farticle%2Fpii%2FS2451958823000763&from=globalheader)\n\n[Sign in](https://www.sciencedirect.com/user/institution/login?targetURL=%2Fscience%2Farticle%2Fpii%2FS2451958823000763)\n\n*   [View**PDF**](https://www.sciencedirect.com/science/article/pii/S2451958823000763/pdfft?md5=4ea1734b9d929ded15507960aa20f128&pid=1-s2.0-S2451958823000763-main.pdf)\n*   Download full issue\n\nSearch ScienceDirect \n\n[![Image 3: Elsevier](https://www.sciencedirect.com/us-east-1/prod/d69472bec824f3d7e617f5a4bc1c5441596edd0a/image/elsevier-non-solus.svg)](https://www.sciencedirect.com/journal/computers-in-human-behavior-reports \"Go to Computers in Human Behavior Reports on ScienceDirect\")\n\n## [Computers in Human Behavior Reports](https://www.sciencedirect.com/journal/computers-in-human-behavior-reports \"Go to Computers in Human Behavior Reports on ScienceDirect\")\n\n[Volume 12](https://www.sciencedirect.com/journal/computers-in-human-behavior-reports/vol/12/suppl/C \"Go to table of contents for this volume/issue\"), December 2023, 100343\n\n[![Image 4: Computers in Human Behavior Reports](https://ars.els-cdn.com/content/image/1-s2.0-S2451958823X00049-cov150h.gif)](https://www.sciencedirect.com/journal/computers-in-human-behavior-reports/vol/12/suppl/C)\n\n# How algorithmically curated online environments influence users’ political polarization: Results from two experiments with panel data\n\nAuthor links open overlay panel Ole Kelm a, Tim Neumann a, Maike Behrendt b, Markus Brenneis b, Katharina Gerl a, Stefan Marschall a, Florian Meißner c, [Stefan Harmeling d](https://www.sciencedirect.com/author/55901408300/stefan-harmeling), Gerhard Vowe a e, Marc Ziegele a\n\nShow more\n\nAdd to Mendeley\n\nShare\n\nCite\n\n[https://doi.org/10.1016/j.chbr.2023.100343](https://doi.org/10.1016/j.chbr.2023.100343 \"Persistent link using digital object identifier\")[Get rights and content](https://s100.copyright.com/AppDispatchServlet?publisherName=ELS&contentID=S2451958823000763&orderBeanReset=true)\n\nUnder a Creative Commons [license](http://creativecommons.org/licenses/by-nc-nd/4.0/)\n\nOpen access\n\n## Highlights\n\n*   •Algorithms are often accused of exposing their users to like-minded opinions, thereby fueling political polarization. \n*   •We created online environments that adapt political arguments in line with or in contrast to users' preferences over time. \n*   •We tested the effects of algorithmic curation on users' polarization in a three-wave experimental panel survey. \n*   •Exposure to like-minded arguments lead to stronger political polarization than exposure to opposing arguments. \n*   •Algorithmically curation did not amplify these effects, but had small direct effects on attitude polarization. \n\n## Abstract\n\nSocial media platforms are often accused of disproportionally exposing their users to like-minded opinions, thereby fueling political polarization. However, empirical evidence of this causal relationship is inconsistent at best. One reason could be that many previous studies were unable to separate the effects caused by individual exposure to like-minded content from the effects caused by the algorithms themselves. This study presents results from two quasi-experiments in which participants were exposed either to algorithmically selected or randomly selected arguments that were either in line or in contrast with their attitudes on two different topics. The results reveal that exposure to like-minded arguments increased participants’ attitude polarization and affective polarization more intensely than exposure to opposing arguments. Yet, contrary to popular expectations, these effects were not amplified by algorithmic selection. Still, for one topic, exposure to algorithmically selected arguments led to slightly stronger attitude polarization than randomly selected arguments.\n\n*   [Previous article in issue](https://www.sciencedirect.com/science/article/pii/S2451958823000726)\n*   [Next article in issue](https://www.sciencedirect.com/science/article/pii/S2451958823000775)\n\n## Keywords\n\nAlgorithms\n\nPolarization\n\nOnline experiments\n\nFilter bubble\n\nPanel data\n\nGermany\n\nSorry, something went wrong. Please try again and make sure cookies are enabled\n\nRecommended articles\n\n## Data availability\n\nData is available on request from the corresponding author.\n\n## Cited by (9)\n\n*   ### [Algorithmic recommendations and echo chambers: User awareness in the UAE](https://www.sciencedirect.com/science/article/pii/S259029112600495X)\n\n2026, Social Sciences and Humanities Open  Show abstract Algorithmic recommendations have radically transformed the ability to select content based on social media users' preferences and behaviours, impacting news diversity and raising concerns regarding how individual beliefs and preferences affect the choice of news content. This, in turn, has led to the emergence of so-called echo chambers. This study examines the relationship between public awareness of algorithmic recommendations and awareness of the echo chamber phenomenon, focusing on its cognitive dimension. Using a survey of 446 social media users in the United Arab Emirates, a country characterised by a high diversity of nationalities and high social media usage, this study adopted algorithmic gatekeeping as a theoretical framework and proposed a conceptual framework to explore the factors influencing users' awareness of echo chambers. The findings suggest that algorithmic awareness, diversity of news recommendations, and an understanding of how algorithmic gatekeeping works significantly impact users’ awareness of echo chambers. However, demographic factors (such as age or gender), which were included as a controlling variable, had no influence. The results demonstrate the importance of adopting digital media literacy concepts, spreading awareness of how algorithms are employed by social media platforms, and supporting digital initiatives that enhance the diversity of news content provided to users.    \n*   ### [Factors and mechanisms of attitude polarization in online public opinion](https://www.sciencedirect.com/science/article/pii/S0306457325004388)\n\n2026, Information Processing and Management  Show abstract Information cocoons intensify attitude polarization, manifesting as individuals adopting extreme positions that deviate from objective neutrality. While previous studies in this area have identified various predictors of attitude polarization, a relative dearth of research has considered the role of different motivations in the formation of information cocoons. Anchored by the information cocoon evolution model, the heuristic-systematic model (HSM), and social comparison theory, this study proposes a multi-path model of attitude polarization among college students to describe how the user, information, and group dimensions collectively influence individual attitude polarization. Structural equation modeling (SEM) based on an online survey (_N_ = 886) disclosed that defense motivation and accuracy motivation are directly positively associated with attitude polarization, while impression motivation has a weak negative association with it. Accuracy motivation is also positively associated with social comparison frequency, which is in turn related to attitude polarization. Topic homogeneity is indirectly associated with attitude polarization through social comparison frequency, whereas opinion homogeneity has the opposite association. F",
+      "score": 0.81630427
+    },
+    {
+      "id": "S2",
+      "title": "The Role of Social Media Algorithms in Shaping Political Polarisation in the United States",
+      "url": "https://www.humanrightsresearch.org/post/the-role-of-social-media-algorithms-in-shaping-political-polarisation-in-the-united-states",
+      "content": "top of page\n\n##### HRRC accepts NO funding from governments for our research or campaigns. At every step of the way, our impact is made possible because of people like YOU. Make your [contribution](https://www.humanrightsresearch.org/donate) now!\n\n[![1Asset 4_600x-8.png](https://static.wixstatic.com/media/74f842_eacece34689049e9997b3033ab2d5743~mv2.png/v1/fill/w_147,h_147,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1Asset%204_600x-8.png)](https://www.humanrightsresearch.org)\n\n\n\nSearch\n\n# The Role of Social Media Algorithms in Shaping Political Polarisation in the United States\n\n* Human Rights Research Center\n* Aug 5\n* 15 min read\n\nAuthor: [Adia May](https://www.humanrightsresearch.org/team/adia-may)\n\nAugust 5, 2026\n\n[Image credit: Geri Tech/[Pexels](https://www.pexels.com/photo/close-up-shot-of-app-icons-5678243/)]\n\nSocial media is a central space where political polarisation is encountered, reproduced, and circulated in the U.S. Platforms like Facebook, Instagram, TikTok, YouTube, Reddit, and X are no longer sites designed for personal communication (Egan, 2026). They double as political information systems, having a hand in what users see, what they believe, and which voices are made visible in public debate (Liedke and St. Aubin, 2025).\n\nThis shift has raised  questions about whether social media has deepened political division or opened access to more diverse political perspectives. While political polarisation in the U.S. existed before  the emergence of online platforms such as Reddit and Instagram, it has intensified despite the rise of these platforms. On these platforms, algorithms rank and recommend content according to user behaviour, shaping what they see most frequently. This has sparked a discussion about whether the way algorithms work on these platforms is making the divide worse by controlling how people see political information.\n\n(Gauthier et al., 2026, Guess et al., 2023).\n\nTherefore, this article discusses how social media algorithms can influence political polarisation in the U.S. by selecting what is visible and how much exposure users are given to alternative perspectives. It will investigate the relationship between curation systems, recommendation structures, confirmation bias, and user behaviour in relation to amplifying polarisation. Furthermore, it will explain the human rights implications of algorithmic ranking, debates around freedom of expression, and overall impacts on democratic participation (OHCHR, 2024). This article argues that algorithmic systems should not be understood as neutral operations behind the screen. They are an integral part of the infrastructure in which democratic discourse is mediated and consumed.  The power of algorithmic influence remains largely unchecked, unknown, and under-researched; this article seeks to address this contention.\n\n(Metzler and Garcia 2023; DSA observatory, 2025).\n\n### **The Mechanics of Social Media Algorithms**\n\nSocial media algorithms work behind the scenes to categorise, rank, filter, and recommend content, influencing what emerges, receives visibility, and is suggested next. Recommendation algorithms rely on data on user behaviour, including likes, shares, comments, watch time, follows, searches, and previous engagement metrics (DSA Observatory, 2025). This indicates that users are not selecting from a neutral pool of information, but instead, they are navigating a political landscape that is already structured by rankings and personalised predictions. A chronological feed orders content by time, whereas an algorithmic feed organises it by predicted relevance and past behavioural responses. This distinction matters because political content is made visible according to the reactions it generates. Posts likely to attract attention, emotion, and debate are more likely to be prioritised than material that is slower and less emotive (Milli et al., 2025; DSA Observatory, 2025).\n\nThis doesn’t mean that all algorithms are harmful or that every user is automatically pushed towards charged content. The problem is that engagement can become a poor substitute for public value. A post may gain popularity because it evokes anger or disagreement, not because it is accurate or democratically useful.\n\nIn political contexts, this situation allows sensationalist and antagonistic content to gain greater visibility compared to more measured forms of political and educational material (Brady et al., 2021; Milli et al., 2025). This results in an imbalance formed by algorithmic reward and can be detrimental to combatting political polarisation. Consequently, a post that portrays opponents as a threat or simplifies complex issues may attract more viewers and seem more important than it actually is (Yuan and Chang, 2026).\n\nThis uneven visibility goes beyond simply privileging one post over another. It can influence the wider political environment by making some viewpoints appear more common or legitimate than they are. When users repeatedly encounter the same kinds of political narratives, exposure starts to appear as consensus. Through this, algorithmic recommendation moves beyond content ranking and starts to reinforce the social conditions that cement rigid political identities and enclose users in a set belief (Gauthier et al., 2026; Ibrahim et al., 2026).\n\n### **How Ideology is Solidified**\n\nIn a discussion about algorithmic polarisation, “echo chambers” and “feedback loops” are often mentioned. However, it is crucial to differentiate them in context with social media algorithms. A filter bubble arises from algorithmic curation of information, whereby algorithms predict what users want to see, resulting in limited exposure to diverse sources.  An echo chamber describes how users form a selective social environment, primarily interacting with others who reaffirm their existing ideology while filtering out opposing viewpoints (Ahmmad, 2025; Hartmann, 2025)\n\nUsers also reinforce their digital environment by following accounts that align with their  beliefs and sustain their desired feed through repeated engagement. Algorithms were designed to learn from these behaviours. Therefore, the process is not just technological or psychological; rather, it is a feedback loop between platform architecture and user behaviour (Metzler et al., 2023).\n\nThis feedback loop makes algorithmic polarisation particularly difficult to mitigate. If policymakers focus only on platform systems, they may overlook the individual’s role of selective exposure and partisan identity. However, if they specifically focus on individual users, they overlook the mechanisms that platforms use to design predictions and monetise attention. The problem is not that users are passive victims of the algorithm, nor that algorithms are harmless reflections of user preferences. The central dilemma is the interaction between the two, and the current relationship is polarising political perspectives.\n\n### **Evidence of Algorithmic Influence**\n\nRecent research contests the claim that algorithms solely reflect user preferences. A 2026 Nature study on X examines the political effects of the platform’s feed algorithm by randomly assigning active US-based users to either an algorithmic,or a chronological feed. Over seven weeks, the study found that turning on X’s algorithmic feed substantially shifted political attitudes towards more conservative opinions on policy and current affairs, though it did not majorly impact partisanship or polarisation (Gauthier et al., 2026). The algorithm further increased engagement on the platform and promoted more content from conservative activist accounts, meanwhile reducing the visibility of traditional news sources (Gauthier et al., 2026).\n\nThe finding reflects that algorithmic ranking holds more powerful roles than just organising content; it also actively influences political attitudes by determining what information users repeatedly encode. Switching from an algorithmic to a chronological feed d",
+      "score": 0.8058924
+    },
+    {
+      "id": "S3",
+      "title": "Social Drivers and Algorithmic Mechanisms on Digital Media",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151",
+      "content": "[Skip to main content](https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151#main-content)\n\n![Image 1](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/us_flag.svg)\n\nAn official website of the United States government\n\nHere's how you know\n\nHere's how you know\n\n![Image 2](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-dot-gov.svg)\n\n**Official websites use .gov**\n\n A **.gov** website belongs to an official government organization in the United States.\n\n![Image 3](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-https.svg)\n\n**Secure .gov websites use HTTPS**\n\n A **lock** ( ) or **https://** means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.\n\n[![Image 4: NCBI home page](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg)](https://www.ncbi.nlm.nih.gov/)\n\n![Image 5: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)Search \n\n![Image 6](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/person.svg)Log in![Image 7](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_less.svg)![Image 8](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_more.svg)\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n*    Log out \n\n Search…   Search NCBI \n\nPrimary site navigation\n\n![Image 9: Close](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons/close.svg) Search  ![Image 10: Search](blob:http://localhost/d03881a649d411fb287ca34fa7ea6fc4)\n\nLogged in as:\n\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n\n Log in \n\n[](https://pmc.ncbi.nlm.nih.gov/ \"Home\")\n\n![Image 11: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)![Image 12: PMC search close ison](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/close.svg)\n\nSearch PMC Full-Text Archive \n\nSearch in PMC![Image 13: Search](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons-bg/search--white.svg)\n\n*   [Journal List](https://pmc.ncbi.nlm.nih.gov/journals/)\n*   [User Guide](https://pmc.ncbi.nlm.nih.gov/about/userguide/)\n\n As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.\n\n Learn more: [PMC Disclaimer](https://pmc.ncbi.nlm.nih.gov/about/disclaimer/) | [PMC Copyright Notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\n![Image 14: Perspectives on Psychological Science logo](https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-sageopen.png)\n\nPerspect Psychol Sci\n\n. 2023 Jul 19;19(5):735. doi: [10.1177/17456916231185057](https://doi.org/10.1177/17456916231185057)\n\n*   [Search in PMC](https://pmc.ncbi.nlm.nih.gov/search/?term=%22Perspect%20Psychol%20Sci%22[jour])\n*   [Search in PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=%22Perspect%20Psychol%20Sci%22[jour])\n*   [View in NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22Perspect%20Psychol%20Sci%22[Title%20Abbreviation])\n*   [Add to search](https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151?term=%22Perspect%20Psychol%20Sci%22[jour])\n\n# Social Drivers and Algorithmic Mechanisms on Digital Media\n\n[Hannah Metzler](https://pubmed.ncbi.nlm.nih.gov/?term=%22Metzler%20H%22[Author])\n\n### Hannah Metzler\n\n1 Center for Medical Data Science, Medical University of Vienna\n\n2 Complexity Science Hub Vienna, Austria\n\n3 Institute for Globally Distributed Open Research and Education, Vienna, Austria\n\n Find articles by [Hannah Metzler](https://pubmed.ncbi.nlm.nih.gov/?term=%22Metzler%20H%22[Author])\n\n1 2 3, [David Garcia](https://pubmed.ncbi.nlm.nih.gov/?term=%22Garcia%20D%22[Author])\n\n### David Garcia\n\n2 Complexity Science Hub Vienna, Austria\n\n4 Department of Politics and Public Administration, University of Konstanz\n\n Find articles by [David Garcia](https://pubmed.ncbi.nlm.nih.gov/?term=%22Garcia%20D%22[Author])\n\n2 4\n\n*   Author information\n*   Article notes\n*   Copyright and License information\n\n1 Center for Medical Data Science, Medical University of Vienna\n\n2 Complexity Science Hub Vienna, Austria\n\n3 Institute for Globally Distributed Open Research and Education, Vienna, Austria\n\n4 Department of Politics and Public Administration, University of Konstanz\n\n✉\nHannah Metzler, Complexity Science Hub Vienna Email: metzler@csh.ac.at\n\n© The Author(s) 2023\n\nThis article is distributed under the terms of the Creative Commons Attribution 4.0 License ([https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/)) which permits any use, reproduction and distribution of the work without further permission provided the original work is attributed as specified on the SAGE and Open Access pages ([https://us.sagepub.com/en-us/nam/open-access-at-sage](https://us.sagepub.com/en-us/nam/open-access-at-sage)).\n\n[PMC Copyright notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\nPMCID: PMC11373151 PMID: [37466493](https://pubmed.ncbi.nlm.nih.gov/37466493/)\n\n## [](https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151)Abstract\n\nOn digital media, algorithms that process data and recommend content have become ubiquitous. Their fast and barely regulated adoption has raised concerns about their role in well-being both at the individual and collective levels. Algorithmic mechanisms on digital media are powered by social drivers, creating a feedback loop that complicates research to disentangle the role of algorithms and already existing social phenomena. Our brief overview of the current evidence on how algorithms affect well-being, misinformation, and polarization suggests that the role of algorithms in these phenomena is far from straightforward and that substantial further empirical research is needed. Existing evidence suggests that algorithms mostly reinforce existing social drivers, a finding that stresses the importance of reflecting on algorithms in the larger societal context that encompasses individualism, populist politics, and climate change. We present concrete ideas and research questions to improve algorithms on digital platforms and to investigate their role in current problems and potential solutions. Finally, we discuss how the current shift from social media to more algorithmically curated media brings both risks and opportunities if algorithms are designed for individual and societal flourishing rather than short-term profit.\n\n**Keywords:**algorithms, digital media, well-being, polarization\n\n## [](https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151)Introduction\n\nAlgorithms on digital media platforms clearly provide value, as reflected in the wealth they generate for the companies using them. They highlight relevant posts, news, people, and groups and have become necessary to reduce information overload ([Narayanan, 2023b](https://pmc.ncbi.nlm.nih.gov/articles/PMC11373151#bibr83-17456916231185057)). The central role of algorithms in several types of online interaction has raised concerns that they may fuel large psychological and societal issues, specifically mental-health issues and political polarization. First, algorithms c",
+      "score": 0.77179235
+    },
+    {
+      "id": "S4",
+      "title": "Algorithms Shift Polarization. Why Does Policy Still Miss ...",
+      "url": "https://techpolicy.press/algorithms-shift-polarization-why-does-policy-still-miss-the-real-problem",
+      "content": "Perspective\n\n# Algorithms Shift Polarization. Why Does Policy Still Miss the Real Problem?\n\nMatthias J. Becker / Dec 23, 2025\n\n*A landmark study provides some of the clearest evidence to date that platform architecture can drive political hostility. But policy responses reveals how wide the gap remains between what research shows and what gets addressed, writes Matthias J. Becker, the AddressHate Research Scholar at NYU's Center for the Study of Antisemitism and lead of the 'Decoding Antisemitism' project.*\n\n![ ](https://cdn.sanity.io/images/3tzzh18d/production/4259d43aca361994cc25e11c0ead0f8ad6ecd623-1200x675.png)\n\n[Shutterstock](https://www.shutterstock.com/image-photo/composite-creative-illustration-sketch-photo-collage-2458423199)\n\n[Republish](/republish)\n\nA [breakthrough study published in *Science*](https://www.science.org/doi/epdf/10.1126/science.adu5584) in November provided some of the clearest causal evidence to date that social media algorithms shape political polarization. Researchers built a browser extension that independently reranked users’ X feeds in real time, demonstrating that algorithmic choices directly altered users’ political attitudes by amounts comparable to several years' worth of polarization change in long-term US surveys.\n\nFor researchers who study online polarization and radicalization, the findings confirmed what extensive observational evidence had long suggested: platform architecture—what gets amplified, how content is ranked, which posts surface first—can directly shape democratic outcomes. For the first time, independent researchers demonstrated algorithmic causation without requiring access to platform infrastructure—a milestone in platform accountability research.\n\nYet the policy conversation remains largely elsewhere.\n\nAround the same time the *Science* study appeared, [lawmakers from both parties welcomed X's new location feature](https://jewishinsider.com/2025/11/republican-democratic-lawmakers-x-new-location-feature-foreign-involvement/), which displays the country from which an account operates. Rep. Don Bacon (R-NE) said the feature revealed how \"foreign interests are trying to spread\" antisemitic ideas in the United States, while Sen. James Lankford (R-OK) told Jewish Insider that \"foreign adversaries have spent years flooding social media with hate-filled and antisemitic propaganda to divide Americans.” The contrast is instructive: research identifies mechanisms; policy focuses on symptoms.\n\nThis pattern repeats across digital governance. Policy attention gravitates toward solutions that fit existing narratives about external threats, require minimal structural change, and avoid examination of the architectures that enable affective polarization and radicalization. The result is a widening gap between what we know works and what we're willing to demand.\n\n## **What the research shows**\n\nThe *Science* study, led by researchers Tiziano Piccardi, Martin Saveski, and Chenyan Jia, represents both a methodological and substantive breakthrough. Working without platform permission, they built infrastructure to intercept and rerank X feeds in real time, using large language models to identify content expressing \"antidemocratic attitudes and partisan animosity\" (AAPA)—including partisan hostility, support for undemocratic practices, opposition to bipartisanship, and biased evaluation of facts.\n\n1,256 US participants received either increased or decreased exposure to AAPA content for one week during the 2024 presidential campaign. Reducing AAPA exposure led participants to feel warmer toward the opposing party by 2.11 degrees on a 100-point scale. Increasing exposure caused a symmetrical cooling of 2.48 degrees. These are not huge shifts for any single individual, but applied to millions of users over months or years, they translate into substantial structural tilts toward hostility.\n\nCritically, 74% of participants reported noticing no impact on their experience. Algorithmic effects operate below conscious awareness, shaping attitudes without users recognizing the intervention.\n\nThe study demonstrates what years of correlational research could not: that algorithmic ranking decisions directly shape political attitudes. The content remained the same. The users remained the same. Only the ranking changed—and polarization moved accordingly.\n\n## **Three drivers—and why only one gets policy attention**\n\nTo understand why this evidence matters—and why policy responses miss the mechanism—we need a framework for how phenomena such as antisemitism and antidemocratic hostility actually spread online.\n\nMy research, analyzing over 300,000 web user comments across major news channels using qualitative discourse analysis supported by computational methods, reveals three distinct but interconnected drivers:\n\n1. **Malicious actors.** Foreign and domestic campaigns deliberately inject polarizing content. This is the driver dominating political rhetoric and policy attention.\n2. **Algorithmic amplification.** Platform ranking systems, optimized for engagement, disproportionately surface emotionally intense content. Outrage drives clicks. Hostility generates shares. The *Science* study provides causal evidence for this mechanism.\n3. **Communication conditions.** The socio-technical environment of online spaces—anonymity that removes social accountability, mutual reinforcement that validates extreme positions, omnipresent hate speech that normalizes extremity—fundamentally shapes how users behave and what content they produce.\n\nThe *Science* study isolates the second driver and proves it matters causally. Yet policy interventions typically address only the first—and often in ways that miss even that mechanism.\n\n## **Why geographic solutions miss all three mechanisms**\n\nThe X location feature exemplifies how policy attention focuses on one driver while ignoring the others entirely. The feature addresses exclusively malicious actors, specifically foreign ones, assuming that knowing where an account is located helps identify bad actors and discount their content accordingly.\n\n#### Our content delivered to your inbox.\n\nJoin our newsletter on issues and ideas at the intersection of tech & democracy\n\n#### Thank you!\n\nYou have successfully joined our subscriber list.\n\nThis assumption is flawed on multiple levels. Geographic origin tells us nothing about intent, coordination, or impact. An account in Eastern Europe may be an ordinary person with opinions about American politics. An account in Iowa may be part of a domestic influence operation. Location and malicious intent are orthogonal categories.\n\nMore fundamentally, focusing on foreign accounts ignores where most high-engagement polarizing content actually originates. Research by the Decoding Antisemitism project found that antisemitic discourse [surged to 36-38%](https://decoding-antisemitism.eu/publications/celebrating-terror-antisemitism-online-after-the-hamas-attacks-on-israel/) of comments on major UK news outlet YouTube channels following the October 7 attacks (see also DA’s [Discourse Report 6](https://decoding-antisemitism.eu/publications/sixth-discourse-report/)). After the antisemitic hate crime in Washington in May 2025, [such content averaged 43%](https://substack.com/home/post/p-164232280) across major English-language news channels, reaching 66% on some outlets.\"\n\nThe idiom, references, and interaction patterns indicate domestic participation. High-profile domestic actors—politicians, media figures, influencers—routinely traffic in strategically ambiguous statements that seed problematic interpretations. Digital intermediaries sharpen and amplify these messages. Comment sections collapse the ambiguity into explicit hate speech.\n\nForeign interference exists and deserves scrutiny—but in the datasets we examined, domestic dynamics overwhelmingly drove the volume and intensity of antisemitic expression. Even if the location feature perfectly identified every foreign account, it ",
+      "score": 0.7686816
+    },
+    {
+      "id": "S5",
+      "title": "How Does Social Media Impact Political Polarization?",
+      "url": "https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research",
+      "content": "[Skip to content](#site-content)\n\n\n* [Facebook](https://www.facebook.com/northeastern)\n* [Instagram](https://www.instagram.com/northeasternglobalnews)\n* [LinkedIn](https://www.linkedin.com/school/northeastern-university/)\n* [Tiktok](https://www.tiktok.com/@northeasternu)\n* [X (Twitter)](https://x.com/northeastern)\n* [Youtube](https://www.youtube.com/user/Northeastern/featured)\n\n# [New research reveals algorithms’ hidden political power](https://news.northeastern.edu)\n\n\n\n# New research reveals algorithms’ hidden political power\n\nNew research shows the impact that social media algorithms can have on partisan political feelings, using a new tool that hijacks the way platforms rank content.\n\n![A close-up of a thumb pointing to the X/Twitter mobile app on a smartphone screen, which is displayed alongside other apps including Instagram, Telegram, Facebook, TikTok, YouTube, and Messenger.](https://news.northeastern.edu/wp-content/uploads/2025/11/SocialMediaBias1400.jpg?w=700)\n\nNortheastern research finds that, in a single week, social media can shift partisan political feeling by an amount usually seen over three years. Photo by Jonathan Raa/NurPhoto via Getty Images\n\n![](https://news.northeastern.edu/wp-content/uploads/2023/01/noah-lloyd.jpeg?w=32)\n\nby  **[Noah Lloyd](https://news.northeastern.edu/author/nlloyd/)**\n\nShare this story\n* [Email](mailto:?subject=Northeastern%20Global%20News%20–%20New%20research%20reveals%20algorithms’%20hidden%20political%20power&body=Check%20out%20this%20article%20on%20Northeastern%20Global%20News:%0A%0ANew%20research%20reveals%20algorithms’%20hidden%20political%20power%0A%0AResearch%20shows%20the%20impact%20that%20social%20media%20algorithms%20have%20on%20partisan%20political%20feelings,%20using%20a%20new%20tool%20that%20reranks%20native%20content.%0A%0Ahttps://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/)\n* [Facebook](https://www.facebook.com/sharer.php?u=https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/)\n* [LinkedIn](https://www.linkedin.com/shareArticle?url=https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/&title=New%20research%20reveals%20algorithms’%20hidden%20political%20power)\n* [X (Twitter)](https://x.com/intent/tweet?text=New%20research%20reveals%20algorithms’%20hidden%20political%20power%20https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/%20via%20Northeastern%20Global%20News)\n* [WhatsApp](https://wa.me/?text=New%20research%20reveals%20algorithms’%20hidden%20political%20power%20https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/%20via%20Northeastern%20Global%20News)\n* [Reddit](https://www.reddit.com/submit?url=https://news.northeastern.edu/2025/11/27/social-media-political-polarization-research/&title=New%20research%20reveals%20algorithms’%20hidden%20political%20power)\n\nHow much does someone’s social media algorithm really affect how they feel about a political party, whether it’s one they identify with or one they feel negatively about?\n\nUntil now, the answer has escaped researchers because they’ve had to rely on the cooperation of social media platforms.\n\n[New, intercollegiate research](https://doi.org/10.1126/science.adu5584) published Nov. 27 in Science, co-led by Northeastern University researcher [Chenyan Jia,](https://camd.northeastern.edu/people/chenyan-jia/) sidesteps this issue by installing an extension on consenting participants’ browsers that automatically reranks the posts those users see, in real time and still within the platform they’re used to.\n\nJia and her team discovered that after one week, users’ feelings toward the opposing party shifted by about two points — an effect normally seen over three years — revealing algorithms’ strong influence on polarization.\n\nThe results held regardless of the party with which the user self-identified.\n\n![A woman with shoulder-length, dark hair stands in front of a gray background with white dots. Her shirt has a blue collar and she looks off to the left.](https://news.northeastern.edu/wp-content/uploads/2025/11/112025_AS_Chenyan_Jia_006.jpg)\n\nChenyan Jia, an assistant professor in the College of Arts, Media and Design and the Khoury College of Computer Sciences, hopes that social media algorithms could be turned to the good, to create “positive societal impact, like reducing affective polarization.” Photo by Alyssa Stone/Northeastern University\n\n### Hacking the system\n\nJia, an assistant professor in the School of Journalism and Media Innovation, jointly appointed in the Khoury College of Computer Sciences, says the experiment works rather simply. The browser extension uses a large language model (LLM) to classify and rerank posts that appear on the subjects’ X feeds according to, as they call it, “antidemocratic attitudes and partisan animosity.”\n\n## Northeastern Global News, in your inbox.\n\nSign up for NGN’s daily newsletter for news, discovery and analysis from around the world.\n\nOver 1,200 subjects were divided into two groups: one that had increased exposure to antidemocratic attitudes and partisan animosity, AAPA for short, while the other group had decreased exposure to it. “When you’re the user of our study, basically you can’t notice anything in terms of the reranking,” Jia says.\n\nFor the group with increased exposure, more posts with more vitriolic AAPA content appear higher on their X feed, with the reverse being true for the decreased exposure group.\n\n## How antidemocratic attitudes and partisan animosity impact feeling toward the opposing party\n\nwarm opinion 100\n\n75\n\nneutral opinion 50\n\n25\n\ncold opinion 0\n\n2 points cooler increased exposure\n\n2 points warmer decreased exposure\n\nNote: Average change  \nSource: Jia, Chenyan, et al. 2025. “Reranking partisan animosity in algorithmic social media feeds alters affective polarization.” Science.\n\n“We didn’t remove anything,” Jia notes. “That’s something that we would like to be really cautious about, because there might be censorship concerns.” Users’ feeds were still constituted by the people they followed and all the same posts were available for viewing, it was simply the order in which they appeared that the LLM controlled.\n\n## Editor’s Picks\n\n[![Illustration depicting five differently-colored droplets falling in five different shapes.](https://news.northeastern.edu/wp-content/uploads/2026/07/droplet-1400x933-1.jpg?w=131)\n\n## These researchers are demystifying oobleck, Dr. Seuss’s ‘green goo’](https://news.northeastern.edu/2026/07/10/these-researchers-are-demystifying-oobleck-dr-seusss-green-goo/)\n\n[![Jing-Ke Weng wearing safety glasses and gloves, adjusting equipment illuminated by blue light in a lab.](https://news.northeastern.edu/wp-content/uploads/2026/07/Jing-Ke-Weng1400.jpg?w=131)\n\n## Meet the researcher who thinks plants could help save the world](https://news.northeastern.edu/2026/07/13/plant-based-medicine-research/)\n\n[![Lola Satre Morales competes in the 800 meter race.](https://news.northeastern.edu/wp-content/uploads/2026/07/Lola-Satre-Morales.jpg?w=131)\n\n## Track star sets Guatemalan running record, aims for Olympics](https://news.northeastern.edu/2026/07/14/800-meter-record-northeastern/)\n\n[![Two students in orange waders carry a wire lobster trap across a dock lined with barrels, coiled rope, and stacked traps, with a lobster boat moored alongside.](https://news.northeastern.edu/wp-content/uploads/2026/07/MEFishing1400.jpg?w=131)\n\n## Researchers aim to keep New England seafood local from boat to plate](https://news.northeastern.edu/2026/07/14/seafood-processing-nsf-research/)\n\n[![Lindsey Graham as seen from the side, in a dark room.](https://news.northeastern.edu/wp-content/uploads/2026/07/Lindsey-Graham1400.jpg?w=131)\n\n## Doctor who studies sudden death weighs in on Lindsey Graham’s passing](https://news.northeastern.edu/2026/07/13/lindsey-grahams-aortic-dissection/)\n\nThe experiment was conducted in the United",
+      "score": 0.6609831
+    },
+    {
+      "id": "S6",
+      "title": "How do social media feed algorithms affect attitudes and ...",
+      "url": "https://cdr.lib.unc.edu/downloads/wp9891401",
+      "content": "How do social media feed algorithms affect attitudes and behavior in an election campaign?\nAndrew M. Guess1*, Neil Malhotra2, Jennifer Pan3, Pablo Barberá4, Hunt Allcott5, Taylor Brown4, Adriana Crespo-Tenorio4, Drew Dimmery4,6, Deen Freelon7, Matthew Gentzkow8, Sandra González-Bailón9, Edward Kennedy10, Young Mie Kim11, David Lazer12, Devra Moehler4, Brendan Nyhan13, Carlos Velasco Rivera4, Jaime Settle14, Daniel Robert Thomas4, Emily Thorson15, Rebekah Tromble16, Arjun Wilkins4, Magdalena Wojcieszak17,18, Beixian Xiong4, Chad Kiewiet de Jonge4, Annie Franco4, Winter Mason4, Natalie Jomini Stroud19, Joshua A. Tucker20 We investigated the effects of Facebook’s and Instagram’s feed algorithms during the 2020 US election.\nWe assigned a sample of consenting users to reverse-chronologically-ordered feeds instead of the default algorithms. Moving users out of algorithmic feeds substantially decreased the time they spent on the platforms and their activity. The chronological feed also affected exposure to content: The amount of political and untrustworthy content they saw increased on both platforms, the amount of content classified as uncivil or containing slur words they saw decreased on Facebook, and the amount of content from moderate friends and sources with ideologically mixed audiences they saw increased on Facebook. Despite these substantial changes in users’ on-platform experience, the chronological feed did not significantly alter levels of issue polarization, affective polarization, political knowledge, or other key attitudes during the 3-month study period.\nW hat are the effects of machine-learning algorithms used by social media compa-niesonelectionsandpolitics?Thenotion that such algorithms create political “filter bubbles” (1), foster polarization (2, 3), exacerbate existing social inequalities (4, 5), and enable the spread of disinforma-tion (6) has become rooted in the public con-sciousness. Because the algorithms used by social media companies are largely opaque to users, there are numerous conceptions or “folk theories” of how they work and disagreements about their effects (7, 8). Understanding how these systems influence key individual-level political outcomes is thus of paramount scien-tific and practical importance (9).\nIn particular, feed-ranking systems—algorithms designed to optimize the order in which content is presented to a user—have received consider-able scrutiny from regulators and the public.\nBut studying the effects of these feed algo-rithms is challenging. Even with direct access to proprietary code and data, it would be dif-ficult to characterize their impact (10) because such algorithms are personalized on the basis of many factors, such as a user’s past behavior and predictions derived from the actions of similar users, which leads to complex and poten-tially heterogeneous effects on content ranking.\nFurthermore, a well-established counterfactual is not always obvious: Technology companies frequently conduct “A/B tests,” or randomized controlled experiments, to refine the user experi-ence, but these are typically designed to evaluate discrete elements such as the weight of individ-ual inputs or how information is displayed in a specific panel (11). Evaluating the total impact of a machine-learning feed-ranking system necessitates a well-understood alternative for comparison.\nWith these challenges in mind, we examined the effect of specific feed algorithms on indi-viduals’ political attitudes and behaviors. We did so by conducting randomized controlled experiments within the context of the 2020 US presidential election campaign onFacebook and Instagram, two major social media plat-forms with more than 3.5 billion combined monthly active users worldwide. We took the algorithmic ranking systems on Facebook and Instagram, as they existed in the fall of 2020, as the status quo (henceforth “Algorithmic Feed”).\nIn a randomly assigned treatment group, users’ feeds were ranked in reverse-chronological order(henceforth“ChronologicalFeed”).Although arranging items in chronological order technically constitutes an algorithm, it is not predictive in the way that prominently scrutinized machine-learning systems, such as those used by social media platforms, are. The simple chronological ranking, in which the most recent item is pre-sented at the top of one’s feed, is both easy to implement—it was originally used on both Facebook and Instagram and continues to be an option on multiple social media platforms (12)—and matches an alternative currently being proposed in public debates by policy-makers and members of civil society (13).\nTheory and research questions Algorithmic effects have rarely been the main focus of quantitative, publicly available research on social media and politics as opposed to other domains (5, 12). Out of necessity, studies have tended to treat social media as a unified “bundle” of features—which includes not only algorithms but also repeated interactions with certain indi-viduals and the ability to reshare content, for example (14–16)—or to manipulate exposure to specific sources within the platform (17, 18). By replacing the status quo algorithmic ranking sys-tem, our experiment allowed us the opportunity to focus on the role of Facebook’s and Instagram’s algorithms in sorting and ranking content from the “inventory” generated by connections in users’ social networks and the posts and inter-actions that they produce.\nThis focus permitted us to identify the par-ticular role of algorithmic ranking. Other ele-ments or affordances of the “bundle” of social media features could conceivably be more im-portant. Similarly, although the particular mix and ordering of content that a user sees may be an important factor in shaping political attitudes and behaviors, other determinants of this ranking besides the particular algorithm used—such as user choice or the composition ofone’s network—could be relevant as well (19).\nTo the extent that prior research has docu-mented social media effects on our outcomes of interest (14, 15), a contribution of this study is to determine whether these can be attributed to a key feature of modern social platforms: personalized algorithmic ranking systems.\nBecause the impact of these systems is largely unknown, we began with a research question (RQ): How does the Chronological Feed affect the content people see? We formulated this ques-tion and subsequent hypotheses in terms of our randomly assigned treatment, in which partic-ipants’ feeds were ranked in reverse-chronological order instead of by the default algorithm. Aside 1Department of Politics and School of Public and International Affairs, Princeton University, Princeton, NJ, USA. 2Graduate School of Business, Stanford University, Stanford, CA, USA.\n3Department of Communication, Stanford University, Stanford, CA, USA. 4Meta, Menlo Park, CA, USA. 5Stanford Doerr School of Sustainability, Stanford University, Stanford, CA, USA. 6Research Network Data Science, University of Vienna, Vienna, Austria. 7UNC Hussman School of Journalism and Media, University of North Carolina at Chapel Hill, Chapel, NC, USA. 8Department of Economics, Stanford University, Stanford, CA, USA. 9Annenberg School for Communication, University of Pennsylvania, Philadelphia, PA, USA. 10Department of Statistics and Data Science, Carnegie Mellon University, Pittsburgh, PA, USA. 11School of Journalism and Mass Communication, University of Wisconsin–Madison, Madison, WI, USA. 12Network Science Institute, Northeastern University, Boston, MA, USA. 13Department of Government, Dartmouth College, Hanover, NH, USA. 14Department of Government, William & Mary, Williamsburg, VA, USA. 15Department of Political Science, Syracuse University, Syracuse, NY, USA. 16School of Media and Public Affairs and Institute for Data, Democracy, and Politics, The George Washington University, Washington, DC, USA.\n17Department of Communication, University of California, Davis, Davis, CA, USA.",
+      "score": 0.5832277
+    },
+    {
+      "id": "S7",
+      "title": "Social media research tool can reduce polarization",
+      "url": "https://www.washington.edu/news/2025/12/03/social-media-research-tool-can-reduce-polarization-it-could-also-lead-to-more-user-control-over-algorithms",
+      "content": "# UW NEWS\n\n[News releases](https://www.washington.edu/news/category/news-releases/) | [Technology](https://www.washington.edu/news/category/technology/)\n\nDecember 3, 2025\n\n## [Social media research tool can reduce polarization — it could also lead to more user control over algorithms](https://www.washington.edu/news/2025/12/03/social-media-research-tool-can-reduce-polarization-it-could-also-lead-to-more-user-control-over-algorithms/)\n\n![Icons for social media apps on a smartphone.](https://uw-s3-cdn.s3.us-west-2.amazonaws.com/wp-content/uploads/sites/6/2025/09/17141815/iStock-1642292511-1140x759.jpg)\n\nA new tool shows it is possible to turn down the partisan rancor in an X feed — without removing political posts and without the direct cooperation of the platform. \n\nThe study, from researchers at the University of Washington, Stanford University and Northeastern University, also indicates that it may one day be possible to let users take control of their social media algorithms. \n\nThe researchers created a seamless, web-based tool that reorders content to move posts lower in a user’s feed when they contain antidemocratic attitudes and partisan animosity, such as advocating for violence or jailing supporters of the opposing party. \n\nResearchers [published their findings](https://www.science.org/doi/10.1126/science.adu5584) Nov. 27 in Science.\n\n“Social media algorithms direct our attention and influence our moods and attitudes, but until now, only platforms had the power to change their algorithms’ design and study their effects,” said co-lead author [Martin Saveski](https://faculty.washington.edu/msaveski/), a UW assistant professor in the Information School. “Our tool gives that ability to external researchers.”\n\nIn an experiment, about 1,200 volunteer participants used the tool over 10 days during the 2024 election. Participants who had anti-democratic content downranked showed more positive views of the opposing party. The effect was also bipartisan, holding true for people who identified as liberals or conservatives.\n\n“Previous studies intervened at the level of the users or platform features — demoting content from users with similar political views, or switching to a chronological feed, for example. But we built on recent advances in AI to develop a more nuanced intervention that reranks content that is likely to polarize,” Saveski said.\n\nFor this study, the team drew from previous sociology research identifying categories of antidemocratic attitudes and partisan animosity that can be threats to democracy. In addition to advocating for extreme measures against the opposing party, these attitudes include statements that show rejection of any bipartisan cooperation, skepticism of facts that favor the other party’s views, and a willingness to forgo democratic principles to help the favored party.\n\nRelated:\n\nThe researchers tackled the problem from a range of disciplines including information science, computer science, psychology and communication. \n\nThe team created a web extension tool coupled with an artificial intelligence large language model that scans posts for these types of antidemocratic and extreme negative partisan sentiments. The tool then reorders posts on the user’s X feed in a matter of seconds. \n\nThen, in separate experiments, the researchers had a group of participants view their feeds with this type of content downranked or upranked over seven days and compared their reactions to a control group. No posts were removed, but the more incendiary political posts appeared lower or higher in their content streams.\n\nThe impact on polarization was clear. \n\n“When the participants were exposed to less of this content, they felt warmer toward the people of the opposing party,” said co-lead author [Tiziano Piccardi](https://piccardi.me/), an assistant professor at Johns Hopkins University. “When they were exposed to more, they felt colder.” \n\nBefore and after the experiment, the researchers surveyed participants on their feelings toward the opposing party on a scale of 1 to 100. The attitudes among the participants who had the negative content downranked improved on average by two points — equivalent to the estimated change in attitudes that has occurred among the general U.S. population over a period of three years. \n\nThe researchers are now looking into other interventions using a similar method, including ones that aim to improve mental health. The team has also made the code of the current tool available, so other researchers and developers can use it to create their own ranking systems independent of a social media platform’s algorithm.\n\n“In this work, we focused on affective polarization, but our framework can be applied to improve other outcomes, including well-being, mental health and civic engagement,” Saveski said. “We hope that other researchers will use our tool to explore the vast design space of potential feed algorithms and articulate alternative visions of how social media platforms could operate.”\n\n*Additional co-authors on this study include* [*Chenyan Jia*](https://www.jiachenyan.com/) *of Northeastern and* [*Michael Bernstein*](https://engineering.stanford.edu/people/michael-bernstein)*,* [*Jeanne Tsai*](https://profiles.stanford.edu/jeanne-tsai) *and* [*Jeff Hancock*](https://sml.stanford.edu/people/jeff-hancock) *of Stanford.*\n\n*This work was supported in part by the National Science Foundation, the Swiss National Science Foundation and a Hoffman-Yee grant from the Stanford Institute for Human-Centered Artificial Intelligence.*\n\n*For more information, contact Saveski at* [*msaveski@uw.edu*](mailto:msaveski@uw.edu)*.*\n\n*This story was adapted from a* [*press release*](https://news.stanford.edu/stories/2025/11/social-media-tool-polarization-user-control-research) *by Stanford University.*\n\n## Post navigation\n\n## [News releases](https://www.washington.edu/news/category/news-releases/)\n\nRead more news releases\n\n## Connect\n\n## UW Experts\n\n## Search UW News\n\n## Latest news video\n\n![](https://uw-s3-cdn.s3.us-west-2.amazonaws.com/wp-content/uploads/sites/6/2026/06/23125342/PaperTok-150x150.jpg)\n\n2 months ago\n\n## Subscribe to UW Today\n\nUW Today Daily\n\nUW Today Week in Review\n\nUW Current\n\n© 2026 University of Washington | Seattle, WA",
+      "score": 0.40924495
+    },
+    {
+      "id": "S8",
+      "title": "New study shows just how Facebook's algorithm shapes politics : NPR",
+      "url": "https://www.npr.org/2023/07/27/1190383104/new-study-shows-just-how-facebooks-algorithm-shapes-conservative-and-liberal-bub",
+      "content": "Accessibility links\n\n* [Keyboard shortcuts for audio player](https://help.npr.org/contact/s/article?name=what-are-the-keyboard-shortcuts-for-using-the-npr-org-audio-player)\n\n\n\n\n**New study shows just how Facebook's algorithm shapes politics** **Research conducted at the height of the 2020 election reveals new details about how Facebook's algorithms handle political content. But it suggests there are no easy fixes to political polarization.**\n\n[**Special Series**\n\n## Untangling Disinformation](https://www.npr.org/series/973275370/untangling-disinformation)\n\n# New study shows just how Facebook's algorithm shapes conservative and liberal bubbles\n\nHeard on [All Things Considered](https://www.npr.org/programs/all-things-considered/2023/07/27/1190598648/all-things-considered-for-july-27-2023)\n\nBy\n\n[Huo Jingnan](https://www.npr.org/people/726257042/huo-jingnan)\n\n,\n\n[Shannon Bond](https://www.npr.org/people/763523701/shannon-bond)\n\n#### New study shows just how Facebook's algorithm shapes conservative and liberal bubbles\n\n[******Listen**   **·  3:53******](https://ondemand.npr.org/anon.npr-mp3/npr/atc/2023/07/20230727_atc_social_media_election_research.mp3?size=3735346&d=233000&t=progseg&seg=10&e=1190383104&sc=siteplayer&aw_0_1st.playerid=siteplayer)\n\n* [**Download**](https://ondemand.npr.org/anon.npr-mp3/npr/atc/2023/07/20230727_atc_social_media_election_research.mp3?size=3735346&d=233000&t=progseg&seg=10&e=1190383104&sc=siteplayer&aw_0_1st.playerid=siteplayer)\n* **`<iframe src=\"https://www.npr.org/player/embed/1190383104/1190609614\" width=\"100%\" height=\"290\" frameborder=\"0\" scrolling=\"no\" title=\"NPR embedded audio player\">`**\n\n![Facebook's logo on a smartphone screen in Moscow.](https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4800x3200+0+0/resize/1100/quality/50/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe8%2Fcf%2F3aa32fe74dae90f9a55e0ec95609%2Fgettyimages-1244287116.jpg)\n\nFacebook's logo on a smartphone screen in Moscow.  **Kirill Kudryavtsev/AFP via Getty Images**  ****hide caption****\n\n ****toggle caption****\n\n Kirill Kudryavtsev/AFP via Getty Images\n\nIs Facebook exacerbating America's political divide? Are viral posts, algorithmically ranked feeds, and partisan echo chambers driving us apart? Do conservatives and liberals exist in ideological bubbles online?\n\nNew research published Thursday attempts to shed light on these questions. Four peer-reviewed studies, appearing in the journals [*Science*](https://www.science.org/toc/science/381/6656) and *Nature*, are the first results of a long-awaited, repeatedly delayed collaboration between Facebook and Instagram parent Meta and 17 outside researchers.\n\nThey investigated social media's role in the 2020 election by examining Facebook and Instagram before, during, and after Election Day. While the researchers were able to tap large swaths of Facebook's tightly held user data, they had little direct insight about the inner workings of its algorithms.\n\n### [Untangling Disinformation](https://www.npr.org/series/973275370/untangling-disinformation)\n\n### [How the 'Stop the Steal' movement outwitted Facebook ahead of the Jan. 6 insurrection](https://www.npr.org/2021/10/22/1048543513/facebook-groups-jan-6-insurrection)\n\nThe design of the social media giant's algorithms — a complex set of systems that determine whether you're shown your friend's vacation snapshots or a reshared political meme — have come under increasing [scrutiny](https://www.npr.org/2021/10/05/1043207218/whistleblower-to-congress-facebook-products-harm-children-and-weaken-democracy) in recent years, driven by the popular belief that they send users down rabbit holes and enable [radicalization](https://www.npr.org/2022/09/09/1121295499/facebook-twitter-youtube-instagram-tiktok-social-media). Those fears crystallized in the aftermath of the 2020 election, when [\"Stop the Steal\" groups](https://www.npr.org/2021/10/22/1048543513/facebook-groups-jan-6-insurrection) on Facebook helped facilitate the Jan. 6th Capitol insurrection.\n\nThe studies published on Thursday offer no easy answers to the debate that has raged since the 2016 election over the relationship between social media platforms and political polarization.\n\n### [Untangling Disinformation](https://www.npr.org/series/973275370/untangling-disinformation)\n\n### [Twitter's new data access rules will make social media research harder](https://www.npr.org/2023/02/09/1155543369/twitters-new-data-access-rules-will-make-social-media-research-harder)\n\nStill, the research sheds light on how Facebook's algorithm works. The studies found liberals and conservatives live in their own political news bubbles more so than elsewhere online. They also show that changing the platform's algorithm substantially changes what people see and how they behave on the site — even if it didn't affect their beliefs during the three-month period researchers studied.\n\n\"The insights from these papers provide critical insight into the black box of algorithms, giving us new information about what sort of content is prioritized and what happens if it is altered,\" said Talia Stroud of the University of Texas at Austin, who is co-leading the research project.\n\n### One Facebook, two political worlds\n\nIn one [study](https://www.science.org/doi/full/10.1126/science.ade7138) looking at 208 million adults on Facebook in the U.S., researchers tried to answer a long-standing question: do liberals and conservatives consume different political news?\n\nThe answer seems to be yes. After analyzing popular political news links posted on the platform between September 2020 and February 2021, the researchers found that there's not much overlap between political news consumption within the two camps. Segregation also increases as a news link moves from being selected by the algorithm, to being seen by a user, to being interacted with.\n\nThat ideological gap was larger than what other research has shown for overall news consumption online and in traditional media.\n\n### [Technology](https://www.npr.org/sections/technology/)\n\n### [NYU Researchers Were Studying Disinformation On Facebook. The Company Cut Them Off](https://www.npr.org/2021/08/04/1024791053/facebook-boots-nyu-disinformation-researchers-off-its-platform-and-critics-cry-f)\n\n\"This borders on an indictment of Facebook's algorithm,\" said Laura Edelson, a computer scientist and postdoctoral researcher at NYU. She was not involved with the project but has done similar [research](https://www.npr.org/2021/03/06/974394783/far-right-misinformation-is-thriving-on-facebook-a-new-study-shows-just-how-much) and reviewed the studies' findings. (In 2021, Edelson and her team were [blocked from accessing Facebook](https://www.npr.org/2021/08/04/1024791053/facebook-boots-nyu-disinformation-researchers-off-its-platform-and-critics-cry-f) after a clash over the data they were collecting.)\n\nThe bubbles are sometimes punctured. The researchers measured segregation levels by day, and found it dramatically dropped on October 2, 2020, when the White House announced [President Donald Trump was diagnosed with COVID-19](https://www.npr.org/sections/latest-updates-trump-covid-19-results/2020/10/02/919385151/president-trump-and-first-lady-test-positive-for-covid-19).\n\n### [Politics](https://www.npr.org/sections/politics/)\n\n### [Far-Right Misinformation Is Thriving On Facebook. A New Study Shows Just How Much](https://www.npr.org/2021/03/06/974394783/far-right-misinformation-is-thriving-on-facebook-a-new-study-shows-just-how-much)\n\n\"It's not a grand scientific observation,\" said David Lazer of Northeastern University, a co-author of the study. \"We'd need more data to see and we'd need more crises.\"\n\nThe gap goes beyond the difference in what posts people see. Conservatives engaged more with political news, meaning they clicked, liked, commented on, and re-shared the political news they saw more often than liberals did. The bubbles were asymmetric: there were more political news links se",
+      "score": 0.68318754
+    }
+  ]
+}

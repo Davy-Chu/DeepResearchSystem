@@ -1,0 +1,1798 @@
+{
+  "question": "Does remote work improve or reduce employee productivity? Compare evidence from controlled experiments, observational studies, and company-level data, and explain why different studies reach conflicting conclusions.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "model": "gpt-5.6-luna",
+  "max_iterations": 3,
+  "stop_reason": "max_iterations",
+  "final_report": {
+    "question": "Does remote work improve or reduce employee productivity? Compare evidence from controlled experiments, observational studies, and company-level data, and explain why different studies reach conflicting conclusions.",
+    "summary": "This is an automatically generated incomplete report. The research run ended with stop reason `max_iterations`, and normal finalization did not complete during OpenAI Ledger Report Generation. The validated findings collected before that point are preserved below without claiming that the evidence is complete.",
+    "findings": [
+      {
+        "claim": "Controlled experiments summarized in the supplied sources find heterogeneous effects: the 2015 Ctrip experiment reportedly found that employees working from home four days per week completed 13.5% more calls than office-based peers, while the 2024 Trip.com hybrid experiment reportedly found no statistically significant difference in performance reviews, promotions, lines of code, revenue, or hours worked over six months.",
+        "evidence": [
+          {
+            "summary": "Reports details of the 2015 and 2024 randomized Ctrip/Trip.com experiments, including the 13.5% call increase and null hybrid productivity differences.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "Official BLS review states that randomized experiments at individual firms identify small positive effects for hybrid and fully remote work using several individual productivity proxies.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "A secondary article repeats that the Trip.com hybrid study found no measurable difference in performance reviews, promotions, or code output, while describing hybrid work as productivity-neutral.",
+            "source_ids": [
+              "S8"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources provide secondary repetition but also introduce an inconsistent report about hybrid code output. Because the underlying study reports are not supplied and the new sources are secondary, confidence remains medium and the conflict is preserved."
+      },
+      {
+        "claim": "A fully remote arrangement may reduce output for some jobs or workers, particularly work requiring substantial collaboration and some newly hired employees, according to a working-paper result summarized in the supplied evidence.",
+        "evidence": [
+          {
+            "summary": "Summarizes a 2023 Bloom coauthored working paper as finding a 10–20% output reduction for some fully remote roles, especially highly collaborative roles and newly hired workers.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "Reports a Stanford study finding a 10% productivity drop for fully remote work while hybrid work had no apparent productivity impact.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "The article reports that Stanford research estimated approximately 10% lower productivity for fully remote work, with variation by role, individual, and management quality.",
+            "source_ids": [
+              "S8"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources repeat both negative and positive fully remote estimates, but they are secondary and do not supply enough methodological detail to strengthen causal inference."
+      },
+      {
+        "claim": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+        "evidence": [
+          {
+            "summary": "Explicitly contrasts monitoring-based measures with self-reported productivity and notes that remote-work studies include both full-time remote and hybrid arrangements.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "States that studies use varied individual labor-productivity proxies and that the answer depends on tasks, technology, home environment, motivation, and management practices.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "The working paper uses repeated surveys of small-business owners and workers, illustrating that observational and survey evidence measures perceived productivity and is subject to changing work arrangements, worker selection, and evolving organizational practices rather than providing a clean causal estimate.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: The supplied evidence directly supports the claim that studies use materially different productivity measures and examine different arrangements, including fully remote and hybrid work. S5 explicitly contrasts monitoring-based activity measures with self-reported productivity and notes ambiguity around hybrid versus fully remote work. S4 corroborates that studies use emails, calls, manager ratings, and other proxies, and states that findings depend on study factors such as tasks, technology, motivation, and management. The evidence also supports caution about causal interpretation: the sources describe surveys, industry-level associations, and case studies rather than establishing that observed relationships are causal. However, the supplied excerpts do not independently document selection and reverse causality as demonstrated mechanisms; those are appropriately framed as factors that may matter rather than established explanations."
+      },
+      {
+        "claim": "Company- and industry-level evidence in the supplied sources is mixed: an analysis across 43 private-sector industries reportedly found little relationship between an industry's ability to work entirely remotely and aggregate labor-productivity growth, while a BLS analysis across 61 industries found that growth in the share of remote workers was positively associated with total-factor-productivity growth in 2019–2021 and 2019–2022 after accounting for pre-pandemic productivity trends.",
+        "evidence": [
+          {
+            "summary": "Reports both the 43-industry null relationship from Fernald et al. and the BLS/ACS 61-industry positive association between increased remote work and TFP growth.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "A secondary 2026 summary repeats the BLS finding of a positive association across 61 industries and reports an estimated association of a 0.08–0.09 percentage-point increase in total-factor-productivity growth for a one-percentage-point increase in remote-work adoption.",
+            "source_ids": [
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 provides a reported effect-size detail consistent with the already supplied BLS account, but it is a secondary, employer-affiliated summary and does not resolve the causal-identification limitation."
+      },
+      {
+        "claim": "The supplied evidence indicates that remote work can improve individual focused-task productivity while impairing collaboration-related performance, making hybrid arrangements potentially favorable when jobs combine both types of work.",
+        "evidence": [
+          {
+            "summary": "Reports a cross-study median of +10% for individual focused tasks and −4% for collaborative tasks, and characterizes the net effect as depending on task mix.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "States that remote work is associated with focus advantages, while office settings support collaboration and spontaneous problem-solving; it presents hybrid work as balancing the two.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "Attributes differing outcomes to task types and notes both positive experimental individual-productivity effects and short-run declines in some pandemic case studies.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "A secondary systematic-review description of 12 studies reports that flexible arrangements generally improve productivity, with hybrid models described as most effective, while identifying digital-infrastructure and communication problems as limitations.",
+            "source_ids": [
+              "S7"
+            ]
+          },
+          {
+            "summary": "A secondary synthesis characterizes hybrid work as productivity-neutral in the Trip.com experiment and suggests that structured collaboration combined with remote focus time can support performance.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The survey evidence reports that firms made technology investments, added training, altered job characteristics and task assignments, and improved managers’ ability to lead remote teams as remote-work productivity perceptions improved over time.",
+            "source_ids": [
+              "S11"
+            ]
+          },
+          {
+            "summary": "A large employee-survey-based account reports stable or improved perceived productivity after transitions to remote work and emphasizes cooperation, trust, and leadership in high-performing organizations.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources reinforce the conditional role of management, technology, training, trust, and cooperation, but rely substantially on perceptions or survey associations and do not establish that remote work itself caused the reported productivity outcomes."
+      },
+      {
+        "claim": "In the reported Trip.com hybrid experiment, hybrid work reduced resignations while maintaining measured performance, suggesting that organizational effects can differ from narrow individual-output effects.",
+        "evidence": [
+          {
+            "summary": "Reports that hybrid workers had equivalent performance measures and a 33% reduction in resignations over six months; it also reports lower attrition in the broader summary of the experiment.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "States that randomized studies found lower turnover as job satisfaction rose, potentially reducing firms' hiring costs.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "The article repeats that the Trip.com hybrid experiment produced a substantially lower quit rate while maintaining measured productivity.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "The article reports lower attrition for hybrid workers in a pandemic-era randomized study, consistent with retention benefits from hybrid work.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "The summary repeats the reported finding that hybrid work had no measured performance decline and was associated with a 33% reduction in employee turnover.",
+            "source_ids": [
+              "S10"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S10 independently repeats the direction and approximate magnitude of the retention result, but remains a secondary employer-affiliated source and does not resolve the conflicting secondary estimate in S9."
+      },
+      {
+        "claim": "Firm- and worker-survey evidence during the COVID-19 period indicates that perceived remote-work productivity shifted over time: 70% of small-business owners initially reported a productivity dip in early 2020, whereas the median owner reported a positive productivity effect by early 2021. Reported contributors included technological investment, training, changes in job or task assignments, and improved remote-team management; owners also continued to report monitoring and skill-learning challenges, especially in larger firms.",
+        "evidence": [
+          {
+            "summary": "A 2020–2023 working paper based on repeated surveys reports the shift from widespread perceived productivity declines early in 2020 to a positive median perception by 2021, and identifies organizational adjustments and improved management as contributors while noting monitoring and learning concerns.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source directly reports repeated survey responses and proposed mechanisms, but the findings concern perceptions and associations rather than experimentally measured causal productivity effects."
+      }
+    ],
+    "conflicts_and_uncertainties": [
+      {
+        "description": "Evidence concerning ledger claim C1 is conflicting: Controlled experiments summarized in the supplied sources find heterogeneous effects: the 2015 Ctrip experiment reportedly found that employees working from home four days per week completed 13.5% more calls than office-based peers, while the 2024 Trip.com hybrid experiment reportedly found no statistically significant difference in performance reviews, promotions, lines of code, revenue, or hours worked over six months.",
+        "source_ids": [
+          "S1",
+          "S4",
+          "S8",
+          "S9"
+        ]
+      },
+      {
+        "description": "Evidence concerning ledger claim C2 is conflicting: A fully remote arrangement may reduce output for some jobs or workers, particularly work requiring substantial collaboration and some newly hired employees, according to a working-paper result summarized in the supplied evidence.",
+        "source_ids": [
+          "S1",
+          "S5",
+          "S8",
+          "S9"
+        ]
+      },
+      {
+        "description": "Evidence concerning ledger claim C4 is conflicting: Company- and industry-level evidence in the supplied sources is mixed: an analysis across 43 private-sector industries reportedly found little relationship between an industry's ability to work entirely remotely and aggregate labor-productivity growth, while a BLS analysis across 61 industries found that growth in the share of remote workers was positively associated with total-factor-productivity growth in 2019–2021 and 2019–2022 after accounting for pre-pandemic productivity trends.",
+        "source_ids": [
+          "S4",
+          "S10"
+        ]
+      },
+      {
+        "description": "Evidence concerning ledger claim C6 is conflicting: In the reported Trip.com hybrid experiment, hybrid work reduced resignations while maintaining measured performance, suggesting that organizational effects can differ from narrow individual-output effects.",
+        "source_ids": [
+          "S1",
+          "S4",
+          "S8",
+          "S9",
+          "S10"
+        ]
+      }
+    ],
+    "remaining_gaps": [
+      "The underlying controlled-experiment papers and full methodological details are not supplied, so the reported effect sizes, statistical uncertainty, compliance, treatment definitions, and external validity cannot be independently assessed.",
+      "The supplied evidence does not provide enough primary observational studies with sample characteristics, controls, timeframes, and explicit treatment of selection or reverse causality to synthesize observational estimates separately from surveys and secondary summaries.",
+      "Industry- and company-level findings lack the full model specifications, effect sizes, uncertainty estimates, and evidence needed to determine whether positive associations reflect causal productivity gains or industry and pandemic composition effects.",
+      "The supplied material provides limited direct evidence on how management practices, collaboration technology, onboarding, follow-up duration, and organizational context moderate productivity effects.",
+      "SQ1: What do controlled experiments find about the causal effect of remote work on employee productivity? (CONFLICTING: At least one linked ledger claim contains conflicting evidence.)",
+      "SQ2: What do observational studies find about the relationship between remote work and employee productivity? (PARTIAL: Open high- or medium-importance research gaps still block a sufficient answer.)",
+      "SQ3: What do company-level data and case studies indicate about the effect of remote work on productivity? (CONFLICTING: At least one linked ledger claim contains conflicting evidence.)",
+      "SQ4: Why do studies of remote work and productivity reach conflicting conclusions? (CONFLICTING: At least one linked ledger claim contains conflicting evidence.)",
+      "SQ5: Under what conditions does remote work appear to improve or reduce productivity, and how certain are these conclusions? (CONFLICTING: At least one linked ledger claim contains conflicting evidence.)"
+    ],
+    "conclusion": "The findings above reflect the evidence validated before the run ended. They should be treated as provisional because normal final synthesis did not complete and important gaps may remain."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "Does remote work improve or reduce employee productivity? Compare evidence from controlled experiments, observational studies, and company-level data, and explain why different studies reach conflicting conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Controlled experiments summarized in the supplied sources find heterogeneous effects: the 2015 Ctrip experiment reportedly found that employees working from home four days per week completed 13.5% more calls than office-based peers, while the 2024 Trip.com hybrid experiment reportedly found no statistically significant difference in performance reviews, promotions, lines of code, revenue, or hours worked over six months.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports details of the 2015 and 2024 randomized Ctrip/Trip.com experiments, including the 13.5% call increase and null hybrid productivity differences.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Official BLS review states that randomized experiments at individual firms identify small positive effects for hybrid and fully remote work using several individual productivity proxies.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The findings are described directly by S1 and broadly corroborated by the BLS summary in S4, but the underlying experiment reports were not supplied and S1 is a commercial editorial source.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "A fully remote arrangement may reduce output for some jobs or workers, particularly work requiring substantial collaboration and some newly hired employees, according to a working-paper result summarized in the supplied evidence.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Summarizes a 2023 Bloom coauthored working paper as finding a 10–20% output reduction for some fully remote roles, especially highly collaborative roles and newly hired workers.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports a Stanford study finding a 10% productivity drop for fully remote work while hybrid work had no apparent productivity impact.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "CONTRADICTS",
+                "summary": "The same source reports a 13.5% performance increase in the earlier Ctrip fully remote call-center experiment, indicating that the negative estimate is not universal.",
+                "strength": "DIRECT"
+              }
+            ],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The direction and conditionality are reported in two sources, but the underlying working paper and full study details are absent, and the evidence includes genuine heterogeneity rather than a single effect.",
+            "status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Observational and survey-based evidence is difficult to interpret causally because studies use different productivity measures, including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings; remote work may also be fully remote or hybrid.",
+            "supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Explicitly contrasts monitoring-based measures with self-reported productivity and notes that remote-work studies include both full-time remote and hybrid arrangements.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that studies use varied individual labor-productivity proxies and that the answer depends on tasks, technology, home environment, motivation, and management practices.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Both sources directly document measurement and arrangement differences, without requiring an inference about a particular causal effect.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Company- and industry-level evidence in the supplied sources is mixed: an analysis across 43 private-sector industries reportedly found little relationship between an industry's ability to work entirely remotely and aggregate labor-productivity growth, while a BLS analysis across 61 industries found that growth in the share of remote workers was positively associated with total-factor-productivity growth in 2019–2021 and 2019–2022 after accounting for pre-pandemic productivity trends.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Reports both the 43-industry null relationship from Fernald et al. and the BLS/ACS 61-industry positive association between increased remote work and TFP growth.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "The claims are directly stated in an official BLS publication, though the supplied excerpt does not provide effect sizes or establish that the industry-level associations are causal.",
+            "status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "The supplied evidence indicates that remote work can improve individual focused-task productivity while impairing collaboration-related performance, making hybrid arrangements potentially favorable when jobs combine both types of work.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports a cross-study median of +10% for individual focused tasks and −4% for collaborative tasks, and characterizes the net effect as depending on task mix.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "States that remote work is associated with focus advantages, while office settings support collaboration and spontaneous problem-solving; it presents hybrid work as balancing the two.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Attributes differing outcomes to task types and notes both positive experimental individual-productivity effects and short-run declines in some pandemic case studies.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The mechanism is consistent across the supplied sources, but the numerical cross-study medians come from a commercial editorial synthesis whose underlying studies are not provided.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "In the reported Trip.com hybrid experiment, hybrid work reduced resignations while maintaining measured performance, suggesting that organizational effects can differ from narrow individual-output effects.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports that hybrid workers had equivalent performance measures and a 33% reduction in resignations over six months; it also reports lower attrition in the broader summary of the experiment.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that randomized studies found lower turnover as job satisfaction rose, potentially reducing firms' hiring costs.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The result is directly reported by S1 and directionally supported by S4, but the underlying experiment publication is not included and the exact attrition estimate is presented inconsistently within S1.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "The underlying controlled-experiment papers and full methodological details are not supplied, so the reported effect sizes, statistical uncertainty, compliance, treatment definitions, and external validity cannot be independently assessed.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "The supplied evidence does not provide enough primary observational studies with sample characteristics, controls, timeframes, and explicit treatment of selection or reverse causality to synthesize observational estimates separately from surveys and secondary summaries.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "Industry- and company-level findings lack the full model specifications, effect sizes, uncertainty estimates, and evidence needed to determine whether positive associations reflect causal productivity gains or industry and pandemic composition effects.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "description": "The supplied material provides limited direct evidence on how management practices, collaboration technology, onboarding, follow-up duration, and organizational context moderate productivity effects.",
+            "importance": "MEDIUM",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ4",
+              "SQ5"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports details of the 2015 and 2024 randomized Ctrip/Trip.com experiments, including the 13.5% call increase and null hybrid productivity differences.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Official BLS review states that randomized experiments at individual firms identify small positive effects for hybrid and fully remote work using several individual productivity proxies.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Summarizes a 2023 Bloom coauthored working paper as finding a 10–20% output reduction for some fully remote roles, especially highly collaborative roles and newly hired workers.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Reports a Stanford study finding a 10% productivity drop for fully remote work while hybrid work had no apparent productivity impact.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "CONTRADICTS",
+                "summary": "The same source reports a 13.5% performance increase in the earlier Ctrip fully remote call-center experiment, indicating that the negative estimate is not universal.",
+                "strength": "DIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Explicitly contrasts monitoring-based measures with self-reported productivity and notes that remote-work studies include both full-time remote and hybrid arrangements.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that studies use varied individual labor-productivity proxies and that the answer depends on tasks, technology, home environment, motivation, and management practices.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Reports both the 43-industry null relationship from Fernald et al. and the BLS/ACS 61-industry positive association between increased remote work and TFP growth.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports a cross-study median of +10% for individual focused tasks and −4% for collaborative tasks, and characterizes the net effect as depending on task mix.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "States that remote work is associated with focus advantages, while office settings support collaboration and spontaneous problem-solving; it presents hybrid work as balancing the two.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Attributes differing outcomes to task types and notes both positive experimental individual-productivity effects and short-run declines in some pandemic case studies.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C6",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Reports that hybrid workers had equivalent performance measures and a 33% reduction in resignations over six months; it also reports lower attrition in the broader summary of the experiment.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "States that randomized studies found lower turnover as job satisfaction rose, potentially reducing firms' hiring costs.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "The underlying controlled-experiment papers and full methodological details are not supplied, so the reported effect sizes, statistical uncertainty, compliance, treatment definitions, and external validity cannot be independently assessed."
+          },
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "The supplied evidence does not provide enough primary observational studies with sample characteristics, controls, timeframes, and explicit treatment of selection or reverse causality to synthesize observational estimates separately from surveys and secondary summaries."
+          },
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "Industry- and company-level findings lack the full model specifications, effect sizes, uncertainty estimates, and evidence needed to determine whether positive associations reflect causal productivity gains or industry and pandemic composition effects."
+          },
+          {
+            "gap_id": "G4",
+            "change_type": "NEW",
+            "description": "The supplied material provides limited direct evidence on how management practices, collaboration technology, onboarding, follow-up duration, and organizational context moderate productivity effects."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "Independent verification of C3 identified a high-value falsification search: The supplied sources support that remote-work studies use heterogeneous productivity measures—including self-reports, monitored device activity, emails or calls, and manager ratings—and distinguish fully remote from hybrid work. This heterogeneity makes comparisons and causal interpretation difficult. However, the evidence does not specifically document lines of code as a measure in the cited studies, nor does it establish that measurement differences alone are the reason causal interpretation is difficult; selection, reverse causality, and other design issues are also relevant.",
+        "target_type": "CLAIM",
+        "target_id": "C3",
+        "next_search_query": "systematic review or peer-reviewed evidence on remote-work productivity observational and survey studies: compare productivity measures, causal identification, selection bias, reverse causality, full remote versus hybrid, and use of lines of code or manager ratings",
+        "decision_origin": "VERIFIER_COUNTERSEARCH"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ3",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "CONFLICTING",
+          "status_reason": "At least one linked ledger claim contains conflicting evidence."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "systematic review or peer-reviewed evidence on remote-work productivity observational and survey studies: compare productivity measures, causal identification, selection bias, reverse causality, full remote versus hybrid, and use of lines of code or manager ratings",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "evidence_processing": {
+        "new_claims": [],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "A secondary article repeats that the Trip.com hybrid study found no measurable difference in performance reviews, promotions, or code output, while describing hybrid work as productivity-neutral.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "An advocacy-oriented secondary article reports that a pandemic-era randomized hybrid study found hybrid workers wrote 8% more code, differing from the reported null code-output result in C1.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources provide secondary repetition but also introduce an inconsistent report about hybrid code output. Because the underlying study reports are not supplied and the new sources are secondary, confidence remains medium and the conflict is preserved.",
+            "updated_status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The article reports that Stanford research estimated approximately 10% lower productivity for fully remote work, with variation by role, individual, and management quality.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article cites earlier randomized call-center evidence showing about a 13% performance increase under work from home, reinforcing that fully remote effects are not uniformly negative.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources repeat both negative and positive fully remote estimates, but they are secondary and do not supply enough methodological detail to strengthen causal inference.",
+            "updated_status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "A secondary systematic-review description of 12 studies reports that flexible arrangements generally improve productivity, with hybrid models described as most effective, while identifying digital-infrastructure and communication problems as limitations.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "A secondary synthesis characterizes hybrid work as productivity-neutral in the Trip.com experiment and suggests that structured collaboration combined with remote focus time can support performance.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The additional sources are directionally consistent with conditional benefits of hybrid work, but their secondary or AI-enhanced presentation and lack of study-level estimates limit the evidentiary upgrade.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C6",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The article repeats that the Trip.com hybrid experiment produced a substantially lower quit rate while maintaining measured productivity.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article reports lower attrition for hybrid workers in a pandemic-era randomized study, consistent with retention benefits from hybrid work.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article reports a 35% rather than 33% reduction in attrition and an 8% increase in code output, creating uncertainty about the exact estimates and whether performance was strictly unchanged.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The direction of a retention benefit is repeated, but the exact attrition magnitude and accompanying productivity result vary across supplied secondary accounts.",
+            "updated_status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "A secondary article repeats that the Trip.com hybrid study found no measurable difference in performance reviews, promotions, or code output, while describing hybrid work as productivity-neutral.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "An advocacy-oriented secondary article reports that a pandemic-era randomized hybrid study found hybrid workers wrote 8% more code, differing from the reported null code-output result in C1.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "CONFLICTING",
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The article reports that Stanford research estimated approximately 10% lower productivity for fully remote work, with variation by role, individual, and management quality.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article cites earlier randomized call-center evidence showing about a 13% performance increase under work from home, reinforcing that fully remote effects are not uniformly negative.",
+                "strength": "INDIRECT"
+              }
+            ]
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S7",
+                "relation": "SUPPORTS",
+                "summary": "A secondary systematic-review description of 12 studies reports that flexible arrangements generally improve productivity, with hybrid models described as most effective, while identifying digital-infrastructure and communication problems as limitations.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "A secondary synthesis characterizes hybrid work as productivity-neutral in the Trip.com experiment and suggests that structured collaboration combined with remote focus time can support performance.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C6",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The article repeats that the Trip.com hybrid experiment produced a substantially lower quit rate while maintaining measured productivity.",
+                "strength": "INDIRECT"
+              },
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "The article reports lower attrition for hybrid workers in a pandemic-era randomized study, consistent with retention benefits from hybrid work.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "CONTRADICTS",
+                "summary": "The article reports a 35% rather than 33% reduction in attrition and an 8% increase in code output, creating uncertainty about the exact estimates and whether performance was strictly unchanged.",
+                "strength": "INDIRECT"
+              }
+            ]
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "SQ2 is a CORE subquestion still only partially resolved, and the high-priority observational-evidence gap remains open. One focused search could materially improve the comparison by supplying primary estimates, samples, controls, timeframes, and treatment of selection or reverse causality; the remaining budget permits exactly one search.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ2",
+        "next_search_query": "primary observational studies estimating remote-work effects on employee productivity: panel or matched-worker designs, sample and timeframe, productivity measure, effect size and uncertainty, controls for selection and reverse causality, full remote versus hybrid",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "COUNTERSEARCH",
+      "search_target_id": "C3",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "primary observational studies estimating remote-work effects on employee productivity: panel or matched-worker designs, sample and timeframe, productivity measure, effect size and uncertainty, controls for selection and reverse causality, full remote versus hybrid",
+      "source_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Firm- and worker-survey evidence during the COVID-19 period indicates that perceived remote-work productivity shifted over time: 70% of small-business owners initially reported a productivity dip in early 2020, whereas the median owner reported a positive productivity effect by early 2021. Reported contributors included technological investment, training, changes in job or task assignments, and improved remote-team management; owners also continued to report monitoring and skill-learning challenges, especially in larger firms.",
+            "supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "A 2020–2023 working paper based on repeated surveys reports the shift from widespread perceived productivity declines early in 2020 to a positive median perception by 2021, and identifies organizational adjustments and improved management as contributors while noting monitoring and learning concerns.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The source directly reports repeated survey responses and proposed mechanisms, but the findings concern perceptions and associations rather than experimentally measured causal productivity effects.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The working paper uses repeated surveys of small-business owners and workers, illustrating that observational and survey evidence measures perceived productivity and is subject to changing work arrangements, worker selection, and evolving organizational practices rather than providing a clean causal estimate.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S11 adds a substantive working-paper source documenting survey-based measurement and time-varying organizational context. It reinforces the distinction between perceived or reported productivity and causal estimates, while not eliminating the underlying observational limitations.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "A secondary 2026 summary repeats the BLS finding of a positive association across 61 industries and reports an estimated association of a 0.08–0.09 percentage-point increase in total-factor-productivity growth for a one-percentage-point increase in remote-work adoption.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "S10 provides a reported effect-size detail consistent with the already supplied BLS account, but it is a secondary, employer-affiliated summary and does not resolve the causal-identification limitation.",
+            "updated_status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The survey evidence reports that firms made technology investments, added training, altered job characteristics and task assignments, and improved managers’ ability to lead remote teams as remote-work productivity perceptions improved over time.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "A large employee-survey-based account reports stable or improved perceived productivity after transitions to remote work and emphasizes cooperation, trust, and leadership in high-performing organizations.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "The new sources reinforce the conditional role of management, technology, training, trust, and cooperation, but rely substantially on perceptions or survey associations and do not establish that remote work itself caused the reported productivity outcomes.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ3",
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C6",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The summary repeats the reported finding that hybrid work had no measured performance decline and was associated with a 33% reduction in employee turnover.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "MEDIUM",
+            "updated_confidence_reason": "S10 independently repeats the direction and approximate magnitude of the retention result, but remains a secondary employer-affiliated source and does not resolve the conflicting secondary estimate in S9.",
+            "updated_status": "CONFLICTING",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ3",
+              "SQ5"
+            ]
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C7",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "A 2020–2023 working paper based on repeated surveys reports the shift from widespread perceived productivity declines early in 2020 to a positive median perception by 2021, and identifies organizational adjustments and improved management as contributors while noting monitoring and learning concerns.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The working paper uses repeated surveys of small-business owners and workers, illustrating that observational and survey evidence measures perceived productivity and is subject to changing work arrangements, worker selection, and evolving organizational practices rather than providing a clean causal estimate.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "CONFLICTING",
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "A secondary 2026 summary repeats the BLS finding of a positive association across 61 industries and reports an estimated association of a 0.08–0.09 percentage-point increase in total-factor-productivity growth for a one-percentage-point increase in remote-work adoption.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The survey evidence reports that firms made technology investments, added training, altered job characteristics and task assignments, and improved managers’ ability to lead remote teams as remote-work productivity perceptions improved over time.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "A large employee-survey-based account reports stable or improved perceived productivity after transitions to remote work and emphasizes cooperation, trust, and leadership in high-performing organizations.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C6",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "MEDIUM",
+            "previous_status": "CONFLICTING",
+            "current_status": "CONFLICTING",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "The summary repeats the reported finding that hybrid work had no measured performance decline and was associated with a 33% reduction in employee turnover.",
+                "strength": "INDIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": false,
+        "reason": "The maximum research iteration budget was reached.",
+        "target_type": null,
+        "target_id": null,
+        "next_search_query": null,
+        "decision_origin": "BUDGET_STOP"
+      },
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ2",
+      "subquestion_status_changes": []
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "Controlled experiments summarized in the supplied sources find heterogeneous effects: the 2015 Ctrip experiment reportedly found that employees working from home four days per week completed 13.5% more calls than office-based peers, while the 2024 Trip.com hybrid experiment reportedly found no statistically significant difference in performance reviews, promotions, lines of code, revenue, or hours worked over six months.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Reports details of the 2015 and 2024 randomized Ctrip/Trip.com experiments, including the 13.5% call increase and null hybrid productivity differences.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Official BLS review states that randomized experiments at individual firms identify small positive effects for hybrid and fully remote work using several individual productivity proxies.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "A secondary article repeats that the Trip.com hybrid study found no measurable difference in performance reviews, promotions, or code output, while describing hybrid work as productivity-neutral.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "An advocacy-oriented secondary article reports that a pandemic-era randomized hybrid study found hybrid workers wrote 8% more code, differing from the reported null code-output result in C1.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources provide secondary repetition but also introduce an inconsistent report about hybrid code output. Because the underlying study reports are not supplied and the new sources are secondary, confidence remains medium and the conflict is preserved.",
+        "status": "CONFLICTING",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "A fully remote arrangement may reduce output for some jobs or workers, particularly work requiring substantial collaboration and some newly hired employees, according to a working-paper result summarized in the supplied evidence.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Summarizes a 2023 Bloom coauthored working paper as finding a 10–20% output reduction for some fully remote roles, especially highly collaborative roles and newly hired workers.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Reports a Stanford study finding a 10% productivity drop for fully remote work while hybrid work had no apparent productivity impact.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The article reports that Stanford research estimated approximately 10% lower productivity for fully remote work, with variation by role, individual, and management quality.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "CONTRADICTS",
+            "summary": "The same source reports a 13.5% performance increase in the earlier Ctrip fully remote call-center experiment, indicating that the negative estimate is not universal.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The article cites earlier randomized call-center evidence showing about a 13% performance increase under work from home, reinforcing that fully remote effects are not uniformly negative.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources repeat both negative and positive fully remote estimates, but they are secondary and do not supply enough methodological detail to strengthen causal inference.",
+        "status": "CONFLICTING",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 2,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ4",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+        "supporting_evidence": [
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Explicitly contrasts monitoring-based measures with self-reported productivity and notes that remote-work studies include both full-time remote and hybrid arrangements.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "States that studies use varied individual labor-productivity proxies and that the answer depends on tasks, technology, home environment, motivation, and management practices.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "The working paper uses repeated surveys of small-business owners and workers, illustrating that observational and survey evidence measures perceived productivity and is subject to changing work arrangements, worker selection, and evolving organizational practices rather than providing a clean causal estimate.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Independent verification: The supplied evidence directly supports the claim that studies use materially different productivity measures and examine different arrangements, including fully remote and hybrid work. S5 explicitly contrasts monitoring-based activity measures with self-reported productivity and notes ambiguity around hybrid versus fully remote work. S4 corroborates that studies use emails, calls, manager ratings, and other proxies, and states that findings depend on study factors such as tasks, technology, motivation, and management. The evidence also supports caution about causal interpretation: the sources describe surveys, industry-level associations, and case studies rather than establishing that observed relationships are causal. However, the supplied excerpts do not independently document selection and reverse causality as demonstrated mechanisms; those are appropriately framed as factors that may matter rather than established explanations.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "Company- and industry-level evidence in the supplied sources is mixed: an analysis across 43 private-sector industries reportedly found little relationship between an industry's ability to work entirely remotely and aggregate labor-productivity growth, while a BLS analysis across 61 industries found that growth in the share of remote workers was positively associated with total-factor-productivity growth in 2019–2021 and 2019–2022 after accounting for pre-pandemic productivity trends.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Reports both the 43-industry null relationship from Fernald et al. and the BLS/ACS 61-industry positive association between increased remote work and TFP growth.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "A secondary 2026 summary repeats the BLS finding of a positive association across 61 industries and reports an estimated association of a 0.08–0.09 percentage-point increase in total-factor-productivity growth for a one-percentage-point increase in remote-work adoption.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "S10 provides a reported effect-size detail consistent with the already supplied BLS account, but it is a secondary, employer-affiliated summary and does not resolve the causal-identification limitation.",
+        "status": "CONFLICTING",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "The supplied evidence indicates that remote work can improve individual focused-task productivity while impairing collaboration-related performance, making hybrid arrangements potentially favorable when jobs combine both types of work.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Reports a cross-study median of +10% for individual focused tasks and −4% for collaborative tasks, and characterizes the net effect as depending on task mix.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "States that remote work is associated with focus advantages, while office settings support collaboration and spontaneous problem-solving; it presents hybrid work as balancing the two.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Attributes differing outcomes to task types and notes both positive experimental individual-productivity effects and short-run declines in some pandemic case studies.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S7",
+            "relation": "SUPPORTS",
+            "summary": "A secondary systematic-review description of 12 studies reports that flexible arrangements generally improve productivity, with hybrid models described as most effective, while identifying digital-infrastructure and communication problems as limitations.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "A secondary synthesis characterizes hybrid work as productivity-neutral in the Trip.com experiment and suggests that structured collaboration combined with remote focus time can support performance.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "The survey evidence reports that firms made technology investments, added training, altered job characteristics and task assignments, and improved managers’ ability to lead remote teams as remote-work productivity perceptions improved over time.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "A large employee-survey-based account reports stable or improved perceived productivity after transitions to remote work and emphasizes cooperation, trust, and leadership in high-performing organizations.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The new sources reinforce the conditional role of management, technology, training, trust, and cooperation, but rely substantially on perceptions or survey associations and do not establish that remote work itself caused the reported productivity outcomes.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ3",
+          "SQ4",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C6",
+        "claim": "In the reported Trip.com hybrid experiment, hybrid work reduced resignations while maintaining measured performance, suggesting that organizational effects can differ from narrow individual-output effects.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Reports that hybrid workers had equivalent performance measures and a 33% reduction in resignations over six months; it also reports lower attrition in the broader summary of the experiment.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "States that randomized studies found lower turnover as job satisfaction rose, potentially reducing firms' hiring costs.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The article repeats that the Trip.com hybrid experiment produced a substantially lower quit rate while maintaining measured productivity.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "The article reports lower attrition for hybrid workers in a pandemic-era randomized study, consistent with retention benefits from hybrid work.",
+            "strength": "INDIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "The summary repeats the reported finding that hybrid work had no measured performance decline and was associated with a 33% reduction in employee turnover.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "contradicting_evidence": [
+          {
+            "source_id": "S9",
+            "relation": "CONTRADICTS",
+            "summary": "The article reports a 35% rather than 33% reduction in attrition and an 8% increase in code output, creating uncertainty about the exact estimates and whether performance was strictly unchanged.",
+            "strength": "INDIRECT"
+          }
+        ],
+        "confidence": "MEDIUM",
+        "confidence_reason": "S10 independently repeats the direction and approximate magnitude of the retention result, but remains a secondary employer-affiliated source and does not resolve the conflicting secondary estimate in S9.",
+        "status": "CONFLICTING",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ3",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C7",
+        "claim": "Firm- and worker-survey evidence during the COVID-19 period indicates that perceived remote-work productivity shifted over time: 70% of small-business owners initially reported a productivity dip in early 2020, whereas the median owner reported a positive productivity effect by early 2021. Reported contributors included technological investment, training, changes in job or task assignments, and improved remote-team management; owners also continued to report monitoring and skill-learning challenges, especially in larger firms.",
+        "supporting_evidence": [
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "A 2020–2023 working paper based on repeated surveys reports the shift from widespread perceived productivity declines early in 2020 to a positive median perception by 2021, and identifies organizational adjustments and improved management as contributors while noting monitoring and learning concerns.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "MEDIUM",
+        "confidence_reason": "The source directly reports repeated survey responses and proposed mechanisms, but the findings concern perceptions and associations rather than experimentally measured causal productivity effects.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ3",
+          "SQ4",
+          "SQ5"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "The underlying controlled-experiment papers and full methodological details are not supplied, so the reported effect sizes, statistical uncertainty, compliance, treatment definitions, and external validity cannot be independently assessed.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ1",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G2",
+      "description": "The supplied evidence does not provide enough primary observational studies with sample characteristics, controls, timeframes, and explicit treatment of selection or reverse causality to synthesize observational estimates separately from surveys and secondary summaries.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ2",
+        "SQ4",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "Industry- and company-level findings lack the full model specifications, effect sizes, uncertainty estimates, and evidence needed to determine whether positive associations reflect causal productivity gains or industry and pandemic composition effects.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ3",
+        "SQ4",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G4",
+      "description": "The supplied material provides limited direct evidence on how management practices, collaboration technology, onboarding, follow-up duration, and organizational context moderate productivity effects.",
+      "importance": "MEDIUM",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ4",
+        "SQ5"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "What do controlled experiments find about the causal effect of remote work on employee productivity?",
+        "importance": "CORE",
+        "success_criteria": "Synthesize evidence from randomized or otherwise well-controlled experiments, specifying the remote-work arrangement, productivity measure, population, study timeframe, effect direction and magnitude where available, and key limitations.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ2",
+        "question": "What do observational studies find about the relationship between remote work and employee productivity?",
+        "importance": "CORE",
+        "success_criteria": "Compare observational estimates across settings and methods, clearly distinguishing correlation from causation and documenting productivity measures, samples, timeframes, controls, and major threats such as selection, reverse causality, and changes in work composition.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 3
+      },
+      {
+        "id": "SQ3",
+        "question": "What do company-level data and case studies indicate about the effect of remote work on productivity?",
+        "importance": "CORE",
+        "success_criteria": "Assess evidence using firm-, team-, or aggregate company-level outcomes, identifying whether findings concern individual output, team performance, costs, revenue, retention, or other productivity proxies, and noting generalizability and measurement limitations.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ4",
+        "question": "Why do studies of remote work and productivity reach conflicting conclusions?",
+        "importance": "CORE",
+        "success_criteria": "Develop an evidence-based explanation that accounts for differences in research design, causal identification, employee and job selection, degree and type of remote work, management practices, collaboration and coordination, technology, productivity measures, time periods, organizational context, and follow-up duration.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ5",
+        "question": "Under what conditions does remote work appear to improve or reduce productivity, and how certain are these conclusions?",
+        "importance": "SECONDARY",
+        "success_criteria": "Synthesize results across the three evidence types into a qualified comparison of contexts and conditions, explicitly reporting consistency, uncertainty, heterogeneity, and limits on causal interpretation rather than presenting a single universal effect.",
+        "status": "CONFLICTING",
+        "status_reason": "At least one linked ledger claim contains conflicting evidence.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Compare controlled experiments, observational studies, and company-level data directly rather than summarizing them in isolation.",
+      "Separate causal evidence from correlational evidence and distinguish individual productivity from team- or company-level performance and other proxies.",
+      "Preserve differences in remote-work intensity, job and employee characteristics, productivity definitions, study periods, and organizational settings when explaining conflicting findings.",
+      "State the direction, size, uncertainty, and important limitations of findings where the evidence permits.",
+      "Explain conflicting conclusions through methodological and contextual differences, not merely by listing contradictory results."
+    ],
+    "output_requirements": [
+      "Answer the overall question of whether remote work improves or reduces employee productivity with a qualified conclusion.",
+      "Present the comparison by evidence type: controlled experiments, observational studies, and company-level data.",
+      "Explain why different studies reach conflicting conclusions.",
+      "Include appropriate uncertainty and avoid implying that one result applies universally."
+    ]
+  },
+  "claim_verifications": [
+    {
+      "id": "V1",
+      "claim_id": "C3",
+      "verification_iteration": 1,
+      "claim_version_iteration": 1,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S5",
+        "S4"
+      ],
+      "result": {
+        "claim_id": "C3",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The supplied sources support that remote-work studies use heterogeneous productivity measures—including self-reports, monitored device activity, emails or calls, and manager ratings—and distinguish fully remote from hybrid work. This heterogeneity makes comparisons and causal interpretation difficult. However, the evidence does not specifically document lines of code as a measure in the cited studies, nor does it establish that measurement differences alone are the reason causal interpretation is difficult; selection, reverse causality, and other design issues are also relevant.",
+        "missing_assumptions": [
+          "The listed measures, especially lines of code, are actually used in the observational or survey studies under discussion.",
+          "Differences in productivity measurement materially affect estimated remote-work effects.",
+          "The evidence being summarized adequately distinguishes observational estimates from controlled experimental estimates."
+        ],
+        "source_quality_concerns": [
+          "One source is a Stack Overflow blog post rather than a peer-reviewed or official research synthesis.",
+          "The supplied excerpts provide illustrative descriptions and secondary summaries, not full methodological details for the underlying studies.",
+          "The evidence excerpt from the Stack Overflow source is truncated."
+        ],
+        "counter_search_needed": true,
+        "counter_search_query": "systematic review or peer-reviewed evidence on remote-work productivity observational and survey studies: compare productivity measures, causal identification, selection bias, reverse causality, full remote versus hybrid, and use of lines of code or manager ratings",
+        "recommended_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies differ in productivity measures—such as self-reports, monitored digital activity, emails or calls, and manager ratings—and in whether they examine fully remote or hybrid work. These measurement and treatment differences are compounded by study-design and selection issues.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "WEAK"
+      },
+      "counter_search_status": "EXECUTED",
+      "counter_search_iteration": 2,
+      "counter_search_source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "reconciliation_applied": false,
+      "previous_claim_text": null,
+      "current_claim_text": null,
+      "previous_confidence": null,
+      "current_confidence": null,
+      "previous_status": null,
+      "current_status": null
+    },
+    {
+      "id": "V2",
+      "claim_id": "C3",
+      "verification_iteration": 2,
+      "claim_version_iteration": 1,
+      "phase": "POST_COUNTERSEARCH",
+      "evidence_source_ids": [
+        "S5",
+        "S4"
+      ],
+      "result": {
+        "claim_id": "C3",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The supplied evidence supports that studies use heterogeneous productivity measures—including self-reports, monitoring data, emails, calls, lines of code, and manager ratings—and distinguish fully remote from hybrid work. However, differing measures primarily complicate comparability and interpretation; causal difficulty also depends on selection, reverse causality, controls, and study design, which the cited excerpts do not document in detail.",
+        "missing_assumptions": [
+          "The cited measures are valid and comparable enough to represent productivity rather than activity or perceived performance.",
+          "The underlying studies differ in causal identification and may be affected by selection or reverse causality.",
+          "The distinction between fully remote and hybrid work is consistently defined across studies."
+        ],
+        "source_quality_concerns": [
+          "One source is a Stack Overflow editorial summary rather than a primary research study.",
+          "The BLS article summarizes underlying studies, but the supplied excerpt does not provide their full methods, samples, estimates, or limitations.",
+          "The evidence does not establish that measurement heterogeneity alone makes causal interpretation difficult."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "Observational and survey-based evidence is difficult to interpret causally because studies use different productivity measures, including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings; remote work may also be fully remote or hybrid.",
+      "current_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "SUPPORTED"
+    },
+    {
+      "id": "V3",
+      "claim_id": "C3",
+      "verification_iteration": 3,
+      "claim_version_iteration": 3,
+      "phase": "RECHECK",
+      "evidence_source_ids": [
+        "S5",
+        "S4",
+        "S11"
+      ],
+      "result": {
+        "claim_id": "C3",
+        "verdict": "VERIFIED",
+        "reason": "The supplied evidence directly supports the claim that studies use materially different productivity measures and examine different arrangements, including fully remote and hybrid work. S5 explicitly contrasts monitoring-based activity measures with self-reported productivity and notes ambiguity around hybrid versus fully remote work. S4 corroborates that studies use emails, calls, manager ratings, and other proxies, and states that findings depend on study factors such as tasks, technology, motivation, and management. The evidence also supports caution about causal interpretation: the sources describe surveys, industry-level associations, and case studies rather than establishing that observed relationships are causal. However, the supplied excerpts do not independently document selection and reverse causality as demonstrated mechanisms; those are appropriately framed as factors that may matter rather than established explanations.",
+        "missing_assumptions": [],
+        "source_quality_concerns": [
+          "S5 is a company blog and its excerpt is truncated, so it is secondary and incomplete.",
+          "S11 is a working paper based on surveys; its productivity findings are perceptions rather than objective causal estimates.",
+          "The evidence supplied does not systematically document all listed measures, study samples, timeframes, controls, or specific selection/reverse-causality tests."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. These measurement and treatment differences can contribute to conflicting findings; selection, reverse causality, and other study-design limitations may also matter.",
+        "recommended_confidence": "HIGH",
+        "recommended_status": "SUPPORTED"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+      "current_claim_text": "Observational and survey-based evidence is difficult to compare and interpret causally because studies use different productivity measures—including self-reports, monitored digital activity, emails or calls, lines of code, and manager ratings—and examine different arrangements, such as fully remote and hybrid work. Measurement differences are one source of conflicting findings; selection, reverse causality, and study design may also matter.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "HIGH",
+      "previous_status": "SUPPORTED",
+      "current_status": "SUPPORTED"
+    }
+  ],
+  "current_iteration": 3,
+  "remaining_search_budget": 0,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Remote Work Productivity Study 2026: 50+ Studies | eMonitor",
+      "url": "https://www.employee-monitoring.net/blog/remote-work-productivity-research-meta-analysis",
+      "content": "[![eMonitor Logo](../images/emonitor-mainlogo.webp)](/)\n\n\n\n![Workforce analytics illustration](../images/hero-analytics-vector.svg) ![eMonitor](../images/emonitor-logo-white.svg)\n\n# Remote Work Productivity Research: What 100,000+ Workers Tell Us (2026 Meta-Analysis)\n\nRemote Activity**This week**\n\n**6.0h**Productive / day\n\n**7**Timezones\n\n[Research](/blog/)\n\neM By **eMonitor Editorial Team**\n\n| | 8 min read\n\nWe reviewed 50+ peer-reviewed studies, corporate analyzes, and longitudinal datasets covering over 100,000 workers to answer one question: does remote work help or hurt productivity? The answer depends on what you measure, who you study, and how you manage the transition.\n\n**Remote work productivity research** is the body of academic, corporate, and government-funded studies that measures how location-flexible work arrangements affect employee output, collaboration quality, and organizational performance. Since 2020, this research field has produced more data than in the prior two decades combined. Stanford's Nicholas Bloom, one of the most cited economists studying remote work, has published **seven major papers** on the topic since 2015. Microsoft analyzed internal data from **60,000 employees**. Gallup surveys more than **15 million workers annually**. Yet despite this volume of evidence, the public conversation remains polarized: CEOs claim remote work kills productivity while employees insist they are more productive at home.\n\nThe truth, as this meta-analysis shows, sits between those poles and varies dramatically by context. This article synthesizes the most rigorous research available into clear, actionable findings for business leaders making decisions about work location policies in 2026.\n\n## How We Selected and Weighted These Studies\n\nThis [remote work productivity](/resources/remote-work-productivity-statistics-2026) meta-analysis applies inclusion criteria borrowed from systematic review methodology in social science research. Not every \"study\" deserves equal weight. We prioritized evidence based on three factors: methodological rigor, sample size, and recency.\n\n### Methodological Hierarchy\n\nWe ranked studies using a four-tier evidence hierarchy. **Tier 1** consists of randomized controlled trials (RCTs), the gold standard in productivity research. Bloom's Ctrip/Trip.com experiments (2015, 2024) fall into this category because they randomly assigned employees to remote or in-office conditions and measured output differences. **Tier 2** includes quasi-experimental studies with natural experiments, such as COVID-era mandatory remote transitions where before-and-after data exists. **Tier 3** covers large-scale observational studies with statistical controls (Microsoft's internal analysis, Prodoscore's behavioral data). **Tier 4** includes survey-based research, which we include for context but weight less heavily because self-reported productivity is notoriously unreliable.\n\n### Sample Size and Scope\n\nStudies covering fewer than 500 workers received lower weighting. The research base for this analysis spans **113,000+ workers** across 14 countries, 23 industries, and work arrangements ranging from fully remote to hybrid to fully in-office. The median study in our sample covers 2,400 workers with a duration of 9 months.\n\nBut even rigorous methodology has limits. Most remote work productivity research studies knowledge workers (software engineers, call center agents, professional services). Evidence on remote productivity for roles requiring physical presence or intensive synchronous collaboration remains thin. We note these gaps where relevant throughout the analysis.\n\n## The Headline Finding: Remote Work Productivity Is Positive, With Conditions\n\nRemote work productivity research, taken as a whole, shows a net positive effect on individual output. Across our 50+ studies, the median productivity impact of remote work is **+10% for individual focused tasks** and **-4% for collaborative tasks**. The net effect depends on the ratio of focused-to-collaborative work in a given role.\n\nHow does this break down by arrangement type? Bloom's latest randomized trial at Trip.com (published in *Nature*, June 2024) provides the clearest answer. Employees randomized into a hybrid schedule (three office days, two remote days) showed **no measurable productivity difference** from their fully in-office peers. At the same time, hybrid workers reported higher job satisfaction and showed **35% lower attrition rates**. That combination (equal productivity plus lower turnover) makes hybrid work a clear organizational win.\n\nFully remote work tells a more complicated story. Bloom's earlier Ctrip study (2015) found a **13% performance increase** for fully remote call center workers, driven by fewer sick days, a quieter work environment, and longer shifts. But a 2023 working paper from Bloom and co-authors found that **fully remote work reduced output by 10-20%** for some roles, particularly those requiring high collaboration or workers who were newly hired. The difference is not about remote work itself; it is about which tasks and which workers benefit from location flexibility.\n\neMonitor — Remote Team Activity\n\nDistributed Team, This Week\n\n92%\n\nActive in core hrs\n\n▲ 6%\n\n6.4h\n\nAvg productive/day\n\n7\n\nTimezones\n\n41\n\nOnline now\n\nActive members / hour\n\nMon\n\nTue\n\nWed\n\nThu\n\nFri\n\nWork pattern\n\nFocused64%\n\nCollab26%\n\nBreaks10%\n\n▲ Output held steady across 7 timezones with async workflows.\n\nIllustrative eMonitor dashboard.\n\n## Stanford's Contributions: The Most Rigorous Evidence Base\n\nStanford economist Nicholas Bloom's remote work productivity research program is the single most influential body of evidence on this topic. His work deserves detailed examination because it uses the gold standard of randomized controlled trials rather than the observational or survey-based methods common in corporate reports.\n\n### The Original Ctrip Experiment (2015)\n\nBloom's first major study randomly assigned 249 call center employees at Ctrip (now Trip.com) to work from home four days per week or remain in the office. The results, published in the *Quarterly Journal of Economics*, showed remote workers completed **13.5% more calls** than their office-based peers. The productivity gain came from two sources: remote workers worked more minutes per shift (fewer breaks, no commute time recaptured as work time) and processed more calls per minute (attributed to a quieter work environment).\n\nRemote workers also reported higher job satisfaction and showed **50% lower attrition**. However, the study also revealed an important detail: **over half of the remote workers chose to return to the office** when given the option after the experiment ended. The primary reason was social isolation. Productivity gains existed, but so did loneliness.\n\n### The Trip.com Hybrid Experiment (2024)\n\nBloom's follow-up, published in *Nature* in 2024, studied 1,612 employees at Trip.com randomized into a hybrid schedule (Wednesday and Friday remote) or a five-day office schedule. This study is particularly valuable because it measured six metrics simultaneously: performance reviews, promotion rates, resignation rates, lines of code written (for engineers), revenue generated (for marketers), and hours worked.\n\nThe headline finding: **hybrid work had zero negative effect on performance reviews or promotions** over six months. Lines of code and revenue metrics showed no statistically significant difference between hybrid and in-office groups. Resignation rates dropped **33%** in the hybrid group, with the effect concentrated among women, non-managers, and employees with long commutes. Bloom concluded that hybrid work is a \"free lunch\" for employers: equivalent output at lower attrition cost.\n\n### The \"Fully Remote Penalty\" Paper (2023)\n\nBloom co-authored a working paper with Ruobing Han and James Liang examining data from call center workers given a choice between fully remote and hybrid arrangements. Workers who chos",
+      "score": 0.8868231
+    },
+    {
+      "id": "S2",
+      "title": "In-office vs remote day productivity: Which is better?",
+      "url": "https://www.worklytics.co/blog/in-office-vs-remote-day-productivity-which-is-better",
+      "content": "[![Worklytics Co.](https://cdn.prod.website-files.com/626173f9597b2935e932c8a4/62619a70ce2dd11e8a54e9bb_worklytics-elephant.svg)](/)\n\n### Download a copy of our hybrid work report\n\n[Download Report](https://www.worklytics.co/hybrid-sample-report)\n\n# In-office vs remote day productivity: Which is better?\n\nComparing in-office and remote work productivity using real data. Find out which environment drives better output and what matters most for teams.\n\n![](https://cdn.prod.website-files.com/6267c3d3df5de2f2afdc1b22/69a883560cd7ce78da0463e3_67eb036e0bda597c748e7b01_Philip.jpeg)\n\n[Philip Arkcoll](/author/philip-arkcoll)\n\nCEO at Worklytics\n\nPublished\n\nMarch 17, 2026\n\nUpdated\n\nJune 11, 2026\n\n[Productivity](/tags/productivity)\n\n[Remote, Hybrid, & RTO](/tags/remote-hybrid-rto)\n\n[Collaboration](/tags/collaboration)\n\n![](https://cdn.prod.website-files.com/6267c3d3df5de2f2afdc1b22/69ba7d04e1f9f54a3471ffca_in-office-vs-remote-work-productivity-blog-image-worklytics.png)\n\n## **TL;DR**\n\n* Research consistently shows that **remote work improves individual focus productivity by 5–15%**, especially for tasks requiring deep concentration.\n* **Office environments improve collaboration and spontaneous problem-solving**, which are difficult to replicate fully in remote settings.\n* Hybrid setups often outperform both models because they balance **focus time and collaboration**.\n* Productivity differences between work locations are often **smaller than leadership, meeting culture, and work design factors**.\n* Organizations that rely on **data-driven workplace analytics**, such as platforms like **Worklytics**, gain a clearer understanding of employee productivity, engagement, meeting effectiveness, and manager impact across remote and in-office work.\n\nThe conclusion is straightforward: productivity is not determined by location alone. The real differentiator is how organizations **measure work patterns, optimize collaboration, and manage teams across distributed environments**.\n\n# **Understanding productivity in office vs remote work**\n\nThe debate about productivity in office vs remote work intensified after the global shift to distributed work models. Many organizations initially assumed productivity would decline when employees worked outside a centralized workplace. Data collected over the last several years shows a more complex reality.\n\nMultiple studies indicate that employees working remotely often maintain or improve productivity. In fact, research shows [**77% of remote workers**](https://gitnux.org/remote-and-hybrid-work-in-the-business-industry-statistics/) **report higher productivity levels**, while employers also report stable or increased output from distributed teams.\n\nHowever, the relationship between location and productivity is not linear. Productivity outcomes depend on several factors:\n\n* Work type\n* Collaboration requirements\n* leadership visibility\n* meeting effectiveness\n* employee well-being\n* technology infrastructure\n\nOrganizations that attempt to compare remote and office productivity using simple output metrics frequently overlook these factors. Measuring productivity requires visibility into how teams actually work.\n\nWorkplace analytics platforms like [Worklytics](https://www.worklytics.co/)help organizations analyze collaboration patterns, meeting behavior, and digital activity to identify what truly drives productivity across work environments.\n\n# **Productivity advantages of remote work**\n\nRemote work significantly changes how employees structure their workday. Several structural advantages explain why many knowledge workers report higher productivity when working remotely.\n\n## **1. Fewer workplace distractions**\n\nOffice environments often contain interruptions such as spontaneous conversations, noise, and frequent meetings. These interruptions reduce deep work time, affecting much of the productivity\n\nStudies indicate that **remote workers spend less time being unproductive compared with office employees**, largely due to reduced distractions.\n\nDeep work requires sustained attention. When employees can control their work environment, they can allocate longer uninterrupted blocks of time to complex tasks.\n\nRemote environments are particularly effective for professions that require deep focus and have long focus blocks, such as:\n\n* software development\n* data analysis\n* writing and content production\n* financial modeling\n* research work\n\nHybrid productivity reports show that remote workers can achieve **up to 18.5 hours of deep focus per week**, significantly higher than office-based employees.\n\n## **2. Flexible scheduling improves focus**\n\nRemote work allows employees to align their working hours with their most productive periods. Some professionals produce their best work early in the morning, while others perform better in late afternoon or evening.\n\nResearch indicates that **64% of employees report better focus when they have flexible working hours**.\n\nFlexible scheduling reduces cognitive fatigue and allows employees to plan their workload around periods of peak concentration.\n\nOrganizations that measure focus patterns using workplace analytics tools can identify when productivity peaks occur across teams.\n\nPlatforms like **Worklytics** enable organizations to [analyze focus blocks](https://www.worklytics.co/productivity), helping identify the sources of [workflow fragmentation](https://www.worklytics.co/resources/how-to-measure-focus-time-fragmentation-google-workspace-hybrid-teams-2025) and allowing teams to protect the time needed to produce their most valuable work.\n\n‍\n\n‍\n\n## **3. Reduced commuting improves energy and time allocation**\n\nCommuting consumes time that could otherwise be used for productive work or recovery. Eliminating long commutes improves both productivity and well-being.\n\nEmployees often reinvest commute time into work or personal routines that support focus. In many cases, workers begin their day earlier and maintain higher energy levels.\n\nRemote work also reduces stress associated with commuting logistics, which can influence cognitive performance and decision-making.\n\nThis relationship between productivity and well-being is often overlooked in traditional [productivity metrics](https://www.worklytics.co/blog/measuring-productivity-what-actually-works). Organizations increasingly [track employee](https://www.worklytics.co/blog/does-employee-tracking-improve-productivity) well-being using [workplace analytics](https://www.worklytics.co/blog/the-role-of-workplace-analytics-in-successful-hybrid-work) to understand how work patterns affect [engagement](https://www.worklytics.co/hr-department-data-analytics-software) and burnout.\n\nWorklytics provides insights into [employee well-being indicators](https://www.worklytics.co/burnout-and-wellbeing), helping companies detect overwork patterns and unhealthy meeting loads across distributed teams.\n\n‍\n\n# **Productivity advantages of in-office work**\n\nDespite the productivity gains associated with remote work, office environments still provide advantages that influence team performance.\n\nThese advantages typically relate to **collaboration quality and leadership visibility** rather than individual task output.\n\n## **1. Faster collaboration and knowledge sharing**\n\nPhysical proximity makes spontaneous collaboration easier. Quick conversations in office environments can resolve complex problems faster than asynchronous communication.\n\nCollaboration research shows that **cross-team interaction decreases when work becomes fully remote**, which can reduce knowledge sharing and innovation.\n\nIn-office collaboration benefits activities such as:\n\n* brainstorming sessions\n* cross-department planning\n* mentoring junior employees\n* creative problem solving\n\nThese interactions contribute to innovation and organizational learning.\n\nOrganizations seeking to preserve collaboration quality often analyze communication networks within their teams.\n\nWorklytics enables leaders to measure **networ",
+      "score": 0.8437023
+    },
+    {
+      "id": "S3",
+      "title": "Work from home and employee well-being: a double-edged ...",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12333122",
+      "content": "[Skip to main content](https://pmc.ncbi.nlm.nih.gov/articles/PMC12333122#main-content)\n\n![Image 1](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/us_flag.svg)\n\nAn official website of the United States government\n\nHere's how you know\n\nHere's how you know\n\n![Image 2](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-dot-gov.svg)\n\n**Official websites use .gov**\n\n A **.gov** website belongs to an official government organization in the United States.\n\n![Image 3](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/icon-https.svg)\n\n**Secure .gov websites use HTTPS**\n\n A **lock** ( ) or **https://** means you've safely connected to the .gov website. Share sensitive information only on official, secure websites.\n\n[![Image 4: NCBI home page](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/ncbi-logos/nih-nlm-ncbi--white.svg)](https://www.ncbi.nlm.nih.gov/)\n\n![Image 5: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)Search \n\n![Image 6](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/person.svg)Log in![Image 7](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_less.svg)![Image 8](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/expand_more.svg)\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n*    Log out \n\n Search…   Search NCBI \n\nPrimary site navigation\n\n![Image 9: Close](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons/close.svg) Search  ![Image 10: Search](blob:http://localhost/d03881a649d411fb287ca34fa7ea6fc4)\n\nLogged in as:\n\n*   [Dashboard](https://www.ncbi.nlm.nih.gov/myncbi/)\n*   [Publications](https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/)\n*   [Account settings](https://www.ncbi.nlm.nih.gov/account/settings/)\n\n Log in \n\n[](https://pmc.ncbi.nlm.nih.gov/ \"Home\")\n\n![Image 11: PMC search open icon](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/search.svg)![Image 12: PMC search close ison](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/close.svg)\n\nSearch PMC Full-Text Archive \n\nSearch in PMC![Image 13: Search](https://cdn.ncbi.nlm.nih.gov/pmc/pd-medc-pmc-cloudpmc-viewer/production/a2b04810/var/data/static/img/usa-icons-bg/search--white.svg)\n\n*   [Journal List](https://pmc.ncbi.nlm.nih.gov/journals/)\n*   [User Guide](https://pmc.ncbi.nlm.nih.gov/about/userguide/)\n\n As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.\n\n Learn more: [PMC Disclaimer](https://pmc.ncbi.nlm.nih.gov/about/disclaimer/) | [PMC Copyright Notice](https://pmc.ncbi.nlm.nih.gov/about/copyright/)\n\n![Image 14: BMC Psychology logo](https://cdn.ncbi.nlm.nih.gov/pmc/banners/logo-bmcpsychol.png)\n\nBMC Psychol\n\n. 2025 Aug 8;13:748. doi: [10.1186/s40359-025-02994-5](https://doi.org/10.1186/s40359-025-02994-5)\n\n*   [Search in PMC](https://pmc.ncbi.nlm.nih.gov/search/?term=%22BMC%20Psychol%22[jour])\n*   [Search in PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=%22BMC%20Psychol%22[jour])\n*   [View in NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22BMC%20Psychol%22[Title%20Abbreviation])\n*   [Add to search](https://pmc.ncbi.nlm.nih.gov/articles/PMC12333122?term=%22BMC%20Psychol%22[jour])\n\n# Work from home and employee well-being: a double-edged sword\n\n[Jun-jie Dong](https://pubmed.ncbi.nlm.nih.gov/?term=%22Dong%20J%22[Author])\n\n### Jun-jie Dong\n\n1 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Logistics and E-Commerce College, Zhejiang Wanli University, Ningbo, China \n\n2 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Modern Port Service Industry and Creative Culture Research Center, Key Research Center of Philosophy and Social Science of Zhejiang Province, Zhejiang Wanli University, Ningbo, China \n\n Find articles by [Jun-jie Dong](https://pubmed.ncbi.nlm.nih.gov/?term=%22Dong%20J%22[Author])\n\n1 2, [Zhi-dan Tan](https://pubmed.ncbi.nlm.nih.gov/?term=%22Tan%20Z%22[Author])\n\n### Zhi-dan Tan\n\n3 https://ror.org/03rc6as71grid.24516.340000 0001 2370 4535School of Economics and Management, Tongji University, Shanghai, China \n\n Find articles by [Zhi-dan Tan](https://pubmed.ncbi.nlm.nih.gov/?term=%22Tan%20Z%22[Author])\n\n3, [Yu-liang Zhang](https://pubmed.ncbi.nlm.nih.gov/?term=%22Zhang%20Y%22[Author])\n\n### Yu-liang Zhang\n\n4 https://ror.org/0152zzg30grid.464226.00000 0004 1760 7263School of Business Administration, Anhui University of Finance and Economics, Bengbu, China \n\n Find articles by [Yu-liang Zhang](https://pubmed.ncbi.nlm.nih.gov/?term=%22Zhang%20Y%22[Author])\n\n4, [Yu-jie Sun](https://pubmed.ncbi.nlm.nih.gov/?term=%22Sun%20Y%22[Author])\n\n### Yu-jie Sun\n\n3 https://ror.org/03rc6as71grid.24516.340000 0001 2370 4535School of Economics and Management, Tongji University, Shanghai, China \n\n Find articles by [Yu-jie Sun](https://pubmed.ncbi.nlm.nih.gov/?term=%22Sun%20Y%22[Author])\n\n3, [Yuan-kai Huang](https://pubmed.ncbi.nlm.nih.gov/?term=%22Huang%20Y%22[Author])\n\n### Yuan-kai Huang\n\n1 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Logistics and E-Commerce College, Zhejiang Wanli University, Ningbo, China \n\n2 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Modern Port Service Industry and Creative Culture Research Center, Key Research Center of Philosophy and Social Science of Zhejiang Province, Zhejiang Wanli University, Ningbo, China \n\n Find articles by [Yuan-kai Huang](https://pubmed.ncbi.nlm.nih.gov/?term=%22Huang%20Y%22[Author])\n\n1 2\n\n*   Author information\n*   Article notes\n*   Copyright and License information\n\n1 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Logistics and E-Commerce College, Zhejiang Wanli University, Ningbo, China \n\n2 https://ror.org/00rjdhd62grid.413076.70000 0004 1760 3510Modern Port Service Industry and Creative Culture Research Center, Key Research Center of Philosophy and Social Science of Zhejiang Province, Zhejiang Wanli University, Ningbo, China \n\n3 https://ror.org/03rc6as71grid.24516.340000 0001 2370 4535School of Economics and Management, Tongji University, Shanghai, China \n\n4 https://ror.org/0152zzg30grid.464226.00000 0004 1760 7263School of Business Administration, Anhui University of Finance and Economics, Bengbu, China \n\nReceived 2024 Jun 6; Accepted 2025 Jun 5; Collection date 2025.\n\n© The Author(s) 2025\n\n**Open Access** This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the licensed material. You do not have permission under this licence to share adapted material derived from this article or parts of it. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit [http://creative",
+      "score": 0.8127637
+    },
+    {
+      "id": "S4",
+      "title": "The rise in remote work since the pandemic and its impact on ...",
+      "url": "https://www.bls.gov/opub/btn/volume-13/remote-work-productivity.htm",
+      "content": "![U.S. flag](https://www.dol.gov/themes/opa_theme/img/flag-favicon-57.png)\n\nAn official website of the United States government\nHere is how you know\n\n![Department of Labor Logo](https://www.dol.gov/themes/opa_theme/img/logo-primary.svg)\n![Dot gov](https://www.dol.gov/themes/opa_theme/img/icon-dot-gov.svg)\n\n**The .gov means it's official.**\n  \n Federal government websites often end in .gov or .mil. Before sharing sensitive information,\nmake sure you're on a federal government site.\n\n![Https](https://www.dol.gov/themes/opa_theme/img/icon-https.svg)\n\n**The site is secure.**\n  \n The\n**https://** ensures that you are connecting to the official website and that any\ninformation you provide is encrypted and transmitted securely.\n\n![Beyond the Numbers](/images/btn/btn_logo.jpg)\n\n# The rise in remote work since the pandemic and its impact on productivity\n\n*By Sabrina Wulff Pabilonia and Jill Janocha Redmond*\n\n![Image](/opub/btn/volume-13/images/remote-work-productivity-cover.png)\n\n[Remote Work, Wages, and Hours Worked in the United States](https://www.bls.gov/osmr/research-papers/2023/ec230050.htm)\n\n[Telework during the COVID-19 pandemic: estimates using the 2021 Business Response Survey](https://www.bls.gov/opub/mlr/2022/article/telework-during-the-covid-19-pandemic.htm)\n\n[Bringing work home: implications for BLS productivity measures](https://www.bls.gov/opub/mlr/2010/12/art2full.pdf)\n\nThe COVID-19 pandemic brought about dramatic changes in the work environment. Although 6.5 percent of workers in the private business sector worked primarily from home in 2019, the pandemic was the start of a massive experiment in full-time remote work for most workers and firms.[1](#edn1) People often ask: are workers more productive or less productive when working from home? The answer likely depends on several factors, including the types of tasks workers perform, the available technology, the home environment, worker motivation, and management practices. A few randomized experiments at individual firms identify small positive effects of hybrid and fully remote work on individual employee productivity using metrics such as the number of emails written, phone/video calls made, and the novelty of work products as reported in manager-assigned performance ratings.[2](#edn2) They also find that remote work led to lower job turnover as job satisfaction rose, which could substantially reduce firms’ hiring costs. On the other hand, a couple of single-firm case studies conducted during the pandemic find that employee productivity declined in the short run.[3](#edn3) These studies examine individual labor productivity and use various proxies to measure it. Looking at a more aggregate level to measure the impact of remote work on economic performance across 43 private sector industries, Fernald et al. (2024) find little relationship between labor productivity and the ability of workers in an industry to work entirely remotely, suggesting remote work neither hindered nor helped raise aggregate productivity growth.[4](#edn4)\n\nThis **Beyond the Numbers** article uses data from the BLS productivity program and the [American Community Survey (ACS)](https://www.census.gov/programs-surveys/acs) to shed light on whether remote work can enhance productivity.[5](#edn5) We examine the pandemic-period relationships between the rise in the percentage of workers primarily working from home and the percent change in total factor productivity (TFP), output, and unit input costs across 61 industries in the private business sector. We find that TFP growth over both the 2019–21 and the 2019–22 periods is positively associated with the rise in the percentage of remote workers across 61 industries in the private business sector, even after accounting for pre-pandemic trends in productivity.\n\n## The rise in remote work across industries during the pandemic\n\nAccording to the American Community Survey (ACS), remote work increased dramatically across all major industries between 2019 and 2021. Then, with the removal of all social distancing policies in 2022, the percentage of remote workers fell slightly. However, remote work participation was still higher than its 2019 level in all industries except agriculture, forestry, fishing, and hunting, which returned to its 2019 level.\n\nIn the ACS, respondents are asked how they usually got to work in the last week. If they respond that they worked from home, we classify them as a remote worker. We note that remote work may be fully remote or hybrid (a combination of remote work and in-person days, but with the majority of days worked from home). Remote work is also commonly referred to as telework. In this article, we compare data from 2019, the year before the pandemic, with data from 2021, the full year after the pandemic began and before major efforts by firms to encourage their employees to return to the office. We also compare 2019 data with 2022 data to see if the relationship between remote work and productivity changed as businesses and employees further adjusted to the new work arrangements.\n\nChart 1 shows the rise in remote work for 21 major industries ranked from largest to smallest by the percentage of remote workers in 2021. Although there was a larger percentage of remote workers in 2021 compared with 2019 in all major industries, four major industries saw phenomenal increases in remote work (by over 30 percentage points). Professional, scientific, and technical services, information, finance and insurance, and management of companies and enterprises had over 39 percent of their workforce working remotely in 2021 compared with less than 17 percent in 2019. Another 12 industries had between 10 and 25 percent of their workforce working remotely in 2021. The four major industries with the largest percentage of their workers remote in 2021 still had at least over 33 percent of their workforce working remotely in 2022.\n\nChart 1. Percent of remote workers by major industry group, ranked from largest to smallest in 2021\n\n| Industry | 2019 | 2021 | 2022 |\n| --- | --- | --- | --- |\n| Professional, scientific, and technical services | 16.5 | 46.5 | 41.4 |\n| Information | 11.4 | 44.8 | 38.8 |\n| Finance and insurance | 10.5 | 44.7 | 37.6 |\n| Management of companies and enterprises | 8.5 | 39.4 | 33.0 |\n| Utilities | 2.9 | 24.2 | 16.5 |\n| Educational services | 8.8 | 23.1 | 17.8 |\n| Real estate and rental and leasing | 12.4 | 22.0 | 21.4 |\n| Wholesale trade | 6.8 | 18.2 | 15.7 |\n| Administrative and waste management services | 7.4 | 18.0 | 16.8 |\n| Arts, entertainment, and recreation | 8.7 | 17.4 | 15.9 |\n| Durable manufacturing | 3.6 | 15.4 | 12.4 |\n| Agriculture, forestry, fishing, and hunting | 13.6 | 15.0 | 13.6 |\n| Manufacturing | 3.5 | 14.8 | 11.9 |\n| Nondurable manufacturing | 3.4 | 13.7 | 11.0 |\n| Healthcare and social assistance | 4.8 | 11.9 | 11.3 |\n| Retail trade | 3.7 | 10.4 | 9.4 |\n| Mining | 2.7 | 9.9 | 7.2 |\n| Other services, except government | 6.1 | 9.7 | 9.6 |\n| Transportation and warehousing | 4.5 | 9.7 | 8.8 |\n| Construction | 5.1 | 8.8 | 7.8 |\n| Accommodation and food services | 1.9 | 5.3 | 4.8 |\n|  |  |  |  |\n| --- | --- | --- | --- |\n| Source: U.S. Census Bureau, American Community Survey. | | | |\n\nProfessional, scientific, and technical services\n\nInformation\n\nFinance and insurance\n\nManagement of companies and enterprises\n\nUtilities\n\nEducational services\n\nReal estate and rental and leasing\n\nWholesale trade\n\nAdministrative and waste management services\n\nArts, entertainment, and recreation\n\nDurable manufacturing\n\nAgriculture, forestry, fishing, and hunting\n\nManufacturing\n\nNondurable manufacturing\n\nHealthcare and social assistance\n\nRetail trade\n\nMining\n\nOther services, except government\n\nTransportation and warehousing\n\nConstruction\n\nAccommodation and food services\n\nSource: U.S. Census Bureau, American Community Survey.\n\nLooking at a more detailed industry breakdown (61 industries), chart 2 shows that in four of these industries (computer syste",
+      "score": 0.78393924
+    },
+    {
+      "id": "S5",
+      "title": "Are remote workers more productive? That's the wrong ...",
+      "url": "https://stackoverflow.blog/2023/11/27/are-remote-workers-more-productive-that-s-the-wrong-question",
+      "content": "[Stack Overflow Business](https://stackoverflow.co/)\n\n[**Stack Internal**: the knowledge intelligence layer that powers enterprise AI.](https://stackoverflow.co/internal/?utm_source=so-owned&utm_medium=blog&utm_campaign=nav-side-bar)[**Stack Data Licensing**: decades of verified, technical knowledge to boost AI performance and trust.](https://stackoverflow.co/data-licensing/?utm_source=so-owned&utm_medium=blog&utm_campaign=nav-side-bar)[**Stack Ads**: engage developers where it matters — in their daily workflow.](https://stackoverflow.co/advertising/employer-branding/?utm_source=so-owned&utm_medium=blog&utm_campaign=nav-side-bar)\n\n# Are remote workers more productive? That’s the wrong question.\n\nPlenty of workers prefer flexibility, regardless of what the research says.\n\n![](https://cdn.stackoverflow.co/images/jo7n4k8s/production/071a1508b452aae2e7c2ae7a5dea98ec0b8176c4-12000x6300.jpg?rect=8,0,11985,6300&w=780&h=410&auto=format&dpr=2)\n\nCredit: Alexandra Francis\n\nTen years ago, I got my first non-academic job as a market researcher and writer. The commute was only about 30 minutes in each direction, but parking was expensive and public transportation wasn’t an option. I rarely had meetings; I communicated with my manager and my colleagues—all seated in the same open-plan office space—almost exclusively via email and chat.\n\nAfter several months of noise-canceling headphones, I asked my manager if I could work from home sometimes. From a 2023 perspective, he reacted as if I’d made a ridiculous request, like reducing my working hours to 15 minutes every other day or keeping a baby tiger under my desk. He eventually agreed to a trial period, but the solution that seemed obvious to me was a hard sell for him.\n\nA decade of technological progress and one pandemic later, there’s much less reflexive resistance to the idea of working remotely. But over the last year or so, especially after [the official end of the COVID-19 Public Health Emergency](https://www.hhs.gov/about/news/2023/05/09/fact-sheet-end-of-the-covid-19-public-health-emergency.html) in the United States, some of that hostility toward working from home (we’re [lazy](https://fortune.com/2023/01/22/are-remote-workers-lazy-elon-musk-marc-benioffs-work-from-home-productivity-problem/)! we wear [pajamas](https://www.businessinsider.com/eric-adams-work-from-home-pajamas-quote-nyc-mayor-office-2022-2)!) has returned. Headlines, blogs, internal message boards, and LinkedIn feeds are dense with discussion about whether we should all go back to the office, continue working remotely, or navigate some kind of middle ground.\n\nWe spent the last few months consuming the news, diving into the research, and chatting with colleagues to bring you some perspective on the return-to-office (RTO) conversation and to get a handle on the relationship between developer happiness, productivity, and remote work. We’ll also touch on the downstream effects of RTO mandates on diversity, recruitment and retention, employee satisfaction, and overall performance.\n\n## Workers don’t want to be forced back to the office\n\nFlexibility is a high priority for developers and other knowledge workers. It shouldn’t be a surprise, then, that RTO mandates are not popular with employees, some of whom are [simply quitting](https://www.washingtonpost.com/technology/2023/09/21/return-office-mandates-employees-quit/) in response.\n\nOur own [annual survey](https://stackoverflow.blog/2023/10/26/hopping-instead-of-hustling-survey-tells-us-how-developers-are-taking-care-of-business/) of professional developers found, for the third year in a row, that flexibility is the most important reason why developers stay in a job (or look for a new one). [Another recent survey](https://www.turing.com/kb/do-software-engineers-prefer-to-work-remotely) found that one in three developers would quit if they were no longer allowed to work from home.\n\nAnd it’s not just developers. Nearly half of employees in [one survey](https://www.hrotoday.com/news/ticker/47-of-employees-say-theyll-quit-if-employer-orders-return-to-office-full-time/) said they would quit if their employer ordered them back to the office full-time, and most workers would ditch an office-only job for a remote job even if it meant a pay cut, according to [another survey](https://finance.yahoo.com/news/return-office-mandates-aren-t-191245629.html) of more than 8,400 US employees. That survey found that 17% of workers said they would give up 20% of their paycheck to work remotely, while 10% would surrender more than 20%. This is true despite the cost of living crisis.\n\n## Most CEOs want workers to return to the office\n\nCEOs, statistically speaking, are not on the same page as their employees. A KPMG [study](https://kpmg.com/xx/en/home/insights/2023/09/kpmg-global-ceo-outlook-survey.html#:~:text=Almost%20three%20in%20four%20global,%2C%20long-term%20growth%20trajectory) of more than 1,300 global CEOs found that 64% believe that everybody will be back to working from the office by 2026. Plus, 87% of CEOs said they were more likely to lavish “favorable assignments, raises, or promotions” on employees who came into the office than on those who worked remotely.\n\nThere’s a significant disconnect between what organizations and CEOs see as the benefits of working onsite and the benefits employees actually report receiving. Unsurprisingly, there’s a further disconnect between how men and women access those benefits. McKinsey and Company’s [2023 Women in the Workplace report](https://sgff-media.s3.amazonaws.com/sgff_r1eHetbDYb/Women+in+the+Workplace+2023_+Designed+Report.pdf) found that “while 77 percent of companies believe a strong organizational culture is a key benefit of on-site work, most employees disagree: only 39 percent of men and 34 percent of women who work on-site say a key benefit is feeling more connected to their organization’s culture. On top of this, men are more likely to benefit from working on-site.”\n\n## The research isn’t as simple as you might think\n\nAmong the first questions that comes up in any conversation about remote work is whether people are more or less productive working from home. One problem with this question is that “productivity” is obviously [not a straightforward metric](https://stackoverflow.blog/2020/12/07/measuring-developer-productivity/). Does it mean lines of code? [Mean change lead time?](https://stackoverflow.blog/2021/11/29/the-four-engineering-metrics-that-will-streamline-your-software-delivery/) The number of hours you log at the office?\n\nNor do all productivity studies use the same methodology. Some involve [“employee time use captured by monitoring applications on work devices”](https://www.journals.uchicago.edu/doi/full/10.1086/721803), while others [simply asked people](https://www.shrm.org/resourcesandtools/hr-topics/technology/pages/teleworkers-more-productive-even-when-sick.aspx) how productive they thought they were when working remotely.\n\nAnd of course, the choice is not necessarily (or even usually) between “work full-time from the office” and “work full-time from home.” Many people have [hybrid schedules](https://www.turing.com/kb/do-software-engineers-prefer-to-work-remotely), where they work from the office on some days and remotely on others.\n\nGiven these ambiguities of meaning and methodology, it’s not a surprise that many studies on remote and/or hybrid work have confusing or apparently contradictory findings. For example, a Stanford [study](https://drive.google.com/file/d/1kqbngD8pemqxAkZmWCOQ32Yk6PXK9eVA/view) found that fully remote work was associated with a 10% drop in productivity, but that hybrid working “appears to have no impact on productivity.” The authors note, however, that their study doesn’t take into account the money companies save with a remote-first approach, from lack of real estate costs to global hiring. The study authors also note that hybrid schedules improve recruitment and retention—because, again, [flexibility is very impor",
+      "score": 0.7663815
+    },
+    {
+      "id": "S6",
+      "title": "Remote Work Productivity 2026 [SYNTHETIC]",
+      "url": "https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026",
+      "content": "menu\n\n[Skip to content](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026#site-content)\n\n[![Image 1](https://www.kaggle.com/static/images/site-logo.svg)](https://www.kaggle.com/)\n\nCreate\n\nsearch​\n\n*   [explore Home](https://www.kaggle.com/) \n*   [emoji_events Competitions](https://www.kaggle.com/competitions) \n*   [leaderboard Benchmarks](https://www.kaggle.com/benchmarks) \n*   [smart_toy Game Arena](https://www.kaggle.com/game-arena) \n\n*   [code Data Hub](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026#)expand_more  \n\n*   [format_list_bulleted More](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026#)expand_more  \n\nmenu\n\n[Skip to content](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026#site-content)\n\n[![Image 2](https://www.kaggle.com/static/images/site-logo.svg)](https://www.kaggle.com/)\n\nsearch​\n\n[Sign In](https://www.kaggle.com/account/login?phase=startSignInTab&returnUrl=%2Fdatasets%2Fmasanakashima%2Fremote-work-productivity-2026)\n\n[Register](https://www.kaggle.com/account/login?phase=startRegisterTab&returnUrl=%2Fdatasets%2Fmasanakashima%2Fremote-work-productivity-2026)\n\nKaggle uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.\n\n[Learn more](https://www.kaggle.com/cookies)\n\nOK, Got it.\n\n[](https://www.kaggle.com/masanakashima)masa.nakashima  · Updated 7 months ago\n\narrow_drop_up 0\n\ncode Code\n\nfile_download Download\n\nmore_vert\n\n# Remote Work Productivity 2026 [SYNTHETIC]\n\n10K employee survey: remote vs hybrid vs office productivity metrics\n\n![Image 3](https://storage.googleapis.com/kaggle-datasets-images/new-version-temp-images/default-backgrounds-27.png-8277987/dataset-cover.png)\n\n## Remote Work Productivity 2026 [SYNTHETIC]\n\n[Data Card](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026/data)[Code (2)](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026/code)[Discussion (0)](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026/discussion)[Suggestions (0)](https://www.kaggle.com/datasets/masanakashima/remote-work-productivity-2026/suggestions)\n\ninfo\n\nThis dataset was synthetically generated and may not reflect real-world data.\n\n## About Dataset\n\n**100% SYNTHETIC DATA** - Educational purpose only.\n\n## Problem\n\nCompanies struggle to measure remote work effectiveness:\n\n*   Comparing Remote vs Hybrid vs Office productivity is subjective\n*   Real HR data is confidential and unavailable\n*   Studies often have small sample sizes (<500)\n\n## Solution\n\nThis synthetic dataset provides **10,000 employee records** with:\n\n*   Work arrangement (Remote/Hybrid/Office)\n*   Productivity metrics (Focus, Collaboration, Innovation scores)\n*   Burnout risk and satisfaction scores\n*   Meeting hours, commute time, tool usage\n\n## Advantage\n\n| Feature | This Dataset | Alternatives |\n| --- | --- | --- |\n| Cost | Free | Paid surveys |\n| Size | 10,000 rows | Often <1,000 |\n| Privacy | Zero risk | PII concerns |\n| Reproducibility | Seed=42 | Varies |\n\n## Use Cases\n\n1.   Predict burnout risk from work patterns\n2.   Compare productivity across work arrangements\n3.   Analyze tool adoption by company size\n4.   Build HR analytics dashboards\n\n**Tags**: remote-work, productivity, synthetic, HR-analytics, beginner\n\nexpand_more View more\n\n## Usability\n\ninfo\n\n6.47\n\n## License\n\n[CC0: Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n\n## Expected update frequency\n\nNot specified\n\n## Tags\n\n[Classification](https://www.kaggle.com/datasets?tags=13302-Classification)[Beginner](https://www.kaggle.com/datasets?tags=13102-Beginner)[Synthetic](https://www.kaggle.com/datasets?tags=17185-Synthetic)\n\n## README.md(3.85 kB)\n\nget_app\n\nfullscreen\n\nchevron_right\n\n# Remote Work Productivity 2026 [SYNTHETIC/DUMMY DATA]\n\n> **100% SYNTHETIC DATA** - For educational purposes only. Do NOT use for actual HR decisions.\n\n* * *\n\n## Starter Notebooks\n\n| Notebook | Description | Link |\n| --- | --- | --- |\n| **Starter EDA** | Basic exploration & visualizations | [Open Notebook](https://www.kaggle.com/code/masanakashima/remote-work-starter-eda) |\n| **Burnout Prediction** | Classification model for burnout risk | [Open Notebook](https://www.kaggle.com/code/masanakashima/remote-work-burnout-prediction) |\n\n* * *\n\n## Problem This Dataset Solves\n\nCompanies struggle to objectively measure remote work effectiveness because:\n\n*   **Real HR data is confidential** - never publicly available\n*   **Existing studies have small samples** - often <500 employees\n*   **Comparison is subjective** - \"productivity\" means different things\n\n## Solution\n\nThis synthetic dataset provides **10,000 employee survey records** covering:\n\n*   Work arrangement (Remote / Hybrid / Office)\n*   Productivity metrics (1-10 scales)\n*   Burnout risk and satisfaction scores\n*   Meeting hours, commute time, tool usage\n\n## Competitive Advantage\n\n| Feature | This Dataset | Real HR Surveys |\n| --- | --- | --- |\n| **Cost** | Free | $10,000+ |\n| **Sample Size** | 10,000 | Often <1,000 |\n| **Privacy Risk** | Zero | High |\n| **Reproducibility** | Seed=42 | Not reproducible |\n| **Customization** | Fork & modify | Fixed |\n\n* * *\n\n## Quick Facts\n\n| Metric | Value |\n| --- | --- |\n| **Rows** | 10,000 |\n| **Columns** | 21 |\n| **File Size** | ~1.2 MB |\n| **Format** | CSV (UTF-8) |\n| **License** | CC0 |\n\n* * *\n\n## Use Cases\n\n### 1. Predict Burnout Risk\n\n```capnproto\nfrom sklearn.ensemble import RandomForestClassifier\n\n# Features: Meeting_Hours, Focus_Score, Work_Life_Balance\n# Target: High burnout risk (>60%)\n```\n\ncontent_copy\n\n### 2. Compare Work Arrangements\n\n```lua\ndf.groupby('Work_Arrangement')[['Focus_Score', 'Collaboration_Score']].mean()\n```\n\ncontent_copy\n\n### 3. Tool Adoption Analysis\n\n```stylus\npd.crosstab(df['Company_Size'], df['Communication_Tool'], normalize='index')\n```\n\ncontent_copy\n\n### 4. HR Dashboard\n\nBuild a Plotly/Dash dashboard for interactive exploration.\n\n* * *\n\n## Data Dictionary\n\n| Column | Type | Description |\n| --- | --- | --- |\n| `Employee_ID` | String | Unique identifier (synthetic) |\n| `Work_Arrangement` | String | Remote / Hybrid / Office |\n| `Department` | String | Engineering, Sales, HR, etc. |\n| `Job_Level` | String | Junior to VP |\n| `Years_Experience` | Int | 0-30 years |\n| `Company_Size` | String | Startup to Enterprise |\n| `Region` | String | Americas, Europe, APAC, MEA |\n| `Meeting_Hours_Weekly` | Float | Weekly meeting time |\n| `Commute_Minutes_Daily` | Int | Daily commute (0 for remote) |\n| `Focus_Hours_Daily` | Float | Deep work hours |\n| `Communication_Tool` | String | Slack, Teams, etc. |\n| `Project_Tool` | String | Jira, Asana, etc. |\n| `Focus_Score` | Float | 1-10 focus productivity |\n| `Collaboration_Score` | Float | 1-10 teamwork effectiveness |\n| `Innovation_Score` | Float | 1-10 creative output |\n| `Work_Life_Balance_Score` | Float | 1-10 balance rating |\n| `Burnout_Risk_Percent` | Int | 0-100% burnout probability |\n| `Satisfaction_Score` | Float | 1-10 job satisfaction |\n| `Tasks_Completed_Weekly` | Int | Weekly task count |\n| `Response_Time_Hours` | Float | Avg response time |\n| `Survey_Date` | Date | Aug 2025 - Feb 2026 |\n\n* * *\n\n## Appropriate vs Inappropriate Use\n\n| OK | NG |\n| --- | --- |\n| ML practice | Real HR decisions |\n| Portfolio projects | Performance reviews |\n| Data viz learning | Academic papers |\n| Interview prep | Policy recommendations |\n\n* * *\n\n**Found this helpful? Please upvote!**\n\n**Data Type**: 100% SYNTHETIC (Generated for education)\n\n## Data Explorer\n\nVersion 2 (1.3 MB)\n\n*   article README.md   \n*   calendar_view_week remote_work_productivity_2026.csv   \n\n## Summary\n\narrow_right\n\nfolder\n\n2 files\n\narrow_right\n\ncalendar_view_week\n\n21 columns\n\nlightbulb\n\n## See what others are saying about this dataset\n\n### What have you used this dataset for?\n\nLearning 0 Research 0 Application 0 LLM Fine-Tuning 0\n\n### How would you describe this dataset?\n\nWell-documented 0 We",
+      "score": 0.60133666
+    },
+    {
+      "id": "S7",
+      "title": "Hybrid Work's Impact on SME Productivity | PDF | Systematic Review | Employment",
+      "url": "https://www.scribd.com/document/937183244/The-Impact-of-Remote-and-Hybrid-Work-Models",
+      "content": "![Scribd](data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNDMuMTkiPgogIDxwYXRoIGQ9Ik0xOTMuMjUsMTUzLjMzYzAsMjUuOTMtMjEuOTgsNDcuODMtNTYuOTgsNDcuODNzLTU2LjU2LTIwLjQxLTU4LjktNDkuNTNoMjguMTdjMi41NiwxNS4zMSwxMy44NywyMy4xNywzMC43MywyMy4xN3MyOS4yNC04LjA4LDI5LjI0LTE5Ljc3YzAtOS41Ni01Ljk4LTE1Ljk0LTE5LjQyLTE4LjkybC0yNC45Ny01LjUzYy0zMC4wOS02LjM4LTQwLjEyLTIxLjktNDAuMTItNDIuMDksMC0yNC44NywyMS4xMy00Ni4zNCw1My4zNS00Ni4zNHM1Mi45MiwyMS4wNCw1NS4yNyw0OC4wNGgtMjguMzhjLTIuMzUtMTQuMDMtMTIuNTktMjEuNjgtMjYuODktMjEuNjhzLTI1LjM5LDcuNDQtMjUuMzksMTguMjhjMCw4LjkzLDUuNTUsMTQuMDMsMTguNTcsMTYuOGwyNC43Niw1LjUzYzMwLjMsNi44LDQwLjk3LDIzLjYsNDAuOTcsNDQuMjFoMFpNNzMyLjc2LDExOS45NmM5LjgyLTYuOCwxNS43OS0xOC4wNywxNS43OS0zMS40NnMtNC45MS0yMy42LTEzLjIzLTMxLjY4Yy03LjQ3LTcuNDQtMTguMzUtMTEuNjktMzUuNjQtMTEuNjloLTU0LjJ2MTUzLjA1aDU4LjA1YzE3LjI4LDAsMjguMzgtNC40NiwzNi4yOC0xMS45MSw4LjMyLTguMDgsMTIuOC0xOS4zNCwxMi44LTMyLjEsMC0xNS4zMS03LjQ3LTI3Ljg1LTE5Ljg1LTM0LjIyWk02NzMuMjEsNzEuNWgwczI2LjY3LDAsMjYuNjcsMGM4LjUzLDAsMTMuNDQsMi41NSwxNi42NCw2LjU5LDIuNzcsMy4xOSw0LjA1LDcuMjMsNC4wNSwxMS45MSwwLDUuMS0xLjUsOS43OC00LjcsMTIuOTctMy40MSwzLjYyLTkuODIsNS41My0xNi4wMSw1LjUzaC0yNi42N3YtMzYuOTlaTTcxOS4zMSwxNjYuNTFjLTMuNDEsMy4xOS04LjMyLDUuMS0xNS43OSw1LjFoLTMwLjN2LTM3Ljg0aDMwLjNjOC4zMiwwLDEzLjQ0LDIuMzQsMTYuNjQsNi4xNiwyLjc3LDMuNCw0LjY5LDcuNjUsNC42OSwxMi43NSwwLDUuNTMtMi4xMywxMC40Mi01LjU1LDEzLjgyaDBaTTkwOS4yOSw2OS43OWgwYy0xMS45NS0xNS4zMS0yOS44OC0yNC42Ni01NS43LTI0LjY2aC01Mi41djE1My4wNWg1Mi41YzI2Ljg5LDAsNDUuNjctMTAuMjEsNTcuNjItMjcuNDIsOS4xOC0xMi45NywxNC41MS0yOS43NiwxNC41MS00OS4xLDAtMjAuNjItNS45OC0zOC40Ny0xNi40My01MS44NlpNODg5LjAyLDE1My43NmMtNy4wNCwxMS4wNS0xNy45MiwxNy44NS0zNS40MiwxNy44NWgtMjQuNzZ2LTk5LjloMjQuNzZjMTcuMDcsMCwyNy43NCw2LjE2LDM0Ljc4LDE2LjgsNS43Niw4LjUsOC45NiwxOS45OCw4Ljk2LDMzLjE2cy0yLjk4LDIzLjYtOC4zMiwzMi4xWk0yOTcuMzYsNjguNzNjMTcuMjksMCwzMS43NSwxMC42MywzNS44LDI2LjU3aDI3LjQ2Yy01LjA2LTMxLjktMzAuMzEtNTMuMTQtNjMuMjctNTMuMTQtNDEuMywwLTY5LjU4LDMzLjU5LTY5LjU4LDc5LjVzMjguMjgsNzkuNSw2OS41OCw3OS41YzMyLjU1LDAsNTguMzktMjAuODksNjMuMDYtNTIuNTFsLTI3LjQ2LjIxYy00LjM4LDE1LjgtMTguNzIsMjUuNzItMzUuNiwyNS43Mi0yNS40MywwLTQxLjYyLTIyLjMyLTQxLjYyLTUyLjkzczE2LjE5LTUyLjkzLDQxLjYyLTUyLjkzWk0wLDI0My4xOWg1Ni44NXYtMjYuNThoLTI5LjExVjI2LjU3aDI5LjExVjBIMHYyNDMuMTlaTTk0My4xNSwwdjI2LjU3aDI5LjExdjE5MC4wNWgtMjkuMTF2MjYuNTdoNTYuODVWMGgtNTYuODVaTTU1OC44NCwxOTguMTloMjcuNzRWNDUuMTRoLTI3Ljc0djE1My4wNVpNNDAzLjg0LDQ1LjFoNTQuODZjMTguNzEsMCwzMC44Myw1LjEsMzguOTEsMTMuODIsNy42NSw4LjA4LDEyLjEyLDE5LjE0LDEyLjEyLDMxLjg5LDAsMTQuODgtNy4wMiwyNy40My0xOC41LDM0LjQ1LDMuNCwxLjQ5LDYuMTcsMy42MSw4LjUxLDYuMzgsMy42MSw0LjQ3LDUuNzQsMTAuNDIsNS43NCwyMS4yNnY0NS4yOWgtMjguN3YtNDIuOTVjMC01Ljc0LTEuMjgtOC41LTMuMTktMTAuNjMtMi4zNC0yLjU1LTUuOTUtNC4wNC0xMi4xMi00LjA0aC0yOS45OHY1Ny42MmgtMjcuNjRWNDUuMVpNNDc2LjM0LDEwOC40NmMzLjYxLTQuMDQsNS41My05LjE0LDUuNTMtMTUuMzEsMC01LjMyLTEuNDktMTAuODQtNS4zMi0xNS4xLTMuNjEtNC4wNC05LjU3LTYuNTktMjAuNDEtNi41OWgtMjQuNjZ2NDMuMzdoMjQuNjZjOS45OSwwLDE2LjE2LTIuNTUsMjAuMi02LjM4WiIvPgo8L3N2Zz4=)\n\n# Hybrid Work's Impact on SME Productivity\n\nHybrid Work's Impact on SME Productivity\n\n## Uploaded by\n\nAI-enhanced title and description\n\n# Hybrid Work's Impact on SME Productivity\n\nThis systematic literature review examines the impact of remote and hybrid work models on the productivity of small and medium-sized enterprises (SMEs) in the post-COVID-19 context, analyzing 12 peer-reviewed studies from various global settings. The findings indicate that flexible work arrangements generally enhance productivity through increased employee satisfaction and improved work-life balance, with hybrid models being the most effective. However, challenges such as inadequate digital infrastructure and communication issues persist, necessitating further research on long-term effects and regional differences.\n\n# Hybrid Work's Impact on SME Productivity\n\nHybrid Work's Impact on SME Productivity\n\n## Uploaded by\n\nAI-enhanced title and description\n\n## Share this document\n\n![]()\n\n## Footer menu\n\n## About\n\n## Support\n\n## Legal\n\n## Social\n\n## Get our free apps\n\n![Scribd - Download on the App Store]()\n![Scribd - Get it on Google Play]()\n\n## About\n\n## Legal\n\n## Support\n\n## Social\n\n## Get our free apps\n\n![Scribd - Download on the App Store]()\n![Scribd - Get it on Google Play]()",
+      "score": 0.5082762
+    },
+    {
+      "id": "S8",
+      "title": "Evidence based decision making and remote work in corporate America - WarpTrail",
+      "url": "https://warptrail.blog/evidence-based-decision-making-and-remote-work-in-corporate-america",
+      "content": "![Social Icons](https://warptrail.blog/wp-content/themes/zento/assets/images/svg-icons.svg)\n\n[![WarpTrail](https://warptrail.blog/wp-content/uploads/2025/12/wtlogo.png) ![WarpTrail](https://warptrail.blog/wp-content/uploads/2025/12/wtlogo-300x126.png)](https://warptrail.blog/)\n\n[![WarpTrail](https://warptrail.blog/wp-content/uploads/2025/12/wtlogo160x40.png)](https://warptrail.blog/)\n\n#### Press ESC to close\n\n# Evidence based decision making and remote work in corporate America\n\n![](https://warptrail.blog/wp-content/uploads/2025/12/1690278663822.jpg)\n\n**Separating Myth from Reality: What Research Actually Shows About Distributed Work**\n\n> Remote and hybrid work arrangements have become a defining feature of the modern workplace, yet they remain surrounded by misconceptions and polarizing opinions. This article examines the scientific literature and peer-reviewed research to provide an evidence-based analysis of remote work effectiveness, address common myths, explore when remote work succeeds and when it struggles, and provide actionable guidance for organizations seeking to implement effective remote work policies and develop the management capabilities necessary for success.\n\n---\n\n## Introduction\n\nThe debate over remote work has reached a fever pitch in recent years. High-profile business leaders have issued return-to-office mandates, while research continues to reveal nuanced findings about productivity, engagement, and performance. Too often, these discussions are driven by anecdote, assumption, and ideology rather than evidence.\n\nAccording to the U.S. Bureau of Labor Statistics, research published in October 2024 found a **positive relationship between total factor productivity and remote work** across major industries (Pabilonia & Redmond, 2024). Meanwhile, Stanford economist Nicholas Bloom—one of the foremost researchers on work-from-home policies—published a landmark study in *Nature* demonstrating that hybrid work arrangements produce no negative impact on productivity while significantly improving retention (Bloom, Han, & Liang, 2024).\n\nThis article provides a comprehensive, evidence-based examination of remote work—cutting through the noise to help leaders make informed decisions about workplace flexibility.\n\n---\n\n## Part 1: Common Myths About Remote Work\n\nPerhaps no workplace topic is more surrounded by misconception than remote work. Let’s examine the most persistent myths and what research actually tells us.\n\n### Myth #1: Remote Workers Are Less Productive\n\n**The Reality:** This is perhaps the most pervasive myth, yet it is not supported by the preponderance of research. A systematic review published in *Sustainability* (2023), which analyzed 26 studies on work-from-home impacts, found that the majority of research indicates positive or neutral effects on productivity, depending on job characteristics and implementation quality (Anakpo et al., 2023).\n\nThe Bloom study published in *Nature* found that hybrid workers (two days at home, three in office) showed **no measurable difference in performance reviews, promotion rates, or code output** compared to full-time office workers over an 18-month follow-up period (Bloom et al., 2024). The Great Place To Work® 2024 analysis of 1.3 million employees found that cooperation—not physical proximity—was the cornerstone of discretionary effort, with employees who feel they can count on others to cooperate being 8.2 times more likely to give extra effort.\n\n### Myth #2: Remote Work Destroys Company Culture\n\n**The Reality:** Company culture is not determined by physical proximity—it’s determined by values, leadership, communication, and how employees are treated. Of the companies on the 2025 Fortune 100 Best Companies to Work For®, **97% support remote or hybrid work** (Great Place To Work, 2024). These organizations demonstrate that strong culture and distributed work are not mutually exclusive.\n\nResearch published in the *European Journal of Work and Organizational Psychology* found that identity leadership—where supervisors act as champions for the team and make members feel valued—effectively moderates the potential negative effects of remote work on team connectedness (2024). Culture is built through intentional effort, not passive proximity.\n\n### Myth #3: Remote Workers Can’t Advance Their Careers\n\n**The Reality:** The Bloom *Nature* study specifically tracked promotion rates and found **no statistically significant difference** between hybrid workers and those in the office full-time (Bloom et al., 2024). While there is evidence of unconscious bias favoring visible workers in some organizations, this is a management problem to be solved, not an inherent limitation of remote work.\n\nCompanies like GitLab have demonstrated equal promotion rates for fully remote employees by implementing objective performance metrics rather than relying on presence-based evaluation.\n\n### Myth #4: Innovation Requires Face-to-Face Interaction\n\n**The Reality:** While some research has shown that virtual meetings may produce fewer spontaneous creative ideas (Nature, 2022), the evidence is more nuanced than this myth suggests. A Harvard Business School field experiment found that employees spending 23-40% of their time onsite (a hybrid model) actually recorded the **highest rates of novel idea-sharing** with colleagues, along with stronger performance ratings (Choudhury et al., 2022).\n\nThe key insight: innovation benefits from *structured collaboration*, not constant proximity. Hybrid models that intentionally design in-person time for brainstorming while protecting remote time for deep work may actually outperform fully co-located arrangements.\n\n### Myth #5: Employees Prefer Fully Remote Work\n\n**The Reality:** A Gallup study found that 60% of employees with remote-capable jobs prefer a **hybrid work arrangement**, not fully remote. Only about one-third prefer fully remote work, and less than 10% prefer to work on-site full-time. Most workers want the best of both worlds—flexibility and connection.\n\nInterestingly, research from The Myers-Briggs Company found that 82% of extroverted workers prefer a hybrid model, with 15% preferring full-time remote work. Meanwhile, 74% of self-described introverts said they wanted to be in the office *at least part-time*—challenging the assumption that introverts universally prefer remote work (Hackston, 2024).\n\n---\n\n## Part 2: What the Research Actually Shows\n\nMoving beyond myths, let’s examine what peer-reviewed research and rigorous studies have revealed about remote work outcomes.\n\n### Productivity: A Nuanced Picture\n\nThe most rigorous research reveals that remote work productivity depends heavily on *how it’s implemented*, not whether it exists:\n\n* **Hybrid work (2-3 days remote):** The Bloom *Nature* study found zero effect on productivity with significant retention benefits. This is the “sweet spot” supported by most research.\n* **Fully remote work:** Stanford research suggests fully remote work may be associated with approximately 10% lower productivity, though this varies by role, individual, and management quality (Bloom, 2023).\n* **Industry-level analysis:** The U.S. Bureau of Labor Statistics found a positive relationship between total factor productivity growth and remote work adoption across major industries from 2019-2023 (Pabilonia & Redmond, 2024).\n\n### Retention: A Clear Advantage\n\nThe retention benefits of flexible work are among the most consistent findings in the research:\n\n* The Trip.com study found hybrid workers had a **33% lower quit rate** than full-time office workers (Bloom et al., 2024).\n* The White House Office of Personnel Management reports that 68% of frequent remote workers intend to stay in their positions, compared to 53% of non-teleworkers.\n* Companies supporting remote work show 25% lower employee turnover (Owl Labs).\n\nThe retention effect is particularly strong among women, employees with long commutes, and non-managers—groups often facing the hi",
+      "score": 0.47884622
+    },
+    {
+      "id": "S9",
+      "title": "Why Productivity Paranoia is the Real Obstacle to Remote Work",
+      "url": "https://eonetwork.org/blog/why-productivity-paranoia-is-the-real-obstacle-remote-work",
+      "content": "[![Entrepreneurs' Organization](/images/eo-logo-color.svg?v2)](/) \n\n* [![](/images/user-icon-dark.svg) Login](https://one.eonetwork.org/login)\n\nSite navigation\n\nShare This:\n\n* [![Linkedin share link](/images/icon-social-linkedin-dark.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2feonetwork.org%2fblog%2fwhy-productivity-paranoia-is-the-real-obstacle-remote-work%2f)\n* [![Twitter share link](/images/icon-x-dark.svg)](https://twitter.com/intent/tweet?url=https%3a%2f%2feonetwork.org%2fblog%2fwhy-productivity-paranoia-is-the-real-obstacle-remote-work%2f)\n* [![Facebook share link](/images/icon-facebook-square-dark.svg)](https://www.facebook.com/sharer.php?u=https%3a%2f%2feonetwork.org%2fblog%2fwhy-productivity-paranoia-is-the-real-obstacle-remote-work%2f)\n* [![Email share link](/images/icon-share-email.svg)](mailto:noreply@eonetworl.org?body=https%3a%2f%2feonetwork.org%2fblog%2fwhy-productivity-paranoia-is-the-real-obstacle-remote-work%2f)\n\n# Why Productivity Paranoia is the Real Obstacle to Remote Work\n\nNovember 23, 2022\n\nPublished in:\n\n* [Innovation & Technology](##)\n\nStudy after study confirms that remote work improves productivity. So why are many managers reluctant to trust their remote workers? A behavioral scientist explains.\n\nDo bosses trust employees to be productive when working remotely?\n\nA recent Microsoft [study](https://www.microsoft.com/en-us/worklab/work-trend-index/hybrid-work-is-just-work) found that 49 percent of managers of hybrid workers “struggle to trust employees to do their best work.” This lack of trust in worker productivity has led to what Microsoft researchers termed productivity paranoia: “Where leaders fear that lost productivity is due to employees not working, even though hours worked, number of meetings, and other activity metrics have increased.”\n\nThat data aligns with a [new report](https://www.citrix.com/fieldwork/flexible-work/citrix-hybrid-work-report.html) by Citrix based on a global survey of 900 business leaders and 1,800 knowledge workers—those who can do their job remotely. Half of all business leaders believe that when employees are working “out of sight,” they don’t work as hard.\n\nThat [traditionalist](https://www.cnbc.com/2022/04/05/ex-google-ceo-eric-schmidt-on-why-people-should-return-to-the-office.html) perspective aligns with Elon Musk’s [demand](https://www.teslarati.com/musk-clarifies-teslas-updated-work-from-home-policy-in-follow-up-email-to-employees/) that all Tesla and SpaceX employees work full-time in the office—including knowledge workers. Musk has stated that remote workers only “[pretend to work](https://twitter.com/elonmusk/status/1531867103854317568).”\n\n[Musk’s demand](https://eonetwork.org/blog/what-science-says-about-elon-musks-office-mandate-vs-excellence-from-anywhere-policies/) for improving productivity via full-time, in-office work for knowledge workers is something to which other traditionalist leaders aspire. [A Microsoft survey](https://www.microsoft.com/en-us/worklab/work-trend-index) shows that 50 percent of bosses intend to force knowledge workers into the office by Spring 2023. According to [Future Forum](https://www.bloomberg.com/news/articles/2022-07-20/remote-work-has-created-a-generational-divide-between-older-and-younger-bosses?sref=kDA7TmV1#xj4y7vzkg), skepticism toward working from home tends to come from leaders over age 50. Leaders under age 50 are more accepting of hybrid and remote work and focus on how to do it well.\n\nIs the belief of this traditionalist, older half of the business leadership that workers are more productive in the office based on facts? Not at all.\n\nEven before Covid, [peer-reviewed research](https://www.gsb.stanford.edu/faculty-research/publications/does-working-home-work-evidence-chinese-experiment) demonstrated that remote work improved productivity. A NASDAQ-listed company randomly assigned call center employees to work from home or the office. Work from home resulted in a 13 percent performance increase and a 50 percent lower attrition rate. A [more recent study](https://fortune.com/2022/07/26/hybrid-work-lowers-attrition-rates-improves-satisfaction/) from the Covid era with random assignment of programmers either to fully office-centric work or to some days worked remotely found that hybrid workers had 35 percent less attrition and wrote 8 percent more code.\n\n[Employee monitoring software](https://www.forbes.com/sites/bryanrobinson/2022/02/04/3-new-studies-end-debate-over-effectiveness-of-hybrid-and-remote-work/?sh=5cc59e5159b2) confirmed that the shift to remote work during Covid improved productivity by 5 percent. And more [recent research](https://www.vox.com/recode/23129752/work-from-home-productivity) from Stanford University showed that remote work efficiency actually increased throughout the pandemic, from 5 percent better than in-person in May 2020 to 9 percent in May 2022. That’s because we learned how to be better at remote work.\n\nAnd really, are workers all that productive in the office? Studies show that in-office employees actually work between [36](https://www.vouchercloud.com/resources/office-worker-productivity) percent and [39](https://www.nysscpa.org/news/publications/the-trusted-professional/article/study-39-percent-of-workday-spent-on-actual-work-060717) percent of the time, and spend the rest on non-work activities like surfing the web.\n\nSo why do half of all business leaders ignore the data? The key lies in how leaders evaluate performance: based on what they can see.\n\nUnfortunately, leaders [are trained](https://hbr.org/2012/12/evaluating-the-employees-you-c) to evaluate employees based on “facetime.” Those who come early and leave late are perceived and assessed as more productive.\n\nEven before the pandemic, the focus on presence in the office undermined effective remote work arrangements. Thus, [researchers found](https://sloanreview.mit.edu/article/why-showing-your-face-at-work-matters/) that remote employees who work just as hard and just as long as those in the office in similar jobs end up getting lower performance evaluations, decreased raises, and fewer promotions.\n\nThe problem here is the [proximity bias](https://www.ctpost.com/business/article/Why-Proximity-Bias-Keeps-Leaders-From-Excelling-16971625.php). That term describes the unfair preference for and higher ratings of in-office employees, compared with remote workers, even when remote workers show higher productivity.\n\nA related mental blindspot, [confirmation bias](https://journals.sagepub.com/doi/abs/10.1037/1089-2680.2.2.175), caused traditionalist leaders to ignore information that goes against the beliefs to which they’re anchored, and seek information that confirms their anchors. For example, they’ll seek evidence that in-office workers are more productive, even when there’s much stronger evidence that remote workers exhibit higher productivity. In other words, these [leaders trust](https://disasteravoidanceexperts.com/blindspots) their own gut reactions, internal impressions, and intuitions over the facts, thus failing to develop [self-awareness](https://www.top10.com/online-therapy/top-10-science-based-tips-for-effective-online-therapy) of how their mental processes might steer them to make bad decisions.\n\nThe consequence of this trust in false impressions around which type of work is more productive is leading to the unnecessary drama of forcing workers back to the office. And the traditionalist bosses who do so will continue to lose workers as part of the Great Resignation.\n\nThe [Society for Human Resources](https://www.shrm.org/topics-tools/news/inclusion-diversity/nearly-half-workers-definitely-looking-to-work-remotely) found that 48 percent of respondents will “definitely” seek a full-time remote position for their next job. To get them to stay at a hybrid job with a 30-minute commute, employers would have to give a 10 percent pay raise, and for a full-time job with the same commute, a 20 percent pay raise. With a poten",
+      "score": 0.47285444
+    },
+    {
+      "id": "S10",
+      "title": "40+ remote work productivity statistics, trends & data for 2026",
+      "url": "https://www.worktime.com/blog/statistics/remote-work-productivity-statistics-trends-data",
+      "content": "[![WorkTime](/images/logo/logo.svg)](/) \n\n* Socially responsible monitoring - go green, monitor effective & safe!\n\n  [Read more](/worktime-socially-responsible-green-employee-monitoring)\n\n  + For Windows, macOS\n  + For Terminal/Citrix server\n  + Cloud, on-premise\n  + 1 to 15,000+ computers\n  + In-office, hybrid, remote\n\n  Looking for a feature?\n\n  Ask us now\n* [Plans & pricing](/pricing)\n* [Quick start](/steps-to-begin-monitoring)\n* [Try 14 days free](/try)\n* [Book demo](/book-demo)\n* [Login](/login)\n\n* ![Deutsch](/img/icons/flags/de-1.svg)\n\n  Deutsch\n* ![English](/img/icons/flags/en.svg)\n\n  English\n* ![Español](/img/icons/flags/es-1.svg)\n\n  Español\n* ![Français](/img/icons/flags/fr-1.svg)\n\n  Français\n* ![Italiano](/img/icons/flags/it-1.svg)\n\n  Italiano\n* ![Português](/img/icons/flags/pt-1.svg)\n\n  Português\n\n* [![WorkTime](/img/icons/leaf4.svg)\n\n  Non-invasive employee monitoring](/worktime-socially-responsible-green-employee-monitoring)\n* [![WorkTime](/img/icons/calendar_check.svg)\n\n  Attendance monitoring](/employee-attendance-monitoring)\n* [![WorkTime](/img/icons/clock_check.svg)\n\n  Active time monitoring](/employee-active-idle-time-tracking)\n* [![WorkTime](/img/icons/sett_icon.svg)\n\n  Productivity monitoring](/increase-employee-productivity-worktime)\n* [![WorkTime](/img/icons/home3.svg)\n\n  Work from home / remote monitoring](/remote-employee-monitoring)\n\n![WorkTime remote productivity trends](/images/featured-image-remote-work-productivity-statistics-1008-447.webp)\n\n* [Statistics](https://www.worktime.com/blog/statistics)\n\nMarch 26, 2026\n\n10 min read\n\n![WorkTime](/images/avatar/author_18_mini.webp) [Valerie Khrystenko](https://www.worktime.com/author/valeriia-khrystenko)\n\n# 40+ remote work productivity statistics, trends & data for 2026\n\n## **TL;DR**\n\n* **A BLS analysis of 61 industries** found a positive link between remote work and total factor productivity growth, showing that remote and hybrid work arrangements do not drag down economic output.\n* **Hybrid work has zero negative impact on performance.** A Stanford study published in Nature found no drop in productivity, with a 33% reduction in employee turnover.\n* **85% of business leaders struggle to trust** that remote employees are being productive, even though most research shows stable or improved output.\n* **Remote workers log fewer hours but maintain output.** Gallup data shows employees in remote settings work about one hour less per day, yet macro-level productivity remains steady.\n* **77% of employees accept monitoring** when their employer is transparent about it, and they can access their own data.\n\n## **In this article**\n\n[Top 40+ data & statistics on remote & hybrid work productivity](#1)\n\n[Remote work hours vs. actual output](#2)\n\n[What research says about hybrid productivity](#3)\n\n[The productivity paranoia gap](#4)\n\n[How monitoring affects remote work productivity](#5)\n\n[Remote work productivity by industry](#6)\n\n[What remote work saves and costs](#7)\n\n[What RTO mandates mean for remote work productivity](#8)\n\n[How top companies maintain remote work productivity](#9)\n\n[Our final thoughts](#10)\n\n[FAQs](#11)\n\n[Are remote workers more productive than in-office workers?](#12)\n\n[Does hybrid work hurt productivity?](#13)\n\n[How can companies measure remote work productivity without invasive monitoring?](#14)\n\n[What is \"productivity paranoia,\" and why does it matter?](#15)\n\n[Do return-to-office mandates improve productivity?](#16)\n\nThe productivity debate around remote work is louder than ever, but the data tells a clearer story than most people expect. These remote work productivity statistics break down what research shows and what separates high-performing distributed teams from the rest. We pulled the latest remote work statistics from the Bureau of Labor Statistics and other leading sources to show how working remotely affects output, engagement, and performance.\n> The article is prepared by WorkTime - a non-invasive monitoring solution helping in-office, remote, & hybrid teams stay productive with full transparency.\n\n## Top 40+ data & statistics on remote & hybrid work productivity\n\n**1. According to recent data, 77% of remote employees report being more productive when working remotely.** This is one of the most consistent findings across multiple surveys. Remote workers consistently self-report higher productivity in their home work environment compared to in office settings. **2. A BLS study across 61 industries found a positive association between remote work and total factor productivity growth.** A one-percentage-point increase in remote work adoption correlates with a 0.08 to 0.09 percentage-point increase in total factor productivity. This relationship held even after controlling for pre-pandemic trends (BLS, October 2024). **3. Notably, 70% of managers say remote or hybrid work makes their teams more productive.** Only 12% reported a decrease. Managers who have actually experienced remote work arrangements tend to view them favorably. **4. Companies on the 2025 Fortune 100 Best list show output nearly 42% higher than a typical U.S. workplace.** Of those 100 companies, 97 support remote or hybrid work. Work culture and trust, not location, drive the difference.\n\n![WorkTime shows real productivity drivers.](/images/infographics-what-actually-drives-productivity-980-600.webp)\n\n**5. Data reveals that 84% of employees at top-performing companies say they can count on colleagues to cooperate effectively.** In typical workplaces, only 65% say the same. Collaboration platforms and a strong digital infrastructure help distributed teams stay aligned without needing to be in the same office space. **6. Remote workers gain about 62 hours of productive work each year from fewer on-site interruptions.** Fewer hallway conversations, surprise meetings, and desk drop-bys give remote employees more time for focused work. Many employees feel connected to their tasks when distractions are reduced.\n\n### Remote work hours vs. actual output\n\nOne of the surprising findings in recent research is that remote workers log fewer work hours, but that does not translate to lower output. This disconnect matters for how we measure employee productivity in a remote work setting. **7. Remote workers in heavily remote roles work about one hour less per day compared to 2019 levels.** By 2022, employees in remote settings were redirecting 30 to 60 minutes of that saved time to personal activities (American Time Use Survey, 2019-2023).\n\n![WorkTime](/img/banner_icons/bar_donut_light.png)\n\nMaintain hybrid teams productivity\n\n**8. Despite fewer hours, output per worker slightly increased at the macro level.**Workers sorted into roles better suited to their skills and preferences, which offset the reduction in hours. This is a positive impact of remote work on the labor market matching (Gallup, 2025). **9. Remote workers save an average of 72 minutes daily by eliminating commutes.** These time savings are significant. About 40% of that reclaimed time gets redirected to productive work activities. The rest goes to personal well-being, exercise, and family, which supports better work-life balance and long-term mental health. Remote work statistics consistently show that working remotely gives employees more control over how they use their day. **10. The data clearly shows that 70% of remote workers say focused work is easier from home.** Fewer interruptions and more control over the work environment help many employees complete tasks faster. Digital tools and project management software keep distributed teams on track. **11. About 65% of remote workers say managing stress is easier when working remotely.** Better mental health and lower stress contribute to sustained employee productivity over time. Employees who manage their well-being effectively tend to maintain higher output for longer.\n\n### What research says about hybrid productivity\n\nHybrid work is the dominant model for the remote workforce in 2026. Here",
+      "score": 0.70702106
+    },
+    {
+      "id": "S11",
+      "title": "[PDF] The Rise of Remote Work: Evidence on Productivity and Preferences ...",
+      "url": "https://www.hbs.edu/ris/download.aspx?name=20-138.pdf",
+      "content": "Working Paper 20-138 The Rise of Remote Work: Evidence on Productivity and Preferences from Firm and Worker Surveys Alexander Bartik Zoë Cullen Ed Glaeser Michael Luca Christopher Stanton The Rise of Remote Work: Evidence on Productivity and Preferences from Firm and Worker Surveys Alexander Bartik University of Illinois Zoë Cullen Harvard Business School Ed Glaeser Harvard University Michael Luca Harvard Business School Christopher Stanton Harvard Business School Working Paper 20-138 Copyright © 2020, 2021, 2022, 2023 by Alexander Bartik, Zoë Cullen, Ed Glaeser, Michael Luca, and Christopher Stanton.\nWorking papers are in draft form. This working paper is distributed for purposes of comment and discussion only. It may not be reproduced without permission of the copyright holder. Copies of working papers are available from the author.\nA prior version of this paper circulated under the title “What Jobs Are Being Done at Home During the COVID-19 Crisis? Evidence from Firm-Level Surveys.” We thank the leadership team at Alignable for providing data for this paper. The authors have no financial connection with the company.\nFunding for this research was provided in part by Harvard Business School.\nThe Rise of Remote Work Evidence on Productivity and Preferences from Firm and Worker Surveys ∗ Alexander Bartik Zo¨ e Cullen Ed Glaeser Michael Luca Christopher Stanton June 2023 Abstract Drawing on surveys of small business owners and employees, we present three main findings about the evolution of remote work after the onset of COVID-19. First, uptake of remote work was abrupt and widespread in jobs suitable for telework according to the task-based measure from Dingel and Neiman (2020). The initial adoption lead to a persistent shift in work arrangements that both firms and workers forecast would continue into the future. Second, business leaders’ perceptions of how remote work affected productivity shifted over time. In early 2020, 70 percent of small business owners reported a productivity dip due to remote work.\nBy contrast, the median business owner reported a positive productivity impact of remote work by 2021. Third, 21 percent of workers report being willing to accept a pay cut in excess of 10 percent if it allowed them to continue working from home, but the median worker in a teleworkable job would not tradeoff any compensation for the option of continued remote work.\nTaken together, our evidence points to perceived productivity gains and some workers’ preferences as reasons for the persistence of remote work in the years following the onset of COVID-19.\n∗A prior version of this paper circulated under the title “What Jobs Are Being Done at Home During the COVID-19 Crisis?\nEvidence from Firm-Level Surveys.” We thank the leadership team at Alignable for providing data for this paper. The authors have no financial connection with the company. Bartik is at the University of Illinois. Cullen, Luca, and Stanton are at Harvard Business School. Glaeser is at the Harvard Economics Department.\n1 1 Introduction Economists have long discussed the potential for broader adoption of remote work, dating back at least a quarter century (Gaspar and Glaeser 1998). Remote work advocates pointed to a techno-utopian vision with little time wasted on commuting, and in which people work from anywhere they choose (Toffler 1980).\nDespite this promise, remote work adoption remained low prior to the COVID-19 pandemic. Skeptics pointed to the possibility of lower productivity of remote workers, resulting from challenges such as monitoring and learning, as well as reduced opportunities for chance encounters that could spur innovation (Catalini 2018).\nThe COVID-19 pandemic brought about widespread disruptions and lockdowns, which forced many businesses to either shut down or transition to remote work. In this paper, we report results from nation-wide surveys of U.S. business owners and workers, conducted repeatedly over the span of two years after the onset of COVID-19. We examine three core issues: (1) business owners’ choices to transition to remote work, and remain remote, as a function of industry characteristics (2) the evolving productivity effects of transitioning to remote work, including the sources of gains and challenges from adopting remote work, (3) employees’ valuation of remote work as an amenity, measured by their willingness to trade off salary for working from home. We document that remote work remained persistent during our sample period and we shed light on possible reasons why firms and workers did not immediately revert back to their pre-pandemic modes of in-office operation.\nWe first show that the pandemic-induced growth of remote work was substantial and persistent. Nearly half of small business owners in surveys conducted in March and April of 2020 reported transitioning on-site workers to remote work. Business owners in January and May 2021 surveys reported that remote work remained elevated, with over half indicating 2 that some workers were engaged in remote work at the time of the survey (including workers who were newly hired into remote positions or those who worked remotely prior to the pandemic). This employer-level sampling frame reflects the extent to which businesses were impacted by remote work, but the shift to remote work likely did not include all workers.\nWorker-level surveys, conducted in 2022, allow us to pinpoint the extent to which remote work permeated the labor force. Approximately a third of workers who were on-site before the pandemic reported working remotely at least one day per week; a quarter worked remotely at least 2 days per week. Variation in remote work adoption and persistence tracks the Dingel and Neiman (2020) measure of telework suitability based on the task content of different occupations. These patterns indicate that many jobs could have been done outside of the office prior to the pandemic, but most firms and workers were not working remotely.\nThe onset of COVID-19 shifted work arrangements, and we explore possible reasons for the persistence of this shift.\nSecond, business owners and senior leaders reported that remote work became more pro-ductive over time. At the beginning of the pandemic, 70 percent of small business owners perceived a productivity dip due to remote work, but this pattern reversed in subsequent sur-veys, with the median owner reporting a positive productivity impact by early 2021. Firms engaged in adjustments that improved productivity, including technological investments, the introduction of training programs, and alteration of job characteristics and task assignments.\nSurveyed workers point to improvements in managers’ ability to lead remote teams as an im-portant contributor to the positive shift in productivity experienced over time. Nevertheless, after a year of experience with remote work, business owners reported in the 2021 survey wave reported difficultly monitoring remote employees, and they believed remote employees were less able to learn new skills. These challenges appear to be compounded in firms with 3 more people, as owners of larger firms are, on average, less optimistic about the productivity effects of remote work.\nFinally, the amenity value of remote work varies considerably across individuals. Workers’ willingness to trade off pay for the option to work remotely differs markedly across people: approximately 60% of respondents would not accept lower pay in exchange for remote work as an amenity, despite working in a job that is suitable for telework. While most workers do not value remote work, the shift to working from home is valued by a sizeable share of the labor force. 21% of workers would accept a pay cut of 10% or more to avoid returning to the office. Socio-demographic characteristics explain some variation in the amenity value of remote work. Among those whose jobs can be done remotely, females are 16% more likely than males to be willing to give up at least 10% of",
+      "score": 0.49729064
+    },
+    {
+      "id": "S12",
+      "title": "Remote Work Productivity Study: Surprising Findings From a 4-Year ...",
+      "url": "https://www.greatplacetowork.com/resources/blog/remote-work-productivity-study-finds-surprising-reality-2-year-study",
+      "content": "[![Great Place To Work](https://www.greatplacetowork.com/images/logos/GPTW_Logo_2017.svg)](/) \n\n\n* [Certification](/resources/certification)\n  + [Why Certify](/resources/why-certify)\n  + [Case Studies](/resources/case-studies)\n  + [FAQs](/solutions/certification-faq)\n* [Company Culture](/resources/company-culture)\n  + [Best Workplaces](/resources/best-workplaces)\n  + [Employee Recognition](/resources/employee-recognition)\n  + [Employee Engagement](/resources/employee-engagement)\n  + [Remote & Hybrid Culture](/resources/remote-hybrid)\n  + [Leadership & Management](/resources/leadership-management)\n  + [Layoffs](/resources/layoffs)\n  + [Recession](/resources/recession)\n  + [Psychological Safety](/resources/psychological-safety)\n  + [High-Trust Behaviors](/resources/high-trust-leadership)\n* [Recruiting](/resources/recruiting)\n  + [Retention Strategies](/resources/retention-strategies)\n  + [Benefits](/resources/employee-benefits)\n  + [Talent Acquisition](/resources/talent-acquisition)\n  + [Employer Brand](/resources/employer-brand)\n  + [Onboarding](/resources/onboarding)\n  + [Purpose](/resources/purpose)\n  + [Pride](/resources/company-pride)\n* [Employee Experience](/resources/employee-experience)\n  + [Employee Well-being](/resources/employee-wellbeing)\n  + [High-Trust Behaviors](/resources/high-trust-leadership)\n  + [Purpose](/resources/purpose)\n  + [Pride](/resources/company-pride)\n  + [Burnout](/resources/burnout)\n  + [Psychological Safety](/resources/psychological-safety)\n  + [Employee Recognition](/resources/employee-recognition)\n  + [Employee Surveys](/resources/employee-surveys)\n  + [Onboarding](/resources/onboarding)\n* [Retention](/resources/employee-retention)\n  + [Employee Recognition](/resources/employee-recognition)\n  + [Retention Strategies](/resources/retention-strategies)\n  + [Purpose](/resources/purpose)\n  + [Pride](/resources/company-pride)\n  + [Belonging](/resources/belonging)\n  + [Employee Well-being](/resources/employee-wellbeing)\n  + [Training & Development](/resources/training-development)\n* [Research](/resources/research)\n  + [Benchmarks & Trends](/resources/benchmarks-trends)\n  + [Reports](/resources/reports)\n\n![](/images/flags/flag.webp)\n\n* [Home](/)     >\n* [Insights](/resources)     >\n* [Blog](/resources/blog)\n\n# Remote Work Productivity Study: Surprising Findings From a 4-Year Analysis\n\n![ Remote Work Productivity Study: Surprising Findings From a 4-Year Analysis](/images/remote20work20productivity20study20finds20surprising20reality202-year20study.webp)\n\n[![Chandni Kazi](/images/blog-images/team-headshots/Chandni-Kazi-Headshot-2020.webp)](/authors/chandni-kazi) \n\n[Chandni Kazi](/authors/chandni-kazi)\n\n [![Claire Hastwell](/images/blog-images/2024/frkystylygmailcom-ee1491e0.webp)](/authors/claire-hastwell) \n\n[Claire Hastwell](/authors/claire-hastwell)\n\n20 May 2025\n\n[Benchmarks & Trends](/resources/benchmarks-trends), [Employee Experience](/resources/employee-experience), [Remote & Hybrid Culture](/resources/remote-hybrid), [Research](/resources/research)\n\n***Editor’s note:**  This article was originally published in 2020 and updated in 2025 to include new research and findings from 2024. The original study remains below for context and comparison.*\n\nRemote work isn’t new, but it is evolving. With millions still working outside traditional offices, questions about productivity, culture, and collaboration continue to shape the future of work. That’s why we revisited our original research with fresh 2024 data, analyzing responses from millions of employees across industries.\n\n**Spoiler:** Remote work still works. But how it works best is shifting — it all comes down to culture, trust, and leadership.\n\nIn this updated post, we’ll walk you through our latest findings, compare them to our earlier research from 2019–2020, and share what leading companies are doing now to sustain performance and engagement.\n\n## 2024–25 remote productivity study\n\nAs of February 2025, Gallup’s ongoing tracking of hybrid work arrangements in the U.S. found that [52% of U.S. employees](https://www.gallup.com/401384/indicator-hybrid-work.aspx) whose jobs can be done remotely work in a hybrid environment.\n\nAnother 27% are fully remote. That’s 79% of employees spending at least some of their time working remotely — a significant enough percentage to shape how organizations operate.\n\nIn early 2024, the U.S. Bureau of Labor Statistics reported that [34 to 35.5 million people aged 25 and older worked from home for pay](https://www.bls.gov/opub/btn/volume-14/telework-trends.htm), up 5 million from the previous year. This underscored a continued shift toward remote work.\n\n### Team cooperation — not proximity — drives remote productivity\n\nIn 2024, a sweeping analysis of [Trust Index™](/solutions/employee-surveys) Survey data covering 1.3 million employees at Great Place To Work® Certified™ firms revealed a fascinating truth: **Cooperation stands out as the cornerstone of discretionary effort****,** a defining trait of outstanding productivity.\n\nEmployees who feel they can count on others to cooperate are **8.2 times more likely** to give extra effort.\n\nBut do teams need to be co-located to cooperate? Not at all.\n\nOf the companies on the [2025 *Fortune* 100 Best Companies to Work For®](/best-companies-to-work-for), **97 support remote or hybrid work****.** This study included 67,000 employees. And **84% of employees at these companies say they can count on colleagues to cooperate****,** compared to 65% in typical workplaces.\n\nEmployees at the *Fortune* 100 Best Companies don’t just show up — they show up strong. **Productivity is nearly 42% higher** at these companies compared to a typical U.S. workplace.\n\nThat extra drive shows up in all the right places: higher productivity, better customer service, stronger retention, and more agility when things shift. \n\n## Remote work paradox: When engagement rises but well-being falls\n\nWhile our data shows strong and sustained productivity in remote environments, Gallup’s recent research adds nuance: High engagement doesn’t always mean high well-being.\n\nGallup’s latest “[State of the Global Workplace”](https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx) report found that **fully remote workers report the highest engagement** (31%) compared to hybrid (23%) and on-site workers (19%). But they also report lower well-being and higher instances of stress, anger, and loneliness.\n\nThe paradox? \n\n**Autonomy boosts productivity, but it can also increase cognitive load and emotional strain****.** Leaders should support social interaction, structure, and mental health alongside flexibility.\n\nAt high-trust workplaces, such as those found on the 100 Best Companies list, this paradox diminishes significantly due to exemplary leadership.\n\nIn our 2025 Fortune 100 Best survey, 81% of employees at these companies described their workplace as psychologically and emotionally healthy — a stark contrast to the 45% reported in typical U.S. workplaces.\n\nThis 45% higher rating underscores how strong leadership and intentional support create an environment where productivity and well-being thrive.\n\n## Does remote work increase productivity?\n\nHistorical data shows that working from home can be just as productive, if not more so, than traditional office setups. In 2022, Great Place To Work's two-year study of more than 800,000 employees found stable or improved productivity after transitioning to remote work.\n\nIn 2020, we surveyed 715 companies representing over 3 million U.S. employees. We measured productivity through responses to statements about effort and adaptability:\n\n* People are willing to give extra to get the job done\n\n* People quickly adapt to changes needed for their company’s success\n\n## Employee sentiment among productive remote workplaces\n\nIn the 2019–20 productivity study, we ran a comment analysis of employee survey responses to the open-ended question, “Is there anything unique or unusual about this company tha",
+      "score": 0.4942147
+    }
+  ]
+}

@@ -1,0 +1,581 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Can carbon capture and storage make a significant contribution to reducing global CO₂ emissions? Evaluate its demonstrated effectiveness, costs, scalability, energy requirements, and major arguments for and against large-scale deployment.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 53.826086956521735,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.7304347826086955,
+    "coverage": 0.75,
+    "depth": 0.6847826086956522,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report distinguishes capture rates from total lifecycle reductions: amine systems may capture “85–95% of the CO₂ in the treated exhaust stream,” while lifecycle reductions may be only “roughly 70–90%.”",
+          "It reports operating examples and periods, including Sleipner injecting “approximately 1 million tonnes of CO₂ per year” since 1996 and Quest storing roughly 1 Mt annually since 2015.",
+          "It explicitly warns that “announced capacity is not the same as delivered capacity” and notes downtime, cancellations, and projects operating below nameplate capacity."
+        ],
+        "missing": [
+          "The report does not provide project-specific measured capture versus design/nameplate quantities, capture availability, cumulative stored volumes, or systematic operating-performance data.",
+          "Boundary definitions are not consistently specified for the 45–50 Mt/year global figure or the cited project figures.",
+          "The discussion of actual net emissions reductions remains largely estimated rather than demonstrated with audited project-level lifecycle evidence."
+        ],
+        "rationale": "The report clearly understands the distinction between capture rate, nameplate capacity, operating performance, and lifecycle reduction, and it supplies representative projects. However, it does not substantively quantify actual-versus-designed performance or availability for those projects, which is central to the requirement."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It describes injection into saline aquifers and depleted reservoirs and explains structural, residual, dissolution, and mineral trapping.",
+          "It identifies risks including old-well leakage pathways, migration, inadequate pressure management, incomplete monitoring, and induced seismicity.",
+          "It calls for site characterization, baseline monitoring, leakage detection, post-closure monitoring, financial assurance, and clear long-term liability rules.",
+          "It distinguishes permanent geological storage from utilization and notes that enhanced oil recovery may have uncertain net benefits."
+        ],
+        "missing": [
+          "There is little quantitative evidence on observed leakage rates, retention performance, pressure behavior, or monitoring results from Sleipner, Snøhvit, or other projects.",
+          "Transport safety and the consequences or frequency of pipeline and shipping incidents receive only brief treatment.",
+          "Long-term responsibility and liability are identified as issues but not evaluated across jurisdictions.",
+          "The climate accounting of enhanced oil recovery is described as uncertain without explaining the relevant counterfactual oil production, substitution, or lifecycle accounting."
+        ],
+        "rationale": "The report covers the main integrity concepts and governance requirements and correctly separates storage from nonpermanent utilization. It lacks the measured storage-performance and leakage evidence needed for a deep assessment."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It provides application-specific capture-cost ranges from $10–40/tCO₂ for high-purity streams, $50–120+/tCO₂ for cement, $60–150/tCO₂ for coal retrofits, and $250–600+/tCO₂ for DAC.",
+          "It notes that transport and storage can add approximately $10–30/tCO₂ in favorable clusters but may cost substantially more in difficult settings.",
+          "It discusses capital and operating costs, financing, fuel prices, utilization, first-of-a-kind premiums, infrastructure, subsidies, and enhanced-oil-recovery revenues.",
+          "It compares fossil power with CCS against renewables, efficiency, storage, and grid investment, while noting that cement and other industrial applications may have fewer alternatives."
+        ],
+        "missing": [
+          "The report does not clearly state whether the cost ranges are levelized, capture-only, avoided-emissions costs, or include financing and storage; this limits comparability.",
+          "Observed costs from named operating projects are not separated systematically from modeled or projected costs.",
+          "Revenue and policy conditions, including carbon prices, tax credits, contracts for difference, and the economic effect of EOR, are discussed qualitatively rather than evaluated with examples."
+        ],
+        "rationale": "This is a strong broad cost assessment with useful application-specific ranges and alternative comparisons. Its depth is limited by unclear cost definitions and the absence of project-level observed-cost evidence."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "For power plants, it estimates a net-output penalty of roughly 10–30%, increased fuel consumption, lower efficiency, and potentially higher cooling-water demand.",
+          "For DAC, it gives representative requirements of 5–10 GJ of heat and 0.5–1.5 GJ of electricity per tonne of CO₂.",
+          "It explains that dilute atmospheric CO₂ makes DAC energy-intensive and that fossil-powered DAC could lose much of its climate benefit.",
+          "It discusses methane leakage, upstream emissions, and energy supply for blue hydrogen, and identifies land, water, biodiversity, fertilizer, and indirect land-use concerns for BECCS."
+        ],
+        "missing": [
+          "Energy and material requirements for BECCS, cement capture, hydrogen, and other major pathways are not quantified consistently.",
+          "Water, land, biomass, solvent/sorbent, steel, and drilling requirements are mostly qualitative.",
+          "The report does not translate the stated energy penalties into aggregate energy demand or opportunity costs at the projected multi-gigatonne scales."
+        ],
+        "rationale": "The report quantifies important power and DAC penalties and addresses carbon intensity and resource constraints. It does not provide comparable quantitative treatment across all major pathways or system-scale resource implications."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It compares current capture of 45–50 Mt/year with possible hundreds of Mt/year by 2030 and 1–7 Gt/year by 2050.",
+          "It distinguishes theoretical geological capacity from usable capacity and identifies injectivity, pressure management, permitting, pore-space ownership, distance, transport, monitoring, and acceptance constraints.",
+          "It discusses pipelines, shipping, terminals, injection wells, hubs, compressors, drilling capacity, specialized materials, workforce, and project finance.",
+          "It notes that announced project capacity can greatly exceed delivered capacity because of cancellations, delays, permitting, subsidies, and technical problems."
+        ],
+        "missing": [
+          "The report gives no quantified comparison of historical project growth rates, annual injection capacity, pipeline length, wells, or construction requirements.",
+          "Geological capacity is described as “many thousands of gigatonnes” without a method for converting it to accessible, permitted, and injectible capacity.",
+          "Workforce, supply-chain, permitting, regulatory, and public-acceptance constraints are identified but not prioritized or supported with empirical deployment evidence.",
+          "The 2030 and 2050 ranges are scenario claims rather than a demonstrated feasibility assessment tied to specific build rates."
+        ],
+        "rationale": "It provides a well-rounded scalability framework and appropriately rejects treating theoretical storage capacity as deployable capacity. More quantitative evidence on infrastructure buildout and historical delivery is needed for full coverage and depth."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It identifies cement and lime, high-purity industrial streams, chemicals, hydrogen, industrial clusters, DAC, BECCS, and some waste-to-energy as possible applications.",
+          "It explains that cement calcination produces process CO₂ that electrification and renewable energy cannot eliminate, making CCS comparatively valuable there.",
+          "It distinguishes point-source avoidance from removal: fossil and industrial capture prevents emissions, whereas biomass capture and DAC with storage can remove atmospheric CO₂.",
+          "It treats fossil power, old plant retrofits, high-methane blue hydrogen, and carbon-intensive DAC as weaker applications and calls for comparison with electrification and renewable alternatives."
+        ],
+        "missing": [
+          "Sectoral necessity claims are not examined in detail against specific alternatives such as alternative cements, material efficiency, electrified hydrogen, direct-reduced iron, or other process changes.",
+          "Gross capture versus net removal is explained conceptually, but no quantitative net-removal accounting is provided for BECCS or DAC.",
+          "Waste-to-energy and other variants receive only brief treatment."
+        ],
+        "rationale": "The report offers a clear and useful application map and correctly distinguishes avoided emissions from removals. It would need deeper alternative comparisons and quantitative net-removal analysis for complete treatment."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "Supporting arguments include addressing unavoidable cement process emissions, supplying durable removals, preserving industrial competitiveness, retrofitting long-lived assets, and diversifying climate strategies.",
+          "Opposing arguments include the small and mixed project record, high costs, energy penalties, fossil lock-in, moral hazard, transport and storage risks, non-100% capture, uncertain utilization permanence, and competition from renewables and efficiency.",
+          "The report repeatedly distinguishes technically successful projects from broad economic scalability and states that subsidies should reward verified permanent storage rather than installed capacity."
+        ],
+        "missing": [
+          "Most arguments are not tied to specific studies, measured outcomes, or comparative empirical evidence despite the report’s selected-source list.",
+          "Equity and environmental-justice concerns are mentioned but not critically developed, including who bears risks and who receives benefits.",
+          "The treatment of public acceptance, health risks, and opportunity costs remains largely qualitative.",
+          "Scenario assumptions are acknowledged, but the report does not systematically distinguish evidence-based impacts from model-dependent claims."
+        ],
+        "rationale": "The report is balanced and covers nearly all major pro and con arguments, with some critical qualification. It falls short of full depth because supporting evidence and distributional analysis are limited."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The executive conclusion states that CCS can contribute significantly but cannot substitute for fossil-fuel reduction and efficiency.",
+          "The final judgment targets hard-to-abate industry and removals, rejects CCS as a general license to continue emitting, and estimates a possible several-gigatonne annual contribution by mid-century.",
+          "It synthesizes performance, costs, energy penalties, scalability, permanence, applications, alternatives, and policy conditions including lifecycle accounting, verified storage, and avoiding mitigation delay.",
+          "It distinguishes what is demonstrated now—capture and storage in selected applications—from future-dependent outcomes such as multi-gigatonne deployment and low-cost DAC."
+        ],
+        "missing": [
+          "“Significant” is not defined with a clear quantitative threshold or explicit share of global emissions; the report gives several possible scales but does not establish which threshold it adopts.",
+          "The conclusion relies on projected gigatonne deployment without fully testing whether the necessary infrastructure, energy, finance, and permitting can be delivered within the stated timeframe.",
+          "Key uncertainties are acknowledged but not ranked or integrated into a conditional probability or confidence judgment."
+        ],
+        "rationale": "The report reaches a clear, conditional, well-synthesized judgment and separates current evidence from future scenarios. It needs a more explicit definition of significance and a more rigorous evaluation of the feasibility assumptions behind the mid-century estimate."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report’s most useful synthesis is its consistent distinction between smokestack capture rates, lifecycle emissions, gross capture, permanent removal, and nameplate versus delivered capacity.",
+        "It provides a practical application hierarchy: strongest cases in cement, high-purity streams, industrial clusters, and carefully governed removals; weakest cases in unabated fossil-power continuation, old retrofits, and poorly accounted blue hydrogen or DAC.",
+        "It combines technical, economic, infrastructure, governance, and moral-hazard considerations into a conditional rather than purely technological conclusion."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "CCS has technically demonstrated the separation, transport, underground injection, and monitoring of CO₂, including at some industrial facilities operating at large scale.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable technological and operational claim, but no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Existing facilities capture approximately 45–50 million tonnes of CO₂ per year, while energy- and industrial-process emissions are approximately 37 billion tonnes per year, making current capture roughly 0.1% of annual emissions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are specific current quantitative claims requiring source support; the selected-sources list does not provide a nearby citation."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "CCS consists of capture, CO₂ compression or conditioning, transport, and injection into and monitoring of deep geological formations.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a basic technical description that may be stated without citation in general explanatory prose, though a source would improve support."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "CCU does not necessarily provide permanent storage because some uses of captured CO₂ may later release the carbon back to the atmosphere.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The permanence characteristics of utilization pathways are externally verifiable and consequential."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "CO₂ capture from biomass or directly from air followed by permanent storage can constitute carbon dioxide removal, whereas capture from fossil-fuel or industrial processes generally prevents emissions rather than removing existing atmospheric CO₂.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive definitional and climate-accounting claim requiring authoritative support."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "High-purity process streams, including natural-gas processing, hydrogen, ammonia, fertilizer, ethanol, and some chemical processes, are generally easier and less energy-intensive to capture than dilute power-plant exhaust.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The comparative technical-performance claim is externally verifiable and uncited."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Amine-based post-combustion systems can commonly capture approximately 85–95% of CO₂ in the treated exhaust stream, depending on design and operation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific performance range requiring a technical source."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Lifecycle emissions from fossil-fuel power plants with CCS include residual stack emissions, capture-energy emissions, upstream methane leakage, fuel-production emissions, infrastructure emissions, and possible venting or downtime.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are externally verifiable lifecycle-accounting claims with material implications."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Under favorable conditions, fossil-fuel power plants with CCS may achieve roughly 70–90% lifecycle emissions reductions relative to unabated plants, while unfavorable conditions can produce substantially lower reductions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The numerical range and qualification require evidence; none is cited nearby."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Sleipner has injected approximately 1 million tonnes of CO₂ per year into a saline formation since 1996.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific project history and quantity requiring a project or authoritative industry citation."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Snøhvit stores CO₂ separated from natural gas, and Quest has captured and stored roughly 1 million tonnes annually from hydrogen production since 2015.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are specific project-status and performance claims without nearby citations."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Boundary Dam 3 demonstrated coal-power capture, while Petra Nova captured CO₂ from a coal plant, ceased operation in 2020 amid adverse economic conditions, and later restarted for a period.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The project histories and causal explanation are externally verifiable and uncited."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Deep geological storage can retain CO₂ for centuries to millennia through structural, residual, dissolution, and mineral trapping mechanisms.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive scientific claim about storage durability."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Well-designed geological storage can achieve very high retention rates, but site characterization, monitoring, liability rules, and long-term stewardship are important challenges.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "Both the retention assessment and identified governance requirements are externally verifiable."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Global operational CCS capture capacity is approximately 45–50 MtCO₂ per year, while energy and industrial-process emissions are roughly 37 GtCO₂ per year.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This repeats specific global quantitative claims that require current inventories and emissions data."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Announced CCS projects could approach hundreds of millions of tonnes per year by 2030, with some inventories exceeding 400 MtCO₂ annually, but announced capacity substantially exceeds delivered capacity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are current pipeline and historical-delivery claims requiring industry-tracker or government sources."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Major climate scenarios commonly project hundreds of millions of tonnes of annual CCS by 2030 and approximately 1–7 GtCO₂ per year by 2050, depending on the pathway.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The numerical scenario range and attribution to major institutions require direct citations."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Indicative CCS capture costs range from approximately $10–40 per tonne for high-purity streams to roughly $250–600 or more per tonne for current or early-commercial DAC, with transport and storage potentially adding approximately $10–30 per tonne in favorable clusters.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This table contains numerous specific cost estimates requiring source support."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "In many markets, new gas or coal power plants with CCS cost more than new wind or solar generation, while retrofitting old coal plants is particularly difficult.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The comparative economic claims depend on market and technology evidence and are uncited."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "DAC is expensive because atmospheric CO₂ concentration is approximately 0.04% of air and large quantities of air must be processed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The concentration figure and technical explanation are externally verifiable."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Representative DAC energy requirements are roughly 5–10 GJ of heat and 0.5–1.5 GJ of electricity per tonne of CO₂.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are specific engineering estimates requiring citations."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Power-plant CCS can reduce net electrical output by roughly 10–30%, increase fuel consumption per unit of electricity, and lower plant efficiency.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The numerical energy-penalty estimate and associated effects require technical evidence."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Cement emissions arise substantially from the chemical calcination of limestone, so renewable energy alone does not eliminate cement process CO₂ and CCS is one potential option for addressing it.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The process-emissions explanation and technology assessment are substantive sectoral claims."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Blue hydrogen’s lifecycle emissions depend on capture rate, methane leakage, gas extraction and processing emissions, system boundaries, and how the energy penalty is supplied.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable lifecycle assessment claim."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "Global saline aquifers and depleted hydrocarbon reservoirs could theoretically store many thousands of gigatonnes of CO₂, but usable capacity is constrained by characterization, injectivity, pressure, permitting, transport, monitoring, liability, and public acceptance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The storage-resource estimate and practical constraints require geological and policy evidence."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "Large-scale CCS requires dense-phase pipelines, shipping or liquefaction infrastructure, injection wells, measurement and verification systems, and potentially shared hubs.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a general description of infrastructure needs; citation is useful but not strictly necessary for basic exposition."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "BECCS has constrained potential because of land, food, water, biodiversity, fertilizer, transport, carbon-accounting, and indirect-land-use-change considerations.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are substantive environmental and resource claims requiring evidence."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "CO₂ is nonflammable, but a major pipeline rupture can create an asphyxiation hazard by displacing oxygen; underground injection can also create pressure-related problems or induced seismicity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are safety and environmental-risk claims requiring authoritative support."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "Some industrial process emissions, especially from cement calcination, are difficult to eliminate through renewable electricity or efficiency alone, making CCS potentially useful in those sectors.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about mitigation options and sectoral applicability."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "CCS can enable carbon removal through DAC with geological storage, BECCS, and potentially some carbon-negative industrial processes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The classification of these pathways as removals requires scientific and accounting support."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "CCS projects have a mixed record, including examples of underperformance, downtime, cost overruns, reliance on enhanced oil recovery, cancellations, and operation below nameplate capacity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a broad empirical claim about project performance and requires evidence."
+      },
+      {
+        "claim_id": "Q32",
+        "claim": "In power generation, renewables, efficiency, storage, and grid investment frequently provide lower-cost emissions reductions than CCS on new or existing fossil plants, although this is not universally true for cement and some industrial processes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The comparative-cost claim is externally verifiable and context-dependent."
+      },
+      {
+        "claim_id": "Q33",
+        "claim": "Captured CO₂ used in fuels, plastics, or enhanced oil recovery may eventually return to the atmosphere, so climate claims must distinguish permanent storage from temporary utilization and other pathways.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about permanence and climate accounting."
+      },
+      {
+        "claim_id": "Q34",
+        "claim": "CCS can plausibly make a significant contribution in hard-to-abate industry and carbon removal but cannot carry the main burden of global decarbonization.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the report’s overall analytical judgment. It should ideally be supported by the evidence cited throughout, but it is presented as a conclusion rather than a discrete factual assertion."
+      },
+      {
+        "claim_id": "Q35",
+        "claim": "No nearby citations are supplied for the report’s substantive claims; the report provides only a general selected-sources list at the end.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an inspection of the candidate report’s citation format, not an external factual claim."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 0,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Evaluate the demonstrated effectiveness of CCS projects using measured evidence, distinguishing nameplate or design performance from actual captured and stored quantities, capture rates, operating availability, and net emissions reductions.",
+    "R2: Assess whether captured CO₂ can be transported, injected, monitored, and retained with sufficient safety and permanence to provide genuine climate mitigation.",
+    "31 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "carbon-capture-global-mitigation",
+    "fixture_version": "1.0",
+    "rubric_hash": "4b355a5b699abd7c1c1443375f23687623ff495a7eb9a683c06bcd344b1574b9",
+    "candidate_report_hash": "851254b8c00de7026facc27e6f8261d6c3d1c01beab9940040614c455676fe0e",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T23:40:42.961618+00:00",
+    "usage": {
+      "llm_calls": 2,
+      "input_tokens": 14844,
+      "output_tokens": 5424,
+      "estimated_cost": null
+    }
+  }
+}

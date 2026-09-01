@@ -1,0 +1,712 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 68.12499999999999,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.96875,
+    "coverage": 0.96875,
+    "depth": 0.96875,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The report distinguishes synthetic instructions, demonstrations, preference data, reasoning traces, conversations, domain data, augmented natural data, and generated test data in the table in section 1.",
+          "It explicitly contrasts augmentation with replacement and discusses mixtures: “how much independent human data remain in the training mixture.”",
+          "It separately addresses synthetic uses in instruction tuning, alignment, safety testing, factual pretraining, and fine-tuning-related supervision."
+        ],
+        "missing": [
+          "The report does not clearly and systematically distinguish LLM-generated data from programmatically generated data, even though the question’s scope includes both.",
+          "The distinction between pure-synthetic and mixed synthetic–real training is discussed operationally but not analyzed as a structured comparison across pretraining versus fine-tuning."
+        ],
+        "rationale": "The report avoids treating all synthetic data as equivalent and identifies several important settings, uses, and mixture concerns. However, the programmatic-generation distinction and a more explicit comparison of pure-synthetic versus mixed regimes are incomplete."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "Section 2 explains scalable creation of instructions, domain examples, edge cases, multilingual variants, negative examples, and preference comparisons.",
+          "It identifies targeted coverage of “underrepresented intents, languages, formats, safety scenarios, or rare failure cases.”",
+          "It discusses low-resource domains and languages, controlled demographic and scenario variation, improved supervision, and systematic safety testing.",
+          "It provides conditions under which benefits are strongest: authoritative sources, verified documents, APIs, human-authored seeds, and objectively checkable tasks."
+        ],
+        "missing": [],
+        "rationale": "The report thoroughly covers scale, coverage, rare cases, low-resource settings, supervision, controllability, and the conditions needed for these to translate into useful data-quality improvements."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "Section 3 covers fabricated facts, incorrect advice, invalid code, inconsistent labels, contradictions, unsafe instructions, and plausible but invalid reasoning.",
+          "It explains error amplification when labels are not independently verified, errors recur, synthetic data dominate, or imitation is rewarded.",
+          "It addresses correlated errors, effective sample-size inflation, repetitive templates, homogenization, distribution mismatch, contamination, and recursive-training degradation.",
+          "It connects these failures to accuracy, factuality, robustness, multilingual performance, long-tail retention, diversity, calibration, and deployment performance.",
+          "It identifies moderating conditions including retention of original data, synthetic proportion, decoding method, filtering, generator diversity, task, and architecture."
+        ],
+        "missing": [],
+        "rationale": "This is a comprehensive treatment of synthetic-data quality failure modes and their downstream consequences, including both immediate data defects and recursive degradation."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "The report describes targeted generation for underrepresented groups, rare intents, dialects, safety cases, and counterfactual scenarios.",
+          "It discusses filtering and selection as potential sources of imbalance and recommends weighting synthetic examples by confidence and validation quality.",
+          "It explicitly warns that numerical balancing may create stereotyped or inaccurate representations and states that “numerical balance in the synthetic dataset is not evidence of fair representation.”",
+          "Section 9 recommends baseline comparisons, controlled synthetic-data proportions, subgroup metrics, counterfactual tests, and fresh human-authored evaluation data."
+        ],
+        "missing": [],
+        "rationale": "The report covers mechanisms for reducing bias and, importantly, distinguishes intended dataset balancing from demonstrated improvement in model behavior. It also specifies the comparative and subgroup-sensitive evidence needed to support a fairness claim."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "Section 4 explains generator bias from pretraining data, language and geographic distribution, moderation policy, institutional objectives, and social-group representation.",
+          "It covers bias introduced by filtering, subgroup underrepresentation, majority-language dominance, stereotypical occupations and social associations, dialect discrimination, and culturally narrow representations.",
+          "It discusses bias in synthetic preference and alignment labels, including over-refusal, paternalism, excessive hedging, and suppression of viewpoints.",
+          "It describes feedback loops in which generated content re-enters future datasets and amplifies existing biases.",
+          "It explicitly warns that a dataset can appear numerically balanced while increasing biased examples and recommends measuring model performance and error types rather than relying on dataset composition."
+        ],
+        "missing": [],
+        "rationale": "The report addresses preservation, introduction, and amplification of demographic and representational bias, including generator, filter, preference-label, cultural, and recursive-feedback mechanisms. It also distinguishes data-level appearance from model-level effects."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "Section 8.3 specifies example-level checks for factuality, label correctness, privacy, consistency, and source verification; dataset-level checks for deduplication, diversity, subgroup balance, coverage, source concentration, and deployment distribution; and model-level checks for capability, calibration, hallucination, robustness, and generalization.",
+          "Section 5 explains why fluency, standard benchmarks, synthetic tests, and sole reliance on LLM judges are insufficient.",
+          "It recommends exact or executable checks, expert review, human evaluation, adversarial testing, user studies, contamination checks, and held-out human-authored data.",
+          "It explicitly warns that synthetic-only or generator-aligned tests can reward style, share errors with the generator, or measure imitation rather than capability."
+        ],
+        "missing": [],
+        "rationale": "The report provides a broad, complementary evaluation framework spanning correctness, fidelity, diversity, coverage, utility, contamination, and held-out real-world generalization, while explaining limitations of automated, model-based, and benchmark-style metrics."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "Section 9 begins with a human/natural-data-only baseline and recommends comparing multiple synthetic proportions.",
+          "It requires subgroup metrics, tail-performance comparisons, dialect and language variation, intersectional groups, culturally specific scenarios, counterfactual tests, and false-positive, false-negative, refusal, and helpfulness disparities.",
+          "It states that evaluation should use fresh, human-authored, real or realistically sampled, and expert-verified examples.",
+          "It explicitly says numerical balance in the synthetic dataset is not evidence of fair representation."
+        ],
+        "missing": [],
+        "rationale": "The report directly specifies appropriate no-synthetic baselines, held-out preferably real evaluation, subgroup-sensitive metrics, disparity analysis, and representation tests. It clearly rejects balance or prompting alone as proof of fairness."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 1.0,
+        "depth": 1.0,
+        "candidate_evidence": [
+          "The executive summary concludes that value depends on generation, filtering, mixing with human data, and evaluation, and recommends synthetic data primarily as a targeted supplement.",
+          "Sections 7 and 10 condition benefits on authoritative grounding, verifiability, task stakes, provenance, synthetic proportion, generator quality, and retention of human data.",
+          "It identifies higher-risk settings such as medicine, law, finance, social judgments, multilingual communication, open-ended factual knowledge, and preference labeling.",
+          "It recommends practical safeguards including provenance tracking, human or expert validation, deduplication, source mixtures, independent evaluation, contamination testing, subgroup monitoring, and prevention of recursive contamination.",
+          "The conclusion states: “Use synthetic data to fill known gaps, not to obscure unknown ones.”"
+        ],
+        "missing": [],
+        "rationale": "The conclusion is appropriately conditional and evidence-oriented rather than universal. It relates outcomes to task, domain, generator, mixture, validation, and evaluation factors, acknowledges uncertainty and conflicting effects, and supplies concrete deployment safeguards and decision criteria."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful operational framing of synthetic data as a targeted supplement rather than a generic replacement.",
+        "It provides a concrete staged evaluation protocol: baseline, controlled synthetic additions, ablations, independent evaluation, contamination testing, and deployment monitoring.",
+        "It integrates data quality, bias, privacy, provenance, recursive contamination, and model-level evaluation into one practical risk-benefit framework.",
+        "The distinction between nominal dataset balance and demonstrated subgroup-level model improvement is especially valuable."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Synthetic data can produce large quantities of instructions, explanations, domain examples, and edge cases at substantially lower cost than manual annotation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable empirical claim about cost and scalability; no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Synthetic generation can target underrepresented intents, languages, formats, safety scenarios, or rare failure cases.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about the capabilities and applications of synthetic generation; no citation is supplied."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Properly designed synthetic data can reduce exposure to personal or confidential information, especially for prototyping and supervised fine-tuning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable privacy-related claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Model-generated rationales, critiques, preference comparisons, and tool-use traces can support instruction tuning and alignment.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This claim concerns observed or proposed effects of synthetic supervision and requires support."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Generated examples can contain factual errors, logical mistakes, invalid code, unnatural language, or mislabeled outputs, and these errors may be amplified during training.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive empirical claim about model and training behavior; no citation is supplied."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "A generator reflects aspects of its training data, safety policies, demographic biases, and linguistic biases, which synthetic datasets may transfer or amplify.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about bias inheritance and amplification; no citation is supplied."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Repeatedly training on model-generated outputs can cause loss of rare events, linguistic diversity, and calibration, particularly when human data are progressively displaced.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive research claim about recursive training and model collapse; no citation is supplied nearby."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Synthetic training data generated from benchmark questions or resembling benchmark distributions can inflate reported performance without corresponding real-world capability.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about contamination and evaluation validity; no citation is supplied."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Large synthetic datasets may contain repeated templates, correlated errors, and limited independent information despite appearing broad.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about the statistical and structural properties of generated datasets; no citation is supplied."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Synthetic data is generally safest and most effective as a targeted supplement to high-quality human or naturally occurring data rather than as an unverified replacement.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a broad evidence-based conclusion and recommendation; no supporting citation is supplied."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Synthetic data includes materially different practices such as synthetic instructions, demonstrations, preference data, reasoning traces, conversations, domain data, augmented natural data, and generated test data.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is primarily a categorization presented by the report; citation would improve support but is not strictly necessary for the taxonomy itself."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "Risk depends not only on the proportion of synthetic examples but also on their use, label verification, and the amount of independent human data retained.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive causal or evaluative claim about risk determinants; no citation is supplied."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Human annotation is expensive, slow, and difficult to scale.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable claim about annotation practices and costs; no citation is supplied."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Generated examples for SQL, code formatting, structured extraction, or arithmetic can often be automatically checked.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about verifiability of specific tasks; no citation is supplied."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Synthetic data can help in settings where naturally occurring data are scarce, including minority languages, specialized fields, rare safety incidents, and new products or APIs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about benefits in low-resource settings; no citation is supplied."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Synthetic data is more reliable when anchored to verified documents, databases, APIs, or human-authored seed examples than when produced through purely free-form generation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a comparative reliability claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Synthetic data may reduce the need to distribute raw personal or confidential records, but it is not automatically private.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This contains substantive privacy claims requiring evidence; no citation is supplied."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "A model can memorize and reproduce training examples, and synthetic data can preserve sensitive attributes or enable re-identification when combined with external information.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are externally verifiable privacy and security claims; no citation is supplied."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Membership-inference, extraction, nearest-neighbor, memorization, attack-simulation, and formal-privacy testing can be used to assess privacy risks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about privacy-evaluation methods; no citation is supplied."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "Synthetic generation can deliberately produce examples for underrepresented groups, rare intents, difficulty levels, dialects, safety edge cases, and counterfactual scenarios.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about controllable generation and its uses; no citation is supplied."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "Self-Instruct, Constitutional AI, distillation methods, and preference optimization use generated data or model-generated supervision in forms described by the report.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are specific claims about named research methods; the report lists references but supplies no nearby citation tied to these statements."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Synthetic supervision can improve helpfulness, refusal behavior, formatting, and instruction adherence, while the resulting model may inherit the teacher’s omissions and preferences.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about alignment outcomes and teacher-student transfer; no citation is supplied."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Synthetic red-teaming is useful for searching for safety failures but is not a complete substitute for real-world incident data.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive evaluation claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Language models are optimized to produce likely continuations rather than verified statements, so synthetic examples can be fluent but wrong.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a technical claim about model behavior and reliability; no citation is supplied."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "Fluency-based automated quality checks are weak at detecting stylistically polished errors.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about evaluation methods; no citation is supplied."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "Generated data can cause models to learn generator mistakes as authoritative, especially when labels are not independently verified or synthetic data dominate the mixture.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a causal claim about training effects; no citation is supplied."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "Many generated examples may share model priors, templates, misconceptions, refusal policies, writing styles, and blind spots, reducing their independent information content.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable claim about correlation and effective sample size; no citation is supplied."
+      },
+      {
+        "claim_id": "Q28",
+        "claim": "Heavy training on repetitive synthetic structures can reduce adaptability to natural variation, informal language, dialects, code-switching, and domain-specific conventions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about distributional and stylistic effects; no citation is supplied."
+      },
+      {
+        "claim_id": "Q29",
+        "claim": "Simulated users tend to be more articulate, cooperative, explicit, and free of typos or slang than real users.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a general empirical claim about simulated versus real user behavior; no citation is supplied."
+      },
+      {
+        "claim_id": "Q30",
+        "claim": "Recursive training on model-generated data can eliminate low-probability modes and degrade diversity, with severity affected by data retention, synthetic proportion, decoding, filtering, generator diversity, task, and architecture.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a detailed research claim about model collapse and its moderators; no citation is supplied near the claim."
+      },
+      {
+        "claim_id": "Q31",
+        "claim": "Synthetic data can accidentally include benchmark questions, public evaluation answers, proprietary documents, personal information, confidential prompts, or text from prior model releases.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about contamination and leakage risks; no citation is supplied."
+      },
+      {
+        "claim_id": "Q32",
+        "claim": "Synthetic data can make training appear more effective than it is and create legal, privacy, or intellectual-property problems through contamination or leakage.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive consequence claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q33",
+        "claim": "Synthetic data inherits generator biases, and filtering can further favor dominant dialects, culturally familiar examples, majority-group contexts, or one institution’s standards of politeness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about bias transmission and selection effects; no citation is supplied."
+      },
+      {
+        "claim_id": "Q34",
+        "claim": "Synthetic augmentation can increase the number of biased examples while making a dataset appear numerically balanced.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about representation and fairness; no citation is supplied."
+      },
+      {
+        "claim_id": "Q35",
+        "claim": "Synthetic translations or multilingual generations may be grammatically acceptable but culturally unnatural and may erase regional, dialectal, indigenous, legal, or medical distinctions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical multilingual and cultural-representation claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q36",
+        "claim": "Model-generated preference labels can produce over-refusal, paternalism, excessive hedging, or suppression of legitimate viewpoints when model judgments diverge from community or user preferences.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about alignment and preference-labeling effects; no citation is supplied."
+      },
+      {
+        "claim_id": "Q37",
+        "claim": "AI-generated content can enter future datasets through search results, social media, customer-service logs, or educational materials, creating feedback loops that increase the prevalence of original model biases.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable claim about data feedback loops; no citation is supplied."
+      },
+      {
+        "claim_id": "Q38",
+        "claim": "Synthetic data can inflate benchmark scores through contamination, benchmark-like generation, optimization toward known formats, or evaluation on data resembling training data.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive evaluation-validity claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q39",
+        "claim": "Using another language model as the sole evaluator can produce shared errors and preferences, reward verbosity and polish, miss subtle errors, and encourage judge hacking.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about LLM-as-judge limitations; no citation is supplied."
+      },
+      {
+        "claim_id": "Q40",
+        "claim": "Generated tests may be too easy because they contain explicit instructions, clean formatting, obvious answers, limited ambiguity, and familiar phrasing.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a factual claim about synthetic test distributions; no citation is supplied."
+      },
+      {
+        "claim_id": "Q41",
+        "claim": "Fine-tuning on synthetic demonstrations can improve imitation of answer style without improving underlying capability, factuality, reasoning, or calibration.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about capability versus imitation; no citation is supplied."
+      },
+      {
+        "claim_id": "Q42",
+        "claim": "Aggregate accuracy can improve while performance worsens for minority dialects, low-frequency intents, long-tail entities, non-English languages, disabled users, informal inputs, adversarial inputs, or high-stakes domains.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about hidden distributional regressions; no citation is supplied."
+      },
+      {
+        "claim_id": "Q43",
+        "claim": "Self-Instruct demonstrated that a model can generate instruction-following data that improves another model’s instruction following.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific claim about a named study; the reference list does not provide a nearby citation."
+      },
+      {
+        "claim_id": "Q44",
+        "claim": "Constitutional AI used model-generated critiques and revisions guided by stated principles and reduced the need for some human preference labels.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific claim about a named research method; no nearby citation is supplied."
+      },
+      {
+        "claim_id": "Q45",
+        "claim": "Alpaca, Vicuna, Orca, and related distillation approaches showed that relatively small amounts of model-generated instruction data can produce substantial behavioral improvements.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific comparative empirical claim about named systems; no citation is supplied."
+      },
+      {
+        "claim_id": "Q46",
+        "claim": "Research on recursive training has found that preserving original data and controlling synthetic-data mixtures can mitigate, though not necessarily eliminate, model collapse.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a specific research conclusion; the reference list mentions a study but does not provide a nearby citation."
+      },
+      {
+        "claim_id": "Q47",
+        "claim": "Dataset quality and provenance can matter as much as raw quantity, and redundant or noisy data can produce diminishing returns or harm.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an empirical claim about data scaling and curation; no citation is supplied."
+      },
+      {
+        "claim_id": "Q48",
+        "claim": "Synthetic examples can improve subgroup coverage only when target groups and scenarios are carefully defined and outputs are checked by relevant cultural or domain experts.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive fairness and quality claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q49",
+        "claim": "Synthetic data is lower risk when answers are objectively verifiable, generation is source-grounded, independent validation is possible, and the task is low stakes.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is primarily a practical framework or recommendation, though empirical support would strengthen it."
+      },
+      {
+        "claim_id": "Q50",
+        "claim": "Synthetic data cannot reliably indicate how people actually behave unless it is calibrated against real observations.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about the limits of synthetic data for behavioral inference; no citation is supplied."
+      },
+      {
+        "claim_id": "Q51",
+        "claim": "Numerical balance in a synthetic dataset is not evidence of fair representation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive fairness claim; no citation is supplied."
+      },
+      {
+        "claim_id": "Q52",
+        "claim": "Unverified model outputs should not be fed back into training, original human data should be retained, and synthetic examples should be weighted by confidence and validation quality to reduce recursive contamination.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are operational recommendations derived from the report; citations would be useful but are not strictly required for presenting recommendations."
+      },
+      {
+        "claim_id": "Q53",
+        "claim": "A strong evaluation set should be independent of the synthetic generator, held out before training, partly human-authored, refreshed over time, representative of actual users, and difficult to infer from public benchmark distributions.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a methodological recommendation rather than a standalone factual assertion; citation is optional."
+      },
+      {
+        "claim_id": "Q54",
+        "claim": "Synthetic data’s benefits are most reliable when generation is constrained by authoritative sources and outputs can be independently verified.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is the report’s evidence-based overall conclusion; no citation is supplied."
+      },
+      {
+        "claim_id": "Q55",
+        "claim": "Generated examples are not independent observations, and their fluency can conceal factual errors, stereotypes, and narrow assumptions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive empirical conclusion; no citation is supplied."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 0,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "51 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "synthetic-data-llm-training",
+    "fixture_version": "1.0",
+    "rubric_hash": "36414e911184eea8ef62c41ba8423e71054770da6d3e515f90d477a9870e806e",
+    "candidate_report_hash": "0dfa276706b552afbac3452ef7cf602786841b65db6e5ed52a2af4c1547c432a",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T23:48:40.497780+00:00",
+    "usage": {
+      "llm_calls": 2,
+      "input_tokens": 14482,
+      "output_tokens": 6014,
+      "estimated_cost": null
+    }
+  }
+}

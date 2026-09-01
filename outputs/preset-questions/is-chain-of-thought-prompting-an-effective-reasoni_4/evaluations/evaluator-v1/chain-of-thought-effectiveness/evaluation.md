@@ -1,0 +1,240 @@
+# Frozen Reference Research Evaluation
+
+**Evaluator:** evaluator-v1
+
+**Fixture:** chain-of-thought-effectiveness
+
+**System Version:** evidence-ledger-decomposer-verifier-v1
+
+**Model:** gpt-5.6-luna
+
+## Summary
+
+- Overall: 72.9 / 100
+- Evaluation completeness: 100%
+- Comprehensiveness: 0.65
+- Coverage: 0.66
+- Depth: 0.62
+- Citation quality: 0.80
+- Citation validity: 1.00
+- Citation support: 0.71
+- Citation completeness: 0.87
+- Deterministic integrity: 1.00
+
+## Comprehensiveness
+
+### R1
+
+- Coverage: 0.50
+- Depth: 0.25
+- Rationale: The report recognizes that CoT has heterogeneous variants and mentions zero-shot versus few-shot prompting, but the conceptual framing is incomplete. It assumes rather than systematically defines the intervention and its key contrasts.
+- Candidate evidence:
+  - The report describes “zero-shot and few-shot rationales,” “structured variants,” and distinguishes “displayed intermediate reasoning” from possible post-hoc reasoning.
+  - It states that CoT is “not a single experimentally invariant intervention.”
+- Missing:
+  - It never clearly defines CoT as prompting a model to generate intermediate reasoning steps before the answer.
+  - It does not explicitly distinguish CoT from direct answer-only prompting, answer-format instructions, hidden/internal reasoning, self-consistency, tool augmentation, or other inference-time procedures.
+  - Output-format alignment is discussed, but the report does not establish a clean set of comparison conditions.
+
+### R2
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: It covers several important task families and avoids a single-benchmark generalization, especially by contrasting GSM8K/MATH with commonsense and symbolic claims. However, coverage of knowledge and open-ended reasoning is thin, and empirical detail is limited.
+- Candidate evidence:
+  - The report identifies gains on “multistep arithmetic, mathematical, symbolic, and some commonsense tasks.”
+  - It discusses GSM8K and MATH and reports that few-shot CoT did not improve over zero-shot CoT in a strong-model evaluation.
+  - It reports structured reasoning results on “mathematical and commonsense benchmarks.”
+- Missing:
+  - Knowledge-intensive and genuinely open-ended reasoning tasks are not substantively assessed.
+  - Most evidence is reported at a high level without task-by-task effect sizes, null results, or harms across the different task families.
+  - The report does not clearly distinguish whether commonsense results involve knowledge retrieval, reasoning, or both.
+
+### R3
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The report gives a good high-level account of several moderators and uses them to explain disagreement. It falls short of full coverage because training-distribution similarity and several moderator interactions are absent or only asserted as unresolved.
+- Candidate evidence:
+  - The report repeatedly identifies model capability or scale, task type and difficulty, prompt construction, zero-shot versus few-shot prompting, structured organization, computation amount, and evaluator design as moderators.
+  - It says effects depend on “model capability, task difficulty, prompt or demonstration design, and baseline prompting behavior.”
+  - It explicitly notes that weaker models may benefit while strong models in the cited study did not benefit from few-shot exemplars.
+- Missing:
+  - Training-distribution similarity is not discussed, despite being a specified moderator.
+  - The report does not provide much concrete evidence separating the effects of task difficulty from task structure or model scale.
+  - Prompt ordering and exemplar composition are mentioned as unresolved, but not analyzed with documented comparative findings.
+  - Baseline behavior is discussed mainly as zero-shot versus few-shot CoT, not as a broader characterization of answer-only or default model behavior.
+
+### R4
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: This is one of the stronger sections: it directly addresses the reasoning-versus-formatting dispute and cites interventions relevant to causal mediation. Still, the report does not fully inventory or compare the experimental controls needed to isolate verbosity, context, formatting, and reasoning content.
+- Candidate evidence:
+  - The report contrasts intermediate computation, decomposition, coherence, error reduction, and procedural generalization with “formatting or post-hoc contribution.”
+  - It reports that few-shot exemplars aligned output format without improving reasoning in the cited strong-model study.
+  - It cites answer representations being decodable before CoT, reasoning perturbations that left answers unchanged, and causal pruning results that preserved or improved accuracy.
+- Missing:
+  - The report does not systematically separate verbosity or extra context from reasoning content using matched-length, irrelevant-chain, or format-only controls.
+  - It does not clearly establish whether the displayed trace itself, rather than hidden computation induced by the prompt, causes improvements.
+  - The evidence for output extraction and evaluator-facing formatting effects is mentioned but not analyzed in detail.
+
+### R5
+
+- Coverage: 0.50
+- Depth: 0.50
+- Rationale: The report correctly identifies this as a major unresolved confound, but mostly lists the gap rather than evaluating the relevant procedures. It therefore receives partial rather than substantial coverage.
+- Candidate evidence:
+  - The report says structured interventions may benefit from “additional computation or search, or token allocation” rather than verbosity alone.
+  - It explicitly acknowledges missing matched comparisons with “self-consistency, answer-only controls, ... external tools.”
+  - It notes that external-tool derivation reduced fragility in one cited study.
+- Missing:
+  - Sampling, self-consistency/voting, decoding settings, generation length, answer extraction, calculators, code, retrieval, and other tools are not actually separated empirically.
+  - The report does not present like-for-like budget or decoding comparisons.
+  - It does not determine whether reported improvements attributed to CoT instead arise from extra samples, longer generation, search, or external computation.
+
+### R6
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The report presents meaningful causal-faithfulness evidence and appropriately limits generalization. It is not fully comprehensive because trace validity and several standard faithfulness tests are not treated in detail.
+- Candidate evidence:
+  - It cites a study in which editing schema-guided intermediate structures failed to change final predictions in up to 60% of cases.
+  - It discusses answer representations decodable before CoT and cases where corrupting or perturbing reasoning did not change final answers.
+  - It cites causal step-selection work identifying redundant and indispensable steps and reports pruning with preserved or improved accuracy.
+  - It explicitly distinguishes bounded evidence on schema-guided structures and binary-classification tasks from universal claims about free-form CoT.
+- Missing:
+  - Logical validity of the traces is not assessed in detail; the focus is primarily causal influence or mediation.
+  - The report does not discuss trace scrambling, irrelevant-chain controls, counterfactual content interventions, or systematic distribution-shift faithfulness evaluations beyond broad references to perturbation.
+  - It does not clearly distinguish faithfulness, logical correctness, and final-answer accuracy in a formal framework.
+
+### R7
+
+- Coverage: 0.50
+- Depth: 0.50
+- Rationale: The report recognizes comparability and evidence-quality problems and flags important missing information. However, it does not itself perform the requested methodological audit, and its source-quality discussion is especially limited.
+- Candidate evidence:
+  - The report repeatedly warns that comparisons are not controlled across “model families, scales, task domains, prompt wording, decoding or sampling procedures, and evaluation metrics.”
+  - It notes the GSM8K evaluator issue and says corrected evaluation substantially changed the apparent zero-shot/few-shot comparison.
+  - It identifies missing evidence on replication quality, statistical uncertainty, contamination, saturation, and evaluator sensitivity.
+- Missing:
+  - It does not systematically report model versions and sizes, datasets, baselines, decoding settings, metrics, sample sizes, effect uncertainty, or replication status for the cited studies.
+  - It does not evaluate the quality or credibility of individual sources, despite relying partly on commercial blogs, Medium, LessWrong, and secondary summaries.
+  - The cited evidence is not independently described enough to assess whether results are directly comparable.
+  - Claims such as the 6.2% accuracy and 13.9% trace-length changes are given without uncertainty, statistical tests, or detailed baseline protocol.
+
+### R8
+
+- Coverage: 0.75
+- Depth: 0.75
+- Rationale: The synthesis directly answers the binary framing with a qualified combination view and appropriately preserves uncertainty. It is weaker on operational implications for reliability, cost, latency, and deployment choices.
+- Candidate evidence:
+  - The conclusion states that CoT is “a conditional reasoning intervention, not a universally effective reasoning strategy and not merely a formatting trick.”
+  - It gives a mixed mechanism account involving intermediate computation, decomposition, structured search, presentation, compliance, and evaluation effects.
+  - It discusses efficiency through the reported reduced trace length and causal pruning, and the conclusion warns against universal claims about rationale mechanisms.
+- Missing:
+  - Practical implications for reliability are only implicit; the report does not give concrete guidance about when to deploy CoT or how to validate it.
+  - Cost and latency are addressed mainly through token or trace-length claims, not total inference cost, sampling cost, wall-clock latency, or tool costs.
+  - The conclusion does not clearly distinguish established findings from hypotheses in a practical decision framework.
+  - Potential harms or failure modes, such as confidently generated but unfaithful rationales, are mentioned only indirectly.
+
+### Novel Value
+
+- The report offers a useful synthesis that the apparent conflict is not simply CoT-versus-no-CoT, but reflects heterogeneous interventions, model capability, task composition, effective computation, causal faithfulness, and evaluation implementation.
+- It highlights evaluator bias as a concrete source of disagreement and connects structured/pruned reasoning gains with the possibility that useful computation need not equal a faithful displayed rationale.
+- It appropriately bounds causal-faithfulness findings to specific structured, model, or task settings rather than generalizing them to all free-form CoT.
+
+## Citations
+
+### Support
+
+#### F1: SUPPORTED
+
+- Claim: CoT improves final-task performance most plausibly on selected multistep arithmetic, mathematical, symbolic, and some commonsense tasks, but the benefit depends on model capability, task difficulty, prompt construction, and evaluation conditions rather than applying uniformly.
+- Sources: S1, S2, S3, S4, S7
+- Rationale: The saved sources support the claim’s main content. S2–S4 describe CoT gains for multistep arithmetic, mathematical, symbolic, and commonsense reasoning, while S3 and S7 indicate that gains vary with model size/capability and prompting approach. S1 discusses multi-step task difficulty and reports evaluations across benchmarks of varying difficulty. S4 notes substantial sensitivity to prompt quality, and S7 identifies evaluation bias and reports that traditional CoT exemplars do not improve strong recent models, directly supporting the claim that benefits are conditional rather than uniform.
+- Supporting text: S2 says CoT “significantly boosts” performance on multistep arithmetic, common-sense, and symbolic problems. S3 says it is useful for complex reasoning but works better with larger models, while smaller models can produce less precise chains. S4 reports that prompt quality causes large performance differences and that gains extend to arithmetic, symbolic, and—minimally—commonsense tasks. S7 finds no reasoning improvement from traditional CoT exemplars for recent strong models and highlights evaluation bias.
+
+#### F2: PARTIALLY_SUPPORTED
+
+- Claim: “CoT” is not a single experimentally invariant intervention. Zero-shot and few-shot rationales, exemplar construction, and structured variants can yield different outcomes, but the independent effects of exemplar number and ordering remain mixed and task- or model-dependent.
+- Sources: S1, S2, S3, S4, S7
+- Rationale: The sources support the claim that CoT encompasses materially different variants and that outcomes can differ by prompting format, exemplar construction, model, and task. S1 describes zero-shot, few-shot, automated, and structured variants; S7 reports that traditional or enhanced exemplars may fail to improve strong models relative to Zero-Shot CoT; and S4 reports robustness to exemplar order and varying exemplar numbers for arithmetic reasoning. However, the supplied text does not establish that the independent effects of exemplar number and ordering are generally “mixed” or task/model-dependent. S7 says these factors are studied across task settings and models, but does not provide the claimed mixed findings, while S4 gives a specific robustness result rather than mixed effects.
+- Supporting text: S1: CoT includes “Zero-Shot CoT,” “Auto-CoT,” and the structured “Hi-CoT” paradigm. S7: “adding traditional CoT exemplars does not improve reasoning performance compared to Zero-Shot CoT,” and enhanced exemplars also failed to improve strong models. S4: “CoT prompting for arithmetic reasoning is robust to different exemplar orders and varying numbers of exemplars.”
+
+#### F3: SUPPORTED
+
+- Claim: The literature contains a genuine causal interpretation conflict: some accounts treat intermediate steps as computational scaffolds that support decomposition, coherence, attention, error reduction, or procedural generalization, whereas other evidence indicates that displayed reasoning can be post-hoc, weakly causal, or primarily formatting-related.
+- Sources: S1, S2, S3, S6, S7, S12, S14, S13
+- Rationale: The saved sources support both sides of the claimed conflict. S1, S2, S3, S6, and S13 describe intermediate steps as useful scaffolds: decomposition into substeps, improved coherence, manageable problem solving, procedural generalization, reduced redundancy, and causal sufficiency/necessity. Conversely, S7 reports that CoT exemplars primarily align output format and do not improve reasoning in strong models; S12 finds that intermediate structures can be influential context rather than stable causal mediators; and S14 summarizes evidence for ignored or post-hoc reasoning. Together, these sources directly establish a conflict over whether displayed intermediate reasoning is computationally causal or mainly presentational/accompanying.
+- Supporting text: Scaffold account: S1 says hierarchical decomposition filters low-information content and maintains logical coherence; S6 says explicit rationales aim to guide multi-step generalization; S13 frames steps in terms of causal sufficiency and necessity and reports reduced redundancy. Skeptical account: S7 says the primary function of CoT exemplars is output-format alignment and that models may ignore exemplar content; S12 says intermediate structures function as “influential context rather than stable causal mediators”; S14 describes models ignoring altered CoT and defines post-hoc reasoning as precomputing an answer before the chain of thought.
+
+#### F4: PARTIALLY_SUPPORTED
+
+- Claim: Structured reasoning can outperform flat CoT and reduce inference cost in the reported evaluations, indicating that gains may depend on organization and sufficient computation rather than rationale verbosity itself.
+- Sources: S1, S13
+- Rationale: S1 directly reports that the structured Hi-CoT method improves accuracy over conventional CoT while shortening reasoning traces, and describes lower inference cost. S13 independently reports that pruning redundant CoT steps improves efficiency and reduces token usage without sacrificing accuracy. However, the cited text does not establish the broader inference that gains depend on organization and sufficient computation rather than rationale verbosity itself, nor does it specifically frame the comparison as a test of rationale verbosity.
+- Supporting text: S1 reports that Hi-CoT improves average accuracy by 6.2% while reducing reasoning-trace length by 13.9% compared with CoT, with better accuracy and lower inference cost. S13 reports that causal selection of sufficient and necessary steps eliminates redundancy and reduces token usage while maintaining or improving accuracy.
+
+#### F5: PARTIALLY_SUPPORTED
+
+- Claim: In the supplied strong-model study, few-shot CoT exemplars may primarily improve presentation and evaluator-facing format rather than reasoning accuracy; this conclusion is bounded to the tested models, tasks, exemplars, and evaluation implementation.
+- Sources: S7, S14
+- Rationale: S7 directly supports the study-specific finding that, for recent strong models in the study’s mathematical reasoning experiments, CoT exemplars primarily align output format with human expectations and do not improve reasoning performance. It also describes the datasets and models and notes an evaluation-framework bias. However, S7 does not explicitly state the full limitation to the tested exemplars and evaluation implementation as a formal bound, and S14 concerns post-hoc reasoning in Gemma-2 on binary classification tasks rather than the supplied strong-model study. The phrase “evaluator-facing format” is a reasonable paraphrase of S7’s “human expectations,” but is not stated verbatim.
+- Supporting text: S7: “adding traditional CoT exemplars does not improve reasoning performance compared to Zero-Shot CoT. Instead, their primary function is to align the output format with human expectations.” The study used GSM8K and MATH with several recent open-source LLMs and identified an evaluation bias in open-source GSM8K frameworks.
+
+#### F6: SUPPORTED
+
+- Claim: Evaluation implementation can change the apparent relative benefit of zero-shot and few-shot CoT: correcting a reported GSM8K evaluator bias substantially increased measured zero-shot CoT performance.
+- Sources: S7
+- Rationale: The source explicitly states that it identified a common GSM8K evaluation bias that significantly underestimated Zero-shot CoT performance and that results were compared after correcting the issue. This supports both the implementation-dependent evaluation effect and the substantial increase in measured zero-shot CoT performance.
+- Supporting text: The paper reports a “common evaluation bias” in open-source GSM8K evaluation frameworks that “significantly underestimates the performance of Zero-shot CoT”; it then compares Few-shot CoT with Zero-shot CoT after correcting the issue.
+
+#### F7: PARTIALLY_SUPPORTED
+
+- Claim: The strongest fault lines are differences in model capability, task composition and difficulty, prompt instantiation, the amount and organization of effective computation, causal faithfulness of rationales, and evaluator design—not simply disagreement over whether CoT exists as a single treatment.
+- Sources: S1, S2, S3, S4, S7, S12, S13, S14
+- Rationale: The sources support several important dimensions in the claim: model capability and scale (S2–S4, S7), task type and difficulty (S1–S4), prompt/exemplar instantiation (S1, S3, S4, S7), organization and efficiency of reasoning (S1, S12, S13), causal faithfulness of intermediate reasoning (S12–S14), and evaluation bias/design (S7). However, the sources do not explicitly establish that these are the “strongest” fault lines, nor do they directly support the broad contrast with disagreement over CoT as a “single treatment.”
+- Supporting text: S7 reports that CoT exemplars can have different effects for recent strong versus weaker models and may primarily align output format; S1 contrasts unstructured flat CoT with hierarchical organization and evaluates models and benchmarks of varying difficulty; S12–S14 report that reasoning traces or intermediate structures may not causally determine final answers; S7 also identifies a common evaluation bias.
+
+### Missing Citations
+
+- Q21: Chain-of-thought should be treated as a conditional reasoning intervention rather than a universally effective reasoning strategy or merely a formatting trick.
+- Q22: Chain-of-thought can improve effective problem solving when prompts and models exploit intermediate computation, decomposition, or structured search, while explicit rationales may simultaneously function as presentation, compliance, or evaluation aids.
+- Q23: Conflicting findings primarily reflect differences in models, tasks, prompt variants, computation budgets, causal tests, and evaluators.
+
+## Deterministic Checks
+
+- `run_metadata_loads`: PASS
+- `report_exists`: PASS
+- `sources_present`: PASS
+- `structured_report_parses`: PASS
+- `report_question_matches`: PASS
+- `source_ids_unique`: PASS
+- `source_ids_syntactically_valid`: PASS
+- `source_urls_present`: PASS
+- `evidence_objects_valid`: PASS
+- `confidence_values_valid`: PASS
+- `citation_ids_syntactically_valid`: PASS
+- `citation_ids_resolve`: PASS
+- `structured_claim_evidence_available`: PASS
+- `ledger_claim_ids_unique`: PASS
+- `ledger_evidence_relationships_resolve`: PASS
+- `ledger_confidence_values_valid`: PASS
+- `ledger_evidence_ids_unique`: NOT_EVALUABLE — Current ledger relations have no independent evidence-ID field.
+
+## Main Weaknesses
+
+1. R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.
+2. R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.
+3. R7: Evaluate the evidential strength and comparability of the cited literature, including model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, replication, and source quality.
+4. 4 cited finding(s) were not fully supported by saved evidence.
+5. 3 citation-required claim(s) lacked an appropriate citation.
+
+## Audit Metadata
+
+- Fixture version: 1.0
+- Rubric hash: `ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d`
+- Candidate report hash: `a42ecfc97fd3cca838f9a4c000cf9a4c9e21465fbee9df1ee2fb497ceb984e45`
+- LLM calls: 9
+- Evaluated at: 2026-08-31T23:18:50.533021+00:00

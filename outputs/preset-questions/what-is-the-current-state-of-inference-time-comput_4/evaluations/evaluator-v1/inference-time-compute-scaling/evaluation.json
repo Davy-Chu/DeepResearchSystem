@@ -1,0 +1,878 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "overall_score": 76.49728260869566,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.66875,
+    "coverage": 0.6875,
+    "depth": 0.625,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report defines the area through “longer reasoning traces, repeated sampling, voting, search, verifier-guided selection, self-certainty methods, adaptive stopping, routing, and multi-agent approaches.”",
+          "It distinguishes inference-time claims from training-time confounds, noting that budget-forcing and reasoning-shortening results “may reflect training-time changes, data selection, or prompting rather than inference-time allocation alone.”"
+        ],
+        "missing": [
+          "It does not clearly define the boundary between inference-time compute and merely providing more input context or retrieval context.",
+          "It does not systematically distinguish inference-time scaling from increased model size, additional training, or other adjacent interventions.",
+          "It mentions retrieval and tools only indirectly and does not discuss where those boundaries are debatable."
+        ],
+        "rationale": "The report supplies a useful method taxonomy and acknowledges training-time confounding, but it does not fully articulate the requested definition or adjacent-intervention distinctions."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report describes fixed-budget comparisons in which PRM-guided selection performed best on arithmetic and compositional tasks, while heterogeneous multi-agent debate performed best on object counting, with “no uniform winner.”",
+          "It reports self-certainty maximization outperforming greedy decoding and matching or exceeding self-consistency at comparable token budgets on MATH500 and GSM8K across multiple Qwen and Llama sizes.",
+          "It reports controlled token-budget results from 500 to 16,000 tokens showing diminishing returns and correct-to-incorrect flips."
+        ],
+        "missing": [
+          "The report explicitly lacks numerical effect sizes, uncertainty estimates, complete model-task matrices, and independent replication.",
+          "It provides limited quantitative synthesis across studies and does not clearly separate replicated patterns from isolated benchmark findings beyond general caveats."
+        ],
+        "rationale": "The report synthesizes several relevant controlled comparisons and avoids universal claims, but its empirical synthesis is weakened by absent effect sizes, variance, and replication."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It treats extended reasoning, repeated sampling and voting, beam/tree search, verifier-guided selection, self-certainty, retrieval, and multi-agent debate as distinct method families.",
+          "It reports that majority voting is effective when sampled answers are sufficiently diverse and that increasing beam width had limited benefit in one fixed-budget comparison.",
+          "It identifies verifier quality, retrieval bottlenecks, static-verifier limitations, verifier manipulation, and evaluator vulnerability as failure modes.",
+          "It reports difficulty-dependent stopping and allocation, as well as overthinking and correct-to-incorrect degradation from excessive reasoning."
+        ],
+        "missing": [
+          "Correlated samples are not directly analyzed beyond the general requirement for diversity.",
+          "Error propagation in serial reasoning and the specific conditions under which refinement succeeds or fails are not developed.",
+          "Adaptive allocation is discussed mainly through difficulty dependence; no detailed comparison of adaptive policies or stopping mechanisms is provided."
+        ],
+        "rationale": "The report covers the principal mechanisms and several important limitations, but treatment of sampling dependence, refinement, serial error dynamics, and adaptive policies remains incomplete."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It explicitly states that reasoning-token increases need not produce monotonic accuracy gains and reports diminishing marginal returns and correct-to-incorrect flips at budgets from 500 to 16,000 tokens.",
+          "It reports that compute utility depends on task difficulty, with overthinking on simple queries and underthinking on difficult ones.",
+          "It concludes that the evidence does not support a universal scaling law or a single reliably increasing resource-performance curve."
+        ],
+        "missing": [
+          "The report does not provide a systematic characterization of saturation or degradation across model capability levels, budget ranges, and strategies.",
+          "It does not quantify the shapes or locations of diminishing returns, nor compare functional behavior across mechanisms.",
+          "Evidence for monotonic gains in settings where scaling works is described only generally, without enough cross-study detail to characterize when monotonicity holds."
+        ],
+        "rationale": "It directly addresses monotonicity, diminishing returns, degradation, difficulty, and the absence of a universal law, but lacks a broad quantitative scaling characterization."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It notes that token consumption is not a reliable standalone proxy for quality or efficiency.",
+          "It reports that some budget-forcing results achieved higher GSM8K accuracy with more than 40% fewer tokens, while shortening could degrade difficult coding or mathematics performance.",
+          "It states that latency, monetary cost, energy, memory, verifier overhead, and hardware cost are generally not jointly measured."
+        ],
+        "missing": [
+          "There is no substantive matched comparison against a larger model, a differently trained model, or alternative deployment configurations.",
+          "Tokens are discussed, but FLOPs, throughput, wall-clock latency, energy, and monetary cost are not measured under specified conditions.",
+          "The report does not determine when extra inference is preferable to model scaling or training changes."
+        ],
+        "rationale": "The report identifies the central efficiency trade-off and missing deployment metrics, but it does not evaluate realistic alternatives or provide a cost-quality frontier."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It identifies MATH500, GSM8K, arithmetic, compositional tasks, object counting, coding, and multimodal evaluations as tested settings.",
+          "It explicitly says the evidence does not establish transfer to larger or proprietary models, broader task distributions, independent laboratories, or real-world user outcomes.",
+          "It notes that the supplied benchmark evidence does not establish broad real-world applicability."
+        ],
+        "missing": [
+          "There is little or no substantive assessment of knowledge-intensive and open-domain reasoning, planning, interactive or tool-using tasks, ambiguous tasks, safety-relevant workloads, languages, or naturalistic data.",
+          "Differences between synthetic and naturalistic evaluations are not analyzed.",
+          "Proprietary versus open-model differences are identified as an evidence gap rather than examined."
+        ],
+        "rationale": "The report appropriately flags weak generalization, but its positive evidence is concentrated in mathematics, coding, counting, and multimodal benchmarks and does not systematically cover the requested transfer domains."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.75,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "It repeatedly separates context-specific findings from unsupported universal claims, including the statement that no reliable conclusion can be drawn about a universal scaling law, optimal allocation strategy, or deployment efficiency frontier.",
+          "It identifies missing independent replication, statistical uncertainty, effect sizes, matched-compute baselines, full task/model breakdowns, and complete cost accounting.",
+          "It discusses benchmark and prompt scope limitations, proprietary-model access, verifier overhead, causal confounding from training interventions, and incomplete extrapolation beyond tested budgets.",
+          "It lists unresolved issues involving mechanisms, retrieval, search, verifier robustness, evaluator gaming, and real-world outcomes."
+        ],
+        "missing": [
+          "Benchmark contamination is not explicitly discussed.",
+          "Selective reporting and publication bias are not explicitly assessed.",
+          "The report lists gaps but gives limited detail about what specific experiments or evidence would resolve each uncertainty.",
+          "The source set includes surveys, theses, blog material, and preliminary work, but source independence and evidence hierarchy are not systematically evaluated."
+        ],
+        "rationale": "This is one of the strongest sections: it clearly marks conditional and unsupported claims and identifies many evidence weaknesses, though several rubric-specific quality concerns and proposed resolution tests are absent."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 1.0,
+        "depth": 0.75,
+        "candidate_evidence": [
+          "The conclusion states that inference-time scaling is “a useful but highly conditional design space, not as a single reliably increasing resource-performance curve.”",
+          "It identifies validated context-specific gains from sampling, voting, search, verifier-guided selection, longer reasoning, and difficulty-aware allocation.",
+          "It states that benefits depend on task difficulty, model, method, and verifier quality, and that more tokens can produce diminishing returns or overthinking.",
+          "It explicitly labels universal superiority, predictable scaling laws, optimal allocation, causal efficiency gains, and deployment-level benefits as speculative or unsupported."
+        ],
+        "missing": [
+          "The conclusion could more explicitly rank the evidential strength of the individual mechanisms and distinguish the best-supported findings from preliminary ones."
+        ],
+        "rationale": "The report directly answers the question with a balanced, conditional synthesis and clearly identifies both validated findings and areas where evidence is insufficient."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report offers a useful synthesis centered on conditionality rather than a universal scaling curve.",
+        "It connects overthinking, difficulty-aware allocation, verifier dependence, and incomplete deployment cost accounting into a coherent account of why additional inference compute does not translate uniformly into better reasoning.",
+        "It explicitly flags causal confounding in studies that combine inference-time budget control with training-time interventions."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.8790760869565218,
+    "validity": 1.0,
+    "support": 0.875,
+    "completeness": 0.8260869565217391,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F6",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F7",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S8",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S9",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S10",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F8",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "A range of inference-time compute scaling methods has been empirically evaluated, including extended chain-of-thought, repeated sampling and majority voting, beam and tree search, verifier- or process-reward-model-guided selection, self-certainty maximization, retrieval, and multi-agent debate.",
+        "citation_ids": [
+          "S1",
+          "S3",
+          "S5",
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources collectively support the claim. S1 describes extended chain-of-thought, multiple completions, and searching over generations. S3 discusses empirical work on retrieval and verifier-guided decoding. S5 explicitly organizes inference-time scaling into chain-of-thought, self-consistency, best-of-N, verifier-based rejection sampling, and search. S6 reports a controlled empirical comparison including majority voting, beam search, PRM-guided selection, and multi-agent debate. S8 proposes and evaluates self-certainty maximization and also summarizes repeated sampling, PRM-guided beam search, and tree search. S9 reports a systematic investigation of sampling- and tree-search-based methods, including self-consistency, best-of-N, beam search, MCTS, and verifier guidance.",
+        "supporting_text": "S6: “The findings reveal that no single strategy dominates uniformly. PRM-guided selection ... Multi-agent debate ... Majority voting ... and while beam search helps...” S8: “We propose ... [a method] that ... maximizes the model’s self-certainty”; it also describes “repeated sampling and self-consistency,” “beam search guided by process reward models,” and “Monte Carlo Tree Search.” S3: inference-time computation includes “retrieval, search, and extended chain-of-thought reasoning,” and discusses “verifier-guided decoding.” S9: “systematically investigate popular sampling-based and tree search-based inference-time scaling methods,” including “Self-Consistency,” “Best-of-N,” “Beam Search,” and “MCTS.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Empirical results show task- and method-specific performance gains, but no evaluated scaling strategy has been shown to dominate uniformly.",
+        "citation_ids": [
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources directly report performance differences tied to tasks and methods, while S6 explicitly states that no single strategy dominates uniformly. S8 reports different comparative outcomes against greedy decoding and self-consistency, and S9 reports benefits and trade-offs that vary by modality and method, reinforcing the claim.",
+        "supporting_text": "S6: “The findings reveal that no single strategy dominates uniformly,” with PRM selection best on arithmetic/compositional tasks and multi-agent debate best on object counting. S8: thought-level self-certainty “consistently outperforms greedy decoding and matches or exceeds self-consistency.” S9: multi-modal thought performs better on average but consumes more tokens, and tree-search success depends heavily on verifier performance."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Majority voting can improve performance efficiently over a single generation when sampled answers are sufficiently diverse, whereas increasing beam width generally provides limited additional benefit in the reported comparison.",
+        "citation_ids": [
+          "S6"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved source directly states that majority voting provides reliable, compute-efficient improvements when answer diversity is sufficient, and that beam search generally provides little benefit as width increases. This supports both parts of the claim, although the source uses “beam search” rather than explicitly describing a single-generation baseline or a specific reported comparison.",
+        "supporting_text": "The abstract says: “Majority voting provides reliable, compute-efficient improvements across most settings when answer diversity is sufficient, and while beam search helps, it does not usually provide much benefit with width growth.”"
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Increasing reasoning-token budgets need not yield monotonic accuracy improvements: the supplied evidence reports diminishing marginal returns and overthinking, including some trajectories in which an initially correct answer becomes incorrect after extended reasoning.",
+        "citation_ids": [
+          "S1",
+          "S7",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources directly support all material parts of the claim. S1 explicitly reports substantially diminishing marginal returns, overthinking, and models abandoning previously correct answers, and describes tracking correct-to-incorrect “flip events.” S7 independently states that simply adding compute does not guarantee better results and that longer chains can indicate struggle, with correctness declining after high token counts. S10 reports that excessive thinking sometimes degrades performance, while S11 specifically describes models backtracking from correct answers as token budgets increase. S12 supports unnecessary long reasoning and notes accuracy degradation when reasoning is reduced in challenging cases, although it is less direct on correct-to-incorrect trajectories.",
+        "supporting_text": "S1: “marginal returns diminish substantially at higher budgets” and models exhibit “overthinking,” “abandoning previously correct answers”; it also identifies “flip events” where answers change from correct to incorrect. S7: “simply throwing more compute at a problem doesn't guarantee” better results, and after about 11,000 tokens responses are less likely to be correct. S11: increasing token budgets can cause models to “backtrack[] from the correct answer.”"
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Additional reasoning compute appears to be more useful when allocated according to problem difficulty than when allocated uniformly; moderate stopping or shortening can preserve accuracy in some settings but harm performance on difficult tasks.",
+        "citation_ids": [
+          "S1",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The sources collectively support both parts of the claim. S1 explicitly states that optimal thinking length varies with problem difficulty, making uniform allocation suboptimal, and that stopping at moderate budgets can substantially reduce computation while maintaining comparable accuracy. S10 describes overthinking on simple queries and underthinking on difficult reasoning problems, supporting difficulty-sensitive allocation. S12 reports that shortening reasoning mostly maintained accuracy in several benchmarks but degraded accuracy on challenging coding and math tasks, while adding longer correct reasoning restored performance. S11 additionally reports that increasing budgets can sometimes cause overthinking and backtracking from correct answers.",
+        "supporting_text": "S1: “optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal” and “stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.” S10: thinking models overthink simple queries, while non-thinking models underthink difficult reasoning problems. S12: shorter reasoning mostly maintained accuracy, but accuracy degraded on challenging coding and math problems; adding longer correct reasoning restored performance."
+      },
+      {
+        "finding_id": "F6",
+        "claim": "Token consumption is not a reliable standalone proxy for reasoning quality or efficiency: models may spend more tokens without improving simple-task accuracy, while reducing tokens can preserve performance in some settings and degrade it in harder coding or mathematics settings.",
+        "citation_ids": [
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources collectively support the claim’s key points. S10 reports that thinking models often use hundreds of tokens on simple queries without improving performance, while insufficient thinking harms harder reasoning tasks. S12 reports that reducing generation length mostly maintained accuracy on several benchmarks but degraded accuracy on challenging coding and mathematics tasks, demonstrating that shorter reasoning can preserve performance in some settings yet hurt performance in harder ones. S11 also describes increased token budgets causing overthinking and computational overhead, while its own SFT+RL model reduced token usage by over 40% and achieved higher GSM8K accuracy.",
+        "supporting_text": "S10: “Thinking models often overthink for hundreds of tokens on the simplest user queries without improving performance,” whereas non-thinking models “underthink” on difficult reasoning problems. S12: shorter responses “mostly maintained accuracy” on several benchmarks but showed degradation on LiveCodeBench-Medium/Hard and AIME24/MATH500 Level 5."
+      },
+      {
+        "finding_id": "F7",
+        "claim": "Verifier-, retrieval-, search-, and evaluator-based scaling introduces reliability bottlenecks; scaling success can depend substantially on retriever and verifier quality, and unfaithful reasoning traces may manipulate LLM-based evaluators.",
+        "citation_ids": [
+          "S3",
+          "S6",
+          "S9"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S3 directly supports reliability challenges from inference-time computation, retriever-quality bottlenecks, verifier bottlenecks, and unfaithful reasoning traces manipulating LLM-based evaluators. S9 independently supports that tree-search scaling success heavily relies on verifier performance. S6 supports that verifier choice and aggregation method substantially affect PRM performance. However, the claim broadly attributes bottlenecks to all four categories—verifier, retrieval, search, and evaluator-based scaling—and the saved text does not specifically establish search itself as a reliability bottleneck or provide broader evidence about evaluator-based scaling beyond S3's described failure mode.",
+        "supporting_text": "S3 states that inference-time computation introduces challenges limiting reliability; reasoning performance is “bottlenecked by the quality of the retriever”; static discriminative verifiers “become a bottleneck”; and agents can produce “unfaithful reasoning traces that manipulate verifiers” into accepting suboptimal actions. S9 says tree-search success “heavily relies on verifier performance.” S6 says verifier choice and aggregation method “substantially affect” PRM performance."
+      },
+      {
+        "finding_id": "F8",
+        "claim": "A reliable conclusion cannot currently be drawn about a universal inference-time scaling law, the optimal compute-allocation strategy, or the deployment efficiency frontier.",
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support caution against broad universal conclusions: results vary by task, strategy, model, verifier, and modality; S6 states that no single strategy dominates uniformly, S10 reports that no model optimally balances accuracy and efficiency, and S1/S9/S12 document diminishing returns, overthinking, and efficiency trade-offs. However, the claim's stronger assertion that no reliable conclusion can currently be drawn is not fully established by the supplied excerpts. Several sources do report concrete, condition-specific findings and proposed strategies, so the evidence supports uncertainty about universal laws and globally optimal allocation—not the impossibility of reliable conclusions in general.",
+        "supporting_text": "S6: “no single strategy dominates uniformly.” S10: “no model is able to optimally think” and current approaches improve one benchmark at the expense of another. S1: marginal returns diminish, overthinking occurs, and uniform compute allocation is suboptimal. S9: multimodal scaling has higher token consumption and tree-search success depends heavily on verifier performance."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "A range of inference-time compute scaling methods has been empirically evaluated, including extended chain-of-thought, repeated sampling and majority voting, beam and tree search, verifier- or process-reward-model-guided selection, self-certainty maximization, retrieval, and multi-agent debate.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S3",
+          "S5",
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "rationale": "This is an externally verifiable taxonomy claim, and nearby evidence citations directly identify the cited method families."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Empirical results show task- and method-specific performance gains, but no evaluated scaling strategy has been shown to dominate uniformly.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S8",
+          "S9"
+        ],
+        "rationale": "This comparative empirical claim is directly accompanied by citations to studies reporting task-specific results and lack of a uniform winner."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Under fixed inference-time budgets, PRM-guided selection performed best on arithmetic and compositional tasks, while heterogeneous multi-agent debate performed best on object counting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "The claim reports specific study results and has a nearby citation to the comparative study."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Thought-level self-certainty maximization outperformed greedy decoding and matched or exceeded self-consistency at comparable token budgets on MATH500 and GSM8K across multiple Qwen and Llama sizes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S8"
+        ],
+        "rationale": "This is a specific empirical performance claim with a nearby citation to the reported study."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "In a preliminary multimodal evaluation across 10 datasets, multimodal thought combined with sampling or tree search improved average performance and upper bounds relative to text-only thought, while using more tokens and depending strongly on verifier quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "The claim contains several externally verifiable results and limitations, all attributed nearby to the multimodal search study."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Majority voting can improve performance efficiently over a single generation when sampled answers are sufficiently diverse, whereas increasing beam width generally provides limited additional benefit in the reported comparison.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6"
+        ],
+        "rationale": "This is a comparative experimental claim and is supported by a nearby citation to the fixed-budget study."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Increasing reasoning-token budgets need not yield monotonic accuracy improvements; reported effects include diminishing marginal returns, overthinking, and trajectories in which an initially correct answer becomes incorrect after extended reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S7",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "The claim synthesizes reported empirical observations and includes nearby citations to the primary and corroborating sources."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Additional reasoning compute appears more useful when allocated according to problem difficulty than when allocated uniformly; moderate stopping or shortening can preserve accuracy in some settings but harm performance on difficult tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This is an externally verifiable claim about observed allocation and performance patterns, with nearby supporting citations."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "A 33-model benchmark reports overthinking on simple queries, underthinking on difficult tasks, and failure to jointly optimize accuracy and inference efficiency.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S10"
+        ],
+        "rationale": "The claim gives specific benchmark findings and is directly cited."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "A small-model budget-forcing study reported higher GSM8K accuracy with more than 40% fewer tokens after SFT plus RL, while a preference-optimization study reported both successful shortening and degradation on difficult tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S12"
+        ],
+        "rationale": "These are specific study outcomes and have nearby citations to the respective studies."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Verifier-, retrieval-, search-, and evaluator-based scaling introduces reliability bottlenecks; scaling success can depend substantially on retriever and verifier quality, and unfaithful reasoning traces may manipulate LLM-based evaluators.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S6",
+          "S9"
+        ],
+        "rationale": "The claim concerns reported system vulnerabilities and dependencies and is accompanied by relevant citations."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "A reliable conclusion cannot currently be drawn about a universal inference-time scaling law, the optimal compute-allocation strategy, or the deployment efficiency frontier.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "Although framed as a limitation, this conclusion depends on the supplied studies and their reported gaps; nearby citations are provided."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "The supplied evidence lacks sufficiently controlled comparisons across model families, tasks, capabilities, budgets, and metrics, and often lacks numerical gains, uncertainty estimates, and matched-compute baselines.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This is a verifiable characterization of the evidence base and is explicitly supported in the nearby evidence section."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "The supplied evidence does not establish how reported results translate into wall-clock latency, monetary cost, energy use, memory, verifier overhead, or user-level quality.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S9",
+          "S10",
+          "S11"
+        ],
+        "rationale": "This deployment-efficiency limitation is externally inspectable and has nearby citations to the studies whose reporting is being characterized."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Reported efficiency improvements from budget forcing, RL-assisted control, and preference-based shortening may reflect training-time changes, data selection, or prompting rather than inference-time allocation alone; causal attribution is unresolved.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S11",
+          "S12"
+        ],
+        "rationale": "This is a methodological interpretation of specific studies and is cited in the conflicts section."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Comparative findings across the studies are not directly commensurable because compute budgets, model families, tasks, metrics, verifier overhead, and cost definitions differ.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This cross-study comparability claim is externally inspectable and has nearby citations to the relevant studies."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "No supplied evidence provides a comprehensive, matched-compute comparison of token extension, sampling, voting, search, verifier-guided methods, and multi-agent methods across broad task and model distributions.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about the completeness of the evidence base, but the remaining-gaps bullet provides no nearby citation."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "Independent replication, statistical uncertainty, effect sizes, and full task/model breakdowns are missing for several headline findings, especially overthinking and method-specific advantages.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable assessment of reporting and replication gaps, but it is uncited in the remaining-gaps section."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "The compute-efficiency frontier and a generally optimal adaptive allocation policy remain undetermined because latency, monetary cost, memory, parallel hardware cost, energy, and verifier overhead are not jointly measured.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive deployment and optimization claim is not accompanied by a nearby citation in the remaining-gaps section."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "The supplied benchmark evidence does not establish transfer to larger or proprietary models, independent laboratories, broader task distributions, or real-world user outcomes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a verifiable generalization limitation, but no citation is supplied next to the claim."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The research process stopped at the maximum iteration limit, and no further evidence was obtained beyond the supplied ledger.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a statement about the report-generation process rather than an externally verifiable substantive finding."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Inference-time compute scaling is empirically validated as a useful but highly conditional design space, rather than as a single reliably increasing resource-performance curve.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This conclusion synthesizes empirical and comparative claims and is supported by citations in the preceding findings and conclusion context."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Repeated sampling, voting, search, verifier-guided selection, longer reasoning, and adaptive or difficulty-aware allocation can improve results in specified settings.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This summarizes externally verifiable method results and is supported by the report's cited findings."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "Claims of universal superiority, predictable scaling laws, optimal allocation, causal efficiency gains, or deployment-level benefits remain speculative or unsupported by the supplied evidence.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "rationale": "This is a substantive assessment of what the evidence supports and is grounded in the cited limitations and comparisons."
+      }
+    ],
+    "evaluable_support_claims": 8,
+    "total_support_claims": 8,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+    "R5: Evaluate inference scaling against realistic resource constraints and alternatives.",
+    "R6: Assess how well reported inference-scaling effects transfer beyond the settings in which they were measured.",
+    "2 cited finding(s) were not fully supported by saved evidence.",
+    "4 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "inference-time-compute-scaling",
+    "fixture_version": "1.0",
+    "rubric_hash": "d32d6ea1035324f019e9421c7b216e4501bdab866df8e60cda19db2afb8a4c2f",
+    "candidate_report_hash": "3a28dcf1daea092ed24995e18593a798da50455acd4686bdd676c6885f21998f",
+    "evaluator_model": "gpt-5.6-luna",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-08-31T23:20:13.811400+00:00",
+    "usage": {
+      "llm_calls": 11,
+      "input_tokens": 74302,
+      "output_tokens": 6604,
+      "estimated_cost": null
+    }
+  }
+}
