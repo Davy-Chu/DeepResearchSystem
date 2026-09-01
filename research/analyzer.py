@@ -9,6 +9,7 @@ from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
 from research.models import IterationAnalysis, ResearchState, Source
+from research.openai_utils import research_reasoning_kwargs
 
 ANALYZER_SYSTEM_PROMPT = """You are analyzing evidence for a research task.
 
@@ -67,7 +68,7 @@ class ResearchAnalyzer:
         prompt = self._build_prompt(state, new_sources)
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": ANALYZER_SYSTEM_PROMPT},
                 {"role": "user", "content": prompt},

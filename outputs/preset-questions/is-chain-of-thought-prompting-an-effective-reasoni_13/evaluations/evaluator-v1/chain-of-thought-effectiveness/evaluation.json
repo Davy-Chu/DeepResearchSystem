@@ -1,0 +1,402 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 17.5,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.125,
+    "coverage": 0.125,
+    "depth": 0.125,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report refers to “chain-of-thought (CoT) prompting” and contrasts “genuinely enhances reasoning capabilities” with “merely optimizes output appearance.”"
+        ],
+        "missing": [
+          "A definition of CoT as an intervention involving intermediate reasoning steps or demonstrations.",
+          "Distinctions from direct answering, answer-format instructions, hidden/internal reasoning, self-consistency, tool use, and other inference-time procedures.",
+          "Explicit comparison conditions or clarification that verbose/stepwise output is not automatically CoT."
+        ],
+        "rationale": "The report identifies the broad reasoning-versus-formatting issue but does not define the intervention or distinguish it from neighboring techniques."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report claims that “numerous empirical studies across different datasets show a consistent performance uplift with CoT prompting.”",
+          "It mentions “problem-solving tasks” and “complex reasoning tasks.”"
+        ],
+        "missing": [
+          "Specific coverage of multi-step mathematical or symbolic tasks.",
+          "Specific coverage of knowledge, commonsense, or open-ended reasoning tasks.",
+          "Concrete findings, task-level contrasts, null effects, or harms across task types.",
+          "Evidence supporting the broad claim beyond generic references to studies and user studies."
+        ],
+        "rationale": "It gestures toward varied reasoning tasks but gives no substantive task-specific empirical assessment."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "Effects of model capability or scale.",
+          "Task difficulty and structure.",
+          "Training-distribution similarity.",
+          "Prompt and demonstration design.",
+          "Baseline prompting behavior.",
+          "An explanation of which moderators are established, contested, or untested and how they produce disagreement."
+        ],
+        "rationale": "The report only says that effects vary across domains; it does not identify or analyze the relevant moderators."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report contrasts “genuinely enhances reasoning capabilities” with “merely optimizes output appearance.”",
+          "It states that output clarity may be “conflated with reasoning improvements.”"
+        ],
+        "missing": [
+          "Analysis of whether intermediate-step content actually executes useful reasoning.",
+          "Consideration of additional context or verbosity as mechanisms.",
+          "Discussion of answer-format or extraction effects in concrete evaluation protocols.",
+          "Tests capable of distinguishing causal reasoning from formatting or presentation effects.",
+          "A distinction between improved outcomes and whether displayed traces caused those outcomes."
+        ],
+        "rationale": "The central distinction is named, but no mechanisms or discriminating evidence are examined."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "Separation of CoT prompting from sampling, self-consistency, voting, longer generation, or answer extraction.",
+          "Treatment of calculators, code, retrieval, tools, or other scaffolding.",
+          "Like-for-like baseline comparisons.",
+          "Any analysis of whether gains could be attributed to extra computation or protocol changes."
+        ],
+        "rationale": "None of the relevant inference-time procedures or tools are discussed."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "Assessment of logical validity of traces.",
+          "Assessment of causal relevance or faithfulness to the final answer.",
+          "Trace corruption, scrambling, irrelevant-chain controls, counterfactual interventions, or distribution-shift tests.",
+          "A distinction between faithfulness and accuracy."
+        ],
+        "rationale": "The report raises no trace-validity or faithfulness evidence."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "Identifiable and verifiable sources; the report explicitly states “No usable sources were retrieved.”",
+          "Model versions and sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, and replication details.",
+          "Methodological explanations for disagreements using comparable study characteristics.",
+          "Assessment of source quality or unsupported generalizations."
+        ],
+        "rationale": "The report supplies no usable citations or study-level methodological information, so its empirical claims cannot be evaluated or compared."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion says CoT is useful “for certain tasks” and that its contribution “may sometimes lie in improving output formatting.”",
+          "It recommends separating reasoning enhancement from formatting improvements."
+        ],
+        "missing": [
+          "A qualified evidence-based resolution of whether CoT is effective, primarily formatting, or a combination of mechanisms.",
+          "A distinction between established findings and hypotheses grounded in cited evidence.",
+          "Practical implications for accuracy, reliability, cost, latency, and appropriate use.",
+          "A supported explanation of when CoT should or should not be deployed."
+        ],
+        "rationale": "The conclusion gives a cautious high-level answer, but it is not evidence-based in the absence of sources and does not address operational tradeoffs."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report provides only generic claims and does not present identifiable evidence, novel synthesis, or a documented explanation of the literature's fault lines."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Chain-of-thought prompting effectively enhances reasoning performance in LLMs.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Chain-of-thought prompting mainly aids in output clarity and format rather than reasoning improvement.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Numerous empirical studies across different datasets show a consistent performance uplift with chain-of-thought prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable empirical generalization, but no source or citation is supplied nearby."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Researchers find consistent improvements in problem-solving tasks when large language models use chain-of-thought prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This attributes an empirical finding to researchers and requires supporting sources; none are provided."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "User studies indicate higher answer accuracy when models use chain-of-thought prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about user-study results and requires a citation, which is absent."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Some studies highlight benefits of chain-of-thought prompting for formatting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim refers to findings from studies and requires supporting evidence; no citation is supplied."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Some studies suggest that chain-of-thought prompting has limited impact on complex reasoning tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable research finding and is uncited."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Critics argue that observed enhancements from chain-of-thought prompting are largely superficial and attributable to better-structured outputs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This attributes a position to critics and makes a substantive causal claim; no citation is provided."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Chain-of-thought prompting does not significantly affect performance in categories where reasoning is less critical.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a general empirical performance claim requiring evidence, but none is cited."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "The effectiveness of chain-of-thought prompting varies across reasoning tasks, with some domains showing improvement and others not showing improvement.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable comparative claim about task domains and lacks a citation."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Output clarity attributed to chain-of-thought prompting may be conflated with reasoning improvements, contributing to differing interpretations of results.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This presents a substantive explanatory interpretation of research results and should be supported by sources; none are supplied."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Substantial evidence supports the utility of chain-of-thought prompting for enhancing reasoning performance on certain tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This summarizes an empirical evidence base and requires citations, which are absent."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Conflicting findings suggest that chain-of-thought prompting may sometimes primarily improve output formatting rather than reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive interpretation of conflicting research findings and has no supporting citation."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "The long-term impact of chain-of-thought prompting on reasoning skills as language models evolve with training remains insufficiently understood.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the state of research knowledge and should be supported by sources; none are provided."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Further investigation is needed into the specific domains and tasks where chain-of-thought prompting has varied effectiveness.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is primarily a research recommendation. A citation could motivate it, but the recommendation itself does not necessarily require one."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 2,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R3: Explain how observed effects vary with model capability or scale, task difficulty and structure, training-distribution similarity, prompt or demonstration design, and baseline prompting behavior.",
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.",
+    "R6: Assess whether generated reasoning traces are logically valid and causally relevant to the final answer, rather than merely correlated with correctness.",
+    "12 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "be025548bee2fc3ed11bdd572c34bce53a0324ab77e73189afb247a1f255c9af",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T14:46:37.936343+00:00",
+    "usage": {
+      "llm_calls": 2,
+      "input_tokens": 2862,
+      "output_tokens": 2136,
+      "estimated_cost": null
+    }
+  }
+}

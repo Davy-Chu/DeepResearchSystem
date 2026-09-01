@@ -1,0 +1,277 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "evidence-ledger-v1",
+  "overall_score": 29.6875,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.296875,
+    "coverage": 0.34375,
+    "depth": 0.25,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report defines CoT as prompting that can elicit “multi-step reasoning” and mentions “zero-shot” and “few-shot” variants.",
+          "It contrasts CoT with formatting alignment, stating that CoT may “align output with human expectations.”"
+        ],
+        "missing": [
+          "It does not clearly define the intervention as distinct from direct answering or ordinary stepwise/verbose output.",
+          "It does not distinguish CoT from hidden or internal reasoning, self-consistency, tool augmentation, or other inference-time procedures.",
+          "It does not establish clear comparison conditions or explain which protocols count as CoT."
+        ],
+        "rationale": "The report gestures at CoT, zero-shot/few-shot prompting, and formatting, but does not provide the requested conceptual distinctions."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report claims that CoT can improve “complex reasoning tasks” [S3].",
+          "It discusses mathematical reasoning-error identification through PedCoT [S5].",
+          "It discusses zero-shot reasoning, Plan-and-Solve, IAP, and Hint of Thought across reasoning tasks [S10, S13, S24]."
+        ],
+        "missing": [
+          "There is no systematic assessment across multiple task types.",
+          "Knowledge, commonsense, and open-ended reasoning tasks are not substantively covered.",
+          "The report does not provide model results, effect sizes, null results, harms, or task-by-task comparisons.",
+          "Several cited claims concern specialized variants rather than isolating ordinary CoT’s effect."
+        ],
+        "rationale": "The report mentions mathematical and general reasoning applications, but offers assertions rather than a comparative empirical assessment and does not cover the required breadth of task types."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says that “recent advanced models” may gain less from CoT exemplars and may “focus more on instructions than exemplars” [S1].",
+          "It mentions prompt variants such as enhanced exemplars, instance-adaptive prompts, Plan-and-Solve, and Hint of Thought."
+        ],
+        "missing": [
+          "It does not analyze model scale or capability as a moderator with evidence.",
+          "It does not discuss task difficulty or structure in a meaningful way.",
+          "It does not address training-distribution similarity.",
+          "It does not compare demonstration design, prompt wording, decoding, or baseline behavior systematically.",
+          "It explicitly states that “No material conflict was identified,” without explaining the moderators that could account for disagreement."
+        ],
+        "rationale": "Only a few broad claims about strong models and prompt variants appear; the central boundary conditions and their role in conflicting findings are not analyzed."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report repeatedly claims that CoT can improve “formatting,” “clarify thought processes,” or “align output with human expectations.”",
+          "It also reports claims that CoT improves accuracy on complex reasoning tasks [S3] and that Plan-and-Solve reduces calculation and missing-step errors [S13]."
+        ],
+        "missing": [
+          "It does not determine whether intermediate steps execute useful computations or merely correlate with correct answers.",
+          "It does not analyze additional context, verbosity, answer extraction, or format compliance as alternative explanations.",
+          "It provides no evidence capable of separating reasoning-content effects from formatting effects.",
+          "It does not distinguish accuracy improvement from the causal role of the displayed trace."
+        ],
+        "rationale": "The report names the formatting-versus-reasoning distinction, but does not investigate the mechanisms or the tests needed to distinguish them."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report discusses “enhanced” CoT exemplars, instance-adaptive prompting, Plan-and-Solve, and Hint of Thought as prompting strategies.",
+          "It mentions zero-shot and few-shot comparisons in the source titles and findings."
+        ],
+        "missing": [
+          "It does not separate the CoT prompt from sampling, self-consistency, voting, or longer generation.",
+          "It does not discuss answer extraction or compare like-for-like decoding protocols.",
+          "It does not address calculators, code, retrieval, tools, or external computation.",
+          "It does not identify whether reported gains come from extra computation or scaffolding rather than CoT itself."
+        ],
+        "rationale": "The report lists several prompt variants but does not control or analyze other inference-time changes that can accompany them."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report describes CoT as “clarifying the reasoning process” and says some methods reduce “calculation and missing-step errors” [S13]."
+        ],
+        "missing": [
+          "It does not assess logical validity or causal relevance of generated traces.",
+          "It provides no trace-corruption, scrambling, irrelevant-chain, counterfactual, or distribution-shift tests.",
+          "It does not distinguish faithfulness from accuracy.",
+          "The claims about clarification are not supported with trace-level analysis."
+        ],
+        "rationale": "The report treats reasoning traces as evidence of reasoning without examining whether they are valid or causally responsible for the answer."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report supplies a source list including an arXiv paper, academic publication pages, and numerous secondary sources such as blogs, explainers, Medium, and quick reviews.",
+          "It assigns “High” confidence to multiple claims, including claims about strong models, but does not report the underlying measurements."
+        ],
+        "missing": [
+          "It does not identify model versions or sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, or replication details.",
+          "It does not assess the comparability of the cited studies.",
+          "It relies substantially on secondary and informal sources, including blog posts and quick reviews, without explaining source quality.",
+          "It does not document methodological differences that could explain the alleged literature conflict.",
+          "The repeated high-confidence labels are unsupported by presented evidence."
+        ],
+        "rationale": "A bibliography is present, but the report does not evaluate study design or make the cited evidence auditable and comparable."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion says that various prompting techniques show benefits while the debate over “formatting utility versus reasoning enhancements” continues.",
+          "The summary presents a “nuanced view” and acknowledges disagreement."
+        ],
+        "missing": [
+          "The conclusion does not directly resolve whether CoT is effective, primarily formatting, or a context-dependent combination based on synthesized evidence.",
+          "It gives contradictory high-confidence claims—CoT is primarily formatting, but zero-shot CoT and multiple variants are effective—without reconciling them.",
+          "It does not distinguish established findings from hypotheses or explain the source of conflicting results.",
+          "It provides no practical implications for reliability, cost, latency, or appropriate use.",
+          "It incorrectly states that no material conflict or major gap was identified despite the research question centering on conflict."
+        ],
+        "rationale": "There is a nominally qualified conclusion, but it lacks evidence-based synthesis and practical implications and does not explain the disagreement."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report does not establish a novel synthesis or new evidence; it largely repeats unsupported claims from listed sources.",
+        "Its assertion that “No material conflict was identified” does not constitute a supported novel finding and conflicts with the stated research question."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+    "R3: Explain how observed effects vary with model capability or scale, task difficulty and structure, training-distribution similarity, prompt or demonstration design, and baseline prompting behavior.",
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "a22c147abf91fffe7a6fb938eb5a6a3ec92d5a54ac2533c88d8f1be245127b82",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:19:25.552804+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 3838,
+      "output_tokens": 1663,
+      "estimated_cost": null
+    }
+  }
+}

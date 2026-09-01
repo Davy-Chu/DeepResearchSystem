@@ -557,15 +557,6 @@ class ResearchDecision(StrictModel):
                 raise ValueError(
                     "next_search_query must be non-empty when needs_more_research is true"
                 )
-            if self.target_type is None:
-                raise ValueError(
-                    "target_type must be provided when needs_more_research is true"
-                )
-            if self.target_type in {DecisionTargetType.CLAIM, DecisionTargetType.GAP}:
-                if not self.target_id or not self.target_id.strip():
-                    raise ValueError(
-                        "target_id must be provided for a claim or gap research target"
-                    )
             self.next_search_query = self.next_search_query.strip()
         else:
             self.next_search_query = None

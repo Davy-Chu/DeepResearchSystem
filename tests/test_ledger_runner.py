@@ -324,3 +324,80 @@ def test_final_report_generator_uses_ledger_claim_ids_and_translates_output() ->
     prompt = str(calls[0]["input"])
     assert "C1" in prompt
     assert "Raw source content must not enter the report prompt." not in prompt
+
+
+def test_ledger_report_generator_repairs_invalid_conflict_source_ids_once() -> None:
+    state = ResearchState(
+        question="Question",
+        system_version="evidence-ledger-v1",
+        sources=[
+            Source(
+                id="S1",
+                title="Source",
+                url="https://example.com/source",
+                content="Saved source content.",
+            )
+        ],
+    )
+    from research.evidence_processor import apply_evidence_processing_result
+
+    apply_evidence_processing_result(
+        state,
+        EvidenceProcessingResult(
+            new_claims=[
+                NewClaim(
+                    claim="Claim one.",
+                    supporting_evidence=[
+                        evidence("S1", EvidenceRelationType.SUPPORTS)
+                    ],
+                    confidence=Confidence.MEDIUM,
+                    confidence_reason="One direct source.",
+                    status=ClaimStatus.WEAK,
+                )
+            ]
+        ),
+        1,
+    )
+    valid = LedgerFinalReport(
+        question="Question",
+        summary="Ledger summary.",
+        findings=[
+            LedgerReportFinding(
+                ledger_claim_ids=["C1"],
+                claim="Claim one.",
+                evidence=[EvidenceItem(summary="S1 supports it.", source_ids=["S1"])],
+                confidence=Confidence.MEDIUM,
+                confidence_reason="One direct source.",
+            )
+        ],
+        conflicts_and_uncertainties=[],
+        remaining_gaps=[],
+        conclusion="Ledger conclusion.",
+    )
+    invalid = valid.model_copy(
+        update={
+            "conflicts_and_uncertainties": [
+                Conflict(description="Unmapped conflict.", source_ids=["G1"])
+            ]
+        }
+    )
+    calls: list[dict[str, object]] = []
+
+    class Responses:
+        def __init__(self) -> None:
+            self.outputs = [invalid, valid]
+
+        def parse(self, **kwargs: object) -> SimpleNamespace:
+            calls.append(kwargs)
+            return SimpleNamespace(output_parsed=self.outputs.pop(0))
+
+    generator = FinalReportGenerator(
+        "unused", "test-model", client=SimpleNamespace(responses=Responses())
+    )
+
+    report = generator.generate(state)
+
+    assert report.conflicts_and_uncertainties == []
+    assert len(calls) == 2
+    assert "validation_error" in str(calls[1]["input"])
+    assert "G1" in str(calls[1]["input"])

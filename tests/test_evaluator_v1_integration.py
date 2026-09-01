@@ -8,16 +8,15 @@ from types import SimpleNamespace
 import pytest
 
 from evaluation.v1.adapters import load_evaluation_input
-from evaluation.v1.benchmark import BenchmarkEntry, save_benchmark, save_comparison
-from evaluation.v1.citations import CitationEvaluator
+from evaluation.v1.benchmark import (
+    BenchmarkEntry,
+    save_benchmark,
+    save_comparison,
+    save_model_family_comparison,
+)
 from evaluation.v1.comprehensiveness import ComprehensivenessEvaluator
 from evaluation.v1.fixtures import load_frozen_fixture, sha256_file
 from evaluation.v1.models import (
-    CitationCompletenessClaim,
-    CitationCompletenessJudgment,
-    CitationRequirement,
-    CitationSupportJudgment,
-    CitationSupportStatus,
     ComprehensivenessJudgment,
     FixtureMetadata,
     NovelValue,
@@ -49,8 +48,10 @@ from research.versions import CANONICAL_SYSTEM_VERSIONS
 class FakeResponses:
     def __init__(self, outputs: list[object]) -> None:
         self.outputs = list(outputs)
+        self.calls: list[dict[str, object]] = []
 
     def parse(self, **kwargs):
+        self.calls.append(kwargs)
         return SimpleNamespace(output_parsed=self.outputs.pop(0), usage=None)
 
 
@@ -138,10 +139,15 @@ def fixture(root: Path):
 
 def test_old_run_loads_without_ledger_and_evaluation_does_not_mutate_it(tmp_path: Path) -> None:
     run = saved_run(tmp_path / "run")
+    trace_path = run / "trace.json"
+    legacy_trace = json.loads(trace_path.read_text(encoding="utf-8"))
+    legacy_trace.pop("research_model", None)
+    trace_path.write_text(json.dumps(legacy_trace), encoding="utf-8")
     before = {path.name: path.read_bytes() for path in run.iterdir() if path.is_file()}
     item = load_evaluation_input(run)
     assert item.structured_claim_evidence_available is False
     assert item.system_version == "baseline-zero"
+    assert item.research_model == "unknown"
     after = {path.name: path.read_bytes() for path in run.iterdir() if path.is_file()}
     assert before == after
 
@@ -197,35 +203,25 @@ def test_evaluator_v1_scores_llm_only_report_with_same_frozen_fixture(
         ],
         novel_value=NovelValue(present=False),
     )
-    completeness = CitationCompletenessJudgment(
-        claims=[
-            CitationCompletenessClaim(
-                claim_id="Q1",
-                claim="A substantive claim.",
-                classification=CitationRequirement.CITATION_REQUIRED,
-                has_appropriate_citation=False,
-                citation_ids=[],
-                rationale="No canonical retrieved-source citation exists.",
-            )
-        ]
-    )
-    fake = FakeResponses([comprehensive, completeness])
+    fake = FakeResponses([comprehensive])
     client = SimpleNamespace(responses=fake)
     comp = ComprehensivenessEvaluator("unused", "judge-model", client=client)
-    citations = CitationEvaluator(
-        "unused", "judge-model", client=client, usage=comp.usage
-    )
 
-    result = EvaluatorRunner("judge-model", comp, citations).evaluate(
+    result = EvaluatorRunner("judge-model", comp).evaluate(
         load_evaluation_input(run), frozen
     )
 
     assert result.system_version == "llm-only-baseline-v0"
-    assert result.comprehensiveness.score == pytest.approx(0.425)
-    assert result.citations.score == 0.0
+    assert result.comprehensiveness.score == pytest.approx(0.375)
+    assert result.citations is None
     assert result.deterministic_integrity.score == 1.0
     assert result.evaluation_completeness == 1.0
-    assert result.overall_score == pytest.approx(35.5)
+    assert result.overall_score == pytest.approx(37.5)
+    assert result.metadata.research_model == "research-model"
+    assert result.metadata.scoring_weights == {"coverage": 0.5, "depth": 0.5}
+    assert len(fake.calls) == 1
+    assert all(call["model"] == "judge-model" for call in fake.calls)
+    assert all(call["model"] != "research-model" for call in fake.calls)
 
 
 def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) -> None:
@@ -244,31 +240,10 @@ def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) ->
         ],
         novel_value=NovelValue(present=False),
     )
-    support = CitationSupportJudgment(
-        finding_id="F1",
-        claim="A substantive claim.",
-        citation_ids=["S1"],
-        status=CitationSupportStatus.SUPPORTED,
-        rationale="Direct support.",
-        supporting_text="Direct support",
-    )
-    completeness = CitationCompletenessJudgment(
-        claims=[
-            CitationCompletenessClaim(
-                claim_id="Q1",
-                claim="A substantive claim.",
-                classification=CitationRequirement.CITATION_REQUIRED,
-                has_appropriate_citation=True,
-                citation_ids=["S1"],
-                rationale="Nearby citation.",
-            )
-        ]
-    )
-    fake = FakeResponses([comprehensive, completeness, support])
+    fake = FakeResponses([comprehensive])
     client = SimpleNamespace(responses=fake)
     comp = ComprehensivenessEvaluator("unused", "judge-model", client=client)
-    citations = CitationEvaluator("unused", "judge-model", client=client, usage=comp.usage)
-    result = EvaluatorRunner("judge-model", comp, citations).evaluate(
+    result = EvaluatorRunner("judge-model", comp).evaluate(
         load_evaluation_input(run), frozen
     )
     first_json, first_md = save_evaluation(run, result)
@@ -277,12 +252,22 @@ def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) ->
     assert result.metadata.rubric_hash == frozen.metadata.rubric_sha256
     assert first_json.parent.parent.name == "evaluator-v1"
     assert second_json.parent.name.endswith("_2")
-    assert "## Comprehensiveness" in first_md.read_text(encoding="utf-8")
+    rendered = first_md.read_text(encoding="utf-8")
+    assert "## Coverage and Depth" in rendered
+    assert "Citation quality" not in rendered
+    saved_result = json.loads(first_json.read_text(encoding="utf-8"))
+    assert saved_result["overall_score"] == pytest.approx(87.5)
+    assert saved_result["comprehensiveness"]["score"] == pytest.approx(0.875)
+    assert "citations" not in saved_result
 
     benchmark_json, benchmark_csv, _ = save_benchmark(
         [BenchmarkEntry(run="run", result=result)], tmp_path / "results"
     )
     assert benchmark_json.is_file() and benchmark_csv.is_file()
+    benchmark_row = json.loads(benchmark_json.read_text(encoding="utf-8"))[0]
+    assert benchmark_row["research_model"] == "research-model"
+    assert benchmark_row["evaluator_model"] == "judge-model"
+    assert "citation_support" not in benchmark_row
     reversed_entries = [
         BenchmarkEntry(
             run=system_version,
@@ -300,3 +285,43 @@ def test_full_v1_result_saves_metadata_and_comparison_outputs(tmp_path: Path) ->
         "delta"
     ] == pytest.approx(0.0)
     assert "Ablation Comparison" in comparison_md.read_text(encoding="utf-8")
+
+
+def test_cross_model_comparison_reports_architecture_deltas(tmp_path: Path) -> None:
+    luna_path = tmp_path / "luna.json"
+    mini_path = tmp_path / "mini.json"
+    versions = list(CANONICAL_SYSTEM_VERSIONS)
+    luna_rows = [
+        {
+            "system_version": version,
+            "coverage": 0.50 + index * 0.05,
+            "depth": 0.40 + index * 0.04,
+            "research_model": "gpt-5.6-luna",
+            "evaluator_model": "gpt-5.6-luna",
+        }
+        for index, version in enumerate(versions)
+    ]
+    mini_rows = [
+        {
+            "system_version": version,
+            "coverage": 0.30 + index * 0.10,
+            "depth": 0.20 + index * 0.08,
+            "research_model": "gpt-4o-mini",
+            "evaluator_model": "gpt-5.6-luna",
+        }
+        for index, version in enumerate(versions)
+    ]
+    luna_path.write_text(json.dumps(luna_rows), encoding="utf-8")
+    mini_path.write_text(json.dumps(mini_rows), encoding="utf-8")
+
+    comparison_json, comparison_md = save_model_family_comparison(
+        [luna_path], [mini_path], tmp_path / "results"
+    )
+
+    payload = json.loads(comparison_json.read_text(encoding="utf-8"))
+    first_delta = payload["architecture_deltas"][0]["families"]
+    assert first_delta["Luna"]["coverage"] == pytest.approx(0.05)
+    assert first_delta["GPT-4o-mini"]["coverage"] == pytest.approx(0.10)
+    rendered = comparison_md.read_text(encoding="utf-8")
+    assert "Marginal Architecture Deltas" in rendered
+    assert "GPT-4o-mini Coverage" in rendered

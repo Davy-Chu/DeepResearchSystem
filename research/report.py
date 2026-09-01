@@ -24,6 +24,7 @@ from research.models import (
     ResearchState,
     Source,
 )
+from research.openai_utils import research_reasoning_kwargs
 from research.versions import BASELINE_SYSTEM_VERSION, PRIOR_GUIDED_SYSTEM_VERSION
 
 REPORT_SYSTEM_PROMPT = """Create a structured final research report from the accumulated state.
@@ -66,6 +67,20 @@ repeat a broader pre-verification formulation after a claim was qualified. Prese
 CONFLICTING and INSUFFICIENT_EVIDENCE outcomes. Disclose material counter-searches blocked
 by budget, duplication, or the one-search limit. Verification records are audit metadata,
 not external evidence: cite only retrieved S* source IDs, never V* IDs.
+
+For conflicts, cite only S* source IDs attached to evidence-ledger relations; never cite
+claim, gap, or subquestion IDs. If research_plan is null, leave every subquestion ID list
+empty, including acknowledged_unresolved_subquestion_ids.
+"""
+
+LEDGER_REPORT_REPAIR_SYSTEM_PROMPT = """Repair one invalid evidence-ledger report.
+
+Return a corrected report using only the supplied ledger and source metadata. Correct the
+specific validation error without inventing facts. Every finding must retain valid ledger
+claim IDs and cite only source IDs attached to those claims. Every conflict must cite only
+source IDs present in the ledger. If no valid evidence can support a conflict, omit it or
+describe the uncertainty as a remaining gap. When research_plan is null, all subquestion
+ID fields must be empty.
 """
 
 
@@ -95,7 +110,7 @@ class FinalReportGenerator:
         )
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": REPORT_SYSTEM_PROMPT},
                 {
@@ -136,7 +151,7 @@ class FinalReportGenerator:
         }
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": LEDGER_REPORT_SYSTEM_PROMPT},
                 {
@@ -146,10 +161,15 @@ class FinalReportGenerator:
             ],
             text_format=LedgerFinalReport,
         )
-        if response.output_parsed is None:
+        ledger_report = response.output_parsed
+        if ledger_report is None:
             raise ValueError("OpenAI returned no parsed LedgerFinalReport")
-        validate_ledger_report(response.output_parsed, state)
-        report = response.output_parsed.to_final_report()
+        ledger_report = normalize_ledger_final_report(ledger_report)
+        try:
+            validate_ledger_report(ledger_report, state)
+        except ValueError as error:
+            ledger_report = self._repair_ledger_report(state, ledger_report, error)
+        report = ledger_report.to_final_report()
         validate_source_references(report, state)
         if (
             any(claim.supporting_evidence for claim in state.evidence_ledger.claims)
@@ -157,6 +177,75 @@ class FinalReportGenerator:
         ):
             raise ValueError("Final report omitted all supported evidence-ledger claims")
         return report
+
+    def _repair_ledger_report(
+        self, state: ResearchState, invalid_report: LedgerFinalReport, error: ValueError
+    ) -> LedgerFinalReport:
+        payload = {
+            "validation_error": str(error),
+            "invalid_report": invalid_report.model_dump(mode="json"),
+            "research_plan": (
+                state.research_plan.model_dump(mode="json")
+                if state.research_plan is not None
+                else None
+            ),
+            "evidence_ledger": state.evidence_ledger.model_dump(mode="json"),
+            "source_metadata": [
+                {"id": source.id, "title": source.title, "url": source.url}
+                for source in state.sources
+            ],
+            "open_research_gaps": [
+                gap.model_dump(mode="json") for gap in state.open_gaps()
+            ],
+        }
+        response = self.client.responses.parse(
+            model=self.model,
+            **research_reasoning_kwargs(self.model),
+            input=[
+                {"role": "system", "content": LEDGER_REPORT_REPAIR_SYSTEM_PROMPT},
+                {
+                    "role": "user",
+                    "content": json.dumps(payload, indent=2, ensure_ascii=False),
+                },
+            ],
+            text_format=LedgerFinalReport,
+        )
+        repaired = response.output_parsed
+        if repaired is None:
+            raise ValueError("OpenAI returned no parsed repaired LedgerFinalReport")
+        repaired = normalize_ledger_final_report(repaired)
+        validate_ledger_report(repaired, state)
+        return repaired
+
+
+def normalize_ledger_final_report(report: LedgerFinalReport) -> LedgerFinalReport:
+    """Remove unsupported report uncertainty rather than inventing provenance.
+
+    A conflict or uncertainty without a source ID cannot be audited or rendered as
+    an evidence-backed statement. GPT-4o-mini occasionally emits one despite the
+    structured-output instructions. Omitting it is safer than manufacturing a
+    citation, and keeps an otherwise valid report from being discarded.
+    """
+    uncited_count = sum(
+        not conflict.source_ids for conflict in report.conflicts_and_uncertainties
+    )
+    if not uncited_count:
+        return report
+    remaining_gaps = list(report.remaining_gaps)
+    remaining_gaps.append(
+        f"{uncited_count} model-generated conflict or uncertainty item(s) were "
+        "omitted because no supporting source IDs were supplied."
+    )
+    return report.model_copy(
+        update={
+            "conflicts_and_uncertainties": [
+                conflict
+                for conflict in report.conflicts_and_uncertainties
+                if conflict.source_ids
+            ],
+            "remaining_gaps": list(dict.fromkeys(remaining_gaps)),
+        }
+    )
 
 
 def _prior_guided_report_payload(state: ResearchState) -> dict[str, Any]:
@@ -282,6 +371,10 @@ def validate_ledger_report(report: LedgerFinalReport, state: ResearchState) -> N
                 f"to its ledger claims: {', '.join(unsupported_subquestion_ids)}"
             )
     for number, conflict in enumerate(report.conflicts_and_uncertainties, start=1):
+        if not conflict.source_ids:
+            raise ValueError(
+                f"Ledger report conflict or uncertainty {number} has no source IDs"
+            )
         invalid_source_ids = sorted(set(conflict.source_ids) - ledger_source_ids)
         if invalid_source_ids:
             raise ValueError(
@@ -525,11 +618,14 @@ def build_trace(
     model: str,
     max_iterations: int,
     report: FinalReport | None = None,
+    verifier_model: str | None = None,
 ) -> dict[str, Any]:
     return {
         "question": state.question,
         "system_version": state.system_version,
         "model": model,
+        "research_model": model,
+        "verifier_model": verifier_model,
         "max_iterations": max_iterations,
         "stop_reason": state.stop_reason,
         "final_report": report.model_dump(mode="json") if report is not None else None,
@@ -661,6 +757,7 @@ def save_research_outputs(
     output_root: Path = Path("outputs"),
     max_iterations: int = MAX_RESEARCH_ITERATIONS,
     output_dir: Path | None = None,
+    verifier_model: str | None = None,
 ) -> tuple[Path, Path]:
     validate_source_references(report, state)
     output_dir = output_dir or create_output_directory(state.question, output_root)
@@ -670,7 +767,13 @@ def save_research_outputs(
     report_path.write_text(render_markdown(report, state.sources), encoding="utf-8")
     trace_path.write_text(
         json.dumps(
-            build_trace(state, model, max_iterations, report),
+            build_trace(
+                state,
+                model,
+                max_iterations,
+                report,
+                verifier_model=verifier_model,
+            ),
             indent=2,
             ensure_ascii=False,
         ),

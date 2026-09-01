@@ -6,10 +6,12 @@ import pytest
 
 from research.models import (
     Confidence,
+    Conflict,
     EvidenceItem,
     FinalReport,
     Finding,
     IterationAnalysis,
+    LedgerFinalReport,
     ResearchIteration,
     ResearchState,
     Source,
@@ -18,6 +20,7 @@ from research.report import (
     build_incomplete_report,
     build_trace,
     create_output_directory,
+    normalize_ledger_final_report,
     render_markdown,
     save_research_outputs,
     validate_source_references,
@@ -74,6 +77,27 @@ def test_report_source_validation_rejects_uncited_finding() -> None:
     report.findings[0].evidence = []
     with pytest.raises(ValueError, match="no evidence items"):
         validate_source_references(report, make_state())
+
+
+def test_ledger_report_normalization_omits_uncited_uncertainty() -> None:
+    report = LedgerFinalReport(
+        question="What happened?",
+        summary="Summary.",
+        conflicts_and_uncertainties=[
+            Conflict(description="Uncited uncertainty.", source_ids=[]),
+            Conflict(description="Cited uncertainty.", source_ids=["S1"]),
+        ],
+        conclusion="Conclusion.",
+    )
+
+    normalized = normalize_ledger_final_report(report)
+
+    assert [item.description for item in normalized.conflicts_and_uncertainties] == [
+        "Cited uncertainty."
+    ]
+    assert "1 model-generated conflict or uncertainty item(s) were omitted" in (
+        normalized.remaining_gaps[-1]
+    )
 
 
 def test_markdown_rendering_contains_required_sections() -> None:

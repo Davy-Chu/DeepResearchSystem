@@ -5,7 +5,12 @@ from types import SimpleNamespace
 import pytest
 
 from research.decision import ResearchDecisionMaker, validate_decision_target
-from research.evidence_processor import EvidenceProcessor, apply_evidence_processing_result
+from research.evidence_processor import (
+    EvidenceProcessor,
+    apply_evidence_processing_result,
+    normalize_evidence_processing_result,
+    sanitize_evidence_processing_result,
+)
 from research.models import (
     ClaimStatus,
     ClaimUpdate,
@@ -206,6 +211,79 @@ def test_continue_decision_requires_next_query() -> None:
         )
 
 
+def test_processing_normalization_moves_relations_and_merges_duplicate_updates() -> None:
+    result = EvidenceProcessingResult(
+        new_claims=[
+            NewClaim(
+                claim="A claim.",
+                contradicting_evidence=[relation("S1")],
+                confidence=Confidence.LOW,
+                confidence_reason="Initial evidence.",
+                status=ClaimStatus.WEAK,
+            )
+        ],
+        claim_updates=[
+            ClaimUpdate(
+                existing_claim_id="C1",
+                new_supporting_evidence=[
+                    relation("S2", EvidenceRelationType.CONTRADICTS)
+                ],
+                updated_confidence=Confidence.LOW,
+                updated_confidence_reason="First update.",
+                updated_status=ClaimStatus.WEAK,
+            ),
+            ClaimUpdate(
+                existing_claim_id="C1",
+                new_supporting_evidence=[relation("S3")],
+                updated_confidence=Confidence.MEDIUM,
+                updated_confidence_reason="Final update.",
+                updated_status=ClaimStatus.CONFLICTING,
+            ),
+        ],
+    )
+
+    normalized = normalize_evidence_processing_result(result)
+
+    assert [item.source_id for item in normalized.new_claims[0].supporting_evidence] == ["S1"]
+    assert normalized.new_claims[0].contradicting_evidence == []
+    assert len(normalized.claim_updates) == 1
+    update = normalized.claim_updates[0]
+    assert [item.source_id for item in update.new_supporting_evidence] == ["S3"]
+    assert [item.source_id for item in update.new_contradicting_evidence] == ["S2"]
+    assert update.updated_status == ClaimStatus.CONFLICTING
+
+
+def test_processing_sanitization_removes_invented_permanent_ids() -> None:
+    state = ResearchState(question="Question", sources=[source("S1")])
+    apply_evidence_processing_result(
+        state, EvidenceProcessingResult(new_claims=[new_claim()]), 1
+    )
+    result = EvidenceProcessingResult(
+        claim_updates=[
+            ClaimUpdate(
+                existing_claim_id="C99",
+                updated_confidence=Confidence.LOW,
+                updated_confidence_reason="Invented ID.",
+                updated_status=ClaimStatus.WEAK,
+            )
+        ],
+        new_gaps=[
+            NewGap(
+                description="A useful but unlinked gap.",
+                importance=GapImportance.MEDIUM,
+                related_claim_ids=["C1", "C99"],
+            )
+        ],
+        resolved_gap_ids=["G99"],
+    )
+
+    sanitized = sanitize_evidence_processing_result(state, result)
+
+    assert sanitized.claim_updates == []
+    assert sanitized.new_gaps[0].related_claim_ids == ["C1"]
+    assert sanitized.resolved_gap_ids == []
+
+
 def test_decision_target_must_exist_and_processor_prompt_uses_ledger() -> None:
     state = ResearchState(question="Question", sources=[source("S1")])
     apply_evidence_processing_result(
@@ -269,3 +347,35 @@ def test_decision_prompt_uses_state_without_raw_source_content() -> None:
     assert "C1" in prompt
     assert "remaining_search_budget" in prompt
     assert "Exact saved content for S1." not in prompt
+
+
+def test_decision_maker_repairs_invalid_ledger_target_once() -> None:
+    state = ResearchState(question="Question", sources=[source("S1")])
+    apply_evidence_processing_result(
+        state, EvidenceProcessingResult(new_claims=[new_claim()]), 1
+    )
+    invalid = ResearchDecision(
+        needs_more_research=True,
+        reason="The central claim needs more evidence.",
+        target_type=DecisionTargetType.CLAIM,
+        next_search_query="independent evidence for the central claim",
+    )
+    repaired = invalid.model_copy(update={"target_id": "C1"})
+    calls: list[dict[str, object]] = []
+
+    class Responses:
+        def __init__(self) -> None:
+            self.outputs = [invalid, repaired]
+
+        def parse(self, **kwargs: object) -> SimpleNamespace:
+            calls.append(kwargs)
+            return SimpleNamespace(output_parsed=self.outputs.pop(0))
+
+    maker = ResearchDecisionMaker(
+        "unused", "test-model", client=SimpleNamespace(responses=Responses())
+    )
+
+    assert maker.decide(state) == repaired
+    assert len(calls) == 2
+    assert "allowed_claim_ids" in str(calls[1]["input"])
+    assert "C1" in str(calls[1]["input"])

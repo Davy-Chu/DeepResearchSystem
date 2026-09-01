@@ -1,0 +1,282 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "overall_score": 43.75,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.4375,
+    "coverage": 0.46875,
+    "depth": 0.40625,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report mentions both “training and fine-tuning” and states that “integration with real data is essential.”",
+          "It refers to “synthetic pretraining data” and to “synthetic data in fine-tuning.”"
+        ],
+        "missing": [
+          "It does not define the relevant synthetic-data sources, such as LLM-generated versus programmatically generated data.",
+          "It does not explain how pretraining differs from fine-tuning in terms of synthetic-data risks or benefits.",
+          "It does not clearly distinguish pure-synthetic from mixed synthetic–real training or explain why those distinctions matter."
+        ],
+        "rationale": "The report gestures toward fine-tuning, pretraining, and mixing synthetic with real data, but does not establish the analytical scope or explain the consequences of the different settings."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "“Synthetic data can help mitigate certain data gaps and privacy issues in AI model training.”",
+          "“Synthetic data helps overcome data scarcity and privacy issues.”",
+          "“Using diverse sources of synthetic data in fine-tuning can reduce distribution collapse and improve model robustness.”",
+          "The report says synthetic data can provide “diverse training examples tailored specifically to mitigate data scarcity.”"
+        ],
+        "missing": [
+          "It gives little concrete explanation of how synthetic data expands coverage, label availability, rare cases, or edge cases.",
+          "It does not adequately distinguish increased dataset scale or lower cost from demonstrated improvements in data or model quality.",
+          "The evidence is mostly asserted through source references rather than synthesized into conditions under which these benefits occur."
+        ],
+        "rationale": "The report identifies scarcity, diversity, privacy, and robustness as potential benefits, but its treatment is broad and lacks detailed mechanisms and quality evidence."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report identifies “factual inaccuracies and bias” as risks.",
+          "It states that “recursive training on AI-generated data compounds biases and reduces data diversity, leading to model collapse.”",
+          "It warns that over-reliance on synthetic data can cause “quality degradation.”",
+          "It notes that “diverse sources of synthetic data” can mitigate distribution collapse, implying that homogeneous sources increase that risk."
+        ],
+        "missing": [
+          "Incorrect labels, semantic errors, artifacts, contamination, and distribution mismatch are not substantively addressed.",
+          "The report does not clearly connect each failure mode to accuracy, generalization, or robustness outcomes.",
+          "It provides limited conditions governing when these failures are more or less likely, beyond generic over-reliance, recursion, and homogeneity.",
+          "It does not distinguish risks in pretraining from those in fine-tuning."
+        ],
+        "rationale": "Several major quality risks are named, especially factual error, reduced diversity, distribution collapse, and model collapse, but the causal analysis and coverage of failure modes are incomplete."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report claims synthetic data can “mitigate biases in large language models by providing diverse training examples that counteract common prejudices in real datasets.”",
+          "It says synthetic data can “augment training datasets with diverse examples, which can counteract existing societal biases.”",
+          "It acknowledges that benefits require “careful design” and management."
+        ],
+        "missing": [
+          "It does not discuss concrete interventions such as targeted subgroup coverage, rebalancing, counterfactual generation, fairness-aware generation, filtering, or weighting in meaningful detail.",
+          "It does not distinguish a more balanced synthetic dataset from an observed improvement in model behavior.",
+          "It does not specify the comparisons or evidence needed to substantiate a bias-reduction claim."
+        ],
+        "rationale": "The report recognizes diversity-based augmentation as a possible bias intervention and qualifies it, but it does not explain implementation mechanisms or evidentiary standards."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.75,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It states that synthetic data can “reinforce existing biases if the underlying generative models are biased.”",
+          "It warns of “bias amplification” and says recursive training can compound biases.",
+          "It discusses “racial and gender descriptors” producing different evaluations.",
+          "It notes risks when datasets are “too homogenous.”"
+        ],
+        "missing": [
+          "Subgroup/class imbalance, minority underrepresentation, stereotypical associations, and spurious correlations are not separately analyzed.",
+          "The report does not clearly distinguish bias measured in generated data from bias observed in the trained model.",
+          "It gives limited explanation of how large-scale or iterative synthetic training amplifies bias beyond the brief model-collapse claim.",
+          "Conditions affecting generator bias transfer and amplification are not developed."
+        ],
+        "rationale": "The report covers generator bias, demographic effects, homogeneity, and iterative amplification, but lacks a systematic account of representational mechanisms and measurement distinctions."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says “validation of synthetic datasets is crucial for ensuring they maintain statistical properties and utility.”",
+          "It concludes that a “robust validation framework” is needed.",
+          "It mentions “specific frameworks and metrics for mitigating bias” and that technical validation standards remain insufficient."
+        ],
+        "missing": [
+          "It does not provide a complementary evaluation plan covering factuality, semantic or label correctness, fidelity, diversity, coverage, training utility, and held-out-real-data generalization.",
+          "It does not explain limitations of statistical, human, model-based, or perplexity-style metrics.",
+          "It does not warn against synthetic-only or generator-aligned evaluations being insufficient.",
+          "It does not give operational criteria for deciding whether data is fit for pretraining or fine-tuning."
+        ],
+        "rationale": "Validation is identified as important, but the report does not actually explain how to evaluate synthetic-data quality across multiple dimensions."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report recommends “targeted audits.”",
+          "It cites experiments involving “racial and gender descriptors in applicant data.”",
+          "It discusses varied evaluations and “position bias” in LLM evaluations."
+        ],
+        "missing": [
+          "It does not recommend comparisons against real-data-only or no-synthetic baselines.",
+          "It does not specify subgroup-sensitive evaluation on held-out, preferably real, data.",
+          "It does not identify metrics such as subgroup performance, error rates, disparity, or representation changes.",
+          "It does not explain why dataset diversity or balance alone would fail to establish fairness improvement."
+        ],
+        "rationale": "The report recognizes demographic auditing and gives examples of biased evaluations, but it does not specify a rigorous fairness-evaluation design for synthetic-data use."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The conclusion says synthetic data is promising but “must be approached with caution.”",
+          "It states that outcomes depend on “careful integration with real data and validation processes.”",
+          "It identifies “bias amplification and model collapse” as risks and calls for a “robust validation framework.”",
+          "It acknowledges “conflicting viewpoints” and the “variable nature of the generative models used.”"
+        ],
+        "missing": [
+          "The report does not systematically relate outcomes to generator and target-model capability, task/domain, synthetic-to-real ratio, curation, filtering, prompting, training regime, or evaluation protocol.",
+          "Practical deployment safeguards and explicit decision criteria are largely absent.",
+          "The conclusion remains generic and does not specify when synthetic data should be preferred, limited, or rejected.",
+          "Uncertainty is acknowledged, but conflicting empirical findings are not analyzed in enough detail to support an evidence-based conditional rule."
+        ],
+        "rationale": "The report reaches a non-universal and appropriately cautious conclusion, but the conditions, safeguards, and decision criteria are underdeveloped."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report provides a generic synthesis of familiar benefits and risks—scarcity, diversity, privacy, bias amplification, and model collapse—but does not develop a distinctive framework, quantitative comparison, or substantially new insight beyond those claims."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define the synthetic-data settings relevant to the analysis and explain why their differences matter.",
+    "R6: Explain how to evaluate whether synthetic data is fit for LLM training or fine-tuning using multiple complementary measures.",
+    "R7: Specify how to evaluate the representational and fairness effects of using synthetic data."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "synthetic-data-llm-training",
+    "fixture_version": "1.0",
+    "rubric_hash": "36414e911184eea8ef62c41ba8423e71054770da6d3e515f90d477a9870e806e",
+    "candidate_report_hash": "6ed43257d9c63c1315eae7f234a173b6b3354557f28c55ce98d30463ecb5a290",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T18:18:17.034938+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 4526,
+      "output_tokens": 1925,
+      "estimated_cost": null
+    }
+  }
+}

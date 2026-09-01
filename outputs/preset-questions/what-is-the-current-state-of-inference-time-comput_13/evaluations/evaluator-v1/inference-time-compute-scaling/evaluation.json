@@ -1,0 +1,506 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "baseline-zero",
+  "overall_score": 50.724999999999994,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.21875,
+    "coverage": 0.21875,
+    "depth": 0.21875,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "The report does not define inference-time compute scaling.",
+          "It does not distinguish serial reasoning, parallel sampling, search, verification, refinement, tool use, or adaptive budgeting.",
+          "It does not separate inference-time interventions from training, larger models, or additional input context, nor discuss debatable boundaries."
+        ],
+        "rationale": "The report uses the term without explaining its scope or forms."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report claims that models using additional compute can improve accuracy through “generating multiple outputs and refining their responses” ([S3] [S4] [S5]).",
+          "It states that “some research argues that longer reasoning times lead to improved model performance” ([S1] [S4])."
+        ],
+        "missing": [
+          "No controlled comparisons specify models, tasks, budgets, baselines, or effect sizes.",
+          "No uncertainty, variance, replication, or distinction between isolated benchmark results and replicated patterns is provided.",
+          "The assertion of a “consistent consensus across multiple studies” is unsupported by study-level synthesis."
+        ],
+        "rationale": "The report states a general efficacy claim and names two broad strategies, but supplies no substantive empirical synthesis."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report mentions “generating multiple outputs and refining their responses” as ways to use additional inference compute.",
+          "It attributes performance decline to “second-guessing earlier correct responses” when reasoning becomes excessive.",
+          "It identifies adaptive stopping as an unresolved need: “The development of standardized adaptive stopping strategies applicable across diverse LLM tasks is still needed.”"
+        ],
+        "missing": [
+          "Serial reasoning, repeated sampling, aggregation, search, verification, refinement, and adaptive allocation are not separately compared.",
+          "The report does not examine correlated samples, verifier reliability, error propagation, task-dependent success, or search-specific failure modes.",
+          "No evidence is given for when each mechanism succeeds or fails."
+        ],
+        "rationale": "A few mechanisms and one failure mode are mentioned, but there is no comparative mechanistic analysis."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The report says increased reasoning time “does not always correlate with better outcomes” because of “overthinking.”",
+          "It describes “diminishing returns,” with additional tokens sometimes causing a performance decline through second-guessing.",
+          "It claims that excessive reasoning can cause decline and identifies “a critical threshold at around 7K tokens.”"
+        ],
+        "missing": [
+          "The alleged 7K-token threshold is not tied to specified models, tasks, prompts, or budget definitions, so its generality cannot be assessed.",
+          "There is no analysis of how scaling varies with model capability, task difficulty, strategy, or compute range.",
+          "The report does not distinguish monotonic regions, saturation, and degradation or explain whether any universal scaling law is unsupported."
+        ],
+        "rationale": "It recognizes both gains and non-monotonic degradation, but provides only an unsupported threshold claim and no systematic characterization."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No comparison uses tokens, FLOPs, latency, throughput, energy, or monetary cost.",
+          "No deployment constraints or quality-cost trade-offs are analyzed.",
+          "The report does not compare extra inference with larger, differently trained, or otherwise alternative models under matched conditions."
+        ],
+        "rationale": "Resource efficiency and alternatives are absent apart from the generic mention of balancing performance and compute budgets."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No transfer beyond the unspecified reasoning tasks is assessed.",
+          "The report does not distinguish mathematics/STEM, coding, knowledge-intensive, open-domain, planning, interactive, tool-using, ambiguous, safety-relevant, multilingual, or real-world settings.",
+          "It does not compare proprietary and open models or synthetic and naturalistic evaluations."
+        ],
+        "rationale": "The report makes broad claims without characterizing the evaluated domains or limits of generalization."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report acknowledges conflicting findings: “Some research argues that longer reasoning times lead to improved model performance, while other studies indicate that excessive reasoning results in a decline.”",
+          "It states that compute-budget thresholds remain unidentified and that standardized adaptive stopping across diverse tasks is still needed.",
+          "The conclusion calls for “further empirical research.”"
+        ],
+        "missing": [
+          "There is no assessment of replication, independence, benchmark contamination, prompt and dataset limitations, selective reporting, proprietary-model access, weak baselines, or incomplete compute accounting.",
+          "The report does not clearly separate established findings, conditional interpretations, and speculation.",
+          "It does not identify what specific evidence or experiments would resolve the uncertainties.",
+          "The high-confidence labels and claim of a broad consensus are not supported with study-level evidence."
+        ],
+        "rationale": "It flags uncertainty about optimal budgets and conflicting results, but does not evaluate evidence quality in a rigorous way."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The summary says inference-time scaling “significantly improves” reasoning but warns that more reasoning is not always better.",
+          "The conclusion calls for empirical research to establish budgets that balance performance and mitigate overthinking “across a range of reasoning tasks.”",
+          "The report explicitly notes conflicting findings and unresolved thresholds."
+        ],
+        "missing": [
+          "The synthesis is too narrow to state what is confidently established across mechanisms, tasks, models, and costs.",
+          "It does not clearly identify which conclusions are conditional versus speculative beyond overthinking and budget thresholds.",
+          "It does not discuss the major evidence gaps required by the question, including generalization, efficiency, and evidence quality."
+        ],
+        "rationale": "The conclusion is directionally balanced—it endorses benefits while acknowledging diminishing or negative returns—but it does not provide a sufficiently comprehensive current-state judgment."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report highlights the tension between benefits from additional inference computation and possible “overthinking” degradation.",
+        "It foregrounds the unresolved problem of selecting task- and model-appropriate compute budgets and adaptive stopping rules.",
+        "However, these contributions are presented as broad claims rather than independently synthesized or quantitatively substantiated findings."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.92,
+    "validity": 1.0,
+    "support": 1.0,
+    "completeness": 0.7333333333333333,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S5",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S6",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Inference-time compute scaling can effectively enhance reasoning performance in LLMs.",
+        "citation_ids": [
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "All three saved sources explicitly state that allocating additional computation during inference can improve LLM answer quality, accuracy, or reasoning performance. S3 describes improved outcomes for reasoning tasks through multiple reasoning paths and candidate selection; S4 defines inference-time scaling as allocating more compute to improve model performance; and S5 states that more compute can produce better answers and describes longer thinking, candidate generation, search, and verification.",
+        "supporting_text": "S3: “Additional inference-time compute helps recover better outcomes” and ITS is applicable to “improving convergence on correct answers for reasoning tasks.” S4: inference-time scaling methods “allocate more compute and time during inference to improve model performance.” S5: “you get better answers by spending more compute at the moment you ask the question.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Longer reasoning is not always beneficial due to the 'overthinking' phenomenon observed in models.",
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "All three cited snapshots directly support the claim. They state that the assumption that longer reasoning always improves results is challenged, describe diminishing returns, and report overthinking in which extended reasoning can cause models to abandon previously correct answers and reduce accuracy.",
+        "supporting_text": "S1: “models exhibit ‘overthinking’, where extended reasoning is associated with abandoning previously correct answers.” S6: “beyond a point, extended thinking might actually be harmful.” S21: “increased computation can degrade performance” and excessive reasoning can lead models to abandon correct answers."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Inference-time compute scaling can effectively enhance reasoning performance in LLMs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "rationale": "This is an externally verifiable empirical claim and is directly accompanied by citations in the Finding 1 evidence."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Models using additional inference-time compute can improve accuracy by generating multiple outputs and refining their responses.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "rationale": "This describes an externally verifiable mechanism and outcome, and the evidence bullet supplies nearby citations."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Most LLM providers have adopted inference-time scaling methods to boost performance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "rationale": "This is a broad externally verifiable industry-adoption claim with nearby citations."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Longer reasoning is not always beneficial because of an overthinking phenomenon observed in models.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "This is an externally verifiable empirical claim and is directly supported by the Finding 2 citations."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "As reasoning-token counts increase, models can experience diminishing returns, and additional tokens can cause performance to decline because models second-guess earlier correct responses.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "This is a specific empirical account of overthinking and has nearby citations."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Excessive reasoning leads to a decline in model performance after a critical threshold of around 7,000 tokens.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "The threshold and associated performance effect are externally verifiable claims, and the cited evidence is nearby, although the evidence bullet does not explicitly repeat the 7K figure."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "There is a consistent consensus across multiple studies that inference-time compute scaling is effective.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the state of the research literature. The report cites individual sources for a related claim but supplies no citation specifically establishing a consistent consensus."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Empirical studies robustly document adverse effects of excessive reasoning on performance.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "This is an externally verifiable assessment of empirical evidence and is supported by nearby citations."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Some research finds that longer reasoning improves model performance, while other research finds that excessive reasoning causes performance to decline.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4"
+        ],
+        "rationale": "The report explicitly cites sources immediately after this conflict statement."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "The literature contains conflicting perspectives on optimal compute-allocation strategies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S4"
+        ],
+        "rationale": "This is a claim about the research literature and is accompanied by citations to the reported opposing perspectives."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Specific compute-budget thresholds that optimize performance without causing overthinking remain unidentified.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable claim about an unresolved research gap, but no citation is attached to the Remaining Gaps bullet."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "A standardized adaptive stopping strategy applicable across diverse LLM tasks is still needed.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the state of the field and an unmet research need, but the report provides no nearby citation."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Further empirical research is necessary to establish compute-budget thresholds that balance performance and mitigate overthinking across a range of reasoning tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This conclusion makes an externally assessable claim about the insufficiency of current evidence and is not accompanied by a citation."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Determining optimal compute budgets is complicated by diminishing returns from additional reasoning time.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "This is a synthesis of the report's empirical claims about diminishing returns and overthinking; nearby citations support the underlying phenomenon."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Increased reasoning time does not always correlate with better outcomes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S6",
+          "S21"
+        ],
+        "rationale": "This is an externally verifiable empirical claim supported by the nearby overthinking citations."
+      }
+    ],
+    "evaluable_support_claims": 2,
+    "total_support_claims": 2,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+    "R5: Evaluate inference scaling against realistic resource constraints and alternatives.",
+    "R6: Assess how well reported inference-scaling effects transfer beyond the settings in which they were measured.",
+    "4 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "inference-time-compute-scaling",
+    "fixture_version": "1.0",
+    "rubric_hash": "d32d6ea1035324f019e9421c7b216e4501bdab866df8e60cda19db2afb8a4c2f",
+    "candidate_report_hash": "7127aaa4c4f800654b6a8e8d0569bd02df32146d355f7d1dc2e04f757d03a2bf",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T15:14:50.184228+00:00",
+    "usage": {
+      "llm_calls": 4,
+      "input_tokens": 16537,
+      "output_tokens": 3090,
+      "estimated_cost": null
+    }
+  }
+}

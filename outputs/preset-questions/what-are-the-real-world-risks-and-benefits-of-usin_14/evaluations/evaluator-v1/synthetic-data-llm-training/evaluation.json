@@ -1,0 +1,599 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "baseline-zero",
+  "overall_score": 55.074999999999996,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.38125,
+    "coverage": 0.4375,
+    "depth": 0.25,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report discusses synthetic data for both “training large language models” and “LLM fine-tuning.”",
+          "It distinguishes “solely using synthetic data” from “combining synthetic data with real data” and recommends a “hybrid approach.”"
+        ],
+        "missing": [
+          "It does not define or distinguish LLM-generated data from programmatically generated data.",
+          "It does not explain how pretraining differs from fine-tuning in the relevant risks and benefits.",
+          "It mentions pure-synthetic versus mixed training but gives little explanation of why the distinction matters beyond degradation risk."
+        ],
+        "rationale": "The report recognizes training-regime differences, especially pure-synthetic versus hybrid use, but does not provide the requested setting definitions or a substantive analysis of how those differences affect outcomes."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report states that synthetic data can address “data scarcity or privacy concerns.”",
+          "It says synthetic data expansion can improve models in “domain-specific tasks where real data is insufficient.”",
+          "It claims that “diverse synthetic data sources” and “targeted synthetic data for under-represented subgroups” can improve balance."
+        ],
+        "missing": [
+          "It does not substantially explain scale, label availability, rare-event or edge-case coverage, or controlled diversity as data-quality benefits.",
+          "It provides little evidence connecting these benefits to improved generalization or model quality beyond broad claims.",
+          "Privacy is mentioned as a benefit, but the report does not assess its relationship to data quality."
+        ],
+        "rationale": "The report identifies scarcity, domain coverage, and diversity as potential benefits, but treats them mostly as assertions and does not develop the important mechanisms or quality consequences."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report warns of “model degradation and distribution collapse.”",
+          "It states that “recursive training on solely synthetic data can degrade model performance.”",
+          "It connects hybrid training with maintaining “robustness.”"
+        ],
+        "missing": [
+          "It does not discuss factual or semantic errors, incorrect labels, repetition, low diversity, artifacts, contamination, or distribution mismatch in detail.",
+          "It does not explain how particular failure modes affect accuracy, generalization, or robustness.",
+          "It does not identify conditions that make these failures more or less likely, apart from recursive or solely synthetic training."
+        ],
+        "rationale": "The report covers degradation and collapse, which are important failure modes, but gives little diagnosis of their causes, manifestations, or downstream effects."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It claims that “targeted synthetic data for under-represented subgroups can enhance balance and reduces bias in outputs.”",
+          "It mentions “quality control measures” and validation intended to prevent biases.",
+          "It says diverse synthetic sources can “help mitigate” bias and appropriately labels this claim medium confidence, noting that “empirical validation is required.”"
+        ],
+        "missing": [
+          "It does not explain counterfactual generation, fairness-aware generation, reweighting, or filtering as distinct interventions.",
+          "It does not distinguish a balanced synthetic dataset from demonstrated improvement in model behavior in a systematic way.",
+          "It does not specify the baseline comparisons or bias evidence needed to substantiate a reduction claim."
+        ],
+        "rationale": "The report identifies targeted subgroup generation and validation as possible mitigation mechanisms and acknowledges the need for validation, but does not develop the mechanisms or evaluation standard sufficiently."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report repeatedly identifies “bias” as a risk and lists “bias amplification risk in synthetic data generation processes” as an unresolved gap.",
+          "It mentions “self-preference bias” and claims that diverse synthetic sources can reduce it.",
+          "It refers to under-represented subgroups and the possibility of improving or worsening balance."
+        ],
+        "missing": [
+          "It does not explain generator bias, stereotypical associations, spurious correlations, class imbalance, or minority underrepresentation in concrete terms.",
+          "It does not analyze how iterative or large-scale generation can amplify bias.",
+          "It does not distinguish bias measured in generated data from bias observed in the trained model."
+        ],
+        "rationale": "Bias is acknowledged, including amplification as an open concern, but the report offers little substantive account of the mechanisms or measurement distinction required by the rubric."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says “validation measures” are needed to ensure synthetic datasets reflect desired characteristics.",
+          "It says automation should be complemented by “human evaluation.”",
+          "It notes a shift toward “holistic assessments” including fairness and real-world applicability."
+        ],
+        "missing": [
+          "It does not specify complementary measures for factuality, semantic or label correctness, distribution fidelity, diversity, coverage, training utility, and held-out-real-data generalization.",
+          "It does not explain limitations of statistical, human, model-based, or perplexity-style metrics.",
+          "It does not warn that synthetic-only or generator-aligned tests can give misleading assurance.",
+          "It provides no concrete evaluation protocol for deciding fitness for training or fine-tuning."
+        ],
+        "rationale": "Evaluation is identified as important, and human review is mentioned, but the report does not explain how synthetic-data quality should actually be evaluated."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says evaluation should include “fairness and real-world applicability.”",
+          "It mentions targeted data for under-represented subgroups and claims possible reductions in output bias.",
+          "It lists systematic identification and mitigation of bias in hybrid datasets as a remaining gap."
+        ],
+        "missing": [
+          "It does not recommend comparison with real-data-only or no-synthetic baselines.",
+          "It does not specify held-out, preferably real, subgroup-sensitive evaluation.",
+          "It does not identify subgroup performance, error rates, representation, or disparity as metrics to compare.",
+          "It does not explain why dataset balance or generation prompts alone are insufficient evidence of fairness."
+        ],
+        "rationale": "The report recognizes fairness evaluation as a broad need but supplies almost none of the required comparative or subgroup-specific methodology."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion gives a conditional overall judgment: synthetic data offers benefits, but “bias, performance degradation, and evaluation standards demand thorough consideration.”",
+          "It recommends “combining synthetic data with real data,” quality control, validation, and human evaluation.",
+          "It labels the benefit of diverse sources as medium confidence and notes that “empirical validation is required.”"
+        ],
+        "missing": [
+          "It does not systematically relate outcomes to generator and target-model capability, task or domain, synthetic-to-real ratio, prompting, or training regime.",
+          "It does not discuss conflicting findings in substance; it merely states that “No material conflict was identified.”",
+          "It does not provide practical deployment decision criteria, thresholds, monitoring, or safeguards beyond generic quality control and hybrid data use.",
+          "It does not explain when synthetic data is likely to be harmful versus beneficial with enough specificity."
+        ],
+        "rationale": "The report avoids a wholly unconditional verdict and names several safeguards, but its conclusion remains generic and does not synthesize the key conditional factors or operational criteria."
+      }
+    ],
+    "novel_value": {
+      "present": true,
+      "findings": [
+        "The report combines several relevant themes—hybrid real/synthetic training, recursive-training degradation, targeted subgroup generation, synthetic-source diversity, and the need for human and holistic evaluation.",
+        "It identifies unresolved questions about optimizing hybrid datasets and bias amplification, although these are not developed into a detailed analysis."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.74,
+    "validity": 1.0,
+    "support": 0.6,
+    "completeness": 0.8666666666666667,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S11",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S21",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S18",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S25",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S26",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S4",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S12",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S22",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S3",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F5",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Synthetic data can alleviate limitations of real-world datasets, particularly in data-scarce or privacy-sensitive domains.",
+        "citation_ids": [
+          "S2",
+          "S11",
+          "S1"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "The saved sources directly state that synthetic data addresses limitations of real-world data, including scarcity and privacy constraints. S2 says it addresses “data scarcity” and “privacy constraints,” S11 describes real-data scarcity and privacy/compliance pressures, and S1 explicitly says synthetic data addresses critical limitations of real-world datasets.",
+        "supporting_text": "S2: “Synthetic data mirrors real distributions to address data scarcity, privacy constraints, and class imbalance.” S11: “real data scarcity has become a genuine constraint” and privacy pressures push practitioners toward “privacy-substitution alternatives that synthetic data can potentially satisfy.” S1: “Synthetic data is transforming ... addressing critical limitations of real-world datasets.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Using synthetic data requires careful management to prevent model degradation and distribution collapse.",
+        "citation_ids": [
+          "S21",
+          "S18",
+          "S2"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S21 supports the need to manage synthetic data carefully because synthetic–real discrepancies can cause poor real-world performance and generalization, and it discusses strategies to mitigate the domain gap. S2 explicitly supports model degradation and distribution collapse from recursive synthetic-data training and states that governance and lineage metadata are necessary. S18 does not meaningfully address synthetic-data risks, model degradation, or distribution collapse. The sources support a narrower claim about managing synthetic data to address domain gaps and avoid collapse, but do not establish that all use of synthetic data requires such management.",
+        "supporting_text": "S21: Synthetic–real data disparity creates a “domain gap” leading to poor performance and generalization in real-world scenarios; mixed training is presented as a mitigation strategy. S2: “Recursive training on synthetic data causes model collapse, where distributions narrow until outputs degrade,” and “ungoverned synthetic data creates audit gaps.”"
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Quality control measures are essential for effective synthetic data usage and bias mitigation.",
+        "citation_ids": [
+          "S25",
+          "S26"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S26 directly supports the importance of quality evaluation for reliable synthetic-data use and describes validation and human oversight. It also identifies bias amplification as a risk, but does not explicitly state that quality-control measures mitigate bias. S25 supports that data quality affects model outcomes and notes that synthetic data can counter bias through targeted augmentation, but the saved excerpt does not connect this specifically to quality-control measures.",
+        "supporting_text": "S26: “Ensuring the quality of synthetic data is essential for building reliable machine learning models,” and organizations should “rigorously evaluate” datasets using accuracy, diversity, realism, visualization, statistical analysis, and human evaluation. It also warns that poorly designed generators can amplify bias."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Diverse synthetic data sources can help mitigate negative impacts such as distribution collapse and bias.",
+        "citation_ids": [
+          "S4",
+          "S12",
+          "S22"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S4 directly supports that synthetic data from diverse sources can mitigate distribution collapse and discusses self-preference bias, but it does not establish broad mitigation of bias in general. S22 supports that synthetic data can reduce algorithmic bias through balanced and diverse datasets, but it does not specifically tie this effect to diversity of synthetic data sources. S12 discusses diversity and possible robustness benefits, but the supplied text does not directly support mitigation of distribution collapse or bias. Thus, the claim is supported only in separate, narrower respects.",
+        "supporting_text": "S4: “fine-tuning models on synthetic data from diverse sources can mitigate distribution collapse”; S22: synthetic data can create “balanced, diverse training datasets” intended to reduce algorithmic bias."
+      },
+      {
+        "finding_id": "F5",
+        "claim": "Evaluation standards for LLMs are shifting towards holistic assessments that include fairness and real-world applicability.",
+        "citation_ids": [
+          "S3",
+          "S20"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S3 directly supports a shift away from narrow benchmark scoring toward evaluations of reliable, safe, transparent performance in realistic settings, and explicitly says future systems should address fairness. S20 discusses bias and fairness in AI data and models, but does not address changing LLM evaluation standards. Thus, the real-world applicability and fairness components are supported mainly by S3, while the broader claim that evaluation standards are shifting holistically is only partially supported.",
+        "supporting_text": "S3 states that evaluation is moving beyond correct answers toward operating \"reliably, safely, and transparently in realistic settings,\" and that future evaluation should be closer to real applications while addressing \"fairness, reproducibility, and safety.\" S20 describes the need to measure bias and fairness metrics, but not an LLM-evaluation shift."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Synthetic data can alleviate limitations of real-world datasets, particularly in data-scarce or privacy-sensitive domains.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S11",
+          "S1"
+        ],
+        "rationale": "This is a substantive empirical claim, and citations are supplied directly in the evidence for Finding 1."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Synthetic data can mirror real-world data distributions and is increasingly relied upon in AI development.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S11"
+        ],
+        "rationale": "The claim is externally verifiable and is followed by nearby citations."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Expanding synthetic data can improve model performance in domain-specific tasks where real data is insufficient.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1"
+        ],
+        "rationale": "This empirical performance claim has a nearby citation in Finding 1's evidence."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Using synthetic data requires careful management to prevent model degradation and distribution collapse.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S21",
+          "S18",
+          "S2"
+        ],
+        "rationale": "This is a substantive risk claim with citations supplied directly under Finding 2."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Combining synthetic data with real data can help avoid model degradation and maintain robustness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S21"
+        ],
+        "rationale": "The recommendation and its asserted effects are externally verifiable and have a nearby citation."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Recursive training solely on synthetic data can degrade model performance, supporting the use of a hybrid approach.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S18",
+          "S2"
+        ],
+        "rationale": "This causal and performance-related claim is cited immediately in Finding 2's evidence."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Quality-control measures are essential for effective synthetic-data use and bias mitigation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25",
+          "S26"
+        ],
+        "rationale": "This substantive recommendation is supported by nearby citations in Finding 3."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Validation measures can help ensure that synthetic datasets reflect desired characteristics and prevent biases.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S25",
+          "S26"
+        ],
+        "rationale": "The claim concerns the effects of validation and is directly cited in the evidence."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Human evaluation can complement automated synthetic-data generation to uphold quality and fairness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S26"
+        ],
+        "rationale": "This externally verifiable best-practice claim has a nearby citation."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Fine-tuning with diverse synthetic-data sources can preserve output quality and reduce self-preference bias.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S4",
+          "S12"
+        ],
+        "rationale": "The asserted effects of source diversity are empirical claims with nearby citations."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "Creating targeted synthetic data for under-represented subgroups can improve balance and reduce bias in model outputs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S22"
+        ],
+        "rationale": "This is a substantive bias-mitigation claim and is directly cited in Finding 4."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "LLM evaluation standards are shifting toward holistic assessments that include fairness and real-world applicability.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S20"
+        ],
+        "rationale": "This claim about changing evaluation practices is externally verifiable and has nearby citations."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "There is growing consensus that LLM evaluations should cover operational capabilities beyond conventional performance metrics.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S3",
+          "S20"
+        ],
+        "rationale": "The report cites sources immediately after this assertion in Finding 5."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Synthetic data presents substantial benefits for LLM training, particularly by enhancing dataset diversity and addressing privacy issues.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive summary claim in the conclusion, but no citation is supplied nearby or within the conclusion."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Synthetic-data use creates challenges related to bias, performance degradation, and evaluation standards.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This conclusion synthesizes externally verifiable risks, but it has no nearby citation."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Ongoing research into best practices and innovative methodologies will be crucial for integrating synthetic data into AI training frameworks.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a forward-looking recommendation or assessment rather than a specific factual claim; citation would improve support but is not strictly necessary."
+      }
+    ],
+    "evaluable_support_claims": 5,
+    "total_support_claims": 5,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R6: Explain how to evaluate whether synthetic data is fit for LLM training or fine-tuning using multiple complementary measures.",
+    "R7: Specify how to evaluate the representational and fairness effects of using synthetic data.",
+    "R1: Define the synthetic-data settings relevant to the analysis and explain why their differences matter.",
+    "4 cited finding(s) were not fully supported by saved evidence.",
+    "2 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "synthetic-data-llm-training",
+    "fixture_version": "1.0",
+    "rubric_hash": "36414e911184eea8ef62c41ba8423e71054770da6d3e515f90d477a9870e806e",
+    "candidate_report_hash": "5f3befbb2397ca747223ccf6cc5b25e239370b160d85b26904950f572ea728a5",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T15:21:06.059393+00:00",
+    "usage": {
+      "llm_calls": 7,
+      "input_tokens": 30610,
+      "output_tokens": 4185,
+      "estimated_cost": null
+    }
+  }
+}

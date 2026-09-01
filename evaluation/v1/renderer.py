@@ -8,7 +8,6 @@ from pathlib import Path
 from evaluation.v1.config import EVALUATOR_VERSION
 from evaluation.v1.models import (
     CheckStatus,
-    CitationRequirement,
     ComponentStatus,
     EvaluationResult,
 )
@@ -24,7 +23,6 @@ def _overall(value: float | None) -> str:
 
 def render_evaluation(result: EvaluationResult) -> str:
     comp = result.comprehensiveness
-    citations = result.citations
     deterministic = result.deterministic_integrity
     lines = [
         "# Frozen Reference Research Evaluation",
@@ -35,22 +33,18 @@ def render_evaluation(result: EvaluationResult) -> str:
         "",
         f"**System Version:** {result.system_version or 'Unknown'}",
         "",
-        f"**Model:** {result.metadata.evaluator_model}",
+        f"**Research Model:** {result.metadata.research_model}",
+        "",
+        f"**Evaluator Model:** {result.metadata.evaluator_model}",
         "",
         "## Summary",
         "",
         f"- Overall: {_overall(result.overall_score)}",
         f"- Evaluation completeness: {result.evaluation_completeness:.0%}",
-        f"- Comprehensiveness: {_decimal(comp.score)}",
         f"- Coverage: {_decimal(comp.coverage)}",
         f"- Depth: {_decimal(comp.depth)}",
-        f"- Citation quality: {_decimal(citations.score)}",
-        f"- Citation validity: {_decimal(citations.validity)}",
-        f"- Citation support: {_decimal(citations.support)}",
-        f"- Citation completeness: {_decimal(citations.completeness)}",
-        f"- Deterministic integrity: {_decimal(deterministic.score)}",
         "",
-        "## Comprehensiveness",
+        "## Coverage and Depth",
         "",
     ]
     if comp.status == ComponentStatus.NOT_EVALUABLE:
@@ -78,31 +72,7 @@ def render_evaluation(result: EvaluationResult) -> str:
             lines.append("- No material benchmark-external value identified.")
         lines.append("")
 
-    lines.extend(["## Citations", "", "### Support", ""])
-    for judgment in citations.support_judgments:
-        lines.extend(
-            [
-                f"#### {judgment.finding_id}: {judgment.status.value}",
-                "",
-                f"- Claim: {judgment.claim}",
-                f"- Sources: {', '.join(judgment.citation_ids) or 'None'}",
-                f"- Rationale: {judgment.rationale}",
-                f"- Supporting text: {judgment.supporting_text or 'Unavailable'}",
-                "",
-            ]
-        )
-    lines.extend(["### Missing Citations", ""])
-    missing = [
-        claim
-        for claim in citations.completeness_claims
-        if claim.classification == CitationRequirement.CITATION_REQUIRED
-        and not claim.has_appropriate_citation
-    ]
-    lines.extend(
-        [f"- {claim.claim_id}: {claim.claim}" for claim in missing]
-        or ["- None identified."]
-    )
-    lines.extend(["", "## Deterministic Checks", ""])
+    lines.extend(["## Deterministic Diagnostics (Not Scored)", ""])
     lines.extend(
         f"- `{check.check_name}`: {check.status.value}"
         + (f" — {check.details}" if check.details else "")

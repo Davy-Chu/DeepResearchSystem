@@ -9,6 +9,7 @@ from openai import OpenAI
 
 from research.analyzer import ANALYZER_SYSTEM_PROMPT
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
+from research.openai_utils import research_reasoning_kwargs
 from research.models import (
     PriorGuidedIterationAnalysis,
     PriorKnowledgeResearchPlan,
@@ -66,7 +67,7 @@ class PriorGuidedResearchAnalyzer:
         prompt = self._build_prompt(state, state.prior_knowledge_plan, new_sources)
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": PRIOR_GUIDED_ANALYZER_SYSTEM_PROMPT},
                 {"role": "user", "content": prompt},

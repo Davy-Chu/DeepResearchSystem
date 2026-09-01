@@ -1,0 +1,259 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "overall_score": 23.4375,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.234375,
+    "coverage": 0.28125,
+    "depth": 0.1875,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report describes CoT as producing “intermediate reasoning steps” and contrasts “output formatting” with “reasoning performance.”"
+        ],
+        "missing": [
+          "It does not define the intervention precisely or distinguish CoT from direct answering, answer-format instructions, hidden/internal reasoning, self-consistency, tool use, or other inference-time procedures.",
+          "It treats several different approaches—few-shot CoT, active prompting, hierarchical CoT, and pedagogical CoT—as broadly interchangeable."
+        ],
+        "rationale": "There is a minimal conceptual distinction between reasoning steps and formatting, but the relevant comparison conditions and boundaries of CoT are not established."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report discusses “multi-step arithmetic,” “commonsense reasoning,” “mathematical reasoning,” and “complex reasoning tasks.”",
+          "It cites both claimed gains, such as “PaLM model achieving state-of-the-art performance on the GSM8K benchmark,” and null findings that CoT exemplars “do not improve reasoning performance.”"
+        ],
+        "missing": [
+          "The report provides no concrete comparative results, task-by-task evidence, or meaningful treatment of knowledge-based or open-ended reasoning.",
+          "It does not distinguish benchmark accuracy from general reasoning ability, nor systematically report harms, null effects, or task-specific variation.",
+          "Most claims are broad assertions rather than documented findings with study context."
+        ],
+        "rationale": "It covers more than one task family and acknowledges both positive and null results, but the empirical assessment is shallow and largely unsupported."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says effectiveness depends on “specific conditions,” that “larger models benefit significantly from structured reasoning,” and that “methods and frameworks differ.”"
+        ],
+        "missing": [
+          "It does not explain or evaluate effects of model scale/capability in a documented way.",
+          "It does not address task difficulty or structure, training-distribution similarity, demonstration quality, prompt design, decoding protocol, or baseline behavior in a systematic manner.",
+          "It does not identify which moderators are established, contested, or untested, so it cannot use them to explain the conflicting literature."
+        ],
+        "rationale": "The report gestures toward conditionality and model size but does not substantively analyze the moderators central to the question."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report repeatedly contrasts CoT as improving “output formatting” with claims that it improves reasoning.",
+          "It states that CoT may work by “breaking down complex problems into manageable steps” and “guid[ing] models to produce intermediate reasoning steps.”"
+        ],
+        "missing": [
+          "It does not test whether intermediate steps contain useful computation or merely correlate with correct answers.",
+          "It does not analyze additional context, verbosity, answer extraction, or format-compliance effects separately.",
+          "It provides no evidence capable of separating causal reasoning from formatting or verbosity effects, and does not distinguish a displayed trace from the process that caused the answer."
+        ],
+        "rationale": "The central alternative is named, and a stepwise mechanism is asserted, but the report does not evaluate competing mechanisms."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "It does not separate CoT prompting from sampling, self-consistency or voting, longer generation, extraction procedures, calculators, code, retrieval, or other scaffolding.",
+          "It does not compare like-for-like baselines or control for additional inference-time computation."
+        ],
+        "rationale": "Inference-time protocol confounds are not discussed."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "It does not assess logical validity or causal relevance of traces.",
+          "It does not discuss trace corruption, scrambling, irrelevant-chain controls, counterfactual interventions, or distribution-shift tests.",
+          "It does not distinguish faithfulness from final-answer accuracy."
+        ],
+        "rationale": "The report assumes that stepwise text represents reasoning without evaluating trace validity or faithfulness."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report cites multiple sources and says that “methods and frameworks differ, resulting in conflicting findings.”",
+          "It includes confidence labels and mentions “ongoing research gaps and methodological differences.”"
+        ],
+        "missing": [
+          "It does not compare model versions or sizes, datasets, baselines, prompt contents, decoding settings, metrics, uncertainty, or replication status.",
+          "It relies heavily on blog posts, guides, Medium articles, and secondary summaries, while giving no study-level results or methodological details.",
+          "It includes duplicated or closely related sources such as S1 and S2 without explaining whether they provide independent evidence.",
+          "It does not establish that cited claims are verifiable or comparable, and several confidence labels are inconsistent with the report’s own contradictory evidence."
+        ],
+        "rationale": "There is a source list and a generic acknowledgment of methodological differences, but no actual evidence-quality or comparability analysis."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion states that CoT effectiveness is “partially supported,” with evidence for both “enhancement of reasoning and output formatting.”",
+          "It says that CoT works “under specific conditions” and calls for further empirical study."
+        ],
+        "missing": [
+          "The conclusion does not identify which findings are established versus speculative or explain the principal fault lines behind disagreement.",
+          "It gives no practical implications for reliability, cost, latency, or appropriate deployment choices.",
+          "It does not clearly advise when CoT should be preferred, tested, or avoided, nor account for the possibility that longer generation and other procedures drive gains.",
+          "The synthesis remains largely a restatement of opposing claims rather than an evidence-based resolution."
+        ],
+        "rationale": "It gives a qualified combination-style conclusion, but it is too generic and omits most requested practical implications and explanatory synthesis."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report restates the familiar claim that CoT can improve some reasoning benchmarks while serving formatting or alignment functions in other settings.",
+        "It does not provide a novel synthesis of the methodological fault lines, a new comparison, or an original explanatory framework."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R5: Separate the effects of the CoT prompt itself from effects of sampling, self-consistency or voting, longer generation, answer extraction, calculators, code, retrieval, or other external computation and scaffolding.",
+    "R6: Assess whether generated reasoning traces are logically valid and causally relevant to the final answer, rather than merely correlated with correctness.",
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "4760c7b0e664ce8f1926def62eb49a1209ffe3d73899141b75a469182d30a2b6",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:50:20.264454+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 4169,
+      "output_tokens": 1442,
+      "estimated_cost": null
+    }
+  }
+}

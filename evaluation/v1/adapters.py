@@ -85,9 +85,17 @@ def load_evaluation_input(run_directory: Path) -> EvaluationInput:
         if trace.get("system_version") is not None
         else None
     )
+    research_model = (
+        str(trace["research_model"]).strip()
+        if isinstance(trace.get("research_model"), str)
+        and str(trace["research_model"]).strip()
+        else "unknown"
+    )
     metadata = {
         "stop_reason": trace.get("stop_reason"),
         "model": trace.get("model"),
+        "research_model": research_model,
+        "verifier_model": trace.get("verifier_model"),
         "report_validation_error": report_validation_error,
         "tavily_calls": len(iterations),
         "unique_sources": len(sources),
@@ -108,6 +116,7 @@ def load_evaluation_input(run_directory: Path) -> EvaluationInput:
         report=report,
         sources=sources,
         system_version=system_version,
+        research_model=research_model,
         benchmark_fixture_id=fixture_id,
         evidence_ledger=evidence_ledger,
         trace_metadata=metadata,

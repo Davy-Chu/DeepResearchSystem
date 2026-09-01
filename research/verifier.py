@@ -10,6 +10,7 @@ from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
 from research.evidence_processor import next_stable_id
+from research.openai_utils import research_reasoning_kwargs
 from research.models import (
     ClaimStatus,
     ClaimVerificationRecord,
@@ -127,7 +128,7 @@ class IndependentClaimVerifier:
         }
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": VERIFIER_SYSTEM_PROMPT},
                 {

@@ -1,0 +1,277 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "How close are quantum computers to providing commercially useful advantages over classical computers? Separate demonstrated quantum advantage from theoretical or projected advantages, and identify the biggest remaining technical barriers.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "overall_score": 25.0,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.25,
+    "coverage": 0.2826086956521739,
+    "depth": 0.21739130434782608,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No evidence date or time boundary is stated.",
+          "The report does not define experimentally demonstrated advantage, commercially useful end-to-end advantage, theoretical algorithmic advantage, or projected advantage.",
+          "It does not establish comparison metrics such as runtime, cost, throughput, reliability, or solution quality."
+        ],
+        "rationale": "The report uses terms such as “practical,” “theoretical,” and “commercial,” but does not define them or delimit the evidence period."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 1 states: “Q-CTRL has demonstrated a practical quantum advantage with a 3,000 times speedup in materials simulation. [S3]”",
+          "Finding 1 also generally claims that quantum computers can outperform classical systems for specific problems."
+        ],
+        "missing": [
+          "The report does not describe the underlying task, quantum platform, experimental setup, workload, or claimed quantum result in sufficient detail.",
+          "It gives no description of the classical comparator, its hardware, algorithm, or whether the comparison was independently validated.",
+          "It does not discuss limitations or distinguish sampling/benchmark demonstrations from useful scientific or commercial workloads.",
+          "Other representative demonstrations, such as sampling or circuit benchmarks, are not evaluated."
+        ],
+        "rationale": "The Q-CTRL claim is a potentially relevant example, but it is presented as an unsupported headline rather than an analysis of an experimental claim against a classical baseline."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 4 claims quantum computing is “beginning to show utility in several high-value commercial domains such as drug discovery, grid optimization, and finance.”",
+          "The conclusion says quantum computing is “on the brink of achieving practical advantages over classical computing.”"
+        ],
+        "missing": [
+          "No economically meaningful workload is examined using an end-to-end metric.",
+          "The report does not account for state preparation, error mitigation or correction, repeated sampling, preprocessing, postprocessing, availability, or operating cost.",
+          "It does not identify the strongest practically relevant classical alternative or compare against it.",
+          "It does not address whether improved classical algorithms weaken the stated claims.",
+          "The commercial-utility conclusion is asserted rather than demonstrated."
+        ],
+        "rationale": "The report discusses commercial domains and a claimed materials-simulation speedup, but supplies no evidence that a complete economically relevant workflow currently beats a classical alternative."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 2 states that quantum computing offers “theoretical advantages in simulation, optimization, and cryptography.”",
+          "Finding 2 mentions “predictive analyses” and “simulation studies” indicating potential speedups."
+        ],
+        "missing": [
+          "No complexity advantages are specified, such as polynomial versus exponential scaling or the assumptions behind particular algorithms.",
+          "The report does not distinguish mathematical algorithmic advantages from hardware-dependent projections, vendor roadmaps, or forecasts.",
+          "It does not discuss practical resource requirements, including logical-qubit counts, circuit depth, fault tolerance, data loading, sampling, or output extraction.",
+          "The cited industry predictions are not labeled and assessed explicitly as projections rather than demonstrations."
+        ],
+        "rationale": "The report recognizes a theoretical category but does not explain the claimed benefits or the conditions required for them to become end-to-end advantages."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 1 mentions materials simulation and optimization.",
+          "Finding 2 mentions simulation, optimization, cryptography, supply chains, and drug discovery.",
+          "Finding 4 mentions drug discovery, energy systems, grid optimization, finance, pharmaceuticals, and materials science."
+        ],
+        "missing": [
+          "The application areas are listed rather than compared.",
+          "For each area, the report does not distinguish theoretical promise, scientific usefulness, and commercial value.",
+          "It does not explain why chemistry/materials, optimization, finance, machine learning, scientific computing, or cryptography have stronger or weaker evidence relative to one another.",
+          "No application-specific evidence demonstrates an early useful advantage."
+        ],
+        "rationale": "The report names several plausible domains but provides no comparative assessment of which are most likely to yield early commercial value."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 3 identifies “decoherence, error correction, and the demand for sophisticated operating conditions” as major barriers.",
+          "It also cites “hardware scaling and error management,” the number of qubits needed for error correction, environmental noise, and scaling issues.",
+          "The conclusion again identifies decoherence, robust error correction, scalability, and error rates as unresolved issues."
+        ],
+        "missing": [
+          "The report does not prioritize the barriers or explain which are most limiting for useful workloads.",
+          "It does not discuss logical error rates, logical-qubit scale, sustained logical circuit depth, connectivity and routing, control and decoding, correlated errors, fabrication variability, or platform-specific constraints in meaningful detail.",
+          "It does not explain how physical errors and error-correction overhead translate into runtime, cost, data throughput, or workload feasibility.",
+          "It does not distinguish general barriers from architecture-specific barriers such as cryogenics, photon loss, or platform-dependent control constraints."
+        ],
+        "rationale": "Several central barriers are named, but the treatment is largely a list of specifications and does not connect them to commercially useful computation."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says its findings are “supported by multiple sources.”",
+          "It lists sources including benchmarking literature, company blogs, industry forecasts, journalism-style sources, and vendor claims.",
+          "The “Conflicts and Uncertainty” section states: “No material conflict was identified in the retrieved evidence.”"
+        ],
+        "missing": [
+          "The report does not classify or weigh primary experiments, independent replications, classical red-team analyses, theoretical work, vendor claims, and roadmaps.",
+          "It does not analyze the reliability of the Q-CTRL, Quantinuum, or other vendor claims.",
+          "It does not report material disagreements or sensitivity to improved classical algorithms.",
+          "The assertion that no material conflict exists is unsupported and does not address uncertainty in the negative conclusion that commercial advantage has not yet been demonstrated.",
+          "Many claims rely on secondary, commercial, or promotional sources without explaining their authority or limitations."
+        ],
+        "rationale": "A source list is present, but the evidence is not critically evaluated and the report does not substantiate its confidence levels or conflict assessment."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion states that quantum computing is “on the brink of achieving practical advantages over classical computing.”",
+          "It distinguishes practical applications from “theoretical potential” and identifies decoherence, error correction, scalability, and error rates as remaining issues.",
+          "It says further research is needed on scalability, error rates, and industry comparisons."
+        ],
+        "missing": [
+          "The “on the brink” judgment is not calibrated with quantified or workload-specific evidence.",
+          "The synthesis does not clearly separate demonstrated advantage, theoretical advantage, projected advantage, and commercially useful advantage.",
+          "It does not identify concrete measurable milestones that would change the assessment, such as demonstrated logical-qubit scale, sustained logical depth, reproducible end-to-end cost or runtime advantage, or independent validation.",
+          "It does not adequately address uncertainty or avoid relying on the unsupported Q-CTRL and industry-optimism claims."
+        ],
+        "rationale": "The report provides a clear overall conclusion and names broad unresolved issues, but the maturity judgment is insufficiently evidenced and lacks concrete decision criteria."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report contains generic claims about quantum advantage, applications, and error-correction barriers rather than a substantiated new synthesis.",
+        "The reported “3,000 times speedup” claim is attributed to Q-CTRL but is not independently analyzed or shown to constitute commercial end-to-end advantage."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Set a time boundary and define the categories used to answer the question.",
+    "R2: Evaluate representative experimental claims of quantum advantage against classical computation.",
+    "R3: Determine whether commercially useful quantum advantage has been demonstrated."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "quantum-commercial-advantage",
+    "fixture_version": "1.0",
+    "rubric_hash": "ae3a5680c375b6650be217402137fd59a302eee5fb85b0bc360a9292a5734293",
+    "candidate_report_hash": "8ccc94f40072803d6d3ab58a4543187a7e1a3f789c9e0c58bd8f03f2bf4bf73e",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:51:11.260819+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 3522,
+      "output_tokens": 1907,
+      "estimated_cost": null
+    }
+  }
+}

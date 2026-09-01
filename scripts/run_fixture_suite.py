@@ -13,24 +13,23 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Sequence
 
+from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from evaluation.v1.adapters import load_evaluation_input
+from evaluation.v1.config import load_evaluator_model
 from evaluation.v1.fixtures import discover_fixtures, normalize_question
 from evaluation.v1.models import FrozenFixture
 from research.versions import SYSTEM_VERSION_BY_MODE
+from research.config import load_research_model
 
 
 ARCHITECTURE_COMPONENTS = {
     "llm-only": "one structured OpenAI generation (no retrieval or research components)",
     "baseline": "baseline analyzer only (no ledger, decomposer, or verifier)",
-    "prior-guided": (
-        "experimental V0 analyzer plus one pretrained-knowledge coverage-planning "
-        "call; planner metadata is not evidence"
-    ),
     "ledger": "evidence ledger only",
     "decomposed": "evidence ledger + question decomposer",
     "verified": (
@@ -41,20 +40,22 @@ ARCHITECTURE_COMPONENTS = {
 MAX_RESEARCH_OPENAI_CALLS = {
     "llm-only": 1,
     "baseline": 11,
-    "prior-guided": 12,
-    "ledger": 20,
-    "decomposed": 21,
-    "verified": 31,
+    # One semantic repair may be requested for each ledger decision and final
+    # ledger report when the initial structured output violates ID contracts.
+    "ledger": 30,
+    "decomposed": 22,
+    "verified": 32,
 }
 MAX_TAVILY_CALLS = {
     "llm-only": 0,
     "baseline": 10,
-    "prior-guided": 10,
     "ledger": 10,
     "decomposed": 10,
     "verified": 10,
 }
 LABELED_PATH = r"(?m)^{label}:\s*\r?\n(?P<path>[^\r\n]+)$"
+FOUR_O_MINI_MODEL = "gpt-4o-mini"
+LUNA_EVALUATOR_MODEL = "gpt-5.6-luna"
 
 
 @dataclass(frozen=True)
@@ -73,6 +74,8 @@ class SuiteConfig:
     mode: str = "verified"
     fixture_ids: tuple[str, ...] = ()
     dry_run: bool = False
+    research_model: str | None = None
+    evaluator_model: str | None = None
 
 
 @dataclass(frozen=True)
@@ -96,7 +99,7 @@ def build_parser() -> argparse.ArgumentParser:
         nargs="?",
         choices=tuple(SYSTEM_VERSION_BY_MODE),
         help=(
-            "Research architecture: llm-only, baseline, prior-guided, ledger, "
+            "Research architecture: llm-only, baseline, ledger, "
             "decomposed, or verified (default: verified)."
         ),
     )
@@ -253,7 +256,10 @@ def research_run_directory(output: str, cwd: Path) -> Path:
 
 
 def validate_run_for_fixture(
-    run_directory: Path, fixture: FrozenFixture, mode: str
+    run_directory: Path,
+    fixture: FrozenFixture,
+    mode: str,
+    expected_research_model: str,
 ) -> None:
     item = load_evaluation_input(run_directory)
     if normalize_question(item.question) != normalize_question(fixture.question):
@@ -266,13 +272,18 @@ def validate_run_for_fixture(
             f"Saved run system version is {item.system_version!r}; expected "
             f"{expected_version!r}"
         )
+    if item.research_model != expected_research_model:
+        raise ValueError(
+            f"Saved run research model is {item.research_model!r}; expected "
+            f"{expected_research_model!r}"
+        )
 
 
-def _new_suite_directory(root: Path, mode: str) -> Path:
+def _new_suite_directory(root: Path, mode: str, research_model: str) -> Path:
     root.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    mode_label = SYSTEM_VERSION_BY_MODE[mode] if mode == "prior-guided" else mode
-    base = root / f"fixture-suite-{timestamp}-{mode_label}"
+    model_suffix = "-4o-mini" if research_model == FOUR_O_MINI_MODEL else ""
+    base = root / f"fixture-suite-{timestamp}-{mode}{model_suffix}"
     candidate = base
     suffix = 2
     while candidate.exists():
@@ -295,10 +306,34 @@ def _evaluation_files(run_directory: Path) -> set[Path]:
     return set(root.glob("*/evaluation.json")) if root.is_dir() else set()
 
 
-def _print_plan(config: SuiteConfig, fixtures: Sequence[FrozenFixture]) -> None:
+def _resolved_models(config: SuiteConfig) -> tuple[str, str, str]:
+    research_model = config.research_model or load_research_model()
+    evaluator_model = config.evaluator_model or load_evaluator_model()
+    if research_model == FOUR_O_MINI_MODEL and evaluator_model != LUNA_EVALUATOR_MODEL:
+        raise ValueError(
+            "The 4o-mini experiment requires separate research and evaluation models. "
+            f"Resolved Research: {research_model}; Evaluator: {evaluator_model}; "
+            f"expected evaluator: {LUNA_EVALUATOR_MODEL}"
+        )
+    family = (
+        "4o-mini-research-luna-eval"
+        if research_model == FOUR_O_MINI_MODEL
+        else "standard"
+    )
+    return research_model, evaluator_model, family
+
+
+def _print_plan(
+    config: SuiteConfig,
+    fixtures: Sequence[FrozenFixture],
+    research_model: str,
+    evaluator_model: str,
+) -> None:
     count = len(fixtures)
     print(f"Fixtures: {count}")
     print(f"Mode: {config.mode}")
+    print(f"Research model: {research_model}")
+    print(f"Evaluator model: {evaluator_model}")
     print(f"Components: {ARCHITECTURE_COMPONENTS[config.mode]}")
     print(f"Preset-question outputs: {config.outputs_root}")
     print(f"Aggregate evaluation results: {config.results_root}")
@@ -311,8 +346,8 @@ def _print_plan(config: SuiteConfig, fixtures: Sequence[FrozenFixture]) -> None:
         f"{count * MAX_RESEARCH_OPENAI_CALLS[config.mode]} OpenAI calls"
     )
     print(
-        "Evaluator-v1 request count depends on the number of final findings; each "
-        "structured judging stage may make one repair attempt."
+        "Evaluator-v1 uses one coverage/depth judgment per report; each judgment "
+        "may make one semantic repair attempt."
     )
     print("Research phase:")
     for number, fixture in enumerate(fixtures, start=1):
@@ -328,12 +363,15 @@ def execute_suite(
     command_runner: CommandRunner = run_streaming_command,
 ) -> SuiteOutcome:
     fixtures = select_fixtures(config.fixtures_root, config.fixture_ids)
-    _print_plan(config, fixtures)
+    research_model, evaluator_model, experiment_family = _resolved_models(config)
+    _print_plan(config, fixtures, research_model, evaluator_model)
     if config.dry_run:
         print("Dry run complete; no research or evaluation commands were executed.")
         return SuiteOutcome(0, None)
 
-    suite_directory = _new_suite_directory(config.results_root, config.mode)
+    suite_directory = _new_suite_directory(
+        config.results_root, config.mode, research_model
+    )
     manifest_path = suite_directory / "manifest.json"
     entries = [
         {
@@ -355,6 +393,9 @@ def execute_suite(
         "status": "running_research",
         "mode": config.mode,
         "system_version": SYSTEM_VERSION_BY_MODE[config.mode],
+        "research_model": research_model,
+        "evaluator_model": evaluator_model,
+        "experiment_family": experiment_family,
         "fixtures_root": str(config.fixtures_root.resolve()),
         "suite_directory": str(suite_directory.resolve()),
         "benchmark_exit_code": None,
@@ -386,7 +427,12 @@ def execute_suite(
             run_directory = research_run_directory(
                 outcome.output, config.project_root
             )
-            validate_run_for_fixture(run_directory, fixture, config.mode)
+            validate_run_for_fixture(
+                run_directory,
+                fixture,
+                config.mode,
+                research_model,
+            )
             entry["research_status"] = "completed"
             entry["run_directory"] = str(run_directory)
             successful.append((fixture, entry, run_directory))
@@ -477,6 +523,7 @@ def _configure_utf8_stdio() -> None:
 
 def main(arguments: Sequence[str] | None = None) -> int:
     _configure_utf8_stdio()
+    load_dotenv()
     parser = build_parser()
     args = parser.parse_args(arguments)
     try:

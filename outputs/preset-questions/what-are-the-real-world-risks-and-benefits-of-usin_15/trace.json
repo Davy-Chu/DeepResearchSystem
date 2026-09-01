@@ -1,0 +1,1122 @@
+{
+  "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+  "system_version": "evidence-ledger-v1",
+  "model": "gpt-4o-mini",
+  "research_model": "gpt-4o-mini",
+  "verifier_model": null,
+  "max_iterations": 10,
+  "stop_reason": null,
+  "final_report": {
+    "question": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+    "summary": "This is an automatically generated incomplete report. The research run ended before a normal research stop reason was recorded, and normal finalization did not complete during OpenAI Research Decision — Iteration 4. The validated findings collected before that point are preserved below without claiming that the evidence is complete.",
+    "findings": [
+      {
+        "claim": "Synthetic data can transform how developers fine-tune large language models (LLMs), addressing critical limitations of real-world datasets and enabling new capabilities.",
+        "evidence": [
+          {
+            "summary": "Synthetic data improves LLM fine-tuning by addressing limitations in real-world datasets.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "Synthetic data mirrors real distributions to address data scarcity and privacy constraints, making it advantageous for AI training.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "Synthetic data can help fill data gaps, improving model performance in specific tasks.",
+            "source_ids": [
+              "S3"
+            ]
+          },
+          {
+            "summary": "Diversity in synthetic data sources mitigates risks like distribution collapse, thereby improving model behavior during fine-tuning.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Model collapse is avoidable by accumulating real data alongside synthetic data, rather than replacing it entirely.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "The integration of synthetic data can reduce costs and address data scarcity, but overreliance can lead to significant quality issues.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "Synthetic data generation is becoming a necessity due to high-quality training data depletion.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The combination of several new evidentiary sources supports the transition to synthetic data."
+      },
+      {
+        "claim": "Fine-tuning models on synthetic data from diverse sources can mitigate issues like distribution collapse and self-preference bias while preserving output quality.",
+        "evidence": [
+          {
+            "summary": "Increased diversity in synthetic training data reduces distribution collapse and preserves the quality of outputs.",
+            "source_ids": [
+              "S4"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Conclusive evidence from a dedicated study shows the benefits of diverse synthetic data sources in fine-tuning models."
+      },
+      {
+        "claim": "Excessive reliance on synthetic data may lead to model collapse, resulting in output degradation or narrowing over time if not balanced with diverse training data.",
+        "evidence": [
+          {
+            "summary": "Recursive training on synthetic data can cause models to stagnate or degrade due to lack of novel information.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "Repetitive training on synthetic data without feedback can lead to decreased model capabilities and reliability.",
+            "source_ids": [
+              "S3"
+            ]
+          },
+          {
+            "summary": "Overreliance on single-source synthetic data can exacerbate self-preference bias and reduce model robustness.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Training AI on synthetic data often leads to model collapse, where outputs degrade in quality as models rely on biased, self-generated data.",
+            "source_ids": [
+              "S9"
+            ]
+          },
+          {
+            "summary": "Synthetic data introduces risks such as feedback loops and model collapse, potentially leading to nonsensical outputs.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "Model collapse is a prominent issue when synthetic data is poorly designed or unverified.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Additional evidence corroborates that model collapse remains a significant concern when relying solely on synthetic data."
+      },
+      {
+        "claim": "Synthetic data generation is becoming a necessary infrastructure for AI development due to the diminishing availability of high-quality human-generated training data and the increasing legal complexities surrounding real data usage.",
+        "evidence": [
+          {
+            "summary": "The impending shortage of high-quality human-generated data is pushing AI teams towards synthetic data as a critical resource.",
+            "source_ids": [
+              "S12"
+            ]
+          },
+          {
+            "summary": "Synthetic data is gaining focus due to the challenges in accessing high-quality human-generated data and privacy regulations.",
+            "source_ids": [
+              "S15"
+            ]
+          },
+          {
+            "summary": "The use of synthetic data significantly helps alleviate the scarcity of high-quality datasets and addresses privacy concerns in AI applications.",
+            "source_ids": [
+              "S16"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "New sources reinforce the necessity of synthetic data amid real-world data challenges."
+      },
+      {
+        "claim": "Model collapse poses a significant risk when training generative models on synthetic data, particularly if the data lacks grounding in real-world distributions.",
+        "evidence": [
+          {
+            "summary": "Synthetic data can lead to degradation in model performance through feedback loops, known as model collapse.",
+            "source_ids": [
+              "S11"
+            ]
+          },
+          {
+            "summary": "Without adequate verification mechanisms, iterative training on synthetic data may worsen model quality over time.",
+            "source_ids": [
+              "S13"
+            ]
+          },
+          {
+            "summary": "Synthetic datasets help mimic real-world scenarios and are crucial for testing and validating model performance, highlighting the risks associated with poor data quality leading to model collapse.",
+            "source_ids": [
+              "S17"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Recent evidence reiterates the link between synthetic data usage and the risk of model collapse if quality is not maintained."
+      }
+    ],
+    "conflicts_and_uncertainties": [],
+    "remaining_gaps": [
+      "Normal final synthesis did not complete, so the completeness of the evidence could not be confirmed."
+    ],
+    "conclusion": "The findings above reflect the evidence validated before the run ended. They should be treated as provisional because normal final synthesis did not complete and important gaps may remain."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What are the real-world risks and benefits of using synthetic data to train or fine-tune large language models? Focus on data quality, bias, and evaluation.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Synthetic data can transform how developers fine-tune large language models (LLMs), addressing critical limitations of real-world datasets and enabling new capabilities.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data improves LLM fine-tuning by addressing limitations in real-world datasets.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data mirrors real distributions to address data scarcity and privacy constraints, making it advantageous for AI training.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data can help fill data gaps, improving model performance in specific tasks.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Diversity in synthetic data sources mitigates risks like distribution collapse, thereby improving model behavior during fine-tuning.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "Evidence from multiple sources supports the use of synthetic data for fine-tuning, but challenges remain regarding data quality and reliability.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "claim": "Fine-tuning models on synthetic data from diverse sources can mitigate issues like distribution collapse and self-preference bias while preserving output quality.",
+            "supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Increased diversity in synthetic training data reduces distribution collapse and preserves the quality of outputs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Conclusive evidence from a dedicated study shows the benefits of diverse synthetic data sources in fine-tuning models.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "claim": "Excessive reliance on synthetic data may lead to model collapse, resulting in output degradation or narrowing over time if not balanced with diverse training data.",
+            "supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Recursive training on synthetic data can cause models to stagnate or degrade due to lack of novel information.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Repetitive training on synthetic data without feedback can lead to decreased model capabilities and reliability.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Overreliance on single-source synthetic data can exacerbate self-preference bias and reduce model robustness.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "While supported by evidence, the outcome also suggests benefits, highlighting a need for balanced training approaches.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": []
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "Despite the potential benefits, concerns exist regarding the long-term reliability and realism of synthetic data in training, including the risk of model collapse and biased outputs.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": []
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data improves LLM fine-tuning by addressing limitations in real-world datasets.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data mirrors real distributions to address data scarcity and privacy constraints, making it advantageous for AI training.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data can help fill data gaps, improving model performance in specific tasks.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Diversity in synthetic data sources mitigates risks like distribution collapse, thereby improving model behavior during fine-tuning.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Increased diversity in synthetic training data reduces distribution collapse and preserves the quality of outputs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Recursive training on synthetic data can cause models to stagnate or degrade due to lack of novel information.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S3",
+                "relation": "SUPPORTS",
+                "summary": "Repetitive training on synthetic data without feedback can lead to decreased model capabilities and reliability.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Overreliance on single-source synthetic data can exacerbate self-preference bias and reduce model robustness.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "Despite the potential benefits, concerns exist regarding the long-term reliability and realism of synthetic data in training, including the risk of model collapse and biased outputs."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "There's a significant gap regarding the long-term reliability and realism of synthetic data, particularly concerning model collapse and biased outputs.",
+        "target_type": "GAP",
+        "target_id": "G1",
+        "next_search_query": "What are the long-term risks of using synthetic data for training large language models, particularly in relation to model collapse and the potential for bias in outputs?",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "What are the long-term risks of using synthetic data for training large language models, particularly in relation to model collapse and the potential for bias in outputs?",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "evidence_processing": {
+        "new_claims": [],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Model collapse is avoidable by accumulating real data alongside synthetic data, rather than replacing it entirely.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The integration of synthetic data can reduce costs and address data scarcity, but overreliance can lead to significant quality issues.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "New evidence supports that synthetic data can be effectively used if accompanied by real data, reducing the risks of collapse.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Training AI on synthetic data often leads to model collapse, where outputs degrade in quality as models rely on biased, self-generated data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data introduces risks such as feedback loops and model collapse, potentially leading to nonsensical outputs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Multiple sources confirm that feedback loops can cause significant degradation of model quality and diversity.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": [
+          "G1"
+        ]
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Model collapse is avoidable by accumulating real data alongside synthetic data, rather than replacing it entirely.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "The integration of synthetic data can reduce costs and address data scarcity, but overreliance can lead to significant quality issues.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S9",
+                "relation": "SUPPORTS",
+                "summary": "Training AI on synthetic data often leads to model collapse, where outputs degrade in quality as models rely on biased, self-generated data.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data introduces risks such as feedback loops and model collapse, potentially leading to nonsensical outputs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "RESOLVED",
+            "description": "Despite the potential benefits, concerns exist regarding the long-term reliability and realism of synthetic data in training, including the risk of model collapse and biased outputs."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "While the risks of model collapse from excessive reliance on synthetic data are documented, exploring specific strategies to balance synthetic and real data could enhance understanding of maintaining quality and mitigating bias.",
+        "target_type": "CLAIM",
+        "target_id": "C3",
+        "next_search_query": "What strategies can be employed to balance the use of synthetic and real data in training large language models to prevent model collapse and bias?",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": "G1",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "What strategies can be employed to balance the use of synthetic and real data in training large language models to prevent model collapse and bias?",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Synthetic data generation is becoming a necessary infrastructure for AI development due to the diminishing availability of high-quality human-generated training data and the increasing legal complexities surrounding real data usage.",
+            "supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The impending shortage of high-quality human-generated data is pushing AI teams towards synthetic data as a critical resource.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Several sources confirm the growing reliance on synthetic data amid the exhaustion of accessible real-world data.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "claim": "Model collapse poses a significant risk when training generative models on synthetic data, particularly if the data lacks grounding in real-world distributions.",
+            "supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data can lead to degradation in model performance through feedback loops, known as model collapse.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S13",
+                "relation": "SUPPORTS",
+                "summary": "Without adequate verification mechanisms, iterative training on synthetic data may worsen model quality over time.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "New evidence highlights serious risks associated with model collapse linked to synthetic data usage.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": []
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data generation is becoming a necessity due to high-quality training data depletion.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The combination of several new evidentiary sources supports the transition to synthetic data.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Model collapse is a prominent issue when synthetic data is poorly designed or unverified.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Additional evidence corroborates that model collapse remains a significant concern when relying solely on synthetic data.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "The impending shortage of high-quality human-generated data is pushing AI teams towards synthetic data as a critical resource.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data can lead to degradation in model performance through feedback loops, known as model collapse.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S13",
+                "relation": "SUPPORTS",
+                "summary": "Without adequate verification mechanisms, iterative training on synthetic data may worsen model quality over time.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data generation is becoming a necessity due to high-quality training data depletion.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "Model collapse is a prominent issue when synthetic data is poorly designed or unverified.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "While there is strong support for the risks and benefits of synthetic data, understanding more about potential long-term evaluation methods and their effectiveness could provide critical insights.",
+        "target_type": "GENERAL",
+        "target_id": null,
+        "next_search_query": "What effective evaluation methods can be implemented to assess the risks and benefits of using synthetic data in training large language models, especially regarding quality and bias?",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": "C3",
+      "subquestion_status_changes": []
+    },
+    {
+      "iteration_number": 4,
+      "search_query": "What effective evaluation methods can be implemented to assess the risks and benefits of using synthetic data in training large language models, especially regarding quality and bias?",
+      "source_ids": [
+        "S15",
+        "S16",
+        "S17"
+      ],
+      "evidence_processing": {
+        "new_claims": [],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S15",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data is gaining focus due to the challenges in accessing high-quality human-generated data and privacy regulations.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S16",
+                "relation": "SUPPORTS",
+                "summary": "The use of synthetic data significantly helps alleviate the scarcity of high-quality datasets and addresses privacy concerns in AI applications.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "New sources reinforce the necessity of synthetic data amid real-world data challenges.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S17",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic datasets help mimic real-world scenarios and are crucial for testing and validating model performance, highlighting the risks associated with poor data quality leading to model collapse.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Recent evidence reiterates the link between synthetic data usage and the risk of model collapse if quality is not maintained.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": []
+          }
+        ],
+        "new_gaps": [],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S15",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic data is gaining focus due to the challenges in accessing high-quality human-generated data and privacy regulations.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S16",
+                "relation": "SUPPORTS",
+                "summary": "The use of synthetic data significantly helps alleviate the scarcity of high-quality datasets and addresses privacy concerns in AI applications.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S17",
+                "relation": "SUPPORTS",
+                "summary": "Synthetic datasets help mimic real-world scenarios and are crucial for testing and validating model performance, highlighting the risks associated with poor data quality leading to model collapse.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": []
+      },
+      "research_decision": null,
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": []
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "Synthetic data can transform how developers fine-tune large language models (LLMs), addressing critical limitations of real-world datasets and enabling new capabilities.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data improves LLM fine-tuning by addressing limitations in real-world datasets.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data mirrors real distributions to address data scarcity and privacy constraints, making it advantageous for AI training.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data can help fill data gaps, improving model performance in specific tasks.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Diversity in synthetic data sources mitigates risks like distribution collapse, thereby improving model behavior during fine-tuning.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Model collapse is avoidable by accumulating real data alongside synthetic data, rather than replacing it entirely.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "The integration of synthetic data can reduce costs and address data scarcity, but overreliance can lead to significant quality issues.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data generation is becoming a necessity due to high-quality training data depletion.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The combination of several new evidentiary sources supports the transition to synthetic data.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": []
+      },
+      {
+        "id": "C2",
+        "claim": "Fine-tuning models on synthetic data from diverse sources can mitigate issues like distribution collapse and self-preference bias while preserving output quality.",
+        "supporting_evidence": [
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Increased diversity in synthetic training data reduces distribution collapse and preserves the quality of outputs.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Conclusive evidence from a dedicated study shows the benefits of diverse synthetic data sources in fine-tuning models.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 1,
+        "related_subquestion_ids": []
+      },
+      {
+        "id": "C3",
+        "claim": "Excessive reliance on synthetic data may lead to model collapse, resulting in output degradation or narrowing over time if not balanced with diverse training data.",
+        "supporting_evidence": [
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Recursive training on synthetic data can cause models to stagnate or degrade due to lack of novel information.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S3",
+            "relation": "SUPPORTS",
+            "summary": "Repetitive training on synthetic data without feedback can lead to decreased model capabilities and reliability.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Overreliance on single-source synthetic data can exacerbate self-preference bias and reduce model robustness.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S9",
+            "relation": "SUPPORTS",
+            "summary": "Training AI on synthetic data often leads to model collapse, where outputs degrade in quality as models rely on biased, self-generated data.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data introduces risks such as feedback loops and model collapse, potentially leading to nonsensical outputs.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "Model collapse is a prominent issue when synthetic data is poorly designed or unverified.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Additional evidence corroborates that model collapse remains a significant concern when relying solely on synthetic data.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": []
+      },
+      {
+        "id": "C4",
+        "claim": "Synthetic data generation is becoming a necessary infrastructure for AI development due to the diminishing availability of high-quality human-generated training data and the increasing legal complexities surrounding real data usage.",
+        "supporting_evidence": [
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "The impending shortage of high-quality human-generated data is pushing AI teams towards synthetic data as a critical resource.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S15",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data is gaining focus due to the challenges in accessing high-quality human-generated data and privacy regulations.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S16",
+            "relation": "SUPPORTS",
+            "summary": "The use of synthetic data significantly helps alleviate the scarcity of high-quality datasets and addresses privacy concerns in AI applications.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "New sources reinforce the necessity of synthetic data amid real-world data challenges.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 4,
+        "related_subquestion_ids": []
+      },
+      {
+        "id": "C5",
+        "claim": "Model collapse poses a significant risk when training generative models on synthetic data, particularly if the data lacks grounding in real-world distributions.",
+        "supporting_evidence": [
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic data can lead to degradation in model performance through feedback loops, known as model collapse.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S13",
+            "relation": "SUPPORTS",
+            "summary": "Without adequate verification mechanisms, iterative training on synthetic data may worsen model quality over time.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S17",
+            "relation": "SUPPORTS",
+            "summary": "Synthetic datasets help mimic real-world scenarios and are crucial for testing and validating model performance, highlighting the risks associated with poor data quality leading to model collapse.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Recent evidence reiterates the link between synthetic data usage and the risk of model collapse if quality is not maintained.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 3,
+        "last_updated_iteration": 4,
+        "related_subquestion_ids": []
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "Despite the potential benefits, concerns exist regarding the long-term reliability and realism of synthetic data in training, including the risk of model collapse and biased outputs.",
+      "importance": "HIGH",
+      "status": "RESOLVED",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [],
+      "created_iteration": 1,
+      "resolved_iteration": 2
+    }
+  ],
+  "research_plan": null,
+  "claim_verifications": [],
+  "current_iteration": 4,
+  "remaining_search_budget": 6,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Using Synthetic Data to Improve LLM Fine‑Tuning | newline",
+      "url": "https://www.newline.co/@Dipen/using-synthetic-data-to-improve-llm-finetuning--d453f658",
+      "content": "1. [Home](/)\n2. [Articles](/latest)\n\n# Using Synthetic Data to Improve LLM Fine‑Tuning\n\nLast Updated: March 31st, 2026\n\nSynthetic data is transforming how developers and organizations fine-tune large language models (LLMs), addressing critical limitations of real-world datasets while enable new capabilities. Industry research shows that real-world data is often insufficient for domain-specific tasks. For example,…\n\n#### Tags\n\n* [prompt engineering techniques](/tags/prompt-engineering-techniques)\n* [AI model optimization](/tags/ai-model-optimization)\n* [fine-tuning LLMs techniques](/tags/fine-tuning-llms-techniques)\n* [LLM products](/tags/llm-products)\n* [synthetic data for LLM training](/tags/synthetic-data-for-llm-training)\n* [RAG frameworks](/tags/rag-frameworks)\n* [data privacy in AI](/tags/data-privacy-in-ai)\n* [hybrid training methods](/tags/hybrid-training-methods)\n\n## Responses (0)\n\nText\n\n![Newline logo](https://d8dgeb1f3fxgw.cloudfront.net/static/img/logo/newline/newline-logo-square.svg)\n\nHey there! 👋 Want to get5 free lessonsfor our **Power AI course**  course?\n\nClap\n\n0|0|\n\nClap\n\n0|0\n\n### Free AI Career Tools\n\n[FREE\n\n#### AI Job Listings\n\nCurated AI & ML jobs updated weekly with direct links to company application pages.](/tools/ai-jobs)[FREE\n\n#### ATS Resume Checker\n\nAI-powered resume scanner. Get a score and actionable recommendations to improve your chances.](/tools/ats-resume-checker)[FREE\n\n#### Startup Perks\n\n$1.3M+ in free cloud credits, AI API access, and developer tools for startups.](/tools/ai-startups-free-credits)",
+      "score": 0.9656731955017984
+    },
+    {
+      "id": "S2",
+      "title": "Synthetic Data for AI Training: Use Cases and Risks [2026]",
+      "url": "https://atlan.com/know/ai-agent/data-for-ai/synthetic-data-for-ai-training",
+      "content": "[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\n[Talk to Us](/forms/talk-to-sales-contact/)  [See the context layer, built live](https://atlan.com/live-demo-series/?utm_source=navbar&utm_medium=website&utm_campaign=wtf-context-layer)\n\n[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\nEnterprise Data Graph\n\nConnect all your business systems and pull context across your data estate into one living graph.\n\n[![connectors icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-connectors-icon.svg)\n\nConnectors & Apps![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right.svg)](/connectors/)[![data lineage icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-data-lineage-icon.svg)\n\nData Lineage![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right.svg)](/data-lineage/)\n\n[![data marketplace icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-data-marketplace-icon.svg)\n\nData Marketplace\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nGive humans the context they need to understand your business.\n\nEVERYWHERE YOU WORK\n\n![Slack](https://website-assets.atlan.com/img/stack/slack.svg)Slack![Teams](https://website-assets.atlan.com/img/integration-logos/microsoft-teams-logo.svg)Teams![Claude](https://website-assets.atlan.com/img/integration-logos/claude-icon.svg)Claude![ChatGPT](https://website-assets.atlan.com/img/integration-logos/chatgpt-logo.svg)ChatGPT](/data-marketplace/)[![context agents icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-agents-icon.svg)\n\nContext Agents\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nAI teammates that document tacit knowledge and make your data AI-ready.\n\nOntologyDescriptionsMetricsQualityGlossaryREADME](/context-agents/)[![context engineering studio icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-engineering-studio-icon.svg)\n\nContext Engineering Studio\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nBootstrap, test, and ship the business understanding every AI needs.\n\nDEPLOY ANYWHERE\n\n![Cortex](https://website-assets.atlan.com/img/stack/snowflake.svg)Cortex![Genie](https://website-assets.atlan.com/img/connectors/databricks.svg)Genie![Claude](https://website-assets.atlan.com/img/integration-logos/claude-icon.svg)Claude![Codex](https://website-assets.atlan.com/img/integration-logos/codex-logo.svg)Codex](/context-engineering-studio/)[![context lakehouse icon](https://website-assets.atlan.com/img/navbar-icons/prod-nav-new-context-lakehouse-icon.svg)\n\nContext Lakehouse\n\n![](https://website-assets.atlan.com/img/icons/arrow-diagonal-top-right-blue.svg)\n\nThe world's first context store engineered natively for AI.\n\nIceberg-nativeOpen formatsGraph+file architectureVector-native AI search](/context-lakehouse/)\n\n[See all customer stories →](/customers/)\n\nFinance\n\n[Case study\n\n![nasdaq logo](https://website-assets.atlan.com/img/navbar/cust-nav-nasdaq-color.svg)](https://humansofdata.atlan.com/2023/04/nasdaq-active-metadata-strategy/)\n\n![mastercard logo](https://website-assets.atlan.com/img/navbar/cust-nav-mastercard-color.svg)\n\n![plaid logo](https://website-assets.atlan.com/img/navbar/cust-nav-plaid-color.svg)\n\nTechnology\n\n[Case study\n\n![autodesk logo](https://website-assets.atlan.com/img/navbar/cust-nav-autodesk-color.svg)](https://humansofdata.atlan.com/2023/08/autodesk-data-mesh-snowflake-atlan/)\n\n![hubspot logo](https://website-assets.atlan.com/img/navbar/cust-nav-hubspot-color.svg)\n\n[Case study\n\n![dropbox logo](https://website-assets.atlan.com/img/navbar/cust-nav-dropbox-color.svg)](https://humansofdata.atlan.com/2024/10/dropbox-governance-atlan/)\n\nManufacturing\n\n![unilever logo](https://website-assets.atlan.com/img/navbar/cust-nav-unilever-color.svg)\n\n[Case study\n\n![general motors logo](https://website-assets.atlan.com/img/navbar/cust-nav-gm-color.svg)](https://humansofdata.atlan.com/2024/10/general-motors-governance-atlan/)\n\n![ingersollrand logo](https://website-assets.atlan.com/img/navbar/cust-nav-ingersollrand-color.svg)\n\nMedia\n\n[Case study\n\n![fox logo](https://website-assets.atlan.com/img/navbar/cust-nav-fox-color.svg)](https://humansofdata.atlan.com/2024/10/fox-governance-atlan/)\n\n![news corp logo](https://website-assets.atlan.com/img/navbar/cust-nav-newscorp-color.svg)\n\n![virgin o2 logo](https://website-assets.atlan.com/img/navbar/cust-nav-virgin-color.svg)\n\nHealthcare\n\n![nhs logo](https://website-assets.atlan.com/img/navbar/cust-nav-nhs-color.svg)\n\n[Case study\n\n![scripps logo](https://website-assets.atlan.com/img/navbar/cust-nav-scripps-color.svg)](https://f.hubspotusercontent30.net/hubfs/6880682/Scripps%20Health%20Case%20Study%20(2).pdf)\n\n![medtronic logo](https://website-assets.atlan.com/img/navbar/cust-nav-medtronic-color.svg)\n\nRetail\n\n![ralph lauren logo](https://website-assets.atlan.com/img/navbar/cust-nav-ralphlauren-color.svg)\n\n![urban outfitters logo](https://website-assets.atlan.com/img/navbar/cust-nav-urbanoutfitters-color.svg)\n\n[Case study\n\n![dr martens logo](https://website-assets.atlan.com/img/navbar/cust-nav-drmartens-color.svg)](https://humansofdata.atlan.com/2023/12/dr-martens-modern-data-catalog/)\n\n[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-1.svg)\n\nAbout us](/about/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-3.svg)\n\nNewsroom](/newsroom/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-5.svg)\n\nCareers](/careers/)\n\n[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-2.svg)\n\nEvents](/events/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-4.svg)\n\nPartners](/partners/)[![Company nav icon](https://website-assets.atlan.com/img/nav-comp-3.svg)\n\nBlogs](https://blog.atlan.com/)\n\n![Company sidebar thumbnail](/img/nav-dropdowns/context-26-nav-thumb.webp)\n\nWhere AI's biggest voices define the discipline · Oct 28 · Virtual\n\n[Register now →](/context-conference/?utm_source=navbar&utm_medium=website&utm_campaign=context26&utm_content=company-dropdown-sidebar)\n\n \n\n\n[![Atlan Logo](https://website-assets.atlan.com/img/atlan-blue.svg)](/)\n\n\n\n# Synthetic Data for AI Training: Use Cases and Risks\n\n![Emily Winks, Data Governance Expert, Atlan](/images/authors/emily-winks-thumb.webp)\n\n[Emily Winks](/authors/emily-winks/)\n\nData Governance Expert\n\nData Governance Specialist\n\n18+ years in information architecture, data governance, and enterprise data management\n\nMasters, Library and Information Science, Queens College; Certificate in Archives, Records Management and Preservation; BA English, St. Joseph's College\n\nAtlan Product EssentialsComputer Science Principles: Programming (LinkedIn)\n\n[View LinkedIn Profile](https://www.linkedin.com/in/emily-winks/)\n\nEmily WinksData Governance ExpertData Governance Specialist18+ years in information architecture, data governance, and enterprise data managementMasters, Library and Information Science, Queens College; Certificate in Archives, Records Management and Preservation; BA English, St. Joseph's CollegeAtlan Product EssentialsComputer Science Principles: Programming (LinkedIn)[LinkedIn Profile](https://www.linkedin.com/in/emily-winks/)\n\nUpdated:07/17/2026\n\n|\n\nPublished:07/17/2026\n\n14 min read\n\n[See Context Agents Live](https://atlan.com/context-layer-demo/)[Get the Context Layer Ebook](https://atlan.com/resources/wtf-is-the-context-layer-ebook/)\n\n## Key takeaways\n\n* Synthetic data mirrors real distributions to address data scarcity, privacy constraints, and class imbalance.\n* Gartner predicted in 2022 that 60% of AI development data would be synthetic by 2024; the market keeps growing.\n* Recursive training on synthetic data causes model collapse, where distributions narrow until outputs degrade.\n* Ungoverned synthetic data creates audit gaps when models fail; lineage and fidelity metadata are non-negotiable",
+      "score": 0.9578141657673964
+    },
+    {
+      "id": "S3",
+      "title": "Large Language Models Are Still Getting Stronger, but Researchers ...",
+      "url": "https://www.newswise.com/articles/large-language-models-are-still-getting-stronger-but-researchers-face-new-bottlenecks-in-data-evaluation-and-safety",
+      "content": "![Higher Education Press ](/legacy/image.php?image=/images/institutions/logos/logo 2FCS20260227041645.png&width=320&height=100)\n\n# Large Language Models Are Still Getting Stronger, but Researchers Face New Bottlenecks in Data, Evaluation, and Safety\n\n###### *A Survey of Large Language Models*\n\n14-Jul-2026 at 9:05 AM EDT, by [Higher Education Press](/institutions/newsroom/24220/)\n\n[*♡*](/users/login/?ret=%2Farticles%2Flarge-language-models-are-still-getting-stronger-but-researchers-face-new-bottlenecks-in-data-evaluation-and-safety%2F%3Fad2f%3D1%26aid%3D851153 \"Add to Favorites\")\n\n[![Newswise: Large Language Models Are Still Getting Stronger, but Researchers Face New Bottlenecks in Data, Evaluation, and Safety](/legacy/image.php?image=%2Fimages%2Fuploads%2F2026%2F07%2F14%2F6a55dfc3c81fa_1.png&width=502&height=334)](/articles/media-article/851153 \"View full image\")\n\nCredit: Wayne Xin Zhao\n\nA timeline of representative LLMs released in recent years. Models with publicly available checkpoints are highlighted in yellow\n\nNewswise — Over the past few years, progress in large language models has often been associated with a single word: bigger.\n\nLarger parameter counts. Larger training datasets. Larger computational budgets. And, with each new generation, stronger performance across language, coding, reasoning, and instruction-following tasks.\n\nFrom GPT-3 and ChatGPT to a growing number of open and closed models, LLMs have moved far beyond their origins as specialized tools for natural language processing. They are now becoming part of the technical infrastructure for research, software development, education, content creation, and industrial applications.\n\nBut as these models continue to improve, a different set of questions is becoming harder to ignore.\n\nThe next stage of LLM competition may not be determined simply by who builds the largest model. It may depend on who can obtain reliable high-quality data, who can evaluate model capabilities more accurately, and who can make models safer, more controllable, and more useful in real-world settings.\n\nA recent review published in *Frontiers of Computer Science* offers a systematic account of this shift. The article treats large language models not as a single algorithm or product, but as systems that develop through an entire lifecycle. Pre-training builds broad linguistic, factual, and reasoning foundations. Post-training adapts models to downstream tasks and aligns them with human preferences. Utilization methods, including prompting, retrieval augmentation, and agentic frameworks, determine how capabilities are activated in practice. Evaluation then measures whether models are truly capable, reliable, safe, and robust.\n\nThis lifecycle view points to an important change in the field. LLM progress is no longer only a question of scale. Model performance depends on the interaction of data, architecture, training strategy, alignment methods, inference-time techniques, deployment constraints, and evaluation standards. A weakness in any one of these stages can limit how well a model performs outside controlled benchmarks.\n\nOne of the first bottlenecks is data.\n\nDuring pre-training, LLMs learn from massive text corpora, including web pages, books, code, scientific literature, mathematical materials, dialogue data, and, increasingly, synthetic data generated by other models. According to the review, several representative open models are now trained on datasets reaching the trillion-token scale, while large closed models may rely on even larger or more carefully curated resources.\n\nThe problem is that high-quality data is not unlimited.\n\nAs models scale up, publicly available data that is clean, useful, diverse, and suitable for training becomes more difficult to obtain. Low-quality web text, duplicated passages, noisy content, biased information, private data, and copyrighted materials can all affect model performance and deployment risk. Data cleaning, deduplication, filtering, privacy protection, tokenization, and data mixture design are no longer minor technical details. They are becoming central to model development.\n\nSynthetic data may help fill part of the gap. Existing models can generate mathematical reasoning traces, code examples, question-answer pairs, and long-chain reasoning data. Such data can expand training resources and improve models on specific tasks. But synthetic data also introduces new risks. If models are repeatedly trained on content generated by other models, without enough new information or reliable external feedback, their capabilities may stagnate or degrade. In the next phase, the key question will not be how to produce more data, but how to produce data that is novel, reliable, verifiable, and sustainable.\n\nA second bottleneck lies in evaluation.\n\nDetermining whether an LLM is truly stronger is not as simple as looking at a few benchmark scores. As models improve, traditional benchmarks are increasingly saturated. Some tests also face data contamination, leakage, and declining ability to distinguish between models. A model may perform well on standard benchmarks while still behaving unreliably in complex real-world tasks.\n\nThe review treats evaluation as a major stage in the LLM lifecycle. It covers basic language understanding, knowledge, reasoning, alignment, safety, agentic tasks, and expert-level capabilities. This reflects a broader shift in the field: evaluation is moving from asking whether a model can answer questions correctly toward asking whether it can operate reliably, safely, and transparently in realistic settings.\n\nThis is especially important for complex reasoning, long-context processing, tool use, and agentic tasks. In these scenarios, a model may need to plan over multiple steps, call external tools, process feedback, revise its strategy, and recover from errors. Such abilities cannot be fully captured by static multiple-choice questions or short-answer tests. Future evaluation systems will need to be closer to real applications, while also addressing contamination, fairness, reproducibility, and safety.\n\nA third bottleneck is alignment and safety.\n\nPre-training gives models broad knowledge and generative ability, but it does not automatically ensure that their outputs are helpful, truthful, or safe. Modern LLM development therefore depends heavily on post-training. Supervised fine-tuning, reinforcement learning from human feedback, reinforcement learning with verifiable rewards, and methods designed for long-chain reasoning and agentic behavior are now central to making models usable.\n\nThese techniques have helped transform LLMs into more capable assistants. Yet they also bring new challenges. Models can hallucinate. They can produce confident-sounding answers when they are uncertain. They may reveal sensitive information or generate unsafe content under certain prompts. As LLMs are integrated into search engines, office software, education, healthcare, research workflows, and software development, alignment and safety are no longer abstract research topics. They are prerequisites for deployment.\n\nThe review also emphasizes the growing importance of agentic capability. LLMs are increasingly used not only to answer questions, but also to plan, use tools, interact with external environments, and execute multi-step tasks. Retrieval-augmented generation, long-context management, self-improvement, multi-agent collaboration, and efficient deployment techniques are expanding the ways LLMs can be used.\n\nBut stronger agentic capability also raises the stakes. A model that can act over long task chains needs more reliable error control, clearer safety boundaries, and more appropriate evaluation methods. Without these, greater autonomy could amplify mistakes rather than simply improve productivity.\n\nFor this reason, the future of LLMs is unlikely to be a matter of simply making models larger. Larger parameter counts, longer contexts, and more complex reasoning processes",
+      "score": 0.9542706092469732
+    },
+    {
+      "id": "S4",
+      "title": "Synthetic Eggs in Many Baskets:The Impact of Synthetic Data Diversity on LLM Fine-Tuning",
+      "url": "https://arxiv.org/html/2511.01490v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Synthetic Eggs in Many Baskets: The Impact of Synthetic Data Diversity on LLM Fine-Tuning\n\n###### Abstract\n\nAs synthetic data becomes widely used in language model development, understanding its impact on model behavior is crucial. This paper investigates the impact of the diversity of sources of synthetic data on fine-tuned large language models. We focus on three key dimensions: distribution collapse, adversarial robustness, and self-preference bias.\nOur findings reveal that fine-tuning models on synthetic data from diverse sources can mitigate distribution collapse, preserving the breadth of the output distribution and the diversity of the output text.\nFurthermore, while both human and synthetic fine-tuning data can remove safeguards, the latter preserves higher output quality, thus making outputs potentially more usable and dangerous. Finally, fine-tuning reduces self-preference bias, with human data being the most effective, followed by multi-source synthetic data.\n  \nAll code available at: <https://github.com/maxschaffelder/synthetic_data_diversity>.\n\n## 1 Introduction\n\nScaling up large language models (LLMs) leads to increased demand for training data, with rising concerns about human data availability in the medium term [Villalobos et al. (2024)](#bib.bib51).\nIncreasingly, developers are turning to synthetic data generated by the same or other LLMs, as an alternative to human-written text. Synthetic data is now being used in both pre-training and post-training, and has helped produce impressively capable models [DeepSeek-AI et al. (2025)](#bib.bib15); [Abdin et al. (2024)](#bib.bib1).\n\nSynthetic data shows large potential for LLM training in data-constrained settings. However, using it without proper care can cause unintended effects not present when training on human data. This phenomenon has sometimes been referred to as “model collapse”, though the term itself has been defined in a variety of ways, and not always consistently [Schaeffer et al. (2025)](#bib.bib49).\nDespite this variation, one set of findings that has proven robust is that\nsynthetic data training produces undesirable outcomes with respect to the models’ output distribution [Shumailov et al. (2024)](#bib.bib50); this is reflected, among others, in a decrease in linguistic diversity [Guo et al. (2024)](#bib.bib22). This raises the question whether\nthe diversity of the synthetic training data itself could offer a promising way to mitigate some of its negative effects. Indeed, increasing synthetic data diversity has been found to increase the performance of small (350M, 1.4B) language models on a variety of performance benchmarks [Chen et al. (2024)](#bib.bib9). However, those performance benchmarks do not address low-level linguistic changes to a model’s output, or the potential narrowing of the output distribution—effects which are important to measure. It is also not clear whether a decline in output diversity is itself a precursor to additional downstream effects, such as a decrease in robustness (e.g. to adversarial attacks).\n\nThe present paper addresses these questions\nby examining the impact of synthetic data diversity on models’ output distribution and on linguistic diversity indicators, and extending this analysis to include larger models like Llama-3.1-70B. We focus in particular on supervised fine-tuning scenarios.\nWe furthermore investigate two potential downstream effects of training on synthetic data, specifically (i) the impact on susceptibility to jailbreaks that compromise model safety; and (ii) the exacerbation of self-preference bias in LLM-as-judge settings. For model safety, previous research has shown that fine-tuning on benign data can easily lead to accidental weakening or removal of model safety guardrails [Lermen et al. (2023)](#bib.bib31); [Qi et al. (2024)](#bib.bib43). With synthetic data being increasingly used for fine-tuning, understanding how it impacts this inadvertent safeguard removal is essential for the safe development of LLM-based applications.\nFurthermore, as LLMs are increasingly being used as judges in evaluation tasks, it is important to understand and mitigate the potential biases of judge models. Self-preference bias [Panickssery et al. (2024)](#bib.bib40); [Xu et al. (2024)](#bib.bib54) has been shown to correlate with perplexity measures [Wataoka et al. (2024)](#bib.bib52). This suggests a potential connection between distribution collapse and self-preference. To our knowledge, the present study is the first to explore this link, through the lens of data source diversity.\n\nThe main findings of this study are as follows: (i) Synthetic data diversity significantly affects multiple measures of distribution collapse, with higher source diversity mitigating this collapse; (ii) Synthetic fine-tuning data leads to decreases in LLMs’ adversarial robustness while preserving output quality, while human training data tends to decrease both; (iii) The diversity of synthetic data sources and the size of data-generating models jointly affect the adversarial robustness of fine-tuned models; (iv) Model fine-tuning decreases self-preference bias, but this decrease is strongest when fine-tuning with human data, and weakest when fine-tuning with synthetic data generated by a single source model.\n\n## 2 Related work\n\n#### Distribution collapse and diversity reduction\n\nA common use of the term “model collapse” is to refer to the degradation of some aspect of a model’s output as a result of training or fine-tuning on outputs by earlier models [Schaeffer et al. (2025)](#bib.bib49). Often, such distribution collapse is measured via perplexity, yielding two main classes of findings. (i) Iterative fine-tuning of a model on its own output results in a narrowing of the output distribution, such that the base model has lower perplexity on subsequent model checkpoints, which at the same time evince a long tail of unlikely tokens [Alemohammad et al. (2024)](#bib.bib2).\n(ii) Models iteratively fine-tuned on their own outputs gradually lose their ability to accurately model human text [Shumailov et al. (2024)](#bib.bib50). Beyond perplexity, iterative self-tuning has been found to produce lower lexical, semantic, and syntactic diversity, with syntactic diversity experiencing the strongest decline and semantic diversity the least [Guo et al. (2024)](#bib.bib22). The present paper (§[4](#S4 \"4 Source diversity and model fine-tuning ‣ Synthetic Eggs in Many Baskets:The Impact of Synthetic Data Diversity on LLM Fine-Tuning\")) expands on this literature by investigating the impact of synthetic fine-tuning data diversity on perplexity and different linguistic diversity measures, including for larger models like Llama-3.1-70B.\n\n#### Self-bias and perplexity\n\nModel perplexity also has implications for one of the central use cases of LLMs in research, namely, as proxies for human evaluators, using\ndirect assessment or pairwise ranking [Kim et al. (2024)](#bib.bib30); [Sandan et al. (2025)](#bib.bib48), with some evidence in favour of the latter [Liu et al. (2024)](#bib.bib32).\nLLM judges are known to be susceptible to biases, some of which can be overcome through fine-tuning [Zhu et al. (2023)](#bib.bib58). Among these, “self-preference bias” refers to the preference of judge models for text produced by themselves over text produced by other LLMs or humans [Panickssery et al. (2024)](#bib.bib40). This is correlated with models’ ability to self-recognize and inversely correlated with the models’ perplexity on the given text [Wataoka et al. (2024)](#bib.bib52). In this paper (§[5.2](#S5.SS2 \"5.2 Self-preference bias ‣ 5 Synthetic data and downstream tasks ‣ Synthetic Eggs in Many Baskets:The Impact of Synthetic Data Diversity on LLM Fine-Tuning\")), we focus on this a",
+      "score": 0.9505483547074408
+    },
+    {
+      "id": "S5",
+      "title": "[D] Is Synthetic Data a Reliable Option for Training Machine Learning ...",
+      "url": "https://www.reddit.com/r/MachineLearning/comments/1bosj2t/d_is_synthetic_data_a_reliable_option_for",
+      "content": "[Skip to main content](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/d_is_synthetic_data_a_reliable_option_for#main-content)[D] Is Synthetic Data a Reliable Option for Training Machine Learning Models? : r/MachineLearning\n\nOpen menu Open navigation[](https://www.reddit.com/)Go to Reddit Home\n\n[Sign Up](https://www.reddit.com/register/)Sign up for Reddit[Log In](https://www.reddit.com/login/)Log in to Reddit\n\nExpand user menu Open settings menu\n\n[![Image 1](https://styles.redditmedia.com/t5_2r3gv/styles/communityIcon_kilpomt3l5c51.png?width=96&height=96&frame=1&auto=webp&s=b450f128223274f19254cc7483e695a9691fb42e) Go to MachineLearning](https://www.reddit.com/r/MachineLearning/)\n\n[r/MachineLearning](https://www.reddit.com/r/MachineLearning/)•2y ago\n\n[Data_Nerd1979](https://www.reddit.com/user/Data_Nerd1979/)\n\n# [D] Is Synthetic Data a Reliable Option for Training Machine Learning Models?\n\n[Discussion](https://www.reddit.com/r/MachineLearning/?f=flair_name%3A%22Discussion%22)\n\n\"The most obvious advantage of synthetic data is that it contains no personally identifiable information (PII). Consequently, it doesn’t pose the same cybersecurity risks as conventional data science projects. However, the big question for machine learning is whether this information is reliable enough to produce functioning ML models.\"\n\nVery informative blog regarding Using Synthetic Data in Machine Learning, source here [https://opendatascience.com/is-synthetic-data-a-reliable-option-for-training-machine-learning-models/](https://opendatascience.com/is-synthetic-data-a-reliable-option-for-training-machine-learning-models/)\n\n Share \n\n[![Image 2: u/motherduck_db avatar](https://styles.redditmedia.com/t5_dpy84r/styles/profileIcon_37oeghol9ile1.jpeg?width=48&height=48&frame=1&auto=webp&crop=48%3A48%2Csmart&s=547b4be3d8d45e125b6f7b62c39ebe3e18100c7c)motherduck_db](https://www.reddit.com/user/motherduck_db/)•[Ad](https://www.reddit.com/user/motherduck_db/)\n\nThe one prompt data stack powering Together AI (and their agents). Sitting on top of your beloved DuckDB.\n\nSign Up\n\n motherduck.com \n\n![Image 3: Thumbnail image: The one prompt data stack powering Together AI (and their agents). Sitting on top of your beloved DuckDB.](https://preview.redd.it/zul3s6ynrelh1.png?width=320&height=320&auto=webp&s=305110e095eab6aa77715511116927d057336a9e)\n\n[![Image 4: u/airbnb avatar](https://styles.redditmedia.com/t5_f7gfe0/styles/profileIcon_txlv4577sf0g1.png?width=48&height=48&frame=1&auto=webp&crop=48%3A48%2Csmart&s=d8328f891117032e9019a0d3747c209032f0c37f)u/airbnb](https://www.reddit.com/user/airbnb/)•[Ad](https://www.reddit.com/user/airbnb/)\n\nTravel hack: Book the home you want, then plan the trip around that.\n\nBook Now\n\n airbnb.com \n\n![Image 5: Thumbnail image: Travel hack: Book the home you want, then plan the trip around that.](https://preview.redd.it/egiwb82jl8fh1.png?width=320&height=320&auto=webp&s=ee4c9b5ba3128a8efaa3515919e8423e582cec03)\n\n[![Image 6: u/UL-Solutions avatar](https://styles.redditmedia.com/t5_fmnx47/styles/profileIcon_pu25i29371vf1.png?width=48&height=48&frame=1&auto=webp&crop=48%3A48%2Csmart&s=8e2446c5ef92df9985ae5818682c6589535d11d9)u/UL-Solutions](https://www.reddit.com/user/UL-Solutions/)•[Ad](https://www.reddit.com/user/UL-Solutions/)\n\nThere’s a gap between a great idea and a market-ready product. Prove your innovation can leap over it. You can launch faster with help from UL Solutions’ testing, inspection and certification services with complementary software.\n\nLearn More\n\n ul.com \n\n![Image 7: Clickable image which will reveal the video player: There’s a gap between a great idea and a market-ready product. Prove your innovation can leap over it.  \n\nYou can launch faster with help from UL Solutions’ testing, inspection and certification services with complementary software.](https://external-preview.redd.it/am9qYndvdjJvc3pnMUjZ7yqnYcKo80hlHLzleBX_h6ilwMmERLashiZTKohL.jpeg?format=pjpg&auto=webp&s=8426ed4eb22a4a87f5ce4ce7cee89945959108e2)\n\n Collapse video player \n\n Sort by: \n\nBest\n\nOpen comment sort options\n\n*   Best \n*   Top \n*   New \n*   Controversial \n*   Old \n*   Q&A \n\n# Comments Section\n\n[](https://www.reddit.com/user/Western-Image7125/)\n\n[Western-Image7125](https://www.reddit.com/user/Western-Image7125/)\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwr5az6/)\n\nGeneral rule of thumb is synthetic data alone is never enough for models, if combined with real data you can do better than real data alone in some cases\n\n Reply  Share \n\n[](https://www.reddit.com/user/Small-Fall-6500/)\n\n[Small-Fall-6500](https://www.reddit.com/user/Small-Fall-6500/)\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwrmbu8/)\n\nAnd the few cases where synthetic data 'is all you need' are generally niche or highly specific; AlphaZero may have gone very far using only synthetic data, but it can only take actions in simulated games (such as atari games or board games).\n\n Reply  Share \n\n[](https://www.reddit.com/user/stddealer/)\n\n[stddealer](https://www.reddit.com/user/stddealer/)\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwrvi7s/)• Edited 2y ago\n\nIt works for things like [AlphaZero](https://www.reddit.com/search/?q=AlphaZero+synthetic+data&cId=9ba65e1c-ec8c-41d8-8359-7e0903a317f3&iId=0ce7e26b-7a1d-4941-9a66-4e9766d2ced6) because the rules of the \"games\" are known and easy to validate automatically.\n\nThe rules of natural language are pretty much impossible to rigorously compute with a handmade algorithm, so the best we can do is to use data to approximate the true rules implicitly while we learn the solution to the \"game\".\n\nAn LLM is the closest thing we have to an algorithm to check if some text complies with the rules of natural language, and also to generate compliant text. But, that is still just an approximation of these \"rules\" with lots of bias and inaccuracies. Using (only) synthetic data generated by an LLM would be like training a chess AI like AlphaZero with an incomplete or inaccurate ruleset.\n\nThe optimisation process might find a solution that works very well with these wrong rules, but doesn't make any sense when playing with the actual rules.\n\n[](https://www.reddit.com/user/Small-Fall-6500/)\n\n[Small-Fall-6500](https://www.reddit.com/user/Small-Fall-6500/)\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwro8o3/)\n\nThough, perhaps most importantly, when synthetic data is all that's needed for capabilities improvements, models can improve a lot because the bottleneck shifts from needing lots of high quality real world data to needing compute for generating the synthetic data and doing the training. As is widely known, any technique that benefits from more computing power will scale, and scale 'is all you need.'\n\n[](https://www.reddit.com/user/new_name_who_dis_/)\n\n[new_name_who_dis_](https://www.reddit.com/user/new_name_who_dis_/)\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwsg60h/)\n\nVideo games aren't really synthetic data... There's no distinction between \"synthetic\" atari, and actually playing atari.\n\n2 more replies \n\n2 more replies \n\n[2 more replies](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwsg60h/?force-legacy-sct=1)\n\n1 more reply \n\n1 more reply \n\n[1 more reply](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwrmbu8/?force-legacy-sct=1)\n\n1 more reply \n\n1 more reply \n\n[1 more reply](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwr5az6/?force-legacy-sct=1)\n\n[deleted]\n\n•[2y ago](https://www.reddit.com/r/MachineLearning/comments/1bosj2t/comment/kwrjuuq/)\n\nThe term synthetic data is being overloaded these days. If you think about synthetic data for traditional ML, then they have always been used to generate discrete instances for solving problems of imbalance in classes, methods like [SMOTE](https://www.reddit.com/search/?q=SMOTE+synthetic+data&cId=3b7d930",
+      "score": 0.9434821744896608
+    },
+    {
+      "id": "S6",
+      "title": "Synthetic Data for LLM Training: Decision Guide 2026",
+      "url": "https://www.digitalapplied.com/blog/synthetic-data-generation-llm-training-decision-guide-2026",
+      "content": "AI DevelopmentDecision Matrix14 min readPublished May 26, 2026\n\nFour use cases ·*one* decision matrix · backed by Nature peer review\n\n# Synthetic Data for*LLM Training*: Decision Guide 2026\n\nModel collapse is real — and provably avoidable. The fix is not avoiding synthetic data, it's accumulating real data alongside it rather than replacing it. This guide maps the four distinct use cases — fine-tuning data, eval sets, edge-case augmentation, and privacy substitution — each with different failure modes, quality metrics, and generation techniques.\n\nDigital Applied Team\n\nSenior strategists · Published May 26, 2026\n\nPublishedMay 26, 2026\n\nRead time14 min\n\nSources8 primary sources\n\nphi-1 at 1.3B params\n\n50.6%\n\nHumanEval pass@1\n\n▲on 1B synthetic tokens\n\nCollapse mitigation\n\n10%\n\nreal data retained\n\n▼limits perplexity drift\n\nCosmopedia open dataset\n\nsynthetic tokens\n\n▼30M+ prompts, <1% dupes\n\nphi-3-mini MMLU\n\n69%\n\nat 3.8B parameters\n\n▼vendor-stated\n\nSynthetic data generation for LLM training sits at an awkward intersection of compelling capability evidence and genuine academic risk — model collapse is a peer-reviewed phenomenon, not a vendor scare story. But the peer-reviewed literature also contains a rigorous counterargument: collapse is avoidable, the fix is straightforward, and the teams at Microsoft, Hugging Face, and Anthropic have been quietly validating synthetic approaches at production scale for years.\n\nThe stakes are real. A 1.3-billion-parameter model trained on one billion synthetic “textbook-quality” tokens matched or exceeded models ten times its size on coding benchmarks — but only because the training data was curated with discipline, not indiscriminately generated. At the other end, experiments with OPT-125m showed perplexity degrading by 20–28 points after five epochs of purely synthetic self-training, with no real data retained. Both outcomes are real. Which one you get depends on the generation regime.\n\nThis guide gives practitioners a decision framework across four distinct use cases — fine-tuning instruction data, synthetic eval set creation, edge-case augmentation, and privacy substitution — each with its own failure modes, quality metrics, and generation techniques. It also covers the “accumulate, don't replace” rule that the model collapse literature actually supports, the Phi series as the strongest public proof of concept, and the vendor policy questions that remain genuinely open.\n\nKey takeaways\n\n1. 01\n\n   Model collapse is avoidable — the fix is additive, not abstinent.Gerstgrasser et al. (2024) proved analytically that test error has a finite upper bound when synthetic data accumulates alongside real data, but grows without bound when it replaces real data. The rule is accumulate, not replace — not 'avoid synthetic data.'\n2. 02\n\n   Phi-1 at 1.3B params matched models 10× larger on coding benchmarks.Microsoft trained phi-1 on 6B tokens of curated web data plus 1B synthetically generated textbooks and exercises via GPT-3.5, achieving 50.6% pass@1 on HumanEval and 55.5% on MBPP. Vendor-stated numbers from arXiv:2306.11644.\n3. 03\n\n   The four use cases have fundamentally different risk profiles.Fine-tuning data, eval set creation, edge-case augmentation, and privacy substitution each carry different failure modes — from distribution drift to eval overfitting to GDPR pseudonymization risk. A single strategy does not span all four.\n4. 04\n\n   Cosmopedia is the only large open synthetic pre-training dataset.Hugging Face generated 25 billion tokens across 30M+ files using Mixtral-8x7B-Instruct, with less than 1% duplicate content — by varying audience and format rather than just topic. Total compute exceeded 10,000 H100 GPU hours.\n5. 05\n\n   Vendor policy on using model outputs for training remains a live question.OpenAI's Usage Policies (effective October 2025) do not explicitly prohibit using GPT outputs to train other AI models in general — but using outputs to build a direct OpenAI competitor violates ToS. Verify current terms before any training run.\n\n## 01 — ContextWhy synthetic data, why *now*.\n\nThree pressures have converged to make synthetic data generation a mainstream consideration in 2026. First, frontier models have made high-quality generation cheap: GPT-3.5-level outputs that would have been expensive to produce in 2022 are now commodity compute. Second, real data scarcity has become a genuine constraint — the best instruction-following datasets require expensive human annotation, and the most useful domain-specific corpora are often proprietary, legally encumbered, or simply too small to train on. Third, the privacy and compliance landscape has become less forgiving: GDPR enforcement of Article 4's definition of personal data extends to any dataset where re-identification is plausible, pushing practitioners toward privacy-substitution alternatives that synthetic data can potentially satisfy.\n\nThe “textbook quality” framing that Microsoft used in the Phi-1 paper — generating synthetic content that is educationally coherent, diverse, and didactically structured — represents the clearest public statement of what makes synthetic data work: not volume, but curation discipline. The same principle applies across all four use cases in this guide. Volume without curation amplifies failure modes; curation at modest scale can match or exceed uncurated real data at large scale.\n\nThe foundational finding\n\nShumailov et al. in*Nature* (July 2024) demonstrated that model collapse is universal across generative model families — VAEs, Gaussian Mixture Models, and LLMs all exhibit it, making it a fundamental property of iterative generative training. The key quote: **“indiscriminate use of model-generated content in training causes irreversible defects in the resulting models.”** The operative word is “indiscriminate.”\n\n## 02 — Model CollapseWhat model collapse actually *is*.\n\nModel collapse is a degenerative process in which successive generations of models trained on prior generations' outputs progressively lose the tails of the original data distribution, eventually converging toward a near-delta-function output — the model becomes less and less able to produce diverse, low-probability but valid outputs. The phenomenon was formally characterized in Nature (Shumailov et al., July 2024, DOI:10.1038/s41586-024-07566-y), a peer-reviewed study independent of any AI vendor.\n\nThe paper identifies three compounding error types behind the collapse: **statistical approximation error** (finite training samples), **functional expressivity error** (limited model capacity to represent the full distribution), and **functional approximation error** (biases introduced by the training procedure). All three errors compound across training generations, meaning early-generation models that seem fine produce second and third-generation models that are noticeably degraded.\n\nThe practical signal in OPT-125m experiments: five-epoch training with no real data retained resulted in perplexity increases of 20–28 points. The collapse is not gradual degradation that benchmarks catch early — it can appear mild for several generations and then accelerate. This is why practitioners who “tested it on one round of fine-tuning and it seemed fine” may be building a delayed failure.\n\n#### Model collapse risk by training regime\n\nSources: Shumailov et al. Nature 2024; Gerstgrasser et al. arXiv:2404.01413\n\nFully replace real data with syntheticNo real data retained — the replacement regime\n\nHigh\n\nReplace real data, retain 10% realOPT-125m experiment with 10% retention\n\nMedium\n\nAccumulate synthetic alongside real (additive)Gerstgrasser et al. — bounded error proof\n\nLow\n\nDeduped + quality-filtered synthetic + realCosmopedia / Phi-3 production regime\n\nVery low\n\nThe collapse risk gradient above is not arbitrary. The Gerstgrasser et al. paper (arXiv:2404.01413, April 2024) proved analytically that test error has a*finite upper bound independent of the number of training iterations",
+      "score": 0.9878996
+    },
+    {
+      "id": "S7",
+      "title": "The Danger of AI Model Collapse",
+      "url": "https://www.thedigitalspeaker.com/danger-of-ai-model-collapse-llms-trained-synthetic-data",
+      "content": "[Skip to content](#main-content)\n\n\n\n\n# The Danger of AI Model Collapse: When LLMs are Trained on Synthetic Data\n\n![The Danger of AI Model Collapse: When LLMs are Trained on Synthetic Data](https://storage.ghost.io/c/af/cc/afcca743-e1e6-4752-bf81-782fb033f39c/content/images/size/w800/2023/06/Danger-of-AI-Model-Collapse-Futurist-Speaker.jpg)\n\n[Dr Mark van Rijmenam, CSP](/author/mark-van-rijmenam/)\n\n👋 Hi, I am Mark. I am a strategic futurist and innovation keynote speaker. I advise governments and enterprises on emerging technologies such as AI or the metaverse. My subscribers receive [a free daily newsletter](https://www.thedigitalspeaker.com/newsletter-archive/) on cutting-edge technology.\n\n## The Danger of AI Model Collapse: When LLMs are Trained on Synthetic Data\n\nAs automation and [Artificial Intelligence](https://www.thedigitalspeaker.com/ai-keynote-speaker/) (AI) technologies advance, there is a growing trend of using AI algorithms to generate written articles, blog posts, product descriptions, images, videos and other types of content. While AI-generated content can provide efficiency, scalability, and democratises creativity (I certainly like to come up with prompts to add some visual stimulation to my posts using Midjourney, although I am certainly not an artist), there is a risk of [**sacrificing quality and uniqueness**](https://www.techtarget.com/whatis/feature/Pros-and-cons-of-AI-generated-content?ref=thedigitalspeaker.com).\n\nIf organisations solely rely on AI-generated content without human oversight and editing, they may end up with a vast amount of low-quality content that lacks originality and fails to engage readers. Moreover, an overreliance on AI-generated content can also lead to a lack of diversity and [creativity](https://www.thedigitalspeaker.com/ai-creativity-speaker/) in the content produced. Let me explain why.\n\nAI algorithms operate based on patterns and existing data, which means they may replicate common structures and phrases, resulting in a homogenised output. Consequently, readers may encounter a flood of content that appears generic, repetitive and lacks the unique voice and perspective that human creators bring. More importantly, these biases will be amplified if this data is used to train the next round of [machine learning](https://www.thedigitalspeaker.com/machine-learning-speaker/) models.\n\nThis is the topic of this week's article, as I will explore the ethical implications, bias reinforcement, and unforeseen consequences that may arise when [AI](https://www.thedigitalspeaker.com/ai-trends-speaker/) models are trained on their own content. By shedding light on the ethical challenges and unintended outcomes of this feedback loop, I hope to ignite a vital discussion that guides us toward the responsible development and deployment of AI.\n\n## The Role of Synthetic Data in AI Model Training\n\nAI models are typically built using machine learning techniques, where they are trained on labelled datasets to learn from examples and generalise their knowledge to new data. The training process involves feeding the AI model labelled data, allowing it to identify patterns and relationships between input data and corresponding outputs, also known as supervised learning.\n\nThrough an iterative process known as \"[**training epochs**](https://medium.com/data-science-365/all-you-need-to-know-about-batch-size-epochs-and-training-steps-in-a-neural-network-f592e12cdb0a?ref=thedigitalspeaker.com),\" the model adjusts its internal parameters to minimise errors and improve performance. Training data is typically sourced from external datasets and carefully curated and labelled by human experts to guarantee accuracy and reliability. However, data scarcity is increasingly becoming a challenge, where obtaining a large and diverse labelled dataset is difficult, and researchers turn to [**synthetic data**](https://www.thedigitalspeaker.com/what-is-synthetic-media-ultimate-guide/) to overcome this problem.\n\n### Benefits of Synthetic Data\n\nSynthetic data addresses this by generating ample labelled data, enhancing the training of AI models. Researchers deliberately use synthetic data when they need to generate artificial data that mimics the characteristics of real data. This approach is [**beneficial in several scenarios**](https://news.mit.edu/2022/synthetic-data-ai-improvements-1103?ref=thedigitalspeaker.com) and offers several benefits\n\nSynthetic data is cost-effective, as generating synthetic data can be automated, reducing the need for extensive data collection and labelling efforts.\n\n1. Synthetic data can be used to protect sensitive or private information. Generating artificial data that closely resembles the original data is helpful to researchers so they can conduct experiments and share findings without compromising [privacy](https://www.thedigitalspeaker.com/data-privacy-speaker/).\n\n2. Synthetic data enables the creation of highly diverse datasets, covering a broader range of scenarios than the original data, leading to improved generalisation and performance of AI models.\n\n3. Synthetic data enables data augmentation, where synthetic data can supplement real data, exposing models to a wider range of scenarios and improving their ability to generalise.\n\n4. Synthetic data allows for controlled experiments, enabling researchers to manipulate aspects of the data generation process and gain insights into model behaviour and performance.\n\n### Challenges of Synthetic Data\n\nHowever, [**synthetic data introduces challenges**](https://mitsloan.mit.edu/ideas-made-to-matter/what-synthetic-data-and-how-can-it-help-you-competitively?ref=thedigitalspeaker.com#%3A~%3Atext%3DSynthetic%20data%20eliminates%20the%20need%2Cpace%20they%27re%20used%20to) as it perpetuates biased patterns and distributions, resulting in biased AI models even if biases were not explicitly programmed, leading to discriminatory outcomes and reinforcing societal inequalities. The lack of transparency and accountability in synthetic data generation also poses challenges, as understanding how biases and limitations are encoded in the data becomes difficult, hindering efforts to address and rectify biases.\n\nIt is important to understand that there is a significant distinction between deliberately using synthetic data and inadvertently utilising it, as exemplified by large language models (LLMs) trained on internet data. Deliberate use of synthetic data involves purposefully generating artificial data that resembles real data, serving specific research or application needs. This approach can be highly valuable, especially when real data is scarce, or privacy concerns arise. However, the unintentional use of synthetic data, such as when LLMs are trained on internet data that increasingly consists of AI-generated content, is a different problem and can make future LLMs increasingly useless if not taken care of this problem.\n\n## The Problematic Feedback Loop\n\nA problematic feedback loop can emerge when AI models are trained on their own content. This loop occurs when the model generates, analyses, and learns from its own data, perpetuating biases and limitations. Without outside assistance, the model's outputs start to reflect its inherent biases more and more, which could result in unfair treatment or skewed results. Recognising and addressing the consequences of this loop is vital for responsible AI development, especially when it comes to LLMs. Researchers are exploring methods like adversarial training and diverse data selection to break the loop and mitigate biases.\n\nAn insightful research paper from May 2023 titled [**\"The Curse of Recursion: Training on Generated Data Makes Models Forget\"**](https://arxiv.org/pdf/2305.17493v2.pdf?ref=thedigitalspeaker.com) raised this concern regarding training AI models on their own content. The study explores the phenomenon of models forgetting crucial information as they rely more heavily on self-generated data.\n\nResearchers from different univ",
+      "score": 0.9667888
+    },
+    {
+      "id": "S8",
+      "title": "Examining synthetic data: The promise, risks and realities | IBM",
+      "url": "https://www.ibm.com/think/insights/ai-synthetic-data",
+      "content": "# Examining synthetic data: The promise, risks and realities\n\n![Female hacker looking at computer while working in startup company](https://assets.ibm.com/is/image/ibm/ma90140?ts=1787568882449&dpr=off \"Focused developer working at modern office\")\n\nAs artificial intelligence reshapes industries worldwide, developers are grappling with an unexpected challenge: a shortage of high-quality, real-world data to train their increasingly sophisticated models. Now, a potential solution is emerging from an unlikely source—data that doesn’t exist in reality at all.\n\n[Synthetic data](https://www.ibm.com/think/topics/synthetic-data), artificially generated information designed to mimic real-world scenarios, is rapidly gaining traction in AI development. It promises to overcome data bottlenecks, address privacy concerns, and reduce costs. However, as the field evolves, questions about its limitations and real-world impact are coming to the fore.\n\n## The latest AI trends, brought to you by experts\n\nGet curated insights on the most important—and intriguing—AI news. Subscribe to our weekly Think newsletter. See the [IBM Privacy Statement](https://www.ibm.com/privacy).\n\n## Thank you! You are subscribed.\n\n## The rise of synthetic data\n\nTech giants are betting big on [synthetic data](https://research.ibm.com/blog/what-is-synthetic-data). NVIDIA recently announced [Nemotron-4 340B](https://research.nvidia.com/publication/2024-06_nemotron-4-340b), a family of open models designed to generate synthetic data for training [large language models](https://www.ibm.com/think/topics/large-language-models) (LLMs) across various industries. This move addresses a critical challenge in AI development: the prohibitively high cost and difficulty of accessing robust datasets.\n\n“High-quality training data plays a critical role in the performance, accuracy and quality of responses from a custom LLM,” NVIDIA [wrote](https://blogs.nvidia.com/blog/nemotron-4-synthetic-data-generation-llm-training/) on its blog. The Nemotron-4 340B family includes base, instruct and reward models that form a pipeline for generating and refining synthetic data, potentially accelerating the development of powerful, domain-specific LLMs.\n\nIBM researcher [Akash Srivastava](https://mitibmwatsonailab.mit.edu/people/akash-srivastava/) explains that in the context of large language models, synthetic data is often generated by one AI model to train or customize another. “Researchers and developers in the industry are using these models to generate data for particular target tasks,” Srivastava notes.\n\nInvestigators from MIT-IBM Watson AI Lab and IBM Research recently [introduced](https://arxiv.org/pdf/2403.01081) a new approach to improving LLMs using synthetic data. The method, called LAB (Large-scale Alignment for chatBots), aims to reduce reliance on human annotations and proprietary AI models like GPT-4.\n\nLAB employs a taxonomy-guided synthetic data generation process and a multi-phase training framework. The researchers report, “LAB-trained models can achieve competitive performance across several benchmarks compared to models trained with traditional human-annotated or GPT-4 generated synthetic data.”\n\nTo demonstrate LAB’s effectiveness, the team created two models, LABRADORITE-13B and MERLINITE-7B, which reportedly outperformed other fine-tuned versions of the same base models on several key metrics. The researchers used the open-source Mixtral model to generate synthetic training data, potentially offering a more cost-effective approach to enhancing LLMs.\n\nThe quality of synthetic data is crucial for its effectiveness. Raul Salles de Padua, Director of Engineering, AI and Quantum at [Multiverse Computing](https://multiversecomputing.com/), explains, “The fidelity of synthetic data is calculated by comparing it to real-world data through statistical and analytical tests. This includes an assessment of how well the synthetic data preserves key statistical properties, such as means, variances and correlations between variables.”\n\nDespite its promise, synthetic data isn’t without challenges. De Padua points out, “The challenge with synthetic data is in creating data that is both useful and privacy-preserving. Without putting these safeguards in place, synthetic data could reveal personal details, potentially leading to identity theft, discrimination or other privacy violations.”\n\nRecent research has uncovered potential pitfalls in relying too heavily on synthetic data. A [recent study](https://www.nature.com/articles/s41586-024-07566-y) published in *Nature* revealed a phenomenon called “model collapse.” When AI models are repeatedly trained on AI-generated text, their outputs can become increasingly nonsensical, raising concerns about the long-term viability of using synthetic data, especially as AI-generated content becomes more prevalent online.\n\nEthical considerations also loom large. De Padua warns of the “risk of the synthetic data not accurately representing the diversity of the real-world population, producing potential bias in models that fail to perform equitably across different demographic groups.”\n\nMixture of Experts | 28 August, episode 122\n\n### Your weekly news podcast for AI enthusiasts\n\nHear from industry experts on the latest in AI news, listen to the Mixture of Experts podcast. New episodes on Fridays at 6 AM EST.\n\n[Go to episodes](https://www.ibm.com/think/podcasts/mixture-of-experts)\n\n## The future of AI training\n\nIn critical applications like healthcare and autonomous vehicles, synthetic data can play a vital role. De Padua notes, “In healthcare, synthetic data can supplement real datasets, providing a wider range of scenarios for training models, leading to better diagnostic and predictive capabilities.” For autonomous vehicles, he adds, “By using synthetic data for augmentation, models can be exposed to a wider range of conditions and edge cases that might not be present in the original dataset.”\n\nLooking to the future, de Padua believes synthetic data will likely supplement rather than replace real-world data in AI training. “The accuracy and representativeness of synthetic data are crucial. Technological advances in data generation algorithms will play a significant role in increasing the reliability of synthetic data,” he explains.\n\nAs AI increasingly integrates into our daily lives, from healthcare diagnostics to self-driving cars, the balance between synthetic and real-world data in AI training will be crucial. The challenge for AI developers moving forward will be to harness the benefits of synthetic data while mitigating its risks.\n\n“We’re at a critical juncture in AI development,” says Srivastava. “Getting the balance right between synthetic and real-world data will determine the future of AI—its capabilities, limitations and, ultimately, its impact on society.”\n\nAuthor\n\n[Sascha Brodsky](https://www.ibm.com/think/author/sascha-brodsky) \n\nStaff Writer\n\nIBM\n\nLink copied\n\n[eBook   Data science and MLOps for data leaders \n\nJoin forces with other leaders to drive the three essential pillars of MLOps and trustworthy AI: trust in data, trust in models and trust in processes.\n\n Read the ebook](https://www.ibm.com/forms/mkt-51585)\n\n## Resources\n\n[Training   Level up your ML expertise \n\nLearn fundamental concepts and build your skills with hands-on labs, courses, guided projects, trials and more.\n\n Explore ML courses](https://developer.ibm.com/technologies/machine-learning/courses/)\n\n[Ebook   Unlock the power of generative AI + ML \n\nLearn how to confidently incorporate generative AI and machine learning into your business.\n\n Read the ebook](https://www.ibm.com/forms/mkt-52356)\n\n[Techsplainers Podcast   Machine learning explained \n\nTechsplainers by IBM breaks down the essentials of machine learning, from key concepts to real‑world use cases. Clear, quick episodes help you learn the fundamentals fast.\n\n Listen now](https://www.ibm.com/think/podcasts/techsplainers#tabs-fw-44e285b2cc-item-2f80572",
+      "score": 0.9643886
+    },
+    {
+      "id": "S9",
+      "title": "AI model collapse: risks of synthetic data in generative AI | LGT",
+      "url": "https://www.lgt.com/global-en/insights/perspectives-and-society/poisoning-the-ai-well-336294",
+      "content": "[![LGT Private Banking](/resource/crblob/22142/4c7f7eb394a8e818307a0bf25eb4f763/logo-svg-data.svg)   ![LGT Private Banking](/resource/crblob/22142/4c7f7eb394a8e818307a0bf25eb4f763/logo-svg-data.svg)   ![LGT Private Banking](/resource/crblob/22138/967f29cc8ee0103846677559c7334cd4/logo-private-banking-svg-data.svg)](/global-en \"Logo - LGT Private Banking\")\n\n![LGT Private Banking](/resource/crblob/22142/4c7f7eb394a8e818307a0bf25eb4f763/logo-svg-data.svg) \n\n## **Change your language and LGT location here.**\n\n![LGT Private Banking](/resource/crblob/22142/4c7f7eb394a8e818307a0bf25eb4f763/logo-svg-data.svg) \n\nThe digital platform for private clients  [Login LGT SmartBanking](https://smartbanking.lgt.com/check-login/?lang=en)\n\nThe digital platform for financial intermediaries  [Login LGT SmartBanking Pro](https://smartbanking-pro.lgt.com/check-login/?lang=en)\n\nAnswers to frequently asked questions (FAQ)  [LGT SmartBanking Help](https://www.lgt.com/sb-en)\n\nAnswers to frequently asked questions (FAQ)  [LGT SmartBanking Pro Help](https://www.lgt.com/sbpro-en)\n\n![LGT Private Banking](/resource/crblob/22142/4c7f7eb394a8e818307a0bf25eb4f763/logo-svg-data.svg) \n\n* [Home](/global-en)\n* **About LGT**\n  + [Overview](/global-en/about-lgt)\n  + [Our owner](/global-en/about-lgt/our-owner)\n  + [Our company](/global-en/about-lgt/our-company)\n  + [Sustainability](/global-en/about-lgt/sustainability)\n  + [Our engagement](/global-en/about-lgt/our-engagement)\n  + [Media](/global-en/about-lgt/media)\n  + [LGT news](/global-en/about-lgt/lgt-news)\n  + [LGT worldwide](/global-en/about-lgt/lgt-worldwide)\n* **Private banking**\n  + [Overview](/global-en/private-banking)\n  + [Investment solutions](/global-en/private-banking/investment-solutions)\n  + [UHNWI services](/global-en/private-banking/uhnwi-services)\n* [Market view](/global-en/market-view)\n* [Insights](/global-en/insights)\n* **LGT career**\n  + [Overview](/global-en/career)\n  + [LGT as an employer](/global-en/career/lgt-employer)\n  + [Career opportunities](/global-en/career/career-opportunities)\n  + [Jobs](/global-en/career/jobs)\n\n* [LGT SmartBanking](/global-en/lgt-smartbanking)\n* [Publications](/global-en/publications)\n* [Jobs](/global-en/career/jobs)\n* [Media](/global-en/about-lgt/media)\n* [Contact](/global-en/contact-possibilities)\n* [LGT worldwide](/global-en/about-lgt/lgt-worldwide)\n* [Financial intermediaries](/global-en/financial-intermediaries)\n\nPerspectives and society \n\n# Poisoning the AI well: the real dangers of model collapse\n\nExperts are sounding the alarm about large language models increasingly being trained on synthetic or intentionally false data. This could have disastrous real-world consequences.\n\n* from  Steffan Heuer, guest author\n* Date\n* Reading time 5 minutes\n\n**Share this article**\n\n* [linkedin](http://www.linkedin.com/shareArticle?url=https%3A%2F%2Fwww.lgt.com%2Fglobal-en%2Finsights%2Fperspectives-and-society%2Fpoisoning-the-ai-well-336294&title=Poisoning%20the%20AI%20well%3A%20the%20real%20dangers%20of%20model%20collapse)\n* [facebook](https://facebook.com/sharer.php?u=https%3A%2F%2Fwww.lgt.com%2Fglobal-en%2Finsights%2Fperspectives-and-society%2Fpoisoning-the-ai-well-336294&t=Poisoning%20the%20AI%20well%3A%20the%20real%20dangers%20of%20model%20collapse)\n* [whatsapp](whatsapp://send?text=https%3A%2F%2Fwww.lgt.com%2Fglobal-en%2Finsights%2Fperspectives-and-society%2Fpoisoning-the-ai-well-336294)\n* [via email](/cdn-cgi/l/email-protection#06397573646c6365723b2333444a6f686d636b7660636e6a73686123334223343656696f7569686f6861233436726e63233436474f23343671636a6a233547233436726e632334367463676a2334366267686163747523343669602334366b6962636a23343665696a6a67767563206469627f3b6e72727675233547233440233440717171286a61722865696b233440616a6964676a2b63682334406f68756f616e727523344076637475766365726f7063752b6768622b7569656f63727f23344076696f7569686f68612b726e632b676f2b71636a6a2b353530343f32)\n\n![](/resource/image/336258/landscape_ratio8x5/1380/863/247fb3b4e025e86b39720fa98b7b7de7/73C729BDE27F604C550BEA8250622343/25-597-shark-tank-en.webp)  \n\nWhen AI increasingly relies on its own outputs, errors, biases and manipulations can reinforce themselves - with potentially far-reaching consequences. © Shutterstock/Na\\_Studio\n\n## Summary\n\n* Growing reliance on AI creates systemic risks: As AI is increasingly used to generate content and inform decisions, its weaknesses become structural rather than incidental.\n* Quality erosion through synthetic training data: When models are trained on AI-generated rather than human-created data, errors and biases compound over time - a dynamic described as \"model collapse\".\n* Additional risks from deliberate data manipulation: Even small amounts of intentionally false or biased data can significantly distort model outputs (\"data poisoning\").\n* Greater impact in critical domains: Errors are inevitable, but in areas such as healthcare and finance their consequences are more severe.\n\nThe symptoms of what's wrong with our growing reliance on AI systems to create words and images are all around us. Artificial \"photos\" start taking on a yellowish tint by [default](https://unyellowgpt.com/blog/fix-yellow-tint-chatgpt-sora-unyellowgpt \"New window to \"). Text generation engines like ChatGPT, Gemini, and Claude will generate what appear to be [fact-based answers](/global-en/insights/investment-strategies/investors-223258 \"Link opens document \") that contain completely fictitious sources, authors, books, or case law citations, often amplifying bogus or fringe [arguments](https://www.nytimes.com/2025/11/07/business/lawyers-ai-vigilantes.html \"New window to \"). Papers in renowned scientific journals are accompanied by erroneous charts or even patently [absurd illustrations](https://arstechnica.com/science/2024/02/scientists-aghast-at-bizarre-ai-rat-with-huge-genitals-in-peer-reviewed-article/ \"New window to \"), such as grossly oversized rat genitals.\n\n     ![](/resource/blob/336262/c9695b81012298dd5e59167838cd88b3/25-597-abweichungen-en-data.jpg)  \n\nThe issue is not immediately visible: only over multiple iterations does it become clear how deviations begin to solidify. © \"ON THE STABILITY OF ITERATIVE RETRAINING OF GENERATIVE MODELS ON THEIR OWN DATA\" ICLR 2024\n\n \n\nIt's one thing for these falsehoods to slip through human quality control and end up in print or in court. These errors, however, point to a larger problem that has a growing number of researchers very worried. AI models are not only \"hallucinating\", which is euphemistic industry jargon for making things up. They are also rapidly marching towards a chaotic state of affairs where AI systems run out of real, human-created data to train on, and instead feed on synthetic data that's already been generated by AI and is ripe with biases, falsehoods, and even deliberately poisoned data. As a result, users can no longer count on anything their preferred AI tool serves up.\n\n## When AI learns from itself\n\nJathan Sadowski, a senior lecturer in the Emerging Technologies Research Lab at Monash University in Melbourne, has come up with arguably the best name for this potentially fatal weakness in AI tools that have taken the world by storm. He calls it \"Habsburg AI\", a cynical nod to the once-powerful dynasty whose frequent intermarriages led to severe genetic disorders.\n\n     ![Jathan Sadowski, Senior Lecturer and ARC Future Fellow, Emerging Technologies Research Lab, Monash University, Melbourne, Australia](/resource/image/336250/portrait_ratio1x1/260/260/a7dcf5d2e6253c723dc2e45131745fb6/EEC2719E8E79610B1AAD58BD98FBEE6C/25-597-jathansadowski-en.webp)  \n\nJathan Sadowski, Senior Lecturer and ARC Future Fellow, Emerging Technologies Research Lab, Monash University, Melbourne, Australia © Victor Tikhanov\n\n \n\n\"Habsburg AI refers to the creation of AI models using incestuous methods where one model is built and trained using the data outputs of other AI models, rather than data created by humans,\" Sadowski explains in an interview. \"These inbred systems have a high",
+      "score": 0.96028674
+    },
+    {
+      "id": "S10",
+      "title": "Synthetic data, real harm | Ada Lovelace Institute",
+      "url": "https://www.adalovelaceinstitute.org/blog/synthetic-data-real-harm",
+      "content": "[Skip to content](#content \"Skip to content\") \n\n\n[Ada Lovelace Institute](/ \"Go to the homepage\")\n\n\n\nBlog\n\n# Synthetic data, real harm\n\nWhy is synthetic data used and what challenges does it raise for AI assurance mechanisms?\n\n[Dani Shanley](https://www.adalovelaceinstitute.org/person/dani-shanley/ \"Go to the profile of Dani Shanley\")\n\n18 September 2025\n\nReading time:  12 minutes\n\nKeywords\n:   [Guest contribution](/search/?select-keywords%5B0%5D=guest-contribution \"Guest contribution\") [Commentary](/search/?select-keywords%5B0%5D=commentary \"Commentary\") [AI bias](/search/?select-keywords%5B0%5D=ai-bias \"AI bias\") [AI and data ethics](/search/?select-keywords%5B0%5D=ai-and-data-ethics \"AI and data ethics\") [AI policy](/search/?select-keywords%5B0%5D=ai-policy \"AI policy\")\n\nShare this page\n\nWhether it’s the [viral trend ‘100x ChatGPT’](https://www.techradar.com/computing/artificial-intelligence/viral-chatgpt-trend-gone-wrong-the-rock-is-turned-into-horrible-abstract-art-after-reddit-user-recreates-image-101-times) or [John Oliver’s recent special on ‘AI slop’](https://www.youtube.com/watch?v=TWpg1RmzAbc), discussions about AI feedback loops are difficult to ignore. When AI-generated content is fed back into an AI model, it doesn’t take long before we end up drowning in nonsense – say, an abstracted image of Dwayne ‘the Rock’ Johnson, which becomes so basic and devoid of character that it would have the Cubists spinning in their graves.\n\n[‘Habsburg AI’](https://x.com/jathansadowski/status/1625245803211272194?lang=en) – Jathan Sadowski’s neologism to compare AI systems trained on other AIs’ outputs to ‘inbred mutant[s]’ – and MAD [AI models](https://news.rice.edu/news/2024/breaking-mad-generative-ai-could-break-internet) –  where MAD stands for ‘model autophagy disorder’, an AI mad-cow disease of sorts affecting models feeding off their own work – are issues of synthetic *content*. Synthetic *data* is a slightly different thing, but its use leads to comparable issues.\n\nInstead of producing output that people can view, synthetic data is [‘generated using a purpose-built mathematical model or algorithm, with the aim of solving a (set of) data science tasks.](https://arxiv.org/pdf/2205.03257)’ Programmers deploy it to train AI models mostly to address three sticky problems within machine learning: data scarcity, data fairness and data privacy.\n\nSynthetic data promises to generate unlimited training examples to fill gaps in underrepresented scenarios or edge cases, to produce more representative datasets that correct for historical biases, and to preserve the statistical properties of original datasets while stripping away personally identifiable information.\n\nBesides AI developers, political economists mobilise the notion of synthetic data in conversations around democratising AI production. Here there are clear pros and cons to consider. On the one hand, using synthetic data might reduce dependence on [tech giants’ massive datasets](https://www.somo.nl/prevent-big-techs-takeover-of-genai/). On the other hand, it could further insulate data-making processes from public scrutiny and obfuscate the design choices embedded in data generation systems.\n\nThe problem is – and this is regardless of the discursive domain – just as generative AI models can produce plausible (but false) text or images, synthetic data generators may create datasets that appear statistically valid, while introducing subtle, hard-to-catch distortions and artificial patterns, or missing crucial real-world complexities.\n\n[Data pollution](https://doi.org/10.24908/ss.v22i4.18327) becomes insidious when synthetic datasets contaminate training pipelines, creating feedback loops with models learning from increasingly artificial representations of reality. [Model collaps](https://www.forbes.com/sites/bernardmarr/2024/08/19/why-ai-models-are-collapsing-and-what-it-means-for-the-future-of-technology/)e (when models trained on data generated by other AI models degrade in quality and diversity, until they produce distorted or nonsensical outputs) provides a cautionary tale for how synthetic data contamination could undermine the reliability of AI systems across entire domains. Put another way, synthetic data pollution and contamination share a striking family resemblance to AI hallucinations and slop.\n\nAs such, synthetic data demands specialised approaches to oversight and quality control that current AI governance and assurance frameworks aren’t fully equipped to handle.\n\nIf so-called ‘real’ data is never objective — but rather the product of subjective decisions about what to measure, when to collect, whom to include and how to categorise – synthetic data, voided of any concrete referents, makes this subjectivity more concentrated and less visible. This places unprecedented power in the hands of developers, who can shape reality through data design while potentially obscuring the constructed nature of these representations behind claims of algorithmic objectivity.\n\nData (synthetic or not) creates a (synthetic) representation of reality, introducing what researchers call a ‘simulation-to-reality gap’ — the inevitable disconnect between how datasets behave and how the real world functions – which presents opportunities and risks.\n\nAs the importance of synthetic data in AI development grows, we should examine not just how it is being used, but also when and why, and move beyond traditional auditing approaches. It is critical to develop comprehensive assurance systems that can address synthetic data’s distinctive challenges and prevent its promise from becoming a pathway to new forms of harm.\n\n## The promises and challenges of synthetic data\n\n### Data scarcity\n\nGiven the quantities of labelled data needed to develop effective AI, data scarcity remains a fundamental bottleneck. This is evident in domains like [healthcare](https://aspe.hhs.gov/synthetic-health-data-generation-engine-accelerate-patient-centered-outcomes-research) and [finance](https://dl.acm.org/doi/abs/10.1145/3383455.3422554), where collecting sufficient real-world examples can be difficult, risky, labour intensive or just too expensive.\n\nSynthetic data appears to offer an elegant solution: augmenting sparse datasets with artificially generated examples, which preserve statistical properties while enabling unlimited scaling, at a low cost.\n\nSo far, so good. However, these promises are predicated upon problematic assumptions. First, they imply that synthetic data can accurately capture the distribution of real data. If a hospital’s patient records show that 60 per cent of heart-attack patients are over 65 and mostly male, synthetic data should reproduce these same patterns. However, creating data that maintains real-world, complex relationships between age, gender, medical history and outcomes is extremely difficult.\n\nThe second assumption is that generated samples will include the same edge cases and anomalies that models will encounter in deployment. A fraud detection system trained on synthetic credit card transactions that captures normal spending patterns but misses unusual scenarios, like someone buying petrol at 3 AM while abroad, is useless at best. Even if they are rare in datasets, edge cases are exactly what a system needs to recognise.\n\nFinally, proponents of synthetic data use assume that its quality can be validated without extensive real-world testing. But to check if synthetic data is good enough, you need real data to compare it against. You can’t verify a translation without knowing the original language. However, if you already have enough real data to validate the synthetic version, why use synthetic data at all?\n\n### Data fairness\n\nWhen data is scarce, certain groups tend to be at best underrepresented and at worst absent from training datasets. And in AI data processing, ‘garbage in, garbage out’ applies to social equity and not just data quality.\n\nHerein lies another opportunity: using synthetic data to create f",
+      "score": 0.9434519
+    },
+    {
+      "id": "S11",
+      "title": "Preventing Model Collapse with Synthetic Data",
+      "url": "https://apxml.com/courses/synthetic-data-llm-pretrain-finetune/chapter-6-evaluating-synthetic-data-challenges/countering-model-performance-degradation",
+      "content": "![ApX logo](/icons/apx-logo-smaller.webp)![ApX logo](/icons/apx-logo-smaller.webp)\n\nAPX AI\n\nI can see the page you're looking at. Ask me anything!\n\n![ApX logo](/icons/apx-logo-smaller.webp)![ApX logo](/icons/apx-logo-smaller.webp)\n\n[All Courses](/courses)\n\n[Synthetic Data for LLM Pretraining and Fine-Tuning](/courses/synthetic-data-llm-pretrain-finetune)[Chapter 1: Understanding Synthetic Data in the LLM Context](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm)[Defining Synthetic Data](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/defining-synthetic-data)[The Data Imperative for Modern LLMs](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/data-imperative-modern-llms)[Comparing Synthetic and Authentic Data Sources](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/synthetic-vs-authentic-data)[A Survey of Synthetic Data Generation Methods](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/survey-synthetic-data-generation)[Synthetic Data's Role in Pretraining and Fine-Tuning](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/synthetic-data-pretraining-finetuning)[Attributes of High-Utility Synthetic Data](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/attributes-high-utility-synthetic-data)[Initial Setup for Synthetic Data Projects](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/initial-setup-synthetic-data-projects)[Quiz for Chapter 1](/courses/synthetic-data-llm-pretrain-finetune/chapter-1-foundations-synthetic-data-llm/quiz)[Chapter 2: Core Techniques for Synthetic Text Generation](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques)[Algorithmic and Rule-Based Text Creation](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/algorithmic-rule-based-text-creation)[Leveraging Back-Translation for Data Expansion](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/back-translation-data-expansion)[Employing Paraphrasing Models to Diversify Text](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/paraphrasing-models-diversify-text)[Using LLMs for Synthetic Sample Generation](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/llms-synthetic-sample-generation)[Guiding Generation with Effective Prompt Design](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/effective-prompt-design-generation)[Methods for Data Masking and Perturbation](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/data-masking-perturbation-methods)[Hands-on Practical: Text Generation with an LLM API](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/hands-on-text-generation-llm-api)[Quiz for Chapter 2](/courses/synthetic-data-llm-pretrain-finetune/chapter-2-core-synthetic-text-generation-techniques/quiz)[Chapter 3: Applying Synthetic Data to LLM Pretraining](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application)[Data Quantity and Variety in Foundational Model Training](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/data-quantity-variety-pretraining)[Constructing Large-Scale Synthetic Corpora for Pretraining](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/constructing-synthetic-pretraining-corpora)[Blending Synthetic Text with Data](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/blending-synthetic-real-data)[Targeted Pretraining using Synthetically Generated Content](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/targeted-pretraining-synthetic-content)[Generating Instruction-Style Data for Pretraining Phases](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/instruction-data-pretraining)[Measuring Synthetic Data's Influence on Pretraining Outcomes](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/measuring-synthetic-data-influence-pretraining)[Hands-on Practical: Assembling a Synthetic Pretraining Dataset Snippet](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/hands-on-synthetic-pretraining-dataset)[Quiz for Chapter 3](/courses/synthetic-data-llm-pretrain-finetune/chapter-3-synthetic-data-llm-pretraining-application/quiz)[Chapter 4: Enhancing LLM Fine-Tuning with Synthetic Data](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement)[Instruction Following Fine-Tuning using Generated Data](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/instruction-fine-tuning-generated-data)[Crafting Effective Instruction-Response Pairs Synthetically](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/crafting-instruction-response-pairs)[Methods for Building Diverse Fine-Tuning Datasets](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/building-diverse-fine-tuning-datasets)[Generating Data for Few-Shot and Zero-Shot Learning Scenarios](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/data-few-shot-zero-shot-learning)[Structuring Data for Various Fine-Tuning Frameworks](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/structuring-data-fine-tuning-frameworks)[Shaping Model Behavior (Style, Persona) via Synthetic Inputs](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/shaping-model-behavior-synthetic-inputs)[Hands-on Practical: Creating a Synthetic Dataset for Task-Specific Fine-Tuning](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/hands-on-synthetic-dataset-task-fine-tuning)[Quiz for Chapter 4](/courses/synthetic-data-llm-pretrain-finetune/chapter-4-llm-fine-tuning-synthetic-data-enhancement/quiz)[Chapter 5: Advanced Approaches and Data Refinement](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement)[Sophisticated Data Augmentation in Embedding Representations](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/data-augmentation-embedding-representations)[Structured Learning Paths with Synthetic Information](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/structured-learning-paths-synthetic-info)[Generating Preference Data for Alignment Techniques](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/generating-preference-data-alignment)[Building Pipelines for Data Filtering and Cleansing](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/pipelines-data-filtering-cleansing)[Automated Quality Assurance for Synthetic Datasets](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/automated-quality-assurance-synthetic-datasets)[Iterative Refinement of Synthetic Data Generation](/courses/synthetic-data-llm-pretrain-finetune/chapter-5-advanced-synthetic-data-refinement/iterative-refinement-synthetic-data-generation)[Hands-on Practical: Implementing a Data Filtering Script](/courses/synthetic-data-llm-pretrain-finetune/",
+      "score": 0.9814889
+    },
+    {
+      "id": "S12",
+      "title": "Medium",
+      "url": "https://pub.towardsai.net/why-2026-is-the-year-synthetic-data-becomes-non-negotiable-b5a2a84d1b1b",
+      "content": "Sign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fpub.towardsai.net%2Fwhy-2026-is-the-year-synthetic-data-becomes-non-negotiable-b5a2a84d1b1b&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fpub.towardsai.net%2Fwhy-2026-is-the-year-synthetic-data-becomes-non-negotiable-b5a2a84d1b1b&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n\n## Towards AI\n\n![Towards AI](https://miro.medium.com/v2/resize:fill:76:76/1*JyIThO-cLjlChQLb6kSlVQ.png)\n\nWe train AI Engineers. We deploy Enterprise AI. Join 100K+ AI practitioners at Towards AI Academy or reach out for help making your company AI native. [towardsai.com](http://towardsai.com)\n\n![]()\n\n# **Why 2026 is the Year Synthetic Data Becomes Non-Negotiable**\n\n## *The internet is drying up. Model collapse is real. Privacy law is tightening. Here is what the data tells us and what it means for every AI team building right now.*\n\n![Muhammed Rasin](https://miro.medium.com/v2/resize:fill:64:64/1*GxbraYEDkcCXb3uCnONSfQ.png)\n\n--\n\nListen\n\nShare\n\nThere is a conversation happening in every serious AI lab right now, and it is not about model architecture or compute budgets. It is about data. Specifically, the growing and uncomfortable reality that the supply of high-quality, legally usable, human-generated training data is running out faster than most people publicly admit. This is not a speculative concern. It is a convergence of three simultaneous pressures: the physical exhaustion of internet-scale corpora, the emergence of model collapse as a peer-reviewed phenomenon, and the tightening of global privacy regulation that makes using real data increasingly legally hazardous. Together, these three forces are making synthetic data not a nice-to-have, but an infrastructure requirement.\n\nThis article goes deep on each. I will cite the research, name the numbers, and explain what it means for practitioners and why the tooling gap that still exists in this space is one of the most significant unsolved problems in applied AI today.\n\n### **Part I: The Data Wall, how we got here and when it hits**\n\n**The scaling law that built modern AI is running out of fuel.**\n\nTo understand why 2026 matters, you have to understand the single most important empirical finding in the history of deep learning: the scaling hypothesis. More data, more compute, bigger model: better results. Almost every major capability leap in AI since GPT-3 in 2020 has been achieved not through algorithmic innovation but through sheer data volume. GPT-3’s 175 billion parameters trained on a massive web corpus was a watershed not because the architecture was revolutionary, but because of its scale.\n\nThe problem is that this rule, more data equals better models, requires an ever-expanding supply of data. And that supply has a ceiling. **Epoch AI**, one of the most rigorous AI research organizations tracking training inputs, published a landmark analysis projecting that high-quality language data on the internet will be **fully exhausted before 2026**. Low-quality data extends the runway to 2030–2050, but quality matters for frontier model training. The implication: the era of simply crawling more web pages to improve models is ending.\n\n***Frontier models will be overtrained by 5x starting from 2025. If current trends continue, exhausting the stock of data is unavoidable.***\n\n***--* Epoch AI: Will We Run Out of ML Data? (2024)**\n\n**The publishers are locking the doors**\n\n**What makes this worse is that the remaining data is being actively withheld. The MIT Data Provenance Initiative documented a dramatic contraction in content availability as publishers began understanding and resisting how their work was being used without compensation. Reddit, Stack Overflow, and X (formerly Twitter) now charge licensing fees. The New York Times sued OpenAI. Getty Images sued Stability AI. The legal landscape for training on scraped internet data has shifted from permissive ambiguity to active litigation. Cloudflare’s data from 2025 illustrates the mechanics precisely: AI training crawlers surged 32% year-over-year in April 2025, but this growth slowed sharply to just 4% by July, precisely as more publishers implemented bot-blocking and paywalls. The crawl-to-refer ratio for Anthropic’s crawler reached 38,000 pages crawled for every single visitor referred back, a number that captures the economic imbalance that publishers are now actively pushing back against.**\n\n***The AI gold rush for chatbot training data could run out of human-written text as early as 2026.***\n\n**— PBS NewsHour, June 2024**\n\n***Stanford University’s AI Index 2025 Report sounds a clear alarm: the internet’s treasure trove of training data is rapidly depleted. MIT’s Data Provenance Initiative documented a dramatic drop in content made available as publishers increasingly restrict AI companies.***\n\n***-*Medium: Digital Drought (May 2025)**\n\n**What this means for you, practically**\n\nIf you are fine-tuning a domain-specific model for medical diagnosis, financial risk scoring, legal document analysis, customer service automation; you are not drawing from the general web corpus anyway. You need domain-specific, task-specific, high-quality data. And that data has never been publicly available in sufficient volume, regardless of the general corpus situation. The data wall hits domain AI teams immediately and directly. The general corpus running out is a long-term problem for frontier labs. The domain data problem is a right-now problem for every applied AI team.\n\n*The companies that cannot generate their own training data will be dependent on those that can. In domain-specific AI, that dependency is already the single biggest barrier to shipping.*\n\n![]()\n\n### **Part II: Model Collapse, the hidden risk inside Synthetic Data itself**\n\nHere is where the story gets more complicated and more honest. Synthetic data is not a clean solution to the data wall. Poorly designed synthetic data generates a new problem that is arguably worse: model collapse. Any serious practitioner building with synthetic data in 2026 needs to understand this phenomenon at a mechanistic level.\n\nIn July 2024, Ilia Shumailov and colleagues at Oxford, Cambridge, and other institutions published a peer-reviewed paper in Nature that formally described and named ***model collapse***. The finding: when generative models are trained on content produced by earlier models, without grounding to real-world distributions, the model’s output degrades across successive generations. Rare events vanish first. Outputs drift toward bland central tendencies. Eventually the model loses the variability that makes human-generated data rich. This is not a subtle theoretical concern. Shumailov’s team demonstrated it empirically across variational autoencoders, diffusion models, and language models. The pattern was consistent: early collapse removes information from the tails of the distribution (the rare, edge-case events), and late collapse produces outputs that bear little resemblance to the original data distribution.\n\n***AI model collapse is a degenerative feedback loop that arises when you train generative models on content produced by earlier models. Over successive generations, the system’s view of reality narrows: rare details vanish, outputs become repetitive and unoriginal, and the model loses the variability that makes human-generated content rich. -* WinnSolutions: AI Model Collapse Risk 2025**\n\nModel collapse is not a theoretical future risk. It is a current and accelerating reality. By April 2025, 74.2% of newly created web pages contained AI-generated text. Among Google’s top-20 search results, AI-written pages climbed from 11.11% to 19.56% between May 2024 and July 2025, ",
+      "score": 0.9622497
+    },
+    {
+      "id": "S13",
+      "title": "Escaping Model Collapse via Synthetic Data Verification: Near-term Improvements and Long-term Convergence",
+      "url": "https://arxiv.org/html/2510.16657v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Escaping Model Collapse via Synthetic Data Verification: Near-term Improvements and Long-term ConvergenceThanks: This project is supported by the AI2050 program at Schmidt Sciences (Grant G-24-66104) and Army Research Office Award W911NF-23-1-0030. We also thank Cong Ma from UChicago, Hongning Wang and Bo Li from Tsinghua, Pinyan Lu and Gavin Tang from Shanghai University of Finance and Economics for helpful discussions and suggestions.\n\n###### Abstract\n\nSynthetic data has been increasingly used to train frontier generative models. However, recent studies raise key concerns that iteratively retraining a generative model on its self-generated synthetic data may keep deteriorating model performance, a phenomenon often coined *model collapse*. In this paper, we investigate ways to modify the synthetic retraining process to avoid model collapse, and even possibly help reverse the trend from collapse to improvement. Our key finding is that by injecting information through an external synthetic data verifier, whether a human or a better model, synthetic retraining will not cause model collapse.\nSpecifically, we situate our theoretical analysis in the fundamental linear regression setting, showing that verifier-guided retraining can yield near-term improvements, but ultimately drives the parameter estimate to the verifier’s “knowledge center” in the long run. Our theory further predicts that, unless the verifier is perfectly reliable, these early gains will plateau and may even reverse. Indeed, our experiments across linear regression, Variational Autoencoders (VAEs) trained on MNIST, and fining-tuning SmolLM2-135M on the XSUM task confirm these theoretical insights.\n\n![Refer to caption](2510.16657v2/quality.png)\n\n## 1 Introduction\n\nThe use of synthetic data has gained significant traction due to its ability to reduce data collection costs and enhance privacy protection, with applications in computer vision ([Wood et al., 2021](#bib.bib30)), healthcare ([Azizi et al., 2021](#bib.bib28); [Santangelo et al., 2025](#bib.bib29)), finance ([Potluru et al., 2023](#bib.bib31)) and recently large language models (LLMs) ([Chen et al., 2024](#bib.bib10)). A growing body of work has demonstrated that training with synthetic data can improve model performance in various applications such as image recognition ([He et al., 2023](#bib.bib15); [Tremblay et al., 2018](#bib.bib35)), image generation ([Doersch and Zisserman, 2019](#bib.bib34); [Shrivastava et al., 2017](#bib.bib33); [Tian et al., 2023](#bib.bib16)) and language generation ([Gunasekar et al., 2023](#bib.bib6); [Guo et al., 2024](#bib.bib7); [Zelikman et al., 2022](#bib.bib3)). However, recent studies caution that recursively training models on synthetic data alone can lead to a degradation of quality, a phenomenon often coined *model collapse* ([Shumailov et al., 2024](#bib.bib19); [Dohmatob et al., 2024a](#bib.bib25); [Dohmatob et al., 2025](#bib.bib24); [Dohmatob et al., 2024b](#bib.bib32); [Alemohammad et al., 2024](#bib.bib22); [Gerstgrasser et al., 2024](#bib.bib21)). This contrast between empirical success and pessimistic research findings gives rise to a natural question about what might have caused the discrepancy.\n\nIn response to the above question, an important practical observation is that synthetic data are rarely used in raw form in the aforementioned applications. Instead, practitioners often apply filtering steps to remove low-quality synthetic samples before retraining. For example, in natural language generation, synthetic sentences are often screened using grammar checkers or LLM-as-a-judge pipelines ([Zheng et al., 2023](#bib.bib18); [Gu et al., 2024](#bib.bib17)); in computer vision, synthetic images can be filtered using pretrained discriminators or human annotation ([He et al., 2023](#bib.bib15)); in recommendation and preference learning, synthetic feedback is often validated against external heuristics or known user signals ([Tu et al., 2025](#bib.bib36); [Iskander et al., 2024](#bib.bib37); [Lupidi et al., 2024](#bib.bib38); [Lampis et al., 2023](#bib.bib39); [Zhang et al., 2024](#bib.bib27)).\nCommon across all these approaches is the use of a knowledgeable “discriminator” (henceforth the *verifier* ) – whether a machine or human – that evaluates and filters out low-quality candidate synthetic samples (i.e., those not passing the discriminator’s screening).\nThis observation naturally raises the following research question:\n\n*Does verifier-based filtering of synthetic data contribute to the observed empirical success of model improvements, and does it prevent model collapse in the long run?*\n\nThere has been a growing body of work studying the mechanisms of *model collapse*, including theoretical analyzes that are often examined in the context of classic parameter estimation problems ([Dohmatob et al., 2024a](#bib.bib25); [Dohmatob et al., 2025](#bib.bib24); [Gerstgrasser et al., 2024](#bib.bib21); [Dey and Donoho, 2024](#bib.bib2); [Xu et al., 2025](#bib.bib1); [Suresh et al., 2025](#bib.bib53)). However, these works have all assumed the use of synthetic data *without* filtering. Only few recent works start to examine how filtered synthetic data affects the performance of iterative retraining, but under idealized assumptions such as access to a perfectly correct verifier ([Amin et al., 2025](#bib.bib48)) or highly structured errors in synthetic data (i.e., i.i.d. noise added to binary labels ([Feng et al., 2025](#bib.bib23))). A realistic and instructive framework for analyzing synthetic retraining of generative models remains still poorly understood. In this paper, we further push the boundary of this important agenda, and examine iterative retraining under imperfect verifiers that filter out low-quality synthetic data based on their (possibly biased) knowledge. We refer to this process as *verifier-based synthetic retraining* for convenience. Specifically, we seek principled understandings about the empirically observed short-term successes of verifier-based synthetic retraining and analysis about its long-term convergence under iterative retraining.\n\nOur contributions. We start from theoretical investigations and analyze verifier-based synthetic retraining with *verified* synthetic data on the foundational linear regression model—a canonical setting that has become central to the study of model collapse (e.g., ([Dohmatob et al., 2024a](#bib.bib25); [Dohmatob et al., 2025](#bib.bib24); [Gerstgrasser et al., 2024](#bib.bib21); [Zhu et al., 2025](#bib.bib4); [Garg et al., 2025](#bib.bib51))).11\n1\nThe theoretical analysis of ([Feng et al., 2025](#bib.bib23)) is also based on linear models, specifically, linear classifiers. We then verify our theoretical insights through thorough empirical studies in real-world generative settings. Our main contributions are summarized as follows:\n\n*Does verified synthetic data improve retraining and, if so, under what conditions?*\nWe show that it indeed can, provided the right conditions are met.\nThrough a new form of bias-variance trade-off under data filtering, we characterize the regimes in which verifier-based synthetic retraining leads to strict model improvement, rather than degradation, in the short term (Theorem [3.1](#S3.Thmtheorem1 \"Theorem 3.1. ‣ 3.2 Characterizing Improvement in One-Round Retraining ‣ 3 On the Near-Term Improvement under Synthetic Retraining ‣ Escaping Model Collapse via Synthetic Data Verification: Near-term Improvements and Long-term Convergence\")). The conditions we identify highlight the mixed effect of synthetic sample size, the verifier’s bias and selectivity during filtering, yielding practical insights regarding *when* verification of synthetic data is beneficial.\n\n*Can the retraining improvement in the short",
+      "score": 0.9599126
+    },
+    {
+      "id": "S14",
+      "title": "Synthetic Data Generation with LLMs: Techniques and Use Cases - Tetrate",
+      "url": "https://tetrate.io/learn/ai/synthetic-data-generation-llms",
+      "content": "[Skip to content](#main-content)\n\n#### Announcing token brokering for cost control in Tetrate Agent Router Enterprise\n\n [Learn more](https://tetrate.io/blog/token-brokering-ai-agent-cost-control)\n\n# Synthetic Data Generation with LLMs: Techniques and Use Cases\n\nShare:\n\nSynthetic data generation has emerged as a transformative approach to addressing one of machine learning’s most persistent challenges: the scarcity of high-quality, diverse training data. Large Language Models (LLMs) have revolutionized this field by enabling the automated creation of realistic, contextually appropriate datasets that can supplement or even replace human-labeled data in many scenarios. This capability is particularly valuable when dealing with privacy-sensitive information, rare edge cases, or domains where collecting real-world data is expensive, time-consuming, or ethically complex. Understanding how to effectively generate and validate synthetic data using LLMs has become an essential skill for machine learning practitioners seeking to build robust, performant models while navigating the practical constraints of data acquisition.\n\n## What is Synthetic Data Generation?\n\nSynthetic data generation refers to the process of creating artificial datasets that mimic the statistical properties, patterns, and characteristics of real-world data without containing actual observations from the target domain. Unlike traditional data collection methods that involve gathering information from real sources—whether through sensors, surveys, user interactions, or manual labeling—synthetic data is algorithmically produced to serve as a substitute or supplement for authentic data.\n\nIn the context of LLMs, synthetic data generation leverages the model’s learned representations of language, context, and domain knowledge to produce text-based datasets. These models, trained on vast corpora of internet text, have internalized patterns of grammar, semantics, domain-specific terminology, and even reasoning structures. When prompted appropriately, they can generate examples that reflect these learned patterns, creating data that resembles human-produced content across various formats: conversational dialogues, question-answer pairs, classification examples, summarization tasks, code snippets, or structured information extraction samples.\n\nThe fundamental principle underlying LLM-based synthetic data generation is that these models function as sophisticated probability distributions over text sequences. By sampling from these distributions with carefully designed prompts and generation parameters, practitioners can produce diverse examples that capture the nuances of specific tasks or domains. This approach differs significantly from rule-based or template-driven synthetic data methods, which often produce repetitive or unrealistic patterns. LLMs can introduce natural variation, contextual appropriateness, and linguistic sophistication that more closely approximates human-generated content.\n\nSynthetic data serves multiple purposes in the machine learning pipeline. It can augment existing datasets to improve model robustness, generate examples for underrepresented classes to address imbalance issues, create evaluation benchmarks for testing model capabilities, produce training data for domains where real data is scarce or sensitive, and enable rapid prototyping of machine learning systems before investing in expensive data collection efforts. The quality and utility of synthetic data depend critically on the generation techniques employed, the validation methods applied, and the alignment between the synthetic distribution and the target application’s requirements.\n\n## Use Cases for LLM-Generated Data\n\nLLM-generated synthetic data addresses numerous practical challenges across the machine learning development lifecycle, making it valuable for organizations ranging from startups to established enterprises. Understanding these use cases helps practitioners identify opportunities where synthetic data can provide the greatest impact.\n\n### Training Data Augmentation\n\nOne of the most common applications involves augmenting existing training datasets to improve model performance and generalization. When working with limited labeled data—a frequent scenario in specialized domains or for newly emerging tasks—synthetic examples can expand the training set substantially. For instance, in sentiment analysis tasks, an LLM can generate additional product reviews with specified sentiment labels, creating variations in phrasing, vocabulary, and context that help the target model learn more robust representations. Similarly, for named entity recognition tasks, synthetic sentences containing entities of interest can be generated with diverse surrounding contexts, helping models recognize entities in varied linguistic environments.\n\n### Addressing Class Imbalance\n\nMany real-world datasets exhibit severe class imbalance, where certain categories are dramatically underrepresented. This imbalance can cause models to develop biases toward majority classes, performing poorly on minority classes that may be critically important. Synthetic data generation offers a targeted solution by creating additional examples for underrepresented classes. In fraud detection scenarios, where fraudulent transactions are rare compared to legitimate ones, LLMs can generate realistic descriptions of fraudulent activities based on known patterns, helping balance the training distribution. This approach proves particularly valuable when collecting additional real examples of minority classes is impractical or impossible.\n\n### Privacy-Preserving Data Sharing\n\nOrganizations handling sensitive information—healthcare records, financial transactions, personal communications—face significant constraints when sharing data for research or collaborative model development. Synthetic data generated by LLMs trained on private data can preserve statistical properties and patterns while removing direct links to individual records. Medical researchers can generate synthetic patient histories that maintain clinical realism without exposing actual patient information. Financial institutions can create synthetic transaction datasets that reflect spending patterns and fraud indicators without revealing customer identities or account details.\n\n### Rapid Prototyping and Development\n\nDuring early-stage development, teams often need to validate approaches and build initial prototypes before investing in comprehensive data collection efforts. Synthetic data enables rapid iteration by providing immediate access to training examples. Development teams can generate synthetic datasets matching their anticipated data schema, build and test model architectures, establish data pipelines, and validate business logic—all before real data becomes available. This acceleration of the development cycle can significantly reduce time-to-market for machine learning products.\n\n### Evaluation and Benchmarking\n\nCreating comprehensive evaluation datasets that cover edge cases, adversarial examples, and diverse scenarios is challenging with naturally occurring data alone. LLMs can systematically generate test cases that probe specific model capabilities or vulnerabilities. For conversational AI systems, synthetic dialogues can be created to test handling of ambiguous queries, multi-turn context maintenance, or graceful failure modes. For classification tasks, synthetic examples near decision boundaries can evaluate model confidence calibration and robustness.\n\n### Domain Adaptation and Transfer Learning\n\nWhen adapting models from one domain to another, synthetic data can bridge the gap between source and target distributions. An LLM familiar with both domains can generate examples that gradually transition from source domain characteristics to target domain patterns, facilitating smoother transfer learning. This technique proves valuable when moving models from general domains to spe",
+      "score": 0.9592307
+    },
+    {
+      "id": "S15",
+      "title": "A Multi-Faceted Evaluation Framework for Assessing Synthetic Data Generated by Large Language Models",
+      "url": "https://arxiv.org/html/2404.14445v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# A Multi-Faceted Evaluation Framework for Assessing Synthetic Data Generated by Large Language Models\n\n###### Abstract\n\nThe rapid advancements in generative AI and large language models (LLMs) have opened up new avenues for producing synthetic data, particularly in the realm of structured tabular formats, such as product reviews. Despite the potential benefits, concerns regarding privacy leakage have surfaced, especially when personal information is utilized in the training datasets. In addition, there is an absence of a comprehensive evaluation framework capable of quantitatively measuring the quality of the generated synthetic data and their utility for downstream tasks. In response to this gap, we introduce SynEval 11\n1\nhttps://github.com/SCU-TrustworthyAI/SynEval, an open-source evaluation framework designed to assess the fidelity, utility, and privacy preservation of synthetically generated tabular data via a suite of diverse evaluation metrics. We validate the efficacy of our proposed framework - SynEval - by applying it to synthetic product review data generated by three state-of-the-art LLMs: ChatGPT, Claude, and Llama. Our experimental findings illuminate the trade-offs between various evaluation metrics in the context of synthetic data generation. Furthermore, SynEval stands as a critical instrument for researchers and practitioners engaged with synthetic tabular data, empowering them to judiciously determine the suitability of the generated data for their specific applications, with an emphasis on upholding user privacy.\n\n|  |\n| --- |\n|  |\n\n*K*eywords Synthetic data generation ⋅\\cdot\nPrivacy ⋅\\cdot\nEvaluation Framework ⋅\\cdot\nLarge Language Model ⋅\\cdot\nResponsive AI\n\n## 1 Introduction\n\nThe proliferation of high-quality data serves as the cornerstone propelling the current advancements in artificial intelligence (AI). Nonetheless, real-world datasets frequently suffer from noise and imbalances, impeding the performance of AI models trained on such data. For example, in the context of product reviews, there is often a lack of data representing marginalized communities, such as disabled users. This data scarcity can lead to biased and inaccurate models that fail to capture the diverse needs and experiences of all users. Also, collecting and labeling real data can be expensive, time consuming, and error-prone. For instance, it is reported that, on average, data labeling can cost organizations $2.3 million per year and 16 weeks to perform supervised learning on a new project[[1](#bib.bib1)]. Furthermore, privacy regulations make it even more difficult for companies to utilize their customers’ data even if such data is available at their premises. For example, the fines imposed by GDPR in 2023 alone have already exceeded the total amount of fines from 2019 to 2021 [[2](#bib.bib2)], with a record-breaking $1.28 billion imposed for Meta’s failure in complying with GDPR during its data transfer from EU to the U.S. for Facebook services [[3](#bib.bib3)].\n\nAs a result, rather than directly utilizing real data, generating synthetic data that can sufficiently represent the statistical properties of real data while preserving individual user privacy is gaining extensive attention. Compared to real data, synthetic data can be generated in large quantities much faster than the same amount of real data can be collected, and can be more easily manipulated to allow more precise and controlled training and testing of AI models [[4](#bib.bib4), [5](#bib.bib5)]. According to Gartner, it is estimated that synthetic data will play a dominant role in AI models by 2030, and 89% of tech executives believed that synthetic data is a key for companies to stay competitive [[6](#bib.bib6)].\n\nDue to its numerous benefits, synthetic data generation has attracted interests from a wide range of companies, such as Google, Microsoft, Amazon, Facebook, Nvidia [[7](#bib.bib7), [8](#bib.bib8), [9](#bib.bib9)]. For example, Google Cloud recently announced partnership with Gretel for generating anonymized and safe synthetic data [[10](#bib.bib10)]. Microsoft has collaborated with Harvard to develop synthetic data generation tools for responsive AI [[11](#bib.bib11)]. Amazon has developed in-house synthetic data tools for training computer vision models (AWS, 2023). Facebook acquired a synthetic data generator startup AI.Reverie [[12](#bib.bib12)]. Nvidia is creating a synthetic data generation engine for training AI networks [[13](#bib.bib13)]. Recent advancements in generative AI, such as Generative Adversarial Networks (GANs) [[14](#bib.bib14)] and Large Language Models (LLMs) [[15](#bib.bib15)], have shown promising results in generating realistic synthetic data.\n\nHowever, existing evaluation frameworks for synthetic data often focus on one or two specific aspects. There is a lack of a comprehensive evaluation framework that merges multiple perspectives and offers a holistic suite of metrics for the assessment of synthetic data. This poses a significant challenge in the adoption and trustworthiness of synthetic data generation techniques. Therefore, in this work, we propose SynEval, a comprehensive framework to rigorously evaluate the effectiveness of synthetic data generation from these critical dimensions:\n\nFidelity: This aspect focuses on the degree to which synthetic data replicates the statistical characteristics of the original dataset.\n\nUtility: The utility of synthetic data is determined by its effectiveness in facilitating various downstream machine learning tasks. This involves evaluating whether models trained on synthetic data perform comparably to those trained on real data when tested on validation or real-world datasets.\n\nPrivacy: Privacy protection is paramount to ensure that the synthetic data does not reveal sensitive information about individuals in the original dataset. Privacy can be assessed through techniques like re-identification risk analysis and other privacy-preserving metrics.\n\nThe development of robust evaluation metrics and frameworks like SynEval is critical for the advancement of synthetic data generation methods. Without such tools, it is challenging to gauge the quality and safety of synthetic data, which can hinder its adoption in sensitive domains such as ecommerce, healthcare, and finance.\n\nThe major contributions of this work are as follows:\n\nWe propose a multi-faceted evaluation framework that integrates data fidelity, utility, and privacy evaluation with a comprehensive set of evaluation metrics to provide a holistic assessment of synthetically generated data.\n\nWe demonstrate the effectiveness of the proposed framework by applying it to synthetic product review data generated by three prominent LLMs: ChatGPT, Claude, and Llama.\n\nWe provide insights and recommendations based on the evaluation results, highlighting the strengths and limitations of each large language model in generating high-quality, useful, and privacy-preserving synthetic tabular data.\n\nBy addressing the research gap and providing a comprehensive evaluation framework, the proposed work contributes to the advancement of synthetic data generation techniques and promotes the responsible and trustworthy use of synthetic data in various applications. The proposed framework serves as a valuable tool for researchers and practitioners to assess the effectiveness of synthetic tabular data generated by LLMs and make informed decisions regarding their deployment in real-world scenarios.\n\n## 2 Related Work\n\n### 2.1 Synthetic Data Generation\n\nSynthetic data generation has gained significant attention in recent years to address privacy concerns, data scarcity, and data imbalance issues. Various approaches have been proposed for generating synthetic data, including statistical ",
+      "score": 0.7180613
+    },
+    {
+      "id": "S16",
+      "title": "Beyond Scarcity: How LLM-Driven Synthetic Data Generation is Reshaping AI",
+      "url": "https://pub.towardsai.net/beyond-scarcity-how-llm-driven-synthetic-data-generation-is-reshaping-ai-8936cf6413d5",
+      "content": "[Sitemap](https://pub.towardsai.net/sitemap/sitemap.xml)\n\n[Open in app](https://play.google.com/store/apps/details?id=com.medium.reader&referrer=utm_source%3DmobileNavBar&source=---top_nav_layout_nav-----------------------------------------)\n\nSign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fpub.towardsai.net%2Fbeyond-scarcity-how-llm-driven-synthetic-data-generation-is-reshaping-ai-8936cf6413d5&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n[](https://medium.com/?source=---top_nav_layout_nav-----------------------------------------)\n\nGet app\n\n[Write](https://medium.com/m/signin?operation=register&redirect=https%3A%2F%2Fmedium.com%2Fnew-story&source=---top_nav_layout_nav-----------------------new_post_topnav------------------)\n\n[Search](https://medium.com/search?source=---top_nav_layout_nav-----------------------------------------)\n\nSign up\n\n[Sign in](https://medium.com/m/signin?operation=login&redirect=https%3A%2F%2Fpub.towardsai.net%2Fbeyond-scarcity-how-llm-driven-synthetic-data-generation-is-reshaping-ai-8936cf6413d5&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Image 1: Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n\n## [Towards AI](https://pub.towardsai.net/?source=post_page---publication_nav-98111c9905da-8936cf6413d5---------------------------------------)\n\n·\n\n1.   [What Exactly is “Synthetic Data,” and Why is it Suddenly Everywhere?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#9204 \"What Exactly is “Synthetic Data,” and Why is it Suddenly Everywhere?\")\n    1.   [Why Can’t We Just Use Real Data for Everything?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#07a4 \"Why Can’t We Just Use Real Data for Everything?\")\n    2.   [Are Large Language Models the Scalable Key to Unlocking Our Data Bottlenecks?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#6f02 \"Are Large Language Models the Scalable Key to Unlocking Our Data Bottlenecks?\")\n    3.   [What are the Business and Technical Drivers for Using LLMs to Create Data?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#81e1 \"What are the Business and Technical Drivers for Using LLMs to Create Data?\")\n    4.   [What if You Have Almost No Data to Begin With?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#91a6 \"What if You Have Almost No Data to Begin With?\")\n    5.   [How Can You Train a Model on Data You Aren’t Allowed to See?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#8688 \"How Can You Train a Model on Data You Aren’t Allowed to See?\")\n    6.   [Can Synthetic Data Make AI Fairer?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#d13d \"Can Synthetic Data Make AI Fairer?\")\n    7.   [How Do You Prepare a Model for a “Black Swan” Event?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#ad61 \"How Do You Prepare a Model for a “Black Swan” Event?\")\n    8.   [Is it Cheaper to Make Data Than to Find It?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#cfbb \"Is it Cheaper to Make Data Than to Find It?\")\n    9.   [What Do We Gain by Having “Data on Demand”?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#b7b3 \"What Do We Gain by Having “Data on Demand”?\")\n\n2.   [How Do You Actually Do LLM-Driven Data Generation?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#147e \"How Do You Actually Do LLM-Driven Data Generation?\")\n    1.   [Can You Generate a Dataset With Just a Good Prompt?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#c193 \"Can You Generate a Dataset With Just a Good Prompt?\")\n    2.   [When is Prompting Not Enough, and Why Do You Need to Fine-Tune?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#6bb4 \"When is Prompting Not Enough, and Why Do You Need to Fine-Tune?\")\n    3.   [Can an LLM Create a Labeled Dataset for Sentiment Analysis?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#21ba \"Can an LLM Create a Labeled Dataset for Sentiment Analysis?\")\n    4.   [What About More Granular Tasks Like NER?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#ec96 \"What About More Granular Tasks Like NER?\")\n    5.   [How Do You Build a Dataset for a Q&A Bot?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#4fdd \"How Do You Build a Dataset for a Q&A Bot?\")\n    6.   [Can This Be Used for More Than Just Natural Language?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#f643 \"Can This Be Used for More Than Just Natural Language?\")\n    7.   [Is This Safe for Highly-Specialized Fields like Healthcare?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#eba7 \"Is This Safe for Highly-Specialized Fields like Healthcare?\")\n    8.   [How Does This Improve the Chatbot I Talked to Today?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#1039 \"How Does This Improve the Chatbot I Talked to Today?\")\n\n3.   [Is “Generate” the Only Step in the Process?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#95da \"Is “Generate” the Only Step in the Process?\")\n    1.   [Why Can’t You Just Use the Raw Data Straight from the LLM?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#9ce0 \"Why Can’t You Just Use the Raw Data Straight from the LLM?\")\n    2.   [What is the First Step in Cleaning Raw Synthetic Data?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#273c \"What is the First Step in Cleaning Raw Synthetic Data?\")\n    3.   [How Do You Refine the “Good” Data That Passes the First Filter?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#6ab4 \"How Do You Refine the “Good” Data That Passes the First Filter?\")\n    4.   [What Does “Good Quality” Synthetic Data Actually Mean?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#c763 \"What Does “Good Quality” Synthetic Data Actually Mean?\")\n\n4.   [What is Fidelity?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#6ead \"What is Fidelity?\")\n5.   [What is Diversity?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#123e \"What is Diversity?\")\n6.   [What is Utility?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#71d3 \"What is Utility?\")\n7.   [What Can Go Wrong with LLM-Driven Data Generation?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#9d57 \"What Can Go Wrong with LLM-Driven Data Generation?\")\n    1.   [Can You Trust the “Facts” in Synthetic Data?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#1dbc \"Can You Trust the “Facts” in Synthetic Data?\")\n    2.   [How Do You Stop an LLM from “Making Things Up”?](https://pub.towardsai.net/?source=post_page-----8936cf6413d5---------------------------------------#e14d \"How Do You Stop an LLM from “Making ",
+      "score": 0.62633044
+    },
+    {
+      "id": "S17",
+      "title": "Creating and Validating Synthetic Datasets for LLM Evaluation ...",
+      "url": "https://arize.com/blog/creating-and-validating-synthetic-datasets-for-llm-evaluation-experimentation",
+      "content": "![](https://arize.com/wp-content/themes/arize-2022/images/2025/generic/butter-bar-background.svg)\n\nAI that improves itself.\n\n [See what we shipped at Observe](https://arize.com/blog/building-ai-factory-self-improving-agents-arize-ax/)\n\n1. [Download logo as PNG](https://arize.com/wp-content/uploads/2025/05/Arize-logos-png.zip)\n2. [Download logo as SVG](https://arize.com/wp-content/uploads/2025/05/Arize-logos-svg.zip)\n\n1. #### Arize AX\n\n   [AX - Generative\n\n   Enterprise AI Engineering Platform](https://arize.com/generative-ai/)  [AX - ML & CV\n\n   Enterprise ML Observability](https://arize.com/ml-cv-observability)  [AI Engineering Agent](https://arize.com/alyx/)\n\n   [Arize Platform demo See how it works  Watch video\n\n   ![](https://arize.com/wp-content/themes/arize-2022/images/2025/navigation/products-bg.jpg)](https://arize.com/resource/arize-platform-demo-2/)\n2. [Phoenix OSS](https://arize.com/phoenix \"Phoenix OSS\")\n3. [Pricing](https://arize.com/pricing/ \"Pricing\")\n4. [Docs](https://arize.com/docs/ax \"Docs\")\n5. #### Learn\n\n   [Courses\n\n   Essential Arize-led courses](https://arize.com/ai-courses-and-certifications/)  [Prompt Learning\n\n   Essentials playbook](https://arize.com/prompt-learning-playbook)  [Paper readings\n\n   AI research insights](https://arize.com/ai-research-papers/)  [Agents hub\n\n   AI agent evaluation](https://arize.com/ai-agents/)  [LLM Evals Hub\n\n   LLM evaluation guide](https://arize.com/llm-evaluation)  [AI Product Manager\n\n   AI PM learning](https://arize.com/move-fast-evaluate-confidently/)\n\n   #### Insights\n\n   [Blog\n\n   Get to know Arize](https://arize.com/blog/)  [Community\n\n   Bring your questions](https://community.arize.com/)  [Events\n\n   AI networking events](https://luma.com/arizeai)  [Video tutorials\n\n   Hands-on video tutorials](https://www.youtube.com/@arizeai/featured)\n6. #### Company\n\n   [About\n\n   We power the future of AI](https://arize.com/about-us)  [Careers\n\n   Join a world class team](https://arize.com/careers/?)  [Partners\n\n   Partner with us](https://arize.com/partners/)  [Customers\n\n   Built with Arize AX](https://arize.com/customers)\n\n   [Press\n\n   Updates from the newsroom](https://arize.com/press/)  [Security\n\n   We take your trust seriously](https://arize.com/trust-center/)\n\n   [Customers See who is achieving better outcomes in production\n\n   ![](https://arize.com/wp-content/themes/arize-2022/images/2025/navigation/company-bg.png) ![](https://arize.com/wp-content/themes/arize-2022/images/2025/navigation/company-bg-dark.png)](https://arize.com/customers)\n\n[Sign in](https://app.arize.com/auth/login?redirect_uri=/ \"Sign in\")  [Get Started](https://app.arize.com/auth/join \"Get Started\")   [Book a Demo](http://arize.com/request-a-demo/ \"Book a Demo\")\n\n1. [Arize AX](#) \n\n   #### Arize AX\n\n   [AX - Generative\n\n   Enterprise AI Engineering Platform](https://arize.com/generative-ai/)  [AX - ML & CV\n\n   Enterprise ML Observability](https://arize.com/ml-cv-observability)  [Alyx\n\n   AI Engineering Agent](https://arize.com/alyx/)  [Arize Platform demo\n\n   See how it works](https://arize.com/resource/arize-platform-demo-2/)\n2. [Phoenix OSS](https://arize.com/phoenix)\n3. [Pricing](https://arize.com/pricing/)\n4. [Docs](https://arize.com/docs/ax)\n5. [Learn](#) \n\n   #### Learn\n\n   [Courses\n\n   Essential Arize-led courses](https://arize.com/ai-courses-and-certifications/)  [Prompt Learning\n\n   Essentials playbook](https://arize.com/prompt-learning-playbook)  [Paper readings\n\n   AI research insights](https://arize.com/ai-research-papers/)  [Agents hub\n\n   AI agent evaluation](https://arize.com/ai-agents/)  [LLM Evals Hub\n\n   LLM evaluation guide](https://arize.com/llm-evaluation)  [AI Product Manager\n\n   AI PM learning](https://arize.com/move-fast-evaluate-confidently/)\n\n   #### Insights\n\n   [Blog\n\n   Get to know Arize](https://arize.com/blog/)  [Community\n\n   Bring your questions](https://community.arize.com/)  [Events\n\n   AI networking events](https://luma.com/arizeai)  [Video tutorials\n\n   Hands-on video tutorials](https://www.youtube.com/@arizeai/featured)\n6. [Company](#) \n\n   #### Company\n\n   [About\n\n   We power the future of AI](https://arize.com/about-us)  [Careers\n\n   Join a world class team](https://arize.com/careers/?)  [Partners\n\n   Partner with us](https://arize.com/partners/)  [Customers\n\n   Built with Arize AX](https://arize.com/customers)\n\n   [Press\n\n   Updates from the newsroom](https://arize.com/press/)  [Security\n\n   We take your trust seriously](https://arize.com/trust-center/)\n\n[Book a demo](https://arize.com/request-a-demo \"Book a demo\")   [Sign in](https://app.arize.com/auth/login?redirect_uri=/ \"Sign in\")   [Sign up](https://app.arize.com/auth/join \"Sign up\")\n\n![](https://arize.com/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-9.48.06 AM.png)\n\n# Creating and Validating Synthetic Datasets for LLM Evaluation & Experimentation\n\n## Published September 5, 2024\n\n![](https://arize.com/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-9.48.06 AM.png)\n\n*Thanks to John Gilhuly for his contributions to this piece.*\n\n* *Looking for more on generating synthetic data and data evaluation? [Book time with an Arize team member](https://arize.com/request-a-demo/) to discuss!*\n\nSynthetic datasets are artificially created datasets that are designed to mimic real-world information. Unlike naturally occurring data, which is gathered from actual events or interactions, synthetic datasets are generated using algorithms, rules, or other artificial means. These datasets are carefully created to represent specific patterns, distributions, or scenarios that developers and researchers want to study or use for testing.\n\nIn the context of large language models, synthetic datasets might include:\n\n* Generated text conversations simulating customer support interactions\n* Artificial question-answer pairs covering a wide range of topics\n* Fabricated product reviews with varying sentiments and styles\n* Simulated code snippets with intentional bugs or specific patterns\n\nThese synthetic datasets are very important for development with LLMs. By using synthetic data, developers can create controlled environments for experimentation, ensure coverage of edge cases, and protect privacy by avoiding the use of real user data.\n\nThe applications of synthetic datasets are varied and valuable:\n\n* They allow us to test and validate model performance, especially for assessing how well models perform specific tasks.\n* Synthetic data helps generate initial traces of application behavior, facilitating debugging in tools like Phoenix.\n* Perhaps most importantly, synthetic datasets serve as “golden data” for consistent experimental results. This is particularly useful when developing and experimenting with applications that haven’t yet launched.\n\nWhile synthetic datasets can also be used for model training, this article will focus on their applications in evaluation and experimentation. Let’s dive in!\n\n# **Creating and Validating Synthetic Datasets**\n\n## **Defining Objectives**\n\nThe first step in creating a synthetic dataset is to clearly define your objectives – identify the specific tasks or capabilities you want to evaluate. For example, you might create datasets for:\n\n* Evaluating a model’s performance in sentiment analysis, question answering, or entity recognition. These datasets typically require 1000+ examples for comprehensive evaluation.\n* Creating a golden dataset for consistent testing during development. These can be smaller, provided they cover the breadth of expected inputs to your application, with 100+ examples often sufficing.\n* Simulating application traffic. These can vary in size depending on your needs.\n\n## **Choosing Data Sources**\n\nWhen selecting sources for generating synthetic data, you have several options. Publicly available datasets can serve as a starting point. However, exercise caution when using these for model benchmarking. Many publicly available datasets have been used to train existing models, which could lea",
+      "score": 0.5726516
+    }
+  ]
+}

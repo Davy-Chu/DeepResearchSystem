@@ -1,0 +1,643 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Is chain-of-thought prompting an effective reasoning strategy for LLMs, or does it primarily improve output formatting? The literature disagrees—find the real fault lines and explain what accounts for the conflicting results.",
+  "system_version": "baseline-zero",
+  "overall_score": 50.03846153846153,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.29375,
+    "coverage": 0.3125,
+    "depth": 0.25,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report refers to “Chain-of-Thought (CoT) prompting” and contrasts it with “Hierarchical Chain-of-Thought (Hi-CoT)” and “Tree-of-Thought (ToT) prompting.”"
+        ],
+        "missing": [
+          "It does not define CoT as prompting that elicits intermediate steps before a final answer.",
+          "It does not distinguish CoT from direct answering, answer-format instructions, hidden/internal reasoning, self-consistency, tool use, or other inference-time procedures.",
+          "It treats related prompting methods as alternatives without clearly specifying the intervention and comparison conditions."
+        ],
+        "rationale": "The report names CoT and neighboring methods but does not establish the conceptual scope needed to evaluate CoT specifically."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It states that “CoT prompting can improve reasoning by breaking down tasks into intermediate steps.”",
+          "It claims that Hi-CoT improves performance “across various tasks” and that ToT helps in “complex decision-making tasks.”"
+        ],
+        "missing": [
+          "There is no concrete assessment across multiple task types.",
+          "The report does not separately discuss multi-step mathematical or symbolic tasks versus knowledge, commonsense, or open-ended reasoning.",
+          "It provides no task-level results, null effects, harms, or benchmark-specific evidence for ordinary CoT."
+        ],
+        "rationale": "The report makes broad performance claims but supplies little evidence about final-answer effects across the required task families."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report says “task complexity significantly influences the outcomes.”",
+          "It concludes that effectiveness depends on “model architecture and task complexity.”",
+          "It states that CoT has “diminishing returns” for models with “built-in reasoning capabilities.”"
+        ],
+        "missing": [
+          "It does not analyze model scale or capability in a documented, comparative way.",
+          "It does not address training-distribution similarity or whether tasks are familiar to the model.",
+          "It does not examine demonstration selection, prompt wording, number or quality of examples, or baseline prompting behavior.",
+          "It does not identify which moderators are well supported versus contested or insufficiently tested.",
+          "The claims about built-in reasoning models are asserted without model-specific evidence or protocol details."
+        ],
+        "rationale": "The report identifies two plausible moderators, but does not develop the broader set of boundary conditions needed to explain conflicting literature."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It notes that “the reasoning process facilitated by CoT may not equate to genuine cognitive reasoning but rather reflects advanced mimicry.”",
+          "It says CoT “improve[s] reasoning by breaking down tasks into intermediate steps.”"
+        ],
+        "missing": [
+          "It does not distinguish causal contributions from intermediate-step content, extra context, verbosity, answer formatting, or extraction effects.",
+          "It does not evaluate whether displayed traces represent the process that produced the answer.",
+          "It provides no evidence capable of separating these mechanisms, such as format-matched controls, irrelevant rationales, or interventions on trace content."
+        ],
+        "rationale": "The report gestures at the reasoning-versus-mimicry question but does not analyze the competing mechanisms."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It reports that CoT can produce “20-80%” longer response times.",
+          "It describes ToT as using “tree search strategies and self-evaluation” and contrasts it with CoT."
+        ],
+        "missing": [
+          "It does not separate the CoT prompt from sampling, self-consistency, voting, longer generation, or answer extraction.",
+          "It does not discuss calculators, code, retrieval, tools, or external computation.",
+          "It does not provide like-for-like baselines controlling for token budget, number of samples, decoding, or search computation.",
+          "The ToT comparison conflates a substantially different search protocol with the effect of CoT itself."
+        ],
+        "rationale": "The report mentions latency and search, but does not attribute gains using controlled inference-time comparisons."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It says that CoT reasoning “may not equate to genuine cognitive reasoning but rather reflects advanced mimicry.”",
+          "It claims Hi-CoT promotes “logical coherence.”"
+        ],
+        "missing": [
+          "It does not assess whether traces are logically valid or causally relevant to final answers.",
+          "It does not distinguish faithfulness from accuracy.",
+          "It does not discuss trace corruption, scrambling, irrelevant-chain controls, counterfactual interventions, or distribution-shift tests.",
+          "“Logical coherence” is asserted without an evaluation method."
+        ],
+        "rationale": "The report raises the faithfulness issue but supplies neither tests nor substantive analysis."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report cites a mixture of sources, including an ACL Anthology paper, an arXiv paper, a Google Research post, vendor pages, blogs, and Medium articles.",
+          "It assigns “High” confidence to several findings and refers to “multiple robust evaluations.”"
+        ],
+        "missing": [
+          "It does not identify model versions, model sizes, datasets, baselines, prompt protocols, decoding settings, metrics, uncertainty, or replication details.",
+          "It does not establish that the cited studies are comparable or explain how methodological differences account for disagreement.",
+          "The high-confidence labels are unsupported by study-level evidence.",
+          "Many cited sources are secondary or informal, and the report does not distinguish primary empirical evidence from commentary.",
+          "Some cited claims, such as the 6.2% accuracy and 13.9% trace-length changes, lack experimental context."
+        ],
+        "rationale": "The bibliography is extensive but the report does not evaluate evidence quality or comparability, and relies heavily on unsupported summaries."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion says CoT effectiveness is “contingent upon factors such as model architecture and task complexity.”",
+          "It states that CoT “can improve reasoning capabilities” but that its utility “declines in models that inherently perform well with reasoning tasks.”",
+          "It concludes that “further research is necessary.”"
+        ],
+        "missing": [
+          "It does not directly resolve whether the primary effect is reasoning, formatting, additional context, or a combination.",
+          "It does not clearly distinguish established findings from hypotheses.",
+          "It gives little practical guidance about when to use CoT, when to use alternatives, or how to validate it.",
+          "It does not address reliability, error modes, cost, latency tradeoffs in a sufficiently grounded way, or output-extraction risks.",
+          "The conclusion shifts substantial attention to Hi-CoT and ToT rather than synthesizing the evidence about ordinary CoT."
+        ],
+        "rationale": "The report offers a qualified context-dependent conclusion, but it is not sufficiently evidence-based or practically detailed for the central question."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report mainly restates broad claims that CoT, Hi-CoT, and ToT can help under some conditions.",
+        "It does not provide a distinctive synthesis of the literature’s fault lines or a documented explanation of why conflicting results arise.",
+        "The apparent numerical findings are presented without enough methodological context to constitute a reliable novel contribution."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.7471153846153846,
+    "validity": 1.0,
+    "support": 0.75,
+    "completeness": 0.6153846153846154,
+    "reference_checks": [
+      {
+        "finding_id": "F1",
+        "source_id": "S1",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F1",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S2",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F2",
+        "source_id": "S20",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S7",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F3",
+        "source_id": "S24",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      },
+      {
+        "finding_id": "F4",
+        "source_id": "S27",
+        "status": "PASS",
+        "reason": "Citation resolves to saved source metadata."
+      }
+    ],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Hierarchical Chain-of-Thought (Hi-CoT) prompting improves reasoning capabilities and efficiency for LLMs.",
+        "citation_ids": [
+          "S1",
+          "S20"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "S1 directly supports that Hi-CoT improves reasoning performance and efficiency, reporting higher average accuracy and shorter reasoning traces than standard CoT. S20 supports improvements from ordinary Chain-of-Thought prompting, but does not provide evidence specifically about Hi-CoT or its efficiency. Thus, the claim is supported by S1, while S20 is only indirectly relevant.",
+        "supporting_text": "S1 states that Hi-CoT “consistently improves average accuracy by 6.2%” while “reducing reasoning trace length by 13.9% compared to CoT prompting.” It also describes Hi-CoT as providing “better accuracy and lower inference cost simultaneously.”"
+      },
+      {
+        "finding_id": "F2",
+        "claim": "Chain-of-Thought (CoT) prompting has diminishing returns, especially for models with built-in reasoning capabilities.",
+        "citation_ids": [
+          "S2",
+          "S20"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S2 directly reports diminishing returns from CoT overall and minimal benefits for models with built-in reasoning, including small gains for some models and a decline for another, while noting substantial time costs. S20 provides background on CoT’s benefits but does not undermine the claim; its findings concern earlier large models and establish that CoT can improve reasoning performance, rather than addressing diminishing returns in built-in-reasoning models.",
+        "supporting_text": "S2 states that modern models show diminishing returns from CoT and that reasoning models gain only marginal benefits despite 20–80% higher time costs. It further concludes that, for reasoning models, minimal accuracy gains rarely justify increased response time."
+      },
+      {
+        "finding_id": "F3",
+        "claim": "Active prompting techniques enhance the practical application of CoT strategies in LLMs, improving outputs.",
+        "citation_ids": [
+          "S7",
+          "S24"
+        ],
+        "status": "PARTIALLY_SUPPORTED",
+        "rationale": "The sources support the narrower proposition that CoT prompting techniques, including selected demonstrations and explicit reasoning instructions, can improve LLM reasoning performance or output quality. However, they do not clearly establish the broader claim about “active prompting techniques” specifically, nor do they comprehensively support the practical-application framing.",
+        "supporting_text": "S7 states that its reasoning-pattern-based CoT demonstration selection method “consistently enhances performance across multiple reasoning tasks and various models.” S24 states that CoT can produce outputs that are “more accurate and easier to verify,” and that few-shot examples guide model behavior on complex tasks."
+      },
+      {
+        "finding_id": "F4",
+        "claim": "Tree-of-Thought (ToT) prompting enhances LLMs' ability to explore multiple reasoning paths effectively.",
+        "citation_ids": [
+          "S27"
+        ],
+        "status": "SUPPORTED",
+        "rationale": "S27 directly states that ToT encourages LLMs to explore multiple thoughts, generates diverse intermediate thought pathways, and uses tree search to explore the problem space. This supports both the exploration and reasoning-enhancement aspects of the claim.",
+        "supporting_text": "S27 says ToT “encourag[es LLMs] to explore multiple thoughts and self-evaluate at each step,” and describes it as generating “diverse intermediate ‘thought’ pathways” while using tree search to explore the problem space."
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "The literature disagrees about whether chain-of-thought prompting is an effective reasoning strategy or primarily improves output formatting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive characterization of the literature, but no citation is supplied nearby."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "The investigation concerns the comparative utility of CoT, Hi-CoT, and ToT prompting for enhancing LLM reasoning capabilities.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This summarizes a substantive research finding and has no nearby citation."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "CoT prompting improves reasoning by breaking tasks down into intermediate steps.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable claim in the summary without a nearby citation."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "CoT prompting has diminishing returns in models with built-in reasoning capabilities.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The summary makes this substantive claim without a nearby citation, although related citations appear later."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "ToT prompting encourages exploration of multiple reasoning pathways and may enrich decision-making.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive claim appears in the summary without a nearby citation."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Task complexity significantly influences the outcomes of prompting strategies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable synthesis claim without a nearby citation."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "The interaction between task characteristics and model architecture is critical in determining prompting-method effectiveness.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive claim is uncited where it appears."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Hi-CoT prompting improves reasoning capabilities and efficiency for LLMs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S20"
+        ],
+        "rationale": "The finding is immediately supported by citations in its evidence section."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Hi-CoT achieves an average accuracy improvement of 6.2% and reduces reasoning-trace length by 13.9% compared with conventional CoT prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S20"
+        ],
+        "rationale": "The quantitative claim has citations immediately attached to the evidence bullet."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Hi-CoT promotes logical coherence through structured reasoning substeps, enhancing model outputs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S20"
+        ],
+        "rationale": "The claim is directly followed by citations in the evidence section."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "CoT prompting has diminishing returns, especially for models with built-in reasoning capabilities.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S20"
+        ],
+        "rationale": "The finding is supported by citations in its nearby evidence."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "CoT produces minor accuracy gains for reasoning models while increasing response times by 20–80%.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S20"
+        ],
+        "rationale": "The quantitative claim has citations immediately attached."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Many reasoning models inherently perform CoT-like reasoning, limiting the additional value of explicit CoT prompting.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S20"
+        ],
+        "rationale": "The claim is supported by citations in the adjacent evidence bullet."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Active prompting techniques enhance the practical application of CoT strategies and improve outputs.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S24"
+        ],
+        "rationale": "The finding has nearby citations in its evidence section."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Strategies that use reasoning patterns in prompts reduce noise and improve model efficacy across diverse tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S24"
+        ],
+        "rationale": "The evidence bullet includes citations immediately after the claim."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Active prompting methods can reduce inconsistencies, improve output clarity, and support the effectiveness of CoT strategies.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S7",
+          "S24"
+        ],
+        "rationale": "The claim has citations attached in the evidence section."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "ToT prompting enhances LLMs' ability to explore multiple reasoning paths effectively.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S27"
+        ],
+        "rationale": "The finding is supported by a nearby citation in its evidence."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "ToT enables systematic solution exploration and improves performance on complex decision-making tasks compared with CoT.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S27"
+        ],
+        "rationale": "The comparative performance claim has an immediately attached citation."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "ToT uses tree-search and self-evaluation strategies that mimic human trial-and-error reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S27"
+        ],
+        "rationale": "The claim is directly supported by the nearby citation."
+      },
+      {
+        "claim_id": "Q20",
+        "claim": "There is divergence over whether CoT or alternatives such as Hi-CoT provide superior reasoning enhancements across tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S1",
+          "S2",
+          "S27"
+        ],
+        "rationale": "The conflict statement includes nearby citations."
+      },
+      {
+        "claim_id": "Q21",
+        "claim": "The effectiveness of explicit CoT prompting remains debated for models that perform CoT-like reasoning by default.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S2",
+          "S10"
+        ],
+        "rationale": "The statement has nearby citations."
+      },
+      {
+        "claim_id": "Q22",
+        "claim": "Some researchers propose that CoT-facilitated reasoning may reflect advanced mimicry rather than genuine cognitive reasoning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S10"
+        ],
+        "rationale": "The claim is explicitly cited in the conflicts section."
+      },
+      {
+        "claim_id": "Q23",
+        "claim": "Research comparing CoT and ToT shows performance variations across tasks that require reconciliation between findings.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": true,
+        "citation_ids": [
+          "S9"
+        ],
+        "rationale": "The statement has an immediately attached citation."
+      },
+      {
+        "claim_id": "Q24",
+        "claim": "CoT and ToT effectiveness depends on model architecture and task complexity.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive conclusion is uncited in the conclusion."
+      },
+      {
+        "claim_id": "Q25",
+        "claim": "CoT can improve reasoning capabilities, but its utility declines in models that inherently perform well on reasoning tasks.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "Although related evidence is cited earlier, the conclusion itself has no nearby citation."
+      },
+      {
+        "claim_id": "Q26",
+        "claim": "ToT's flexibility in exploring reasoning paths shows promise for enhancing decision-making.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This substantive conclusion lacks a nearby citation."
+      },
+      {
+        "claim_id": "Q27",
+        "claim": "The report's remaining gaps include identifying task characteristics, model-architecture interactions, and empirical advantages of ToT over other prompting methods.",
+        "classification": "NO_CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "These are proposed research questions or agenda items rather than externally verifiable factual claims."
+      }
+    ],
+    "evaluable_support_claims": 4,
+    "total_support_claims": 4,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_EVALUABLE",
+        "details": "This run predates or does not use an evidence ledger."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Evidence ledger unavailable."
+      }
+    ],
+    "passed_count": 12,
+    "failed_count": 0,
+    "not_evaluable_count": 5,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define chain-of-thought prompting and distinguish it from direct answering, answer-format instructions, hidden or internal reasoning, self-consistency, tool augmentation, and other inference-time procedures.",
+    "R2: Assess CoT’s effects on final-answer performance across multiple task types, including at least multi-step mathematical or symbolic tasks and tasks involving knowledge, commonsense, or open-ended reasoning.",
+    "R4: Evaluate whether CoT improves performance through the content and execution of intermediate reasoning steps, through additional context or verbosity, through answer-format and extraction effects, or through a combination of mechanisms.",
+    "2 cited finding(s) were not fully supported by saved evidence.",
+    "10 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "chain-of-thought-effectiveness",
+    "fixture_version": "1.0",
+    "rubric_hash": "ac152f1d42cbe0f247f27e3225b834f4d7d35d3a27bade4d08806b371c248b6d",
+    "candidate_report_hash": "1d3d4654e08c78e010cdeff6c0107d787f7f175019181fb3836e1a672faf3637",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T15:14:15.998480+00:00",
+    "usage": {
+      "llm_calls": 6,
+      "input_tokens": 20679,
+      "output_tokens": 4377,
+      "estimated_cost": null
+    }
+  }
+}

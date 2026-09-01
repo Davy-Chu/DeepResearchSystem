@@ -39,6 +39,7 @@ class EvaluationInput(StrictModel):
     report: FinalReport | None
     report_markdown: str
     sources: list[Source] = Field(default_factory=list)
+    research_model: str = "unknown"
 
 
 class EvaluationAspect(StrictModel):
@@ -125,6 +126,7 @@ class DeterministicResult(StrictModel):
 class EvaluationMetadata(StrictModel):
     evaluator_model: str
     timestamp: str
+    research_model: str = "unknown"
 
 
 class EvaluationResult(StrictModel):

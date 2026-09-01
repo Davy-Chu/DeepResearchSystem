@@ -7,17 +7,16 @@ import os
 from research.config import DEFAULT_OPENAI_MODEL
 
 EVALUATOR_VERSION = "evaluator-v1"
-EVALUATOR_SCHEMA_VERSION = "1.0"
+EVALUATOR_SCHEMA_VERSION = "1.1"
 RUBRIC_VERSION = "1.0"
 FIXTURE_VERSION = "1.0"
 
-COMPREHENSIVENESS_WEIGHT = 0.60
-CITATION_WEIGHT = 0.30
-DETERMINISTIC_WEIGHT = 0.10
+# Evaluator-v1's active score is the equal-weight mean of coverage and depth.
+COVERAGE_WEIGHT = 0.50
+DEPTH_WEIGHT = 0.50
 
-COVERAGE_WEIGHT = 0.70
-DEPTH_WEIGHT = 0.30
-
+# Legacy citation weights are retained for reading and testing historical
+# evaluator-v1 artifacts. They are not used by the active evaluator.
 CITATION_VALIDITY_WEIGHT = 0.15
 CITATION_SUPPORT_WEIGHT = 0.55
 CITATION_COMPLETENESS_WEIGHT = 0.30
@@ -42,9 +41,8 @@ def load_evaluator_model() -> str:
 
 def scoring_weights() -> dict[str, float]:
     return {
-        "comprehensiveness": COMPREHENSIVENESS_WEIGHT,
-        "citations": CITATION_WEIGHT,
-        "deterministic": DETERMINISTIC_WEIGHT,
+        "coverage": COVERAGE_WEIGHT,
+        "depth": DEPTH_WEIGHT,
     }
 
 
@@ -53,6 +51,4 @@ def prompt_versions() -> dict[str, str]:
         "rubric_builder": RUBRIC_BUILDER_PROMPT_VERSION,
         "rubric_critic": RUBRIC_CRITIC_PROMPT_VERSION,
         "comprehensiveness": COMPREHENSIVENESS_PROMPT_VERSION,
-        "citation_support": CITATION_SUPPORT_PROMPT_VERSION,
-        "citation_completeness": CITATION_COMPLETENESS_PROMPT_VERSION,
     }

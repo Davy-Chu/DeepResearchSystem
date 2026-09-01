@@ -11,8 +11,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from evaluation.v1.adapters import load_evaluation_input
-from evaluation.v1.benchmark import BenchmarkEntry, save_benchmark, save_comparison
-from evaluation.v1.citations import CitationEvaluator
+from evaluation.v1.benchmark import (
+    BenchmarkEntry,
+    save_benchmark,
+    save_comparison,
+    save_model_family_comparison,
+)
 from evaluation.v1.comprehensiveness import ComprehensivenessEvaluator
 from evaluation.v1.config import load_evaluator_model
 from evaluation.v1.fixture_builder import FixtureBuilder
@@ -59,6 +63,16 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument("baseline", type=Path)
     compare.add_argument("candidate", type=Path)
     compare.add_argument("--results-root", type=Path, default=DEFAULT_RESULTS_ROOT)
+
+    compare_models = commands.add_parser(
+        "compare-models",
+        help="Compare architecture ladders across two research-model families",
+    )
+    compare_models.add_argument("--baseline", action="append", type=Path, required=True)
+    compare_models.add_argument("--candidate", action="append", type=Path, required=True)
+    compare_models.add_argument("--baseline-label", default="Luna")
+    compare_models.add_argument("--candidate-label", default="GPT-4o-mini")
+    compare_models.add_argument("--results-root", type=Path, default=DEFAULT_RESULTS_ROOT)
     return parser
 
 
@@ -84,14 +98,7 @@ def _runner(api_key: str, model: str, timeout: float, retries: int) -> Evaluator
         max_retries=retries,
         usage=usage,
     )
-    citations = CitationEvaluator(
-        api_key,
-        model,
-        timeout_seconds=timeout,
-        max_retries=retries,
-        usage=usage,
-    )
-    return EvaluatorRunner(model, comprehensive, citations, usage=usage)
+    return EvaluatorRunner(model, comprehensive, usage=usage)
 
 
 def _evaluate_one(run_directory: Path, fixture, runner: EvaluatorRunner):
@@ -117,6 +124,17 @@ def main(arguments: list[str] | None = None) -> int:
             )
             logging.info("Comparison JSON:\n%s", json_path)
             logging.info("Comparison Markdown:\n%s", markdown_path)
+            return 0
+        if args.command == "compare-models":
+            json_path, markdown_path = save_model_family_comparison(
+                args.baseline,
+                args.candidate,
+                args.results_root,
+                baseline_label=args.baseline_label,
+                candidate_label=args.candidate_label,
+            )
+            logging.info("Model-family comparison JSON:\n%s", json_path)
+            logging.info("Model-family comparison Markdown:\n%s", markdown_path)
             return 0
 
         api_key, model, timeout, retries = _runtime()

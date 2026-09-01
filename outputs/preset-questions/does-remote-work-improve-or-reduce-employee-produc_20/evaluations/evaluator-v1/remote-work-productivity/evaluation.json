@@ -1,0 +1,260 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Does remote work improve or reduce employee productivity? Compare evidence from controlled experiments, observational studies, and company-level data, and explain why different studies reach conflicting conclusions.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "overall_score": 31.57894736842105,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.3157894736842105,
+    "coverage": 0.3815789473684211,
+    "depth": 0.25,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report distinguishes focused tasks from collaborative tasks: “Remote work can enhance productivity for focused tasks, but its impact on collaborative tasks varies.”",
+          "It mentions “13% more output per hour,” “total factor productivity growth,” self-reported productivity, and fewer hours worked."
+        ],
+        "missing": [
+          "It does not distinguish fully remote, hybrid, and predominantly office-based arrangements or specify the comparison condition in the cited findings.",
+          "It does not consistently define or separate output per hour, output per employee, quality, performance ratings, satisfaction, retention, and hours worked.",
+          "The report does not explain how different productivity measures affect the apparent result."
+        ],
+        "rationale": "The report mentions several productivity measures and task categories, but it does not establish the arrangements, comparison groups, or measurement distinctions needed to avoid treating remote work and productivity as interchangeable."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It reports that a “Stanford study found a 13% performance boost for remote workers.”",
+          "It also states that a “controlled study” found “13% more output per hour from remote workers.”"
+        ],
+        "missing": [
+          "The treatment and comparison conditions are not described.",
+          "The population, occupation, firm, schedule, and duration of the experiment are not identified.",
+          "The principal outcome is not clearly distinguished between performance, output, and output per hour.",
+          "The report does not explain causal limits, trial-specific conditions, statistical precision, or generalizability.",
+          "The two 13% claims may refer to the same study, but the report does not clarify this."
+        ],
+        "rationale": "A numerical experimental result is mentioned, but the report does not evaluate the experiment's design or applicability. A conclusion about a causal effect is asserted without the supporting experimental context."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report cites a study of Microsoft employees showing that remote work made workers “more siloed in communication.”",
+          "It notes “contradictory evidence” suggesting productivity drops and says that studies use “differing methodologies and contexts.”"
+        ],
+        "missing": [
+          "No observational, quasi-experimental, before-and-after, or natural-experiment designs are identified or evaluated.",
+          "There are no comparison groups, estimated effects, timing details, or credible causal estimates.",
+          "The report does not distinguish descriptive associations from causal evidence.",
+          "It does not discuss selection, confounding, concurrent shocks, or pandemic-era timing in a methodologically specific way."
+        ],
+        "rationale": "The Microsoft communication finding is an observational-style claim, but its design and causal status are not explained. The report provides almost none of the comparison or bias analysis required for observational evidence."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It reports that “A BLS analysis found a positive link between remote work and total productivity growth.”",
+          "It separately reports that “77% of remote workers self-report higher productivity when working remotely.”",
+          "It labels the latter as a survey pattern and calls the former company/industry-level evidence."
+        ],
+        "missing": [
+          "The BLS measure, level of aggregation, time period, and analytical comparison are not described.",
+          "The report does not explain the limits of inferring individual or team effects from aggregate total-factor-productivity growth.",
+          "It does not discuss survey selection, representativeness, self-report bias, or the difference between perceived and measured productivity.",
+          "Firm-level evidence is not substantively assessed as a distinct category."
+        ],
+        "rationale": "The report recognizes aggregate and self-reported evidence, but it largely treats both as positive support and does not explain why either type is weaker or different from individual-level causal evidence."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The conclusion gives a qualified direction: remote work may improve productivity for focused tasks while creating challenges for collaborative work.",
+          "The report contrasts “productivity gains” with “productivity drops” and says outcomes vary by methodology and context."
+        ],
+        "missing": [
+          "It does not systematically compare experiments, observational studies, and company/industry data.",
+          "It does not compare magnitude, precision, consistency, or evidentiary strength across methods.",
+          "It does not identify which conclusions are supported by stronger causal evidence versus weaker descriptive or self-reported evidence.",
+          "The direct answer remains broad and does not explain whether the best evidence implies a typical positive, negative, or near-zero effect under specified arrangements."
+        ],
+        "rationale": "There is a qualified overall conclusion, but the requested cross-method evidence weighting and comparison are largely absent."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report attributes variation to “task type, communication practices, and individual circumstances.”",
+          "It distinguishes focused from collaborative work and says findings reflect “differing methodologies and contexts.”",
+          "It mentions that remote workers can become “more siloed in communication” and that communication and team-building may affect collaboration."
+        ],
+        "missing": [
+          "The report does not connect specific conflicts to identifiable study designs or settings in detail.",
+          "It does not discuss worker or firm selection, remote-work intensity or hybrid schedules, implementation quality beyond generic communication strategies, study horizon, pandemic conditions, or publication/reporting bias.",
+          "The explanations are mostly listed as general possibilities rather than demonstrated reasons for particular studies' conflicting results."
+        ],
+        "rationale": "Task and collaboration differences are relevant explanations, but the report does not provide the broader methodological and institutional account of disagreement requested by the rubric."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It states that effects vary by “task type,” “job types,” and demographic factors including educational attainment and job sectors.",
+          "It says further research is needed on productivity across job sectors and educational levels.",
+          "It notes communication and collaboration challenges in remote work."
+        ],
+        "missing": [
+          "It does not assess heterogeneity across workers, occupations, firms, management practices, remote-work intensity, hybrid arrangements, or duration in a substantive way.",
+          "It does not identify important underrepresented settings or explain external-validity limits.",
+          "It does not separate immediate measured output from longer-term collaboration, innovation, learning, mentoring, or career progression.",
+          "Burnout is identified as a research gap, but the report does not address the major unresolved long-run productivity channels."
+        ],
+        "rationale": "The report acknowledges broad heterogeneity and the need for more research, but it does not analyze external validity or distinguish short-term measured productivity from longer-term organizational effects."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report offers a generally plausible synthesis that focused work may benefit while collaboration may suffer, but it does not provide sufficiently developed evidence analysis, causal evaluation, or method-specific synthesis to constitute a distinctive research contribution."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Distinguish the remote-work arrangements and comparison conditions being evaluated, including fully remote, hybrid, and predominantly office-based work where relevant, and define productivity using measures such as output per hour, output per employee, quality, or performance ratings.",
+    "R2: Evaluate controlled or randomized evidence on remote work and productivity, stating the treatment and comparison, population or setting, principal productivity outcome, direction and approximate magnitude of the effect when available, and key limits on causal interpretation or generalization.",
+    "R3: Evaluate observational, quasi-experimental, before-and-after, or natural-experiment evidence, distinguishing descriptive associations from credible causal estimates and discussing relevant comparison groups, estimated effects, and threats from selection, confounding, timing, and concurrent shocks."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "remote-work-productivity",
+    "fixture_version": "1.0",
+    "rubric_hash": "e50bc516d4d756493b41fcaa430b164facfcb05a718934b8d5eb88b93b7e7d02",
+    "candidate_report_hash": "2e9732576804e4a1030e1d0333bd6ea07e7cd1a44114099c10c2c1f6b2f434ae",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T18:17:59.498460+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 3691,
+      "output_tokens": 1646,
+      "estimated_cost": null
+    }
+  }
+}

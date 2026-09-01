@@ -61,10 +61,10 @@ def test_weighted_comprehensiveness_and_formulas() -> None:
     )
     assert coverage == pytest.approx(0.75)
     assert depth == pytest.approx(0.5625)
-    assert score == pytest.approx(0.69375)
+    assert score == pytest.approx(0.65625)
     citations = citation_quality(1.0, 0.5, 0.75)
     assert citations == pytest.approx(0.65)
-    assert overall_score(score, citations, 0.9) == pytest.approx(70.125)
+    assert overall_score(score) == pytest.approx(65.625)
 
 
 def test_not_evaluable_support_is_excluded_from_denominator() -> None:
@@ -98,7 +98,7 @@ def test_not_evaluable_support_is_excluded_from_denominator() -> None:
     judgments[0].status = CitationSupportStatus.UNSUPPORTED
     assert citation_support_score(judgments) == pytest.approx(0.25)
     assert citation_quality(1.0, None, 1.0) is None
-    assert overall_score(None, 1.0, 1.0) is None
+    assert overall_score(None) is None
 
 
 def test_synthetic_report_ordering_guards_against_excessive_generosity() -> None:

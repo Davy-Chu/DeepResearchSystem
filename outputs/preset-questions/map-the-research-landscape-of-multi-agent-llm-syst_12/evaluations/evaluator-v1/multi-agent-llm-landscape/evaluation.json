@@ -1,0 +1,442 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "llm-only-baseline-v0",
+  "overall_score": 19.782608695652176,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.16304347826086957,
+    "coverage": 0.16304347826086957,
+    "depth": 0.16304347826086957,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No operational definition of multi-agent LLM systems.",
+          "No inclusion or exclusion criteria for single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM systems, or hybrid designs.",
+          "No treatment of borderline cases or acknowledgment that definitions may vary."
+        ],
+        "rationale": "The report refers broadly to “multi-agent systems leveraging LLMs” but does not define the scope or distinguish adjacent configurations."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "“Architectures can be broadly classified into cooperative, competitive, and hybrid models.”",
+          "“Cooperative models often utilize joint task planning, while competitive models may employ adversarial setups; hybrid models combine both approaches.”"
+        ],
+        "missing": [
+          "The three categories are only briefly named and characterized.",
+          "No detailed account of control structure, agent arrangement, information flow, coordination mechanisms, representative systems or applications, or limitations for each pattern.",
+          "No materially richer architectural taxonomy, such as centralized orchestration, peer-to-peer teams, hierarchies, debate, role-based workflows, or dynamic populations."
+        ],
+        "rationale": "The report provides a minimal behavioral categorization, but it does not map the major architectural patterns in sufficient structural or empirical detail."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "“Common challenges such as coordination, communication overhead, and knowledge sharing can be efficiently tackled using a hybrid approach.”"
+        ],
+        "missing": [
+          "No systematic analysis of centralized versus decentralized control, hierarchy versus peer coordination, sequential versus parallel execution, synchronous versus asynchronous operation, message passing versus shared state, context isolation versus sharing, or static versus dynamic allocation.",
+          "The report does not explain how design choices affect independence, consistency, scalability, latency, or coordination."
+        ],
+        "rationale": "A few cross-cutting concerns are mentioned, but the report does not analyze design dimensions or their consequences."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No discussion of planners, orchestrators, specialized workers, critics, verifiers, synthesizers, tools, retrieval, memory, shared state, or provenance.",
+          "No explanation of how these components compose with architectural patterns or which features are essential versus optional."
+        ],
+        "rationale": "The report does not address agent roles or supporting composition mechanisms."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No visual taxonomy, diagram, graph, or other structured visual synthesis is provided.",
+          "No explanation of relationships among patterns, cross-cutting overlays, legend, or classification limitations."
+        ],
+        "rationale": "The report is prose-only and does not satisfy the visual-design-graph requirement."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "“Common challenges such as coordination, communication overhead, and knowledge sharing can be efficiently tackled using a hybrid approach.”",
+          "The report states that cooperative, competitive, and hybrid models have “unique interaction protocols and decision-making processes.”"
+        ],
+        "missing": [
+          "No conditional comparison of quality, reliability, scalability, latency, cost, fault tolerance, evidence sharing, or task suitability.",
+          "No empirical evidence, baselines, metrics, tasks, or experimental contexts.",
+          "The claim that hybrid approaches can efficiently tackle challenges is unsupported and not qualified by conditions."
+        ],
+        "rationale": "The report gestures toward trade-offs but offers neither evidence-based comparison nor properly bounded conditional analysis."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "“The lack of standardized metrics for evaluating the performance of multi-agent LLM systems leads to inconsistencies in research findings.”",
+          "The report identifies “ethical considerations in negotiation strategies” as a challenge."
+        ],
+        "missing": [
+          "No evaluation framework covering outcome quality, factuality, evidence support, efficiency, coordination behavior, or single-agent and ablation baselines.",
+          "No substantive treatment of hallucination propagation, correlated errors, groupthink, contradiction, memory failures, runaway execution, tool misuse, security, governance, or opacity.",
+          "No risk-specific safeguards, monitoring procedures, or human-oversight mechanisms."
+        ],
+        "rationale": "Evaluation standardization and ethics are mentioned, but characteristic failure modes and corresponding mitigations are absent."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "“Remaining Gaps” lists “real-world deployment scenarios,” “integration of ethical considerations,” and “empirical assessment” in domains such as healthcare and finance.",
+          "The report notes “more empirical evidence is needed” and a “lack of standardized metrics.”",
+          "Sources section: “No usable sources were retrieved.”"
+        ],
+        "missing": [
+          "Open problems are broad suggestions rather than specific, researchable problem formulations explaining what remains unresolved and why it matters.",
+          "No discussion of reliability, scalable coordination, state and provenance, memory, adaptive resource allocation, interoperability, learning or adaptation, or governance beyond generic mentions.",
+          "No identifiable literature, systems, benchmarks, or documented studies support the claims.",
+          "No distinction between established evidence, reported limitations, and proposed future directions."
+        ],
+        "rationale": "The report identifies several general gaps, but it lacks specificity, causal research framing, and the required sourcing."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report contains generic categorizations and broad future-work statements, but no specific evidence, synthesis, visual mapping, or original landscape insight that demonstrates substantive novel value."
+      ]
+    },
+    "error": null
+  },
+  "citations": {
+    "status": "COMPLETED",
+    "score": 0.0,
+    "validity": 0.0,
+    "support": 0.0,
+    "completeness": 0.0,
+    "reference_checks": [],
+    "support_judgments": [
+      {
+        "finding_id": "F1",
+        "claim": "Multi-agent systems leveraging LLMs can be categorized into various architectural patterns.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      },
+      {
+        "finding_id": "F2",
+        "claim": "The relationship between different architectural patterns reveals potential avenues for enhancement and innovation.",
+        "citation_ids": [],
+        "status": "NOT_EVALUABLE",
+        "rationale": "No complete saved source snapshot is available for every citation.",
+        "supporting_text": ""
+      }
+    ],
+    "completeness_claims": [
+      {
+        "claim_id": "Q1",
+        "claim": "Multi-agent systems leveraging LLMs can be categorized into various architectural patterns.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive classification claim about the research landscape, but no citation is supplied nearby."
+      },
+      {
+        "claim_id": "Q2",
+        "claim": "Strong foundational studies have conducted comprehensive categorizations of multi-agent LLM architectures.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This claim refers to the existence and strength of prior studies, but no supporting source is provided."
+      },
+      {
+        "claim_id": "Q3",
+        "claim": "Multi-agent LLM architectures can be broadly classified into cooperative, competitive, and hybrid models.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive taxonomy claim and has no citation."
+      },
+      {
+        "claim_id": "Q4",
+        "claim": "Cooperative, competitive, and hybrid models exhibit distinct interaction protocols and decision-making processes.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This comparative characterization is externally verifiable and uncited."
+      },
+      {
+        "claim_id": "Q5",
+        "claim": "Cooperative models often utilize joint task planning.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This generalization about model behavior requires support, but none is supplied."
+      },
+      {
+        "claim_id": "Q6",
+        "claim": "Competitive models may employ adversarial setups.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about competitive architectures and is uncited."
+      },
+      {
+        "claim_id": "Q7",
+        "claim": "Hybrid models combine cooperative and competitive approaches for diversified applications.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This claim about hybrid architectures and their applications has no citation."
+      },
+      {
+        "claim_id": "Q8",
+        "claim": "Relationships between different architectural patterns reveal potential avenues for enhancement and innovation.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive inference about the research landscape and is unsupported by a citation."
+      },
+      {
+        "claim_id": "Q9",
+        "claim": "Interfaces between cooperative and competitive models could lead to novel approaches in negotiation and conflict resolution in multi-agent settings.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "Although phrased as a possibility, it makes an externally assessable claim about research potential and has no citation."
+      },
+      {
+        "claim_id": "Q10",
+        "claim": "Coordination, communication overhead, and knowledge sharing are common challenges in multi-agent systems.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about recurring system challenges and is uncited."
+      },
+      {
+        "claim_id": "Q11",
+        "claim": "A hybrid approach can efficiently address coordination, communication overhead, and knowledge-sharing challenges.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "The claim makes an empirical or performance-related assertion about hybrid approaches without supplying evidence."
+      },
+      {
+        "claim_id": "Q12",
+        "claim": "A lack of standardized metrics for evaluating multi-agent LLM systems leads to inconsistencies in research findings.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a substantive claim about evaluation practices and their consequences, with no citation."
+      },
+      {
+        "claim_id": "Q13",
+        "claim": "Understanding of human-like reasoning and ethical considerations in negotiation strategies among multi-agent systems is limited.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is an externally verifiable assessment of the state of knowledge and is uncited."
+      },
+      {
+        "claim_id": "Q14",
+        "claim": "Significant gaps remain in the practical application of multi-agent LLM systems, ethical frameworks, and standardized evaluation metrics.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This conclusion about research gaps requires supporting literature, but no citation is present."
+      },
+      {
+        "claim_id": "Q15",
+        "claim": "Real-world deployment scenarios for multi-agent LLM systems remain insufficiently explored.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the extent of existing research and has no citation."
+      },
+      {
+        "claim_id": "Q16",
+        "claim": "Ethical considerations have not yet been fully integrated into multi-agent system design and interaction protocols.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This claim about the state of system design and research practice is externally verifiable and uncited."
+      },
+      {
+        "claim_id": "Q17",
+        "claim": "Empirical assessment of multi-agent systems across application domains such as healthcare and finance remains a research gap.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a claim about the state of empirical research and is unsupported by a citation."
+      },
+      {
+        "claim_id": "Q18",
+        "claim": "The research landscape of multi-agent LLM systems offers various architectural patterns that can be leveraged collaboratively or competitively.",
+        "classification": "CITATION_REQUIRED",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This conclusion restates substantive landscape and architecture claims without citation."
+      },
+      {
+        "claim_id": "Q19",
+        "claim": "Future work should address practical application, ethical frameworks, and standardized evaluation metrics to advance multi-agent LLM systems.",
+        "classification": "CITATION_OPTIONAL",
+        "has_appropriate_citation": false,
+        "citation_ids": [],
+        "rationale": "This is a forward-looking recommendation rather than a factual assertion; citation may strengthen it but is not strictly required."
+      }
+    ],
+    "evaluable_support_claims": 0,
+    "total_support_claims": 2,
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_APPLICABLE",
+        "details": "Not applicable to the deliberate one-call LLM-only baseline."
+      }
+    ],
+    "passed_count": 2,
+    "failed_count": 0,
+    "not_evaluable_count": 15,
+    "structured_claim_evidence_available": false
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R5: Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays.",
+    "R2: Identify and characterize the major architectural patterns in multi-agent LLM systems.",
+    "18 citation-required claim(s) lacked an appropriate citation."
+  ],
+  "metadata": {
+    "evaluator_version": "1.0",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "5c6e8355847ee7b51c13a6a9b90793de2c1f671e41dfa5a338b8dc728a05e403",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "comprehensiveness": 0.6,
+      "citations": 0.3,
+      "deterministic": 0.1
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0",
+      "citation_support": "1.0",
+      "citation_completeness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T14:48:23.125979+00:00",
+    "usage": {
+      "llm_calls": 2,
+      "input_tokens": 2990,
+      "output_tokens": 2679,
+      "estimated_cost": null
+    }
+  }
+}

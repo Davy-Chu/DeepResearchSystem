@@ -25,10 +25,6 @@ from research.llm_only_runner import (
     save_llm_only_artifacts,
 )
 from research.models import FinalReport
-from research.prior_guided_analyzer import PriorGuidedResearchAnalyzer
-from research.prior_guided_logger import PriorGuidedResearchLogger
-from research.prior_guided_runner import PriorGuidedResearchRunner
-from research.prior_knowledge_planner import PriorKnowledgeResearchPlanner
 from research.report import (
     FinalReportGenerator,
     build_incomplete_report,
@@ -43,7 +39,6 @@ from research.verifier import IndependentClaimVerifier
 from research.versions import (
     DECOMPOSED_SYSTEM_VERSION,
     LEDGER_SYSTEM_VERSION,
-    PRIOR_GUIDED_SYSTEM_VERSION,
     SYSTEM_VERSION_BY_MODE,
     VERIFIED_SYSTEM_VERSION,
 )
@@ -59,9 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Research architecture: llm-only is one raw OpenAI generation with no "
             "retrieval or research infrastructure; baseline-zero remains the default; "
-            "ledger, decomposed, and verified add the later research components; "
-            "prior-guided is an experimental V0 variant that uses pretrained model "
-            "knowledge only to plan evidence-grounded retrieval"
+            "ledger, decomposed, and verified add the later research components."
         ),
     )
     parser.add_argument(
@@ -80,6 +73,8 @@ def _run_llm_only(question: str, output_root: Path) -> int:
         return 1
     try:
         settings = load_llm_only_settings()
+        logging.info("Research model: %s", settings.model)
+        logging.info("Architecture: %s", SYSTEM_VERSION_BY_MODE["llm-only"])
         result = LLMOnlyResearchRunner(
             settings.openai_api_key,
             settings.model,
@@ -110,7 +105,7 @@ def _handle_incomplete_run(
     failure_stage: str,
     research_logger: ResearchLogger | LedgerResearchLogger | None,
     output_dir: Path | None,
-    runner: ResearchRunner | LedgerResearchRunner | PriorGuidedResearchRunner | None,
+    runner: ResearchRunner | LedgerResearchRunner | None,
     final_report: FinalReport | None,
 ) -> int:
     logging.error("Research did not complete normally: %s", error or type(error).__name__)
@@ -134,6 +129,7 @@ def _handle_incomplete_run(
                 recovered_report,
                 research_logger.model,
                 output_dir=output_dir,
+                verifier_model=getattr(research_logger, "verifier_model", None),
             )
         research_log_path = research_logger.save(output_dir)
     except Exception as artifact_error:
@@ -168,17 +164,19 @@ def main(arguments: Sequence[str] | None = None) -> int:
         return _run_llm_only(args.question, args.output_root)
     research_logger: ResearchLogger | LedgerResearchLogger | None = None
     output_dir: Path | None = None
-    runner: ResearchRunner | LedgerResearchRunner | PriorGuidedResearchRunner | None = None
+    runner: ResearchRunner | LedgerResearchRunner | None = None
     final_report: FinalReport | None = None
     failure_stage = "Initialization"
 
     try:
         settings = load_settings()
+        logging.info("Research model: %s", settings.research_model)
+        logging.info("Architecture: %s", SYSTEM_VERSION_BY_MODE[args.mode])
         output_dir = create_output_directory(args.question, args.output_root)
         if args.mode in {"ledger", "decomposed", "verified"}:
             research_logger = LedgerResearchLogger(
                 question=args.question.strip(),
-                model=settings.openai_model,
+                model=settings.research_model,
                 max_iterations=MAX_RESEARCH_ITERATIONS,
                 system_version=(
                     VERIFIED_SYSTEM_VERSION
@@ -193,66 +191,38 @@ def main(arguments: Sequence[str] | None = None) -> int:
                     settings.verifier_model if args.mode == "verified" else None
                 ),
             )
-        elif args.mode == "prior-guided":
-            research_logger = PriorGuidedResearchLogger(
-                question=args.question.strip(),
-                model=settings.openai_model,
-                max_iterations=MAX_RESEARCH_ITERATIONS,
-                system_version=PRIOR_GUIDED_SYSTEM_VERSION,
-            )
         else:
             research_logger = ResearchLogger(
                 question=args.question.strip(),
-                model=settings.openai_model,
+                model=settings.research_model,
                 max_iterations=MAX_RESEARCH_ITERATIONS,
             )
         search_client = TavilySearchClient(settings.tavily_api_key)
         report_generator = FinalReportGenerator(
             settings.openai_api_key,
-            settings.openai_model,
+            settings.research_model,
             timeout_seconds=settings.openai_timeout_seconds,
             max_retries=settings.openai_max_retries,
         )
         failure_stage = "Research Execution"
-        if args.mode == "prior-guided":
-            assert isinstance(research_logger, PriorGuidedResearchLogger)
-            planner = PriorKnowledgeResearchPlanner(
-                settings.openai_api_key,
-                settings.openai_model,
-                timeout_seconds=settings.openai_timeout_seconds,
-                max_retries=settings.openai_max_retries,
-            )
-            analyzer = PriorGuidedResearchAnalyzer(
-                settings.openai_api_key,
-                settings.openai_model,
-                timeout_seconds=settings.openai_timeout_seconds,
-                max_retries=settings.openai_max_retries,
-            )
-            runner = PriorGuidedResearchRunner(
-                search_client,
-                planner,
-                analyzer,
-                report_generator,
-                research_logger=research_logger,
-            )
-        elif args.mode in {"ledger", "decomposed", "verified"}:
+        if args.mode in {"ledger", "decomposed", "verified"}:
             assert isinstance(research_logger, LedgerResearchLogger)
             evidence_processor = EvidenceProcessor(
                 settings.openai_api_key,
-                settings.openai_model,
+                settings.research_model,
                 timeout_seconds=settings.openai_timeout_seconds,
                 max_retries=settings.openai_max_retries,
             )
             if args.mode in {"decomposed", "verified"}:
                 decision_maker = SubquestionResearchDecisionMaker(
                     settings.openai_api_key,
-                    settings.openai_model,
+                    settings.research_model,
                     timeout_seconds=settings.openai_timeout_seconds,
                     max_retries=settings.openai_max_retries,
                 )
                 question_decomposer = QuestionDecomposer(
                     settings.openai_api_key,
-                    settings.openai_model,
+                    settings.research_model,
                     timeout_seconds=settings.openai_timeout_seconds,
                     max_retries=settings.openai_max_retries,
                 )
@@ -269,7 +239,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
             else:
                 decision_maker = ResearchDecisionMaker(
                     settings.openai_api_key,
-                    settings.openai_model,
+                    settings.research_model,
                     timeout_seconds=settings.openai_timeout_seconds,
                     max_retries=settings.openai_max_retries,
                 )
@@ -289,7 +259,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
             assert isinstance(research_logger, ResearchLogger)
             analyzer = ResearchAnalyzer(
                 settings.openai_api_key,
-                settings.openai_model,
+                settings.research_model,
                 timeout_seconds=settings.openai_timeout_seconds,
                 max_retries=settings.openai_max_retries,
             )
@@ -305,8 +275,9 @@ def main(arguments: Sequence[str] | None = None) -> int:
         report_path, trace_path = save_research_outputs(
             result.state,
             result.report,
-            settings.openai_model,
+            settings.research_model,
             output_dir=output_dir,
+            verifier_model=(settings.verifier_model if args.mode == "verified" else None),
         )
         research_log_path = research_logger.save(output_dir)
     except KeyboardInterrupt as exc:

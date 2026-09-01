@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from evaluation.v1.models import EvaluationResult
-from research.versions import CANONICAL_SYSTEM_VERSIONS
+from research.versions import CANONICAL_SYSTEM_VERSIONS, CANONICAL_VERSION_LABELS
 
 
 @dataclass(frozen=True)
@@ -27,14 +27,11 @@ def _row(entry: BenchmarkEntry) -> dict[str, object]:
         "run": entry.run,
         "system_version": result.system_version,
         "fixture": result.metadata.fixture_id,
+        "research_model": result.metadata.research_model or "unknown",
+        "evaluator_model": result.metadata.evaluator_model or "unknown",
         "overall_score": result.overall_score,
         "coverage": result.comprehensiveness.coverage,
         "depth": result.comprehensiveness.depth,
-        "comprehensiveness": result.comprehensiveness.score,
-        "citation_validity": result.citations.validity,
-        "citation_support": result.citations.support,
-        "citation_completeness": result.citations.completeness,
-        "citation_quality": result.citations.score,
         "deterministic_integrity": result.deterministic_integrity.score,
         "evaluation_completeness": result.evaluation_completeness,
         "tavily_calls": trace.get("tavily_calls"),
@@ -83,15 +80,16 @@ def save_benchmark(entries: list[BenchmarkEntry], root: Path) -> tuple[Path, Pat
     lines = [
         "# Evaluator v1 Benchmark",
         "",
-        "| Run | System | Fixture | Overall | Coverage | Depth | Citation support | Searches | Core sufficient |",
-        "|---|---|---|---:|---:|---:|---:|---:|---:|",
+        "| Run | System | Fixture | Research Model | Evaluator Model | Overall | Coverage | Depth | Searches | Core sufficient |",
+        "|---|---|---|---|---|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
         lines.append(
             f"| {row['run']} | {row['system_version'] or 'Unknown'} | "
-            f"{row['fixture'] or 'Unavailable'} | {_fmt(row['overall_score'])} | "
+            f"{row['fixture'] or 'Unavailable'} | {row['research_model']} | "
+            f"{row['evaluator_model']} | {_fmt(row['overall_score'])} | "
             f"{_fmt(row['coverage'])} | {_fmt(row['depth'])} | "
-            f"{_fmt(row['citation_support'])} | {_fmt(row['tavily_calls'])} | "
+            f"{_fmt(row['tavily_calls'])} | "
             f"{_coverage_fmt(row['core_sufficient'], row['core_dimensions'])} |"
         )
     markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -105,14 +103,11 @@ def _row_placeholder() -> dict[str, object]:
             "run",
             "system_version",
             "fixture",
+            "research_model",
+            "evaluator_model",
             "overall_score",
             "coverage",
             "depth",
-            "comprehensiveness",
-            "citation_validity",
-            "citation_support",
-            "citation_completeness",
-            "citation_quality",
             "deterministic_integrity",
             "evaluation_completeness",
             "tavily_calls",
@@ -159,15 +154,6 @@ def save_comparison(
     metrics = {
         "coverage": (baseline.comprehensiveness.coverage, candidate.comprehensiveness.coverage),
         "depth": (baseline.comprehensiveness.depth, candidate.comprehensiveness.depth),
-        "comprehensiveness": (
-            baseline.comprehensiveness.score,
-            candidate.comprehensiveness.score,
-        ),
-        "citation_support": (baseline.citations.support, candidate.citations.support),
-        "citation_completeness": (
-            baseline.citations.completeness,
-            candidate.citations.completeness,
-        ),
         "overall": (baseline.overall_score, candidate.overall_score),
     }
     comparison = {
@@ -200,6 +186,138 @@ def save_comparison(
             f"| {name.replace('_', ' ').title()} | {_fmt(values['baseline'])} | "
             f"{_fmt(values['candidate'])} | {_signed(values['delta'])} |"
         )
+    markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return json_path, markdown_path
+
+
+def _load_benchmark_rows(path: Path) -> list[dict[str, object]]:
+    path = path.resolve()
+    candidates = (
+        [path]
+        if path.is_file()
+        else [path / "benchmark.json", path / "benchmark" / "benchmark.json"]
+    )
+    selected = next((item for item in candidates if item.is_file()), None)
+    if selected is None:
+        raise ValueError(f"Benchmark JSON not found at: {path}")
+    payload = json.loads(selected.read_text(encoding="utf-8"))
+    if not isinstance(payload, list) or not all(isinstance(row, dict) for row in payload):
+        raise ValueError(f"Malformed benchmark JSON: {selected}")
+    return payload
+
+
+def _family_summary(paths: list[Path]) -> dict[str, dict[str, object]]:
+    rows = [row for path in paths for row in _load_benchmark_rows(path)]
+    summary: dict[str, dict[str, object]] = {}
+    for system_version in CANONICAL_SYSTEM_VERSIONS:
+        matching = [row for row in rows if row.get("system_version") == system_version]
+        coverage = [float(row["coverage"]) for row in matching if row.get("coverage") is not None]
+        depth = [float(row["depth"]) for row in matching if row.get("depth") is not None]
+        if not matching:
+            continue
+        summary[system_version] = {
+            "coverage": sum(coverage) / len(coverage) if coverage else None,
+            "depth": sum(depth) / len(depth) if depth else None,
+            "evaluated_reports": len(matching),
+            "research_models": sorted(
+                {str(row.get("research_model") or "unknown") for row in matching}
+            ),
+            "evaluator_models": sorted(
+                {str(row.get("evaluator_model") or "unknown") for row in matching}
+            ),
+        }
+    return summary
+
+
+def save_model_family_comparison(
+    baseline_paths: list[Path],
+    candidate_paths: list[Path],
+    root: Path,
+    *,
+    baseline_label: str = "Luna",
+    candidate_label: str = "GPT-4o-mini",
+) -> tuple[Path, Path]:
+    """Compare architecture levels and within-family deltas across model families."""
+
+    if not baseline_paths or not candidate_paths:
+        raise ValueError("Model-family comparison requires both benchmark families")
+    families = {
+        baseline_label: _family_summary(baseline_paths),
+        candidate_label: _family_summary(candidate_paths),
+    }
+    transitions: list[dict[str, object]] = []
+    for before, after in zip(CANONICAL_SYSTEM_VERSIONS, CANONICAL_SYSTEM_VERSIONS[1:]):
+        entry: dict[str, object] = {
+            "from_system": before,
+            "to_system": after,
+            "families": {},
+        }
+        for label, summary in families.items():
+            before_values = summary.get(before, {})
+            after_values = summary.get(after, {})
+            family_delta: dict[str, float | None] = {}
+            for metric in ("coverage", "depth"):
+                first = before_values.get(metric)
+                second = after_values.get(metric)
+                family_delta[metric] = (
+                    float(second) - float(first)
+                    if first is not None and second is not None
+                    else None
+                )
+            entry["families"][label] = family_delta
+        transitions.append(entry)
+
+    payload = {
+        "families": families,
+        "architecture_deltas": transitions,
+        "primary_metrics": ["coverage", "depth"],
+    }
+    directory = _non_overwriting_directory(
+        root / "comparisons", "model-family-comparison"
+    )
+    json_path = directory / "comparison.json"
+    markdown_path = directory / "comparison.md"
+    json_path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    lines = [
+        "# Cross-Model Architecture Comparison",
+        "",
+        f"| Architecture | {baseline_label} Coverage | {baseline_label} Depth | "
+        f"{candidate_label} Coverage | {candidate_label} Depth |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for version in CANONICAL_SYSTEM_VERSIONS:
+        baseline = families[baseline_label].get(version, {})
+        candidate = families[candidate_label].get(version, {})
+        lines.append(
+            f"| {CANONICAL_VERSION_LABELS[version]} | "
+            f"{_fmt(baseline.get('coverage'))} | {_fmt(baseline.get('depth'))} | "
+            f"{_fmt(candidate.get('coverage'))} | {_fmt(candidate.get('depth'))} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Marginal Architecture Deltas",
+            "",
+            f"| Transition | Metric | {baseline_label} Delta | {candidate_label} Delta |",
+            "|---|---|---:|---:|",
+        ]
+    )
+    for transition in transitions:
+        transition_label = (
+            f"{CANONICAL_VERSION_LABELS[transition['from_system']]} -> "
+            f"{CANONICAL_VERSION_LABELS[transition['to_system']]}"
+        )
+        family_values = transition["families"]
+        for metric in ("coverage", "depth"):
+            lines.append(
+                f"| {transition_label} | {metric.title()} | "
+                f"{_signed(family_values[baseline_label][metric])} | "
+                f"{_signed(family_values[candidate_label][metric])} |"
+            )
     markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return json_path, markdown_path
 

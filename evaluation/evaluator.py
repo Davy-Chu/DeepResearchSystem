@@ -27,6 +27,7 @@ from evaluation.models import (
     StageStatus,
 )
 from evaluation.renderer import save_evaluation_result
+from evaluation.v1.config import load_evaluator_model
 from research.config import (
     DEFAULT_OPENAI_MODEL,
     load_openai_max_retries,
@@ -94,6 +95,11 @@ def load_evaluation_input(run_directory: Path) -> EvaluationInput:
         report=report,
         report_markdown=report_path.read_text(encoding="utf-8"),
         sources=sources,
+        research_model=(
+            trace.get("research_model", "unknown").strip() or "unknown"
+            if isinstance(trace.get("research_model"), str)
+            else "unknown"
+        )
     )
 
 
@@ -135,6 +141,7 @@ class EvaluatorRunner:
             evaluation_metadata=EvaluationMetadata(
                 evaluator_model=self.evaluator_model,
                 timestamp=datetime.now(timezone.utc).isoformat(),
+                research_model=evaluation_input.research_model,
             ),
         )
 
@@ -152,11 +159,7 @@ def evaluation_main(arguments: list[str] | None = None) -> int:
         api_key = os.getenv("OPENAI_API_KEY", "").strip()
         if not api_key:
             raise ValueError("Missing required environment variable: OPENAI_API_KEY")
-        evaluator_model = (
-            os.getenv("EVALUATOR_MODEL", "").strip()
-            or os.getenv("OPENAI_MODEL", "").strip()
-            or DEFAULT_OPENAI_MODEL
-        )
+        evaluator_model = load_evaluator_model()
         timeout_seconds = load_openai_timeout_seconds()
         max_retries = load_openai_max_retries()
         evaluation_input = load_evaluation_input(args.run_directory)

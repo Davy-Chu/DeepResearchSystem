@@ -1,0 +1,266 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "evidence-ledger-v1",
+  "overall_score": 28.125,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.28125,
+    "coverage": 0.28125,
+    "depth": 0.28125,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report defines inference-time scaling generally as “increasing computational resources during reasoning tasks” and mentions “extended reasoning,” “explore more solutions,” and dynamically adjusting computation based on difficulty."
+        ],
+        "missing": [
+          "It does not clearly distinguish serial reasoning length, parallel sampling, search, verification, refinement, tool use, or adaptive budgeting as separate forms.",
+          "It does not distinguish inference-time scaling from training changes, larger models, or simply providing more input context.",
+          "It does not discuss debatable boundaries or operational definitions such as tokens, FLOPs, samples, or latency."
+        ],
+        "rationale": "There is a broad definition and scattered mention of adaptive computation, but the required taxonomy and boundary distinctions are largely absent."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report states that “extended reasoning can improve accuracy” and cites claims that additional computation can produce better answers.",
+          "It notes that “some models perform well under varying reasoning lengths,” challenging a universal overthinking claim."
+        ],
+        "missing": [
+          "No controlled comparisons are reported with identifiable models, tasks, inference budgets, or baselines.",
+          "No effect sizes, confidence intervals, variance, or replication evidence are provided.",
+          "The report relies on source-list summaries rather than synthesizing results across studies or separating replicated findings from isolated benchmark results."
+        ],
+        "rationale": "The report asserts efficacy and some contradiction, but does not provide the empirical comparison details needed to establish where and how strongly scaling works."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "It mentions “various techniques in inference-time scaling,” “explore more solutions,” iterative reasoning and revision, and dynamic computation based on problem difficulty.",
+          "It identifies overthinking, redundancy, distractions, and abandoning correct answers as possible failure modes."
+        ],
+        "missing": [
+          "Serial reasoning, repeated sampling and aggregation, search, verification, refinement, and adaptive allocation are not separately explained or compared.",
+          "There is no evidence-based account of the conditions under which each mechanism succeeds or fails.",
+          "Important mechanism-specific limitations such as correlated samples, unreliable verifiers, search errors, and error propagation are not addressed."
+        ],
+        "rationale": "The report gestures toward several mechanisms and general failure modes, but does not analyze them as distinct strategies."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "It reports “diminishing returns with increasing reasoning budgets.”",
+          "It cites an “inverted-U relationship between reasoning length and accuracy.”",
+          "It states that excessive reasoning can decrease accuracy and describes “saturation effect beyond optimal reasoning lengths.”",
+          "The conflicts section says marginal returns diminish at higher budgets, while longer reasoning may cause models to abandon correct answers."
+        ],
+        "missing": [
+          "The patterns are not systematically compared across model capability, task difficulty, budget ranges, or scaling strategy.",
+          "The report does not distinguish evidence for ordinary diminishing returns from evidence for true degradation across broad settings.",
+          "It does not explicitly caution that no universal functional scaling law is established."
+        ],
+        "rationale": "This is the strongest substantive area: the report recognizes non-monotonicity, diminishing returns, and degradation. However, it remains mostly qualitative and narrow."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No quantitative or conditional analysis of tokens, FLOPs, latency, throughput, energy, or monetary cost.",
+          "No matched comparison with larger models, differently trained models, or alternative inference strategies.",
+          "No discussion of deployment constraints or when extra inference is preferable to other interventions."
+        ],
+        "rationale": "Although the sources and one claim mention efficiency, the candidate report itself does not evaluate resource trade-offs."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report includes a finding about “slow-thinking LLMs” in “time series forecasting.”",
+          "It claims applicability across “various settings,” while also noting that some models behave differently under varying reasoning lengths."
+        ],
+        "missing": [
+          "There is no systematic coverage of mathematics, STEM, coding, knowledge-intensive or open-domain reasoning, planning, interactive/tool-using tasks, ambiguous tasks, safety workloads, languages, or real-world data.",
+          "It does not distinguish synthetic from naturalistic evaluations or proprietary from open models.",
+          "It does not assess transfer beyond the studied reasoning-length and time-series settings."
+        ],
+        "rationale": "One forecasting example and broad applicability language do not establish generalization."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The report acknowledges contradictions, including that “some models perform well under varying reasoning lengths.”",
+          "It says “Further empirical studies are necessary to explore the nuances and optimize reasoning lengths.”",
+          "It identifies overthinking and diminishing returns as unresolved complications."
+        ],
+        "missing": [
+          "It does not assess replication, study independence, benchmark contamination, prompt and dataset limitations, selective reporting, proprietary access, weak baselines, or incomplete compute accounting.",
+          "It does not clearly separate established findings, conditional interpretations, and speculative extrapolations.",
+          "The “Remaining Gaps” section incorrectly states: “No major remaining gap was identified within the research scope.”",
+          "It does not identify what evidence would resolve questions about long-run limits, adaptive allocation, retrieval/context effects, or real-world applicability."
+        ],
+        "rationale": "Some uncertainty is acknowledged, but evidence quality is not critically assessed and the explicit gap assessment is contradictory to the research question."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "The conclusion states that increasing compute “can enhance reasoning performance,” while “overthinking and diminishing returns complicate this relationship.”",
+          "It calls for further empirical studies and avoids claiming that more compute is uniformly beneficial."
+        ],
+        "missing": [
+          "It does not clearly separate confidently established findings from conditional findings and speculative claims.",
+          "It does not directly state which domains or mechanisms have sufficient evidence and which are too thin to support conclusions.",
+          "The repeated “High” confidence labels are not justified by reported comparative data, and the conclusion does not reflect the report’s lack of coverage of costs, mechanisms, generalization, or evidence quality."
+        ],
+        "rationale": "The conclusion is directionally balanced but too generic and overconfident relative to the evidence presented."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report provides a basic synthesis of commonly stated claims—benefits, overthinking, diminishing returns, and one forecasting example—but does not develop a distinct, well-supported insight beyond those claims."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R5: Evaluate inference scaling against realistic resource constraints and alternatives.",
+    "R1: Define inference-time compute scaling and distinguish its main forms from adjacent interventions.",
+    "R2: Synthesize controlled evidence about whether and where additional inference-time compute improves reasoning performance."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "inference-time-compute-scaling",
+    "fixture_version": "1.0",
+    "rubric_hash": "d32d6ea1035324f019e9421c7b216e4501bdab866df8e60cda19db2afb8a4c2f",
+    "candidate_report_hash": "0e803e187bed5a81de78bf0fc8a1791b100a9d254c4af133fbf4d44a70274542",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:19:38.897638+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 4678,
+      "output_tokens": 1490,
+      "estimated_cost": null
+    }
+  }
+}

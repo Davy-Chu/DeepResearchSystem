@@ -88,6 +88,20 @@ def test_one_call_uses_exact_minimal_prompt_and_no_tools() -> None:
     assert result.report == STRUCTURED_REPORT
 
 
+def test_four_o_mini_is_used_without_unsupported_reasoning_parameter() -> None:
+    responses = FakeResponses()
+    runner = LLMOnlyResearchRunner(
+        "unused",
+        "gpt-4o-mini",
+        client=SimpleNamespace(responses=responses),
+    )
+
+    runner.run("What is X?")
+
+    assert responses.calls[0]["model"] == "gpt-4o-mini"
+    assert "reasoning" not in responses.calls[0]
+
+
 def test_empty_question_is_rejected_before_model_call() -> None:
     responses = FakeResponses()
     runner = LLMOnlyResearchRunner(

@@ -1,0 +1,270 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "evidence-ledger-decomposer-v1",
+  "overall_score": 21.195652173913043,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.21195652173913043,
+    "coverage": 0.22826086956521738,
+    "depth": 0.1956521739130435,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No operational definition of multi-agent LLM systems.",
+          "No inclusion or exclusion criteria for single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM multi-agent systems, or hybrid systems.",
+          "No consistent treatment of borderline cases."
+        ],
+        "rationale": "The report assumes the subject without defining its scope."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 1 names four broad groupings: “single-agent, collaborative multi-agent, competitive multi-agent, and orchestration topology.”",
+          "Finding 3 mentions “centralized, decentralized, and hybrid models.”",
+          "Finding 3 cites “decentralized, centralized, specialized, and hybrid” approaches."
+        ],
+        "missing": [
+          "The report does not characterize materially distinct patterns in terms of control structure, agent arrangement, information flow, coordination mechanism, applications, or limitations.",
+          "The claimed “eight canonical patterns” are not enumerated.",
+          "Relationships among patterns and the possibility of multiple taxonomic axes are not explained.",
+          "Representative systems or applications are largely absent beyond generic references to orchestration."
+        ],
+        "rationale": "It provides broad labels but not the substantive architectural mapping required."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 3 identifies “centralized, decentralized, and hybrid models.”",
+          "Finding 5 mentions “interaction complexity and communication issues” and “communication consistency.”",
+          "The Remaining Gaps section notes that “coordination overhead” and “coordination breakdowns” require further examination."
+        ],
+        "missing": [
+          "No systematic treatment of hierarchical versus peer coordination, sequential versus parallel execution, synchronous versus asynchronous operation, message passing versus shared state, context isolation versus sharing, or static versus dynamic allocation.",
+          "The consequences for coordination, independence, consistency, scalability, latency, or cost are not analyzed.",
+          "The report mostly states that coordination is difficult rather than explaining conditional design trade-offs."
+        ],
+        "rationale": "A few dimensions are named, but cross-cutting design consequences are not developed."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No substantive discussion of planners or orchestrators, specialized workers, critics or verifiers, synthesizers, tools or retrieval, memory or shared state, or evidence/provenance tracking.",
+          "No explanation of how these components compose with architectural patterns.",
+          "No distinction between essential architectural features and optional implementation overlays."
+        ],
+        "rationale": "The report refers generically to orchestration and specialized agents but does not explain system composition mechanisms."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No visual taxonomy, diagram, design graph, table functioning as a visual synthesis, or legend is provided.",
+          "Relationships among alternatives, composition, hierarchy, and cross-cutting overlays are not made explicit visually.",
+          "There is no prose explaining how to read a visualization or its classification limitations."
+        ],
+        "rationale": "The requested visual synthesis is entirely absent."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 4 claims that “optimal orchestration patterns reduces task completion time by 30-45%.”",
+          "Finding 4 also states that collaboration can “improve accuracy.”",
+          "The Remaining Gaps section acknowledges that the impact of “coordination overhead on performance” requires quantification."
+        ],
+        "missing": [
+          "No comparison of specific patterns or choices across quality, reliability, communication overhead, scalability, latency, token or monetary cost, fault tolerance, or task suitability.",
+          "The 30–45% claim does not identify the task, baseline, metric, sample, or experimental context.",
+          "No conditional trade-off analysis distinguishes when orchestration helps or hurts.",
+          "The report does not distinguish measured findings from hypotheses, marketing claims, or design intuitions."
+        ],
+        "rationale": "There are isolated performance assertions, but not evidence-based comparative analysis."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.5,
+        "depth": 0.5,
+        "candidate_evidence": [
+          "Finding 7 reports failure rates “between 41% and 86%” and attributes failures to specification and coordination issues.",
+          "Finding 8 cites MAST-Data’s “14 unique failure modes” in three categories: “system design issues, inter-agent misalignment, and task verification.”",
+          "Finding 5 identifies communication consistency, coordination complexity, and inter-agent issues as failure-related concerns.",
+          "The Remaining Gaps section calls for approaches to “mitigate the identified failure modes.”"
+        ],
+        "missing": [
+          "No evaluation framework covering outcome quality, factuality or evidence support, efficiency, coordination behavior, or appropriate single-agent and ablation baselines.",
+          "Risks such as hallucination propagation, correlated errors or groupthink, contradiction and memory failures, runaway execution, tool misuse, security, governance, and opacity are not systematically addressed.",
+          "No concrete safeguards, monitoring methods, provenance checks, stop conditions, access controls, or human-oversight procedures are linked to specific risks.",
+          "The reported failure-rate claims lack task, dataset, metric, baseline, and experimental-context details."
+        ],
+        "rationale": "The report offers meaningful failure-mode evidence, especially through MAST-Data, but lacks the requested evaluation and mitigation analysis."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The Remaining Gaps section identifies open areas involving failure-mode mitigation, coordination overhead, coordination breakdowns, weak specifications, and tooling effectiveness.",
+          "Finding 5 identifies communication and coordination as open problems.",
+          "Finding 6 identifies long-context handling, token use, and dynamic orchestration as active development areas.",
+          "The Sources section provides identifiable URLs, including the MAST paper at [S18], its NeurIPS listing at [S20], an orchestration paper at [S9], and an OpenReview paper at [S10]."
+        ],
+        "missing": [
+          "Open problems are mostly stated generically and are not organized into specific research questions, hypotheses, methods, or reasons they matter.",
+          "Important areas such as scalable coordination, state and provenance, memory, adaptive allocation, benchmarking, interoperability, learning or adaptation, and governance receive little or no treatment.",
+          "Sources are not characterized by evidence type or status; the report does not distinguish peer-reviewed results, preprints, industry posts, blogs, and proposed future directions.",
+          "Several conclusions rely on low-authority or duplicate secondary sources, and quantitative claims are not tied to fully identifiable study contexts.",
+          "The report does not synthesize how the open problems follow from the architectural landscape."
+        ],
+        "rationale": "It has identifiable sources and several plausible research gaps, but sourcing qualification and researchable problem formulation are limited."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report largely repeats broad architectural labels, orchestration benefits, and failure-related claims without a distinct taxonomy, visual synthesis, comparative framework, or original cross-cutting analysis.",
+        "The MAST-Data and failure-rate references are useful evidence, but they are reported as sourced findings rather than a novel contribution of the report."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R5: Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays.",
+    "R2: Identify and characterize the major architectural patterns in multi-agent LLM systems."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "3dcb1e0171646cff48402b236451a0b140e9b8ad1bf4c91c4de6674b0d45e626",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:50:53.335260+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 4127,
+      "output_tokens": 1623,
+      "estimated_cost": null
+    }
+  }
+}

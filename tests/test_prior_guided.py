@@ -33,13 +33,11 @@ from research.prior_guided_runner import (
 from research.prior_knowledge_planner import PriorKnowledgeResearchPlanner
 from research.report import _prior_guided_report_payload, build_trace, validate_source_references
 from research.versions import (
+    ARCHIVED_EXPERIMENTAL_SYSTEM_VERSIONS,
     CANONICAL_SYSTEM_VERSIONS,
-    EXPERIMENTAL_SYSTEM_VERSIONS,
     PRIOR_GUIDED_SYSTEM_VERSION,
 )
 from scripts.run_fixture_suite import (
-    MAX_RESEARCH_OPENAI_CALLS,
-    MAX_TAVILY_CALLS,
     build_parser as build_suite_parser,
 )
 
@@ -430,14 +428,10 @@ def test_trace_and_log_keep_planning_separate_and_record_diagnostics() -> None:
     assert "**OpenAI Calls:** 3" in rendered
 
 
-def test_mode_is_experimental_and_fixture_suite_has_matching_budgets() -> None:
-    assert build_main_parser().parse_args(
-        ["Question", "--mode", "prior-guided"]
-    ).mode == "prior-guided"
-    assert build_suite_parser().parse_args(
-        ["prior-guided", "--dry-run"]
-    ).architecture == "prior-guided"
-    assert PRIOR_GUIDED_SYSTEM_VERSION in EXPERIMENTAL_SYSTEM_VERSIONS
+def test_prior_guided_is_archived_and_not_selectable() -> None:
+    assert PRIOR_GUIDED_SYSTEM_VERSION in ARCHIVED_EXPERIMENTAL_SYSTEM_VERSIONS
     assert PRIOR_GUIDED_SYSTEM_VERSION not in CANONICAL_SYSTEM_VERSIONS
-    assert MAX_TAVILY_CALLS["prior-guided"] == MAX_TAVILY_CALLS["baseline"] == 10
-    assert MAX_RESEARCH_OPENAI_CALLS["prior-guided"] == 12
+    with pytest.raises(SystemExit):
+        build_main_parser().parse_args(["Question", "--mode", "prior-guided"])
+    with pytest.raises(SystemExit):
+        build_suite_parser().parse_args(["prior-guided", "--dry-run"])

@@ -14,8 +14,8 @@ knowledge and one minimal instruction. The other four architectures use Tavily a
 perform at most ten searches; they favor an honest incomplete answer over unsupported
 completeness.
 
-It also contains an experimental `prior-guided` V0 variant. The experiment is kept out
-of the canonical V-1 through V3 ladder until benchmark results justify a redesign.
+Prior-guided retrieval is retained in the codebase as an archived failed experiment.
+It is not a supported CLI mode, fixture-suite architecture, or part of any active run.
 
 | Version | System | Stable system ID | Search | Ledger | Plan | Verifier |
 |---|---|---|---:|---:|---:|---:|
@@ -80,33 +80,6 @@ Need more research?
 The Search Baseline loop remains ordinary Python in `research/runner.py`. The V-1 to V0
 transition asks: **What value does fresh external retrieval add beyond the model's
 pretrained knowledge?** It adds Tavily retrieval and the iterative research loop.
-
-## Experimental: Prior-Guided Search
-
-System version: `prior-guided-baseline-v0`
-
-```text
-Question
-  -> one pretrained-knowledge research coverage map
-  -> original-question Tavily reconnaissance search
-  -> evidence-only analysis and coverage updates
-  -> searches targeting unresolved CORE dimensions
-  -> grounded V0 final report
-```
-
-Hypothesis: V0's grounding constraint improves provenance but may reduce breadth because
-the system can only search for gaps it has already recognized from retrieved evidence.
-The configured model's pretrained knowledge may provide useful topic recall for planning
-without being trusted as factual evidence.
-
-The planner receives only the original question and returns four to eight research
-dimensions. Planner output is planning metadata, not evidence. It cannot provide source
-IDs, cannot be cited, and is excluded from the factual final-synthesis payload. Final
-factual claims still require retrieved `S*` source IDs. Search 1 remains the exact original
-question, and the entire run retains the same maximum of ten Tavily searches as V0.
-
-This experiment adds one logical OpenAI planning request. It does not add a ledger,
-decomposer, verifier, counter-search, evaluator feedback, or fixture information.
 
 ### V1 — Evidence Ledger
 
@@ -216,24 +189,27 @@ Copy `.env.example` to `.env` and populate both keys:
 ```text
 OPENAI_API_KEY=your-key
 TAVILY_API_KEY=your-key
-OPENAI_MODEL=gpt-5.6-terra
+RESEARCH_MODEL=gpt-4o-mini
+OPENAI_MODEL=
 LLM_ONLY_MODEL=
 VERIFIER_MODEL=
-EVALUATOR_MODEL=gpt-5.6-terra
-OPENAI_EVALUATOR_MODEL=gpt-5.6-terra
+EVALUATOR_MODEL=gpt-5.6-luna
+OPENAI_EVALUATOR_MODEL=gpt-5.6-luna
 OPENAI_TIMEOUT_SECONDS=120
 OPENAI_MAX_RETRIES=1
 ```
 
-`EVALUATOR_MODEL` configures evaluator-v0 and falls back to `OPENAI_MODEL`.
-`OPENAI_EVALUATOR_MODEL` configures evaluator-v1 and falls back through
-`EVALUATOR_MODEL` to `OPENAI_MODEL`. All model choices can be changed without editing
-code. `.env` is ignored by Git, and keys are never logged.
-`VERIFIER_MODEL` configures the independent claim verifier and falls back to
-`OPENAI_MODEL` when blank or missing. It uses the existing OpenAI API key.
-`LLM_ONLY_MODEL` optionally overrides the model for V-1 and falls back to `OPENAI_MODEL`.
-For controlled comparisons, leave it blank so every research architecture uses the
-same underlying research model.
+`RESEARCH_MODEL` controls every research-side LLM call: V-1 generation, V0 analysis,
+ledger processing and decisions, decomposition, verification, and final synthesis. It
+falls back to legacy `OPENAI_MODEL`. `LLM_ONLY_MODEL` and `VERIFIER_MODEL` are optional
+overrides; leave both blank so every architecture uses the same research model.
+
+`OPENAI_EVALUATOR_MODEL` controls Evaluator v1 and evaluator v0, falling back through
+`EVALUATOR_MODEL` and then legacy `OPENAI_MODEL`. The 4o-mini experiment deliberately
+uses `RESEARCH_MODEL=gpt-4o-mini` with `OPENAI_EVALUATOR_MODEL=gpt-5.6-luna`. This tests
+whether retrieval and explicit orchestration provide greater marginal value when the
+base research model has weaker pretrained capability while keeping the judge fixed.
+`.env` is ignored by Git, and keys are never logged.
 `OPENAI_TIMEOUT_SECONDS` applies to every OpenAI request attempt and defaults to 120
 seconds. The OpenAI SDK may retry a timed-out request, so total elapsed time can exceed
 this value.
@@ -255,12 +231,6 @@ V0 Search Baseline remains the default, preserving existing commands:
 
 ```bash
 python main.py "your research question"
-```
-
-Run the experimental prior-guided V0 variant:
-
-```bash
-python main.py "your research question" --mode prior-guided
 ```
 
 Run Evidence Ledger v1 explicitly:
@@ -294,9 +264,7 @@ Run the command from the project root, where `main.py` and `.env` are located. A
 V-1 makes one logical OpenAI research request and zero Tavily requests. Infrastructure
 retries may cause another HTTP attempt, but it never performs a semantic retry or second
 generation pass. Search Baseline may perform up to ten Tavily searches and eleven OpenAI
-requests. Prior-guided mode uses the same ten-search maximum and may make twelve logical
-OpenAI requests: one planning call, up to ten evidence-analysis calls, and one final report. Evidence
-Ledger v1 may perform up to ten Tavily searches, ten evidence-processing requests,
+requests. Evidence Ledger v1 may perform up to ten Tavily searches, ten evidence-processing requests,
 nine model-based research decisions, and one final-report request. Either mode can incur
 API usage or charges. Decomposed mode has the same search and ledger limits plus one
 question-decomposition request, for a maximum of ten Tavily requests and twenty-one OpenAI
@@ -343,6 +311,20 @@ conclusions. Freezing prevents the benchmark definition from changing between
 baseline and ablation evaluations. Reference reports establish benchmark scope; they
 are not absolute truth.
 
+Evaluator v1's active metrics are coverage and depth. Each is first averaged across
+the frozen requirements using requirement importance as its weight. The final score is
+their equal-weight mean:
+
+```text
+overall = 100 * (0.50 * coverage + 0.50 * depth)
+```
+
+The comprehensiveness result remains the structured container for the coverage and
+depth judgments, but its combined score is now the overall score. Citation scoring is
+retained in `evaluation/v1/citations.py` and the legacy schemas for historical
+compatibility; it is no longer run, scored, or included in new Evaluator-v1 outputs.
+Deterministic integrity checks remain available as unscored diagnostics.
+
 The current nine-fixture benchmark is frozen under `evaluation/fixtures/`: remote work,
 the Late Bronze Age collapse, quantum commercial advantage, carbon capture,
 social-media polarization, synthetic data for LLM training, chain-of-thought
@@ -373,10 +355,9 @@ python main.py evaluator evaluate outputs/<run-directory> --fixture remote-work-
 ```
 
 Evaluator v1 never calls Tavily, performs web research, or changes the original report
-or trace. It does use OpenAI structured-output calls for frozen-rubric
-comprehensiveness, saved-snapshot citation support, and citation completeness. Missing
-fixtures, historical ledgers, or saved source content become visible `NOT_EVALUABLE`
-components rather than silently receiving zero or full credit.
+or trace. It uses one OpenAI structured-output judgment for frozen-rubric coverage and
+depth. A missing fixture becomes a visible `NOT_EVALUABLE` result rather than silently
+receiving zero or full credit.
 
 Evaluate several saved experiments and write JSON, CSV, and Markdown tables:
 
@@ -388,6 +369,13 @@ Compare two already-saved evaluator-v1 results without making API calls:
 
 ```powershell
 python main.py evaluator compare outputs/<baseline-run> outputs/<ledger-run>
+```
+
+Compare complete architecture ladders across research-model families without API calls.
+Repeat each option once per architecture benchmark:
+
+```powershell
+python main.py evaluator compare-models --baseline <luna-benchmark> --candidate <4o-mini-benchmark>
 ```
 
 ### Automated Frozen-Fixture Suite
@@ -411,7 +399,6 @@ Choose the research architecture by placing its name after the script:
 | --- | --- |
 | `python scripts/run_fixture_suite.py llm-only` | One structured OpenAI generation using the canonical report format; no retrieval or research components |
 | `python scripts/run_fixture_suite.py baseline` | Baseline analyzer; no ledger, decomposition, or verification |
-| `python scripts/run_fixture_suite.py prior-guided` | Experimental V0 plus one non-evidence prior-knowledge coverage-planning call |
 | `python scripts/run_fixture_suite.py ledger` | Evidence ledger only |
 | `python scripts/run_fixture_suite.py decomposed` | Evidence ledger and question decomposer |
 | `python scripts/run_fixture_suite.py verified` | Ledger, decomposer, independent verifier, and adversarial counter-search |
@@ -427,6 +414,8 @@ per-report evaluations are kept separate from ad-hoc research beneath
 `outputs/preset-questions/<question>/`. Aggregate benchmark JSON, CSV, Markdown, and the
 suite manifest are written beneath
 `outputs/preset-questions/evaluation-results/fixture-suite-<timestamp>-<mode>/`.
+GPT-4o-mini experiment suites add a `-4o-mini` suffix. Suite manifests and benchmark
+rows persist both the resolved research model and evaluator model.
 
 Choose another architecture or a smaller fixture subset when needed:
 
@@ -441,11 +430,12 @@ The older `--mode ledger` form remains supported for compatibility.
 The script continues to later research questions if one run fails, evaluates every
 successful run, records skipped/failed items in the manifest, and exits nonzero unless
 the whole selected suite succeeds. With the current nine fixtures, verified mode can
-make at most 27 Tavily searches and 90 research OpenAI requests. Evaluator-v1 usage is
-additional and report-dependent: it uses one comprehensiveness judgment, one citation
-completeness judgment, and one citation-support judgment per final finding, with at
-most one semantic repair attempt per structured judgment. OpenAI SDK retries may add
-HTTP attempts. Running the non-dry command can therefore incur substantial API charges.
+make at most 90 Tavily searches and 288 research OpenAI requests. Ledger-based modes
+may use one semantic repair request when a decision or final report violates its ID
+contract. Evaluator-v1 usage is
+additional: it uses one coverage/depth judgment per report, with at most one semantic
+repair attempt. OpenAI SDK retries may add HTTP attempts. Running the non-dry command
+can therefore incur substantial API charges.
 The LLM-only fixture suite uses exactly nine logical research-generation requests and
 zero Tavily searches before evaluation.
 
@@ -460,7 +450,9 @@ outputs/<run>/evaluations/evaluator-v1/<fixture-id>/
 Benchmark and comparison summaries are written below `evaluation/results/`. Mixed
 architecture benchmark rows are sorted in canonical V-1, V0, V1, V2, V3 order. Every
 evaluation records fixture and rubric hashes, prompt versions, candidate-report hash,
-model, scoring weights, timestamp, evaluation completeness, and available token usage.
+research model, evaluator model, scoring weights, timestamp, evaluation completeness,
+and available token usage. Older outputs without explicit model metadata remain readable
+and are labeled `unknown`; model identities are never guessed from legacy fields.
 
 ## Testing
 
@@ -551,8 +543,9 @@ All current architectures:
 - uses coarse Low/Medium/High confidence;
 - has a fixed search budget;
 - does not yet perform parallel subquestion research;
-- evaluates citation support with an LLM against saved source text, but does not perform
-  independent internet fact-checking;
+- retains legacy citation evaluators that compare claims with saved source text, but
+  those evaluators do not perform independent internet fact-checking and are no longer
+  part of active Evaluator-v1 scoring;
 - rely on model judgment to interpret evidence and identify semantic claim updates;
 - do not use embeddings; only verified mode adds an independent verifier;
 - may still miss contradictions or create semantically overlapping claims;

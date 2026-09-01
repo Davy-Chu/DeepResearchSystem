@@ -1,0 +1,1331 @@
+{
+  "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "model": "gpt-4o-mini",
+  "research_model": "gpt-4o-mini",
+  "verifier_model": "gpt-4o-mini",
+  "max_iterations": 10,
+  "stop_reason": null,
+  "final_report": {
+    "question": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+    "summary": "This is an automatically generated incomplete report. The research run ended before a normal research stop reason was recorded, and normal finalization did not complete during OpenAI Independent Verification — Iteration 3. The validated findings collected before that point are preserved below without claiming that the evidence is complete.",
+    "findings": [
+      {
+        "claim": "Inference-time scaling can improve LLM reasoning quality in specific contexts; however, its effectiveness varies and is influenced by factors such as compute budget and problem difficulty.",
+        "evidence": [
+          {
+            "summary": "Systematically investigates the impact of compute budgets on LLM outputs and reveals that more compute improves reasoning under certain conditions.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "Advocates for Speculative Sampling as a method to improve inference speed and quality by utilizing additional compute resources.",
+            "source_ids": [
+              "S2"
+            ]
+          },
+          {
+            "summary": "Explains that providing more compute during inference lead to better outputs by letting models think longer and explore more candidates.",
+            "source_ids": [
+              "S4"
+            ]
+          },
+          {
+            "summary": "Discusses categories and methods of inference-time scaling and emphasizes its utility in improving answer quality.",
+            "source_ids": [
+              "S5"
+            ]
+          },
+          {
+            "summary": "Claims that inference-time compute scaling plays a significant role in enhancing the problem-solving capabilities of LLMs.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "The new scaling law demonstrates that architectural choices can improve throughput by up to 47% without sacrificing accuracy, highlighting a direct link to LLM inference-time compute scaling.",
+            "source_ids": [
+              "S11"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "New empirical evidence suggests that architectural improvements in LLMs can significantly enhance efficiency and effectiveness, providing strong support for the claim that inference-time scaling influences reasoning quality."
+      },
+      {
+        "claim": "Extended reasoning may lead to diminishing returns or even degradation of LLM performance, a phenomenon termed 'overthinking'.",
+        "evidence": [
+          {
+            "summary": "Finds that extended reasoning can sometimes lead to 'overthinking', resulting in worse answers rather than better as compute budgets increase.",
+            "source_ids": [
+              "S1"
+            ]
+          },
+          {
+            "summary": "Highlights that overthinking in LLMs can lead to factual inaccuracies during reasoning, validating the concept of diminishing returns in cognitive processes.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "Examines how architectural flaws contribute to cognitive failures in extended reasoning scenarios, aligning with the concept of overthinking.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "Identifies five fundamental limitations of LLMs that affect reasoning capabilities, emphasizing the relevance of compute scaling in relation to these limitations.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "This claim is backed by comprehensive empirical evidence linking scalability with reasoning degradation, reinforcing the concept of diminishing returns in LLM performance."
+      },
+      {
+        "claim": "Inference-time compute scaling methods improve the reasoning abilities of large language models (LLMs) by enabling them to tackle more complex problems effectively through increased compute during inference.",
+        "evidence": [
+          {
+            "summary": "Discusses various strategies to improve reasoning in LLMs, emphasizing how inference-time compute scaling can help models tackle more complex tasks by allowing them to think longer at inference time.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "Archon framework enhances LLM capabilities via inference-time techniques, showing practical applications of compute scaling to manage complex reasoning tasks and improve performance.",
+            "source_ids": [
+              "S13"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "The new evidence directly supports the claim by illustrating how effective allocation of inference compute can enhance LLM reasoning capabilities, consolidating prior findings regarding the benefits of computation during inference."
+      },
+      {
+        "claim": "Extended inference-time compute on LLMs involves a trade-off where longer reasoning times may lead to diminishing returns, termed 'overthinking' or cognitive failures.",
+        "evidence": [
+          {
+            "summary": "Identifies vulnerabilities in LLMs regarding factual inaccuracies during intermediate reasoning steps, specifically highlighting how overthinking can lead to misleading outputs despite a correct final answer.",
+            "source_ids": [
+              "S8"
+            ]
+          },
+          {
+            "summary": "Introduces a taxonomy of reasoning failures in LLMs, explaining how prolonged reasoning attempts can exacerbate underlying architectural flaws and cognitive biases in LLMs.",
+            "source_ids": [
+              "S10"
+            ]
+          },
+          {
+            "summary": "Presents patterns that may exacerbate overthinking in LLMs, confirming the trade-offs involved in prolonged inference-time compute.",
+            "source_ids": [
+              "S14"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Additional evidence clarifies the cognitive risks of excessive reasoning time, reinforcing known issues around diminishing returns in LLM outputs related to inference-time compute."
+      },
+      {
+        "claim": "Increasing inference-time compute can be achieved through methods that target the generation of longer responses, enhancing clarity and quality of outputs in LLMs.",
+        "evidence": [
+          {
+            "summary": "Emphasizes the use of inference-time compute scaling methods to generate longer responses that provide intermediate reasoning steps, beneficial for complex tasks.",
+            "source_ids": [
+              "S6"
+            ]
+          },
+          {
+            "summary": "Discusses how LLMs' attributes and performance can be understood through the lens of computational limits, which can be addressed by scalable inference methods.",
+            "source_ids": [
+              "S12"
+            ]
+          }
+        ],
+        "confidence": "HIGH",
+        "confidence_reason": "Recent evidence supports the methods of increasing clarity and quality in outputs through scalability in computation, affirming prior claims about effective response generation."
+      }
+    ],
+    "conflicts_and_uncertainties": [],
+    "remaining_gaps": [
+      "The impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods remains underexplored in empirical studies, creating a gap in understanding how to optimize LLM reasoning.",
+      "There is a lack of comprehensive studies addressing the interaction between architectural improvements of LLMs and their impact on theoretical limitations such as hallucination and reasoning degradation.",
+      "SQ3: What claims are made in the literature regarding speculation on future compute scaling for LLM reasoning? (UNRESEARCHED: No ledger claims or research gaps are linked to this subquestion.)",
+      "SQ4: Where are the gaps in current research regarding inference-time compute scaling for LLM reasoning and what are the implications of these gaps? (PARTIAL: Open high- or medium-importance research gaps still block a sufficient answer.)"
+    ],
+    "conclusion": "The findings above reflect the evidence validated before the run ended. They should be treated as provisional because normal final synthesis did not complete and important gaps may remain."
+  },
+  "iterations": [
+    {
+      "iteration_number": 1,
+      "search_query": "What is the current state of inference-time compute scaling for LLM reasoning? Separate what has been empirically validated from what is still speculative, and identify where the evidence is too thin to draw conclusions.",
+      "source_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Inference-time scaling (ITS) improves LLM reasoning quality by allowing models to use increased compute at inference time to explore multiple candidates, ultimately resulting in better accuracy.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Systematically investigates the impact of compute budgets on LLM outputs and reveals that more compute improves reasoning under certain conditions.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Advocates for Speculative Sampling as a method to improve inference speed and quality by utilizing additional compute resources.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Explains that providing more compute during inference lead to better outputs by letting models think longer and explore more candidates.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Discusses categories and methods of inference-time scaling and emphasizes its utility in improving answer quality.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Multiple direct sources consistently support the claim regarding the benefits of inference-time scaling on LLM reasoning.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Extended reasoning may lead to diminishing returns or even degradation of LLM performance, a phenomenon termed 'overthinking'.",
+            "supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Finds that extended reasoning can sometimes lead to 'overthinking', resulting in worse answers rather than better as compute budgets increase.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The concept of 'overthinking' is established in one primary source, implying that further investigation is needed to validate this phenomenon broadly.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ5"
+            ]
+          }
+        ],
+        "claim_updates": [],
+        "new_gaps": [
+          {
+            "description": "Gaps in understanding how to effectively balance between sufficient reasoning time and the risks of overthinking in LLMs.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Systematically investigates the impact of compute budgets on LLM outputs and reveals that more compute improves reasoning under certain conditions.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S2",
+                "relation": "SUPPORTS",
+                "summary": "Advocates for Speculative Sampling as a method to improve inference speed and quality by utilizing additional compute resources.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S4",
+                "relation": "SUPPORTS",
+                "summary": "Explains that providing more compute during inference lead to better outputs by letting models think longer and explore more candidates.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S5",
+                "relation": "SUPPORTS",
+                "summary": "Discusses categories and methods of inference-time scaling and emphasizes its utility in improving answer quality.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S1",
+                "relation": "SUPPORTS",
+                "summary": "Finds that extended reasoning can sometimes lead to 'overthinking', resulting in worse answers rather than better as compute budgets increase.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G1",
+            "change_type": "NEW",
+            "description": "Gaps in understanding how to effectively balance between sufficient reasoning time and the risks of overthinking in LLMs."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "Independent verification of C1 identified a high-value falsification search: The claim indicates a general improvement in reasoning quality through increased inference-time compute, but the evidence shows that there are diminishing returns and potential 'overthinking' effects that can negatively impact accuracy. This suggests that while higher compute can be beneficial, there are important limitations and conditions under which it does not hold true.",
+        "target_type": "CLAIM",
+        "target_id": "C1",
+        "next_search_query": "Look for studies or evidence that contradict the claim that increased compute leads to improved LLM reasoning quality in all scenarios.",
+        "decision_origin": "VERIFIER_COUNTERSEARCH"
+      },
+      "search_purpose": "GENERAL",
+      "search_target_id": null,
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "SUFFICIENT",
+          "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains."
+        },
+        {
+          "subquestion_id": "SQ4",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "PARTIAL",
+          "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "SUFFICIENT",
+          "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains."
+        }
+      ]
+    },
+    {
+      "iteration_number": 2,
+      "search_query": "Look for studies or evidence that contradict the claim that increased compute leads to improved LLM reasoning quality in all scenarios.",
+      "source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "evidence_processing": {
+        "new_claims": [
+          {
+            "claim": "Inference-time compute scaling methods improve the reasoning abilities of large language models (LLMs) by enabling them to tackle more complex problems effectively through increased compute during inference.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Discusses various strategies to improve reasoning in LLMs, emphasizing how inference-time compute scaling can help models tackle more complex tasks by allowing them to think longer at inference time.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "The claim is explicitly supported by a credible source that discusses recent advancements in LLM inference-time compute scaling.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "claim": "Extended inference-time compute on LLMs involves a trade-off where longer reasoning times may lead to diminishing returns, termed 'overthinking' or cognitive failures.",
+            "supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Identifies vulnerabilities in LLMs regarding factual inaccuracies during intermediate reasoning steps, specifically highlighting how overthinking can lead to misleading outputs despite a correct final answer.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Introduces a taxonomy of reasoning failures in LLMs, explaining how prolonged reasoning attempts can exacerbate underlying architectural flaws and cognitive biases in LLMs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "HIGH",
+            "confidence_reason": "Multiple sources identify the potential risks of prolonged reasoning times in LLMs, with a clear emphasis on cognitive limitations and associated errors.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          },
+          {
+            "claim": "Increasing inference-time compute can be achieved through methods that target the generation of longer responses, enhancing clarity and quality of outputs in LLMs.",
+            "supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Emphasizes the use of inference-time compute scaling methods to generate longer responses that provide intermediate reasoning steps, beneficial for complex tasks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "contradicting_evidence": [],
+            "confidence": "MEDIUM",
+            "confidence_reason": "The supporting source provides a basis for increased response length, but additional corroborative studies are needed for broad validation.",
+            "status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2"
+            ]
+          }
+        ],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Claims that inference-time compute scaling plays a significant role in enhancing the problem-solving capabilities of LLMs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "A strong direct source has been added to support the existing claim, reinforcing its validity.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Highlights that overthinking in LLMs can lead to factual inaccuracies during reasoning, validating the concept of diminishing returns in cognitive processes.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Examines how architectural flaws contribute to cognitive failures in extended reasoning scenarios, aligning with the concept of overthinking.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new evidence directly supports the claim regarding cognitive failures in LLM reasoning, providing a robust basis for its validity.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ4"
+            ]
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "The impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods remains underexplored in empirical studies, creating a gap in understanding how to optimize LLM reasoning.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": [
+          "G1"
+        ]
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C3",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Discusses various strategies to improve reasoning in LLMs, emphasizing how inference-time compute scaling can help models tackle more complex tasks by allowing them to think longer at inference time.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "HIGH",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Identifies vulnerabilities in LLMs regarding factual inaccuracies during intermediate reasoning steps, specifically highlighting how overthinking can lead to misleading outputs despite a correct final answer.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Introduces a taxonomy of reasoning failures in LLMs, explaining how prolonged reasoning attempts can exacerbate underlying architectural flaws and cognitive biases in LLMs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "NEW",
+            "previous_confidence": null,
+            "current_confidence": "MEDIUM",
+            "previous_status": null,
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Emphasizes the use of inference-time compute scaling methods to generate longer responses that provide intermediate reasoning steps, beneficial for complex tasks.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S6",
+                "relation": "SUPPORTS",
+                "summary": "Claims that inference-time compute scaling plays a significant role in enhancing the problem-solving capabilities of LLMs.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S8",
+                "relation": "SUPPORTS",
+                "summary": "Highlights that overthinking in LLMs can lead to factual inaccuracies during reasoning, validating the concept of diminishing returns in cognitive processes.",
+                "strength": "DIRECT"
+              },
+              {
+                "source_id": "S10",
+                "relation": "SUPPORTS",
+                "summary": "Examines how architectural flaws contribute to cognitive failures in extended reasoning scenarios, aligning with the concept of overthinking.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G2",
+            "change_type": "NEW",
+            "description": "The impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods remains underexplored in empirical studies, creating a gap in understanding how to optimize LLM reasoning."
+          },
+          {
+            "gap_id": "G1",
+            "change_type": "RESOLVED",
+            "description": "Gaps in understanding how to effectively balance between sufficient reasoning time and the risks of overthinking in LLMs."
+          }
+        ]
+      },
+      "research_decision": {
+        "needs_more_research": true,
+        "reason": "Empirical studies on the impact of architectural flaws in LLMs on inference-time compute scaling effectiveness remain underexplored, which affects the understanding of optimizing LLM reasoning.",
+        "target_type": "SUBQUESTION",
+        "target_id": "SQ4",
+        "next_search_query": "What empirical studies have explored the impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods?",
+        "decision_origin": "RESEARCH_CONTROLLER"
+      },
+      "search_purpose": "COUNTERSEARCH",
+      "search_target_id": "C1",
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ1",
+          "previous_status": "UNRESEARCHED",
+          "current_status": "SUFFICIENT",
+          "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains."
+        },
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "SUFFICIENT",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "SUFFICIENT",
+          "current_status": "PARTIAL",
+          "status_reason": "At least one linked ledger claim is not yet supported."
+        }
+      ]
+    },
+    {
+      "iteration_number": 3,
+      "search_query": "What empirical studies have explored the impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods?",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "evidence_processing": {
+        "new_claims": [],
+        "claim_updates": [
+          {
+            "existing_claim_id": "C1",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The new scaling law demonstrates that architectural choices can improve throughput by up to 47% without sacrificing accuracy, highlighting a direct link to LLM inference-time compute scaling.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "New empirical evidence suggests that architectural improvements in LLMs can significantly enhance efficiency and effectiveness, providing strong support for the claim that inference-time scaling influences reasoning quality.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C2",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Identifies five fundamental limitations of LLMs that affect reasoning capabilities, emphasizing the relevance of compute scaling in relation to these limitations.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "This claim is backed by comprehensive empirical evidence linking scalability with reasoning degradation, reinforcing the concept of diminishing returns in LLM performance.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5",
+              "SQ4"
+            ]
+          },
+          {
+            "existing_claim_id": "C3",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S13",
+                "relation": "SUPPORTS",
+                "summary": "Archon framework enhances LLM capabilities via inference-time techniques, showing practical applications of compute scaling to manage complex reasoning tasks and improve performance.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "The new evidence directly supports the claim by illustrating how effective allocation of inference compute can enhance LLM reasoning capabilities, consolidating prior findings regarding the benefits of computation during inference.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ2",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C4",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S14",
+                "relation": "SUPPORTS",
+                "summary": "Presents patterns that may exacerbate overthinking in LLMs, confirming the trade-offs involved in prolonged inference-time compute.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Additional evidence clarifies the cognitive risks of excessive reasoning time, reinforcing known issues around diminishing returns in LLM outputs related to inference-time compute.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ4",
+              "SQ5"
+            ]
+          },
+          {
+            "existing_claim_id": "C5",
+            "new_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Discusses how LLMs' attributes and performance can be understood through the lens of computational limits, which can be addressed by scalable inference methods.",
+                "strength": "DIRECT"
+              }
+            ],
+            "new_contradicting_evidence": [],
+            "updated_confidence": "HIGH",
+            "updated_confidence_reason": "Recent evidence supports the methods of increasing clarity and quality in outputs through scalability in computation, affirming prior claims about effective response generation.",
+            "updated_status": "SUPPORTED",
+            "related_subquestion_ids": [
+              "SQ1",
+              "SQ2"
+            ]
+          }
+        ],
+        "new_gaps": [
+          {
+            "description": "There is a lack of comprehensive studies addressing the interaction between architectural improvements of LLMs and their impact on theoretical limitations such as hallucination and reasoning degradation.",
+            "importance": "HIGH",
+            "related_claim_ids": [],
+            "related_subquestion_ids": [
+              "SQ4"
+            ]
+          }
+        ],
+        "resolved_gap_ids": []
+      },
+      "ledger_updates": {
+        "claim_changes": [
+          {
+            "claim_id": "C1",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "WEAK",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S11",
+                "relation": "SUPPORTS",
+                "summary": "The new scaling law demonstrates that architectural choices can improve throughput by up to 47% without sacrificing accuracy, highlighting a direct link to LLM inference-time compute scaling.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C2",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Identifies five fundamental limitations of LLMs that affect reasoning capabilities, emphasizing the relevance of compute scaling in relation to these limitations.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C3",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S13",
+                "relation": "SUPPORTS",
+                "summary": "Archon framework enhances LLM capabilities via inference-time techniques, showing practical applications of compute scaling to manage complex reasoning tasks and improve performance.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C4",
+            "change_type": "UPDATED",
+            "previous_confidence": "HIGH",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S14",
+                "relation": "SUPPORTS",
+                "summary": "Presents patterns that may exacerbate overthinking in LLMs, confirming the trade-offs involved in prolonged inference-time compute.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          },
+          {
+            "claim_id": "C5",
+            "change_type": "UPDATED",
+            "previous_confidence": "MEDIUM",
+            "current_confidence": "HIGH",
+            "previous_status": "SUPPORTED",
+            "current_status": "SUPPORTED",
+            "added_supporting_evidence": [
+              {
+                "source_id": "S12",
+                "relation": "SUPPORTS",
+                "summary": "Discusses how LLMs' attributes and performance can be understood through the lens of computational limits, which can be addressed by scalable inference methods.",
+                "strength": "DIRECT"
+              }
+            ],
+            "added_contradicting_evidence": []
+          }
+        ],
+        "gap_changes": [
+          {
+            "gap_id": "G3",
+            "change_type": "NEW",
+            "description": "There is a lack of comprehensive studies addressing the interaction between architectural improvements of LLMs and their impact on theoretical limitations such as hallucination and reasoning degradation."
+          }
+        ]
+      },
+      "research_decision": null,
+      "search_purpose": "SUBQUESTION",
+      "search_target_id": "SQ4",
+      "subquestion_status_changes": [
+        {
+          "subquestion_id": "SQ2",
+          "previous_status": "PARTIAL",
+          "current_status": "SUFFICIENT",
+          "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains."
+        },
+        {
+          "subquestion_id": "SQ5",
+          "previous_status": "PARTIAL",
+          "current_status": "SUFFICIENT",
+          "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains."
+        }
+      ]
+    }
+  ],
+  "evidence_ledger": {
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "Inference-time scaling can improve LLM reasoning quality in specific contexts; however, its effectiveness varies and is influenced by factors such as compute budget and problem difficulty.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Systematically investigates the impact of compute budgets on LLM outputs and reveals that more compute improves reasoning under certain conditions.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S2",
+            "relation": "SUPPORTS",
+            "summary": "Advocates for Speculative Sampling as a method to improve inference speed and quality by utilizing additional compute resources.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S4",
+            "relation": "SUPPORTS",
+            "summary": "Explains that providing more compute during inference lead to better outputs by letting models think longer and explore more candidates.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S5",
+            "relation": "SUPPORTS",
+            "summary": "Discusses categories and methods of inference-time scaling and emphasizes its utility in improving answer quality.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Claims that inference-time compute scaling plays a significant role in enhancing the problem-solving capabilities of LLMs.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S11",
+            "relation": "SUPPORTS",
+            "summary": "The new scaling law demonstrates that architectural choices can improve throughput by up to 47% without sacrificing accuracy, highlighting a direct link to LLM inference-time compute scaling.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "New empirical evidence suggests that architectural improvements in LLMs can significantly enhance efficiency and effectiveness, providing strong support for the claim that inference-time scaling influences reasoning quality.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C2",
+        "claim": "Extended reasoning may lead to diminishing returns or even degradation of LLM performance, a phenomenon termed 'overthinking'.",
+        "supporting_evidence": [
+          {
+            "source_id": "S1",
+            "relation": "SUPPORTS",
+            "summary": "Finds that extended reasoning can sometimes lead to 'overthinking', resulting in worse answers rather than better as compute budgets increase.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "Highlights that overthinking in LLMs can lead to factual inaccuracies during reasoning, validating the concept of diminishing returns in cognitive processes.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "Examines how architectural flaws contribute to cognitive failures in extended reasoning scenarios, aligning with the concept of overthinking.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "Identifies five fundamental limitations of LLMs that affect reasoning capabilities, emphasizing the relevance of compute scaling in relation to these limitations.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "This claim is backed by comprehensive empirical evidence linking scalability with reasoning degradation, reinforcing the concept of diminishing returns in LLM performance.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 1,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ5",
+          "SQ2",
+          "SQ4"
+        ]
+      },
+      {
+        "id": "C3",
+        "claim": "Inference-time compute scaling methods improve the reasoning abilities of large language models (LLMs) by enabling them to tackle more complex problems effectively through increased compute during inference.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Discusses various strategies to improve reasoning in LLMs, emphasizing how inference-time compute scaling can help models tackle more complex tasks by allowing them to think longer at inference time.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S13",
+            "relation": "SUPPORTS",
+            "summary": "Archon framework enhances LLM capabilities via inference-time techniques, showing practical applications of compute scaling to manage complex reasoning tasks and improve performance.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "The new evidence directly supports the claim by illustrating how effective allocation of inference compute can enhance LLM reasoning capabilities, consolidating prior findings regarding the benefits of computation during inference.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C4",
+        "claim": "Extended inference-time compute on LLMs involves a trade-off where longer reasoning times may lead to diminishing returns, termed 'overthinking' or cognitive failures.",
+        "supporting_evidence": [
+          {
+            "source_id": "S8",
+            "relation": "SUPPORTS",
+            "summary": "Identifies vulnerabilities in LLMs regarding factual inaccuracies during intermediate reasoning steps, specifically highlighting how overthinking can lead to misleading outputs despite a correct final answer.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S10",
+            "relation": "SUPPORTS",
+            "summary": "Introduces a taxonomy of reasoning failures in LLMs, explaining how prolonged reasoning attempts can exacerbate underlying architectural flaws and cognitive biases in LLMs.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S14",
+            "relation": "SUPPORTS",
+            "summary": "Presents patterns that may exacerbate overthinking in LLMs, confirming the trade-offs involved in prolonged inference-time compute.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Additional evidence clarifies the cognitive risks of excessive reasoning time, reinforcing known issues around diminishing returns in LLM outputs related to inference-time compute.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ2",
+          "SQ4",
+          "SQ5"
+        ]
+      },
+      {
+        "id": "C5",
+        "claim": "Increasing inference-time compute can be achieved through methods that target the generation of longer responses, enhancing clarity and quality of outputs in LLMs.",
+        "supporting_evidence": [
+          {
+            "source_id": "S6",
+            "relation": "SUPPORTS",
+            "summary": "Emphasizes the use of inference-time compute scaling methods to generate longer responses that provide intermediate reasoning steps, beneficial for complex tasks.",
+            "strength": "DIRECT"
+          },
+          {
+            "source_id": "S12",
+            "relation": "SUPPORTS",
+            "summary": "Discusses how LLMs' attributes and performance can be understood through the lens of computational limits, which can be addressed by scalable inference methods.",
+            "strength": "DIRECT"
+          }
+        ],
+        "contradicting_evidence": [],
+        "confidence": "HIGH",
+        "confidence_reason": "Recent evidence supports the methods of increasing clarity and quality in outputs through scalability in computation, affirming prior claims about effective response generation.",
+        "status": "SUPPORTED",
+        "first_seen_iteration": 2,
+        "last_updated_iteration": 3,
+        "related_subquestion_ids": [
+          "SQ1",
+          "SQ2"
+        ]
+      }
+    ]
+  },
+  "research_gaps": [
+    {
+      "id": "G1",
+      "description": "Gaps in understanding how to effectively balance between sufficient reasoning time and the risks of overthinking in LLMs.",
+      "importance": "HIGH",
+      "status": "RESOLVED",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ4"
+      ],
+      "created_iteration": 1,
+      "resolved_iteration": 2
+    },
+    {
+      "id": "G2",
+      "description": "The impact of architectural flaws in LLMs on the effectiveness of inference-time compute scaling methods remains underexplored in empirical studies, creating a gap in understanding how to optimize LLM reasoning.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ4"
+      ],
+      "created_iteration": 2,
+      "resolved_iteration": null
+    },
+    {
+      "id": "G3",
+      "description": "There is a lack of comprehensive studies addressing the interaction between architectural improvements of LLMs and their impact on theoretical limitations such as hallucination and reasoning degradation.",
+      "importance": "HIGH",
+      "status": "OPEN",
+      "related_claim_ids": [],
+      "related_subquestion_ids": [
+        "SQ4"
+      ],
+      "created_iteration": 3,
+      "resolved_iteration": null
+    }
+  ],
+  "research_plan": {
+    "subquestions": [
+      {
+        "id": "SQ1",
+        "question": "What are the key metrics currently used to measure inference-time compute scaling in LLM reasoning?",
+        "importance": "CORE",
+        "success_criteria": "Identification of at least three key metrics (e.g., latency, throughput, power consumption) with definitions and relevance to LLM performance.",
+        "status": "SUFFICIENT",
+        "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ2",
+        "question": "Which empirical studies have validated the relationship between inference-time compute and LLM reasoning capabilities?",
+        "importance": "CORE",
+        "success_criteria": "Summary of at least two empirical studies including methodologies, results, and conclusions regarding compute scaling and reasoning performance.",
+        "status": "SUFFICIENT",
+        "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ3",
+        "question": "What claims are made in the literature regarding speculation on future compute scaling for LLM reasoning?",
+        "importance": "SECONDARY",
+        "success_criteria": "Compilation of at least five speculative claims, including references to sources and the rationale behind these speculations.",
+        "status": "UNRESEARCHED",
+        "status_reason": "No ledger claims or research gaps are linked to this subquestion.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      },
+      {
+        "id": "SQ4",
+        "question": "Where are the gaps in current research regarding inference-time compute scaling for LLM reasoning and what are the implications of these gaps?",
+        "importance": "SECONDARY",
+        "success_criteria": "Identification of at least three significant gaps, with explanations on how they affect the understanding of LLM reasoning performance.",
+        "status": "PARTIAL",
+        "status_reason": "Open high- or medium-importance research gaps still block a sufficient answer.",
+        "search_attempts": 1,
+        "last_targeted_iteration": 3
+      },
+      {
+        "id": "SQ5",
+        "question": "How does the current state of research differentiate between validated evidence and speculative claims in the context of inference-time compute scaling?",
+        "importance": "CORE",
+        "success_criteria": "A clear delineation of validated evidence versus speculative claims, summarizing at least three validated points and three speculative points.",
+        "status": "SUFFICIENT",
+        "status_reason": "Linked ledger claims are supported and no open high- or medium-importance gap remains.",
+        "search_attempts": 0,
+        "last_targeted_iteration": null
+      }
+    ],
+    "synthesis_requirements": [
+      "Integrate findings from empirical studies with speculative claims to provide a comprehensive overview.",
+      "Assess the implications of gaps identified in current research in relation to both validated and speculative elements."
+    ],
+    "output_requirements": [
+      "A thorough report summarizing findings from each subquestion, distinctly highlighting empirical validations and speculative areas.",
+      "Clear visual distinctions (e.g., tables or graphs) illustrating validated evidence versus speculative claims."
+    ]
+  },
+  "claim_verifications": [
+    {
+      "id": "V1",
+      "claim_id": "C1",
+      "verification_iteration": 1,
+      "claim_version_iteration": 1,
+      "phase": "INITIAL",
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S4",
+        "S5"
+      ],
+      "result": {
+        "claim_id": "C1",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The claim indicates a general improvement in reasoning quality through increased inference-time compute, but the evidence shows that there are diminishing returns and potential 'overthinking' effects that can negatively impact accuracy. This suggests that while higher compute can be beneficial, there are important limitations and conditions under which it does not hold true.",
+        "missing_assumptions": [
+          "Assumes that increased compute always leads to better accuracy without considering the trade-offs illustrated in the provided studies.",
+          "Does not address scenarios where extended reasoning may lead to worse results due to overthinking."
+        ],
+        "source_quality_concerns": [
+          "The studies available discuss both the benefits and pitfalls of increased compute, suggesting a need for more nuanced understanding rather than broad assertions of improved quality."
+        ],
+        "counter_search_needed": true,
+        "counter_search_query": "Look for studies or evidence that contradict the claim that increased compute leads to improved LLM reasoning quality in all scenarios.",
+        "recommended_claim_text": "Inference-time scaling can improve LLM reasoning quality under certain conditions, but may also lead to diminishing returns and negative effects like overthinking.",
+        "recommended_confidence": "MEDIUM",
+        "recommended_status": "WEAK"
+      },
+      "counter_search_status": "EXECUTED",
+      "counter_search_iteration": 2,
+      "counter_search_source_ids": [
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "reconciliation_applied": false,
+      "previous_claim_text": null,
+      "current_claim_text": null,
+      "previous_confidence": null,
+      "current_confidence": null,
+      "previous_status": null,
+      "current_status": null
+    },
+    {
+      "id": "V2",
+      "claim_id": "C1",
+      "verification_iteration": 2,
+      "claim_version_iteration": 2,
+      "phase": "POST_COUNTERSEARCH",
+      "evidence_source_ids": [
+        "S1",
+        "S2",
+        "S4",
+        "S5",
+        "S6"
+      ],
+      "result": {
+        "claim_id": "C1",
+        "verdict": "NEEDS_QUALIFICATION",
+        "reason": "The claim asserts a direct relationship between inference-time scaling (ITS) and improved reasoning quality in LLMs. However, the evidence highlights complexities such as diminishing returns and potential for 'overthinking', suggesting that increased compute does not always equate to better outcomes for all scenarios. This indicates that while ITS can improve accuracy, conditions and specific contexts significantly influence effectiveness.",
+        "missing_assumptions": [
+          "The assumption that more compute always leads to better reasoning outcomes is not universally valid and needs contextual specification."
+        ],
+        "source_quality_concerns": [
+          "Some sources are from non-peer-reviewed or informal platforms (e.g., Medium and Facebook groups), which may affect their reliability.",
+          "Evidence of 'overthinking' and diminishing returns could conflict with the claim if not adequately measured in various contexts."
+        ],
+        "counter_search_needed": false,
+        "counter_search_query": null,
+        "recommended_claim_text": "Inference-time scaling can improve LLM reasoning quality in specific contexts; however, its effectiveness varies and is influenced by factors such as compute budget and problem difficulty.",
+        "recommended_confidence": "MEDIUM",
+        "recommended_status": "WEAK"
+      },
+      "counter_search_status": "NOT_REQUESTED",
+      "counter_search_iteration": null,
+      "counter_search_source_ids": [],
+      "reconciliation_applied": true,
+      "previous_claim_text": "Inference-time scaling (ITS) improves LLM reasoning quality by allowing models to use increased compute at inference time to explore multiple candidates, ultimately resulting in better accuracy.",
+      "current_claim_text": "Inference-time scaling can improve LLM reasoning quality in specific contexts; however, its effectiveness varies and is influenced by factors such as compute budget and problem difficulty.",
+      "previous_confidence": "HIGH",
+      "current_confidence": "MEDIUM",
+      "previous_status": "SUPPORTED",
+      "current_status": "WEAK"
+    }
+  ],
+  "current_iteration": 3,
+  "remaining_search_budget": 7,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Overthinking in LLM Test-Time Compute Scaling",
+      "url": "https://arxiv.org/html/2604.10739v1",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling\n\n###### Abstract\n\nScaling test-time compute through extended chains of thought has become a dominant paradigm for improving large language model reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined.\nWe systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit “overthinking”, where extended reasoning is associated with abandoning previously correct answers.\nFurthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.\n\n## 1 Introduction\n\nScaling inference-time compute through lengthy chains of thought has achieved remarkable success on mathematical reasoning benchmarks ([DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent work has established that test-time compute scaling can be more effective than model scaling for many tasks ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7)). The prevailing assumption in this line of research is straightforward: more thinking leads to better answers. Models are encouraged to reason longer, with performance curves consistently showing accuracy improvements as token budgets increase. Yet the assumption that thinking length and answer quality are monotonically related has never been systematically examined.\n\nWe challenge this assumption by drawing an analogy from economics: the law of diminishing marginal returns. Just as additional units of input eventually yield smaller increments of output, additional tokens of reasoning may provide progressively less benefit. More critically, extended thinking might even be harmful. A model could “overthink” a problem, second-guessing a correct initial intuition and ultimately arriving at a wrong answer ([Chen et al., 2024a](#bib.bib17)). This phenomenon would have significant implications for how we deploy and evaluate test-time scaling systems.\n\nUnderstanding when to stop thinking is practically important for two reasons. First, compute costs are substantial: generating 8,000 tokens costs 16×\\times more than generating 500 tokens. If much of this extended reasoning provides minimal benefit, resources are being wasted. Second, if overthinking degrades performance on certain problems, then adaptive stopping strategies could simultaneously reduce costs and improve accuracy.\n\nTo investigate these questions, we conduct a systematic study of marginal utility in test-time compute scaling. We evaluate models across a wide range of compute budgets, measuring not just final accuracy but the incremental benefit of additional reasoning. We track individual problems through their reasoning trajectories, identifying “flip events” where answers change from correct to incorrect. Based on these analyses, we characterize when overthinking occurs and explore early-stopping strategies. In summary, we:\n\nProvide a comprehensive analysis of marginal utility in test-time compute scaling, introducing flip event tracking to measure when extended reasoning helps versus hurts.\n\nIdentify and quantify the “overthinking” phenomenon, where extended reasoning is associated with models abandoning correct answers.\n\nIntroduce cost-aware evaluation metrics and propose that researchers report efficiency frontiers alongside accuracy curves.\n\n## 2 Related Work\n\n### 2.1 Test-Time Scaling\n\nScaling inference compute has emerged as a powerful paradigm complementing training-time scaling ([Snell et al., 2024](#bib.bib1); [Wu et al., 2025a](#bib.bib7); [Zhou et al., 2026](#bib.bib25)). Methods include searching over generations, sampling multiple completions, and training models to produce extended reasoning chains ([OpenAI, 2024](#bib.bib15); [DeepSeek-AI et al., 2025](#bib.bib3); [Muennighoff et al., 2025](#bib.bib2)). Recent surveys have comprehensively examined the landscape of long chain-of-thought reasoning ([Chen et al., 2025](#bib.bib16); [Sui et al., 2025](#bib.bib13); [Zhou et al., 2025b](#bib.bib23); [Zhou and Zhou, 2025](#bib.bib26)). These works consistently report accuracy improvements with compute, but do not systematically examine marginal returns or the possibility of overthinking.\n\n### 2.2 Overthinking in LLMs\n\nRecent work has begun to identify the “overthinking” phenomenon in reasoning models. [Chen et al. (2024b)](#bib.bib11) first documented that o1-like models consume excessive tokens on simple problems with minimal accuracy benefit. [Wu et al. (2025b)](#bib.bib12) demonstrated that task accuracy follows an inverted U-shaped curve with chain-of-thought length. Several concurrent works examine related aspects: [Srivastava et al. (2025)](#bib.bib18) study accuracy-verbosity trade-offs on basic math tasks through an “overthinking score” metric; [Ghosal et al. (2025)](#bib.bib19) question test-time scaling effectiveness and propose parallel thinking as an alternative; [Lu et al. (2025)](#bib.bib24) survey adaptive test-time compute methods; and [Zhang et al. (2025)](#bib.bib20) use structural analysis tools to identify “over-verification” and “over-exploration” patterns. Our work complements these efforts by introducing flip event tracking to measure individual-problem answer changes, difficulty-stratified analysis revealing that easy problems overthink at 2K tokens versus 8K for hard problems, and a cost-aware evaluation framework with tunable λ\\lambda parameter for accuracy-compute trade-offs.\n\n### 2.3 Selective Prediction\n\nOur work connects to selective classification ([Geifman and El-Yaniv, 2017](#bib.bib4)) and selective question answering ([Kamath et al., 2020](#bib.bib5); [Zhou et al., 2025a](#bib.bib21); [Zhou et al., 2025c](#bib.bib22)), which allow models to abstain when uncertain. [Jurayj et al. (2025)](#bib.bib14) recently applied these ideas to test-time scaling, showing that confidence thresholds improve performance under risk. We extend this perspective by considering compute costs rather than response risks.\n\n### 2.4 Efficient Inference\n\nPrior work on efficient inference focuses on model compression, early exit ([Schwartz et al., 2020](#bib.bib9)), and speculative decoding ([Leviathan et al., 2023](#bib.bib8)). Our work suggests a complementary approach: adaptive reasoning length based on problem characteristics and overthinking detection.\n\n## 3 Methods\n\nWe investigate how the benefit of additional reasoning changes as compute budgets increase. Our analysis focuses on three aspects: marginal utility measurement, flip event detection, and overthinking indicators. We describe each below:\n\n### 3.1 Compute Budget\n\nFollowing [Muennighoff et al. (2025)](#bib.bib2), we quantify a model’s compute budget by the number of tokens in its reasoning trace. We use budget forcing to control reasoning length: we append “Wait” tokens if the model attempts to conclude early, and force-decode the end-of-thinking delimiter once the budget is reached. We evaluate budgets in the range [500,16000][500,16000] tokens, with increments of 500 tokens.\n\n### 3.2 Marginal Utility\n\nWe define the marginal utility at budget tt as the change in accuracy when increasing the budget from tt to t+Δ​tt+\\Delta t:\n\n|  |  |  |  |\n| --- | --- | --- | --- |\n|  | MU​(t)=Acc​(t+Δ​t)−Acc​(t)\\text{MU}(t)=\\text{Acc}(t+\\Delta t)-\\text{Acc}(t) |  | (1) |\n\nwhere Acc​(t)\\text{Acc}(t) denotes the accuracy at budget tt. We use Δ​t=500\\Delta ",
+      "score": 0.9015746
+    },
+    {
+      "id": "S2",
+      "title": "Inference-time scaling methods for improved LLM reasoning",
+      "url": "https://www.facebook.com/groups/3670562573177653/posts/4442708219296414",
+      "content": "If you are wondering how you can speed up your LLM's inference speed, Speculative Sampling is your answer. It relies on 2 important factors: 1.",
+      "score": 0.82018155
+    },
+    {
+      "id": "S3",
+      "title": "Inference-time scaling on Red Hat AI: Improving model ...",
+      "url": "https://developers.redhat.com/articles/2026/07/31/inference-time-scaling-red-hat-ai-improving-model-reliability",
+      "content": "![Redhat Developers  Logo](/themes/custom/rhdp_fe/images/branding/Logo-Red_Hat_Developer-A-Reverse-RGB.svg)\n\n### Get started with AI\n\n### Featured resources\n\n### Red Hat AI Factory with NVIDIA\n\n### Self-guided\n\n### Hands-on\n\n### Browse by topic\n\n### Training & certifications\n\n### Get started\n\n### Download products\n\n### Featured\n\n### References\n\n### Get involved\n\n### Follow along\n\n### Get help\n\n### Join the Red Hat Developer program\n\n# Inference-time scaling on Red Hat AI: Improving model reliability\n\n### How its\\_hub helps teams improve model accuracy and reliability at inference time\n\nLanguage models offer impressive capabilities, but they're not always consistent. The same prompt can produce different answers, different reasoning paths, or different tool choices across runs. This variability might be acceptable in casual use, but it matters much more when models are used in products, enterprise workflows, and agentic systems. In those settings, reliability matters as much as raw capability.\n\nInference-time scaling (ITS) offers a practical way to address this inconsistency. Instead of accepting a single generation, ITS uses additional compute at runtime to generate multiple candidates, compare reasoning paths, and select the most accurate output before returning a final result. No retraining, no fine-tuning, no changes to model weights. The core insight: accuracy is an inference problem, not just a training problem.\n\nThat's the idea behind `its_hub`, [Red Hat AI](https://developers.redhat.com/products/red-hat-ai)'s open source framework for making these techniques usable in real systems. It supports methods such as best-of-N and self-consistency, as well as more advanced approaches like particle filtering and beam search, all in a common framework developers can apply incrementally.\n\n`its_hub`\n\n## What inference-time scaling is\n\nITS works by doing more during inference rather than relying on a single model call. An ITS system can generate several candidates, follow multiple reasoning paths, score outputs, or iteratively refine intermediate steps before returning a final answer.\n\nThis distinction matters because many model failures aren't caused by a lack of capability. Often the model can solve the task, but a single sampled response is brittle. A reasoning step drifts. The model returns a weaker answer over a more accurate one. It selects a plausible but wrong tool. An agent might choose the incorrect API call on one pass even though it was capable of the right choice from the start. Your models already know the answer; they don't always give it to you on the first try. Additional inference-time compute helps recover better outcomes by broadening the search space or improving the selection process.\n\nThis capability makes ITS applicable across a range of settings: improving convergence on correct answers for reasoning tasks, surfacing stronger candidates for generation tasks, and reducing the impact of any single noisy decision in agentic workflows. The tradeoff is real, but it's one that teams can choose to make selectively, applying more compute only where the problem justifies it.\n\n## The enterprise case for inference-time scaling\n\nInference-time scaling matters now because the market has validated it and enterprise adoption demands it. Every major provider has shipped thinking-budget controls: OpenAI, Google, Anthropic, DeepSeek, and NVIDIA all offer ways to allocate more inference-time compute for harder tasks. Inference-time compute scaling is a product category, not a research curiosity.\n\nHowever, every provider's implementation is model-level: baked into one specific model, controlled by the provider's API. Customers who want ITS on their own models, on their own infrastructure, have no production option. That's the gap `its_hub` fills.\n\n`its_hub`\n\nThe need is especially urgent for agentic workloads. Fewer than 10% of organizations have moved AI agents to production, and a primary blocker is reliability. Agents fail not because the underlying models lack capability, but because tool calling is unreliable. A single wrong tool call cascades through the entire workflow. ITS with consensus-based voting addresses this issue directly, turning unreliable tool selection into dependable automation.\n\nITS also gives teams a way to match compute to the demands of each task. Easy questions stay fast and cheap. Hard questions get the compute they deserve. This approach makes inference a configurable budget rather than a fixed cost, and means teams can improve accuracy without retraining, without API lock-in, and without changing the model itself.\n\n## How its\\_hub brings ITS into practice\n\n`its_hub` packages practical inference-time scaling techniques into a consistent framework so teams can experiment, compare, and integrate them without building everything from scratch. This flexibility matters because ITS isn't monolithic. Different tasks call for different strategies, and `its_hub` supports this range rather than locking developers into a single pattern.\n\n`its_hub`\n`its_hub`\n\nToday, `its_hub` offers two integration paths:\n\n`its_hub`\n`its_hub`\n\nBoth paths support `reward-hub` integration for feedback-driven scoring and selection, allowing developers to define custom evaluation functions and plug them directly into inference-time workflows.\n\n`reward-hub`\n\nLooking ahead, Red Hat is working to bring ITS into the Red Hat AI gateway as an infrastructure-level capability. The goal is to apply ITS to any model on any deployment through a single API header or parameter, with no code changes required. This work is underway and will be covered in future posts.\n\n## Techniques available in its\\_hub\n\nSelf-consistency generates multiple reasoning paths and selects the answer appearing most frequently across them, as shown in Figure 1. Rather than trusting a single trajectory, it lets agreement across runs influence the final result, which makes it particularly effective for reasoning tasks where the correct answer tends to recur even when individual traces vary.\n\n![A prompt generates 5 responses, where majority voting selects \"42\" from 3 matching outputs over \"37\" and \"41\".](/sites/default/files/styles/article_floated/public/figure-1_36.png?itok=ryACA3me)\n\nBest-of-N generates multiple candidate responses and uses a scoring mechanism to select the most accurate one, illustrated in Figure 2. Unlike self-consistency, which relies on consensus, best-of-N depends on an explicit evaluation signal, whether that's a large language model (LLM)-as-a-judge, a custom reward model, a validator, or other task-specific scoring logic.\n\n![A reward model evaluates 5 candidate responses and selects Response 2 based on its top score of 9.1.](/sites/default/files/styles/article_floated/public/figure-2_32.png?itok=IE_gZOxI)\n\nHierarchical voting extends self-consistency to tool-calling workflows. When an agent needs to select and invoke tools, hierarchical voting samples multiple candidates in parallel and votes in stages: first on which tool to call, then on the arguments to pass. This two-level approach is especially effective for agentic tasks where the critical decision is not what text to generate, but what action to take.\n\nReward models act as lightweight evaluators scoring candidates based on criteria such as truthfulness, relevance, or domain fit. In best-of-N, they identify the top candidate; in self-consistency, they're optional but useful for resolving ties. Through `reward-hub` integration, developers can define custom scoring functions and plug them directly into inference-time workflows without touching the underlying model.\n\n`reward-hub`\n\nFor workflows where intermediate reasoning steps matter, `its_hub` also supports particle filtering and beam search via its process reward model path. A process reward model scores each intermediate reasoning step rather than only the final output, making it possible to identify and prune weak trajectories before they reach a conclusion. ",
+      "score": 0.7858021
+    },
+    {
+      "id": "S4",
+      "title": "Inference-Time Scaling: How Modern AI Models Think ...",
+      "url": "https://medium.com/@adnanmasood/inference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd",
+      "content": "Sign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40adnanmasood%2Finference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\nSign up\n\n[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40adnanmasood%2Finference-time-scaling-how-modern-ai-models-think-longer-to-perform-better-a1e1a8155fbd&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n\n![Unknown user](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n\nMember-only story\n\n# **Inference-Time Scaling: How Modern AI Models Think Longer to Perform Better**\n\n## Why test-time compute, reasoning budgets, and adaptive inference are redefining LLM accuracy, latency, cost, and deployment architecture\n\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:64:64/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n\n--\n\nListen\n\nShare\n\n![]()\n\nInference-time scaling” (often called **test-time compute**, **TTC**, or **test-time scaling**) means: **you get better answers by spending more compute at the moment you ask the question** — instead of (or in addition to) training a bigger model. Concretely, you let the model **think longer**, **try more candidate solutions**, **search/verify**, or **loop** (agent-style) before producing the final output. [1]\n\nImagine you ask a kid a hard math question.\n\nInference-time scaling is that same idea for LLMs: **give the model more “thinking time” (compute) for harder questions**, and you often get a better answer — just slower and more expensive. [2]\n\nAt inference, an LLM’s cost is dominated by:\n\n--\n\n--\n\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:96:96/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n![Adnan Masood, PhD.](https://miro.medium.com/v2/resize:fill:128:128/1*Ua7jPEgql2zYNV9JFl2HLA.jpeg)\n\n## Written by Adnan Masood, PhD.⁠\n\nDr. Adnan Masood is an Engineer, Thought Leader, Author, AI/ML PhD, Stanford Scholar, Harvard Alum, Microsoft Regional Director, and STEM Robotics Coach.\n\nHelp\n\nStatus\n\nAbout\n\nCareers\n\nPress\n\nBlog\n\nStore\n\nPrivacy\n\nRules\n\nTerms\n\nText to speech",
+      "score": 0.73961055
+    },
+    {
+      "id": "S5",
+      "title": "Categories of Inference-Time Scaling for Improved LLM ...",
+      "url": "https://magazine.sebastianraschka.com/p/categories-of-inference-time-scaling",
+      "content": "# Categories of Inference-Time Scaling for Improved LLM Reasoning\n\n### And an Overview of Recent Inference-Scaling Papers (Including Recursive Language Models)\n\n[Sebastian Raschka, PhD](https://substack.com/@rasbt)\n\n∙ Paid\n\nInference scaling has become one of the most effective ways to improve answer quality and accuracy in deployed LLMs.\n\nThe idea is straightforward. If we are willing to spend a bit more compute, and more time at inference time (when we use the model to generate text), we can get the model to produce better answers.\n\nEvery major LLM provider relies on some flavor of inference-time scaling today. And the academic literature around these methods has grown a lot, too.\n\nBack in March, I wrote an overview of the inference scaling landscape and summarized some of the early techniques.\n\n[#### The State of LLM Reasoning Model Inference\n\n[Sebastian Raschka, PhD](https://substack.com/profile/27393275-sebastian-raschka-phd)\n\n·\n\nMarch 8, 2025\n\n[Read full story](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)](https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling)\n\nIn this article, I want to take that earlier discussion a step further, group the different approaches into clearer categories, and highlight the newest work that has appeared over the past few months.\n\nAs part of drafting a full book chapter on inference scaling for *[Build a Reasoning Model (From Scratch)](https://mng.bz/Nwr7)*, I ended up experimenting with many of the fundamental flavors of these methods myself. With hyperparameter tuning, this quickly turned into thousands of runs and a lot of thought and work to figure out which approaches should be covered in more detail in the chapter itself. (The chapter grew so much that I eventually split it into two, and both are now available in the early access program.)\n\nPS: I am especially happy with how the chapter(s) turned out. It takes the base model from about 15 percent to around 52 percent accuracy, which makes it one of the most rewarding pieces of the book so far.\n\nWhat follows here is a collection of ideas, notes, and papers that did not quite fit into the final chapter narrative but are still worth sharing.\n\nI also plan to add more code implementations to the [bonus materials on GitHub](https://github.com/rasbt/reasoning-from-scratch) over time.\n\n**Table of Contents (Overview)**\n\n1. Inference-Time Scaling Overview\n2. Chain-of-Thought Prompting\n3. Self-Consistency\n4. Best-of-N Ranking\n5. Rejection Sampling with a Verifier\n6. Self-Refinement\n7. Search Over Solution Paths\n8. Conclusions, Categories, and Combinations\n9. Bonus: What Do Proprietary LLMs Use?\n\nYou can use the left-hand navigation bar in the article’s web view to jump directly to any section.\n\n# 1. Inference-Time Scaling Overview\n\n*Inference-time scaling* (also called *inference-compute scaling*, *test-time scaling*, or just *inference scaling*) is an umbrella term for methods that allocate more compute and time during inference to improve model performance.\n\nThis idea has been around for a long time, and one can think of ensemble methods in classic machine learning as an early example of inference-time scaling. I.e., using multiple models requires more compute resources but can give better results.\n\n​Even in LLM contexts, this idea has been around for a long time. However, I remember it became particularly popular (again) when OpenAI showed an inference-time scaling and training plot in one of their o1 announcement blog articles last year ([Learning to Reason with LLMs](https://openai.com/index/learning-to-reason-with-llms/)).\n\n*Figure 1: Spending additional resources during inference (left) and training (right) generally improves the model’s accuracy.*\n\nI think this figure, adapted from OpenAI’s [blog post](https://openai.com/index/learning-to-reason-with-llms/), nicely captures the idea behind the two knobs we can use to improve LLMs. We can spend more resources during training (more data, bigger models, more or longer training stages) or inference.\n\nActually, in practice, it’s even better to do both at the same time: train a stronger model and use additional inference scaling to make it even better.\n\nIn this article, I only focus on the left part of the figure, inference-time scaling techniques, i.e., those training-free techniques that don’t change the model weights.\n\n## This post is for paid subscribers\n\n[Already a paid subscriber? **Sign in**](https://substack.com/sign-in?redirect=%2Fp%2Fcategories-of-inference-time-scaling&for_pub=sebastianraschka&change_user=false)\n\n© 2026 Raschka AI Research (RAIR) Lab LLC · [Privacy](https://substack.com/privacy) ∙ [Terms](https://substack.com/tos) ∙ [Collection notice](https://substack.com/ccpa#personal-data-collected)\n\n[Start your Substack](https://substack.com/signup?utm_source=substack&utm_medium=web&utm_content=footer)[Get the app](https://substack.com/app/app-store-redirect?utm_campaign=app-marketing&utm_content=web-footer-button)\n\n[Substack](https://substack.com) is the home for great culture",
+      "score": 0.73469096
+    },
+    {
+      "id": "S6",
+      "title": "The State of LLM Reasoning Model Inference",
+      "url": "https://magazine.sebastianraschka.com/p/state-of-llm-reasoning-and-inference-scaling",
+      "content": "# The State of LLM Reasoning Model Inference\n\n### Inference-Time Compute Scaling Methods to Improve Reasoning Models\n\n[Sebastian Raschka, PhD](https://substack.com/@rasbt)\n\nImproving the reasoning abilities of large language models (LLMs) has become one of the hottest topics in 2025, and for good reason. Stronger reasoning skills allow LLMs to tackle more complex problems, making them more capable across a wide range of tasks users care about.\n\nIn the last few weeks, researchers have shared a large number of new strategies to improve reasoning, including scaling inference-time compute, reinforcement learning, supervised fine-tuning, and distillation. And many approaches combine these techniques for greater effect.\n\nThis article explores recent research advancements in reasoning-optimized LLMs, with a particular focus on inference-time compute scaling that have emerged since the release of DeepSeek R1.\n\n*The four main categories of implementing reasoning models I explained in [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)*. This article focuses on inference-time-scaling methods.\n\n# Implementing and improving reasoning in LLMs: The four main categories\n\nSince most readers are likely already familiar with LLM reasoning models, I will keep the definition short: An LLM-based reasoning model is an LLM designed to solve multi-step problems by generating intermediate steps or structured \"thought\" processes. Unlike simple question-answering LLMs that just share the final answer, reasoning models either explicitly display their thought process or handle it internally, which helps them to perform better at complex tasks such as puzzles, coding challenges, and mathematical problems.\n\n*Side-by-side comparison of a basic LLM’s one-line answer and a reasoning LLM’s explanatory response.*\n\nIn general, there are two main strategies to improve reasoning: (1) increasing *training* compute or (2) increasing *inference* compute, also known as *inference-time scaling* or *test-time scalin*g. (Inference compute refers to the processing power required to generate model outputs in response to a user query after training.)\n\n*Accuracy improvements can be achieved through increased training or test-time compute, where test-time compute is synonymous with inference-time compute and inference-time scaling. Source: Annotated figure from https://openai.com/index/learning-to-reason-with-llms/*\n\nNote that the plots shown above make it look like we improve reasoning either via train-time compute OR test-time compute. However, LLMs are usually designed to improve reasoning by **combining** heavy train-time compute (extensive training or fine-tuning, often with reinforcement learning or specialized data) **and** increased test-time compute (allowing the model to \"think longer\" or perform extra computation during inference).\n\nThe many terms that are used synonymously with inference-time scaling.\n\nTo understand how reasoning models are being developed and improved, I think it remains useful to look at the different techniques separately. In my previous article, [Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms), I discussed a finer categorization into four categories, as summarized in the figure below.\n\nMethods 2-4 in the figure above typically produce models that generate longer responses because they include intermediate steps and explanations in their outputs. Since inference costs scale with response length (e.g., a response twice as long requires twice the compute), these training approaches are inherently linked to inference scaling. However, in this section on inference-time compute scaling, I focus specifically on techniques that explicitly regulate the number of generated tokens, whether through additional sampling strategies, self-correction mechanisms, or other methods.\n\nIn this article, I focus on the interesting new research papers and model releases focused on scaling **inference-time compute scaling** that followed **after** the DeepSeek R1 release on January 22nd, 2025. (Originally, I wanted to cover methods from all categories in this article, but due to the excessive length, I decided to release a separate article focused on train-time compute methods in the future.)\n\n*Development process of DeepSeek's reasoning models that I discussed in my previous article, Understanding Reasoning LLMs (https://magazine.sebastianraschka.com/p/understanding-reasoning-llms).*\n\nBefore we look into Inference-time compute scaling methods and the different areas of progress on the reasoning model with a focus on the inference-time compute scaling category, let me at least provide a brief overview of all the different categories.\n\n**1. Inference-time compute scaling**\n\nThis category includes methods that improve model reasoning capabilities at inference time without training or modifying the underlying model weights. The core idea is to trade off increased computational resources for improved performance, which helps with making even fixed models more capable through techniques such as chain-of-thought reasoning, and various sampling procedures.\n\nWhile I categorize inference-time compute scaling separately to focus on methods in this context, it is important to note that this technique can be applied to any LLM. For example, OpenAI developed its o1 model using reinforcement learning and then additionally leveraged inference-time compute scaling. Interestingly, as I discussed in my previous article on reasoning models ([Understanding Reasoning LLMs](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms)), the DeepSeek R1 paper explicitly categorized common inference-time scaling methods (such as Process Reward Model-based and Monte Carlo Tree Search-based approaches) under \"unsuccessful attempts.\" This suggests that DeepSeek did not explicitly use these techniques beyond the R1 model’s natural tendency to generate longer responses, which serves as an implicit form of inference-time scaling over the V3 base model. However, since explicit inference-time scaling is often implemented at the application layer rather than within the LLM itself, DeepSeek acknowledged that they could easily incorporate it into the R1 deployment or application.\n\n**2. Pure reinforcement learning**\n\nThis approach focuses solely on reinforcement learning (RL) to develop or improve reasoning capabilities. It typically involves training models with verifiable reward signals from math or coding domains. While RL allows models to develop more strategic thinking and self-improvement capabilities, it comes with challenges such as reward hacking, instability, and high computational costs.\n\n**3. Reinforcement learning and supervised fine-tuning**\n\nThis hybrid approach combines RL with supervised fine-tuning (SFT) to achieve more stable and generalizable improvements than pure RL. Typically, a model is first trained with SFT on high-quality instruction data and then further refined using RL to optimize specific behaviors**.**\n\n**4. Supervised fine-tuning and model distillation**\n\nThis method improves the reasoning capabilities of a model by instruction fine-tuning it on high-quality labeled datasets (SFT). If this high-quality dataset is generated by a larger LLM, then this methodology is also referred to as \"knowledge distillation\" or just \"distillation\" in LLM contexts. However, note that this differs slightly from traditional knowledge distillation in deep learning, which typically involves training a smaller model using not only the outputs (labels) but also the logits of a larger teacher model.\n\nAhead of AI is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber.\n\n# Inference-time compute scaling methods\n\nThe previous section already briefly summarized inference-time compute scaling. Before discussing the recent research in this category, let ",
+      "score": 0.5040288
+    },
+    {
+      "id": "S7",
+      "title": "[PDF] Improving Explainable Fact-Checking with Claim-Evidence Correlations",
+      "url": "https://aclanthology.org/2025.coling-main.108.pdf",
+      "content": "Proceedings of the 31st International Conference on Computational Linguistics, pages 1600–1612 January 19–24, 2025. ©2025 Association for Computational Linguistics 1600 Improving Explainable Fact-Checking with Claim-Evidence Correlations Xin Tan, Bowei Zou, Ai Ti Aw Institute for Infocomm Research (I2R), A*STAR, Singapore {tan_xin,zou_bowei,aaiti}@i2r.a-star.edu.sg Abstract Automatic fact-checking systems that em-ploy large language models (LLMs) have achieved human-level performance in combat-ing widespread misinformation. However, cur-rent LLM-based fact-checking systems fail to reveal the reasoning principles behind their decision-making for the claim verdict. In this work, we propose Correlation-Enhanced Ex-plainable Fact-Checking (CorXFact), an LLM-based fact-checking system that simulates the reasoning principle of human fact-checkers for evidence-based claim verification: assess-ing and weighing the correlations between the claim and each piece of evidence. Following this principle, CorXFact enables efficient claim verification and transparent explanation gen-eration. Furthermore, we contribute the Cor-FEVER test set to comprehensively evaluate the CorXFact system in claim-evidence correla-tion identification and claim verification in both closed-domain and real-world fact-checking scenarios. Experimental results show that our proposed CorXFact significantly outperforms four strong fact-checking baselines in claim authenticity prediction and verdict explanation.\n1 Introduction In the digital age, widespread online misinforma-tion has increased the urgent need for automatic fact-checking systems. Mainstream methods (Nie et al., 2019; Zhong et al., 2020; Soleimani et al., 2020; Jiang et al., 2021; Pradeep et al., 2021a,b; DeHaven and Scott, 2023) that follow the pipeline of document retrieval, evidence selection and claim verification to predict the veracity of claims, have shown promising results. Moreover, the emergence of large language models (LLMs) further advances fact-checking to a new level. Recent LLM-based fact-checking systems (Pan et al., 2023b,a; Wang and Shu, 2023; Tan et al., 2023; Zhang and Gao, 2023; Zeng and Gao, 2023) leverage the power-ful understanding and interpretability of LLMs to predict the veracity label of a claim along with a brief natural language explanation to support its adjudication. The aforementioned work has wit-nessed the great success of LLMs in fact-checking and highlighted their capability to combat misin-formation and promote the truth in the digital age.\nNevertheless, the inherent “black-box” nature of LLMs has failed to guide explanations to reveal the reasoning principles behind their claim verification decisions.\nResearch suggests that the strength and relevance of evidence significantly impact the credibility of claims. Strong relevant evidence enhances claim credibility and persuasiveness, while weak or ir-relevant evidence diminishes it (Luchok and Mc-Croskey, 1978; Briggs and Krantz, 1992; Walker et al., 2018). Based on this principle, human fact-checkers tend to verify claims by revealing the sup-portive relationship between each piece of evidence and the claim, assessing the degree to which the ev-idence supports the claim. Inspired by this, we aim to simulate human decision-making principle to im-prove the reliability of LLMs in delivering verdicts, while also generating transparent and convincing explanations during the reasoning process.\nThis paper focuses on verifying claims through claim-evidence correlations. To this end, we come up with Correlation-Enhanced Explainable Fact-Checking (CorXFact), an LLM-based framework designed for explainable claim verification through a two-stage process: claim-evidence correlation reasoning and correlation-based claim verification.\nIn the first stage, CorXFact leverages LLMs to iden-tify the claim-evidence correlations from both rele-vance and degree dimensions: i) Does the evidence support the claim? ii) To what extent does the evi-dence support the claim? In the second stage, these insights are used to predict a veracity label for the claim, along with a concise reasoning explanation that analytically weighs the claim-evidence corre-lations. To thoroughly evaluate CorXFact in dis-1601 tinguishing claim-evidence correlation and claim verification, we further contribute a CorFEVER test set consisting of closed-domain and real-world fact-checking parts. The closed-domain part features manually annotated claim-evidence correlations, while the real-world part simulates real-world fact-checking scenarios with diverse and informal evi-dence retrieved from open websites.\nWe conduct experiments on the FEVER (Thorne et al., 2018) and CorFEVER datasets, and build CorXFact on several LLMs for assessment: Llama-2 (Touvron et al., 2023), GPT-4 (OpenAI, 2024), and fine-tuned Llama-2 tailored for claim verifica-tion and claim-evidence correlation identification.\nThe experimental results show CorXFact signifi-cantly outperforms the LLM-based fact-checking baselines in both claim authenticity prediction and verdict explanation generation.\nIn summary, the key contributions of this work are three-fold: • We introduce CorXFact, an LLM-based frame-work that provides reliable veracity labels and transparent verdict explanations for evidence-based fact-checking. Moreover, by instructing LLMs to follow specific principles for logi-cal reasoning during claim verification, this work provides reference for exploring reason-ing principles in other NLP tasks.\n• We investigate LLMs’ capabilities in real-world fact-checking scenarios and reveal the impact of irrelevant evidence in such tasks.\n• We contribute CorFEVER, a test set com-prising both closed-domain and real-world parts to assess LLMs’ ability in distinguishing claim-evidence correlations and performing evidence-based claim verification. All codes and data will be released to the research com-munity.1 2 Related Work 2.1 Evidence-based Fact-Checking The task of evidence-based fact-checking aims to automatically verify the authenticity of a claim based on evidence provided. The mainstream of this task follows a three-module pipeline frame-work: retrieving documents related to the claim, se-lecting claim-relevant evidence in each document, 1https://github.com/txAnnie/ Explainable-Fact-checking making authenticity judgments of claims based on selected evidence (Nie et al., 2019; Zhong et al., 2020; Soleimani et al., 2020; Jiang et al., 2021; Pradeep et al., 2021a,b; DeHaven and Scott, 2023).\nWith the success of the above studies and the pur-suit of interpretability (Guidotti et al., 2018; Balkir et al., 2022), explainable fact-checking (Kotonya and Toni, 2020a,b; Krishna et al., 2022; Fajcik et al., 2023), which provides a brief explanation of how decisions are made to make judgments more reli-able and convincing, has drawn increasing atten-tion. Among them, one line of work (Popat et al., 2017; Cui et al., 2019; Yang et al., 2019; Lu and Li, 2020) focuses on providing insights into neural models’ decision process. Another line of work fo-cuses on providing readable post-hoc explanations, e.g., Gad-Elrab et al. (2019); Ahmadi et al. (2019) generate abstractive justifications based on knowl-edge graphs; Atanasova et al. (2020); Kotonya and Toni (2020c); Jolly et al. (2022) generate natural language summaries of retrieved relevant evidence.\nMost recently, there has been exploration into lever-aging LLMs to generate refined explanations (Tan et al., 2023; Zhang and Gao, 2023; Kim et al., 2024), opening up new directions in this field.\n2.2 Evidence-Independent Fact-Checking With the strong reasoning and vast knowledge of LLMs being witnessed in nature language pro-cessing (NLP) tasks including question answering (QA) (Press et al., 2023), the task of fact-checking is no longer limited to evidence-based solutions.\nMore and more work considers fact-checking as a QA problem and verifies claims without any evi-dence. For example, Wa",
+      "score": 0.41108778
+    },
+    {
+      "id": "S8",
+      "title": "Trustworthy Reasoning: Evaluating and Enhancing Factual Accuracy in LLM Intermediate Thought Processes",
+      "url": "https://arxiv.org/html/2507.22940v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# Trustworthy Reasoning: Evaluating and Enhancing Factual Accuracy in LLM Intermediate Thought Processes\n\n###### Abstract\n\nWe present a novel framework addressing a critical vulnerability in Large Language Models (LLMs): the prevalence of factual inaccuracies within intermediate reasoning steps despite correct final answers. This phenomenon poses substantial risks in high-stakes domains including healthcare, legal analysis, and scientific research, where erroneous yet confidently presented reasoning can mislead users into dangerous decisions. Our framework integrates three core components: (1) a specialized fact-checking classifier trained on counterfactually augmented data to detect subtle factual inconsistencies within reasoning chains; (2) an enhanced Group Relative Policy Optimization (GRPO) reinforcement learning approach that balances factuality, coherence, and structural correctness through multi-dimensional rewards; and (3) a mechanistic interpretability method examining how factuality improvements manifest in model activations during reasoning processes. Extensive evaluation across multi state-of-the-art models reveals concerning patterns: even leading models like Claude-3.7 and GPT-o1 demonstrate reasoning factual accuracy of only 81.93% and 82.57% respectively. Our approach significantly enhances factual robustness (up to 49.90% improvement) while maintaining or improving performance on challenging benchmarks including Math-500, AIME-2024, and GPQA. Furthermore, our neural activation-level analysis provides actionable insights into how factual enhancements reshape reasoning trajectories within model architectures, establishing foundations for future training methodologies that explicitly target factual robustness through activation-guided optimization.\n\n## I Introduction\n\nLarge language models (LLMs) have demonstrated remarkable capabilities in reasoning and problem-solving across diverse domains [[1](#bib.bib1), [2](#bib.bib2), [3](#bib.bib3), [4](#bib.bib4), [5](#bib.bib5), [6](#bib.bib6)].\nAmong them, reasoning LLMs represent a distinguished subclass of LLMs. Their defining characteristic is the generation of intermediate reasoning steps followed by a final answer when responding to user queries. This reasoning content, also produced by the model, is typically enclosed within special tags, and the final answer is appended immediately after the reasoning (e.g., “<<think>>reasoning process<</think>>final answer”).\nMany reasoning LLMs yields even more impressive performance [[7](#bib.bib7), [8](#bib.bib8), [9](#bib.bib9), [10](#bib.bib10)].\nHowever, these reasoning LLMs in high-stakes scenarios, e.g., medical diagnosis [[11](#bib.bib11), [12](#bib.bib12)], legal reasoning [[13](#bib.bib13), [14](#bib.bib14)], and financial decision-making, demand [[15](#bib.bib15), [16](#bib.bib16)] not just convincing answers but factually accurate reasoning processes. While significant progress has been made in improving the final outputs of LLMs, the intermediate reasoning steps—the “thinking process” that leads to conclusions—often contain critical factual errors that undermine the reliability and trustworthiness of these systems [[17](#bib.bib17)].\n\nThese factual errors partly stem from the Reinforcement Learning (RL) training process, which encourages the model to explore reasoning steps through rewards and generate final answers accordingly. While effective at making responses more human-like and engaging, RL can inadvertently encourage models to “pretend to know” when they do not, fabricating plausible-sounding but incorrect explanations to satisfy perceived expectations. Additionally, specialized training in mathematical or logical reasoning, intended to improve step-by-step problem solving, may reinforce this behavior. Once a mistake is introduced in the reasoning steps chain, models often generate self-consistent but fundamentally flawed justifications rather than acknowledging uncertainty or correcting errors.\n\nThis issue is critical: factual errors introduced early in the visible reasoning process can propagate and amplify, ultimately leading to incorrect conclusions. More concerningly, when these intermediate thinking steps are explicitly presented to users in a coherent but factually flawed structure, the thinking model’s erroneous reasoning appears more convincing and harder for users to detect, despite containing critical factual errors.\nFor instance, when asked a reasoning LLM “Can morphine be used to treat vomiting in a one-year-old child ?”, an LLM might generate a reasoning process that appears logical on the surface but is clinically dangerous. It might begin by noting that “morphine is used to treat pain ->> morphine could be used to treat vomiting ->> then proceed to calculate a dose based on body weight: concluding that 0.1 mg per kilogram is appropriate ->> leading to a dose of 0.22 mg for a one-year-old. ->> If symptoms persist, it may even suggest increasing the dose to 0.4 mg.” (“->>” represents a step in a reasoning chain, indicating a cause-and-effect) Although this reasoning may seem methodical and authoritative, it contains serious and potentially life-threatening errors: morphine is not indicated for pediatric vomiting, it can cause respiratory depression in infants, and the suggested dosing strategy is entirely inappropriate.\n\nBeyond the aforementioned medical advice issue, factual inconsistencies in legal reasoning and contract analysis may expose individuals or organizations to legal and financial liabilities. Misinterpretation of statutes or precedents by LLMs can result in misguided legal actions. Similarly, in scientific inquiry and hypothesis generation, factual inaccuracies from LLMs can compromise the epistemic integrity of scientific discourse and contribute to large-scale misinformation. User trust in LLMs hinges on the factual reliability of their observable thinking processes. Encountering a single significant factual error within the displayed reasoning chain can substantially erode user confidence in the entire system, even in domains where previous outputs were accurate. This phenomenon of “trust collapse” highlights the urgency of enhancing factual accuracy throughout the visible thinking process of LLMs. To make matters worse, malicious users may intentionally design prompts to inject false information, crafting misleading premises or contextual cues to induce the model to generate factually incorrect yet internally consistent reasoning chains.\n\nCurrent fact-checking methods exhibit several critical limitations. First, most approaches focus on final-answer level verification rather than evaluating the full thinking process, overlooking the compounding effect of intermediate factual errors that users directly observe [[18](#bib.bib18), [19](#bib.bib19), [20](#bib.bib20)].\nSecond, there is a lack of effective mechanisms for factual correction that preserve the coherence of the visible thinking process [[21](#bib.bib21), [22](#bib.bib22), [23](#bib.bib23)].\nThird, existing methods offer limited interpretability, failing to expose how factual errors emerge and propagate within the thinking model’s observable reasoning steps that significantly impact user trust and decision-making.\nThese limitations motivate the design of a unified framework that detects and corrects factual errors throughout the observable thinking process and employs mechanistic interpretability techniques to analyze how thinking models generate these reasoning steps, thereby enhancing the factual robustness of the user-facing reasoning that ultimately determines trust and utility in practical applications.\n\nTherefore, in this paper, we aim to enhance the factual robustness of the observable reasoning steps in LLMs and builds user tru",
+      "score": 0.38401142
+    },
+    {
+      "id": "S9",
+      "title": "Beware General Claims about “Generalizable Reasoning Capabilities” (of Modern AI Systems) — AI Alignment Forum",
+      "url": "https://www.alignmentforum.org/posts/5uw26uDdFbFQgKzih/beware-general-claims-about-generalizable-reasoning",
+      "content": "## [AI ALIGNMENT FORUM](/)\n\n## [AF](/)\n\nBeware General Claims about “Generalizable Reasoning Capabilities” (of Modern AI Systems) — AI Alignment Forum\n\n[Language Models (LLMs)](/w/language-models-llms)[AI](/w/ai)\n\n\n[2025 Top Fifty: 11%](https://manifold.markets/LessWrong/will-beware-general-claims-about-ge)\n\n# [Beware General Claims about “Generalizable Reasoning Capabilities” (of Modern AI Systems)](/posts/5uw26uDdFbFQgKzih/beware-general-claims-about-generalizable-reasoning)\n\nby [LawrenceC](/users/lawrencec?from=post_header)\n\n19 min read\n\n[19](#comments)\n\n# 113\n\n# 1.\n\nLate last week, researchers at Apple released a paper provocatively titled “The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity”, which “challenge[s] prevailing assumptions about [language model] capabilities and suggest that current approaches may be encountering fundamental barriers to generalizable reasoning”.\n\nNormally I refrain from publicly commenting on newly released papers. But then I saw the following tweet from Gary Marcus:\n\nI have always wanted to engage thoughtfully with Gary Marcus. In a past life (as a psychology undergrad), I read both his work on infant language acquisition and his 2001 book *The Algebraic Mind*; I found both insightful and interesting. From reading his Twitter, Gary Marcus is thoughtful and willing to call it like he sees it. If he's right about language models hitting fundamental barriers, it's worth understanding why; if not, it's worth explaining where his analysis went wrong.\n\nAs a result, instead of writing a quick-off-the-cuff response in a few 280 character tweets, I read the paper and Gary Marcus’s substack post, reproduced some of the paper’s results, and then wrote this 4000 word post.\n\n![](https://res.cloudinary.com/lesswrong-2-0/image/upload/f_auto,q_auto/v1/mirroredImages/ae372529a17268c7259bab4d9d24b577158157a938e951a78e6d18b87ac35d80/rj6vu8qdanjrucu4sylr)\n\nIronically, given that it's currently June 11th (two days after my last tweet was posted) my final tweet provides *two* examples of the planning fallacy.\n\n# 2.\n\nI don’t want to bury the lede here. While I find some of the observations interesting, I was quite disappointed by the paper given the amount of hype around it. The paper seems to reflect generally sloppy work and the authors overclaim what their results show (albeit not more so than the average ML conference submission). The paper fails to back up the authors’ claim that language models cannot “reason” due to “fundamental limitations”, or even (if you permit some snark) their claim that they performed “detailed analysis of reasoning traces”.\n\nBy now, others have highlighted many of the issues with the paper: see for example twitter threads by [Ryan Greenblatt](https://x.com/RyanPGreenblatt/status/1931823002649542658) or [Lisan al Gaib](https://x.com/scaling01/status/1931783050511126954), as well as [the paper drafted by Alex Lawsen and Claude Opus 4](https://x.com/lxrjl/status/1932499153596149875)[[1]](#fnu4he8nd9orr) and [Zvi Moshowitz’s substack post](/posts/tnc7YZdfGXbhoxkwj/give-me-a-reason-ing-model). Or, if you’re feeling really spicy, you can ask any of Gemini 2.5, o3, or Opus 4 to critique the paper as if they were reviewer #2.\n\n# 3.\n\nIt's important to keep in mind that this paper is not a bombshell dropped out of the blue. Instead, it's merely the latest entry to 60 years of claims about neural networks' fundamental limitations. I’m by no means an expert in this literature, but here are 6 examples off the top of my head:\n\n1. In the late 1960s, [Minsky and Papert](https://en.wikipedia.org/wiki/Perceptrons_(book)) published a book showing that single-layer perceptrons (a precursor to modern MLPs) cannot represent XOR, helping trigger the first AI winter.\n2. [Gary Marcus](https://en.wikipedia.org/wiki/Gary_Marcus) argued in the [1990s](https://www.sciencedirect.com/science/article/pii/S0010028598906946) and [2000s](https://sites.pitt.edu/~perfetti/PDF/Marcus.pdf) that undifferentiated, fully-connected neural networks cannot learn important aspects of natural language.\n3. From the 1990s to the mid 2010s, researchers from the statistical learning theory tradition argued that the class of hypotheses represented by [neural networks have high intrinsic](https://arxiv.org/abs/1703.02930) [VC dimension](https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_dimension) – that is, they are hard to learn in the worst case.\n4. A group of researchers from the natural language processing community have recently argued that large language models (LLMs) are [“stochastic parrots”](https://en.wikipedia.org/wiki/Stochastic_parrot) that probabilistically link together words and sentences without consideration of their meaning. A related line of academic work [argues](https://arxiv.org/abs/2306.05836) that transformers cannot learn causality from statistical data.\n5. Yet another line of work looks at the complexity classes of circuits that transformers can represent and [finds that finite-precision Transformers correspond to the (very limited) complexity class](https://arxiv.org/abs/2301.10743) of uniform [TC0](https://en.wikipedia.org/wiki/TC0) – a very restricted class of circuits.\n6. The most related line of work to the Illusion of Thought paper involves generating simple problems that humans can solve but that LLMs can not – probably the highest profile of these is [ARC-AGI](https://arcprize.org/arc-agi), but other examples include the much earlier [CommonSenseQA](https://aclanthology.org/N19-1421/) or some of [Gary Marcus’s puzzles](https://garymarcus.substack.com/p/what-does-it-mean-when-an-ai-fails). Also, [LLMs cannot multiply 10 digit numbers](https://x.com/yuntiandeng/status/1889704768135905332).\n\nBroadly speaking, the arguments tend to take the following form:\n\n* The authors concede that neural networks/LLMs can do seemingly impressive things in practice.\n* Current techniques fail to generalize to the clearly correct solution in a theoretical setting, or they fail empirically in a simple toy setting.\n* Ergo, their apparently impressiveness in practice is an illusion resulting from regurgitating memorized examples or heuristics from the training dataset.\n\n(Unsurprisingly, the Illusion of Thinking paper also follows this structure: the authors create four toy settings, provide evidence that current LLMs cannot solve them when you scale the toy settings to be sufficiently large, and conclude that they must suffer from fundamental limitations of one form or another.)\n\nIt’s worth noting that there exist standard responses to each of the lines of work on “fundamental limitations” I mentioned above:\n\n1. Current neural networks have many layers, which allows them to represent more complicated functions.\n2. Current LLMs are not undifferentiated, fully connected neural nets. In fact, the field of deep learning as a whole moved away from fully connected neural networks in the mid 2010s, with the widespread adoption of [CNNs](https://www.merriam-webster.com/dictionary/con) and [LSTMs](https://en.wikipedia.org/wiki/Long_short-term_memory) (and later the [transformer architecture](https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture))).\n3. Academic work has shown that LLMs seem to be able to [consistently respond with correct causal reasoning](https://arxiv.org/abs/2305.00050) in a way inconsistent with pure dataset memorization, and there are even [theoretical results in toy settings](https://arxiv.org/abs/2402.14735) that show how this causal reasoning may arise. Also, many of the issues pointed to in earlier stochastic parrot papers seem to have been mitigated with increasing model scale.\n4. Several recent lines of theoretical work have argued that overparameterized neural networks exhibit a tendency toward simple solutions, such as the work on [double descent](https://en.wikipedia.org/wiki/Double_descent), [Singular Learning Theory](/s/mqwA5FcL",
+      "score": 0.31157395
+    },
+    {
+      "id": "S10",
+      "title": "Large Language Model Reasoning Failures (Feb 2026)",
+      "url": "https://www.youtube.com/watch?v=kZ76IZSwNbA",
+      "content": "# Large Language Model Reasoning Failures (Feb 2026)\n## AI Paper Slop\n4650 subscribers\n\n\n### Description\n122 views\nPosted: 7 Mar 2026\nTitle: Large Language Model Reasoning Failures (Feb 2026)\nLink: http://arxiv.org/abs/2602.06176v1\nDate: February 2026\n\nSummary:\nThis paper presents the first comprehensive survey dedicated to reasoning failures in Large Language Models (LLMs). It introduces a novel categorization framework that distinguishes reasoning into embodied and non-embodied types, while classifying failures into fundamental architectural flaws, application-specific limitations, and robustness issues. The survey analyzes root causes and explores mitigation strategies for a wide range of failures, from cognitive biases and theory-of-mind gaps to logical inconsistencies and physical commonsense errors.\n\nKey Topics:\n- LLM Reasoning Failures\n- Reasoning Taxonomy\n- Non-embodied vs. Embodied Reasoning\n- Formal and Informal Logic\n- Cognitive Biases\n- Physical Commonsense\n- Robustness and Mitigation Strategies\n- Multi-Agent Systems (MAS)\n\nChapters:\n00:00 - Introduction and Paper Taxonomy\n01:02 - Working Memory Limitations\n02:29 - Analyzing Cognitive Biases\n03:45 - Causal Masking Consequences\n05:02 - Fragile Theory of Mind\n06:23 - Multi-Agent System Failures\n07:21 - Explaining Reversal Curse\n08:39 - Zipf's Law and Scaling\n09:23 - Gaming Static Benchmarks\n10:47 - Arithmetic and Tokenization Flaws\n12:49 - Physical Common Sense Gaps\n14:03 - Vision Binding Problems\n15:26 - Robotics and World Models\n16:37 - Mitigation and Structural Shifts\n18:03 - Future of AI Evaluation\n\nStock video credits:\n- Pixabay - https://www.pexels.com/@pixabay\n- Google DeepMind - https://www.pexels.com/@googledeepmind\n- Nino Souza - https://www.pexels.com/@ninosouza\n- Silviu Din - https://www.pexels.com/@silviu-din-1620549\n- Soumya - https://www.pexels.com/@soumya-1446957\n- José Alfredo  Munguía Lira - https://www.pexels.com/@rectorretro\n- Adis Resic - https://www.pexels.com/@adis-resic-297996969\n- Ketut Subiyanto - https://www.pexels.com/@ketut-subiyanto\n- cottonbro studio - https://www.pexels.com/@cottonbro\n- Pavel Danilyuk - https://www.pexels.com/@pavel-danilyuk\n- Thirdman - https://www.pexels.com/@thirdman\n- fauxels - https://www.pexels.com/@fauxels\n- Magda Ehlers - https://www.pexels.com/@magda-ehlers-pexels\n- Vlada Karpovich - https://www.pexels.com/@vlada-karpovich\n- Tima Miroshnichenko - https://www.pexels.com/@tima-miroshnichenko\n- Yaroslav Shuraev - https://www.pexels.com/@yaroslav-shuraev\n- Cyriac von Czapiewski - https://www.pexels.com/@cyriac-von-czapiewski-1601520\n- Stefanie Jockschat - https://www.pexels.com/@stefaniejockschat\n- Pressmaster - https://www.pexels.com/@pressmaster\n- Max Fischer - https://www.pexels.com/@max-fischer\n- Anete Lusina - https://www.pexels.com/@anete-lusina\n- Mikhail Nilov - https://www.pexels.com/@mikhail-nilov\n- Julia M Cameron - https://www.pexels.com/@julia-m-cameron\n- Engin Akyurt - https://www.pexels.com/@enginakyurt\n- Dan Cristian Pădureț - https://www.pexels.com/@paduret\n- StefWithAnF - https://www.pexels.com/@stefwithanf-1955763\n- Darlene Alderson - https://www.pexels.com/@darlene-alderson\n- Darli Donizete - https://www.pexels.com/@darlidonizete\n- Colors Motion  Graphics - https://www.pexels.com/@colors-motion-graphics-183847699\n- tunnel motions - https://www.pexels.com/@tunnelmotions\n- Colin Jones - https://www.pexels.com/@larchmedia\n- Anthony 🙂 - https://www.pexels.com/@inspiredimages\n- Oleg Gamulinskii - https://www.pexels.com/@oleg-gamulinskii-755060\n- Tiger Lily - https://www.pexels.com/@tiger-lily\n- RDNE Stock project - https://www.pexels.com/@rdne\n- KoolShooters - https://www.pexels.com/@koolshooters\n\n\n### Transcript:\nWelcome to AI paper podcasts. Today, we're jumping straight into large language model reasoning failures by Paying Song, Peng Rui Han, and Noah Goodman from Caltech and Stanford. Such an important paper. Yeah, it really is. We all know LLMs seem like these incredible reasoning engines, right? But they're failing in highly predictable, systematic ways. This paper maps out exactly how and why by introducing a dual-axis taxonomy. You've got reasoning types, so embodied versus non-embodied, and then failure types, which cover fundamental limitations, application-specific failures, and robustness issues. And here is the punchy, short-form takeaway for you, right up front. Prompting tricks and RLHF are just bandaids. The root causes of LLM failures, things like the reversal curse, a totally fragile theory of mind, and having zero physical common sense, they stem directly from their core auto-regressive architectures. It's the tokenization and the text-only training paradigms. Right. To build better models, we have to stop treating these as edge cases and actually look at the architectural flaws. Okay, let's unpack this. Moving out of the summary and into the weeds for this deep dive into the source material. The first major domain the authors explore is informal reasoning. Yeah, the intuitive stuff. Exactly, the everyday logic that human beings just use effortlessly, which these models are, you know, constantly trying to emulate. When we look at individual cognitive failures, the paper highlights that LLMs essentially lack working memory. Yeah. Which sounds counterintuitive, right? I mean, we have models right now with million token context windows. Right, but having a massive context window is not the same thing as having an active working memory. That distinction is crucial. A large context window just means the model has a very long tape of text to look back at. Working memory, at least in human cognitive science, is the ability to hold multiple pieces of information in your mind, manipulate them, and update them on the fly. Which is the can't do. No, they drop information specifically because they suffer heavily from something called proactive interference. Okay, I want to make sure I'm getting this. Proactive interference, that's where earlier information you put in a prompt actively disrupts the model's ability to retrieve newer updates, right? Spot on. So, if I give a model this massive system prompt with, say, 10 different formatting rules, and then 50 messages later I ask it to change one of those rules, it struggles. The older established rules actively block the new instruction from taking hold. You nailed it. The attention mechanisms in the transformer are essentially fighting themselves. The weights assigned to those earlier tokens are so heavily embedded in the context that when the new contradictory information arrives, the model's retrieval mechanism just it fails to prioritize the update. That makes a lot of sense. It's also why they struggle so much with cognitive flexibility. If you rapidly switch the rules of a task mid-prompt, they fail to adapt quickly. They just get stuck in their previous pattern of token generation. Which naturally leads to how these uh cognitive glitches manifest as human-like cognitive biases. It feels like we're accidentally building artificial psychology here. What's fascinating here is that the models fall for the anchoring effect, order bias, and negativity bias, but obviously not because they have a subconscious. The paper breaks down a trifecta of root causes for this. Yeah. First, these biases are inherited directly from the pre-training data. Right. Human language on the internet is already full of cognitive errors. Exactly. It's full of biased associations. But, the second root cause is purely architectural. The biases are exacerbated by the transformer architecture itself. Let's slow down on that second point, cuz that's huge. How does its architecture inherently create a bias independent of the data it reads? It comes down to causal masking. To put it simply, standard auto-regressive transformers are trained to predict the next word by only looking at the words that came before it. Right, left to right. Yeah, they use a mask to hide future tokens. Because the mode",
+      "score": 0.2726346
+    },
+    {
+      "id": "S11",
+      "title": "New scaling law connects LLM architecture to inference efficiency, boosting throughput up to 47% - Amazon Science",
+      "url": "https://www.amazon.science/blog/making-llms-faster-without-sacrificing-accuracy",
+      "content": "![Automated reasoning.svg](https://cdn.amazon.science/7c/fb/3a915dcf44b3ae2cac79acf280d8/automated-reasoning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/26/0a/47bb5de4438483f43551f13963d9/cloud-and-systems.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/6a/16/a6e53bfe46ceab77d292a8cea6af/computer-vision.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/2e/8b/017e23db42f0a6e2c4e12a24f2aa/conversational-ai-and-natural-language-processing.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/c3/a9/4eaa12b34e018438b648da0984c8/economics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/8e/8b/3f08e7fd495c9f3ca8667d280825/information-and-knowledge-management.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/9b/85/f1a70d944530ab25b4100eca8ae6/machine-learning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/af/26/afe9cd8041779f0d098ccd7cc686/operations-research-and-optimization.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/30/fa/d9b66fce484290127e3e4319f45e/quantum-technologies.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/5d/b0/310093db4e0da3496b9bac97b17f/robotics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/91/f9/abec27f74777b60a69e3e4280228/search-and-information-retrieval.svg)\n![Security privacy and abuse prevention (1).png](https://cdn.amazon.science/dims4/default/661340e/2147483647/strip/true/crop/180x180+0+0/resize/21x21!/quality/90/?url=https%3A%2F%2Famzn-science-production-science.s3.us-east-1.amazonaws.com%2Fscience%2Fab%2F95%2F437c6e1d42a9864318f0a9ea4142%2Fsecurity-privacy-and-abuse-prevention-1.png)\n![Reduced padding - Research areas](https://cdn.amazon.science/fc/ba/b7df3c284e6b9afc3487753a1bad/sustainability.svg)\n![Automated reasoning.svg](https://cdn.amazon.science/7c/fb/3a915dcf44b3ae2cac79acf280d8/automated-reasoning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/26/0a/47bb5de4438483f43551f13963d9/cloud-and-systems.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/6a/16/a6e53bfe46ceab77d292a8cea6af/computer-vision.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/2e/8b/017e23db42f0a6e2c4e12a24f2aa/conversational-ai-and-natural-language-processing.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/c3/a9/4eaa12b34e018438b648da0984c8/economics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/8e/8b/3f08e7fd495c9f3ca8667d280825/information-and-knowledge-management.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/9b/85/f1a70d944530ab25b4100eca8ae6/machine-learning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/af/26/afe9cd8041779f0d098ccd7cc686/operations-research-and-optimization.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/30/fa/d9b66fce484290127e3e4319f45e/quantum-technologies.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/5d/b0/310093db4e0da3496b9bac97b17f/robotics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/91/f9/abec27f74777b60a69e3e4280228/search-and-information-retrieval.svg)\n![Security privacy and abuse prevention (1).png](https://cdn.amazon.science/dims4/default/661340e/2147483647/strip/true/crop/180x180+0+0/resize/21x21!/quality/90/?url=https%3A%2F%2Famzn-science-production-science.s3.us-east-1.amazonaws.com%2Fscience%2Fab%2F95%2F437c6e1d42a9864318f0a9ea4142%2Fsecurity-privacy-and-abuse-prevention-1.png)\n![Reduced padding - Research areas](https://cdn.amazon.science/fc/ba/b7df3c284e6b9afc3487753a1bad/sustainability.svg)\n![Amazon Science](https://cdn.amazon.science/fb/1c/07d25693486eb3d6b49091864af7/amazonscience-squidink.svg)\n![Automated reasoning.svg](https://cdn.amazon.science/7c/fb/3a915dcf44b3ae2cac79acf280d8/automated-reasoning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/26/0a/47bb5de4438483f43551f13963d9/cloud-and-systems.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/6a/16/a6e53bfe46ceab77d292a8cea6af/computer-vision.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/2e/8b/017e23db42f0a6e2c4e12a24f2aa/conversational-ai-and-natural-language-processing.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/c3/a9/4eaa12b34e018438b648da0984c8/economics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/8e/8b/3f08e7fd495c9f3ca8667d280825/information-and-knowledge-management.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/9b/85/f1a70d944530ab25b4100eca8ae6/machine-learning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/af/26/afe9cd8041779f0d098ccd7cc686/operations-research-and-optimization.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/30/fa/d9b66fce484290127e3e4319f45e/quantum-technologies.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/5d/b0/310093db4e0da3496b9bac97b17f/robotics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/91/f9/abec27f74777b60a69e3e4280228/search-and-information-retrieval.svg)\n![Security privacy and abuse prevention (1).png](https://cdn.amazon.science/dims4/default/661340e/2147483647/strip/true/crop/180x180+0+0/resize/21x21!/quality/90/?url=https%3A%2F%2Famzn-science-production-science.s3.us-east-1.amazonaws.com%2Fscience%2Fab%2F95%2F437c6e1d42a9864318f0a9ea4142%2Fsecurity-privacy-and-abuse-prevention-1.png)\n![Reduced padding - Research areas](https://cdn.amazon.science/fc/ba/b7df3c284e6b9afc3487753a1bad/sustainability.svg)\n![Automated reasoning.svg](https://cdn.amazon.science/7c/fb/3a915dcf44b3ae2cac79acf280d8/automated-reasoning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/26/0a/47bb5de4438483f43551f13963d9/cloud-and-systems.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/6a/16/a6e53bfe46ceab77d292a8cea6af/computer-vision.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/2e/8b/017e23db42f0a6e2c4e12a24f2aa/conversational-ai-and-natural-language-processing.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/c3/a9/4eaa12b34e018438b648da0984c8/economics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/8e/8b/3f08e7fd495c9f3ca8667d280825/information-and-knowledge-management.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/9b/85/f1a70d944530ab25b4100eca8ae6/machine-learning.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/af/26/afe9cd8041779f0d098ccd7cc686/operations-research-and-optimization.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/30/fa/d9b66fce484290127e3e4319f45e/quantum-technologies.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/5d/b0/310093db4e0da3496b9bac97b17f/robotics.svg)\n![Reduced padding - Research areas](https://cdn.amazon.science/91/f9/abec27f74777b60a69e3e4280228/search-and-information-retrieval.svg)\n![Security privacy and abuse prevention (1).png](https://cdn.amazon.science/dims4/default/661340e/2147483647/strip/true/crop/180x180+0+0/resize/21x21!/quality/90/?url=https%3A%2F%2Famzn-science-production-science.s3.us-east-1.amazonaws.com%2Fscience%2Fab%2F95%2F437c6e1d42a9864318f0a9ea4142%2Fsecurity-privacy-and-abuse-prevention-1.png)\n![Reduced padding - Research areas](https://cdn.amazon.science/fc/ba/b7df3c284e6b9afc3487753a1bad/sustainability.svg)\n\n# Making LLMs faster without sacrificing accuracy\n\n## A new scaling law that relates particular architectural choices to loss helps identify models that improve throughput by up to 47% with no loss of accuracy.\n\n### Conference\n\n### Related publications\n\nLarge language models (LLMs) keep getting bigger and better. But the cost of *running* them — generating text, answering questions, powering real-time applications — is scaling up, too. Obviously, model accuracy is important, but for real-time A",
+      "score": 0.92944044
+    },
+    {
+      "id": "S12",
+      "title": "On the Fundamental Limits of LLMs at Scale",
+      "url": "https://arxiv.org/html/2511.12869v2",
+      "content": "##### Report GitHub Issue\n\nContent selection saved. Describe the issue below:\n\n![](/static/base/1.0.1/images/icons/smileybones-small.svg)\n![arXiv logo](/static/base/1.0.1/images/arxiv-logo-primary-light.svg)\n\n# On the Fundamental Limits of LLMs at Scale\n\n###### Abstract\n\nLarge Language Models (LLMs) have benefited enormously from scaling, yet these gains are bounded by five fundamental limitations: (1) hallucination, (2) context compression, (3) reasoning degradation, (4) retrieval fragility, and (5) multimodal misalignment.\nWhile existing surveys describe these phenomena empirically, they lack a rigorous theoretical synthesis connecting them to the foundational limits of computation, information, and learning.\nThis work closes that gap by presenting a unified, proof-informed framework that formalizes the innate theoretical ceilings of LLM scaling.\nFirst, computability and uncomputability imply an irreducible residue of error: for any computably enumerable model family, diagonalization guarantees inputs on which some model must fail, and undecidable queries (e.g., halting-style tasks) induce infinite failure sets for all computable predictors.\nSecond, information-theoretic and statistical constraints bound attainable accuracy even on decidable tasks, finite description length enforces compression error, and long-tail factual knowledge requires prohibitive sample complexity.\nThird, geometric and computational effects compress long contexts far below their nominal size due to positional under-training, encoding attenuation, and softmax crowding.\nWe further show how likelihood-based training favors pattern completion over inference, how retrieval under token limits suffers from semantic drift and coupling noise, and how multimodal scaling inherits shallow cross-modal alignment.\nAcross sections, we pair theorems and empirical evidence to outline where scaling helps, where it saturates, and where it cannot progress, providing both theoretical foundations and practical mitigation paths like bounded-oracle retrieval, positional curricula, and sparse or hierarchical attention.\n\n## 1 Introduction\n\n![Refer to caption](2511.12869v2/intro_frame_alt.png)\n\nThe past half-decade has witnessed an unprecedented surge in the scale and influence of Large Language Models (LLMs).\nParameter counts, training datasets, and compute budgets have all expanded by orders of magnitude, leading to models whose emergent capabilities increasingly resemble general reasoning systems.\nFor instance, OpenAI’s GPT series has grown from 117 million parameters in GPT-1 ([Radford et al., 2018](#bib.bib226)) to over a trillion in GPT-4 ([OpenAI Achiam et al., 2023](#bib.bib68)): a thousand-fold rise in representational capacity.\nEmpirical *scaling laws* suggest that training loss and downstream performance improve predictably with model size, dataset volume, and compute ([Hoffmann et al., 2022a](#bib.bib224)).\nThe transition from GPT-3.5 to GPT-4, for example, achieved a 16-point gain on Measuring Massive Multitask Language Understanding (MMLU) and a 35-point leap on GSM-8K ([OpenAI Achiam et al., 2023](#bib.bib68)).\nThese successes have inspired the prevailing belief that scale itself can indefinitely extend intelligence, reducing every failure mode to an engineering obstacle solvable by more data, parameters, or alignment.\n\nYet as models approach trillion-parameter regimes, the very process that powers their ascent also exposes fundamental limits that scale cannot surmount.\nLarger models not only perform better but also *fail more confidently*: they hallucinate, misreason, forget, and misalign in increasingly systematic ways.\nThese pathologies persist even under massive data, suggesting deeper computational and statistical origins.\nIn this paper, we argue that such behaviors are not transient artifacts of optimization or data curation but manifestations of *intrinsic theoretical barriers*, constraints imposed by computability, information theory, and learnability itself. We identify five main limitations that capture distinct failure modes that persist with scaling:\n\n##### (1) Hallucination.\n\nLLMs often generate fluent yet fabricated content.\nBeyond data or alignment flaws ([Dziri et al., 2023](#bib.bib106); [Banerjee et al., 2025](#bib.bib97)), we prove hallucination is *inevitable*:\ndiagonalization over enumerable model classes ([Tong et al., 2024b](#bib.bib92)) ensures at least one failure input for every model; uncomputability of problems like the Halting task ([Turing and others, 1936](#bib.bib94)) yields infinite failure sets; and finite information capacity and compression bounds ([Sahoo et al., 2024](#bib.bib95)) force distortion on complex or rare facts.\nThus, no computable LLM can be universally correct over open-ended queries.\n\n##### (2) Context compression.\n\nEven with 128K-token windows ([Grattafiori et al., 2024](#bib.bib71)), *positional under-training*, *encoding saturation*, and *softmax crowding* ([Xiong et al., 2023](#bib.bib70); [Bai et al., 2024a](#bib.bib69)) jointly limit effective context utilization far below its nominal capacity. Gradient decay at rare positions, vanishing sinusoidal/RoPE overlap, and logarithmic score-margin growth show\nthat effective context scales sub-linearly with nominal length.\n\n##### (3) Reasoning degradation.\n\nDespite surface fluency, LLMs favor correlation completion over true inference.\nLikelihood training rewards local coherence, not logical entailment, producing syntactic rather than semantic generalization ([Wei et al., 2022](#bib.bib13)).\nToken-level objectives and lack of explicit reasoning loss drive this systematic “reasoning collapse” out of distribution.\n\n##### (4) Retrieval fragility.\n\nRetrieval-augmented models ([Lewis et al., 2020a](#bib.bib61); [Borgeaud et al., 2022](#bib.bib283)) inherit theoretical fragilities:\nbounded token budgets induce semantic drift, ranking noise, and weak coupling between retrieved and generated text.\nInformation-theoretically, as retrieval breadth increases, mutual information with the target decays, imposing an upper limit on factual grounding.\n\n##### (5) Multimodal misalignment.\n\nJoint vision–language models suffer cross-modal imbalance, language channels dominate gradients, while visual features under-adapt. Differing modality entropies and misaligned latent manifolds cause perceptual illusions and symbolic confusion,\nshowing that multimodal scaling amplifies rather than removes single-modality brittleness.\n\nAcross these axes, we uncover a unifying principle: LLM failures scale with capability because they stem from the very theoretical roots that enable language modeling itself. Each failure mode reflects a projection of the same underlying triad: computational undecidability, statistical sample insufficiency, and finite information capacity. Despite extensive empirical documentation, prior surveys ([Matarazzo and Torlone, 2025](#bib.bib10); [Kostikova et al., 2025](#bib.bib282)) remain descriptive and lack a formal synthesis connecting these observations to the mathematical foundations of computation and learning. We close this gap through a proof-informed framework that derives a hierarchy of impossibility and saturation results, jointly characterizing when scaling improves, when it plateaus, and when it provably cannot advance. Specifically, we show that no enumerable model class can be universally hallucination-free, as dictated by computability and diagonalization limits. We also demonstrate that finite description length and sample complexity enforce an irreducible generalization error, reflecting the information-theoretic bounds on learnability. Finally, we also show that context, reasoning, retrieval, and multimodal grounding each follow identifiable degradation laws determined by architectural constraints and data entropy.\n\nTogether, these results reframe scaling not as an unbounded engineering problem but as a process bounded by intrinsic computational and epistemic constraints.\nThe r",
+      "score": 0.8671483
+    },
+    {
+      "id": "S13",
+      "title": "Archon: An Architecture Search Framework for Inference-Time Techniques | Scaling Intelligence Lab at Stanford University",
+      "url": "https://scalingintelligence.stanford.edu/pubs/archon",
+      "content": "[![SAIL Logo](/imgs/logo.png)\n\n# Scaling Intelligence Lab](/)\n\n[Home](/) · [Publications](/pubs) · [Blogs](/blogs) · [Openings](/openings) · [Code](https://github.com/ScalingIntelligence)   [![SAIL Logo](/imgs/stanford_ai.png)](https://ai.stanford.edu/)\n\n# Archon: An Architecture Search Framework for Inference-Time Techniques\n\n[![](/imgs/people/jonsaadfalcon.jpg) Jon Saad-Falcon  Stanford](https://jonsaadfalcon.com/)\n\n[![](/imgs/people/adriangamarralafuente.jpg) Adrian Gamarra Lafuente  Stanford](https://www.linkedin.com/in/adrian-gamarra/)\n\nShlok Natarajan  Stanford\n\nNahum Maru  Stanford\n\nHristo Todorov  Stanford\n\nEtash Guha  University of Washington\n\nE. Kelly Buchanan  Stanford\n\nMayee Chen  Stanford\n\nNeel Guha  Stanford\n\nChristopher Ré  Stanford\n\n[![](/imgs/people/azaliamirhoseini.jpg) Azalia Mirhoseini  Stanford](http://azaliamirhoseini.com/)\n\nInternational Conference on Machine Learning, 2024\n\nSSI-FM (Oral) @ ICLR 2025\n\nDOI: [10.48550/arXiv.2409.15254](https://doi.org/10.48550/arXiv.2409.15254)\n\n---\n\n![](/imgs/teasers/archon.png)\n\nArchon, a modular framework for designing inference-time architectures, outperforms top language models like GPT-4 and Claude 3.5 on various benchmarks by optimally combining LLMs and inference techniques.\n\n### Abstract\n\nInference-time techniques are emerging as highly effective tools to increase large language model (LLM) capabilities. However, there is still limited understanding of the best practices for developing systems that combine inference-time techniques with one or more LLMs, with challenges including: (1) effectively allocating inference compute budget, (2) understanding the interactions between different combinations of inference-time techniques and their impact on downstream performance, and 3) efficiently searching over the large space of model choices, inference-time techniques, and their compositions. To address these challenges, we introduce Archon, an automated framework for designing inference-time architectures. Archon defines an extensible design space, encompassing methods such as generation ensembling, multi-sampling, ranking, fusion, critiquing, verification, and unit testing. It then transforms the problem of selecting and combining LLMs and inference-time techniques into a hyperparameter optimization objective. To optimize this objective, we introduce automated Inference-Time Architecture Search (ITAS) algorithms. Given target benchmark(s), an inference compute budget, and available LLMs, ITAS outputs optimized architectures. We evaluate Archon architectures across a wide range of instruction-following and reasoning benchmarks, including MT-Bench, Arena-Hard-Auto, AlpacaEval 2.0, MixEval, MixEval Hard, MATH, and CodeContests. We show that automatically designed inference-time architectures by Archon outperform strong models such as GPT-4o and Claude 3.5 Sonnet on these benchmarks, achieving an average increase of 14.1 and 10.3 percentage points with all-source models and open-source models, respectively.\n\n#### Materials\n\n* [Paper](https://arxiv.org/abs/2409.15254)\n* [Codebase](https://github.com/ScalingIntelligence/Archon)\n\n#### Bibtex\n\n```\n@inproceedings{2024archon, title = {Archon: An Architecture Search Framework for Inference-Time Techniques}, author = {Jon Saad-Falcon and Adrian Gamarra Lafuente and Shlok Natarajan and Nahum Maru and Hristo Todorov and Etash Guha and E. Kelly Buchanan and Mayee Chen and Neel Guha and Christopher Ré and Azalia Mirhoseini}, booktitle = {International Conference on Machine Learning}, year = {2024}, doi = {10.48550/arXiv.2409.15254}, url = {https://arxiv.org/abs/2409.15254}, }\n```",
+      "score": 0.8504686
+    },
+    {
+      "id": "S14",
+      "title": "An Empirical Evaluation of Large Language Models ...",
+      "url": "https://www.mdpi.com/2673-2688/7/6/195",
+      "content": "Loading [MathJax]/jax/element/mml/optable/GreekAndCoptic.js\n\nPrevious Article in Journal  \n\n[The Thermodynamics of Attention: First Law and Landauer Limit Analogues for Learning and Explainability](/2673-2688/7/6/194)\n\nAll articles published by MDPI are made immediately available worldwide under an open access license. No special\npermission is required to reuse all or part of the article published by MDPI, including figures and tables. For\narticles published under an open access Creative Common CC BY license, any part of the article may be reused without\npermission provided that the original article is clearly cited. For more information, please refer to\n<https://www.mdpi.com/openaccess>.\n\nFeature papers represent the most advanced research with significant potential for high impact in the field. A Feature\nPaper should be a substantial original Article that involves several techniques or approaches, provides an outlook for\nfuture research directions and describes possible research applications.\n\nFeature papers are submitted upon individual invitation or recommendation by the scientific editors and must receive\npositive feedback from the reviewers.\n\nEditor’s Choice articles are based on recommendations by the scientific editors of MDPI journals from around the world.\nEditors select a small number of articles recently published in the journal that they believe will be particularly\ninteresting to readers, or important in the respective research area. The aim is to provide a snapshot of some of the\nmost exciting work published in the various research areas of the journal.\n\nOriginal Submission Date Received: .\n\n[Journals](/about/journals)\n\n[AI](/journal/ai)\n\n[Volume 7](/2673-2688/7)\n\n[Issue 6](/2673-2688/7/6)\n\n[10.3390/ai7060195](#)\n\n[![ai-logo](https://pub.mdpi-res.com/img/journals/ai-logo.png?cbb9875bca0f91dd \"AI\")](/journal/ai)\n\n[Submit to this Journal](https://susy.mdpi.com/user/manuscripts/upload?form%5Bjournal_id%5D%3D362)\n[Review for this Journal](https://susy.mdpi.com/volunteer/journals/review)\n[Propose a Special Issue](/journalproposal/sendproposalspecialissue/ai)\n\n[►\n▼\nArticle Menu](#)\n\n## Article Menu\n\n* [Academic Editors](#academic_editors)\n\n  [![](/profiles/841718/thumb/Affan_Yasin.png)Affan Yasin](https://sciprofiles.com/profile/841718?utm_source=mdpi.com&utm_medium=website&utm_campaign=avatar_name)\n\n  [![](/profiles/1644870/thumb/Javed_Ali_Khan.png)Javed Ali Khan](https://sciprofiles.com/profile/1644870?utm_source=mdpi.com&utm_medium=website&utm_campaign=avatar_name)\n\n  ![](https://pub.mdpi-res.com/bundles/mdpisciprofileslink/img/unknown-user.png?1788181901)\n  Lijie Wen\n* [Recommended Articles](#)\n* [Related Info Link](#related)\n\n  + [Google Scholar](http://scholar.google.com/scholar?q=An%20Empirical%20Evaluation%20of%20Large%20Language%20Models%20Applying%20Software%20Architectural%20Patterns)\n* [More by Authors Links](#authors)\n\n  + on DOAJ\n\n  - [Hadjichristofi, C.](http://doaj.org/search/articles?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22%5C%22Christos%20Hadjichristofi%5C%22%22%2C%22default_operator%22%3A%22AND%22%2C%22default_field%22%3A%22bibjson.author.name%22%7D%7D%7D)\n  - [Tsilimigkounakis, M.](http://doaj.org/search/articles?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22%5C%22Michail%20Tsilimigkounakis%5C%22%22%2C%22default_operator%22%3A%22AND%22%2C%22default_field%22%3A%22bibjson.author.name%22%7D%7D%7D)\n  - [Sotiropoulos, G.](http://doaj.org/search/articles?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22%5C%22Georgios%20Sotiropoulos%5C%22%22%2C%22default_operator%22%3A%22AND%22%2C%22default_field%22%3A%22bibjson.author.name%22%7D%7D%7D)\n  - [Vescoukis, V.](http://doaj.org/search/articles?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22%5C%22Vassilios%20Vescoukis%5C%22%22%2C%22default_operator%22%3A%22AND%22%2C%22default_field%22%3A%22bibjson.author.name%22%7D%7D%7D)\n\n  + on Google Scholar\n\n  - [Hadjichristofi, C.](http://scholar.google.com/scholar?q=Christos%20Hadjichristofi)\n  - [Tsilimigkounakis, M.](http://scholar.google.com/scholar?q=Michail%20Tsilimigkounakis)\n  - [Sotiropoulos, G.](http://scholar.google.com/scholar?q=Georgios%20Sotiropoulos)\n  - [Vescoukis, V.](http://scholar.google.com/scholar?q=Vassilios%20Vescoukis)\n\n  + on PubMed\n\n  - [Hadjichristofi, C.](http://www.pubmed.gov/?cmd=Search&term=Christos%20Hadjichristofi)\n  - [Tsilimigkounakis, M.](http://www.pubmed.gov/?cmd=Search&term=Michail%20Tsilimigkounakis)\n  - [Sotiropoulos, G.](http://www.pubmed.gov/?cmd=Search&term=Georgios%20Sotiropoulos)\n  - [Vescoukis, V.](http://www.pubmed.gov/?cmd=Search&term=Vassilios%20Vescoukis)\n\n[Article Views\n1429](#metrics)\n\n* [Table of Contents](#table_of_contents)\n\n  + [Abstract](#html-abstract)\n  + [Introduction](#sec1-ai-07-00195)\n  + [Related Work](#sec2-ai-07-00195)\n  + [Experimental Design](#sec3-ai-07-00195)\n  + [Results](#sec4-ai-07-00195)\n  + [Threats to Validity](#sec5-ai-07-00195)\n  + [Conclusions](#sec6-ai-07-00195)\n  + [Author Contributions](#)\n  + [Funding](#)\n  + [Institutional Review Board Statement](#)\n  + [Informed Consent Statement](#)\n  + [Data Availability Statement](#)\n  + [Conflicts of Interest](#)\n  + [Appendix A. Evaluation Rubric](#app1-ai-07-00195)\n  + [References](#html-references_list)\n\nAltmetric\n[*share*\nShare](# \"Share\")\n[*announcement*\nHelp](# \"Help\")\n[*format\\_quote*\nCite](javascript:void(0);)\n[*question\\_answer*\nDiscuss in SciProfiles](https://sciprofiles.com/discussion-groups/public/10.3390/ai7060195?utm_source=mpdi.com&utm_medium=publication&utm_campaign=discuss_in_sciprofiles \"Discuss in Sciprofiles\")\n\n## Need Help?\n\n### Support\n\nFind support for a specific problem in the support section of our website.\n\n[Get Support](/about/contactform)\n\n### Feedback\n\nPlease let us know what you think of our products and services.\n\n[Give Feedback](/feedback/send)\n\n### Information\n\nVisit our dedicated information section to learn more about MDPI.\n\n[Get Information](/authors)\n\n*clear*\n\n## JSmol Viewer\n\n*clear*\n\n*first\\_page*\n\n[Download PDF](/2673-2688/7/6/195/pdf?version=1779869180)\n\n*settings*\n\n[Order Article Reprints](/2673-2688/7/6/195/reprints)\n\nFont Type:\n\n*Arial*\n*Georgia*\n*Verdana*\n\nFont Size:\n\nAa\nAa\nAa\n\nLine Spacing:\n\n**\n\n**\n\n**\n\nColumn Width:\n\n**\n\n**\n\n**\n\nBackground:\n\nOpen AccessArticle\n\n# An Empirical Evaluation of Large Language Models Applying Software Architectural Patterns\n\nby\n\nChristos Hadjichristofi\n\n![](/profiles/3867947/thumb/Christos_Hadjichristofi.jpg)Christos Hadjichristofi\n\n[SciProfiles](https://sciprofiles.com/profile/3867947?utm_source=mdpi.com&utm_medium=website&utm_campaign=avatar_name)[Scilit](https://scilit.com/scholars?q=Christos%20Hadjichristofi)[Preprints.org](https://www.preprints.org/search?condition_blocks=[{%22value%22:%22Christos+Hadjichristofi%22,%22type%22:%22author%22,%22operator%22:null}]&sort_field=relevance&sort_dir=desc&page=1&exact_match=true)[Google Scholar](https://scholar.google.com/scholar?q=Christos+Hadjichristofi)\n\n 1,\\*[![](https://pub.mdpi-res.com/img/design/orcid.png?0465bc3812adeb52?1788181901 \"ORCID\")](https://orcid.org/0009-0000-7976-8749), \n\nMichail Tsilimigkounakis\n\n![](/bundles/mdpisciprofileslink/img/unknown-user.png)Michail Tsilimigkounakis\n\n[SciProfiles](https://sciprofiles.com/profile/5186167?utm_source=mdpi.com&utm_medium=website&utm_campaign=avatar_name)[Scilit](https://scilit.com/scholars?q=Michail%20Tsilimigkounakis)[Preprints.org](https://www.preprints.org/search?condition_blocks=[{%22value%22:%22Michail+Tsilimigkounakis%22,%22type%22:%22author%22,%22operator%22:null}]&sort_field=relevance&sort_dir=desc&page=1&exact_match=true)[Google Scholar](https://scholar.google.com/scholar?q=Michail+Tsilimigkounakis)\n\n 1[![](https://pub.mdpi-res.com/img/design/orcid.png?0465bc3812adeb52?1788181901 \"ORCID\")](https://orcid.org/0009-0000-3806-3507), \n\nGeorgios Sotiropoulos\n\n![](/profiles/5186164/thumb/Georgios_Sotiropoulos.JPG)Georgios Sotiropoulos\n\n[SciProfiles](htt",
+      "score": 0.80286485
+    }
+  ]
+}

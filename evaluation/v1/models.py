@@ -115,6 +115,7 @@ class EvaluationInput(StrictModel):
     report: FinalReport | None = None
     sources: list[Source] = Field(default_factory=list)
     system_version: str | None = None
+    research_model: str = "unknown"
     benchmark_fixture_id: str | None = None
     evidence_ledger: dict | None = None
     trace_metadata: dict = Field(default_factory=dict)
@@ -247,6 +248,7 @@ class EvaluatorMetadata(StrictModel):
     rubric_hash: str | None = None
     candidate_report_hash: str
     evaluator_model: str
+    research_model: str = "unknown"
     scoring_weights: dict[str, float]
     prompt_versions: dict[str, str]
     evaluated_at: str
@@ -260,7 +262,9 @@ class EvaluationResult(StrictModel):
     overall_score: float | None = Field(default=None, ge=0.0, le=100.0)
     evaluation_completeness: float = Field(ge=0.0, le=1.0)
     comprehensiveness: ComprehensivenessResult
-    citations: CitationQualityResult
+    # Parse-only compatibility for evaluator-v1 schema 1.0 artifacts. New
+    # evaluations neither compute nor serialize citation metrics.
+    citations: CitationQualityResult | None = Field(default=None, exclude=True, repr=False)
     deterministic_integrity: DeterministicIntegrityResult
     main_weaknesses: list[str] = Field(default_factory=list)
     metadata: EvaluatorMetadata

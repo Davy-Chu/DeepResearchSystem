@@ -12,6 +12,7 @@ from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
 from research.models import FinalReport
+from research.openai_utils import research_reasoning_kwargs
 from research.report import render_markdown
 from research.versions import LLM_ONLY_SYSTEM_VERSION
 
@@ -62,7 +63,7 @@ class LLMOnlyResearchRunner:
         started = perf_counter()
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[{"role": "user", "content": prompt}],
             text_format=FinalReport,
         )
@@ -107,6 +108,8 @@ def save_llm_only_artifacts(
         "system_version": result.system_version,
         "question": result.question,
         "model": result.model,
+        "research_model": result.model,
+        "verifier_model": None,
         "openai_calls": result.openai_calls,
         "tavily_calls": result.tavily_calls,
         "input_tokens": result.input_tokens,

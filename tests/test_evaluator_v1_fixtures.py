@@ -98,12 +98,13 @@ def test_builder_uses_two_passes_and_refuses_to_regenerate_frozen_fixture(
     responses = FakeResponses([draft, draft])
     builder = FixtureBuilder(
         "unused",
-        "test-model",
+        "gpt-5.6-luna",
         client=SimpleNamespace(responses=responses),
     )
     metadata = builder.build(fixture_path)
     assert metadata.status == "frozen"
     assert len(responses.calls) == 2
+    assert all(call["model"] == "gpt-5.6-luna" for call in responses.calls)
     assert builder.usage.llm_calls == 2
     assert load_frozen_fixture(fixture_path).rubric.requirements[0].id == "R1"
     with pytest.raises(ValueError, match="will not be regenerated"):

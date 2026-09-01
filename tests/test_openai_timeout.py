@@ -153,9 +153,13 @@ def test_verifier_model_falls_back_to_researcher_model(
     monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
     monkeypatch.setenv("TAVILY_API_KEY", "test-tavily-key")
     monkeypatch.setenv("OPENAI_MODEL", "researcher-model")
+    monkeypatch.setenv("RESEARCH_MODEL", "split-research-model")
     monkeypatch.setenv("VERIFIER_MODEL", "")
 
-    assert load_settings().verifier_model == "researcher-model"
+    settings = load_settings()
+    assert settings.research_model == "split-research-model"
+    assert settings.openai_model == "split-research-model"
+    assert settings.verifier_model == "split-research-model"
 
     monkeypatch.setenv("VERIFIER_MODEL", "independent-verifier-model")
     assert load_settings().verifier_model == "independent-verifier-model"
@@ -167,9 +171,10 @@ def test_llm_only_model_falls_back_without_requiring_tavily(
     monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
     monkeypatch.delenv("TAVILY_API_KEY", raising=False)
     monkeypatch.setenv("OPENAI_MODEL", "researcher-model")
+    monkeypatch.setenv("RESEARCH_MODEL", "split-research-model")
     monkeypatch.delenv("LLM_ONLY_MODEL", raising=False)
 
-    assert load_llm_only_settings().model == "researcher-model"
+    assert load_llm_only_settings().model == "split-research-model"
 
     monkeypatch.setenv("LLM_ONLY_MODEL", "llm-only-model")
     assert load_llm_only_settings().model == "llm-only-model"

@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Sequence
 
+import pytest
+
 from evaluation.v1.fixtures import normalize_question
 from scripts.run_fixture_suite import (
     ARCHITECTURE_COMPONENTS,
@@ -37,6 +39,8 @@ def config(
         mode=mode,
         fixture_ids=fixture_ids,
         dry_run=dry_run,
+        research_model="test-research-model",
+        evaluator_model="test-evaluator-model",
     )
 
 
@@ -52,6 +56,7 @@ def write_research_output(
             {
                 "question": question,
                 "system_version": "evidence-ledger-decomposer-verifier-v1",
+                "research_model": "test-research-model",
                 "sources": [],
             }
         ),
@@ -113,7 +118,6 @@ def test_positional_architectures_and_legacy_mode_are_supported() -> None:
     for architecture in (
         "llm-only",
         "baseline",
-        "prior-guided",
         "ledger",
         "decomposed",
         "verified",
@@ -144,6 +148,48 @@ def test_llm_only_dry_run_has_one_call_per_fixture_and_zero_searches(
     assert "Mode: llm-only" in output
     assert "Maximum research searches: 0 Tavily calls" in output
     assert "Maximum research-model requests: 2 OpenAI calls" in output
+    assert "Research model: test-research-model" in output
+    assert "Evaluator model: test-evaluator-model" in output
+
+
+def test_four_o_mini_suite_requires_luna_evaluator(tmp_path: Path) -> None:
+    suite = config(
+        tmp_path,
+        ("synthetic-data-llm-training",),
+        dry_run=True,
+        mode="baseline",
+    )
+    suite = SuiteConfig(
+        **{
+            **suite.__dict__,
+            "research_model": "gpt-4o-mini",
+            "evaluator_model": "gpt-4o-mini",
+        }
+    )
+    with pytest.raises(ValueError, match="requires separate research and evaluation"):
+        execute_suite(suite)
+
+
+def test_four_o_mini_luna_dry_run_displays_split(
+    tmp_path: Path, capsys
+) -> None:
+    suite = config(
+        tmp_path,
+        ("synthetic-data-llm-training",),
+        dry_run=True,
+        mode="baseline",
+    )
+    suite = SuiteConfig(
+        **{
+            **suite.__dict__,
+            "research_model": "gpt-4o-mini",
+            "evaluator_model": "gpt-5.6-luna",
+        }
+    )
+    assert execute_suite(suite).returncode == 0
+    output = capsys.readouterr().out
+    assert "Research model: gpt-4o-mini" in output
+    assert "Evaluator model: gpt-5.6-luna" in output
 
 
 def test_conflicting_architecture_arguments_are_rejected() -> None:
@@ -214,6 +260,9 @@ def test_suite_runs_all_research_before_one_benchmark(tmp_path: Path) -> None:
     manifest = json.loads(outcome.manifest_path.read_text(encoding="utf-8"))
     assert manifest["status"] == "completed"
     assert manifest["benchmark_exit_code"] == 0
+    assert manifest["research_model"] == "test-research-model"
+    assert manifest["evaluator_model"] == "test-evaluator-model"
+    assert manifest["experiment_family"] == "standard"
     assert all(
         entry["research_status"] == "completed"
         and entry["evaluation_status"] == "completed"

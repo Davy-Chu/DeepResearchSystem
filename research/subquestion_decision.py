@@ -9,6 +9,7 @@ from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
 from research.decision import validate_decision_target
+from research.openai_utils import research_reasoning_kwargs
 from research.models import (
     DecisionTargetType,
     ResearchDecision,
@@ -69,7 +70,7 @@ class SubquestionResearchDecisionMaker:
         }
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": SUBQUESTION_DECISION_SYSTEM_PROMPT},
                 {

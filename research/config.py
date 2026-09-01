@@ -19,10 +19,16 @@ DEFAULT_OPENAI_MAX_RETRIES = 1
 class Settings:
     openai_api_key: str
     tavily_api_key: str
-    openai_model: str = DEFAULT_OPENAI_MODEL
+    research_model: str = DEFAULT_OPENAI_MODEL
     openai_timeout_seconds: float = DEFAULT_OPENAI_TIMEOUT_SECONDS
     openai_max_retries: int = DEFAULT_OPENAI_MAX_RETRIES
     verifier_model: str = DEFAULT_OPENAI_MODEL
+
+    @property
+    def openai_model(self) -> str:
+        """Legacy alias retained for callers that have not migrated yet."""
+
+        return self.research_model
 
 
 @dataclass(frozen=True)
@@ -59,6 +65,13 @@ def load_openai_max_retries() -> int:
     return max_retries
 
 
+def load_research_model() -> str:
+    """Resolve the shared model for all research-architecture calls."""
+
+    legacy_model = os.getenv("OPENAI_MODEL", "").strip() or DEFAULT_OPENAI_MODEL
+    return os.getenv("RESEARCH_MODEL", "").strip() or legacy_model
+
+
 def load_settings() -> Settings:
     """Load .env and return validated runtime settings."""
     load_dotenv()
@@ -80,13 +93,12 @@ def load_settings() -> Settings:
             "Copy .env.example to .env and add your API keys."
         )
 
-    model = os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL).strip()
-    resolved_model = model or DEFAULT_OPENAI_MODEL
-    verifier_model = os.getenv("VERIFIER_MODEL", "").strip() or resolved_model
+    research_model = load_research_model()
+    verifier_model = os.getenv("VERIFIER_MODEL", "").strip() or research_model
     return Settings(
         openai_api_key=openai_api_key,
         tavily_api_key=tavily_api_key,
-        openai_model=resolved_model,
+        research_model=research_model,
         verifier_model=verifier_model,
         openai_timeout_seconds=load_openai_timeout_seconds(),
         openai_max_retries=load_openai_max_retries(),
@@ -100,9 +112,8 @@ def load_llm_only_settings() -> LLMOnlySettings:
     openai_api_key = os.getenv("OPENAI_API_KEY", "").strip()
     if not openai_api_key:
         raise ValueError("Missing required environment variable: OPENAI_API_KEY")
-    openai_model = os.getenv("OPENAI_MODEL", DEFAULT_OPENAI_MODEL).strip()
-    resolved_model = openai_model or DEFAULT_OPENAI_MODEL
-    model = os.getenv("LLM_ONLY_MODEL", "").strip() or resolved_model
+    research_model = load_research_model()
+    model = os.getenv("LLM_ONLY_MODEL", "").strip() or research_model
     return LLMOnlySettings(
         openai_api_key=openai_api_key,
         model=model,

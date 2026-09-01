@@ -9,6 +9,7 @@ from typing import Any
 from openai import OpenAI
 
 from research.config import DEFAULT_OPENAI_MAX_RETRIES, DEFAULT_OPENAI_TIMEOUT_SECONDS
+from research.openai_utils import research_reasoning_kwargs
 from research.models import (
     ClaimUpdate,
     EvidenceProcessingResult,
@@ -54,6 +55,9 @@ related_subquestion_ids lists. Do not create subquestions or modify the research
 Associate evidence only when it materially helps answer a subquestion, not merely because
 the texts share keywords. Associate gaps with the subquestions they prevent from being
 satisfactorily answered.
+
+Each evidence relation has a `relation` value and must be placed in the matching list:
+`SUPPORTS` in supporting_evidence and `CONTRADICTS` in contradicting_evidence.
 """
 
 
@@ -101,7 +105,7 @@ class EvidenceProcessor:
         }
         response = self.client.responses.parse(
             model=self.model,
-            reasoning={"effort": "low"},
+            **research_reasoning_kwargs(self.model),
             input=[
                 {"role": "system", "content": EVIDENCE_PROCESSOR_SYSTEM_PROMPT},
                 {
@@ -111,9 +115,103 @@ class EvidenceProcessor:
             ],
             text_format=EvidenceProcessingResult,
         )
-        if response.output_parsed is None:
+        result = response.output_parsed
+        if result is None:
             raise ValueError("OpenAI returned no parsed EvidenceProcessingResult")
-        return response.output_parsed
+        return sanitize_evidence_processing_result(
+            state, normalize_evidence_processing_result(result)
+        )
+
+
+def normalize_evidence_processing_result(
+    result: EvidenceProcessingResult,
+) -> EvidenceProcessingResult:
+    """Normalize harmless redundant structure before ledger validation.
+
+    The relation enum is the canonical semantic value. GPT-4o-mini occasionally
+    returns a correctly labelled relation in the opposite collection; moving it
+    preserves that meaning and lets the normal ledger validator reject genuinely
+    invalid source IDs or claim/gap references as before. It also occasionally
+    emits several updates for the same existing claim. Those updates are merged in
+    their original order, preserving the final update's confidence/status judgment.
+    """
+
+    for proposal in result.new_claims:
+        relations = proposal.supporting_evidence + proposal.contradicting_evidence
+        proposal.supporting_evidence = [
+            relation
+            for relation in relations
+            if relation.relation == EvidenceRelationType.SUPPORTS
+        ]
+        proposal.contradicting_evidence = [
+            relation
+            for relation in relations
+            if relation.relation == EvidenceRelationType.CONTRADICTS
+        ]
+    for update in result.claim_updates:
+        relations = update.new_supporting_evidence + update.new_contradicting_evidence
+        update.new_supporting_evidence = [
+            relation
+            for relation in relations
+            if relation.relation == EvidenceRelationType.SUPPORTS
+        ]
+        update.new_contradicting_evidence = [
+            relation
+            for relation in relations
+            if relation.relation == EvidenceRelationType.CONTRADICTS
+        ]
+
+    merged_updates: dict[str, ClaimUpdate] = {}
+    for update in result.claim_updates:
+        previous = merged_updates.get(update.existing_claim_id)
+        if previous is None:
+            merged_updates[update.existing_claim_id] = update
+            continue
+        update.new_supporting_evidence = (
+            previous.new_supporting_evidence + update.new_supporting_evidence
+        )
+        update.new_contradicting_evidence = (
+            previous.new_contradicting_evidence + update.new_contradicting_evidence
+        )
+        update.related_subquestion_ids = list(
+            dict.fromkeys(
+                previous.related_subquestion_ids + update.related_subquestion_ids
+            )
+        )
+        merged_updates[update.existing_claim_id] = update
+    result.claim_updates = list(merged_updates.values())
+    return result
+
+
+def sanitize_evidence_processing_result(
+    state: ResearchState, result: EvidenceProcessingResult
+) -> EvidenceProcessingResult:
+    """Discard invented permanent-ID references before applying ledger changes.
+
+    Claim and gap IDs are assigned only by Python. A model may occasionally emit
+    a stale or imagined ID despite being given the allowed IDs. Such an update
+    cannot safely be redirected to another claim, so it is omitted. Gap text is
+    still useful without a claim link, therefore invalid links are removed while
+    retaining the gap itself. This never repairs unknown source IDs: those remain
+    hard validation errors because they would create false provenance.
+    """
+    valid_claim_ids = {claim.id for claim in state.evidence_ledger.claims}
+    valid_gap_ids = {gap.id for gap in state.research_gaps}
+    result.claim_updates = [
+        update
+        for update in result.claim_updates
+        if update.existing_claim_id in valid_claim_ids
+    ]
+    for gap in result.new_gaps:
+        gap.related_claim_ids = [
+            claim_id
+            for claim_id in gap.related_claim_ids
+            if claim_id in valid_claim_ids
+        ]
+    result.resolved_gap_ids = [
+        gap_id for gap_id in result.resolved_gap_ids if gap_id in valid_gap_ids
+    ]
+    return result
 
 
 def next_stable_id(prefix: str, existing_ids: list[str]) -> str:

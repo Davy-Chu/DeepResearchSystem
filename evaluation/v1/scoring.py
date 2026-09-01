@@ -6,11 +6,8 @@ from evaluation.v1.config import (
     CITATION_COMPLETENESS_WEIGHT,
     CITATION_SUPPORT_WEIGHT,
     CITATION_VALIDITY_WEIGHT,
-    CITATION_WEIGHT,
-    COMPREHENSIVENESS_WEIGHT,
     COVERAGE_WEIGHT,
     DEPTH_WEIGHT,
-    DETERMINISTIC_WEIGHT,
 )
 from evaluation.v1.models import (
     CitationSupportJudgment,
@@ -60,15 +57,9 @@ def citation_quality(
     )
 
 
-def overall_score(
-    comprehensiveness: float | None,
-    citations: float | None,
-    deterministic: float | None,
-) -> float | None:
-    if comprehensiveness is None or citations is None or deterministic is None:
+def overall_score(comprehensiveness: float | None) -> float | None:
+    """Return the active coverage/depth score on a 0-100 scale."""
+
+    if comprehensiveness is None:
         return None
-    return 100 * (
-        COMPREHENSIVENESS_WEIGHT * comprehensiveness
-        + CITATION_WEIGHT * citations
-        + DETERMINISTIC_WEIGHT * deterministic
-    )
+    return 100 * comprehensiveness

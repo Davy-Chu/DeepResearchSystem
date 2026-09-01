@@ -1,0 +1,271 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "evidence-ledger-v1",
+  "overall_score": 18.478260869565215,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.18478260869565216,
+    "coverage": 0.21739130434782608,
+    "depth": 0.15217391304347827,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No operational definition of multi-agent LLM systems.",
+          "No inclusion or exclusion criteria for single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM MAS, or hybrid systems.",
+          "No treatment of borderline cases or acknowledgment that definitions vary."
+        ],
+        "rationale": "The report discusses a transition from monolithic LLMs to multi-agent systems but never defines the scope of the systems being mapped."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 3 states that four orchestration patterns are used: \"sequential, parallel, hierarchical, and dynamic.\"",
+          "Finding 6 identifies \"agent-flow, orchestration, and collaboration\" as primary architectural patterns.",
+          "Finding 1 mentions \"single-agent, collaborative multi-agent, competitive multi-agent, and orchestration topology.\"",
+          "Finding 4 discusses dynamic agent generation through IAAG and DRTAG."
+        ],
+        "missing": [
+          "The report does not characterize each pattern's control structure, agent arrangement, information flow, or coordination mechanism.",
+          "Representative applications or concrete systems are largely absent from the pattern discussion.",
+          "Important limitations and failure modes for individual patterns are not explained.",
+          "The multiple taxonomies are asserted but not reconciled or explained as distinct taxonomic axes; the report does not clarify whether categories overlap or are alternatives."
+        ],
+        "rationale": "Several materially distinct patterns are named, but the report provides almost no substantive architectural characterization. The conflicting lists of four, three, and eight patterns make the landscape difficult to interpret."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No analysis of centralized versus decentralized control.",
+          "No comparison of hierarchical versus peer coordination.",
+          "No treatment of sequential versus parallel, or synchronous versus asynchronous, execution.",
+          "No discussion of message passing versus shared state, context isolation versus sharing, or static versus dynamic allocation beyond a brief mention of dynamic generation.",
+          "No explanation of consequences for coordination, independence, consistency, scalability, latency, or cost."
+        ],
+        "rationale": "The report names orchestration patterns and dynamic integration, but does not analyze cross-cutting design dimensions or their consequences."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 2 says multi-agent systems use \"more specialized and collaborative architectures.\"",
+          "Finding 5 describes AgentGit's \"rollback, state commit, and branching\" mechanisms."
+        ],
+        "missing": [
+          "No systematic discussion of planners or orchestrators, specialized workers, critics or verifiers, synthesizers, tools, retrieval, memory, shared state, or provenance tracking.",
+          "No explanation of how roles and mechanisms compose with architectural patterns.",
+          "No distinction between essential architectural features and optional implementation overlays.",
+          "The AgentGit discussion is an isolated framework example rather than a general account of composition mechanisms."
+        ],
+        "rationale": "The report briefly mentions specialization, collaboration, and versioned state, but does not explain the principal roles and supporting mechanisms required by the rubric."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No visual taxonomy, diagram, graph, table-based design map, or other visual synthesis is provided.",
+          "No legend or explanation of relationships among patterns exists.",
+          "No representation of cross-cutting overlays or classification limitations is supplied."
+        ],
+        "rationale": "The report is entirely prose-based and does not fulfill the explicit visual taxonomy or design-graph requirement."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 2 claims that multi-agent systems can improve performance on complex tasks through specialization and collaboration.",
+          "Finding 4 claims that dynamic integration improves adaptability and performance.",
+          "Finding 5 characterizes rollback and branching as potentially improving reliability and scalability, while assigning only medium confidence and noting the need for empirical validation."
+        ],
+        "missing": [
+          "No conditional comparison among architectural patterns or design choices.",
+          "No analysis of quality, reliability, communication overhead, scalability, latency, token or monetary cost, fault tolerance, or task suitability.",
+          "No measured results identify a task, baseline, metric, or experimental context.",
+          "The report does not distinguish evidence-based findings from broad design intuitions, except for the limited uncertainty statement about AgentGit."
+        ],
+        "rationale": "The report makes general improvement claims and acknowledges a need for empirical validation, but supplies no actual trade-off analysis or quantitative comparative evidence."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The Remaining Gaps section calls for empirical studies of \"distinct failure modes\" and their real-world implications.",
+          "Finding 7 says LLM integration is associated with \"structural challenges.\"",
+          "The report mentions AgentGit rollback and branching as mechanisms intended to improve robustness and error recovery."
+        ],
+        "missing": [
+          "No evaluation framework covering outcome quality, factuality or evidence support, efficiency, coordination behavior, or appropriate single-agent and ablation baselines.",
+          "No concrete discussion of hallucination propagation, correlated errors or groupthink, contradictions, memory failures, runaway execution, tool misuse, security, governance, or opacity.",
+          "No linkage between individual risks and specific safeguards, monitoring methods, or human oversight.",
+          "The report does not qualify which risks apply to which system configurations."
+        ],
+        "rationale": "Risks and failure modes are referenced only generically, and rollback is the sole concrete mitigation-like mechanism. Evaluation methodology and risk-specific safeguards are missing."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.5,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The Remaining Gaps section identifies needs for empirical studies of pattern effectiveness, framework integration, dynamic agent generation, AgentGit scalability and resilience, pattern-specific failure modes, long-term real-world effectiveness, and context engineering.",
+          "The source list includes identifiable items such as the arXiv survey or analysis \"LLM Multi-Agent Systems: Challenges and Open Problems\" [S18], the Frontiers paper on dynamic integration [S9], the AgentGit paper [S12], and Google Research's \"Towards a science of scaling agent systems\" [S19].",
+          "Finding 5 explicitly qualifies AgentGit claims as medium confidence and says broad applicability requires empirical validation."
+        ],
+        "missing": [
+          "Open problems are listed rather than organized into specific research questions with unresolved mechanisms and significance.",
+          "Most gaps do not explain why resolving them matters or what evidence would address them.",
+          "The report does not connect open problems systematically to the architectural patterns and cross-cutting design choices.",
+          "Sources are mostly blogs, media posts, framework marketing or secondary summaries; the report does not clearly distinguish established evidence, reported limitations, and proposed directions.",
+          "No benchmark designs, metrics, ablation plans, or concrete research programs are supplied."
+        ],
+        "rationale": "The report provides a recognizable list of open areas and identifiable URLs, including some scholarly or research-oriented sources, but the sourcing is weakly qualified and the open problems lack detailed problem formulations and evidence synthesis."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report contains potentially interesting subjects such as IAAG/DRTAG and AgentGit, but presents them as sourced findings without a demonstrated original synthesis, new taxonomy, or novel analysis.",
+        "Its taxonomies are copied or attributed to external sources and are not integrated into a distinctive design graph or comparative framework."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R3: Analyze design dimensions that cut across architectural patterns and explain their consequences.",
+    "R5: Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "0d66b672cb6820d8d9ee2a76da1130ba6092a33745459a728377252e8ecb97b0",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T16:02:32.190701+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 4766,
+      "output_tokens": 1678,
+      "estimated_cost": null
+    }
+  }
+}

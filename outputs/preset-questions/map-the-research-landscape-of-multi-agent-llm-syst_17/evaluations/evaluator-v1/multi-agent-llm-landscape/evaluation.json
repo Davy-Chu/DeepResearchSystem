@@ -1,0 +1,271 @@
+{
+  "evaluation_name": "evaluator-v1",
+  "question": "Map the research landscape of multi-agent LLM systems. Produce a structured report that includes a visual taxonomy or design graph showing the major architectural patterns, how they relate, and where the open problems are.",
+  "system_version": "evidence-ledger-decomposer-verifier-v1",
+  "overall_score": 18.478260869565215,
+  "evaluation_completeness": 1.0,
+  "comprehensiveness": {
+    "status": "COMPLETED",
+    "score": 0.18478260869565216,
+    "coverage": 0.18478260869565216,
+    "depth": 0.18478260869565216,
+    "requirements": [
+      {
+        "requirement_id": "R1",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No operational definition of multi-agent LLM systems.",
+          "No inclusion or exclusion criteria for single-agent tool use, prompt chains, multiple roles instantiated by one model, classical non-LLM multi-agent systems, or hybrid designs.",
+          "No consistent treatment of borderline cases."
+        ],
+        "rationale": "The report assumes the term without defining its scope or distinguishing it from adjacent configurations."
+      },
+      {
+        "requirement_id": "R2",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 2 names “centralized orchestration, event-driven scalability, and hierarchical teams.”",
+          "Finding 2 also refers to “subagents and hierarchical structures.”",
+          "Finding 7 mentions distributing capabilities across “specialist agents.”"
+        ],
+        "missing": [
+          "The patterns are only listed, not characterized in terms of control structure, agent arrangement, information flow, coordination mechanism, applications, or limitations.",
+          "Important materially distinct patterns such as peer-to-peer/debate, pipeline, blackboard/shared-state, decentralized, and manager-worker designs are not systematically covered.",
+          "No representative systems or applications are concretely discussed."
+        ],
+        "rationale": "The report provides a few architectural labels, but not a substantive landscape or characterization of the patterns."
+      },
+      {
+        "requirement_id": "R3",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 1 says architectures govern how agents “interact, store information, and coordinate tasks.”",
+          "Finding 3 states that choices affect “latency and accuracy.”",
+          "Finding 7 associates specialization and modularity with fine-grained control and efficiency."
+        ],
+        "missing": [
+          "No explicit analysis of centralized versus decentralized control, hierarchical versus peer coordination, sequential versus parallel execution, synchronous versus asynchronous operation, message passing versus shared state, context isolation versus sharing, or static versus dynamic allocation.",
+          "No explanation of how these dimensions affect coordination, independence, consistency, or scalability beyond broad assertions.",
+          "No cross-cutting comparison across patterns."
+        ],
+        "rationale": "A few consequences are mentioned generically, but the required design dimensions and their causal trade-offs are largely absent."
+      },
+      {
+        "requirement_id": "R4",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 7 discusses “specialist agents” and distributing responsibilities across them.",
+          "Finding 6 refers to “distinct roles and dynamic interactions.”",
+          "Finding 5 mentions context management."
+        ],
+        "missing": [
+          "No substantive discussion of planners/orchestrators, workers, critics/verifiers, synthesizers, tools, retrieval, memory/shared state, or provenance tracking.",
+          "No explanation of how these mechanisms compose with architectural patterns.",
+          "No distinction between essential architecture and optional overlays or implementation choices."
+        ],
+        "rationale": "Specialization and roles are mentioned, but the principal compositional mechanisms are not explained."
+      },
+      {
+        "requirement_id": "R5",
+        "coverage": 0.0,
+        "depth": 0.0,
+        "candidate_evidence": [],
+        "missing": [
+          "No visual taxonomy, design graph, diagram, table functioning as a visual synthesis, or legend is provided.",
+          "Relationships among patterns and cross-cutting overlays are not visually represented.",
+          "No prose explains how to read a visualization or its classification limitations."
+        ],
+        "rationale": "The report contains only prose findings and a source list, not the requested visual synthesis."
+      },
+      {
+        "requirement_id": "R6",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 3 says architectural choices affect “latency and accuracy.”",
+          "Finding 5 qualifies benefits by stating that multi-agent systems “may not universally guarantee improved performance across all scenarios.”",
+          "Finding 7 claims specialization can improve “economic efficiency by activating only relevant agents.”"
+        ],
+        "missing": [
+          "No conditional comparison of patterns or design choices by quality, reliability, communication overhead, scalability, latency, token/monetary cost, fault tolerance, evidence sharing, or task suitability.",
+          "Trade-offs are not tied to conditions under which they should hold.",
+          "The claimed “86%” failure rate in Finding 4 lacks task, baseline, metric, sample, and experimental context, and is sourced to a non-scholarly 2026 guide.",
+          "No clear distinction between measured findings, reported limitations, and design hypotheses."
+        ],
+        "rationale": "The report makes broad performance claims and one useful qualification, but does not provide evidence-based comparative trade-off analysis."
+      },
+      {
+        "requirement_id": "R7",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "Finding 4 states that systems face failure due to “coordination and specification issues.”",
+          "Finding 4 reports that systems “fail up to 86% of the time.”",
+          "The report says robust evaluation is important and lists an “Evaluation and Benchmarking of LLM Agents: A Survey” among its sources."
+        ],
+        "missing": [
+          "No evaluation framework covering outcome quality, factuality/evidence support, efficiency, and coordination behavior.",
+          "No discussion of appropriate single-agent, non-agentic, or ablation baselines.",
+          "No treatment of hallucination propagation, correlated errors/groupthink, contradiction or memory failures, runaway execution, tool misuse, security/governance, or opacity in a systematic way.",
+          "No risk-specific safeguards, monitoring procedures, or human-oversight mitigations.",
+          "The 86% claim is not contextualized or independently substantiated in the report."
+        ],
+        "rationale": "Failure and evaluation are mentioned, but the required risk taxonomy, detection methods, mitigations, and baseline-aware evaluation are absent."
+      },
+      {
+        "requirement_id": "R8",
+        "coverage": 0.25,
+        "depth": 0.25,
+        "candidate_evidence": [
+          "The source list includes identifiable links such as the agent evaluation survey [S7], fairness evaluation work [S10]-[S11], and an empirical evaluation item [S26].",
+          "The report explicitly lists the remaining gap as: “What are the current open problems and challenges in the development of multi-agent LLM systems?”"
+        ],
+        "missing": [
+          "No organized set of specific, researchable open problems is presented.",
+          "The report does not explain what remains unresolved or why each problem matters.",
+          "Sources are not connected to particular claims with enough bibliographic or evidentiary qualification, and many are blogs, aggregators, or commercial pages.",
+          "No distinction is made among established evidence, reported limitations, and proposed future directions.",
+          "The report itself acknowledges the open-problem gap rather than addressing it."
+        ],
+        "rationale": "There are identifiable sources and an explicit acknowledgment of missing open problems, but the central requirement—organizing and substantiating those problems—is not met."
+      }
+    ],
+    "novel_value": {
+      "present": false,
+      "findings": [
+        "The report offers broad, generic claims about specialization, coordination, latency, and failure without a distinct synthesis, visual model, or evidence-backed insight beyond the cited source summaries.",
+        "No original taxonomy, comparative framework, or newly derived research agenda is developed."
+      ]
+    },
+    "error": null
+  },
+  "deterministic_integrity": {
+    "score": 1.0,
+    "checks": [
+      {
+        "check_name": "run_metadata_loads",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_exists",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "sources_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_report_parses",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "report_question_matches",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "source_urls_present",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "evidence_objects_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_syntactically_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "citation_ids_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "structured_claim_evidence_available",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_claim_ids_unique",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_relationships_resolve",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_confidence_values_valid",
+        "status": "PASS",
+        "details": null
+      },
+      {
+        "check_name": "ledger_evidence_ids_unique",
+        "status": "NOT_EVALUABLE",
+        "details": "Current ledger relations have no independent evidence-ID field."
+      }
+    ],
+    "passed_count": 16,
+    "failed_count": 0,
+    "not_evaluable_count": 1,
+    "structured_claim_evidence_available": true
+  },
+  "main_weaknesses": [
+    "R1: Define an operational scope for multi-agent LLM systems and distinguish included systems from adjacent configurations.",
+    "R5: Provide an interpretable visual taxonomy or design graph showing the major patterns, their relationships, and relevant cross-cutting overlays.",
+    "R2: Identify and characterize the major architectural patterns in multi-agent LLM systems."
+  ],
+  "metadata": {
+    "evaluator_version": "1.1",
+    "fixture_id": "multi-agent-llm-landscape",
+    "fixture_version": "1.0",
+    "rubric_hash": "3ba296f97ad2c98be185e194bbae89b363b2bc81a38fd31abf5dbf056e9a34b0",
+    "candidate_report_hash": "852a79cff7953342b1756d4d2e1a1f3147cc0d48b4ac8d77d12c2feaf7736387",
+    "evaluator_model": "gpt-5.6-luna",
+    "research_model": "gpt-4o-mini",
+    "scoring_weights": {
+      "coverage": 0.5,
+      "depth": 0.5
+    },
+    "prompt_versions": {
+      "rubric_builder": "1.0",
+      "rubric_critic": "1.0",
+      "comprehensiveness": "1.0"
+    },
+    "evaluated_at": "2026-09-01T18:17:43.157835+00:00",
+    "usage": {
+      "llm_calls": 1,
+      "input_tokens": 3917,
+      "output_tokens": 1561,
+      "estimated_cost": null
+    }
+  }
+}
